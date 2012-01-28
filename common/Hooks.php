@@ -56,16 +56,15 @@ class ScriptingHooks {
 
 	/**
 	 * Handles the {{#invoke:module|func}} construction.
-	 * 
-	 * @static
-	 * @param  $parser Parser
-	 * @param  $frame
-	 * @param  $args
+	 *
+	 * @param $parser Parser
+	 * @param $frame PPFrame
+	 * @param $args array
 	 * @return string
 	 */
 	public static function callHook( &$parser, $frame, $args ) {
 		if( count( $args ) < 2 ) {
-				throw new ScriptingException( 'nofunction', 'common' );	// scripting-exceptions-common-nofunction
+			throw new ScriptingException( 'nofunction', 'common' );	// scripting-exceptions-common-nofunction
 		}
 
 		$module = $parser->mStripState->unstripBoth( array_shift( $args ) );
@@ -75,11 +74,10 @@ class ScriptingHooks {
 
 	/**
 	 * Handles the transclusion of the script ({{script:module}} hook).
-	 * 
-	 * @static
-	 * @param  $parser Parser
-	 * @param  $frame
-	 * @param  $args
+	 *
+	 * @param $parser Parser
+	 * @param $frame PPFrame
+	 * @param $args
 	 * @return string
 	 */
 	public static function transcludeHook( &$parser, $frame, $args ) {
@@ -87,6 +85,15 @@ class ScriptingHooks {
 		return self::doRunHook( $parser, $frame, $module, 'main', $args );
 	}
 
+	/**
+	 * @param $parser Parser
+	 * @param $frame PPFrame
+	 * @param $module
+	 * @param $function
+	 * @param $args
+	 * @return string
+	 * @throws ScriptingException
+	 */
 	private static function doRunHook( &$parser, $frame, $module, $function, $args ) {
 		wfProfileIn( __METHOD__ );
 
@@ -118,11 +125,10 @@ class ScriptingHooks {
 	/**
 	 * Overrides the standard view for modules. Enables syntax highlighting when
 	 * possible.
-	 * 
-	 * @static
-	 * @param  $text
-	 * @param  $title Title
-	 * @param  $output OutputPage
+	 *
+	 * @param $text string
+	 * @param $title Title
+	 * @param $output OutputPage
 	 * @return bool
 	 */
 	public static function handleScriptView( $text, $title, $output ) {
@@ -157,6 +163,9 @@ class ScriptingHooks {
 
 	/**
 	 * Indicates that modules are not wikitext.
+	 * @param $title Title
+	 * @param $result
+	 * @return bool
 	 */
 	public static function isWikitextPage( $title, &$result ) {
 		if( $title->getNamespace() == NS_MODULE ) {
@@ -169,9 +178,8 @@ class ScriptingHooks {
 	/**
 	 * Adds report of number of evaluations by the single wikitext page.
 	 * 
-	 * @static
-	 * @param  $parser Parser
-	 * @param  $report
+	 * @param $parser Parser
+	 * @param $report
 	 * @return bool
 	 */
 	public static function reportLimits( $parser, &$report ) {
@@ -218,7 +226,7 @@ HTML;
 
 			return true;
 		}
-		
+
 		return true;
 	}
 }

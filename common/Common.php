@@ -8,21 +8,21 @@ class Scripting {
 
 	protected static function getEngineClass() {
 		global $wgScriptingEngine, $wgScriptingEngines;
-		
+
 		if( !$wgScriptingEngine ) {
 			throw new MWException( 'Scripting extension is enabled but $wgScriptingEngine is not set' );
 		}
-		
+
 		if( !isset( $wgScriptingEngines[$wgScriptingEngine] ) ) {
 			throw new MWException( 'Invalid scripting engine is specified in $wgScriptingEngine' );
 		}
-		
+
 		return $wgScriptingEngines[$wgScriptingEngine];
 	}
-	
+
 	public static function getEngine( $parser ) {
 		global $wgScriptingEngineConf;
-		
+
 		if( !isset( $parser->scripting_engine ) || !$parser->scripting_engine ) {
 			$class = self::getEngineClass();
 			$parser->scripting_engine = new $class( $parser );
@@ -30,7 +30,7 @@ class Scripting {
 		}
 		return $parser->scripting_engine;
 	}
-	
+
 	public static function resetEngine( $parser ) {
 		$parser->scripting_engine = null;
 	}

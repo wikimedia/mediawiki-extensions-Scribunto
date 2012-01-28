@@ -58,17 +58,21 @@ class ScriptLinksUpdateHooks {
 
 	/**
 	 * Purges cache for all the pages where the script is used.
+	 * @param $article Article
+	 * @param $editInfo
+	 * @param $changed
+	 * @return bool
 	 */
 	public static function purgeCache( &$article, &$editInfo, $changed ) {
 		global $wgDeferredUpdateList, $wgParser;
 
-		if( $article->mTitle->getNamespace() == NS_MODULE ) {
+		if( $article->getTitle()->getNamespace() == NS_MODULE ) {
 			// Invalidate the script cache
 			$engine = Scripting::getEngine( $wgParser );
-			$engine->invalidateModuleCache( $article->mTitle );
+			$engine->invalidateModuleCache( $article->getTitle() );
 			
 			// Invalidate caches of articles which include the script
-			$wgDeferredUpdateList[] = new HTMLCacheUpdate( $article->mTitle, 'scriptlinks' );
+			$wgDeferredUpdateList[] = new HTMLCacheUpdate( $article->getTitle(), 'scriptlinks' );
 		}
 
 		return true;
@@ -88,6 +92,10 @@ class ScriptLinksUpdateHooks {
 
 	/**
 	 * Adds scriptlinks to the list of tables supported by BacklinkCache.
+	 * @param $table
+	 * @param $title Title
+	 * @param $conds
+	 * @return bool
 	 */
 	public static function getBacklinkCacheConditions( $table, $title, &$conds ) {
 		if( $table == 'scriptlinks' ) {

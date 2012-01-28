@@ -2,16 +2,17 @@
 
 class LuaSandboxEngine extends ScriptingEngineBase {
 	public $mSandbox;
-	
-	public function load() {
-		if( $this->mLoaded )
-			return;
 
-		if( !class_exists('luasandbox') ) {
+	public function load() {
+		if( $this->mLoaded ) {
+			return;
+		}
+
+		if( !MWInit::classExists( 'luasandbox' ) ) {
 			throw new MWException( 'luasandbox PHP extension is not installed' );
 		}
 
-		$this->mSandbox = new LuaSandbox;		
+		$this->mSandbox = new LuaSandbox;
 		$this->mSandbox->setMemoryLimit( $this->mOptions['memoryLimit'] );
 		$this->mSandbox->setCPULimit( $this->mOptions['maxCPU'] );
 		$this->mSandbox->registerLibrary( 'mw', array( 'import' => array( $this, 'importModule' ) ) );
@@ -78,12 +79,13 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 	protected $mInitialized;
 
 	function initialize() {
-		if( $this->mInitialized )
+		if( $this->mInitialized ) {
 			return;
+		}
 		$this->mEngine->load();
-		
+
 		// FIXME: caching?
-		
+
 		try {
 			$this->mBody = $this->mEngine->mSandbox->loadString( $this->mCode );
 			$output = $this->mBody->call();
