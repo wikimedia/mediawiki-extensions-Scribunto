@@ -82,15 +82,12 @@ $wgScriptingEngine = false;
 $wgScriptingEngineConf = array();
 
 /**
- * Script namespace numbers. Should be redefined before
- * the inlcusion of the extension.
+ * Script namespace numbers.
  */
-if( !isset( $wgScriptingNamespaceNumbers ) ) {
-	$wgScriptingNamespaceNumbers = array(
-		'Module' => 20,
-		'Module_talk' => 21,
-	);
-}
+$wgScriptingNamespaceNumbers = array(
+	'Module' => 20,
+	'Module_talk' => 21,
+);
 
 /**
  * Turn on to true if you have linked or copied wikiscripts.php and
@@ -98,5 +95,10 @@ if( !isset( $wgScriptingNamespaceNumbers ) ) {
  */
 $wgScriptingUseGeSHi = false;
 
-define( 'NS_MODULE', $wgScriptingNamespaceNumbers['Module'] );
-define( 'NS_MODULE_TALK', $wgScriptingNamespaceNumbers['Module_talk'] );
+function efDefineScriptingNamespace() {
+	global $wgScriptingNamespaceNumbers;
+	define( 'NS_MODULE', $wgScriptingNamespaceNumbers['Module'] );
+	define( 'NS_MODULE_TALK', $wgScriptingNamespaceNumbers['Module_talk'] );
+}
+
+$wgExtensionFunctions[] = 'efDefineScriptingNamespace';
