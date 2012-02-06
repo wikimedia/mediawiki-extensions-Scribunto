@@ -42,6 +42,10 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 		return 'lua';
 	}
 	
+	public function getCodeEditorLanguage() {
+		return 'lua';
+	}
+	
 	public function getLimitsReport() {
 		$this->load();
 		

@@ -174,9 +174,16 @@ abstract class ScriptingEngineBase {
 	}
 
 	/**
-	 * Get the language code for GeSHi syntax highlighter.
+	 * Get the language for GeSHi syntax highlighter.
 	 */
 	function getGeSHiLangauge() {
+		return false;
+	}
+	
+	/**
+	 * Get the langauge for Ace code editor.
+	 */
+	function getCodeEditorLanguage() {
 		return false;
 	}
 }

@@ -160,6 +160,19 @@ class ScriptingHooks {
 			return true;
 		}
 	}
+	
+	public static function getCodeLangauge( $title, &$lang ) {
+		global $wgParser, $wgScriptingUseCodeEditor;
+		if( $wgScriptingUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
+			$engine = Scripting::getEngine( $wgParser );
+			if( $engine->getCodeEditorLanguage() ) {
+				$lang = $engine->getCodeEditorLanguage();
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Indicates that modules are not wikitext.

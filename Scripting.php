@@ -52,6 +52,7 @@ $wgHooks['ParserTestTables'][] = 'ScriptingHooks::addTestTables';
 $wgHooks['CanonicalNamespaces'][] = 'ScriptingHooks::addCanonicalNamespaces';
 $wgHooks['ArticleViewCustom'][] = 'ScriptingHooks::handleScriptView';
 $wgHooks['TitleIsWikitextPage'][] = 'ScriptingHooks::isWikitextPage';
+$wgHooks['CodeEditorGetPageLanguage'][] = 'ScriptingHooks::getCodeLangauge';
 $wgHooks['EditFilter'][] = 'ScriptingHooks::validateScript';
 
 $wgHooks['LinksUpdate'][] = 'ScriptLinksUpdateHooks::updateLinks';
@@ -90,10 +91,14 @@ $wgScriptingNamespaceNumbers = array(
 );
 
 /**
- * Turn on to true if you have linked or copied wikiscripts.php and
- * SyntaxHighlight_GeSHi extension is enabled.
+ * Turn on to true if SyntaxHighlight_GeSHi extension is enabled.
  */
 $wgScriptingUseGeSHi = false;
+
+/**
+ * Turn on to true if CodeEditor extension is enabled.
+ */
+$wgScriptingUseCodeEditor = false;
 
 function efDefineScriptingNamespace() {
 	global $wgScriptingNamespaceNumbers;
