@@ -31,7 +31,7 @@ if( !defined( 'MEDIAWIKI' ) )
  */
 class ScriptLinksUpdateHooks {
 	/**
-	 * Appends script links to the output.
+	 * Append script links to the output.
 	 */
 	public static function appendToOutput( &$parser, &$text ) {
 		if( isset( $parser->scripting_engine ) ) {
@@ -41,7 +41,7 @@ class ScriptLinksUpdateHooks {
 	}
 
 	/**
-	 * Runs the link updater.
+	 * Run the link updater.
 	 */
 	public static function updateLinks( &$update ) {
 		$output = $update->mParserOutput;
@@ -57,7 +57,7 @@ class ScriptLinksUpdateHooks {
 	}
 
 	/**
-	 * Purges cache for all the pages where the script is used.
+	 * Purge cache for all the pages where the script is used.
 	 * @param $article Article
 	 * @param $editInfo
 	 * @param $changed
@@ -71,7 +71,7 @@ class ScriptLinksUpdateHooks {
 			$engine = Scripting::getEngine( $wgParser );
 			$engine->invalidateModuleCache( $article->getTitle() );
 			
-			// Invalidate caches of articles which include the script
+			// Invalidate the caches of articles which include the script
 			$wgDeferredUpdateList[] = new HTMLCacheUpdate( $article->getTitle(), 'scriptlinks' );
 		}
 
@@ -79,7 +79,7 @@ class ScriptLinksUpdateHooks {
 	}
 
 	/**
-	 * Adds scriptlinks to the list of tables supported by BacklinkCache.
+	 * Add scriptlinks to the list of tables supported by BacklinkCache.
 	 */
 	public static function getBacklinkCachePrefix( $table, &$prefix ) {
 		if( $table == 'scriptlinks' ) {
@@ -91,7 +91,7 @@ class ScriptLinksUpdateHooks {
 	}
 
 	/**
-	 * Adds scriptlinks to the list of tables supported by BacklinkCache.
+	 * Add scriptlinks to the list of tables supported by BacklinkCache.
 	 * @param $table
 	 * @param $title Title
 	 * @param $conds
@@ -111,7 +111,7 @@ class ScriptLinksUpdateHooks {
 }
 
 /**
- * A class that updates links on scripts like phase3/includes/LinksUpdate.php does that
+ * A class that updates links on scripts like what phase3/includes/LinksUpdate.php does
  * with templates.
  */
 class ScriptLinksUpdate {

@@ -3,7 +3,6 @@
 /**
  * Wikitext scripting infrastructure for MediaWiki: base classes.
  * Copyright (C) 2012 Victor Vasiliev <vasilvv@gmail.com> et al
- * Based on MediaWiki file LinksUpdate.php
  * http://www.mediawiki.org/
  *
  * This program is free software; you can redistribute it and/or modify
@@ -31,19 +30,12 @@ abstract class ScriptingEngineBase {
 	protected
 		$mParser,
 		$mModules = array(),
-		$mModuleTitles = array(),
-		$mLoaded = false;
+		$mModuleTitles = array();
 
 	/**
-	 * Required for the lazy-loading of the engine. Should have a sentinel
-	 * inside checking whether it is already loaded.
+	 * Creates a new module object within this engine
 	 */
-	abstract public function load();
-
-	/**
-	 * Returns the name of your module class.
-	 */
-	abstract protected function getModuleClassName();
+	abstract protected function newModule( $title, $code, $revisionID, $source );
 
 	/**
 	 * Returns the default options of the engine.
@@ -61,7 +53,7 @@ abstract class ScriptingEngineBase {
 	 * 
 	 * @param $parser Parser Wikitext parser
 	 */
-	public final function __construct( $parser ) {
+	public function __construct( $parser ) {
 		$this->mParser = $parser;
 	}
 
@@ -74,7 +66,7 @@ abstract class ScriptingEngineBase {
 	 * @param $source string Source of the module
 	 * @return ScriptingEngineModule
 	 */
-	public function getModule( $title, $source = Scripting::Local ) {
+	public function getModule( $title, $source = Scripting::LOCAL ) {
 		// Convert string to title
 		if( !$title instanceof Title ) {
 			$titleobj = Title::newFromText( (string)$title, NS_MODULE );
@@ -97,8 +89,7 @@ abstract class ScriptingEngineBase {
 			}
 
 			// Create the class
-			$class = $this->getModuleClassName();
-			$this->mModules[$key] = new $class( $this, $title, $rev->getText(), $rev->getID(), $source );
+			$this->mModules[$key] = $this->newModule( $title, $rev->getText(), $rev->getID(), $source );
 			$this->mModuleTitles[] = $title;
 		}
 		return $this->mModules[$key];
@@ -108,7 +99,7 @@ abstract class ScriptingEngineBase {
 	 * Fetches the revision for given module title.
 	 */
 	private function getModuleRev( $title, $source ) {
-		if( $source != Scripting::Local ) {
+		if( $source != Scripting::LOCAL ) {
 			throw new MWException( 'Non-local scripts are not supported at this point' );
 		}
 
@@ -128,7 +119,7 @@ abstract class ScriptingEngineBase {
 	}
 
 	/**
-	 * Validates the script and returns an array of the syntax erros for the
+	 * Validates the script and returns an array of the syntax errors for the
 	 * given code.
 	 * 
 	 * @param $code Code to validate
@@ -136,8 +127,7 @@ abstract class ScriptingEngineBase {
 	 * @return array
 	 */
 	function validate( $code, $title ) {
-		$class = $this->getModuleClassName();
-		$module = new $class( $this, $title, $code, 0, Scripting::Local );
+		$module = $this->newModule( $title, $code, 0, Scripting::LOCAL );
 
 		try {
 			$module->initialize();
@@ -195,7 +185,7 @@ abstract class ScriptingEngineBase {
 abstract class ScriptingModuleBase {
 	var $mEngine, $mTitle, $mCode, $mRevisionID, $mSource;
 
-	public final function __construct( $engine, $title, $code, $revisionID, $source ) {
+	public function __construct( $engine, $title, $code, $revisionID, $source ) {
 		$this->mEngine = $engine;
 		$this->mTitle = $title;
 		$this->mCode = $code;
@@ -236,11 +226,11 @@ abstract class ScriptingModuleBase {
 abstract class ScriptingFunctionBase {
 	protected $mName, $mContents, $mModule, $mEngine;
 	
-	public final function __construct( $name, $contents, $module, $engine ) {
+	public function __construct( $module, $name, $contents ) {
 		$this->mName = $name;
 		$this->mContents = $contents;
 		$this->mModule = $module;
-		$this->mEngine = $engine;
+		$this->mEngine = $module->getEngine();
 	}
 	
 	/**

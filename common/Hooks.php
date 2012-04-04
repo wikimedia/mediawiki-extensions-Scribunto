@@ -21,7 +21,7 @@
  */
 
 /**
- * Hooks for Scripting extension.
+ * Hooks for the Scripting extension.
  */
 class ScriptingHooks {
 	/**
@@ -35,7 +35,7 @@ class ScriptingHooks {
 	}
 
 	/**
-	 * Called when interpreter is to be reset.
+	 * Called when the interpreter is to be reset.
 	 * 
 	 * @static
 	 * @param  $parser Parser
@@ -47,7 +47,7 @@ class ScriptingHooks {
 	}
 
 	/**
-	 * Adds scriptlinks table to parser tests.
+	 * Add scriptlinks table to parser tests.
 	 */
 	public static function addTestTables( &$tables ) {
 		$tables[] = 'scriptlinks';
@@ -55,7 +55,7 @@ class ScriptingHooks {
 	}
 
 	/**
-	 * Handles the {{#invoke:module|func}} construction.
+	 * Hook function for {{#invoke:module|func}}
 	 *
 	 * @param $parser Parser
 	 * @param $frame PPFrame
@@ -73,7 +73,7 @@ class ScriptingHooks {
 	}
 
 	/**
-	 * Handles the transclusion of the script ({{script:module}} hook).
+	 * Hook function for {{script:module}}
 	 *
 	 * @param $parser Parser
 	 * @param $frame PPFrame
@@ -94,7 +94,7 @@ class ScriptingHooks {
 	 * @return string
 	 * @throws ScriptingException
 	 */
-	private static function doRunHook( &$parser, $frame, $module, $function, $args ) {
+	private static function doRunHook( $parser, $frame, $module, $function, $args ) {
 		wfProfileIn( __METHOD__ );
 
 		try {
@@ -104,7 +104,7 @@ class ScriptingHooks {
 				$arg = $frame->expand( $arg );
 			}
 
-			$module = $engine->getModule( $module, Scripting::Local );
+			$module = $engine->getModule( $module, Scripting::LOCAL );
 
 			$functionObj = $module->getFunction( $function );
 			if( !$functionObj ) {
@@ -114,7 +114,7 @@ class ScriptingHooks {
 			$result = $functionObj->call( $args, $frame );
 
 			wfProfileOut( __METHOD__ );
-			return trim( $result );
+			return trim( strval( $result ) );
 		} catch( ScriptingException $e ) {
 			$msg = $e->getMessage();
 			wfProfileOut( __METHOD__ );

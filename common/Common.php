@@ -4,7 +4,7 @@
  * Generic scripting functions.
  */
 class Scripting {
-	const Local = 'local';
+	const LOCAL = 'local';
 
 	protected static function getEngineClass() {
 		global $wgScriptingEngine, $wgScriptingEngines;

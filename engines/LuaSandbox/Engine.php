@@ -1,7 +1,11 @@
 <?php
 
 class LuaSandboxEngine extends ScriptingEngineBase {
-	public $mSandbox;
+	public $mSandbox, $mLoaded = false;
+
+	public function newModule( $title, $code, $revisionID, $source ) {
+		return new LuaSandboxEngineModule( $this, $title, $code, $revisionID, $source );
+	}
 
 	public function load() {
 		if( $this->mLoaded ) {
@@ -119,7 +123,7 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 		$this->initialize();
 
 		if( isset( $this->mContents[$name] ) ) {
-			return new LuaSandboxEngineFunction( $name, $this->mContents[$name], $this, $this->mEngine );
+			return new LuaSandboxEngineFunction( $this, $name, $this->mContents[$name] );
 		} else {
 			return null;
 		}
@@ -139,6 +143,10 @@ class LuaSandboxEngineFunction extends ScriptingFunctionBase {
 			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
 		}
 		
-		return implode( '', $result );
+		if ( isset( $result[0] ) ) {
+			return $result[0];
+		} else {
+			return null;
+		}
 	}
 }
