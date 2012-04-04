@@ -32,9 +32,9 @@ $wgExtensionCredits['parserhook']['Scripting'] = array(
 );
 
 $dir = dirname(__FILE__) . '/';
-$wgExtensionMessagesFiles['Scripting'] = $dir . 'i18n/Messages.php';
-$wgExtensionMessagesFiles['ScriptingMagic'] = $dir . 'i18n/Magic.php';
-$wgExtensionMessagesFiles['ScriptingNamespaces'] = $dir . 'i18n/Namespaces.php';
+$wgExtensionMessagesFiles['Scripting'] = $dir . 'Scripting.i18n.php';
+$wgExtensionMessagesFiles['ScriptingMagic'] = $dir . 'Scripting.magic.php';
+$wgExtensionMessagesFiles['ScriptingNamespaces'] = $dir . 'Scripting.namespaces.php';
 
 $wgAutoloadClasses['ScriptingEngineBase'] = $dir.'common/Base.php';
 $wgAutoloadClasses['ScriptingModuleBase'] = $dir.'common/Base.php';
