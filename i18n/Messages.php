@@ -15,4 +15,5 @@ $messages['en'] = array(
 	'scripting-desc' => 'Framework for embedding scripting languages into MediaWiki pages',
 	
 	'scripting-exception-luasandbox-error' => 'Lua error: $1',
+	'scripting-exception-common-toofewargs' => 'Lua error: Too few arguments to function $1',
 );

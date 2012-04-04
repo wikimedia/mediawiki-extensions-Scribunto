@@ -62,20 +62,15 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 	}
 	
 	function importModule() {
-		// FIXME: luasandbox segfaults on exceptions
-		try {
-			$args = func_get_args();
-			if( count( $args ) < 1 ) {
-				// FIXME: LuaSandbox PHP extension should provide proper context
-				throw new ScriptingException( 'toofewargs', 'common', null, null, array( 'mw.import' ) );
-			}
-
-			$module = $this->getModule( $args[0] );
-			$module->initialize();
-			return $module->mContents;
-		} catch( ScriptingException $e ) {
-			return null;
+		$args = func_get_args();
+		if( count( $args ) < 1 ) {
+			// FIXME: LuaSandbox PHP extension should provide proper context
+			throw new ScriptingException( 'toofewargs', 'common', null, null, array( 'mw.import' ) );
 		}
+
+		$module = $this->getModule( $args[0] );
+		$module->initialize();
+		return $module->mContents;
 	}
 }
 
@@ -91,7 +86,10 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 		// FIXME: caching?
 
 		try {
-			$this->mBody = $this->mEngine->mSandbox->loadString( $this->mCode );
+			$this->mBody = $this->mEngine->mSandbox->loadString(
+				$this->mCode, 
+				// Prepending an "@" to the chunk name makes Lua think it is a file name
+				'@' . $this->getTitle()->getPrefixedDBkey() );
 			$output = $this->mBody->call();
 		} catch( LuaSandboxError $e ) {
 			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
