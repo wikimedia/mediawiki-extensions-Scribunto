@@ -115,12 +115,12 @@ class ScriptLinksUpdateHooks {
  * with templates.
  */
 class ScriptLinksUpdate {
-	var $mUpdate, $mId, $mNew;
+	var $update, $id, $new;
 
 	public function __construct( $update, $new ) {
-		$this->mUpdate = $update;
-		$this->mId = $update->mId;
-		$this->mNew = $new;
+		$this->update = $update;
+		$this->id = $update->mId;
+		$this->new = $new;
 	}
 
 	public function run() {
@@ -129,14 +129,14 @@ class ScriptLinksUpdate {
 		wfProfileIn( __METHOD__ );
 
 		if( $wgUseDumbLinkUpdate ) {
-			$this->mUpdate->dumbTableUpdate( 'scriptlinks', $this->getScriptInsertions(), 'sl_from' );
+			$this->update->dumbTableUpdate( 'scriptlinks', $this->getScriptInsertions(), 'sl_from' );
 		} else {
 			$existing = $this->getExistingScripts();
-			$this->mUpdate->incrTableUpdate( 'scriptlinks', 'sl', $this->getScriptDeletions( $existing ),
+			$this->update->incrTableUpdate( 'scriptlinks', 'sl', $this->getScriptDeletions( $existing ),
 				$this->getScriptInsertions( $existing ) );
 		}
 
-		if( $this->mUpdate->mRecursive && $this->mUpdate->mTitle->getNamespace() == NS_MODULE ) {
+		if( $this->update->mRecursive && $this->update->mTitle->getNamespace() == NS_MODULE ) {
 			$this->queueRecursiveJobs();
 		}
 
@@ -146,8 +146,8 @@ class ScriptLinksUpdate {
 	protected function getExistingScripts() {
 		$result = array();
 
-		$res = $this->mUpdate->mDb->select( 'scriptlinks', array( 'sl_to' ),
-			array( 'sl_from' => $this->mId ), __METHOD__, $this->mUpdate->mOptions );
+		$res = $this->update->mDb->select( 'scriptlinks', array( 'sl_to' ),
+			array( 'sl_from' => $this->id ), __METHOD__, $this->update->mOptions );
 		foreach ( $res as $row ) {
 			$result[] = $row->sl_to;
 		}
@@ -158,9 +158,9 @@ class ScriptLinksUpdate {
 	protected function getScriptInsertions( $existing = array() ) {
 		$result = array();
 
-		foreach( array_diff( $this->mNew, $existing ) as $module ) {
+		foreach( array_diff( $this->new, $existing ) as $module ) {
 			$result[] = array(
-				'sl_from' => $this->mId,
+				'sl_from' => $this->id,
 				'sl_to' => $module,
 			);
 		}
@@ -171,9 +171,9 @@ class ScriptLinksUpdate {
 	protected function getScriptDeletions( $existing = array() ) {
 		$result = array();
 
-		foreach( array_diff( $existing, $this->mNew ) as $module ) {
+		foreach( array_diff( $existing, $this->new ) as $module ) {
 			$result[] = array(
-				'sl_from' => $this->mId,
+				'sl_from' => $this->id,
 				'sl_to' => $module,
 			);
 		}
@@ -185,7 +185,7 @@ class ScriptLinksUpdate {
 		global $wgUpdateRowsPerJob;
 		wfProfileIn( __METHOD__ );
 
-		$cache = $this->mUpdate->mTitle->getBacklinkCache();
+		$cache = $this->update->mTitle->getBacklinkCache();
 		$batches = $cache->partition( 'scriptlinks', $wgUpdateRowsPerJob );
 		if ( !$batches ) {
 			wfProfileOut( __METHOD__ );
@@ -199,7 +199,7 @@ class ScriptLinksUpdate {
 				'start' => $start,
 				'end' => $end,
 			);
-			$jobs[] = new RefreshLinksJob2( $this->mUpdate->mTitle, $params );
+			$jobs[] = new RefreshLinksJob2( $this->update->mTitle, $params );
 		}
 		Job::batchInsert( $jobs );
 

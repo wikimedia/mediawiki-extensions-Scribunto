@@ -1,14 +1,14 @@
 <?php
 
 class LuaSandboxEngine extends ScriptingEngineBase {
-	public $mSandbox, $mLoaded = false;
+	public $sandbox, $loaded = false;
 
 	public function newModule( $title, $code, $revisionID, $source ) {
 		return new LuaSandboxEngineModule( $this, $title, $code, $revisionID, $source );
 	}
 
 	public function load() {
-		if( $this->mLoaded ) {
+		if( $this->loaded ) {
 			return;
 		}
 
@@ -16,18 +16,18 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 			throw new MWException( 'luasandbox PHP extension is not installed' );
 		}
 
-		$this->mSandbox = new LuaSandbox;
-		$this->mSandbox->setMemoryLimit( $this->mOptions['memoryLimit'] );
-		$this->mSandbox->setCPULimit( $this->mOptions['maxCPU'] );
-		$this->mSandbox->registerLibrary( 'mw', array( 'import' => array( $this, 'importModule' ) ) );
+		$this->sandbox = new LuaSandbox;
+		$this->sandbox->setMemoryLimit( $this->options['memoryLimit'] );
+		$this->sandbox->setCPULimit( $this->options['maxCPU'] );
+		$this->sandbox->registerLibrary( 'mw', array( 'import' => array( $this, 'importModule' ) ) );
 		
-		$this->mLoaded = true;
+		$this->loaded = true;
 	}
 
 	protected function updateOptions() {
-		if( $this->mLoaded ) {
-			$this->mSandbox->setMemoryLimit( $this->mOptions['memoryLimit'] );
-			$this->mSandbox->setCPULimit( $this->mOptions['maxCPU'] );
+		if( $this->loaded ) {
+			$this->sandbox->setMemoryLimit( $this->options['memoryLimit'] );
+			$this->sandbox->setCPULimit( $this->options['maxCPU'] );
 		}
 	}
 
@@ -53,7 +53,7 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 	public function getLimitsReport() {
 		$this->load();
 		
-		$usage = $this->mSandbox->getMemoryUsage();
+		$usage = $this->sandbox->getMemoryUsage();
 		if( $usage < 8 * 1024 ) {
 			$usageStr = $usage . " bytes";
 		} elseif( $usage < 8 * 1024 * 1024 ) {
@@ -74,27 +74,27 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 
 		$module = $this->getModule( $args[0] );
 		$module->initialize();
-		return $module->mContents;
+		return $module->contents;
 	}
 }
 
 class LuaSandboxEngineModule extends ScriptingModuleBase {
-	protected $mInitialized;
+	protected $initialized;
 
 	function initialize() {
-		if( $this->mInitialized ) {
+		if( $this->initialized ) {
 			return;
 		}
-		$this->mEngine->load();
+		$this->engine->load();
 
 		// FIXME: caching?
 
 		try {
-			$this->mBody = $this->mEngine->mSandbox->loadString(
-				$this->mCode, 
+			$this->body = $this->engine->sandbox->loadString(
+				$this->code, 
 				// Prepending an "@" to the chunk name makes Lua think it is a file name
 				'@' . $this->getTitle()->getPrefixedDBkey() );
-			$output = $this->mBody->call();
+			$output = $this->body->call();
 		} catch( LuaSandboxError $e ) {
 			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
 		}
@@ -109,21 +109,21 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 			throw new ScriptingException( 'notarrayreturn', 'luasandbox' );
 		}
 		
-		$this->mContents = $output[0];
-		$this->mFunctions = array();
-		foreach( $this->mContents as $key => $content ) {
+		$this->contents = $output[0];
+		$this->functions = array();
+		foreach( $this->contents as $key => $content ) {
 			if( $content instanceof LuaSandboxFunction )
-				$this->mFunctions[] = $key;
+				$this->functions[] = $key;
 		}
 
-		$this->mInitialized = true;
+		$this->initialized = true;
 	}
 
 	function getFunction( $name ) {
 		$this->initialize();
 
-		if( isset( $this->mContents[$name] ) ) {
-			return new LuaSandboxEngineFunction( $this, $name, $this->mContents[$name] );
+		if( isset( $this->contents[$name] ) ) {
+			return new LuaSandboxEngineFunction( $this, $name, $this->contents[$name] );
 		} else {
 			return null;
 		}
@@ -131,14 +131,14 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 
 	function getFunctions() {
 		$this->initialize();
-		return $this->mFunctions;
+		return $this->functions;
 	}
 }
 
 class LuaSandboxEngineFunction extends ScriptingFunctionBase {
 	public function call( $args, $frame ) {
 		try {
-			$result = call_user_func_array( array( $this->mContents, 'call' ), $args );
+			$result = call_user_func_array( array( $this->contents, 'call' ), $args );
 		} catch( LuaSandboxError $e ) {
 			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
 		}

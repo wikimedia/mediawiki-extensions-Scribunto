@@ -28,9 +28,9 @@
  */
 abstract class ScriptingEngineBase {
 	protected
-		$mParser,
-		$mModules = array(),
-		$mModuleTitles = array();
+		$parser,
+		$modules = array(),
+		$moduleTitles = array();
 
 	/**
 	 * Creates a new module object within this engine
@@ -40,7 +40,9 @@ abstract class ScriptingEngineBase {
 	/**
 	 * Returns the default options of the engine.
 	 */
-	abstract public function getDefaultOptions();
+	public function getDefaultOptions() {
+		return array();
+	}
 
 	/**
 	 * Is called by setOptions() in order to notify the engine
@@ -54,7 +56,7 @@ abstract class ScriptingEngineBase {
 	 * @param $parser Parser Wikitext parser
 	 */
 	public function __construct( $parser ) {
-		$this->mParser = $parser;
+		$this->parser = $parser;
 	}
 
 	/**
@@ -78,7 +80,7 @@ abstract class ScriptingEngineBase {
 
 		// Check if it is already loaded
 		$key = $title->getPrefixedText();
-		if( !isset( $this->mModules[$key] ) ) {
+		if( !isset( $this->modules[$key] ) ) {
 			// Fetch the text
 			$rev = $this->getModuleRev( $title, $source );
 			if( !$rev ) {
@@ -89,10 +91,10 @@ abstract class ScriptingEngineBase {
 			}
 
 			// Create the class
-			$this->mModules[$key] = $this->newModule( $title, $rev->getText(), $rev->getID(), $source );
-			$this->mModuleTitles[] = $title;
+			$this->modules[$key] = $this->newModule( $title, $rev->getText(), $rev->getID(), $source );
+			$this->moduleTitles[] = $title;
 		}
-		return $this->mModules[$key];
+		return $this->modules[$key];
 	}
 
 	/**
@@ -114,7 +116,7 @@ abstract class ScriptingEngineBase {
 	 * Sets the engine-specific options from $wgScriptingEngineConf.
 	 */
 	function setOptions( $options ) {
-		$this->mOptions = array_merge( $this->getDefaultOptions(), $options );
+		$this->options = array_merge( $this->getDefaultOptions(), $options );
 		$this->updateOptions();
 	}
 
@@ -152,7 +154,7 @@ abstract class ScriptingEngineBase {
 	 * engine.
 	 */
 	public function getUsedModules() {
-		return $this->mModuleTitles;
+		return $this->moduleTitles;
 	}
 
 	/**
@@ -183,22 +185,22 @@ abstract class ScriptingEngineBase {
  * and maintaining the contents of the module.
  */
 abstract class ScriptingModuleBase {
-	var $mEngine, $mTitle, $mCode, $mRevisionID, $mSource;
+	var $engine, $title, $code, $revisionID, $source;
 
 	public function __construct( $engine, $title, $code, $revisionID, $source ) {
-		$this->mEngine = $engine;
-		$this->mTitle = $title;
-		$this->mCode = $code;
-		$this->mRevisionID = $revisionID;
-		$this->mSource = $source;
+		$this->engine = $engine;
+		$this->title = $title;
+		$this->code = $code;
+		$this->revisionID = $revisionID;
+		$this->source = $source;
 	}
 
 	/** Accessors **/
-	public function getEngine()     { return $this->mEngine; }
-	public function getTitle()      { return $this->mTitle; }
-	public function getCode()       { return $this->mCode; }
-	public function getRevisionID() { return $this->mRevisionID; }
-	public function getSource()     { return $this->mSource; }
+	public function getEngine()     { return $this->engine; }
+	public function getTitle()      { return $this->title; }
+	public function getCode()       { return $this->code; }
+	public function getRevisionID() { return $this->revisionID; }
+	public function getSource()     { return $this->source; }
 	
 	/**
 	 * Initialize the module. That means parse it and load the
@@ -227,10 +229,10 @@ abstract class ScriptingFunctionBase {
 	protected $mName, $mContents, $mModule, $mEngine;
 	
 	public function __construct( $module, $name, $contents ) {
-		$this->mName = $name;
-		$this->mContents = $contents;
-		$this->mModule = $module;
-		$this->mEngine = $module->getEngine();
+		$this->name = $name;
+		$this->contents = $contents;
+		$this->module = $module;
+		$this->engine = $module->getEngine();
 	}
 	
 	/**
@@ -242,7 +244,7 @@ abstract class ScriptingFunctionBase {
 	abstract public function call( $args, $frame );
 	
 	/** Accessors **/
-	public function getName()   { return $this->mName; }
-	public function getModule() { return $this->mModule; }
-	public function getEngine() { return $this->mEngine; }
+	public function getName()   { return $this->name; }
+	public function getModule() { return $this->module; }
+	public function getEngine() { return $this->engine; }
 }

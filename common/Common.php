@@ -37,9 +37,8 @@ class Scripting {
 }
 
 /**
- * Exceptions which represents user-originating error in the script.
- * Please do not use it for internal errors like "oh god, this should have never happened".
- * Use casual MWException for that.
+ * An exception class which represents an error in the script. This does not 
+ * normally abort the request, instead it is caught and shown to the user.
  */
 class ScriptingException extends MWException {
 	function __construct( $exceptionID, $engine, $module = null, $line = null, $params = array() ) {
@@ -51,13 +50,13 @@ class ScriptingException extends MWException {
 		}
 		parent::__construct( $msg );
 
-		$this->mExceptionID = $exceptionID;
-		$this->mLine = $line;
-		$this->mModule = $module;
-		$this->mParams = $params;
+		$this->exceptionID = $exceptionID;
+		$this->line = $line;
+		$this->module = $module;
+		$this->params = $params;
 	}
 
 	public function getExceptionID() {
-		return $this->mExceptionID;
+		return $this->exceptionID;
 	}
 }
