@@ -1,10 +1,10 @@
 <?php
 
 class LuaSandboxEngine extends ScriptingEngineBase {
-	public $sandbox, $loaded = false;
+	public $sandbox, $options, $loaded = false;
 
-	public function newModule( $title, $code, $revisionID, $source ) {
-		return new LuaSandboxEngineModule( $this, $title, $code, $revisionID, $source );
+	public function newModule( $text, $chunkName ) {
+		return new LuaSandboxEngineModule( $this, $text, $chunkName );
 	}
 
 	public function load() {
@@ -18,31 +18,17 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $this->options['memoryLimit'] );
-		$this->sandbox->setCPULimit( $this->options['maxCPU'] );
+		$this->sandbox->setCPULimit( $this->options['cpuLimit'] );
 		$this->sandbox->registerLibrary( 'mw', array( 'import' => array( $this, 'importModule' ) ) );
 		
 		$this->loaded = true;
-	}
-
-	protected function updateOptions() {
-		if( $this->loaded ) {
-			$this->sandbox->setMemoryLimit( $this->options['memoryLimit'] );
-			$this->sandbox->setCPULimit( $this->options['maxCPU'] );
-		}
 	}
 
 	protected function getModuleClassName() {
 		return 'LuaSandboxEngineModule';
 	}
 
-	public function getDefaultOptions() {
-		return array(
-			'memoryLimit' => 50 * 1024 * 1024,
-			'maxCPU' => 7,
-		);
-	}
-
-	public function getGeSHiLangauge() {
+	public function getGeSHiLanguage() {
 		return 'lua';
 	}
 	
@@ -50,7 +36,7 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 		return 'lua';
 	}
 	
-	public function getLimitsReport() {
+	public function getLimitReport() {
 		$this->load();
 		
 		$usage = $this->sandbox->getMemoryUsage();
@@ -69,12 +55,16 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 		$args = func_get_args();
 		if( count( $args ) < 1 ) {
 			// FIXME: LuaSandbox PHP extension should provide proper context
-			throw new ScriptingException( 'toofewargs', 'common', null, null, array( 'mw.import' ) );
+			throw new ScriptingException( 'scripting-common-toofewargs',
+				array( 'args' => array( 'mw.import' ) ) );
 		}
 
-		$module = $this->getModule( $args[0] );
-		$module->initialize();
-		return $module->contents;
+		$title = Title::makeTitleSafe( NS_MODULE, $args[0] );
+		if ( !$title ) {
+			throw new ScriptingException( 'scripting-common-nosuchmodule' );
+		}
+		$module = $this->fetchModuleFromParser( $title );
+		return $module->getContents();
 	}
 }
 
@@ -93,20 +83,21 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 			$this->body = $this->engine->sandbox->loadString(
 				$this->code, 
 				// Prepending an "@" to the chunk name makes Lua think it is a file name
-				'@' . $this->getTitle()->getPrefixedDBkey() );
+				'@' . $this->chunkName );
 			$output = $this->body->call();
 		} catch( LuaSandboxError $e ) {
-			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
+			throw new ScriptingException( 'scripting-luasandbox-error', 
+				array( 'args' => array( $e->getMessage() ) ) );
 		}
 		
 		if( !$output ) {
-			throw new ScriptingException( 'noreturn', 'luasandbox' );
+			throw new ScriptingException( 'scripting-luasandbox-noreturn' );
 		}
 		if( count( $output ) > 2 ) {
-			throw new ScriptingException( 'toomanyreturns', 'luasandbox' );
+			throw new ScriptingException( 'scripting-luasandbox-toomanyreturns' );
 		}
 		if( !is_array( $output[0] ) ) {
-			throw new ScriptingException( 'notarrayreturn', 'luasandbox' );
+			throw new ScriptingException( 'scripting-luasandbox-notarrayreturn' );
 		}
 		
 		$this->contents = $output[0];
@@ -133,6 +124,11 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 		$this->initialize();
 		return $this->functions;
 	}
+
+	function getContents() {
+		$this->initialize();
+		return $this->contents;
+	}
 }
 
 class LuaSandboxEngineFunction extends ScriptingFunctionBase {
@@ -140,7 +136,8 @@ class LuaSandboxEngineFunction extends ScriptingFunctionBase {
 		try {
 			$result = call_user_func_array( array( $this->contents, 'call' ), $args );
 		} catch( LuaSandboxError $e ) {
-			throw new ScriptingException( 'error', 'luasandbox', null, null, array( $e->getMessage() ) );
+			throw new ScriptingException( 'scripting-luasandbox-error', 
+				array( 'args' => array( $e->getMessage() ) ) );
 		}
 		
 		if ( isset( $result[0] ) ) {

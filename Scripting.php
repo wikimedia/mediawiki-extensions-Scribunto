@@ -40,47 +40,40 @@ $wgAutoloadClasses['ScriptingEngineBase'] = $dir.'common/Base.php';
 $wgAutoloadClasses['ScriptingModuleBase'] = $dir.'common/Base.php';
 $wgAutoloadClasses['ScriptingFunctionBase'] = $dir.'common/Base.php';
 $wgAutoloadClasses['ScriptingHooks'] = $dir.'common/Hooks.php';
-$wgAutoloadClasses['ScriptLinksUpdateHooks'] = $dir.'common/LinkUpdates.php';
 $wgAutoloadClasses['ScriptingException'] = $dir.'common/Common.php';
 $wgAutoloadClasses['Scripting'] = $dir.'common/Common.php';
 
 $wgHooks['ParserFirstCallInit'][] = 'ScriptingHooks::setupParserHook';
 $wgHooks['ParserLimitReport'][] = 'ScriptingHooks::reportLimits';
 $wgHooks['ParserClearState'][] = 'ScriptingHooks::clearState';
-$wgHooks['ParserTestTables'][] = 'ScriptingHooks::addTestTables';
 
 $wgHooks['CanonicalNamespaces'][] = 'ScriptingHooks::addCanonicalNamespaces';
 $wgHooks['ArticleViewCustom'][] = 'ScriptingHooks::handleScriptView';
 $wgHooks['TitleIsWikitextPage'][] = 'ScriptingHooks::isWikitextPage';
-$wgHooks['CodeEditorGetPageLanguage'][] = 'ScriptingHooks::getCodeLangauge';
+$wgHooks['CodeEditorGetPageLanguage'][] = 'ScriptingHooks::getCodeLanguage';
 $wgHooks['EditFilter'][] = 'ScriptingHooks::validateScript';
 
-$wgHooks['LinksUpdate'][] = 'ScriptLinksUpdateHooks::updateLinks';
-$wgHooks['ArticleEditUpdates'][] = 'ScriptLinksUpdateHooks::purgeCache';
-$wgHooks['ParserAfterTidy'][] = 'ScriptLinksUpdateHooks::appendToOutput';
-$wgHooks['BacklinkCacheGetPrefix'][] = 'ScriptLinksUpdateHooks::getBacklinkCachePrefix';
-$wgHooks['BacklinkCacheGetConditions'][] = 'ScriptLinksUpdateHooks::getBacklinkCacheConditions';
-
 /***** Individual engines and their configurations *****/
-
-/**
- * Available scripting engines.
- */
-$wgScriptingEngines = array(
-	'luasandbox' => 'LuaSandboxEngine',
-);
 
 $wgAutoloadClasses['LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
 
 /***** Configuration *****/
 
 /**
- * The name of the scripting engine.
+ * The name of the default scripting engine.
  */
-$wgScriptingEngine = false;
+$wgScriptingDefaultEngine = 'luasandbox';
 
-
-$wgScriptingEngineConf = array();
+/**
+ * Configuration for each scripting engine
+ */
+$wgScriptingEngineConf = array(
+	'luasandbox' => array(
+		'class' => 'LuaSandboxEngine',
+		'memoryLimit' => 50 * 1024 * 1024,
+		'cpuLimit' => 7,
+	),
+);
 
 /**
  * Script namespace numbers.

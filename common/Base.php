@@ -29,95 +29,48 @@
 abstract class ScriptingEngineBase {
 	protected
 		$parser,
-		$modules = array(),
-		$moduleTitles = array();
+		$options,
+		$modules = array();
 
 	/**
 	 * Creates a new module object within this engine
 	 */
-	abstract protected function newModule( $title, $code, $revisionID, $source );
-
-	/**
-	 * Returns the default options of the engine.
-	 */
-	public function getDefaultOptions() {
-		return array();
-	}
-
-	/**
-	 * Is called by setOptions() in order to notify the engine
-	 * that the options were changed.
-	 */
-	protected function updateOptions() { /* No-op */ }
+	abstract protected function newModule( $text, $chunkName );
 
 	/**
 	 * Constructor.
 	 * 
-	 * @param $parser Parser Wikitext parser
+	 * @param $options Associative array of options:
+	 *    - parser:            A Parser object
 	 */
-	public function __construct( $parser ) {
-		$this->parser = $parser;
+	public function __construct( $options ) {
+		$this->options = $options;
+		if ( isset( $options['parser'] ) ) {
+			$this->parser = $options['parser'];
+		}
 	}
 
 	/**
-	 * Loads the module either from instance cache or from the actual revision.
+	 * Load a module from some parser-defined template loading mechanism and 
+	 * register a parser output dependency.
+	 *
 	 * Does not initialize the module, i.e. do not expect it to complain if the module
 	 * text is garbage or has syntax error. Returns a module or throws an exception.
-	 * 
-	 * @param $title Title/string The title or the name of the module.
-	 * @param $source string Source of the module
+	 *
+	 * @param $title The title of the module
 	 * @return ScriptingEngineModule
 	 */
-	public function getModule( $title, $source = Scripting::LOCAL ) {
-		// Convert string to title
-		if( !$title instanceof Title ) {
-			$titleobj = Title::newFromText( (string)$title, NS_MODULE );
-			if( !$titleobj || $titleobj->getNamespace() != NS_MODULE ) {
-				throw new ScriptingException( 'badtitle', 'common' );	// scripting-exceptions-common-badtitle
-			}
-			$title = $titleobj;
+	function fetchModuleFromParser( Title $title ) {
+		list( $text, $finalTitle ) = $this->parser->fetchTemplateAndTitle( $title );
+		if ( $text === false ) {
+			throw new ScriptingException( 'scripting-common-nosuchmodule' );
 		}
 
-		// Check if it is already loaded
-		$key = $title->getPrefixedText();
-		if( !isset( $this->modules[$key] ) ) {
-			// Fetch the text
-			$rev = $this->getModuleRev( $title, $source );
-			if( !$rev ) {
-				throw new ScriptingException( 'nosuchmodule', 'common' );	// scripting-exceptions-common-nosuchmodule
-			}
-			if( $rev->getTitle()->getNamespace() != NS_MODULE ) {
-				throw new ScriptingException( 'badnamespace', 'common' );	// scripting-exceptions-common-badnamespace
-			}
-
-			// Create the class
-			$this->modules[$key] = $this->newModule( $title, $rev->getText(), $rev->getID(), $source );
-			$this->moduleTitles[] = $title;
+		$key = $finalTitle->getPrefixedDBkey();
+		if ( !isset( $this->modules[$key] ) ) {
+			$this->modules[$key] = $this->newModule( $text, $key );
 		}
 		return $this->modules[$key];
-	}
-
-	/**
-	 * Fetches the revision for given module title.
-	 */
-	private function getModuleRev( $title, $source ) {
-		if( $source != Scripting::LOCAL ) {
-			throw new MWException( 'Non-local scripts are not supported at this point' );
-		}
-
-		$rev = Revision::newFromTitle( $title );
-		if( $rev && $real = Title::newFromRedirect( $rev->getText() ) ) {
-			$rev = Revision::newFromTitle( $real );
-		}
-		return $rev;
-	}
-
-	/**
-	 * Sets the engine-specific options from $wgScriptingEngineConf.
-	 */
-	function setOptions( $options ) {
-		$this->options = array_merge( $this->getDefaultOptions(), $options );
-		$this->updateOptions();
 	}
 
 	/**
@@ -128,8 +81,8 @@ abstract class ScriptingEngineBase {
 	 * @param $title Title of the code page
 	 * @return array
 	 */
-	function validate( $code, $title ) {
-		$module = $this->newModule( $title, $code, 0, Scripting::LOCAL );
+	function validate( $text, $chunkName = false ) {
+		$module = $this->newModule( $text, $chunkName );
 
 		try {
 			$module->initialize();
@@ -150,30 +103,14 @@ abstract class ScriptingEngineBase {
 	}
 
 	/**
-	 * Returns the titles of all the modules used by this instance of the
-	 * engine.
-	 */
-	public function getUsedModules() {
-		return $this->moduleTitles;
-	}
-
-	/**
-	 * Invalidates the cache of the given module by its title. Should be
-	 * redefined if the engine uses any form of bytecode or other cache.
-	 */
-	function invalidateModuleCache( $title ) {
-		/* No-op by default */
-	}
-
-	/**
 	 * Get the language for GeSHi syntax highlighter.
 	 */
-	function getGeSHiLangauge() {
+	function getGeSHiLanguage() {
 		return false;
 	}
 	
 	/**
-	 * Get the langauge for Ace code editor.
+	 * Get the language for Ace code editor.
 	 */
 	function getCodeEditorLanguage() {
 		return false;
@@ -185,23 +122,19 @@ abstract class ScriptingEngineBase {
  * and maintaining the contents of the module.
  */
 abstract class ScriptingModuleBase {
-	var $engine, $title, $code, $revisionID, $source;
+	var $engine, $code, $chunkName;
 
-	public function __construct( $engine, $title, $code, $revisionID, $source ) {
+	public function __construct( $engine, $code, $chunkName ) {
 		$this->engine = $engine;
-		$this->title = $title;
 		$this->code = $code;
-		$this->revisionID = $revisionID;
-		$this->source = $source;
+		$this->chunkName = $chunkName;
 	}
 
 	/** Accessors **/
 	public function getEngine()     { return $this->engine; }
-	public function getTitle()      { return $this->title; }
 	public function getCode()       { return $this->code; }
-	public function getRevisionID() { return $this->revisionID; }
-	public function getSource()     { return $this->source; }
-	
+	public function getChunkName()  { return $this->chunkName; }
+
 	/**
 	 * Initialize the module. That means parse it and load the
 	 * functions/constants/whatever into the object.

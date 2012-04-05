@@ -42,15 +42,7 @@ class ScriptingHooks {
 	 * @return bool
 	 */
 	public static function clearState( &$parser ) {
-		Scripting::resetEngine( $parser );
-		return true;
-	}
-
-	/**
-	 * Add scriptlinks table to parser tests.
-	 */
-	public static function addTestTables( &$tables ) {
-		$tables[] = 'scriptlinks';
+		Scripting::resetParserEngine( $parser );
 		return true;
 	}
 
@@ -64,7 +56,7 @@ class ScriptingHooks {
 	 */
 	public static function callHook( &$parser, $frame, $args ) {
 		if( count( $args ) < 2 ) {
-			throw new ScriptingException( 'nofunction', 'common' );	// scripting-exceptions-common-nofunction
+			throw new ScriptingException( 'scripting-common-nofunction' );
 		}
 
 		$module = $parser->mStripState->unstripBoth( array_shift( $args ) );
@@ -88,27 +80,30 @@ class ScriptingHooks {
 	/**
 	 * @param $parser Parser
 	 * @param $frame PPFrame
-	 * @param $module
-	 * @param $function
+	 * @param $moduleName
+	 * @param $functionName
 	 * @param $args
 	 * @return string
 	 * @throws ScriptingException
 	 */
-	private static function doRunHook( $parser, $frame, $module, $function, $args ) {
+	private static function doRunHook( $parser, $frame, $moduleName, $functionName, $args ) {
 		wfProfileIn( __METHOD__ );
-
+		
 		try {
-			$engine = Scripting::getEngine( $parser );
+			$engine = Scripting::getParserEngine( $parser );
+			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
+			if ( !$title ) {
+				throw new ScriptingException( 'scripting-common-nosuchmodule' );
+			}
+			$module = $engine->fetchModuleFromParser( $title );
+
+			$functionObj = $module->getFunction( $functionName );
+			if( !$functionObj ) {
+				throw new ScriptingException( 'scripting-common-nosuchfunction' );
+			}
 
 			foreach( $args as &$arg ) {
 				$arg = $frame->expand( $arg );
-			}
-
-			$module = $engine->getModule( $module, Scripting::LOCAL );
-
-			$functionObj = $module->getFunction( $function );
-			if( !$functionObj ) {
-				throw new ScriptingException( 'nosuchfunction', 'common' );	// scripting-exceptions-common-nosuchfunction
 			}
 
 			$result = $functionObj->call( $args, $frame );
@@ -132,11 +127,11 @@ class ScriptingHooks {
 	 * @return bool
 	 */
 	public static function handleScriptView( $text, $title, $output ) {
-		global $wgScriptingUseGeSHi, $wgParser;
+		global $wgScriptingUseGeSHi;
 
 		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::getEngine( $wgParser );
-			$language = $engine->getGeSHiLangauge();
+			$engine = Scripting::newDefaultEngine();
+			$language = $engine->getGeSHiLanguage();
 			
 			if( $wgScriptingUseGeSHi && $language ) {
 				$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
@@ -161,10 +156,10 @@ class ScriptingHooks {
 		}
 	}
 	
-	public static function getCodeLangauge( $title, &$lang ) {
-		global $wgParser, $wgScriptingUseCodeEditor;
+	public static function getCodeLanguage( $title, &$lang ) {
+		global $wgScriptingUseCodeEditor;
 		if( $wgScriptingUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::getEngine( $wgParser );
+			$engine = Scripting::newDefaultEngine();
 			if( $engine->getCodeEditorLanguage() ) {
 				$lang = $engine->getCodeEditorLanguage();
 				return false;
@@ -198,8 +193,8 @@ class ScriptingHooks {
 	public static function reportLimits( $parser, &$report ) {
 		# FIXME
 		global $wgScriptsLimits;
-		$engine = Scripting::getEngine( $parser );
-		$report .= $engine->getLimitsReport();
+		$engine = Scripting::getParserEngine( $parser );
+		$report .= $engine->getLimitReport();
 		return true;
 	}
 
@@ -213,12 +208,12 @@ class ScriptingHooks {
 	}
 
 	public static function validateScript( $editor, $text, $section, &$error ) {
-		global $wgUser, $wgParser;
+		global $wgUser;
 		$title = $editor->mTitle;
 
 		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::getEngine( $wgParser );
-			$errors = $engine->validate( $text, $title );
+			$engine = Scripting::newDefaultEngine();
+			$errors = $engine->validate( $text, $title->getPrefixedDBkey() );
 			if( !$errors ) {
 				return true;
 			}

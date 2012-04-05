@@ -6,32 +6,49 @@
 class Scripting {
 	const LOCAL = 'local';
 
-	protected static function getEngineClass() {
-		global $wgScriptingEngine, $wgScriptingEngines;
-
-		if( !$wgScriptingEngine ) {
-			throw new MWException( 'Scripting extension is enabled but $wgScriptingEngine is not set' );
-		}
-
-		if( !isset( $wgScriptingEngines[$wgScriptingEngine] ) ) {
-			throw new MWException( 'Invalid scripting engine is specified in $wgScriptingEngine' );
-		}
-
-		return $wgScriptingEngines[$wgScriptingEngine];
+	/**
+	 * Create a new engine object with specified parameters.
+	 */
+	public static function newEngine( $options ) {
+		$class = $options['class'];
+		return new $class( $options );
 	}
 
-	public static function getEngine( $parser ) {
-		global $wgScriptingEngineConf;
+	/**
+	 * Create a new engine object with default parameters
+	 * @param $extraOptions Extra options to pass to the constructor, in addition to the configured options
+	 */
+	public static function newDefaultEngine( $extraOptions = array() ) {
+		global $wgScriptingDefaultEngine, $wgScriptingEngineConf;
+		if( !$wgScriptingDefaultEngine ) {
+			throw new MWException( 'Scripting extension is enabled but $wgScriptingDefaultEngine is not set' );
+		}
 
+		if( !isset( $wgScriptingEngineConf[$wgScriptingDefaultEngine] ) ) {
+			throw new MWException( 'Invalid scripting engine is specified in $wgScriptingDefaultEngine' );
+		}
+		$options = $extraOptions + $wgScriptingEngineConf[$wgScriptingDefaultEngine];
+		return self::newEngine( $options );
+	}
+
+	/**
+	 * Get an engine instance for the given parser, and cache it in the parser
+	 * so that subsequent calls to this function for the same parser will return
+	 * the same engine.
+	 *
+	 * @param Parser $parser
+	 */
+	public static function getParserEngine( $parser ) {
 		if( !isset( $parser->scripting_engine ) || !$parser->scripting_engine ) {
-			$class = self::getEngineClass();
-			$parser->scripting_engine = new $class( $parser );
-			$parser->scripting_engine->setOptions( $wgScriptingEngineConf );
+			$parser->scripting_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
 		}
 		return $parser->scripting_engine;
 	}
 
-	public static function resetEngine( $parser ) {
+	/**
+	 * Remove the current engine instance from the parser
+	 */
+	public static function resetParserEngine( $parser ) {
 		$parser->scripting_engine = null;
 	}
 }
@@ -41,22 +58,28 @@ class Scripting {
  * normally abort the request, instead it is caught and shown to the user.
  */
 class ScriptingException extends MWException {
-	function __construct( $exceptionID, $engine, $module = null, $line = null, $params = array() ) {
-		if( $module ) {
-			$codelocation = wfMsg( 'scripting-codelocation', $module, $line );
-			$msg = wfMsgExt( "scripting-exception-{$engine}-{$exceptionID}", array(), array_merge( array( $codelocation ), $params ) );
+	var $messageName, $params;
+
+	function __construct( $messageName, $params = array() ) {
+		if ( isset( $params['args'] ) ) {
+			$args = $params['args'];
 		} else {
-			$msg = wfMsgExt( "scripting-exception-{$engine}-{$exceptionID}", array(), $params );
+			$args = array();
 		}
+		if ( isset( $params['module'] ) && isset( $params['line'] ) ) {
+			$codelocation = wfMsg( 'scripting-codelocation', $params['module'], $params['line'] );
+		} else {
+			$codelocation = '[UNKNOWN]'; // should never happen
+		}
+		array_unshift( $args, $codelocation );
+		$msg = wfMsgExt( $messageName, array(), $args );
 		parent::__construct( $msg );
 
-		$this->exceptionID = $exceptionID;
-		$this->line = $line;
-		$this->module = $module;
+		$this->messageName = $messageName;
 		$this->params = $params;
 	}
 
-	public function getExceptionID() {
-		return $this->exceptionID;
+	public function getMessageName() {
+		return $this->messageName;
 	}
 }
