@@ -1,6 +1,6 @@
 <?php
 
-class LuaSandboxEngine extends ScriptingEngineBase {
+class LuaSandboxEngine extends ScribuntoEngineBase {
 	public $sandbox, $options, $loaded = false;
 
 	public function newModule( $text, $chunkName ) {
@@ -55,20 +55,20 @@ class LuaSandboxEngine extends ScriptingEngineBase {
 		$args = func_get_args();
 		if( count( $args ) < 1 ) {
 			// FIXME: LuaSandbox PHP extension should provide proper context
-			throw new ScriptingException( 'scripting-common-toofewargs',
+			throw new ScribuntoException( 'scribunto-common-toofewargs',
 				array( 'args' => array( 'mw.import' ) ) );
 		}
 
 		$title = Title::makeTitleSafe( NS_MODULE, $args[0] );
 		if ( !$title ) {
-			throw new ScriptingException( 'scripting-common-nosuchmodule' );
+			throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 		}
 		$module = $this->fetchModuleFromParser( $title );
 		return $module->getContents();
 	}
 }
 
-class LuaSandboxEngineModule extends ScriptingModuleBase {
+class LuaSandboxEngineModule extends ScribuntoModuleBase {
 	protected $initialized;
 
 	function initialize() {
@@ -86,18 +86,18 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 				'@' . $this->chunkName );
 			$output = $this->body->call();
 		} catch( LuaSandboxError $e ) {
-			throw new ScriptingException( 'scripting-luasandbox-error', 
+			throw new ScribuntoException( 'scribunto-luasandbox-error', 
 				array( 'args' => array( $e->getMessage() ) ) );
 		}
 		
 		if( !$output ) {
-			throw new ScriptingException( 'scripting-luasandbox-noreturn' );
+			throw new ScribuntoException( 'scribunto-luasandbox-noreturn' );
 		}
 		if( count( $output ) > 2 ) {
-			throw new ScriptingException( 'scripting-luasandbox-toomanyreturns' );
+			throw new ScribuntoException( 'scribunto-luasandbox-toomanyreturns' );
 		}
 		if( !is_array( $output[0] ) ) {
-			throw new ScriptingException( 'scripting-luasandbox-notarrayreturn' );
+			throw new ScribuntoException( 'scribunto-luasandbox-notarrayreturn' );
 		}
 		
 		$this->contents = $output[0];
@@ -131,12 +131,12 @@ class LuaSandboxEngineModule extends ScriptingModuleBase {
 	}
 }
 
-class LuaSandboxEngineFunction extends ScriptingFunctionBase {
+class LuaSandboxEngineFunction extends ScribuntoFunctionBase {
 	public function call( $args, $frame ) {
 		try {
 			$result = call_user_func_array( array( $this->contents, 'call' ), $args );
 		} catch( LuaSandboxError $e ) {
-			throw new ScriptingException( 'scripting-luasandbox-error', 
+			throw new ScribuntoException( 'scribunto-luasandbox-error', 
 				array( 'args' => array( $e->getMessage() ) ) );
 		}
 		

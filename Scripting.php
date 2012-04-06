@@ -23,35 +23,35 @@
 if( !defined( 'MEDIAWIKI' ) )
 	die();
 
-$wgExtensionCredits['parserhook']['Scripting'] = array(
+$wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'path'           => __FILE__,
-	'name'           => 'Scripting',
+	'name'           => 'Scribunto',
 	'author'         => 'Victor Vasiliev',
-	'descriptionmsg' => 'scripting-desc',
-	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scripting',
+	'descriptionmsg' => 'scribunto-desc',
+	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
 );
 
 $dir = dirname(__FILE__) . '/';
-$wgExtensionMessagesFiles['Scripting'] = $dir . 'Scripting.i18n.php';
-$wgExtensionMessagesFiles['ScriptingMagic'] = $dir . 'Scripting.magic.php';
-$wgExtensionMessagesFiles['ScriptingNamespaces'] = $dir . 'Scripting.namespaces.php';
+$wgExtensionMessagesFiles['Scribunto'] = $dir . 'Scribunto.i18n.php';
+$wgExtensionMessagesFiles['ScribuntoMagic'] = $dir . 'Scribunto.magic.php';
+$wgExtensionMessagesFiles['ScribuntoNamespaces'] = $dir . 'Scribunto.namespaces.php';
 
-$wgAutoloadClasses['ScriptingEngineBase'] = $dir.'common/Base.php';
-$wgAutoloadClasses['ScriptingModuleBase'] = $dir.'common/Base.php';
-$wgAutoloadClasses['ScriptingFunctionBase'] = $dir.'common/Base.php';
-$wgAutoloadClasses['ScriptingHooks'] = $dir.'common/Hooks.php';
-$wgAutoloadClasses['ScriptingException'] = $dir.'common/Common.php';
-$wgAutoloadClasses['Scripting'] = $dir.'common/Common.php';
+$wgAutoloadClasses['ScribuntoEngineBase'] = $dir.'common/Base.php';
+$wgAutoloadClasses['ScribuntoModuleBase'] = $dir.'common/Base.php';
+$wgAutoloadClasses['ScribuntoFunctionBase'] = $dir.'common/Base.php';
+$wgAutoloadClasses['ScribuntoHooks'] = $dir.'common/Hooks.php';
+$wgAutoloadClasses['ScribuntoException'] = $dir.'common/Common.php';
+$wgAutoloadClasses['Scribunto'] = $dir.'common/Common.php';
 
-$wgHooks['ParserFirstCallInit'][] = 'ScriptingHooks::setupParserHook';
-$wgHooks['ParserLimitReport'][] = 'ScriptingHooks::reportLimits';
-$wgHooks['ParserClearState'][] = 'ScriptingHooks::clearState';
+$wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
+$wgHooks['ParserLimitReport'][] = 'ScribuntoHooks::reportLimits';
+$wgHooks['ParserClearState'][] = 'ScribuntoHooks::clearState';
 
-$wgHooks['CanonicalNamespaces'][] = 'ScriptingHooks::addCanonicalNamespaces';
-$wgHooks['ArticleViewCustom'][] = 'ScriptingHooks::handleScriptView';
-$wgHooks['TitleIsWikitextPage'][] = 'ScriptingHooks::isWikitextPage';
-$wgHooks['CodeEditorGetPageLanguage'][] = 'ScriptingHooks::getCodeLanguage';
-$wgHooks['EditFilter'][] = 'ScriptingHooks::validateScript';
+$wgHooks['CanonicalNamespaces'][] = 'ScribuntoHooks::addCanonicalNamespaces';
+$wgHooks['ArticleViewCustom'][] = 'ScribuntoHooks::handleScriptView';
+$wgHooks['TitleIsWikitextPage'][] = 'ScribuntoHooks::isWikitextPage';
+$wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
+$wgHooks['EditFilter'][] = 'ScribuntoHooks::validateScript';
 
 /***** Individual engines and their configurations *****/
 
@@ -60,14 +60,14 @@ $wgAutoloadClasses['LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
 /***** Configuration *****/
 
 /**
- * The name of the default scripting engine.
+ * The name of the default script engine.
  */
-$wgScriptingDefaultEngine = 'luasandbox';
+$wgScribuntoDefaultEngine = 'luasandbox';
 
 /**
- * Configuration for each scripting engine
+ * Configuration for each script engine
  */
-$wgScriptingEngineConf = array(
+$wgScribuntoEngineConf = array(
 	'luasandbox' => array(
 		'class' => 'LuaSandboxEngine',
 		'memoryLimit' => 50 * 1024 * 1024,
@@ -78,7 +78,7 @@ $wgScriptingEngineConf = array(
 /**
  * Script namespace numbers.
  */
-$wgScriptingNamespaceNumbers = array(
+$wgScribuntoNamespaceNumbers = array(
 	'Module' => 20,
 	'Module_talk' => 21,
 );
@@ -86,17 +86,17 @@ $wgScriptingNamespaceNumbers = array(
 /**
  * Turn on to true if SyntaxHighlight_GeSHi extension is enabled.
  */
-$wgScriptingUseGeSHi = false;
+$wgScribuntoUseGeSHi = false;
 
 /**
  * Turn on to true if CodeEditor extension is enabled.
  */
-$wgScriptingUseCodeEditor = false;
+$wgScribuntoUseCodeEditor = false;
 
-function efDefineScriptingNamespace() {
-	global $wgScriptingNamespaceNumbers;
-	define( 'NS_MODULE', $wgScriptingNamespaceNumbers['Module'] );
-	define( 'NS_MODULE_TALK', $wgScriptingNamespaceNumbers['Module_talk'] );
+function efDefineScribuntoNamespace() {
+	global $wgScribuntoNamespaceNumbers;
+	define( 'NS_MODULE', $wgScribuntoNamespaceNumbers['Module'] );
+	define( 'NS_MODULE_TALK', $wgScribuntoNamespaceNumbers['Module_talk'] );
 }
 
-$wgExtensionFunctions[] = 'efDefineScriptingNamespace';
+$wgExtensionFunctions[] = 'efDefineScribuntoNamespace';

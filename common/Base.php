@@ -22,11 +22,11 @@
  */
 
 /**
- * Base class for all scripting engines. Includes all code
+ * Base class for all script engines. Includes all code
  * not related to particular modules, like tracking links between
  * modules or loading module texts.
  */
-abstract class ScriptingEngineBase {
+abstract class ScribuntoEngineBase {
 	protected
 		$parser,
 		$options,
@@ -58,12 +58,12 @@ abstract class ScriptingEngineBase {
 	 * text is garbage or has syntax error. Returns a module or throws an exception.
 	 *
 	 * @param $title The title of the module
-	 * @return ScriptingEngineModule
+	 * @return ScribuntoEngineModule
 	 */
 	function fetchModuleFromParser( Title $title ) {
 		list( $text, $finalTitle ) = $this->parser->fetchTemplateAndTitle( $title );
 		if ( $text === false ) {
-			throw new ScriptingException( 'scripting-common-nosuchmodule' );
+			throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 		}
 
 		$key = $finalTitle->getPrefixedDBkey();
@@ -86,7 +86,7 @@ abstract class ScriptingEngineBase {
 
 		try {
 			$module->initialize();
-		} catch( ScriptingException $e ) {
+		} catch( ScribuntoException $e ) {
 			return array( $e->getMessage() );
 		}
 
@@ -121,7 +121,7 @@ abstract class ScriptingEngineBase {
  * Class that represents a module. Responsible for initial module parsing
  * and maintaining the contents of the module.
  */
-abstract class ScriptingModuleBase {
+abstract class ScribuntoModuleBase {
 	var $engine, $code, $chunkName;
 
 	public function __construct( $engine, $code, $chunkName ) {
@@ -146,7 +146,7 @@ abstract class ScriptingModuleBase {
 	/**
 	 * Returns the object for a given function. Should return null if it does not exist.
 	 * 
-	 * @return ScriptingFunctionBase or null
+	 * @return ScribuntoFunctionBase or null
 	 */
 	abstract function getFunction( $name );
 
@@ -158,7 +158,7 @@ abstract class ScriptingModuleBase {
 	abstract function getFunctions();
 }
 
-abstract class ScriptingFunctionBase {
+abstract class ScribuntoFunctionBase {
 	protected $mName, $mContents, $mModule, $mEngine;
 	
 	public function __construct( $module, $name, $contents ) {

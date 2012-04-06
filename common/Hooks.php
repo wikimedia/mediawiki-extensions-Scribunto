@@ -21,16 +21,16 @@
  */
 
 /**
- * Hooks for the Scripting extension.
+ * Hooks for the Scribunto extension.
  */
-class ScriptingHooks {
+class ScribuntoHooks {
 	/**
 	 * Register parser hooks.
 	 * @param $parser Parser
 	 */
 	public static function setupParserHook( &$parser ) {
-		$parser->setFunctionHook( 'invoke', 'ScriptingHooks::callHook', SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'script', 'ScriptingHooks::transcludeHook', SFH_NO_HASH | SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::callHook', SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'script', 'ScribuntoHooks::transcludeHook', SFH_NO_HASH | SFH_OBJECT_ARGS );
 		return true;
 	}
 
@@ -42,7 +42,7 @@ class ScriptingHooks {
 	 * @return bool
 	 */
 	public static function clearState( &$parser ) {
-		Scripting::resetParserEngine( $parser );
+		Scribunto::resetParserEngine( $parser );
 		return true;
 	}
 
@@ -56,7 +56,7 @@ class ScriptingHooks {
 	 */
 	public static function callHook( &$parser, $frame, $args ) {
 		if( count( $args ) < 2 ) {
-			throw new ScriptingException( 'scripting-common-nofunction' );
+			throw new ScribuntoException( 'scribunto-common-nofunction' );
 		}
 
 		$module = $parser->mStripState->unstripBoth( array_shift( $args ) );
@@ -84,22 +84,22 @@ class ScriptingHooks {
 	 * @param $functionName
 	 * @param $args
 	 * @return string
-	 * @throws ScriptingException
+	 * @throws ScribuntoException
 	 */
 	private static function doRunHook( $parser, $frame, $moduleName, $functionName, $args ) {
 		wfProfileIn( __METHOD__ );
 		
 		try {
-			$engine = Scripting::getParserEngine( $parser );
+			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title ) {
-				throw new ScriptingException( 'scripting-common-nosuchmodule' );
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
 
 			$functionObj = $module->getFunction( $functionName );
 			if( !$functionObj ) {
-				throw new ScriptingException( 'scripting-common-nosuchfunction' );
+				throw new ScribuntoException( 'scribunto-common-nosuchfunction' );
 			}
 
 			foreach( $args as &$arg ) {
@@ -110,7 +110,7 @@ class ScriptingHooks {
 
 			wfProfileOut( __METHOD__ );
 			return trim( strval( $result ) );
-		} catch( ScriptingException $e ) {
+		} catch( ScribuntoException $e ) {
 			$msg = $e->getMessage();
 			wfProfileOut( __METHOD__ );
 			return "<strong class=\"error\">{$msg}</strong>";
@@ -127,13 +127,13 @@ class ScriptingHooks {
 	 * @return bool
 	 */
 	public static function handleScriptView( $text, $title, $output ) {
-		global $wgScriptingUseGeSHi;
+		global $wgScribuntoUseGeSHi;
 
 		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::newDefaultEngine();
+			$engine = Scribunto::newDefaultEngine();
 			$language = $engine->getGeSHiLanguage();
 			
-			if( $wgScriptingUseGeSHi && $language ) {
+			if( $wgScribuntoUseGeSHi && $language ) {
 				$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
 				$geshi->set_language( $language );
 				if( $geshi instanceof GeSHi && !$geshi->error() ) {
@@ -157,9 +157,9 @@ class ScriptingHooks {
 	}
 	
 	public static function getCodeLanguage( $title, &$lang ) {
-		global $wgScriptingUseCodeEditor;
-		if( $wgScriptingUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::newDefaultEngine();
+		global $wgScribuntoUseCodeEditor;
+		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
+			$engine = Scribunto::newDefaultEngine();
 			if( $engine->getCodeEditorLanguage() ) {
 				$lang = $engine->getCodeEditorLanguage();
 				return false;
@@ -193,7 +193,7 @@ class ScriptingHooks {
 	public static function reportLimits( $parser, &$report ) {
 		# FIXME
 		global $wgScriptsLimits;
-		$engine = Scripting::getParserEngine( $parser );
+		$engine = Scribunto::getParserEngine( $parser );
 		$report .= $engine->getLimitReport();
 		return true;
 	}
@@ -212,13 +212,13 @@ class ScriptingHooks {
 		$title = $editor->mTitle;
 
 		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scripting::newDefaultEngine();
+			$engine = Scribunto::newDefaultEngine();
 			$errors = $engine->validate( $text, $title->getPrefixedDBkey() );
 			if( !$errors ) {
 				return true;
 			}
 
-			$errmsg = wfMsgExt( 'scripting-error', array( 'parsemag' ), array( count( $errors ) ) );
+			$errmsg = wfMsgExt( 'scribunto-error', array( 'parsemag' ), array( count( $errors ) ) );
 			if( count( $errors ) == 1 ) {
 				$errlines = ': ' . wfEscapeWikiText( $errors[0] );
 			} else {
