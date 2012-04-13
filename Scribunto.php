@@ -55,7 +55,15 @@ $wgHooks['EditFilter'][] = 'ScribuntoHooks::validateScript';
 
 /***** Individual engines and their configurations *****/
 
-$wgAutoloadClasses['LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaEngine'] = $dir.'engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaModule'] = $dir.'engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaFunction'] = $dir.'engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaInterpreter'] = $dir.'engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneEngine'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreter'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreterFunction'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
+
 
 /***** Configuration *****/
 
@@ -69,7 +77,20 @@ $wgScribuntoDefaultEngine = 'luasandbox';
  */
 $wgScribuntoEngineConf = array(
 	'luasandbox' => array(
-		'class' => 'LuaSandboxEngine',
+		'class' => 'Scribunto_LuaSandboxEngine',
+		'memoryLimit' => 50 * 1024 * 1024,
+		'cpuLimit' => 7,
+	),
+	'luastandalone' => array(
+		'class' => 'Scribunto_LuaStandaloneEngine',
+
+		// A filename to act as the destination for stderr from the Lua
+		// binary. This may provide useful error information if Lua fails to 
+		// run. Set this to null to discard stderr output.
+		'errorFile' => null,
+
+		// The location of the Lua binary, or null to use the bundled binary.
+		'luaPath' => null,
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
 	),

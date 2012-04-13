@@ -191,10 +191,10 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function reportLimits( $parser, &$report ) {
-		# FIXME
-		global $wgScriptsLimits;
-		$engine = Scribunto::getParserEngine( $parser );
-		$report .= $engine->getLimitReport();
+		if ( Scribunto::isParserEnginePresent( $parser ) ) {
+			$engine = Scribunto::getParserEngine( $parser );
+			$report .= $engine->getLimitReport();
+		}
 		return true;
 	}
 

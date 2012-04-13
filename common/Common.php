@@ -39,10 +39,17 @@ class Scribunto {
 	 * @param Parser $parser
 	 */
 	public static function getParserEngine( $parser ) {
-		if( !isset( $parser->scribunto_engine ) || !$parser->scribunto_engine ) {
+		if( empty( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
 		}
 		return $parser->scribunto_engine;
+	}
+
+	/**
+	 * Check if an engine instance is present in the given parser
+	 */
+	public static function isParserEnginePresent( $parser ) {
+		return !empty( $parser->scribunto_engine );
 	}
 
 	/**

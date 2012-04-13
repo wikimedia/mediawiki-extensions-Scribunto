@@ -55,7 +55,8 @@ abstract class ScribuntoEngineBase {
 	 * register a parser output dependency.
 	 *
 	 * Does not initialize the module, i.e. do not expect it to complain if the module
-	 * text is garbage or has syntax error. Returns a module or throws an exception.
+	 * text is garbage or has syntax error. Returns a module or throws a 
+	 * ScribuntoException.
 	 *
 	 * @param $title The title of the module
 	 * @return ScribuntoEngineModule
