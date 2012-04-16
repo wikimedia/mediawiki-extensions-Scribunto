@@ -53,6 +53,8 @@ $wgHooks['TitleIsWikitextPage'][] = 'ScribuntoHooks::isWikitextPage';
 $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
 $wgHooks['EditFilter'][] = 'ScribuntoHooks::validateScript';
 
+$wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
+
 /***** Individual engines and their configurations *****/
 
 $wgAutoloadClasses['Scribunto_LuaEngine'] = $dir.'engines/LuaCommon/LuaCommon.php';

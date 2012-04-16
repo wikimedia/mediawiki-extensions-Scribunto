@@ -106,6 +106,15 @@ On failure, the response message is:
 * op: "return"
 * values: An empty array
 
+=== quit ===
+
+Request graceful shutdown.
+
+Message parameters:
+* op: "quit"
+
+No return message will be sent.
+
 == Request messages sent from Lua to PHP ==
 
 === call ===

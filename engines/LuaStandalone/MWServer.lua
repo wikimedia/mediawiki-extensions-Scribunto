@@ -35,7 +35,7 @@ function MWServer:call( id, args )
 		args = args
 	} )
 	if result.op == 'return' then
-		return result.values
+		return unpack( result.values )
 	elseif result.op == 'error' then
 		-- Raise an error in the actual user code that called the function
 		-- The level is 3 since our immediate caller is a closure
@@ -109,8 +109,8 @@ function MWServer:handleRegisterLibrary( message )
 	end
 
 	for name, id in pairs( message.functions ) do
-		t[name] = function()
-			return self:call( id, { select( 1 ) } )
+		t[name] = function( ... )
+			return self:call( id, { ... } )
 		end
 		-- Protect the function against setfenv()
 		self.protectedFunctions[t[name]] = true
@@ -137,16 +137,15 @@ function MWServer:handleGetStatus( message )
 	for token in string.gmatch(s, '[^ ]+') do
 		t[#t + 1] = token
 	end
-	if #t < 21 then
+	if #t < 22 then
 		return nullRet
 	end
 	return {
 		op = 'return',
 		values = {{
-			pid = t[1],
+			pid = tonumber(t[1]),
 			time = tonumber(t[14]) + tonumber(t[15]) + tonumber(t[16]) + tonumber(t[17]),
-			vsize = t[22],
-			rss = t[23],
+			vsize = tonumber(t[23]),
 		}}
 	}
 end
@@ -173,6 +172,8 @@ function MWServer:dispatch( msgToPhp )
 		elseif op == 'getStatus' then
 			msgToPhp = self:handleGetStatus( msgFromPhp )
 			self:sendMessage( msgToPhp )
+		elseif op == 'quit' then
+			os.exit(0)
 		else
 			error( "Invalid message operation" )
 		end
@@ -180,7 +181,11 @@ function MWServer:dispatch( msgToPhp )
 end
 
 function MWServer:debug( s )
-	io.stderr:write( s .. '\n' )
+	if ( type(s) == 'string' ) then
+		io.stderr:write( s .. '\n' )
+	else
+		io.stderr:write( self:serialize( s ) .. '\n' )
+	end
 end
 
 function MWServer:ioError( header, info )
@@ -408,7 +413,7 @@ function MWServer:tostring(val)
 	end
 	local typeName = type(val)
 	local nonPointerTypes = {number = true, string = true, boolean = true, ['nil'] = true}
-	if nonPointerTypes{typeName} then
+	if nonPointerTypes[typeName] then
 		return tostring(val)
 	else
 		return typeName

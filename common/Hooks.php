@@ -237,4 +237,13 @@ HTML;
 
 		return true;
 	}
+
+	public static function unitTestsList( &$files ) {
+		$files[] = dirname( __FILE__ ) .
+			'/../tests/engines/LuaStandalone/LuaStandaloneInterpreterTest.php';
+		$files[] = dirname( __FILE__ ) .
+			'/../tests/engines/LuaSandbox/LuaSandboxInterpreterTest.php';
+		return true;
+	}
+
 }

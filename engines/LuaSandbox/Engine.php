@@ -20,7 +20,10 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	var $engine, $sandbox, $libraries;
 
 	function __construct( $engine, $options ) {
-		wfDebug( __METHOD__ . "\n" );
+		if ( !extension_loaded( 'luasandbox' ) ) {
+			throw new MWException( 'The luasandbox extension is not present, ' . 
+				'this engine cannot be used.' );
+		}
 		$this->engine = $engine;
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $options['memoryLimit'] );
@@ -28,7 +31,6 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function loadString( $text, $chunkName ) {
-		wfDebug( __METHOD__ . "\n" );
 		try {
 			return $this->sandbox->loadString( $text, $chunkName );
 		} catch ( LuaSandboxError $e ) {
@@ -37,7 +39,6 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 	
 	public function registerLibrary( $name, $functions ) {
-		wfDebug( __METHOD__ . "\n" );
 		$realLibrary = array();
 		foreach ( $functions as $funcName => $callback ) {
 			$realLibrary[$funcName] = array(
@@ -52,18 +53,18 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function callFunction( $func /*, ... */ ) {
-		wfDebug( __METHOD__ . "\n" );
 		$args = func_get_args();
 		$func = array_shift( $args );
 		try {
 			return call_user_func_array( array( $func, 'call' ), $args );
+		} catch ( LuaSandboxTimeoutError $e ) {
+			throw new ScribuntoException( 'scribunto-common-timeout' );
 		} catch ( LuaSandboxError $e ) {
 			throw new Scribunto_LuaError( $e->getMessage() );
 		}
 	}
 
 	public function getMemoryUsage() {
-		wfDebug( __METHOD__ . "\n" );
 		return $this->sandbox->getMemoryUsage();
 	}
 }
@@ -74,7 +75,6 @@ class Scribunto_LuaSandboxCallback {
 	}
 
 	function call( /*...*/ ) {
-		wfDebug( __METHOD__ . "\n" );
 		$args = func_get_args();
 		try {
 			return call_user_func_array( $this->callback, $args );

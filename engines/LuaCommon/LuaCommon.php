@@ -59,7 +59,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @param $msgType The type name used in the error message
 	 */
 	public function checkType( $funcName, $args, $index0, $type, $msgType ) {
-		if ( !isset( $args[$index0] ) || gettype( $args[$index0] !== $type ) ) {
+		if ( !isset( $args[$index0] ) || gettype( $args[$index0] ) !== $type ) {
 			$index1 = $index0 + 1;
 			throw new Scribunto_LuaError( "bad argument #$index1 to '$funcName' ($msgType expected)" );
 		}

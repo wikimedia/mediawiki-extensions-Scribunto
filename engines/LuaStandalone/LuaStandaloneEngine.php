@@ -2,36 +2,7 @@
 
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	static $clockTick;
-
-	function __construct( $options ) {
-		parent::__construct( $options );
-
-		if ( $this->options['errorFile'] === null ) {
-			$this->options['errorFile'] = wfGetNull();
-		}
-		if ( $this->options['luaPath'] === null ) {
-			$path = false;
-
-			if ( PHP_OS == 'Linux' ) {
-				/*if ( PHP_INT_SIZE == 4 ) {
-					$path = 'lua5_1_5_linux_32_generic/lua';
-				} else*/if ( PHP_INT_SIZE == 8 ) {
-					$path = 'lua5_1_5_linux_64_generic/lua';
-				}
-			} elseif ( PHP_OS == 'Windows' ) {
-				if ( PHP_INT_SIZE == 4 ) {
-					$path = 'lua5_1_4_Win32_bin/lua5.1.exe';
-				} elseif ( PHP_INT_SIZE == 8 ) {
-					$path = 'lua5_1_4_Win64_bin/lua5.1.exe';
-				}
-			}
-			if ( $path === false ) {
-				throw new MWException( 'No Lua interpreter was given in the configuration, ' . 
-					"and no bundled binary exists for this platform ($machine)" );
-			}
-			$this->options['luaPath'] = dirname( __FILE__ ) . "/binaries/$path";
-		}
-	}
+	var $initialStatus;
 
 	public function load() {
 		parent::load();
@@ -81,6 +52,32 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	function __construct( $engine, $options ) {
 		global $IP;
 
+		if ( $options['errorFile'] === null ) {
+			$options['errorFile'] = wfGetNull();
+		}
+		if ( $options['luaPath'] === null ) {
+			$path = false;
+
+			if ( PHP_OS == 'Linux' ) {
+				if ( PHP_INT_SIZE == 4 ) {
+					$path = 'lua5_1_5_linux_32_generic/lua';
+				} elseif ( PHP_INT_SIZE == 8 ) {
+					$path = 'lua5_1_5_linux_64_generic/lua';
+				}
+			} elseif ( PHP_OS == 'Windows' ) {
+				if ( PHP_INT_SIZE == 4 ) {
+					$path = 'lua5_1_4_Win32_bin/lua5.1.exe';
+				} elseif ( PHP_INT_SIZE == 8 ) {
+					$path = 'lua5_1_4_Win64_bin/lua5.1.exe';
+				}
+			}
+			if ( $path === false ) {
+				throw new MWException( 'No Lua interpreter was given in the configuration, ' . 
+					"and no bundled binary exists for this platform" );
+			}
+			$options['luaPath'] = dirname( __FILE__ ) . "/binaries/$path";
+		}
+
 		$this->engine = $engine;
 		$this->enableDebug = !empty( $options['debug'] );
 
@@ -92,7 +89,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
-				'bash',
+				'/bin/sh',
 				dirname( __FILE__ ) . '/lua_ulimit.sh', 
 				$options['cpuLimit'], # soft limit (SIGXCPU)
 				$options['cpuLimit'] + 1, # hard limit
@@ -128,6 +125,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			proc_close( $this->proc );
 			$this->proc = false;
 		}
+	}
+
+	public function quit() {
+		if ( !$this->proc ) {
+			return;
+		}
+		$this->dispatch( array( 'op' => 'quit' ) );
+		proc_close( $this->proc );
 	}
 
 	public function loadString( $text, $chunkName ) {
@@ -288,8 +293,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			case 'array':
 				$s = '{';
 				foreach ( $var as $key => $element ) {
+					if ( $s !== '{' ) {
+						$s .= ',';
+					}
 					$s .= '[' . $this->encodeLuaVar( $key, $level + 1 ) . ']' .
-						'=' . $this->encodeLuaVar( $element, $level + 1 ) . ',';
+						'=' . $this->encodeLuaVar( $element, $level + 1 );
 				}
 				$s .= '}';
 				return $s;
@@ -338,12 +346,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			proc_close( $this->proc );
 			$this->proc = false;
 			if ( $status['signaled'] ) {
-				if ( defined( 'SIGXCPU' && $status['termsig'] == SIGXCPU ) ) {
-					throw new ScribuntoException( 'scribunto-common-timeout' );
-				} else {
-					throw new ScribuntoException( 'scribunto-luastandalone-signal',
-						array( 'args' => array( $status['termsig'] ) ) );
-				}
+				throw new ScribuntoException( 'scribunto-luastandalone-signal',
+					array( 'args' => array( $status['termsig'] ) ) );
+			} elseif ( defined( 'SIGXCPU' ) && $status['exitcode'] == 128 + SIGXCPU ) {
+				throw new ScribuntoException( 'scribunto-common-timeout' );
 			} else {
 				throw new ScribuntoException( 'scribunto-luastandalone-exited',
 					array( 'args' => array( $status['exitcode'] ) ) );
