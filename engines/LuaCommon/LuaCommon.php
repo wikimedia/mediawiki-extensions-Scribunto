@@ -15,10 +15,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			return;
 		}
 
-		if( !MWInit::classExists( 'luasandbox' ) ) {
-			throw new MWException( 'luasandbox PHP extension is not installed' );
-		}
-
 		$this->interpreter = $this->newInterpreter();
 		$this->interpreter->registerLibrary( 'mw', array( 'import' => array( $this, 'importModule' ) ) );
 		$module = $this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/mw.lua' );
