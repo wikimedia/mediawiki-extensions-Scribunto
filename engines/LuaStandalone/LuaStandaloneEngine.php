@@ -187,9 +187,13 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				'op' => 'error',
 				'value' => $e->getLuaMessage() );
 		}
+
+		// Convert to a 1-based array
+		$result = array_combine( range( 1, count( $result ) ), $result );
+
 		return array(
 			'op' => 'return',
-			'values' => array( 1 => $result )
+			'values' => $result
 		);
 	}
 

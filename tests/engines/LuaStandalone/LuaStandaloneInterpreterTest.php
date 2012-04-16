@@ -74,7 +74,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends MediaWikiTestCase {
 		$finalArgs = $args;
 		array_unshift( $finalArgs, $doublePassthru );
 		$ret = call_user_func_array( array( $interpreter, 'callFunction' ), $finalArgs );
-		$ret = $this->normalizeOrder( $ret[0] );
+		$ret = $this->normalizeOrder( $ret );
 		$this->assertSame( $args, $ret );
 	}
 

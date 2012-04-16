@@ -91,7 +91,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			throw new Scribunto_LuaError( 'no such module' );
 		}
 		$module = $this->fetchModuleFromParser( $title );
-		return $module->getContents();
+		return array( $module->getContents() );
 	}
 }
 
