@@ -65,21 +65,21 @@ class Scribunto {
  * normally abort the request, instead it is caught and shown to the user.
  */
 class ScribuntoException extends MWException {
-	var $messageName, $params;
+	var $messageName, $messageArgs, $params;
 
 	function __construct( $messageName, $params = array() ) {
 		if ( isset( $params['args'] ) ) {
-			$args = $params['args'];
+			$this->messageArgs = $params['args'];
 		} else {
-			$args = array();
+			$this->messageArgs = array();
 		}
 		if ( isset( $params['module'] ) && isset( $params['line'] ) ) {
 			$codelocation = wfMsg( 'scribunto-codelocation', $params['module'], $params['line'] );
 		} else {
 			$codelocation = '[UNKNOWN]'; // should never happen
 		}
-		array_unshift( $args, $codelocation );
-		$msg = wfMsgExt( $messageName, array(), $args );
+		array_unshift( $this->messageArgs, $codelocation );
+		$msg = wfMsgExt( $messageName, array(), $this->messageArgs );
 		parent::__construct( $msg );
 
 		$this->messageName = $messageName;
@@ -88,5 +88,10 @@ class ScribuntoException extends MWException {
 
 	public function getMessageName() {
 		return $this->messageName;
+	}
+
+	public function toStatus() {
+		$args = array_merge( array( $this->messageName ), $this->messageArgs );
+		return call_user_func_array( array( 'Status', 'newFatal' ), $args );
 	}
 }

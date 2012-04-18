@@ -96,17 +96,13 @@ class ScribuntoHooks {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
-
-			$functionObj = $module->getFunction( $functionName );
-			if( !$functionObj ) {
-				throw new ScribuntoException( 'scribunto-common-nosuchfunction' );
+			if ( !$module ) {
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
-
 			foreach( $args as &$arg ) {
 				$arg = $frame->expand( $arg );
 			}
-
-			$result = $functionObj->call( $args, $frame );
+			$result = $module->invoke( $functionName, $args, $frame );
 
 			wfProfileOut( __METHOD__ );
 			return trim( strval( $result ) );
@@ -213,21 +209,15 @@ class ScribuntoHooks {
 
 		if( $title->getNamespace() == NS_MODULE ) {
 			$engine = Scribunto::newDefaultEngine();
-			$errors = $engine->validate( $text, $title->getPrefixedDBkey() );
-			if( !$errors ) {
+			$status = $engine->validate( $text, $title->getPrefixedDBkey() );
+			if( $status->isOK() ) {
 				return true;
 			}
 
-			$errmsg = wfMsgExt( 'scribunto-error', array( 'parsemag' ), array( count( $errors ) ) );
-			if( count( $errors ) == 1 ) {
-				$errlines = ': ' . wfEscapeWikiText( $errors[0] );
-			} else {
-				$errlines = '* ' . implode( "\n* ", array_map( 'wfEscapeWikiText', $errors ) );
-			}
+			$errmsg = $status->getWikiText( 'scribunto-error-short', 'scribunto-error-long' );
 			$error = <<<HTML
 <div class="errorbox">
 {$errmsg}
-{$errlines}
 </div>
 <br clear="all" />
 HTML;

@@ -55,8 +55,7 @@ abstract class ScribuntoEngineBase {
 	 * register a parser output dependency.
 	 *
 	 * Does not initialize the module, i.e. do not expect it to complain if the module
-	 * text is garbage or has syntax error. Returns a module or throws a 
-	 * ScribuntoException.
+	 * text is garbage or has syntax error. Returns a module or null if it doesn't exist.
 	 *
 	 * @param $title The title of the module
 	 * @return ScribuntoEngineModule
@@ -64,7 +63,7 @@ abstract class ScribuntoEngineBase {
 	function fetchModuleFromParser( Title $title ) {
 		list( $text, $finalTitle ) = $this->parser->fetchTemplateAndTitle( $title );
 		if ( $text === false ) {
-			throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
+			return null;
 		}
 
 		$key = $finalTitle->getPrefixedDBkey();
@@ -75,23 +74,16 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
-	 * Validates the script and returns an array of the syntax errors for the
-	 * given code.
+	 * Validates the script and returns a Status object containing the syntax 
+	 * errors for the given code.
 	 * 
 	 * @param $code Code to validate
 	 * @param $title Title of the code page
-	 * @return array
+	 * @return Status
 	 */
 	function validate( $text, $chunkName = false ) {
 		$module = $this->newModule( $text, $chunkName );
-
-		try {
-			$module->initialize();
-		} catch( ScribuntoException $e ) {
-			return array( $e->getMessage() );
-		}
-
-		return array();
+		return $module->validate();
 	}
 
 	/**
@@ -137,48 +129,20 @@ abstract class ScribuntoModuleBase {
 	public function getChunkName()  { return $this->chunkName; }
 
 	/**
-	 * Initialize the module. That means parse it and load the
-	 * functions/constants/whatever into the object.
+	 * Validates the script and returns a Status object containing the syntax 
+	 * errors for the given code.
 	 * 
-	 * Protection of double-initialization is the responsibility of this method.
+	 * @param $code Code to validate
+	 * @param $title Title of the code page
+	 * @return Status
 	 */
-	abstract function initialize();
+	abstract public function validate();
 	
 	/**
-	 * Returns the object for a given function. Should return null if it does not exist.
+	 * Invoke the function with the specified name.
 	 * 
-	 * @return ScribuntoFunctionBase or null
+	 * @return string
 	 */
-	abstract function getFunction( $name );
-
-	/**
-	 * Returns the list of the functions in the module.
-	 * 
-	 * @return array(string)
-	 */
-	abstract function getFunctions();
+	abstract public function invoke( $name, $args, $frame );
 }
 
-abstract class ScribuntoFunctionBase {
-	protected $mName, $mContents, $mModule, $mEngine;
-	
-	public function __construct( $module, $name, $contents ) {
-		$this->name = $name;
-		$this->contents = $contents;
-		$this->module = $module;
-		$this->engine = $module->getEngine();
-	}
-	
-	/**
-	 * Calls the function. Returns its first result or null if no result.
-	 * 
-	 * @param $args array Arguments to the function
-	 * @param $frame PPFrame 
-	 */
-	abstract public function call( $args, $frame );
-	
-	/** Accessors **/
-	public function getName()   { return $this->name; }
-	public function getModule() { return $this->module; }
-	public function getEngine() { return $this->engine; }
-}

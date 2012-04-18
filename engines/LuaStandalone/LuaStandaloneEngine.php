@@ -47,7 +47,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 }
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
-	var $engine, $enableDebug, $proc, $writePipe, $readPipe;
+	var $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError;
 
 	function __construct( $engine, $options ) {
 		global $IP;
@@ -85,7 +85,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$cmd = wfEscapeShellArg(
 			$options['luaPath'], 
 			dirname( __FILE__ ) . '/mw_main.lua',
-			dirname( __FILE__ ) );
+			dirname( dirname( dirname( __FILE__ ) ) ) );
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
@@ -189,7 +189,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 
 		// Convert to a 1-based array
-		$result = array_combine( range( 1, count( $result ) ), $result );
+		if ( count( $result ) ) {
+			$result = array_combine( range( 1, count( $result ) ), $result );
+		}
 
 		return array(
 			'op' => 'return',
@@ -229,7 +231,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	protected function sendMessage( $msg ) {
-		$this->debug( "==> {$msg['op']}" );
+		$this->debug( "TX ==> {$msg['op']}" );
 		$this->checkValid();
 		// Send the message
 		$encMsg = $this->encodeMessage( $msg );
@@ -258,7 +260,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			throw new ScribuntoException( 'scribunto-luastandalone-read-error' );
 		}
 		$msg = unserialize( $body );
-		$this->debug( "<== {$msg['op']}" );
+		$this->debug( "RX <== {$msg['op']}" );
 		return $msg;
 	}
 
@@ -291,6 +293,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 						'"' => '\\"',
 						'\\' => '\\\\',
 						"\n" => '\\n',
+						"\r" => '\\r',
 						"\000" => '\\000',
 					) ) .
 					'"';
@@ -338,7 +341,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	protected function checkValid() {
 		if ( !$this->proc ) {
 			wfDebug( __METHOD__ . ": process already terminated\n" );
-			throw new ScribuntoException( 'scribunto-luastandalone-gone' );
+			if ( $this->exitError ) {
+				throw $this->exitError;
+			} else {
+				throw new ScribuntoException( 'scribunto-luastandalone-gone' );
+			}
 		}
 	}
 
@@ -350,14 +357,15 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			proc_close( $this->proc );
 			$this->proc = false;
 			if ( $status['signaled'] ) {
-				throw new ScribuntoException( 'scribunto-luastandalone-signal',
+				$this->exitError = new ScribuntoException( 'scribunto-luastandalone-signal',
 					array( 'args' => array( $status['termsig'] ) ) );
 			} elseif ( defined( 'SIGXCPU' ) && $status['exitcode'] == 128 + SIGXCPU ) {
-				throw new ScribuntoException( 'scribunto-common-timeout' );
+				$this->exitError = new ScribuntoException( 'scribunto-common-timeout' );
 			} else {
-				throw new ScribuntoException( 'scribunto-luastandalone-exited',
+				$this->exitError = new ScribuntoException( 'scribunto-luastandalone-exited',
 					array( 'args' => array( $status['exitcode'] ) ) );
 			}
+			throw $this->exitError;
 		}
 	}
 

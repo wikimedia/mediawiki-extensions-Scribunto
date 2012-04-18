@@ -1,10 +1,12 @@
 MWServer = {}
 
+--- Create a new MWServer object
 function MWServer:new()
 	obj = {
 		chunks = {},
 		xchunks = {},
 		protectedFunctions = {},
+		protectedEnvironments = {},
 		baseEnv = {}
 	}
 	setmetatable( obj, self )
@@ -15,6 +17,7 @@ function MWServer:new()
 	return obj
 end
 
+--- Initialise a new MWServer object
 function MWServer:init()
 	self.baseEnv = self:newEnvironment()
 	for funcName, func in pairs( self ) do
@@ -22,12 +25,22 @@ function MWServer:init()
 			self.protectedFunctions[func] = true
 		end
 	end
+	self.protectedEnvironments[_G] = true
 end
 
+--- Serve requests until exit is requested
 function MWServer:execute()
 	self:dispatch( nil )
+	self:debug( 'MWServer:execute: returning' )
 end
 
+--- Call a PHP function
+-- Raise an error if the PHP handler requests it. May return any number
+-- of values.
+--
+-- @param id The function ID, specified by a registerLibrary message
+-- @param args The function arguments
+-- @return The return values from the PHP function
 function MWServer:call( id, args )
 	local result = self:dispatch( {
 		op = 'call',
@@ -41,10 +54,14 @@ function MWServer:call( id, args )
 		-- The level is 3 since our immediate caller is a closure
 		error( result.value, 3 )
 	else
-		error( 'MWServer:call: unexpected result op' )
+		self:internalError( 'MWServer:call: unexpected result op' )
 	end
 end
 
+--- Handle a "call" message from PHP. Call the relevant function.
+--
+-- @param message The message from PHP
+-- @return A response message to send back to PHP
 function MWServer:handleCall( message )
 	local result = { pcall( self.chunks[message.id], unpack( message.args ) ) }
 	if (result[1]) then
@@ -61,6 +78,11 @@ function MWServer:handleCall( message )
 	end
 end
 
+--- Handle a "loadString" message from PHP. 
+-- Load the function and return a chunk ID.
+--
+-- @param message The message from PHP
+-- @return A response message to send back to PHP
 function MWServer:handleLoadString( message )
 	if string.find( message.text, '\27Lua', 1, true ) then
 		return {
@@ -84,6 +106,11 @@ function MWServer:handleLoadString( message )
 	end
 end
 
+--- Add a function value to the list of tracked chunks and return its associated ID.
+-- Adding a chunk allows it to be referred to in messages from PHP.
+--
+-- @param chunk The function value
+-- @return The chunk ID
 function MWServer:addChunk( chunk )
 	local id = #self.chunks + 1
 	self.chunks[id] = chunk
@@ -91,22 +118,18 @@ function MWServer:addChunk( chunk )
 	return id
 end
 
+--- Handle a "registerLibrary" message from PHP.
+-- Add the relevant functions to the base environment.
+--
+-- @param message The message from PHP
+-- @return The response message
 function MWServer:handleRegisterLibrary( message )
 	local startPos = 1
 	local component
-	local t = self.baseEnv
-	while startPos <= #message.name do
-		local dotPos = string.find( message.name, '.', startPos, true )
-		if not dotPos then
-			dotPos = #message.name + 1
-		end
-		component = string.sub( message.name, startPos, dotPos - 1 )
-		if t[component] == nil then
-			t[component] = {}
-		end
-		t = t[component]
-		startPos = dotPos + 1
+	if not self.baseEnv[message.name] then
+		self.baseEnv[message.name] = {}
 	end
+	local t = self.baseEnv[message.name]
 
 	for name, id in pairs( message.functions ) do
 		t[name] = function( ... )
@@ -122,6 +145,10 @@ function MWServer:handleRegisterLibrary( message )
 	}
 end
 
+--- Handle a "getStatus" message from PHP
+--
+-- @param message The request message
+-- @return The response message
 function MWServer:handleGetStatus( message )
 	local nullRet = {
 		op = 'return',
@@ -150,6 +177,19 @@ function MWServer:handleGetStatus( message )
 	}
 end
 
+--- The main request/response loop
+--
+-- Send a request message and return its matching reply message. Handle any 
+-- intervening requests (i.e. re-entrant calls) by dispatching them to the
+-- relevant handler function.
+--
+-- The request message may optionally be omitted, to listen for request messages
+-- without first sending a request of its own. Such a dispatch() call will 
+-- continue running until termination is requested by PHP. Typically, PHP does 
+-- this with a SIGTERM signal.
+--
+-- @param msgToPhp The message to send to PHP. Optional.
+-- @return The matching response message
 function MWServer:dispatch( msgToPhp )
 	if msgToPhp then
 		self:sendMessage( msgToPhp )
@@ -173,13 +213,20 @@ function MWServer:dispatch( msgToPhp )
 			msgToPhp = self:handleGetStatus( msgFromPhp )
 			self:sendMessage( msgToPhp )
 		elseif op == 'quit' then
+			self:debug( 'MWServer:dispatch: quit message received' )
 			os.exit(0)
 		else
-			error( "Invalid message operation" )
+			self:internalError( "Invalid message operation" )
 		end
 	end
 end
 
+--- Write a message to the debug output stream.
+-- Some day this may be configurable, currently it just unconditionally writes
+-- the message to stderr. The PHP host will redirect those errors to /dev/null
+-- by default, but it can be configured to send them to a file.
+--
+-- @param s The message
 function MWServer:debug( s )
 	if ( type(s) == 'string' ) then
 		io.stderr:write( s .. '\n' )
@@ -188,19 +235,39 @@ function MWServer:debug( s )
 	end
 end
 
+--- Raise an internal error
+-- Write a message to stderr and then exit with a failure status. This should 
+-- be called for errors which cannot be allowed to be caught with pcall(). 
+--
+-- This must be used for protocol errors, or indeed any error from a context 
+-- where a dispatch() call lies between the error source and a possible pcall()
+-- handler. If dispatch() were terminated by a regular error() call, the 
+-- resulting protocol violation could lead to a deadlock.
+--
+-- @param msg The error message
+function MWServer:internalError( msg )
+	io.stderr:write( debug.traceback( msg ) .. '\n' )
+	os.exit( 1 )
+end
+
+--- Raise an I/O error
+-- Helper function for errors from the io and file modules, which may optionally
+-- return an informative error message as their second return value.
 function MWServer:ioError( header, info )
 	if type( info) == 'string' then
-		error( header .. ': ' .. info, 2 )
+		self:internalError( header .. ': ' .. info )
 	else
-		error( header, 2 )
+		self:internalError( header )
 	end
 end
 
+--- Send a message to PHP
+-- @param msg The message table
 function MWServer:sendMessage( msg )
 	if not msg.op then
-		error( "MWServer:sendMessage: invalid message", 2 )
+		self:internalError( "MWServer:sendMessage: invalid message", 2 )
 	end
-	self:debug('==> ' .. msg.op)
+	self:debug('TX ==> ' .. msg.op)
 	local encMsg = self:encodeMessage( msg )
 	local success, errorMsg = io.stdout:write( encMsg )
 	if not success then
@@ -209,6 +276,8 @@ function MWServer:sendMessage( msg )
 	io.stdout:flush()
 end
 
+--- Wait for a message from PHP and then decode and return it as a table
+-- @return The received message
 function MWServer:receiveMessage()
 	-- Read the header
 	local header, errorMsg = io.stdin:read( 16 )
@@ -233,10 +302,14 @@ function MWServer:receiveMessage()
 
 	-- Unserialize it
 	msg = self:unserialize( body )
-	self:debug('<== ' .. msg.op)
+	self:debug('RX <== ' .. msg.op)
+	if msg.op == 'error' then
+		self:debug( 'Error: ' .. tostring( msg.value ) )
+	end
 	return msg
 end
 
+--- Encode a message for sending to PHP
 function MWServer:encodeMessage( message )
 	local serialized = self:serialize( message )
 	local length = #serialized
@@ -244,6 +317,9 @@ function MWServer:encodeMessage( message )
 	return string.format( '%08x%08x%s', length, check, serialized )
 end
 
+--- Convert a value to a string suitable for passing to PHP's unserialize().
+--
+-- @param var The value.
 function MWServer:serialize( var )
 	local done = {}
 	local int_min = -2147483648
@@ -315,8 +391,14 @@ function MWServer:serialize( var )
 	return recursiveEncode( var, 0 )
 end
 
+--- Convert a Lua expression string to its corresponding value. 
+-- Convert any references of the form chunk[id] to the corresponding function
+-- values.
 function MWServer:unserialize( text )
 	local func = loadstring( 'return ' .. text )
+	if not func then
+		self:internalError( "MWServer:unserialize: invalid chunk" )
+	end
 	-- Don't waste JIT cache space by storing every message in it
 	if jit then
 		jit.off( func )
@@ -325,49 +407,32 @@ function MWServer:unserialize( text )
 	return func()
 end
 
+--- Decode a message header.
+-- @param header The header string
+-- @return The body length
 function MWServer:decodeHeader( header )
 	local length = string.sub( header, 1, 8 )
 	local check = string.sub( header, 9, 16 )
 	if not string.match( length, '^%x+$' ) or not string.match( check, '^%x+$' ) then
-		error( "Error decoding message header: " .. length .. '/' .. check )
+		self:internalError( "Error decoding message header: " .. length .. '/' .. check )
 	end
 	length = tonumber( length, 16 )
 	check = tonumber( check, 16 )
 	if length * 2 - 1 ~= check then
-		error( "Error decoding message header" )
+		self:internalError( "Error decoding message header" )
 	end
 	return length
 end
 
-function MWServer:clone( val )
-	local tableRefs = {}
-	local function recursiveClone( val )
-		if type( val ) == 'table' then
-			-- Encode circular references correctly
-			if tableRefs[val] ~= nil then
-				return tableRefs[val]
-			end
-
-			local retVal
-			retVal = {}
-			tableRefs[val] = retVal
-			for key, elt in pairs( val ) do
-				retVal[key] = recursiveClone( elt )
-			end
-			return retVal
-		else
-			return val
-		end
-	end
-	return recursiveClone( val )
-end
-
+--- Create a table to be used as a restricted environment, based on the current 
+-- global environment.
+--
+-- @return The environment table
 function MWServer:newEnvironment()
 	local allowedGlobals = {
 		-- base
 		"assert",
 		"error",
-		"getmetatable",
 		"getmetatable",
 		"ipairs",
 		"next",
@@ -392,20 +457,20 @@ function MWServer:newEnvironment()
 	local env = {}
 	local i
 	for i = 1, #allowedGlobals do
-		env[allowedGlobals[i]] = self:clone( _G[allowedGlobals[i]] )
+		env[allowedGlobals[i]] = mw.clone( _G[allowedGlobals[i]] )
 	end
 
 	env._G = env
 	env.tostring = function( val )
-		self:tostring( val )
+		return self:tostring( val )
 	end
 	env.string.dump = nil
-	env.setfenv = function( func, newEnv )
-		self:setfenv( func, newEnv )
-	end
+	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs(
+		self.protectedEnvironments, self.protectedFunctions )
 	return env
 end
 
+--- An implementation of tostring() which does not expose pointers.
 function MWServer:tostring(val)
 	local mt = getmetatable( val )
 	if mt and mt.__tostring then
@@ -418,17 +483,6 @@ function MWServer:tostring(val)
 	else
 		return typeName
 	end
-end
-
-function MWServer:setfenv( func, newEnv )
-	if type( func ) ~= 'function' then
-		error( "'setfenv' can only be called with a function as the first argument" )
-	end
-	if self.protectedFunctions[func] then
-		error( "'setfenv' cannot be called on a protected function" )
-	end
-	setfenv( func, newEnv )
-	return func
 end
 
 return MWServer

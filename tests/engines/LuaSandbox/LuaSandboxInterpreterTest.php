@@ -94,6 +94,7 @@ class Scribunto_LuaSandboxInterpreterTest extends MediaWikiTestCase {
 			array( true ),
 			array( false ),
 			array( 'hello' ),
+			array( implode( '', array_map( 'chr', range( 0, 255 ) ) ) ),
 			array( 1, 2, 3 ),
 			array( array() ),
 			array( array( 0 => 'foo', 1 => 'bar' ) ),
