@@ -21,8 +21,8 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 
 	function __construct( $engine, $options ) {
 		if ( !extension_loaded( 'luasandbox' ) ) {
-			throw new MWException( 'The luasandbox extension is not present, ' . 
-				'this engine cannot be used.' );
+			throw new Scribunto_LuaInterpreterNotFoundError( 
+				'The luasandbox extension is not present, this engine cannot be used.' );
 		}
 		$this->engine = $engine;
 		$this->sandbox = new LuaSandbox;

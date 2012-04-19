@@ -30,3 +30,4 @@ abstract class Scribunto_LuaInterpreter {
 	abstract public function registerLibrary( $name, $functions );
 }
 
+class Scribunto_LuaInterpreterNotFoundError extends MWException {}

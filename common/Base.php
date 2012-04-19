@@ -108,6 +108,10 @@ abstract class ScribuntoEngineBase {
 	function getCodeEditorLanguage() {
 		return false;
 	}
+
+	public function getParser() {
+		return $this->parser;
+	}
 }
 
 /**

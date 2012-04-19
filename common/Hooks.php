@@ -229,10 +229,14 @@ HTML;
 	}
 
 	public static function unitTestsList( &$files ) {
-		$files[] = dirname( __FILE__ ) .
-			'/../tests/engines/LuaStandalone/LuaStandaloneInterpreterTest.php';
-		$files[] = dirname( __FILE__ ) .
-			'/../tests/engines/LuaSandbox/LuaSandboxInterpreterTest.php';
+		$tests = array(
+			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
+			'engines/LuaStandalone/LuaStandaloneEngineTest.php',
+			'engines/LuaSandbox/LuaSandboxInterpreterTest.php',
+			'engines/LuaSandbox/LuaSandboxEngineTest.php' );
+		foreach ( $tests as $test ) {
+			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
+		}
 		return true;
 	}
 

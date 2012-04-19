@@ -64,8 +64,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( $code === false ) {
 			throw new MWException( 'Lua file does not exist: ' . $fileName );
 		}
-		$module = $this->interpreter->loadString( $code, '@' . basename( $fileName ) );
-		$ret = $this->interpreter->callFunction( $module );
+		# Prepending an "@" to the chunk name makes Lua think it is a filename
+		$module = $this->getInterpreter()->loadString( $code, '@' . basename( $fileName ) );
+		$ret = $this->getInterpreter()->callFunction( $module );
 		return isset( $ret[0] ) ? $ret[0] : null;
 	}
 
@@ -187,8 +188,8 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 		if ( !$this->initChunk ) {
 			$this->initChunk = $this->engine->getInterpreter()->loadString(
 				$this->code, 
-				// Prepending an "@" to the chunk name makes Lua think it is a file name
-				'@' . $this->chunkName );
+				// Prepending an "=" to the chunk name avoids truncation or a "[string" prefix
+				'=' . $this->chunkName );
 		}
 		return $this->initChunk;
 	}

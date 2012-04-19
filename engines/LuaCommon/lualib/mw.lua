@@ -60,7 +60,6 @@ function mw.setup()
 	internal = mw_internal
 	mw_internal = nil
 
-	setfenv, getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
 	packageModuleFunc = internal.loadPackage( 'package' )
 	packageCache = {}
 end
@@ -81,7 +80,7 @@ function mw.clone( val )
 
 			-- Copy metatable
 			if getmetatable( val ) then
-				setmetatable( val, recursiveClone( getmetatable( val ) ) )
+				setmetatable( retVal, recursiveClone( getmetatable( val ) ) )
 			end
 
 			for key, elt in pairs( val ) do
@@ -103,6 +102,7 @@ end
 function mw.executeModule( chunk )
 	local env = mw.clone( _G )
 	makePackageModule( env )
+	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
 	setfenv( chunk, env )
 	return chunk()
 end
@@ -133,7 +133,7 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 				error( "'setfenv' cannot set the global environment, it is protected", 2 )
 			end
 			if stackIndex > 10 then
-				error( "'setfenv' cannot set the global environment at a level greater than 10", 2 )
+				error( "'setfenv' cannot set an environment at a level greater than 10", 2 )
 			end
 
 
@@ -142,7 +142,8 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 			
 			local i
 			for i = 2, stackIndex do
-				if protectedEnvironments[ old_getfenv( i ) ] then
+				local env = old_getfenv( i )
+				if env == nil or protectedEnvironments[ env ] then
 					error( "'setfenv' cannot set the requested environment, it is protected", 2 )
 				end
 			end
@@ -159,7 +160,18 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 	end
 
 	local function my_getfenv( func )
-		local env = old_getfenv( func )
+		local env
+		if type( func ) == 'number' then
+			if func <= 0 then
+				error( "'getfenv' cannot get the global environment" )
+			end
+			env = old_getfenv( func + 1 )
+		elseif type( func ) == 'function' then
+			env = old_getfenv( func )
+		else
+			error( "'getfenv' cannot get the global environment" )
+		end
+
 		if protectedEnvironments[env] then
 			return nil
 		else

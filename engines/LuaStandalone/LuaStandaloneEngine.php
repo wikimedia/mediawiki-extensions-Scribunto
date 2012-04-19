@@ -72,8 +72,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				}
 			}
 			if ( $path === false ) {
-				throw new MWException( 'No Lua interpreter was given in the configuration, ' . 
-					"and no bundled binary exists for this platform" );
+				throw new Scribunto_LuaInterpreterNotFoundError( 
+					'No Lua interpreter was given in the configuration, ' .
+					'and no bundled binary exists for this platform.' );
 			}
 			$options['luaPath'] = dirname( __FILE__ ) . "/binaries/$path";
 		}
