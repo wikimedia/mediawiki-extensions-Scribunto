@@ -19,6 +19,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return new Scribunto_LuaModule( $this, $text, $chunkName );
 	}
 
+	public function newLuaError( $message, $params = array() ) {
+		return new Scribunto_LuaError( $message, $this->getDefaultExceptionParams() + $params );
+	}
+
 	/**
 	 * Initialise the interpreter and the base environment
 	 */
@@ -159,7 +163,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 
 	public function validate() {
 		try {
-			$this->execute();
+			$this->getInitChunk();
 		} catch ( ScribuntoException $e ) {
 			return $e->toStatus();
 		}
@@ -173,10 +177,10 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 		$init = $this->getInitChunk();
 		$ret = $this->engine->executeModule( $init );
 		if( !$ret ) {
-			throw new ScribuntoException( 'scribunto-lua-noreturn' );
+			throw $this->engine->newException( 'scribunto-lua-noreturn' );
 		}
 		if( !is_array( $ret[0] ) ) {
-			throw new ScribuntoException( 'scribunto-lua-notarrayreturn' );
+			throw $this->engine->newException( 'scribunto-lua-notarrayreturn' );
 		}
 		return $ret[0];
 	}
@@ -200,7 +204,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	public function invoke( $name, $args, $frame ) {
 		$exports = $this->execute();
 		if ( !isset( $exports[$name] ) ) {
-			throw new ScribuntoException( 'scribunto-common-nosuchfunction' );
+			throw $this->engine->newException( 'scribunto-common-nosuchfunction' );
 		}
 
 		array_unshift( $args, $exports[$name] );
@@ -217,12 +221,61 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 class Scribunto_LuaError extends ScribuntoException {
 	var $luaMessage;
 
-	function __construct( $message ) {
+	function __construct( $message, $options = array() ) {
 		$this->luaMessage = $message;
-		parent::__construct( 'scribunto-lua-error', array( 'args' => array( $message ) ) );
+		$options = $options + array( 'args' => array( $message ) );
+		if ( isset( $options['module'] ) && isset( $options['line'] ) ) {
+			$msg = 'scribunto-lua-error-location';
+		} else {
+			$msg = 'scribunto-lua-error';
+		}
+
+		parent::__construct( $msg, $options );
 	}
 
 	function getLuaMessage() {
 		return $this->luaMessage;
+	}
+
+	function getScriptTraceHtml( $options = array() ) {
+		global $wgUser;
+		$skin = $wgUser->getSkin();
+		if ( isset( $options['msgOptions'] ) ){
+			$msgOptions = $options['msgOptions'];
+		} else {
+			$msgOptions = array();
+		}
+
+		$s = '<ol class="scribunto-trace">';
+		foreach ( $this->params['trace'] as $info ) {
+			$src = htmlspecialchars( $info['short_src'] );
+			if ( $info['currentline'] > 0 ) {
+				$src .= ':' . htmlspecialchars( $info['currentline'] );
+
+				$title = Title::newFromText( $info['short_src'] );
+				if ( $title && $title->getNamespace() === NS_MODULE ) {
+					$title->setFragment( '#mw-ce-l' . $info['currentline'] );
+					$src = Html::rawElement( 'a', 
+						array( 'href' => $title->getFullURL( 'action=edit' ) ),
+						$src );
+				}
+			}
+
+			if ( strval( $info['namewhat'] ) !== '' ) {
+				$function = wfMsgExt( 'scribunto-lua-in-function', $msgOptions, $info['name'] );
+			} elseif ( $info['what'] == 'main' ) {
+				$function = wfMsgExt( 'scribunto-lua-in-main', $msgOptions );
+			} elseif ( $info['what'] == 'C' || $info['what'] == 'tail' ) {
+				$function = '?';
+			} else {
+				$function = wfMsgExt( 'scribunto-lua-in-function-at', 
+					$msgOptions, $info['short_src'], $info['linedefined'] );
+			}
+			$s .= "<li>\n\t" . 
+				wfMsgExt( 'scribunto-lua-backtrace-line', $msgOptions, "<strong>$src</strong>", $function ) .
+				"\n</li>\n";
+		}
+		$s .= '</ol>';
+		return $s;
 	}
 }

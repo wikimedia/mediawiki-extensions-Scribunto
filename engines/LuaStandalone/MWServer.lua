@@ -63,19 +63,47 @@ end
 -- @param message The message from PHP
 -- @return A response message to send back to PHP
 function MWServer:handleCall( message )
-	local result = { pcall( self.chunks[message.id], unpack( message.args ) ) }
-	if (result[1]) then
+	local result = { xpcall( 
+		function ()
+			return self.chunks[message.id]( unpack( message.args ) )
+		end,
+		function ( err )
+			return MWServer:attachTrace( err )
+		end 
+		) }
+	
+	if result[1] then
 		table.remove( result, 1 )
 		return {
 			op = 'return',
 			values = result
 		}
 	else
-		return {
-			op = 'error',
-			value = result[2]
-		}
+		if result[2].value and result[2].trace then
+			return {
+				op = 'error',
+				value = result[2].value,
+				trace = result[2].trace,
+			}
+		else
+			return {
+				op = 'error',
+				value = result[2]
+			}
+		end
 	end
+end
+
+--- The xpcall() error handler for handleCall(). Modifies the error object
+-- to include a structured backtrace
+--
+-- @param err The error object
+-- @return The new error object
+function MWServer:attachTrace( err )
+	return {
+		value = err,
+		trace = self:getStructuredTrace( 2 )
+	}
 end
 
 --- Handle a "loadString" message from PHP. 
@@ -424,6 +452,35 @@ function MWServer:decodeHeader( header )
 	return length
 end
 
+--- Get a traceback similar to the one from debug.traceback(), but as a table
+-- rather than formatted as a string
+--
+-- @param The level to start at: 1 for the function that called getStructuredTrace()
+-- @return A table with the backtrace information
+function MWServer:getStructuredTrace( level )
+	level = level + 1
+	local trace = {}
+	while true do
+		local rawInfo = debug.getinfo( level, 'nSl' )
+		if rawInfo == nil then
+			break
+		end
+		local info = {}
+		for i, key in ipairs({'short_src', 'what', 'currentline', 'name', 'namewhat', 'linedefined'}) do
+			info[key] = rawInfo[key]
+		end
+		if string.match( info['short_src'], '/MWServer.lua$' ) then
+			info['short_src'] = 'MWServer.lua'
+		end
+		if string.match( rawInfo['short_src'], '/mw_main.lua$' ) then
+			info['short_src'] = 'mw_main.lua'
+		end
+		table.insert( trace, info )
+		level = level + 1
+	end
+	return trace
+end
+
 --- Create a table to be used as a restricted environment, based on the current 
 -- global environment.
 --
@@ -455,7 +512,6 @@ function MWServer:newEnvironment()
 	}
 
 	local env = {}
-	local i
 	for i = 1, #allowedGlobals do
 		env[allowedGlobals[i]] = mw.clone( _G[allowedGlobals[i]] )
 	end
@@ -467,6 +523,9 @@ function MWServer:newEnvironment()
 	env.string.dump = nil
 	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs(
 		self.protectedEnvironments, self.protectedFunctions )
+	env.debug = {
+		traceback = traceback
+	}
 	return env
 end
 

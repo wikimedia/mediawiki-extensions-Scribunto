@@ -63,6 +63,10 @@ On failure, the response message is:
 
 * op: "error"
 * value: The value given to error(), usually an error message
+* trace: A table giving a backtrace of the stack as it was when error() was 
+  called, in a similar format to the one used by debug.getinfo(). Element 1 of
+  the table is the function that called error(), element 2 is the function that 
+  called that, and so on.
 
 === registerLibrary ===
 

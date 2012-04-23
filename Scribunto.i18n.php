@@ -13,8 +13,10 @@ $messages = array();
  */
 $messages['en'] = array(
 	'scribunto-desc' => 'Framework for embedding scripting languages into MediaWiki pages',
-	'scribunto-codelocation' => 'in $1 at line $2',
-	'scribunto-luasandbox-error' => 'Lua error: $2',
+	'scribunto-line' => 'at line $1',
+	'scribunto-module-line' => 'in $1 at line $2',
+	'scribunto-parser-error' => 'Script error',
+	'scribunto-parser-dialog-title' => 'Script error',
 	'scribunto-error-short' => 'Script error: $1',
 	'scribunto-error-long' => 'Script errors:
 
@@ -25,6 +27,12 @@ $1',
 	'scribunto-common-nosuchfunction' => 'Script error: The function you specified did not exist.',
 	'scribunto-common-timeout' => 'The time allocated for running scripts has expired.',
 	'scribunto-common-oom' => 'The amount of memory allowed for running scripts has been exceeded.',
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'in function "$1"',
+	'scribunto-lua-in-main' => 'in main chunk',
+	'scribunto-lua-in-function-at' => 'in anonymous function at $1:$2',
+	'scribunto-lua-backtrace-line' => '$1: $2',
+	'scribunto-lua-error-location' => 'Lua error $1: $2',
 	'scribunto-lua-error' => 'Lua error: $2',
 	'scribunto-lua-noreturn' => 'Script error: The module did not return a value, it should return an export table.',
 	'scribunto-lua-notarrayreturn' => 'Script error: The module returned something other than a table, it should return an export table.',

@@ -107,9 +107,25 @@ class ScribuntoHooks {
 			wfProfileOut( __METHOD__ );
 			return trim( strval( $result ) );
 		} catch( ScribuntoException $e ) {
-			$msg = $e->getMessage();
+			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
+			$html = Html::element( 'p', array(), $e->getMessage() );
+			if ( $trace !== false ) {
+				$html .= Html::element( 'p', array(), wfMsgForContent( 'scribunto-common-backtrace' ) ) . $trace;
+			}
+			$out = $parser->getOutput();
+			if ( !isset( $out->scribunto_errors ) ) {
+				$out->addOutputHook( 'ScribuntoError' );
+				$out->scribunto_errors = array();
+			}
+
+			$out->scribunto_errors[] = $html;
+			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
+			$parserError = wfMsgForContent( 'scribunto-parser-error' );
 			wfProfileOut( __METHOD__ );
-			return "<strong class=\"error\">{$msg}</strong>";
+
+			// #iferror-compatible error element
+			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" . 
+				$parserError. "</span></strong>";
 		}
 	}
 
@@ -204,23 +220,31 @@ class ScribuntoHooks {
 	}
 
 	public static function validateScript( $editor, $text, $section, &$error ) {
-		global $wgUser;
+		global $wgUser, $wgOut, $wgScribuntoUseCodeEditor;
 		$title = $editor->mTitle;
 
 		if( $title->getNamespace() == NS_MODULE ) {
 			$engine = Scribunto::newDefaultEngine();
+			$engine->setTitle( $title );
 			$status = $engine->validate( $text, $title->getPrefixedDBkey() );
 			if( $status->isOK() ) {
 				return true;
 			}
 
 			$errmsg = $status->getWikiText( 'scribunto-error-short', 'scribunto-error-long' );
-			$error = <<<HTML
+			$error = <<<WIKI
 <div class="errorbox">
 {$errmsg}
 </div>
 <br clear="all" />
-HTML;
+WIKI;
+			if ( isset( $status->scribunto_error->params['module'] ) ) {
+				$module = $status->scribunto_error->params['module'];
+				$line = $status->scribunto_error->params['line'];
+				if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
+					$wgOut->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
+				}
+			}
 
 			return true;
 		}
@@ -240,4 +264,10 @@ HTML;
 		return true;
 	}
 
+	public static function parserOutputHook( $outputPage, $parserOutput ) {
+		$outputPage->addModules( 'ext.scribunto' );
+		$outputPage->addInlineScript( 'mw.loader.using("ext.scribunto", function() {' . 
+			Xml::encodeJsCall( 'mw.scribunto.setErrors', array( $parserOutput->scribunto_errors ) )
+			. '});' );
+	}
 }

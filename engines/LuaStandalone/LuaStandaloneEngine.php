@@ -109,7 +109,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			),
 			$pipes );
 		if ( !$this->proc ) {
-			throw new ScribuntoException( 'scribunto-luastandalone-proc-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-proc-error' );
 		}
 		$this->writePipe = $pipes[0];
 		$this->readPipe = $pipes[1];
@@ -205,7 +205,16 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	protected function handleError( $message ) {
-		throw new Scribunto_LuaError( $message['value'] );
+		$opts = array();
+		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message['value'], $m ) ) {
+			$opts['module'] = $m[1];
+			$opts['line'] = $m[2];
+			$message['value'] = $m[3];
+		}
+		if ( isset( $message['trace'] ) ) {
+			$opts['trace'] = array_values( $message['trace'] );
+		}
+		throw $this->engine->newLuaError( $message['value'], $opts );
 	}
 
 	protected function dispatch( $msgToLua ) {
@@ -226,7 +235,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					return; // not reached
 				default:
 					wfDebug( __METHOD__ .": invalid response op \"{$msgFromLua['op']}\"\n" );
-					throw new ScribuntoException( 'scribunto-luastandalone-decode-error' );
+					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 			}
 		}
 	}
@@ -240,7 +249,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			// Write error, probably the process has terminated
 			// If it has, checkStatus() will throw. If not, throw an exception ourselves.
 			$this->checkStatus();
-			throw new ScribuntoException( 'scribunto-luastandalone-write-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-write-error' );
 		}
 	}
 
@@ -250,7 +259,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$header = fread( $this->readPipe, 16 );
 		if ( strlen( $header ) !== 16 ) {
 			$this->checkStatus();
-			throw new ScribuntoException( 'scribunto-luastandalone-read-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
 		}
 		$length = $this->decodeHeader( $header );
 
@@ -258,7 +267,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$body = fread( $this->readPipe, $length );
 		if ( strlen( $body ) !== $length ) {
 			$this->checkStatus();
-			throw new ScribuntoException( 'scribunto-luastandalone-read-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
 		}
 		$msg = unserialize( $body );
 		$this->debug( "RX <== {$msg['op']}" );
@@ -329,12 +338,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$length = substr( $header, 0, 8 );
 		$check = substr( $header, 8, 8 );
 		if ( !preg_match( '/^[0-9a-f]+$/', $length ) || !preg_match( '/^[0-9a-f]+$/', $check ) ) {
-			throw new ScribuntoException( 'scribunto-luastandalone-decode-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 		}
 		$length = hexdec( $length );
 		$check = hexdec( $check );
 		if ( $length * 2 - 1 !== $check ) {
-			throw new ScribuntoException( 'scribunto-luastandalone-decode-error' );
+			throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 		}
 		return $length;
 	}
@@ -345,7 +354,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			if ( $this->exitError ) {
 				throw $this->exitError;
 			} else {
-				throw new ScribuntoException( 'scribunto-luastandalone-gone' );
+				throw $this->engine->newException( 'scribunto-luastandalone-gone' );
 			}
 		}
 	}
@@ -358,12 +367,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			proc_close( $this->proc );
 			$this->proc = false;
 			if ( $status['signaled'] ) {
-				$this->exitError = new ScribuntoException( 'scribunto-luastandalone-signal',
+				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
 					array( 'args' => array( $status['termsig'] ) ) );
 			} elseif ( defined( 'SIGXCPU' ) && $status['exitcode'] == 128 + SIGXCPU ) {
-				$this->exitError = new ScribuntoException( 'scribunto-common-timeout' );
+				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
-				$this->exitError = new ScribuntoException( 'scribunto-luastandalone-exited',
+				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-exited',
 					array( 'args' => array( $status['exitcode'] ) ) );
 			}
 			throw $this->exitError;

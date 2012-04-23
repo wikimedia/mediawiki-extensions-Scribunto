@@ -54,6 +54,18 @@ $wgHooks['EditFilter'][] = 'ScribuntoHooks::validateScript';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
 
+$wgParserOutputHooks['ScribuntoError'] = 'ScribuntoHooks::parserOutputHook';
+
+$wgResourceModules['ext.scribunto'] = array(
+	'localBasePath' => dirname( __FILE__ ) . '/modules',
+	'remoteExtPath' => 'Scribunto/modules',
+	'scripts' => 'ext.scribunto.js',
+	'dependencies' => array( 'jquery.ui.dialog' ),
+	'messages' => array(
+		'scribunto-parser-dialog-title'
+	),
+);
+
 /***** Individual engines and their configurations *****/
 
 $wgAutoloadClasses['Scribunto_LuaEngine'] = $dir.'engines/LuaCommon/LuaCommon.php';

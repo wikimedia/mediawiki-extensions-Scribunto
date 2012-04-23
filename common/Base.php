@@ -29,6 +29,7 @@
 abstract class ScribuntoEngineBase {
 	protected
 		$parser,
+		$title,
 		$options,
 		$modules = array();
 
@@ -48,6 +49,29 @@ abstract class ScribuntoEngineBase {
 		if ( isset( $options['parser'] ) ) {
 			$this->parser = $options['parser'];
 		}
+		if ( isset( $options['title'] ) ) {
+			$this->title = $options['title'];
+		}
+	}
+
+	public function setTitle( $title ) {
+		$this->title = $title;
+	}
+
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function newException( $message, $params = array() ) {
+		return new ScribuntoException( $message, $this->getDefaultExceptionParams() + $params );
+	}
+
+	public function getDefaultExceptionParams() {
+		$params = array();
+		if ( $this->title ) {
+			$params['title'] = $this->title;
+		}
+		return $params;
 	}
 
 	/**

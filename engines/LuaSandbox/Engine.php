@@ -34,7 +34,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		try {
 			return $this->sandbox->loadString( $text, $chunkName );
 		} catch ( LuaSandboxError $e ) {
-			throw new Scribunto_LuaError( $e->getMessage() );
+			throw $this->engine->newLuaError( $e->getMessage() );
 		}
 	}
 	
@@ -58,9 +58,9 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		try {
 			return call_user_func_array( array( $func, 'call' ), $args );
 		} catch ( LuaSandboxTimeoutError $e ) {
-			throw new ScribuntoException( 'scribunto-common-timeout' );
+			throw $this->engine->newException( 'scribunto-common-timeout' );
 		} catch ( LuaSandboxError $e ) {
-			throw new Scribunto_LuaError( $e->getMessage() );
+			throw $this->engine->newLuaError( $e->getMessage() );
 		}
 	}
 

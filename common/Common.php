@@ -41,6 +41,7 @@ class Scribunto {
 	public static function getParserEngine( $parser ) {
 		if( empty( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
+			$parser->scribunto_engine->setTitle( $parser->getTitle() );
 		}
 		return $parser->scribunto_engine;
 	}
@@ -74,11 +75,20 @@ class ScribuntoException extends MWException {
 			$this->messageArgs = array();
 		}
 		if ( isset( $params['module'] ) && isset( $params['line'] ) ) {
-			$codelocation = wfMsg( 'scribunto-codelocation', $params['module'], $params['line'] );
+			$codeLocation = false;
+			if ( isset( $params['title'] ) ) {
+				$moduleTitle = Title::newFromText( $params['module'] );
+				if ( $moduleTitle && $moduleTitle->equals( $params['title'] ) ) {
+					$codeLocation = wfMsg( 'scribunto-line', $params['line'] );
+				}
+			}
+			if ( $codeLocation === false ) {
+				$codeLocation = wfMsg( 'scribunto-module-line', $params['module'], $params['line'] );
+			}
 		} else {
-			$codelocation = '[UNKNOWN]'; // should never happen
+			$codeLocation = '[UNKNOWN]';
 		}
-		array_unshift( $this->messageArgs, $codelocation );
+		array_unshift( $this->messageArgs, $codeLocation );
 		$msg = wfMsgExt( $messageName, array(), $this->messageArgs );
 		parent::__construct( $msg );
 
@@ -92,6 +102,15 @@ class ScribuntoException extends MWException {
 
 	public function toStatus() {
 		$args = array_merge( array( $this->messageName ), $this->messageArgs );
-		return call_user_func_array( array( 'Status', 'newFatal' ), $args );
+		$status = call_user_func_array( array( 'Status', 'newFatal' ), $args );
+		$status->scribunto_error = $this;
+		return $status;
+	}
+
+	/**
+	 * Get the backtrace as HTML, or false if there is none available.
+	 */
+	public function getScriptTraceHtml( $options = array() ) {
+		return false;
 	}
 }
