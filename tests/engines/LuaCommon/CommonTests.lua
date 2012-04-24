@@ -56,12 +56,13 @@ function test.getTests( engine )
 		{ 'setfenv1', { error = '%s cannot set the global %s' } },
 		{ 'setfenv2', { error = '%s cannot set an environment %s' } },
 		{ 'setfenv3', { error = '%s cannot set the requested environment%s' } },
-		{ 'setfenv4', { error = '%s cannot set the requested environment%s' } },
+		{ 'setfenv4', true },
 		{ 'setfenv5', true },
 		{ 'setfenv6', { error = '%s cannot be called on a protected function' } },
 		{ 'setfenv7', { error = '%s can only be called with a function%s' } },
 		{ 'getfenv1', true },
 		{ 'getfenv2', { error = '%s cannot get the global environment' } },
+		{ 'getfenv3', { error = '%Sno function environment for tail call %s' } },
 	}
 end
 
@@ -119,11 +120,27 @@ function test.setfenv3()
 end
 
 function test.setfenv4()
-	local function jailbreak()
-		(function() setfenv( 3, {} ) end )()
+	-- Set an unprotected environment at a higher stack level than a protected 
+	-- environment. It's assumed that any higher-level environment will protect 
+	-- itself with its own setfenv wrapper, so this succeeds.
+	local function level3()
+		local function level2()
+			local env = {setfenv = setfenv}
+			local function level1()
+				setfenv( 3, {} )
+			end
+			
+			setfenv( level1, env )()
+		end
+		local protected = {mw = mw}
+		protected.setfenv, protected.getfenv = mw.makeProtectedEnvFuncs(
+			{[protected] = true}, {} )
+		setfenv( level2, protected )()
 	end
-	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncs( { [_G] = true }, {} )
-	setfenv( jailbreak, {setfenv = new_setfenv} )()
+	local unprotected = {setfenv = setfenv, getfenv = getfenv, mw = mw}
+	setfenv( level3, unprotected )()
+	assert( getfenv( level3 ) ~= unprotected )
+	return true
 end
 
 function test.setfenv5()
@@ -159,6 +176,18 @@ end
 
 function test.getfenv2()
 	getfenv( 0 )
+end
+
+function test.getfenv3()
+	local function foo()
+		return getfenv( 2 )
+	end
+
+	local function bar()
+		return foo()
+	end
+
+	bar()
 end
 
 return test

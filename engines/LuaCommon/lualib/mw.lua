@@ -136,16 +136,12 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 				error( "'setfenv' cannot set an environment at a level greater than 10", 2 )
 			end
 
-
 			-- Add one because we are still in Lua and 1 is right here
 			stackIndex = stackIndex + 1
-			
-			local i
-			for i = 2, stackIndex do
-				local env = old_getfenv( i )
-				if env == nil or protectedEnvironments[ env ] then
-					error( "'setfenv' cannot set the requested environment, it is protected", 2 )
-				end
+
+			local env = old_getfenv( stackIndex )
+			if env == nil or protectedEnvironments[ env ] then
+				error( "'setfenv' cannot set the requested environment, it is protected", 2 )
 			end
 			func = old_setfenv( stackIndex, newEnv )
 		elseif type( func ) == 'function' then
