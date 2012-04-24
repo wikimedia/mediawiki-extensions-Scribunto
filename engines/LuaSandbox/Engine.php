@@ -30,11 +30,25 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$this->sandbox->setCPULimit( $options['cpuLimit'] );
 	}
 
+	protected function convertSandboxError( $e ) {
+		$opts = array();
+		if ( isset( $e->luaTrace ) ) {
+			$opts['trace'] = $e->luaTrace;
+		}
+		$message = $e->getMessage();
+		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message, $m ) ) {
+			$opts['module'] = $m[1];
+			$opts['line'] = $m[2];
+			$message = $m[3];
+		}		
+		return $this->engine->newLuaError( $message, $opts );
+	}
+
 	public function loadString( $text, $chunkName ) {
 		try {
 			return $this->sandbox->loadString( $text, $chunkName );
 		} catch ( LuaSandboxError $e ) {
-			throw $this->engine->newLuaError( $e->getMessage() );
+			throw $this->convertSandboxError( $e );
 		}
 	}
 	
@@ -60,7 +74,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		} catch ( LuaSandboxTimeoutError $e ) {
 			throw $this->engine->newException( 'scribunto-common-timeout' );
 		} catch ( LuaSandboxError $e ) {
-			throw $this->engine->newLuaError( $e->getMessage() );
+			throw $this->convertSandboxError( $e );
 		}
 	}
 
