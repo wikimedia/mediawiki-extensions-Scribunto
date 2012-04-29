@@ -21,7 +21,6 @@ $messages['en'] = array(
 	'scribunto-error-long' => 'Script errors:
 
 $1',
-	'scribunto-common-toofewargs' => 'Lua error: Too few arguments to function $2',
 	'scribunto-common-nosuchmodule' => 'Script error: No such module',
 	'scribunto-common-nofunction' => 'Script error: You must specify a function to call.',
 	'scribunto-common-nosuchfunction' => 'Script error: The function you specified did not exist.',

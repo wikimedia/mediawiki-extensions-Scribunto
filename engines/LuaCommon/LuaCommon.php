@@ -241,8 +241,6 @@ class Scribunto_LuaError extends ScribuntoException {
 		if ( !isset( $this->params['trace'] ) ) {
 			return false;
 		}
-		global $wgUser;
-		$skin = $wgUser->getSkin();
 		if ( isset( $options['msgOptions'] ) ){
 			$msgOptions = $options['msgOptions'];
 		} else {
