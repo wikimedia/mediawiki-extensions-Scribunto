@@ -8,7 +8,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		$lang = Language::factory( 'en' );
 		return
 			'Lua time usage: ' . sprintf( "%.3f", $this->interpreter->getCPUUsage() ) . "s\n" .
-			'Lua memory usage: ' . $lang->formatSize( $this->interpreter->getMemoryUsage() ) . "\n";
+			'Lua memory usage: ' . $lang->formatSize( $this->interpreter->getPeakMemoryUsage() ) . "\n";
 	}
 
 	function newInterpreter() {
@@ -78,8 +78,8 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
-	public function getMemoryUsage() {
-		return $this->sandbox->getMemoryUsage();
+	public function getPeakMemoryUsage() {
+		return $this->sandbox->getPeakMemoryUsage();
 	}
 
 	public function getCPUUsage() {

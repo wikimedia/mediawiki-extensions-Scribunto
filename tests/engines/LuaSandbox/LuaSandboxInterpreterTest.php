@@ -20,7 +20,7 @@ class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 		$interpreter = $this->newInterpreter();
 		$chunk = $interpreter->loadString( 's = string.rep("x", 1000000)', 'mem' );
 		$interpreter->callFunction( $chunk );
-		$mem = $interpreter->getMemoryUsage();
+		$mem = $interpreter->getPeakMemoryUsage();
 		$this->assertGreaterThan( 1000000, $mem, 'memory usage' );
 		$this->assertLessThan( 10000000, $mem, 'memory usage' );
 	}

@@ -524,7 +524,7 @@ function MWServer:newEnvironment()
 	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs(
 		self.protectedEnvironments, self.protectedFunctions )
 	env.debug = {
-		traceback = traceback
+		traceback = debug.traceback
 	}
 	return env
 end
