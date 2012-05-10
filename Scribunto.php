@@ -50,7 +50,7 @@ $wgHooks['CanonicalNamespaces'][] = 'ScribuntoHooks::addCanonicalNamespaces';
 $wgHooks['ArticleViewCustom'][] = 'ScribuntoHooks::handleScriptView';
 $wgHooks['TitleIsWikitextPage'][] = 'ScribuntoHooks::isWikitextPage';
 $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
-$wgHooks['EditFilter'][] = 'ScribuntoHooks::validateScript';
+$wgHooks['EditFilterMerged'][] = 'ScribuntoHooks::validateScript';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
 
