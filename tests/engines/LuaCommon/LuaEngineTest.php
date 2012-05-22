@@ -64,7 +64,9 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 		$allTests = array();
 		foreach ( $this->getTestModules() as $moduleName => $fileName ) {
 			$module = $this->getTestModule( $engine, $moduleName );
-			$moduleTests = $module->invoke( 'getTests', array(), $this->getFrame( $engine ) );
+			$exports = $module->execute();
+			$result = $engine->getInterpreter()->callFunction( $exports['getTests'] );
+			$moduleTests = $result[0];
 			foreach ( $moduleTests as $test ) {
 				array_unshift( $test, $moduleName );
 				$allTests[] = $test;
@@ -77,17 +79,17 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 	function testLua( $moduleName, $testName, $expected ) {
 		$engine = $this->getEngine();
 		$module = $this->getTestModule( $engine, $moduleName );
-		if ( isset( $expected['error'] ) ) {
+		if ( is_array( $expected ) && isset( $expected['error'] ) ) {
 			$caught = false;
 			try {
-				$ret = $module->invoke( $testName, array(), $this->getFrame( $engine ) );
+				$ret = $module->invoke( $testName, $this->getFrame( $engine ) );
 			} catch ( Scribunto_LuaError $e ) {
 				$caught = true;
 				$this->assertStringMatchesFormat( $expected['error'], $e->getLuaMessage() );
 			}
 			$this->assertTrue( $caught, 'expected an exception' );
 		} else {
-			$ret = $module->invoke( $testName, array(), $this->getFrame( $engine ) );
+			$ret = $module->invoke( $testName, $this->getFrame( $engine ) );
 			$this->assertSame( $expected, $ret );
 		}
 	}

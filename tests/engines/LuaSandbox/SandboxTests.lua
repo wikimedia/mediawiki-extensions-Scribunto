@@ -9,11 +9,11 @@ function sbtest.getTests()
 end
 
 function sbtest.setfenv1()
-	setfenv( 2, {} )
+	setfenv( 3, {} )
 end
 
 function sbtest.getfenv1()
-	assert( getfenv( 2 ) == nil )
+	assert( getfenv( 3 ) == nil )
 end
 
 return sbtest

@@ -171,6 +171,6 @@ abstract class ScribuntoModuleBase {
 	 * 
 	 * @return string
 	 */
-	abstract public function invoke( $name, $args, $frame );
+	abstract public function invoke( $name, $frame );
 }
 

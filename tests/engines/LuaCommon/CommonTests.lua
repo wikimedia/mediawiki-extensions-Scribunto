@@ -49,18 +49,18 @@ end
 
 function test.getTests( engine )
 	return {
-		{ 'clone1', true },
-		{ 'clone2', true },
-		{ 'clone3', true },
-		{ 'clone4', true },
+		{ 'clone1', 'ok' },
+		{ 'clone2', 'ok' },
+		{ 'clone3', 'ok' },
+		{ 'clone4', 'ok' },
 		{ 'setfenv1', { error = '%s cannot set the global %s' } },
 		{ 'setfenv2', { error = '%s cannot set an environment %s' } },
 		{ 'setfenv3', { error = '%s cannot set the requested environment%s' } },
-		{ 'setfenv4', true },
-		{ 'setfenv5', true },
+		{ 'setfenv4', 'ok' },
+		{ 'setfenv5', 'ok' },
 		{ 'setfenv6', { error = '%s cannot be called on a protected function' } },
 		{ 'setfenv7', { error = '%s can only be called with a function%s' } },
-		{ 'getfenv1', true },
+		{ 'getfenv1', 'ok' },
 		{ 'getfenv2', { error = '%s cannot get the global environment' } },
 		{ 'getfenv3', { error = '%Sno function environment for tail call %s' } },
 	}
@@ -70,7 +70,7 @@ function test.clone1()
 	local x = 1
 	local y = mw.clone( x )
 	assert( x == y )
-	return true
+	return 'ok'
 end
 
 function test.clone2()
@@ -80,7 +80,7 @@ function test.clone2()
 	assert( is_deeply( y, x ) )
 	y[2] = 'b'
 	assert( not is_deeply( y, x ) )
-	return true
+	return 'ok'
 end
 
 function test.clone3()
@@ -90,7 +90,7 @@ function test.clone3()
 	local y = mw.clone( x )
 	assert( getmetatable( x ) ~= getmetatable( y ) )
 	assert( is_deeply( getmetatable( y ), getmetatable( x ) ) )
-	return true
+	return 'ok'
 end
 
 function test.clone4()
@@ -99,7 +99,7 @@ function test.clone4()
 	local y = mw.clone( x )
 	assert( x ~= y )
 	assert( y == y.x )
-	return true
+	return 'ok'
 end
 
 function test.setfenv1()
@@ -140,7 +140,7 @@ function test.setfenv4()
 	local unprotected = {setfenv = setfenv, getfenv = getfenv, mw = mw}
 	setfenv( level3, unprotected )()
 	assert( getfenv( level3 ) ~= unprotected )
-	return true
+	return 'ok'
 end
 
 function test.setfenv5()
@@ -149,7 +149,7 @@ function test.setfenv5()
 	end
 	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncs( { [_G] = true }, {} )
 	setfenv( allowed, {setfenv = new_setfenv} )()
-	return true
+	return 'ok'
 end
 
 function test.setfenv6()
@@ -171,7 +171,7 @@ end
 
 function test.getfenv1()
 	assert( getfenv( 1 ) == _G )
-	return true
+	return 'ok'
 end
 
 function test.getfenv2()
