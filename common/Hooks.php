@@ -219,7 +219,7 @@ class ScribuntoHooks {
 		return true;
 	}
 
-	public static function validateScript( $editor, $text, $section, &$error ) {
+	public static function validateScript( $editor, $text, &$error, $summary ) {
 		global $wgUser, $wgOut, $wgScribuntoUseCodeEditor;
 		$title = $editor->mTitle;
 
