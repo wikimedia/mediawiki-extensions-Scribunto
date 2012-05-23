@@ -10,6 +10,12 @@ mw.scribunto = {
 	'init': function () {
 		var regex = /^mw-scribunto-error-(\d+)/;
 		var that = this;
+		var dialog = $( '<div/>' );
+		dialog.dialog({
+			title: mw.msg( 'scribunto-parser-dialog-title' ),
+			autoOpen: false
+		});
+
 		$('.scribunto-error').each( function( index, span ) {
 			var matches = regex.exec( span.id );
 			if ( matches == null ) {
@@ -26,12 +32,11 @@ mw.scribunto = {
 						return;
 					}
 					var error = that.errors[ errorId ];
-					$( '<div/>' )
+					dialog
+						.dialog( 'close' )
 						.html( error )
-						.dialog({
-							'title': mw.msg( 'scribunto-parser-dialog-title' ),
-							'position': [ evt.clientX + 5, evt.clientY + 5 ],
-						});
+						.dialog( 'option', 'position', [ evt.clientX + 5, evt.clientY + 5 ] )
+						.dialog( 'open' );
 				} );
 		} );
 	}
