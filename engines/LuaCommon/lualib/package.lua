@@ -24,7 +24,7 @@
 --]]
 
 
-local assert, error, getfenv, ipairs, pairs, setfenv, setmetatable, type = assert, error, getfenv, ipairs, pairs, setfenv, setmetatable, type
+local assert, error, ipairs, pairs, setmetatable, type = assert, error, ipairs, pairs, setmetatable, type
 local find, format, gfind, gsub, sub = string.find, string.format, string.gfind, string.gsub, string.sub
 
 --
@@ -134,28 +134,4 @@ function _PACKAGE.seeall (module)
 		setmetatable (module, meta)
 	end
 	meta.__index = _G
-end
-
-
---
--- module function
---
-function _G.module (modname, ...)
-	local ns = _LOADED[modname]
-	if type(ns) ~= "table" then
-		ns = findtable (_G, modname)
-		if not ns then
-			error (string.format ("name conflict for module '%s'", modname))
-		end
-		_LOADED[modname] = ns
-	end
-	if not ns._NAME then
-		ns._NAME = modname
-		ns._M = ns
-		ns._PACKAGE = gsub (modname, "[^.]*$", "")
-	end
-	setfenv (2, ns)
-	for i, f in ipairs (...) do
-		f (ns)
-	end
 end

@@ -4,6 +4,7 @@ local packageCache
 local packageModuleFunc
 local php
 local setupDone
+local allowEnvFuncs = false
 
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
@@ -39,7 +40,7 @@ end
 
 --- Set up the base environment. The PHP host calls this function after any 
 -- necessary host-side initialisation has been done.
-function mw.setup()
+function mw.setup( options )
 	if setupDone then
 		return
 	end
@@ -54,6 +55,10 @@ function mw.setup()
 		else
 			return nil
 		end
+	end
+
+	if options.allowEnvFuncs then
+		allowEnvFuncs = true
 	end
 
 	-- Make mw_php private
@@ -108,7 +113,14 @@ end
 function mw.executeModule( chunk )
 	local env = mw.clone( _G )
 	makePackageModule( env )
-	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
+
+	if allowEnvFuncs then
+		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
+	else
+		env.setfenv = nil
+		env.getfenv = nil
+	end
+
 	setfenv( chunk, env )
 	return chunk()
 end

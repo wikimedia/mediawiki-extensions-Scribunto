@@ -7,6 +7,7 @@ class Scribunto_LuaSandboxEngineTest extends Scribunto_LuaEngineTest {
 	var $stdOpts = array(
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
+		'allowEnvFuncs' => true,
 	);
 
 	function newEngine( $opts = array() ) {

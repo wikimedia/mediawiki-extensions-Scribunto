@@ -9,6 +9,7 @@ class Scribunto_LuaStandaloneEngineTest extends Scribunto_LuaEngineTest {
 		'luaPath' => null,
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
+		'allowEnvFuncs' => true,
 	);
 
 	function newEngine( $opts = array() ) {

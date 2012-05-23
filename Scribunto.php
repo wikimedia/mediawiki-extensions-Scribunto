@@ -92,6 +92,13 @@ $wgScribuntoEngineConf = array(
 		'class' => 'Scribunto_LuaSandboxEngine',
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
+
+		// Set this to true to allow setfenv() and getfenv() in user code. 
+		// Note that these functions have been removed in Lua 5.2. Scribunto 
+		// does not yet support Lua 5.2, but we expect support will be 
+		// implemented in the future, and there is no guarantee that a 
+		// simulation of setfenv() and getfenv() will be provided.
+		'allowEnvFuncs' => false,
 	),
 	'luastandalone' => array(
 		'class' => 'Scribunto_LuaStandaloneEngine',
@@ -105,6 +112,7 @@ $wgScribuntoEngineConf = array(
 		'luaPath' => null,
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
+		'allowEnvFuncs' => false,
 	),
 );
 

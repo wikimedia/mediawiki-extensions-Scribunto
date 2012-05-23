@@ -52,7 +52,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'preprocess' => array( $this, 'preprocess' ),
 			) );
 
-		$this->interpreter->callFunction( $this->mw['setup'] );
+		$this->interpreter->callFunction( $this->mw['setup'],
+			array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
 	}
 
 	/**
