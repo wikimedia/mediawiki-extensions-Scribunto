@@ -4,17 +4,17 @@ local satest = {}
 function satest.getTests()
 	return {
 		{ 'setfenv1', { error = '%s cannot set the requested environment%s' } },
-		{ 'getfenv1', true },
+		{ 'getfenv1', 'ok' },
 	}
 end
 
 function satest.setfenv1()
-	setfenv( 3, {} )
+	setfenv( 4, {} )
 end
 
 function satest.getfenv1()
-	assert( getfenv( 3 ) == nil )
-	return true
+	assert( getfenv( 4 ) == nil )
+	return 'ok'
 end
 
 return satest

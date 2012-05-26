@@ -201,6 +201,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		// Convert to a 1-based array
 		if ( count( $result ) ) {
 			$result = array_combine( range( 1, count( $result ) ), $result );
+		} else {
+			$result = array();
 		}
 
 		return array(
@@ -273,10 +275,16 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$length = $this->decodeHeader( $header );
 
 		// Read the reply body
-		$body = fread( $this->readPipe, $length );
-		if ( strlen( $body ) !== $length ) {
-			$this->checkStatus();
-			throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
+		$body = '';
+		$lengthRemaining = $length;
+		while ( $lengthRemaining ) {
+			$buffer = fread( $this->readPipe, $lengthRemaining );
+			if ( $buffer === false || feof( $this->readPipe ) ) {
+				$this->checkStatus();
+				throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
+			}
+			$body .= $buffer;
+			$lengthRemaining -= strlen( $buffer );
 		}
 		$msg = unserialize( $body );
 		$this->debug( "RX <== {$msg['op']}" );

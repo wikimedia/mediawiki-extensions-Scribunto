@@ -29,8 +29,7 @@ class ScribuntoHooks {
 	 * @param $parser Parser
 	 */
 	public static function setupParserHook( &$parser ) {
-		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::callHook', SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'script', 'ScribuntoHooks::transcludeHook', SFH_NO_HASH | SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', SFH_OBJECT_ARGS );
 		return true;
 	}
 
@@ -54,42 +53,19 @@ class ScribuntoHooks {
 	 * @param $args array
 	 * @return string
 	 */
-	public static function callHook( &$parser, $frame, $args ) {
-		if( count( $args ) < 2 ) {
-			throw new ScribuntoException( 'scribunto-common-nofunction' );
+	public static function invokeHook( &$parser, $frame, $args ) {
+		if ( !@constant( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
+			throw new MWException( 
+				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
 		}
 
-		$module = $parser->mStripState->unstripBoth( array_shift( $args ) );
-		$function = $frame->expand( array_shift( $args ) );
-		return self::doRunHook( $parser, $frame, $module, $function, $args );
-	}
-
-	/**
-	 * Hook function for {{script:module}}
-	 *
-	 * @param $parser Parser
-	 * @param $frame PPFrame
-	 * @param $args
-	 * @return string
-	 */
-	public static function transcludeHook( &$parser, $frame, $args ) {
-		$module = $parser->mStripState->unstripBoth( array_shift( $args ) );
-		return self::doRunHook( $parser, $frame, $module, 'main', $args );
-	}
-
-	/**
-	 * @param $parser Parser
-	 * @param $frame PPFrame
-	 * @param $moduleName
-	 * @param $functionName
-	 * @param $args
-	 * @return string
-	 * @throws ScribuntoException
-	 */
-	private static function doRunHook( $parser, $frame, $moduleName, $functionName, $args ) {
 		wfProfileIn( __METHOD__ );
-		
+
 		try {
+			if ( count( $args ) < 2 ) {
+				throw new ScribuntoException( 'scribunto-common-nofunction' );
+			}
+			$moduleName = trim( $frame->expand( $args[0] ) );
 			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title ) {
@@ -99,13 +75,15 @@ class ScribuntoHooks {
 			if ( !$module ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
-			foreach( $args as &$arg ) {
-				$arg = $frame->expand( $arg );
-			}
-			$result = $module->invoke( $functionName, $args, $frame );
+			$functionName = trim( $frame->expand( $args[1] ) );
+
+			unset( $args[0] );
+			unset( $args[1] );
+			$childFrame = $frame->newChild( $args, $title, 1 );
+			$result = $module->invoke( $functionName, $childFrame );
 
 			wfProfileOut( __METHOD__ );
-			return trim( strval( $result ) );
+			return strval( $result );
 		} catch( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
 			$html = Html::element( 'p', array(), $e->getMessage() );
@@ -120,7 +98,8 @@ class ScribuntoHooks {
 
 			$out->scribunto_errors[] = $html;
 			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
-			$parserError = wfMsgForContent( 'scribunto-parser-error' );
+			$parserError = wfMsgForContent( 'scribunto-parser-error' ) . 
+				$parser->insertStripItem( '<!--' . htmlspecialchars( $e->getMessage() ) . '-->' );
 			wfProfileOut( __METHOD__ );
 
 			// #iferror-compatible error element

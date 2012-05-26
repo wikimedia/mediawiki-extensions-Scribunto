@@ -3,6 +3,11 @@
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $loaded = false;
 	protected $executeModuleFunc, $interpreter;
+	protected $mw;
+	protected $currentFrame = false;
+	protected $expandCache = array();
+
+	const MAX_EXPAND_CACHE_SIZE = 100;
 
 	var $libraryPaths = array(
 		'.',
@@ -33,15 +38,21 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->loaded = true;
 
 		$this->interpreter = $this->newInterpreter();
-		$mw = $this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/mw.lua' );
-		$this->executeModuleFunc = $mw['executeModule'];
+		$this->mw = $this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/mw.lua' );
+
 		$this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/package.lua' );
 
-		$this->interpreter->registerLibrary( 'mw_internal', 
-			array( 'loadPackage' => array( $this, 'loadPackage' ) ) );
+		$this->interpreter->registerLibrary( 'mw_php', 
+			array(
+				'loadPackage' => array( $this, 'loadPackage' ),
+				'parentFrameExists' => array( $this, 'parentFrameExists' ),
+				'getExpandedArgument' => array( $this, 'getExpandedArgument' ),
+				'getAllExpandedArguments' => array( $this, 'getAllExpandedArguments' ),
+				'expandTemplate' => array( $this, 'expandTemplate' ),
+				'preprocess' => array( $this, 'preprocess' ),
+			) );
 
-		$this->interpreter->callFunction( $mw['setup'] );
-
+		$this->interpreter->callFunction( $this->mw['setup'] );
 	}
 
 	/**
@@ -56,7 +67,20 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Execute a module chunk in a new isolated environment
 	 */
 	public function executeModule( $chunk ) {
-		return $this->getInterpreter()->callFunction( $this->executeModuleFunc, $chunk );
+		return $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk );
+	}
+
+	/**
+	 * Execute a module function chunk
+	 */
+	public function executeFunctionChunk( $chunk, $frame ) {
+		$oldFrame = $this->currentFrame;
+		$this->currentFrame = $frame;
+		$result = $this->getInterpreter()->callFunction(
+			$this->mw['executeFunction'],
+			$chunk );
+		$this->currentFrame = $oldFrame;
+		return $result;
 	}
 
 	/**
@@ -77,7 +101,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	public function getGeSHiLanguage() {
 		return 'lua';
 	}
-	
+
 	public function getCodeEditorLanguage() {
 		return 'lua';
 	}
@@ -121,7 +145,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for the mw.internal.loadPackage() callback. Load the specified
+	 * Handler for the mw_php.loadPackage() callback. Load the specified
 	 * module and return its chunk. It's not necessary to cache the resulting
 	 * chunk in the object instance, since there is caching in a wrapper on the
 	 * Lua side.
@@ -151,6 +175,136 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		} else {
 			return array();
 		}
+	}
+
+	/**
+	 * Helper function for the implementation of frame methods
+	 */
+	protected function getFrameById( $frameId ) {
+		if ( !$this->currentFrame ) {
+			return false;
+		}
+		if ( $frameId === 'parent' ) {
+			if ( !isset( $this->currentFrame->parent ) ) {
+				return false;
+			} else {
+				return $this->currentFrame->parent;
+			}
+		} elseif ( $frameId = 'current' ) {
+			return $this->currentFrame;
+		} else {
+			throw new Scribunto_LuaError( 'invalid frame ID' );
+		}
+	}
+
+	/**
+	 * Handler for mw_php.parentFrameExists()
+	 */
+	function parentFrameExists() {
+		$frame = $this->getFrameById( 'parent' );
+		return array( $frame !== false );
+	}
+
+	/**
+	 * Handler for mw_php.getExpandedArgument()
+	 */
+	function getExpandedArgument( $frameId, $name ) {
+		$args = func_get_args();
+		$this->checkString( 'getExpandedArgument', $args, 0 );
+
+		$frame = $this->getFrameById( $frameId );
+		if ( $frame === false ) {
+			return array();
+		}
+		$result = $frame->getArgument( $name );
+		if ( $result === false ) {
+			return array();
+		} else {
+			return array( $result );
+		}
+	}
+
+	/**
+	 * Handler for mw_php.getAllExpandedArguments()
+	 */
+	function getAllExpandedArguments( $frameId ) {
+		$frame = $this->getFrameById( $frameId );
+		if ( $frame === false ) {
+			return array();
+		}
+		return array( $frame->getArguments() );
+	}
+
+	/**
+	 * Handler for mw_php.expandTemplate
+	 */
+	function expandTemplate( $frameId, $titleText, $args ) {
+		$frame = $this->getFrameById( $frameId );
+		if ( $frame === false ) {
+			throw new Scribunto_LuaError( 'attempt to call mw.expandTemplate with no frame' );
+		}
+
+		$title = Title::newFromText( $titleText, NS_TEMPLATE );
+		if ( !$title ) {
+			return array();
+		}
+
+		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
+			throw new Scribunto_LuaError( 'expandTemplate: template depth limit exceeded' );
+		}
+		if ( MWNamespace::isNonincludable( $title->getNamespace() ) ) {
+			throw new Scribunto_LuaError( 'expandTemplate: template inclusion denied' );
+		}
+
+		list( $dom, $finalTitle ) = $this->parser->getTemplateDom( $title );
+		if ( $dom === false ) {
+			return array();
+		}
+		if ( !$frame->loopCheck( $finalTitle ) ) {
+			throw new Scribunto_LuaError( 'expandTemplate: template loop detected' );
+		}
+
+		$newFrame = $this->parser->getPreprocessor()->newCustomFrame( $args );
+		$text = $this->doCachedExpansion( $newFrame, $dom, 
+			array(
+				'template' => $finalTitle->getPrefixedDBkey(),
+				'args' => $args
+			) );
+		return array( $text );
+	}
+
+	/**
+	 * Handler for mw_php.preprocess()
+	 */
+	function preprocess( $frameId, $text ) {
+		$args = func_get_args();
+		$this->checkString( 'preprocess', $args, 0 );
+
+		$frame = $this->getFrameById( $frameId );
+
+		if ( !$frame ) {
+			throw new Scribunto_LuaError( 'attempt to call mw.preprocess with no frame' );
+		}
+		$dom = $this->parser->getPreprocessor()->preprocessToObj( $text, Parser::PTD_FOR_INCLUSION );
+		$text = $this->doCachedExpansion( $frame, $dom,
+			array(
+				'inputText' => $text,
+				'args' => $frame->getArguments()
+			) );
+		return array( $text );
+	}
+
+	function doCachedExpansion( $frame, $dom, $cacheKey ) {
+		$hash = md5( serialize( $cacheKey ) );
+		if ( !isset( $this->expandCache[$hash] ) ) {
+			if ( count( $this->expandCache ) > self::MAX_EXPAND_CACHE_SIZE ) {
+				reset( $this->expandCache );
+				$oldHash = key( $this->expandCache );
+				unset( $this->expandCache[$oldHash] );
+			}
+			$this->expandCache[$hash] = $frame->expand( $dom );
+		}
+		return $this->expandCache[$hash];
 	}
 }
 
@@ -199,17 +353,15 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	}
 
 	/**
-	 * Invoke a function within the module. Return the first return value.
+	 * Invoke a function within the module. Return the expanded wikitext result.
 	 */
-	public function invoke( $name, $args, $frame ) {
+	public function invoke( $name, $frame ) {
 		$exports = $this->execute();
 		if ( !isset( $exports[$name] ) ) {
 			throw $this->engine->newException( 'scribunto-common-nosuchfunction' );
 		}
 
-		array_unshift( $args, $exports[$name] );
-		$result = call_user_func_array( 
-			array( $this->engine->getInterpreter(), 'callFunction' ), $args );
+		$result = $this->engine->executeFunctionChunk( $exports[$name], $frame );
 		if ( isset( $result[0] ) ) {
 			return $result[0];
 		} else {

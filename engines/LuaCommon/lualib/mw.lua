@@ -2,7 +2,8 @@ mw = mw or {}
 
 local packageCache
 local packageModuleFunc
-local internal
+local php
+local setupDone
 
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
@@ -19,7 +20,7 @@ local function makePackageModule( env )
 		if packageCache[modName] == 'missing' then
 			return nil
 		elseif packageCache[modName] == nil then
-			init = internal.loadPackage( modName )
+			init = php.loadPackage( modName )
 			if init == nil then
 				packageCache[modName] = 'missing'
 				return nil
@@ -39,6 +40,11 @@ end
 --- Set up the base environment. The PHP host calls this function after any 
 -- necessary host-side initialisation has been done.
 function mw.setup()
+	if setupDone then
+		return
+	end
+	setupDone = true
+
 	-- Don't allow getmetatable() on a non-table, since if you can get the metatable,
 	-- you can set values in it, breaking isolation
 	local old_getmetatable = getmetatable
@@ -50,17 +56,17 @@ function mw.setup()
 		end
 	end
 
-	-- Make mw_internal private
+	-- Make mw_php private
 	--
-	-- mw_internal.loadPackage() returns function values with their environment
+	-- mw_php.loadPackage() returns function values with their environment
 	-- set to the base environment, which would violate module isolation if they
 	-- were run from a cloned environment. We can only allow access to 
-	-- mw_internal.loadPackage via our environment-setting wrapper.
+	-- mw_php.loadPackage via our environment-setting wrapper.
 	--
-	internal = mw_internal
-	mw_internal = nil
+	php = mw_php
+	mw_php = nil
 
-	packageModuleFunc = internal.loadPackage( 'package' )
+	packageModuleFunc = php.loadPackage( 'package' )
 	packageCache = {}
 end
 
@@ -176,6 +182,169 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 	end
 
 	return my_setfenv, my_getfenv
+end
+
+local function newFrame( frameId )
+	local frame = {}
+	local argCache = {}
+	local argNames
+
+	local function getExpandedArgument( dummy, name )
+		name = tostring( name )
+		if argCache[name] == nil then
+			local arg = php.getExpandedArgument( frameId, name )
+			if arg == nil then
+				argCache[name] = false
+			else
+				argCache[name] = arg
+			end
+		end
+		if argCache[name] == false then
+			return nil
+		else
+			return argCache[name]
+		end
+	end
+
+	local function newCallbackParserValue( callback )
+		value = {}
+		local cache
+
+		function value:expand()
+			if not cache then
+				cache = callback()
+			end
+			return cache
+		end
+
+		return value
+	end
+
+	frame.args = {}
+	setmetatable( frame.args, { __index = getExpandedArgument } )
+
+	function frame:getArgument( opt )
+		local name
+		if type( opt ) == 'table' then
+			name = opt.name
+		else
+			name = opt
+		end
+
+		return newCallbackParserValue( 
+			function () 
+				return getExpandedArgument( nil, name )
+			end
+			)
+	end
+
+	function frame:getParent()
+		if frameId == 'parent' then
+			return nil
+		elseif php.parentFrameExists() then
+			return newFrame( 'parent' )
+		else
+			return nil
+		end
+	end
+
+	function frame:expandTemplate( opt )
+		local title
+
+		if type( opt ) ~= 'table' then
+			error( "frame:expandTemplate: the first parameter must be a table" )
+		end
+		if opt.title == nil then
+			error( "frame:expandTemplate: a title is required" )
+		else
+			title = tostring( opt.title )
+		end
+		local args
+		if opt.args == nil then
+			args = {}
+		elseif type( opt.args ) ~= 'table' then
+			error( "frame:expandTitle: args must be a table" )
+		else
+			args = opt.args
+		end
+
+		return php.expandTemplate( frameId, title, args )
+	end
+
+	function frame:preprocess( opt )
+		local text
+		if type( opt ) == 'table' then
+			text = opt.text
+		else
+			text = opt
+		end
+		text = tostring( text )
+		return php.preprocess( frameId, text )
+	end
+
+	function frame:newParserValue( opt )
+		local text
+		if type( opt ) == 'table' then
+			text = opt.text
+		else
+			text = opt
+		end
+
+		return newCallbackParserValue(
+			function () 
+				return self:preprocess( text )
+			end
+			)
+	end
+
+	function frame:newTemplateParserValue( opt )
+		if type( opt ) ~= 'table' then
+			error( "frame:newTemplateParserValue: the first parameter must be a table" )
+		end
+		if opt.title == nil then
+			error( "frame:newTemplateParserValue: a title is required" )
+		end
+		return newCallbackParserValue( 
+			function ()
+				return self:expandTemplate( opt )
+			end
+			)
+	end
+
+	function frame:argumentPairs()
+		local index = 0
+
+		local function argumentNext()
+			index = index + 1
+			if argNames[index] then
+				return argNames[index], argCache[argNames[index]]
+			end
+		end
+
+		if argNames == nil then
+			local arguments = php.getAllExpandedArguments( frameId )
+			argNames = {}
+			for name, value in pairs( arguments ) do
+				table.insert( argNames, name )
+				argCache[name] = value
+			end
+		end
+		
+		return argumentNext
+	end
+
+	return frame
+end
+
+function mw.executeFunction( chunk )
+	local frame = newFrame( 'current' )
+
+	local results = { chunk( frame ) }
+	local stringResults = {}
+	for i, result in ipairs( results ) do
+		stringResults[i] = tostring( result )
+	end
+	return table.concat( stringResults )
 end
 
 return mw

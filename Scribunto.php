@@ -53,6 +53,7 @@ $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
 $wgHooks['EditFilterMerged'][] = 'ScribuntoHooks::validateScript';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
+$wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
 
 $wgParserOutputHooks['ScribuntoError'] = 'ScribuntoHooks::parserOutputHook';
 
@@ -116,12 +117,12 @@ $wgScribuntoNamespaceNumbers = array(
 );
 
 /**
- * Turn on to true if SyntaxHighlight_GeSHi extension is enabled.
+ * Set to true to enable the SyntaxHighlight_GeSHi extension
  */
 $wgScribuntoUseGeSHi = false;
 
 /**
- * Turn on to true if CodeEditor extension is enabled.
+ * Set to true to enable the CodeEditor extension
  */
 $wgScribuntoUseCodeEditor = false;
 
