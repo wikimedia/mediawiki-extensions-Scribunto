@@ -26,7 +26,7 @@ if( !defined( 'MEDIAWIKI' ) )
 $wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'path'           => __FILE__,
 	'name'           => 'Scribunto',
-	'author'         => 'Victor Vasiliev',
+	'author'         => array( 'Victor Vasiliev', 'Tim Starling' ),
 	'descriptionmsg' => 'scribunto-desc',
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
 );
