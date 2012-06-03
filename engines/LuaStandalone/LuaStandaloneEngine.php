@@ -70,6 +70,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				} elseif ( PHP_INT_SIZE == 8 ) {
 					$path = 'lua5_1_4_Win64_bin/lua5.1.exe';
 				}
+			} elseif ( PHP_OS == 'Darwin' ) {
+				$path = 'lua5_1_5_mac_lion_fat_generic/lua';
 			}
 			if ( $path === false ) {
 				throw new Scribunto_LuaInterpreterNotFoundError( 
