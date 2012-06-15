@@ -43,3 +43,98 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lua error: internal error: the interpreter has terminated with signal "$2"',
 	'scribunto-luastandalone-exited' => 'Lua error: internal error: the interpreter exited with status $2',
 );
+
+/** German (Deutsch)
+ * @author Kghbln
+ */
+$messages['de'] = array(
+	'scribunto-desc' => 'Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten',
+	'scribunto-line' => 'in Zeile $1',
+	'scribunto-module-line' => 'in $1, Zeile $2',
+	'scribunto-parser-error' => 'Skriptfehler',
+	'scribunto-parser-dialog-title' => 'Skriptfehler',
+	'scribunto-error-short' => 'Skriptfehler: $1',
+	'scribunto-error-long' => 'Skriptfehler:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Skriptfehler: Ein solches Modul ist nicht vorhanden.',
+	'scribunto-common-nofunction' => 'Skriptfehler: Es muss eine aufzurufende Funktion angegeben werden.',
+	'scribunto-common-nosuchfunction' => 'Skriptfehler: Die angegebene Funktion ist nicht vorhanden.',
+	'scribunto-common-timeout' => 'Die Zeit zum Ausführen von Skripten vorgesehene Zeit ist abgelaufen.',
+	'scribunto-common-oom' => 'Der zum Ausführen von Skripten vorgesehene Arbeitsspeicher wurde erschöpft.',
+	'scribunto-common-backtrace' => 'Ablaufrückverfolgung:',
+	'scribunto-lua-in-function' => 'in der Funktion „$1“',
+	'scribunto-lua-in-main' => 'im Hauptsegment',
+	'scribunto-lua-in-function-at' => 'in der Funktion bei  $1:$2',
+	'scribunto-lua-error-location' => 'Lua-Fehler  $1: $2',
+	'scribunto-lua-error' => 'Lua-Fehler: $2',
+	'scribunto-lua-noreturn' => 'Skriptfehler: Das Modul gab keinen Wert zurück, obwohl es eine Tabelle zum Export hätte zurückgeben sollen.',
+	'scribunto-lua-notarrayreturn' => 'Skriptfehler: Das Modul gab etwas anderes als eine Tabelle zum Export zurück. Es hätte eine Tabelle zum Export hätte zurückgeben sollen.',
+	'scribunto-luastandalone-proc-error' => 'Lua-Fehler: Der Vorgang kann nicht erstellt werden.',
+	'scribunto-luastandalone-decode-error' => 'Interner Lua-Fehler: Die Nachricht konnte nicht dekodiert werden.',
+	'scribunto-luastandalone-write-error' => 'Interner Lua-Fehler: Es trat ein Fehler beim Schreiben auf.',
+	'scribunto-luastandalone-read-error' => 'Interner Lua-Fehler: Es trat ein Fehler beim Lesen auf.',
+	'scribunto-luastandalone-gone' => 'Interner Lua-Fehler: Der Interpreter wurde bereits beendet.',
+	'scribunto-luastandalone-signal' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Signal „$2“.',
+	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
+);
+
+/** Brazilian Portuguese (português do Brasil)
+ * @author Jaideraf
+ */
+$messages['pt-br'] = array(
+	'scribunto-desc' => 'Estrutura para incorporar linguagens de script em páginas do MediaWiki',
+	'scribunto-line' => 'na linha $1',
+	'scribunto-module-line' => 'em $1 na linha $2',
+	'scribunto-parser-error' => 'Erro de script',
+	'scribunto-parser-dialog-title' => 'Erro de script',
+	'scribunto-error-short' => 'Erro de script: $1',
+	'scribunto-error-long' => 'Erros de script:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Erro de script: módulo não encontrado',
+	'scribunto-common-nofunction' => 'Erro de script: você deve especificar uma função para chamar.',
+	'scribunto-common-nosuchfunction' => 'Erro de script: a função especificada não existe.',
+	'scribunto-common-timeout' => 'O tempo alocado para a execução de scripts expirou.',
+	'scribunto-common-oom' => 'A quantidade de memória permitida para a execução de scripts foi excedida.',
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'na função "$1"',
+	'scribunto-lua-in-main' => 'na parte principal',
+	'scribunto-lua-in-function-at' => 'na função em $1:$2',
+);
+
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'scribunto-desc' => 'Baskagan para sa pagbabaon ng mga wikang pampagpapanitik papaloob sa mga pahina ng MediaWiki',
+	'scribunto-line' => 'sa guhit na $1',
+	'scribunto-module-line' => 'sa loob ng $1 na nasa guhit na $2',
+	'scribunto-parser-error' => 'Kamalian sa panitik',
+	'scribunto-parser-dialog-title' => 'Kamalian sa panitik',
+	'scribunto-error-short' => 'Kamalian sa panitik: $1',
+	'scribunto-error-long' => 'Mga kamalian sa panitik:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Kamalian sa panitik: Walang ganyang modulo',
+	'scribunto-common-nofunction' => 'Kamalian sa panitik: Dapat kang magtukoy ng isang tungkuling tatawagin.',
+	'scribunto-common-nosuchfunction' => 'Kamalian sa panitik: Ang tinukoy mong tungkulin ay hindi umiiral.',
+	'scribunto-common-timeout' => 'Ang panahong inilaan para sa pagpapatakbo ng mga panitik ay lipas na.',
+	'scribunto-common-oom' => 'Ang dami ng pinahintulutang alaala para sa pagpapatakbo ng mga panitik ay nalampasan na.',
+	'scribunto-common-backtrace' => 'Paurong na pagbabakas:',
+	'scribunto-lua-in-function' => 'sa loob ng tungkuling "$1"',
+	'scribunto-lua-in-main' => 'sa loob ng pangunahing tipak',
+	'scribunto-lua-in-function-at' => 'sa loob ng tungkuling nasa $1:$2',
+	'scribunto-lua-error-location' => 'Kamalian ng lua na $1: $2',
+	'scribunto-lua-error' => 'Kamalian ng lua: $2',
+	'scribunto-lua-noreturn' => 'Kamalian sa panitik: Ang modyul ay hindi nagbalik ng isang halaga, dapat itong magbalik ng isang talahanayan ng pag-aangkat.',
+	'scribunto-lua-notarrayreturn' => 'Kamalian sa panitik: Ang modulo ay nagbalik ng isang bagay na bukod sa isang talahanayan, dapat itong magbalik ng isang talahanayan ng pag-aangkat.',
+	'scribunto-luastandalone-proc-error' => 'Kamalian ng lua: hindi malikha ang proseso',
+	'scribunto-luastandalone-decode-error' => 'Kamalian ng lua: panloob na kamalian: hindi nagawang alamin ang kodigo ng mensahe',
+	'scribunto-luastandalone-write-error' => 'Kamalian ng lua: panloob na kamalian: kamalian sa pagsusulat sa tubo',
+	'scribunto-luastandalone-read-error' => 'Kamalian sa lua: kamaliang panloob: kamalian sa pagbabasa mula sa tubo',
+	'scribunto-luastandalone-gone' => 'Kamalian sa lua: panloob na kamalian: lumabas na ang tagapagpaunawa',
+	'scribunto-luastandalone-signal' => 'Kamalian sa lua: panloob na kamalian: huminto ang tagapagpaliwanag na mayroong senyas na "$2"',
+	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
+);
+
