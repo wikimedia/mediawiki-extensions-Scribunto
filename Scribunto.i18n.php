@@ -79,6 +79,48 @@ $1',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 );
 
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'scribunto-lua-error' => 'Lua Feeler: $2',
+);
+
+/** Macedonian (македонски)
+ * @author Bjankuloski06
+ */
+$messages['mk'] = array(
+	'scribunto-desc' => 'Рамка за вметнување на скриптни јазици во страница на МедијаВики',
+	'scribunto-line' => 'во редот $1',
+	'scribunto-module-line' => 'во $1, ред $2',
+	'scribunto-parser-error' => 'Грешка во скриптата',
+	'scribunto-parser-dialog-title' => 'Грешка во скриптата',
+	'scribunto-error-short' => 'Грешка во скриптата: $1',
+	'scribunto-error-long' => 'Грешки во скриптата:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Грешка во скриптата: Нема таков модул',
+	'scribunto-common-nofunction' => 'Грешка во скриптата: Мора да ја наведете функцијата што треба да се повика.',
+	'scribunto-common-nosuchfunction' => 'Грешка во скриптата: Наведената функција не постои.',
+	'scribunto-common-timeout' => 'Зададеното време за работа на скриптите истече.',
+	'scribunto-common-oom' => 'Надминат е дозволениот складишен простор за работа на скрипти.',
+	'scribunto-common-backtrace' => 'Проследување на текот:',
+	'scribunto-lua-in-function' => 'во функцијата „$1“',
+	'scribunto-lua-in-main' => 'во главниот дел',
+	'scribunto-lua-in-function-at' => 'во функцијата, кај $1:$2',
+	'scribunto-lua-error-location' => 'Грешка во Lua $1: $2',
+	'scribunto-lua-error' => 'Грешка во Lua: $2',
+	'scribunto-lua-noreturn' => 'Грешка во скриптата: Модулот не врати вредност. Треба да врати извозна табела.',
+	'scribunto-lua-notarrayreturn' => 'Грешка во скриптата: Модулот не врати табела, туку нешто друго. Треба да врати извозна табела.',
+	'scribunto-luastandalone-proc-error' => 'Грешка во Lua: не можам да ја создадам постапката',
+	'scribunto-luastandalone-decode-error' => 'Грешка во Lua: внатрешна грешка: не можам да ја декодирам пораката',
+	'scribunto-luastandalone-write-error' => 'Грешка во Lua: внатрешна грешка: грешка при записот',
+	'scribunto-luastandalone-read-error' => 'Грешка во Lua: внатрешна грешка: грешка при читањето',
+	'scribunto-luastandalone-gone' => 'Грешка во Lua: внатрешна грешка: толкувачот веќе напушти',
+	'scribunto-luastandalone-signal' => 'Грешка во Lua: внатрешна грешка: толкувачот прекина да работи со сигналот „$2“',
+	'scribunto-luastandalone-exited' => 'Грешка во Lua: внатрешна грешка: толкувачот напушти со статусот $2',
+);
+
 /** Brazilian Portuguese (português do Brasil)
  * @author Jaideraf
  */
@@ -101,6 +143,17 @@ $1',
 	'scribunto-lua-in-function' => 'na função "$1"',
 	'scribunto-lua-in-main' => 'na parte principal',
 	'scribunto-lua-in-function-at' => 'na função em $1:$2',
+	'scribunto-lua-error-location' => 'Erro em Lua $1: $2',
+	'scribunto-lua-error' => 'Erro em lua: $2',
+	'scribunto-lua-noreturn' => 'Erro de script: o módulo não retornou um valor, ele deveria retornar uma tabela de exportação.',
+	'scribunto-lua-notarrayreturn' => 'Erro de script: o módulo retornou algo diferente de uma tabela, ele deveria retornar uma tabela de exportação.',
+	'scribunto-luastandalone-proc-error' => 'Erro em Lua: impossível criar o processo',
+	'scribunto-luastandalone-decode-error' => 'Erro em Lua: erro interno: não foi possível decodificar a mensagem',
+	'scribunto-luastandalone-write-error' => 'Erro em Lua: erro interno: erro ao gravar pipe',
+	'scribunto-luastandalone-read-error' => 'Erro em Lua: erro interno: erro ao ler do pipe',
+	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
+	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador foi finalizado com o sinal "$2"',
+	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador saiu com status $2',
 );
 
 /** Tagalog (Tagalog)
