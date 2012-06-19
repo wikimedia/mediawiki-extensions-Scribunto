@@ -79,10 +79,50 @@ $1',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 );
 
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'scribunto-desc' => 'Structura pro incorporar linguages de script in paginas de MediaWiki',
+	'scribunto-line' => 'al linea $1',
+	'scribunto-module-line' => 'in $1 al linea $2',
+	'scribunto-parser-error' => 'Error de script',
+	'scribunto-parser-dialog-title' => 'Error de script',
+	'scribunto-error-short' => 'Error de script: $1',
+	'scribunto-error-long' => 'Errores de script:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Error de script: modulo non trovate',
+	'scribunto-common-nofunction' => 'Error de script: tu debe specificar un function a appellar.',
+	'scribunto-common-nosuchfunction' => 'Error de script: le function specificate non existe.',
+	'scribunto-common-timeout' => 'Le tempore allocate pro le execution de scripts ha expirate.',
+	'scribunto-common-oom' => 'Le quantitate de memoria permittite pro le execution de scripts ha essite excedite.',
+	'scribunto-common-backtrace' => 'Tracia a retro:',
+	'scribunto-lua-in-function' => 'in function "$1"',
+	'scribunto-lua-in-main' => 'in le parte principal',
+	'scribunto-lua-in-function-at' => 'in le function a $1:$2',
+	'scribunto-lua-error-location' => 'Error de Lua $1: $2',
+	'scribunto-lua-error' => 'Error de Lua: $2',
+	'scribunto-lua-noreturn' => 'Error de script: Le modulo non retornava un valor, illo deberea retornar un tabella de exportation.',
+	'scribunto-lua-notarrayreturn' => 'Error de script: Le modulo retornava qualcosa altere que un tabella, illo deberea retornar un tabella de exportation.',
+	'scribunto-luastandalone-proc-error' => 'Error de Lua: non pote crear processo',
+	'scribunto-luastandalone-decode-error' => 'Error de Lua: error interne: impossibile decodificar le message',
+	'scribunto-luastandalone-write-error' => 'Error de Lua: error interne: error de scriptura al tubo',
+	'scribunto-luastandalone-read-error' => 'Error de Lua: error interne: error de lectura del tubo',
+	'scribunto-luastandalone-gone' => 'Error de Lua: error interne: le interpretator ha jam exite',
+	'scribunto-luastandalone-signal' => 'Error de Lua: error interne: le interpretator ha terminate con le signal "$2"',
+	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
 $messages['lb'] = array(
+	'scribunto-parser-error' => 'Script-Feeler',
+	'scribunto-parser-dialog-title' => 'Script-Feeler',
+	'scribunto-error-long' => 'Script-Feeler:
+
+$1',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
 );
 
@@ -119,6 +159,41 @@ $1',
 	'scribunto-luastandalone-gone' => 'Грешка во Lua: внатрешна грешка: толкувачот веќе напушти',
 	'scribunto-luastandalone-signal' => 'Грешка во Lua: внатрешна грешка: толкувачот прекина да работи со сигналот „$2“',
 	'scribunto-luastandalone-exited' => 'Грешка во Lua: внатрешна грешка: толкувачот напушти со статусот $2',
+);
+
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'scribunto-desc' => "Framework voor het inbedden van scripttalen in pagina's",
+	'scribunto-line' => 'op regel $1',
+	'scribunto-module-line' => 'in $1 op regel $2',
+	'scribunto-parser-error' => 'Scriptfout',
+	'scribunto-parser-dialog-title' => 'Scriptfout',
+	'scribunto-error-short' => 'Scriptfout: $1',
+	'scribunto-error-long' => 'Scriptfouten:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Scriptfout: de module bestaat niet.',
+	'scribunto-common-nofunction' => 'Scriptfout: u moet een aan te roepen functie opgeven.',
+	'scribunto-common-nosuchfunction' => 'Scriptfout: de opgegeven functie bestaat niet.',
+	'scribunto-common-timeout' => 'De maximale uitvoertijd voor scripts is verlopen.',
+	'scribunto-common-oom' => 'De hoeveelheid geheugen die uitgevoerde scripts mogen gebruiken is overschreden.',
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'in functie "$1"',
+	'scribunto-lua-in-main' => 'in het hoofdgedeelte',
+	'scribunto-lua-in-function-at' => 'in de functie op $1:$2',
+	'scribunto-lua-error-location' => 'Luafout $1: $2',
+	'scribunto-lua-error' => 'Luafout: $2',
+	'scribunto-lua-noreturn' => 'Scriptfout: de module heeft geen waarde teruggegeven. Deze hoort een exporttabel terug te geven.',
+	'scribunto-lua-notarrayreturn' => 'Scriptfout: de module heeft iets anders dan een tabel teruggegeven. Deze hoort een exporttabel terug te geven.',
+	'scribunto-luastandalone-proc-error' => 'Luafout: het was niet mogelijk een proces te creëren.',
+	'scribunto-luastandalone-decode-error' => 'Luafout: interne fout: het was niet mogelijk het bericht te decoderen.',
+	'scribunto-luastandalone-write-error' => 'Luafout: interne fout: fout tijdens het schrijven naar de pipe.',
+	'scribunto-luastandalone-read-error' => 'Luafout: interne fout: fout tijdens het lezen van de pipe.',
+	'scribunto-luastandalone-gone' => 'Luafout: interne fout: de verwerkingsmodule is al klaar',
+	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
+	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
 );
 
 /** Brazilian Portuguese (português do Brasil)
