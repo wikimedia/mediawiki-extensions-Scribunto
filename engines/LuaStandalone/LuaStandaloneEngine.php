@@ -13,6 +13,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	function getLimitReport() {
 		$this->load();
 		if ( !$this->initialStatus ) {
@@ -29,6 +32,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 			$lang->formatSize( $status['vsize'] - $this->initialStatus['vsize'] ) . "\n";
 	}
 
+	/**
+	 * @return mixed
+	 */
 	function getClockTick() {
 		if ( self::$clockTick === null ) {
 			wfSuppressWarnings();
@@ -41,6 +47,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		return self::$clockTick;
 	}
 
+	/**
+	 * @return Scribunto_LuaStandaloneInterpreter
+	 */
 	function newInterpreter() {
 		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options );
 	}
@@ -50,8 +59,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	var $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError;
 
 	function __construct( $engine, $options ) {
-		global $IP;
-
 		if ( $options['errorFile'] === null ) {
 			$options['errorFile'] = wfGetNull();
 		}
@@ -230,7 +237,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	protected function dispatch( $msgToLua ) {
 		$this->sendMessage( $msgToLua );
-		$error = false;
 		while ( true ) {
 			$msgFromLua = $this->receiveMessage();
 

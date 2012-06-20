@@ -27,6 +27,7 @@ class ScribuntoHooks {
 	/**
 	 * Register parser hooks.
 	 * @param $parser Parser
+	 * @return bool
 	 */
 	public static function setupParserHook( &$parser ) {
 		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', SFH_OBJECT_ARGS );
@@ -36,8 +37,7 @@ class ScribuntoHooks {
 	/**
 	 * Called when the interpreter is to be reset.
 	 * 
-	 * @static
-	 * @param  $parser Parser
+	 * @param $parser Parser
 	 * @return bool
 	 */
 	public static function clearState( &$parser ) {
@@ -51,6 +51,8 @@ class ScribuntoHooks {
 	 * @param $parser Parser
 	 * @param $frame PPFrame
 	 * @param $args array
+	 * @throws MWException
+	 * @throws ScribuntoException
 	 * @return string
 	 */
 	public static function invokeHook( &$parser, $frame, $args ) {
@@ -146,7 +148,12 @@ class ScribuntoHooks {
 			return true;
 		}
 	}
-	
+
+	/**
+	 * @param $title Title
+	 * @param $lang string
+	 * @return bool
+	 */
 	public static function getCodeLanguage( $title, &$lang ) {
 		global $wgScribuntoUseCodeEditor;
 		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
@@ -198,9 +205,16 @@ class ScribuntoHooks {
 		return true;
 	}
 
+	/**
+	 * @param $editor EditPage
+	 * @param $text string
+	 * @param $error
+	 * @param $summary
+	 * @return bool
+	 */
 	public static function validateScript( $editor, $text, &$error, $summary ) {
-		global $wgUser, $wgOut, $wgScribuntoUseCodeEditor;
-		$title = $editor->mTitle;
+		global $wgOut;
+		$title = $editor->getTitle();
 
 		if( $title->getNamespace() == NS_MODULE ) {
 			$engine = Scribunto::newDefaultEngine();
@@ -231,6 +245,10 @@ WIKI;
 		return true;
 	}
 
+	/**
+	 * @param $files array
+	 * @return bool
+	 */
 	public static function unitTestsList( &$files ) {
 		$tests = array(
 			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
@@ -243,6 +261,10 @@ WIKI;
 		return true;
 	}
 
+	/**
+	 * @param $outputPage OutputPage
+	 * @param $parserOutput ParserOutput
+	 */
 	public static function parserOutputHook( $outputPage, $parserOutput ) {
 		$outputPage->addModules( 'ext.scribunto' );
 		$outputPage->addInlineScript( 'mw.loader.using("ext.scribunto", function() {' . 

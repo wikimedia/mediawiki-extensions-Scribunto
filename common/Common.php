@@ -8,6 +8,8 @@ class Scribunto {
 
 	/**
 	 * Create a new engine object with specified parameters.
+	 * @param $options array
+	 * @return ScribuntoEngineBase
 	 */
 	public static function newEngine( $options ) {
 		$class = $options['class'];
@@ -16,7 +18,9 @@ class Scribunto {
 
 	/**
 	 * Create a new engine object with default parameters
-	 * @param $extraOptions Extra options to pass to the constructor, in addition to the configured options
+	 * @param $extraOptions array Extra options to pass to the constructor, in addition to the configured options
+	 * @throws MWException
+	 * @return ScribuntoEngineBase
 	 */
 	public static function newDefaultEngine( $extraOptions = array() ) {
 		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
@@ -68,6 +72,10 @@ class Scribunto {
 class ScribuntoException extends MWException {
 	var $messageName, $messageArgs, $params;
 
+	/**
+	 * @param $messageName string
+	 * @param $params array
+	 */
 	function __construct( $messageName, $params = array() ) {
 		if ( isset( $params['args'] ) ) {
 			$this->messageArgs = $params['args'];
@@ -96,6 +104,9 @@ class ScribuntoException extends MWException {
 		$this->params = $params;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMessageName() {
 		return $this->messageName;
 	}

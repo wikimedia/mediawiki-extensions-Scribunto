@@ -41,7 +41,7 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Constructor.
 	 * 
-	 * @param $options Associative array of options:
+	 * @param $options array Associative array of options:
 	 *    - parser:            A Parser object
 	 */
 	public function __construct( $options ) {
@@ -62,10 +62,18 @@ abstract class ScribuntoEngineBase {
 		return $this->title;
 	}
 
+	/**
+	 * @param $message
+	 * @param $params array
+	 * @return ScribuntoException
+	 */
 	public function newException( $message, $params = array() ) {
 		return new ScribuntoException( $message, $this->getDefaultExceptionParams() + $params );
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getDefaultExceptionParams() {
 		$params = array();
 		if ( $this->title ) {
@@ -81,7 +89,7 @@ abstract class ScribuntoEngineBase {
 	 * Does not initialize the module, i.e. do not expect it to complain if the module
 	 * text is garbage or has syntax error. Returns a module or null if it doesn't exist.
 	 *
-	 * @param $title The title of the module
+	 * @param $title string The title of the module
 	 * @return ScribuntoEngineModule
 	 */
 	function fetchModuleFromParser( Title $title ) {
@@ -101,8 +109,8 @@ abstract class ScribuntoEngineBase {
 	 * Validates the script and returns a Status object containing the syntax 
 	 * errors for the given code.
 	 * 
-	 * @param $code Code to validate
-	 * @param $title Title of the code page
+	 * @param $text string
+	 * @param $chunkName
 	 * @return Status
 	 */
 	function validate( $text, $chunkName = false ) {
@@ -159,9 +167,7 @@ abstract class ScribuntoModuleBase {
 	/**
 	 * Validates the script and returns a Status object containing the syntax 
 	 * errors for the given code.
-	 * 
-	 * @param $code Code to validate
-	 * @param $title Title of the code page
+	 *
 	 * @return Status
 	 */
 	abstract public function validate();

@@ -191,7 +191,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			} else {
 				return $this->currentFrame->parent;
 			}
-		} elseif ( $frameId = 'current' ) {
+		} elseif ( $frameId === 'current' ) {
 			return $this->currentFrame;
 		} else {
 			throw new Scribunto_LuaError( 'invalid frame ID' );
@@ -312,8 +312,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	protected $initChunk;
 
+	/**
+	 * @param $name string
+	 * @return Scribunto_LuaFunction
+	 */
 	protected function newFunction( $name ) {
-		return new Scribunto_LuaFunction( $this, $name, $contents );
+		return new Scribunto_LuaFunction( $this, $name, $contents ); // FIXME: $contents is undefined
 	}
 
 	public function validate() {
