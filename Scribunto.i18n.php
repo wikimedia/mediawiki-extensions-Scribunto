@@ -79,6 +79,41 @@ $1',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 );
 
+/** Galician (galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'scribunto-desc' => 'Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki',
+	'scribunto-line' => 'na liña $1',
+	'scribunto-module-line' => 'en $1 na liña $2',
+	'scribunto-parser-error' => 'Erro de script',
+	'scribunto-parser-dialog-title' => 'Erro de script',
+	'scribunto-error-short' => 'Erro de script: $1',
+	'scribunto-error-long' => 'Erros de script:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Erro de script: Non existe ese módulo.',
+	'scribunto-common-nofunction' => 'Erro de script: Cómpre especificar a función que se quere chamar.',
+	'scribunto-common-nosuchfunction' => 'Erro de script: A función especificada non existe.',
+	'scribunto-common-timeout' => 'O tempo reservado para executar os scripts rematou.',
+	'scribunto-common-oom' => 'Superouse a cantidade de memoria permitida para executar os scripts.',
+	'scribunto-common-backtrace' => 'Rastro inverso (backtrace):',
+	'scribunto-lua-in-function' => 'na función "$1"',
+	'scribunto-lua-in-main' => 'no bloque principal',
+	'scribunto-lua-in-function-at' => 'na función en $1:$2',
+	'scribunto-lua-error-location' => 'Erro de Lua $1: $2.',
+	'scribunto-lua-error' => 'Erro de Lua: $2.',
+	'scribunto-lua-noreturn' => 'Erro de script: O módulo non devolveu ningún valor; debería devolver unha táboa de exportación.',
+	'scribunto-lua-notarrayreturn' => 'Erro de script: O módulo devolveu algo que non era unha táboa; debería devolver unha táboa de exportación.',
+	'scribunto-luastandalone-proc-error' => 'Erro de Lua: Non se pode crear o proceso.',
+	'scribunto-luastandalone-decode-error' => 'Erro de Lua: Erro interno: Non se puido descodificar a mensaxe.',
+	'scribunto-luastandalone-write-error' => 'Erro de Lua: Erro interno: Erro ao escribir na canalización (pipe).',
+	'scribunto-luastandalone-read-error' => 'Erro de Lua: Erro interno: Erro ao ler desde a canalización (pipe).',
+	'scribunto-luastandalone-gone' => 'Erro de Lua: Erro interno: O intérprete xa rematou.',
+	'scribunto-luastandalone-signal' => 'Erro de Lua: Erro interno: O intérprete rematou co sinal "$2".',
+	'scribunto-luastandalone-exited' => 'Erro de Lua: Erro interno: O intérprete rematou co estado $2.',
+);
+
 /** Interlingua (interlingua)
  * @author McDutchie
  */
