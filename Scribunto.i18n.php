@@ -114,6 +114,27 @@ $1',
 	'scribunto-luastandalone-exited' => 'Erro de Lua: Erro interno: O intérprete rematou co estado $2.',
 );
 
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'scribunto-line' => 'w lince $1',
+	'scribunto-module-line' => 'w $1, w lince $2',
+	'scribunto-parser-error' => 'Skriptowy zmylk',
+	'scribunto-parser-dialog-title' => 'Skriptowy zmylk',
+	'scribunto-error-short' => 'Skriptowy zmylk: $1',
+	'scribunto-error-long' => 'Skriptowe zmylki:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Skriptowy zmylk: Tajki modul njeje.',
+	'scribunto-common-nosuchfunction' => 'Skriptowy zmylk: Funkcija, kotruž sy podał, njeeksistuje.',
+	'scribunto-lua-in-function' => 'we funkciji "$1"',
+	'scribunto-lua-in-main' => 'we hłownym segmenće',
+	'scribunto-lua-in-function-at' => 'we funkciji při $1:$2',
+	'scribunto-lua-error-location' => 'Lua-zmylk $1:  $2.',
+	'scribunto-lua-error' => 'Lua-zmylk:  $2.',
+);
+
 /** Interlingua (interlingua)
  * @author McDutchie
  */
