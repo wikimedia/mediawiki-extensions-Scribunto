@@ -79,6 +79,29 @@ $1',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 );
 
+/** Spanish (español)
+ * @author Armando-Martin
+ */
+$messages['es'] = array(
+	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
+	'scribunto-line' => 'en la línea $1',
+	'scribunto-module-line' => 'en $1 en la línea $2',
+	'scribunto-parser-error' => 'Error de script',
+	'scribunto-parser-dialog-title' => 'Error de script',
+	'scribunto-error-short' => 'Error de secuencia de comandos: $1',
+	'scribunto-error-long' => 'Errores de secuencia de comandos (script):
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Error de secuencia de comandos (script): no existe ese módulo.',
+	'scribunto-common-nofunction' => 'Error de script: debe especificar una función a la que llamar.',
+	'scribunto-common-nosuchfunction' => 'Error de script: la función especificada no existe.',
+	'scribunto-common-timeout' => 'Ha caducado el tiempo asignado para ejecutar secuencias de comandos (scripts).',
+	'scribunto-common-oom' => 'Se ha superado la cantidad de memoria permitida para ejecutar secuencias de comandos (script).',
+	'scribunto-lua-in-function' => 'en la función "$1"',
+	'scribunto-lua-in-main' => 'en el campo principal',
+	'scribunto-lua-in-function-at' => 'en la función en $1: $2',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
@@ -114,7 +137,7 @@ $1',
 	'scribunto-luastandalone-exited' => 'Erro de Lua: Erro interno: O intérprete rematou co estado $2.',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
@@ -168,6 +191,29 @@ $1',
 	'scribunto-luastandalone-gone' => 'Error de Lua: error interne: le interpretator ha jam exite',
 	'scribunto-luastandalone-signal' => 'Error de Lua: error interne: le interpretator ha terminate con le signal "$2"',
 	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
+);
+
+/** Japanese (日本語)
+ * @author Shirayuki
+ */
+$messages['ja'] = array(
+	'scribunto-desc' => 'MediaWiki ページにスクリプト言語を埋め込むフレームワーク',
+	'scribunto-parser-error' => 'スクリプトエラー',
+	'scribunto-parser-dialog-title' => 'スクリプトエラー',
+	'scribunto-error-short' => 'スクリプトエラー：$1',
+	'scribunto-error-long' => 'スクリプトエラー：
+
+$1',
+	'scribunto-common-nofunction' => 'スクリプトエラー：呼び出す関数を指定してください。',
+	'scribunto-common-nosuchfunction' => 'スクリプトエラー：指定した関数は存在しません。',
+	'scribunto-common-timeout' => 'スクリプトに割り当てた時間が終了しました。',
+	'scribunto-common-backtrace' => 'バックトレース：',
+	'scribunto-lua-error-location' => 'Lua エラー $1：$2',
+	'scribunto-lua-error' => 'Lua エラー：$2',
+	'scribunto-luastandalone-proc-error' => 'Lua エラー：プロセスを作成できません。',
+	'scribunto-luastandalone-decode-error' => 'Lua エラー：内部エラー：メッセージを復号できません。',
+	'scribunto-luastandalone-write-error' => 'Lua エラー：内部エラー：パイプへの書き込みエラーです。',
+	'scribunto-luastandalone-read-error' => 'Lua エラー：内部エラー：パイプからの読み込みエラーです。',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
