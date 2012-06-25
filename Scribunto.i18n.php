@@ -44,6 +44,52 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua error: Internal error: The interpreter exited with status $2.',
 );
 
+/** Message documentation (Message documentation)
+ * @author Siebrand
+ */
+$messages['qqq'] = array(
+	'scribunto-desc' => '{{desc}}',
+	'scribunto-line' => 'Reference to a code location. Parameters:
+* $1 is a line number.',
+	'scribunto-module-line' => 'Reference to a code location. Parameters:
+* $1 is a module;
+* $2 is a line number.',
+	'scribunto-parser-error' => 'Error message.',
+	'scribunto-parser-dialog-title' => 'Error message.',
+	'scribunto-error-short' => 'Error message. Parameters:
+* $1 are the error details.',
+	'scribunto-error-long' => 'Error message. Parameters:
+* $1 are the error details.',
+	'scribunto-common-nosuchmodule' => 'Error message displayed when referencing a non-existing module.',
+	'scribunto-common-nofunction' => 'Error message displayed when not specifying a function to call.',
+	'scribunto-common-nosuchfunction' => 'Error message displayed when referencing a non-existing function.',
+	'scribunto-common-timeout' => 'Error message displayed when script execution has passed a threshold.',
+	'scribunto-common-oom' => 'Error message displayed when the script requires more memory than the threshold.',
+	'scribunto-common-backtrace' => 'A backtrace is a list of the function calls that are currently active in a thread. This message is followed by a backtrace.',
+	'scribunto-lua-in-function' => 'Reference to a function name. Parameters:
+* $1 is a function name.',
+	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.',
+	'scribunto-lua-in-function-at' => 'Part of the backtrace creation routines. Parameters:
+* $1 is a function name;
+* $2 is a line number.',
+	'scribunto-lua-error-location' => 'Error message. Parameters:
+* $1 is ...;
+* $2 is ....',
+	'scribunto-lua-error' => 'Error message. Parameters:
+* $2 is ....',
+	'scribunto-lua-noreturn' => 'Error message.',
+	'scribunto-lua-notarrayreturn' => 'Error message.',
+	'scribunto-luastandalone-proc-error' => 'Exception message.',
+	'scribunto-luastandalone-decode-error' => 'Exception message.',
+	'scribunto-luastandalone-write-error' => 'Exception message.',
+	'scribunto-luastandalone-read-error' => 'Exception message.',
+	'scribunto-luastandalone-gone' => 'Exception message.',
+	'scribunto-luastandalone-signal' => 'Exception message. Parameters:
+* $2 is an exit status.',
+	'scribunto-luastandalone-exited' => 'Exception message. Parameters:
+* $2 is an exit status.',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
