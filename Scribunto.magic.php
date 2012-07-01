@@ -3,6 +3,10 @@
 $magicWords = array();
 
 /** English (English) */
+
+$magicWords = array();
+
+/** English (English) */
 $magicWords['en'] = array(
 	'invoke' => array( 0, 'invoke' ),
 );
@@ -20,4 +24,9 @@ $magicWords['ko'] = array(
 /** Macedonian (македонски) */
 $magicWords['mk'] = array(
 	'invoke' => array( 0, 'повикај' ),
+);
+
+/** Dutch (Nederlands) */
+$magicWords['nl'] = array(
+	'invoke' => array( 0, 'aanroepen' ),
 );

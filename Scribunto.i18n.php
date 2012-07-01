@@ -278,6 +278,7 @@ $1',
  * @author Robby
  */
 $messages['lb'] = array(
+	'scribunto-line' => 'an der Linn $1',
 	'scribunto-parser-error' => 'Script-Feeler',
 	'scribunto-parser-dialog-title' => 'Script-Feeler',
 	'scribunto-error-long' => 'Script-Feeler:
