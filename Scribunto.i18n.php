@@ -208,12 +208,16 @@ $messages['hsb'] = array(
 
 $1',
 	'scribunto-common-nosuchmodule' => 'Skriptowy zmylk: Tajki modul njeje.',
+	'scribunto-common-nofunction' => 'Skriptowy zmylk: Dyrbiš funkciju podać, kotraž ma so wołać.',
 	'scribunto-common-nosuchfunction' => 'Skriptowy zmylk: Funkcija, kotruž sy podał, njeeksistuje.',
+	'scribunto-common-timeout' => 'Čas, kotryž je so za wuwjedźenje skriptow postajił, je spadnył.',
+	'scribunto-common-backtrace' => 'Wróćoslědowanje:',
 	'scribunto-lua-in-function' => 'we funkciji "$1"',
 	'scribunto-lua-in-main' => 'we hłownym segmenće',
 	'scribunto-lua-in-function-at' => 'we funkciji při $1:$2',
 	'scribunto-lua-error-location' => 'Lua-zmylk $1:  $2.',
 	'scribunto-lua-error' => 'Lua-zmylk:  $2.',
+	'scribunto-lua-noreturn' => 'Skriptowy zmylk: Modul njeje hódnotu wróćił, byrnjež měł eksportowu tabelu wróćić.',
 );
 
 /** Interlingua (interlingua)
