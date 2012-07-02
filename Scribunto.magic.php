@@ -6,10 +6,6 @@
 $magicWords = array();
 
 /** English (English) */
-
-$magicWords = array();
-
-/** English (English) */
 $magicWords['en'] = array(
 	'invoke' => array( 0, 'invoke' ),
 );
