@@ -201,6 +201,15 @@ local function newFrame( frameId )
 	local argCache = {}
 	local argNames
 
+	local function checkSelf( self, method )
+		if self ~= frame then
+			error( "frame:" .. method .. ": invalid frame object. " ..
+				"Did you call " .. method .. " with a dot instead of a colon, i.e. " ..
+				"frame." .. method .. "() instead of frame:" .. method .. "()?",
+				3 )
+		end
+	end
+
 	local function getExpandedArgument( dummy, name )
 		name = tostring( name )
 		if argCache[name] == nil then
@@ -236,6 +245,8 @@ local function newFrame( frameId )
 	setmetatable( frame.args, { __index = getExpandedArgument } )
 
 	function frame:getArgument( opt )
+		checkSelf( self, 'getArgument' )
+
 		local name
 		if type( opt ) == 'table' then
 			name = opt.name
@@ -251,6 +262,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:getParent()
+		checkSelf( self, 'getParent' )
+
 		if frameId == 'parent' then
 			return nil
 		elseif php.parentFrameExists() then
@@ -261,6 +274,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:expandTemplate( opt )
+		checkSelf( self, 'expandTemplate' )
+
 		local title
 
 		if type( opt ) ~= 'table' then
@@ -284,6 +299,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:preprocess( opt )
+		checkSelf( self, 'preprocess' )
+
 		local text
 		if type( opt ) == 'table' then
 			text = opt.text
@@ -295,6 +312,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:newParserValue( opt )
+		checkSelf( self, 'newParserValue' )
+
 		local text
 		if type( opt ) == 'table' then
 			text = opt.text
@@ -310,6 +329,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:newTemplateParserValue( opt )
+		checkSelf( self, 'newTemplateParserValue' )
+
 		if type( opt ) ~= 'table' then
 			error( "frame:newTemplateParserValue: the first parameter must be a table" )
 		end
@@ -324,6 +345,8 @@ local function newFrame( frameId )
 	end
 
 	function frame:argumentPairs()
+		checkSelf( self, 'argumentPairs' )
+
 		local index = 0
 
 		local function argumentNext()
