@@ -97,6 +97,7 @@ $messages['qqq'] = array(
  */
 $messages['de'] = array(
 	'scribunto-desc' => 'Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten',
+	'scribunto-ignore-errors' => 'Codefehler ignorieren',
 	'scribunto-line' => 'in Zeile $1',
 	'scribunto-module-line' => 'in $1, Zeile $2',
 	'scribunto-parser-error' => 'Skriptfehler',
@@ -132,6 +133,7 @@ $1',
  */
 $messages['es'] = array(
 	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
+	'scribunto-ignore-errors' => 'Ignorar los errores de código',
 	'scribunto-line' => 'en la línea $1',
 	'scribunto-module-line' => 'en $1 en la línea $2',
 	'scribunto-parser-error' => 'Error de script',
@@ -167,6 +169,7 @@ $1',
  */
 $messages['gl'] = array(
 	'scribunto-desc' => 'Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki',
+	'scribunto-ignore-errors' => 'Ignorar os erros do código',
 	'scribunto-line' => 'na liña $1',
 	'scribunto-module-line' => 'en $1 na liña $2',
 	'scribunto-parser-error' => 'Erro de script',
@@ -257,6 +260,41 @@ $1',
 	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
 );
 
+/** Italian (italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'scribunto-desc' => 'Framework per incorporare linguaggi di scripting in pagine MediaWiki',
+	'scribunto-line' => 'alla linea $1',
+	'scribunto-module-line' => 'in $1 alla linea $2',
+	'scribunto-parser-error' => 'Errore script',
+	'scribunto-parser-dialog-title' => 'Errore script',
+	'scribunto-error-short' => 'Errore script: $1',
+	'scribunto-error-long' => 'Errori script:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
+	'scribunto-common-nofunction' => 'Errore script: devi specificare una funzione da chiamare.',
+	'scribunto-common-nosuchfunction' => 'Errore script: la funzione specificata non esiste.',
+	'scribunto-common-timeout' => "Il tempo assegnato per l'esecuzione dello script è scaduto.",
+	'scribunto-common-oom' => "La quantità di memoria consentita per l'esecuzione dello script è stata superata.",
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'nella funzione "$1"',
+	'scribunto-lua-in-main' => 'nel blocco principale',
+	'scribunto-lua-in-function-at' => 'nella funzione a $1:$2',
+	'scribunto-lua-error-location' => 'Errore Lua $1: $2.',
+	'scribunto-lua-error' => 'Errore Lua: $2.',
+	'scribunto-lua-noreturn' => 'Errore script: il modulo non ha restituito un valore, doveva restituire una tabella in esportazione.',
+	'scribunto-lua-notarrayreturn' => 'Errore script: il modulo ha restituito qualcosa di diverso da una tabella, doveva restituire una tabella in esportazione.',
+	'scribunto-luastandalone-proc-error' => 'Errore Lua: impossibile creare il processo.',
+	'scribunto-luastandalone-decode-error' => 'Errore Lua: errore interno - impossibile decodificare il messaggio.',
+	'scribunto-luastandalone-write-error' => 'Errore Lua: errore interno - errore durante la scrittura nel canale di comunicazione',
+	'scribunto-luastandalone-read-error' => 'Errore Lua: errore interno - errore durante la lettura nel canale di comunicazione',
+	'scribunto-luastandalone-gone' => "Errore Lua: errore interno - l'interprete è già stato terminato.",
+	'scribunto-luastandalone-signal' => 'Errore Lua: errore interno - l\'interprete è terminato con il segnale "$2".',
+	'scribunto-luastandalone-exited' => "Errore Lua: errore interno - l'interprete è uscito con stato $2.",
+);
+
 /** Japanese (日本語)
  * @author Shirayuki
  */
@@ -298,6 +336,7 @@ $1',
  */
 $messages['mk'] = array(
 	'scribunto-desc' => 'Рамка за вметнување на скриптни јазици во страница на МедијаВики',
+	'scribunto-ignore-errors' => 'Занемари грешки во кодот',
 	'scribunto-line' => 'во редот $1',
 	'scribunto-module-line' => 'во $1, ред $2',
 	'scribunto-parser-error' => 'Грешка во скриптата',
