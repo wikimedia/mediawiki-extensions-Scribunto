@@ -205,6 +205,27 @@ class ScribuntoHooks {
 		return true;
 	}
 
+	/** 
+	 * EditPageBeforeEditChecks hook
+	 * @param $editor EditPage
+	 * @param $checkboxes Checkbox array
+	 * @param $tabindex Current tabindex
+	 */
+	public static function beforeEditChecks( &$editor, &$checkboxes, &$tabindex ) {
+		$req = RequestContext::getMain()->getRequest();
+		$name = 'scribunto_ignore_errors';
+
+		$attribs = array(
+			'tabindex' => ++$tabindex,
+			'id' => "mw-$name",
+		);
+		$checkboxes['scribunto'] =
+			Xml::check( $name, $req->getCheck( $name ), $attribs ) .
+			'&#160;' .
+			Xml::label( wfMsg( 'scribunto-ignore-errors' ), "mw-$name" );
+		return true;
+	}
+
 	/**
 	 * @param $editor EditPage
 	 * @param $text string
@@ -216,30 +237,35 @@ class ScribuntoHooks {
 		global $wgOut;
 		$title = $editor->getTitle();
 
-		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scribunto::newDefaultEngine();
-			$engine->setTitle( $title );
-			$status = $engine->validate( $text, $title->getPrefixedDBkey() );
-			if( $status->isOK() ) {
-				return true;
-			}
+		if( $title->getNamespace() != NS_MODULE ) {
+			return true;
+		}
 
-			$errmsg = $status->getWikiText( 'scribunto-error-short', 'scribunto-error-long' );
-			$error = <<<WIKI
+		$req = RequestContext::getMain()->getRequest();
+		if ( $req->getBool( 'scribunto_ignore_errors' ) ) {
+			return true;
+		}
+
+		$engine = Scribunto::newDefaultEngine();
+		$engine->setTitle( $title );
+		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
+		if( $status->isOK() ) {
+			return true;
+		}
+
+		$errmsg = $status->getWikiText( 'scribunto-error-short', 'scribunto-error-long' );
+		$error = <<<WIKI
 <div class="errorbox">
 {$errmsg}
 </div>
 <br clear="all" />
 WIKI;
-			if ( isset( $status->scribunto_error->params['module'] ) ) {
-				$module = $status->scribunto_error->params['module'];
-				$line = $status->scribunto_error->params['line'];
-				if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
-					$wgOut->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
-				}
+		if ( isset( $status->scribunto_error->params['module'] ) ) {
+			$module = $status->scribunto_error->params['module'];
+			$line = $status->scribunto_error->params['line'];
+			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
+				$wgOut->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
 			}
-
-			return true;
 		}
 
 		return true;

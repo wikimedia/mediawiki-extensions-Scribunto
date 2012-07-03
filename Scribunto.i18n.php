@@ -13,6 +13,7 @@ $messages = array();
  */
 $messages['en'] = array(
 	'scribunto-desc' => 'Framework for embedding scripting languages into MediaWiki pages',
+	'scribunto-ignore-errors' => 'Ignore code errors',
 	'scribunto-line' => 'at line $1',
 	'scribunto-module-line' => 'in $1 at line $2',
 	'scribunto-parser-error' => 'Script error',
@@ -49,6 +50,7 @@ $1',
  */
 $messages['qqq'] = array(
 	'scribunto-desc' => '{{desc}}',
+	'scribunto-ignore-errors' => 'Label for a checkbox on the edit page. When clicked, parse errors are ignored on save.',
 	'scribunto-line' => 'Reference to a code location. Parameters:
 * $1 is a line number.',
 	'scribunto-module-line' => 'Reference to a code location. Parameters:
