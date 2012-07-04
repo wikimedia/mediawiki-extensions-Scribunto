@@ -230,6 +230,7 @@ $1',
  */
 $messages['ia'] = array(
 	'scribunto-desc' => 'Structura pro incorporar linguages de script in paginas de MediaWiki',
+	'scribunto-ignore-errors' => 'Ignorar errores in codice',
 	'scribunto-line' => 'al linea $1',
 	'scribunto-module-line' => 'in $1 al linea $2',
 	'scribunto-parser-error' => 'Error de script',
@@ -368,10 +369,12 @@ $1',
 );
 
 /** Dutch (Nederlands)
+ * @author Saruman
  * @author Siebrand
  */
 $messages['nl'] = array(
 	'scribunto-desc' => "Framework voor het inbedden van scripttalen in pagina's",
+	'scribunto-ignore-errors' => 'Codefouten negeren',
 	'scribunto-line' => 'op regel $1',
 	'scribunto-module-line' => 'in $1 op regel $2',
 	'scribunto-parser-error' => 'Scriptfout',
