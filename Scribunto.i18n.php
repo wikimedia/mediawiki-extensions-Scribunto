@@ -164,6 +164,14 @@ $1',
 	'scribunto-luastandalone-exited' => 'Error de Lua: Error interno: El intérprete ha finalizado con el estado $2.',
 );
 
+/** French (français)
+ * @author Crochet.david
+ */
+$messages['fr'] = array(
+	'scribunto-parser-error' => 'Erreur de script',
+	'scribunto-parser-dialog-title' => 'Erreur de script',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
@@ -204,6 +212,8 @@ $1',
  * @author Michawiki
  */
 $messages['hsb'] = array(
+	'scribunto-desc' => 'Wobłuk za zasadźenje skriptowych rěčow do stronow MediaWiki',
+	'scribunto-ignore-errors' => 'Kodowe zmylki ignorować',
 	'scribunto-line' => 'w lince $1',
 	'scribunto-module-line' => 'w $1, w lince $2',
 	'scribunto-parser-error' => 'Skriptowy zmylk',
@@ -216,6 +226,7 @@ $1',
 	'scribunto-common-nofunction' => 'Skriptowy zmylk: Dyrbiš funkciju podać, kotraž ma so wołać.',
 	'scribunto-common-nosuchfunction' => 'Skriptowy zmylk: Funkcija, kotruž sy podał, njeeksistuje.',
 	'scribunto-common-timeout' => 'Čas, kotryž je so za wuwjedźenje skriptow postajił, je spadnył.',
+	'scribunto-common-oom' => 'Wysokosć dźěłoweho składa, kotraž je za wuwjedźenje skriptow dowolena, je překročena.',
 	'scribunto-common-backtrace' => 'Wróćoslědowanje:',
 	'scribunto-lua-in-function' => 'we funkciji "$1"',
 	'scribunto-lua-in-main' => 'we hłownym segmenće',
@@ -223,6 +234,14 @@ $1',
 	'scribunto-lua-error-location' => 'Lua-zmylk $1:  $2.',
 	'scribunto-lua-error' => 'Lua-zmylk:  $2.',
 	'scribunto-lua-noreturn' => 'Skriptowy zmylk: Modul njeje hódnotu wróćił, byrnjež měł eksportowu tabelu wróćić.',
+	'scribunto-lua-notarrayreturn' => 'Skriptowy zmylk: Modul je něšto druhe hač tabelu wróćił, wón měł eksportowu tabelu wróćić.',
+	'scribunto-luastandalone-proc-error' => 'Lua-zmylk: Proces njeda so wutworić.',
+	'scribunto-luastandalone-decode-error' => 'Lua-zmylk: Nutřkowny zmylk: Zdźělenka njeda so dekodować.',
+	'scribunto-luastandalone-write-error' => 'Lua-zmylk: Nutřkowny zmylk: Při pisanju je zmylk wustupił.',
+	'scribunto-luastandalone-read-error' => 'Lua-zmylk: Nutřkowny zmylk: Při čitanju je zmylk wustupił.',
+	'scribunto-luastandalone-gone' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so hižo skónčił.',
+	'scribunto-luastandalone-signal' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze signalom "$2" skónčił.',
+	'scribunto-luastandalone-exited' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze statusom $2 skónčił.',
 );
 
 /** Interlingua (interlingua)
