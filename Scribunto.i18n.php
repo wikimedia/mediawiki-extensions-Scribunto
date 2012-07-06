@@ -464,6 +464,7 @@ $1',
  */
 $messages['tl'] = array(
 	'scribunto-desc' => 'Baskagan para sa pagbabaon ng mga wikang pampagpapanitik papaloob sa mga pahina ng MediaWiki',
+	'scribunto-ignore-errors' => 'Huwag pansinin ang mga kamalian sa kodigo',
 	'scribunto-line' => 'sa guhit na $1',
 	'scribunto-module-line' => 'sa loob ng $1 na nasa guhit na $2',
 	'scribunto-parser-error' => 'Kamalian sa panitik',
