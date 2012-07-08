@@ -168,8 +168,20 @@ $1',
  * @author Crochet.david
  */
 $messages['fr'] = array(
+	'scribunto-ignore-errors' => 'Ignorer les erreurs de code',
 	'scribunto-parser-error' => 'Erreur de script',
 	'scribunto-parser-dialog-title' => 'Erreur de script',
+	'scribunto-error-short' => 'Erreur de script : $1',
+	'scribunto-error-long' => 'Erreur de script :
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Erreur de script : Pas de tel module.',
+	'scribunto-common-nofunction' => 'Erreur de script : vous devez spécifier une fonction à appeler.',
+	'scribunto-common-nosuchfunction' => 'Erreur de script : la fonction que vous avez spécifiée n’existe pas.',
+	'scribunto-common-timeout' => 'Le temps alloué pour l’exécution des scripts a expiré.',
+	'scribunto-common-oom' => 'La quantité de mémoire pour exécuter des scripts a été dépassée.',
+	'scribunto-lua-in-function' => 'dans la fonction « $1 »',
+	'scribunto-lua-in-function-at' => 'dans la fonction $1 : $2',
 );
 
 /** Galician (galego)
