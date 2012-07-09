@@ -247,7 +247,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$title = Title::newFromText( $titleText, NS_TEMPLATE );
 		if ( !$title ) {
-			return array();
+			throw new Scribunto_LuaError( 'expandTemplate: invalid title' );
 		}
 
 		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
@@ -259,7 +259,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		list( $dom, $finalTitle ) = $this->parser->getTemplateDom( $title );
 		if ( $dom === false ) {
-			return array();
+			throw new Scribunto_LuaError( "expandTemplate: template \"$titleText\" does not exist" );
 		}
 		if ( !$frame->loopCheck( $finalTitle ) ) {
 			throw new Scribunto_LuaError( 'expandTemplate: template loop detected' );
