@@ -83,9 +83,10 @@ class ScribuntoHooks {
 			unset( $args[1] );
 			$childFrame = $frame->newChild( $args, $title, 1 );
 			$result = $module->invoke( $functionName, $childFrame );
+			$result = UtfNormal::cleanUp( strval( $result ) );
 
 			wfProfileOut( __METHOD__ );
-			return strval( $result );
+			return $result;
 		} catch( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
 			$html = Html::element( 'p', array(), $e->getMessage() );
