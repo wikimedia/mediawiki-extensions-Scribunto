@@ -165,6 +165,7 @@ $1',
 );
 
 /** French (français)
+ * @author Brunoperel
  * @author Crochet.david
  */
 $messages['fr'] = array(
@@ -182,6 +183,7 @@ $1',
 	'scribunto-common-oom' => 'La quantité de mémoire pour exécuter des scripts a été dépassée.',
 	'scribunto-lua-in-function' => 'dans la fonction « $1 »',
 	'scribunto-lua-in-function-at' => 'dans la fonction $1 : $2',
+	'scribunto-lua-error' => 'Erreur Lua : $2',
 );
 
 /** Galician (galego)
