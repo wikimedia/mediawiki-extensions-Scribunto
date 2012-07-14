@@ -39,6 +39,21 @@ abstract class ScribuntoEngineBase {
 	abstract protected function newModule( $text, $chunkName );
 
 	/**
+	 * Run an interactive console request
+	 *
+	 * @param $params Associative array. Options are:
+	 *    - title: The title object for the module being debugged
+	 *    - content: The text content of the module
+	 *    - precedingQuestions: An array of previous "questions" used to establish the state
+	 *    - question: The current "question", a string script
+	 *
+	 * @return array containing:
+	 *    - print: The resulting print buffer
+	 *    - return: The resulting return value
+	 */
+	abstract function runConsole( $params );
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param $options array Associative array of options:

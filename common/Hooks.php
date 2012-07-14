@@ -213,6 +213,10 @@ class ScribuntoHooks {
 	 * @param $tabindex Current tabindex
 	 */
 	public static function beforeEditChecks( &$editor, &$checkboxes, &$tabindex ) {
+		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
+			return true;
+		}
+
 		$req = RequestContext::getMain()->getRequest();
 		$name = 'scribunto_ignore_errors';
 
@@ -224,6 +228,26 @@ class ScribuntoHooks {
 			Xml::check( $name, $req->getCheck( $name ), $attribs ) .
 			'&#160;' .
 			Xml::label( wfMsg( 'scribunto-ignore-errors' ), "mw-$name" );
+
+		// While we're here, lets set up the edit module
+		global $wgOut;
+		$wgOut->addModules( 'ext.scribunto.edit' );
+		$editor->editFormTextAfterTools = '<div id="mw-scribunto-console"></div>';
+		return true;
+	}
+
+	/**
+	 * EditPageBeforeEditButtons hook
+	 * @param $editor EditPage
+	 * @param $buttons Button array
+	 * @param $tabindex Current tabindex
+	 */
+	public static function beforeEditButtons( &$editor, &$buttons, &$tabindex ) {
+		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
+			return true;
+		}
+
+		unset( $buttons['preview'] );
 		return true;
 	}
 

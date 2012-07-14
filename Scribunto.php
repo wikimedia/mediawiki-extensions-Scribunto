@@ -41,6 +41,7 @@ $wgAutoloadClasses['ScribuntoModuleBase'] = $dir.'common/Base.php';
 $wgAutoloadClasses['ScribuntoHooks'] = $dir.'common/Hooks.php';
 $wgAutoloadClasses['ScribuntoException'] = $dir.'common/Common.php';
 $wgAutoloadClasses['Scribunto'] = $dir.'common/Common.php';
+$wgAutoloadClasses['ApiScribuntoConsole'] = $dir.'common/ApiScribuntoConsole.php';
 
 $wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
 $wgHooks['ParserLimitReport'][] = 'ScribuntoHooks::reportLimits';
@@ -51,6 +52,7 @@ $wgHooks['ArticleViewCustom'][] = 'ScribuntoHooks::handleScriptView';
 $wgHooks['TitleIsWikitextPage'][] = 'ScribuntoHooks::isWikitextPage';
 $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
 $wgHooks['EditPageBeforeEditChecks'][] = 'ScribuntoHooks::beforeEditChecks';
+$wgHooks['EditPageBeforeEditButtons'][] = 'ScribuntoHooks::beforeEditButtons';
 $wgHooks['EditFilterMerged'][] = 'ScribuntoHooks::validateScript';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
@@ -58,15 +60,30 @@ $wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
 
 $wgParserOutputHooks['ScribuntoError'] = 'ScribuntoHooks::parserOutputHook';
 
-$wgResourceModules['ext.scribunto'] = array(
+$sbtpl = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',
 	'remoteExtPath' => 'Scribunto/modules',
+);
+
+$wgResourceModules['ext.scribunto'] = $sbtpl + array(
 	'scripts' => 'ext.scribunto.js',
 	'dependencies' => array( 'jquery.ui.dialog' ),
 	'messages' => array(
 		'scribunto-parser-dialog-title'
 	),
 );
+$wgResourceModules['ext.scribunto.edit'] = $sbtpl + array(
+	'scripts' => 'ext.scribunto.edit.js',
+	'styles' => 'ext.scribunto.edit.css',
+	'dependencies' => array( 'ext.scribunto' ),
+	'messages' => array(
+		'scribunto-console-title',
+		'scribunto-console-intro',
+		'scribunto-console-clear',
+		'scribunto-console-cleared',
+	),
+);
+$wgAPIModules['scribunto-console'] = 'ApiScribuntoConsole';
 
 /***** Individual engines and their configurations *****/
 

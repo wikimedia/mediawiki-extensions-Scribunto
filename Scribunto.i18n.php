@@ -22,6 +22,18 @@ $messages['en'] = array(
 	'scribunto-error-long' => 'Script errors:
 
 $1',
+
+	'scribunto-console-intro' => '* The module exports are available as the variable "p", including unsaved modifications.
+* Precede a line with "=" to evaluate it as an expression, or use print().
+* Use mw.log() in module code to send messages to this console.',
+	'scribunto-console-title' => 'Debug console',
+	'scribunto-console-too-large' => 'This console session is too large. Please clear the console history or reduce the size of the module.',
+	'scribunto-console-current-src' => 'console input',
+	'scribunto-console-previous-src' => 'previous console input',
+	'scribunto-console-clear' => 'Clear',
+	'scribunto-console-cleared' => 'The console state was cleared because the module was updated.',
+
+
 	'scribunto-common-nosuchmodule' => 'Script error: No such module.',
 	'scribunto-common-nofunction' => 'Script error: You must specify a function to call.',
 	'scribunto-common-nosuchfunction' => 'Script error: The function you specified did not exist.',

@@ -5,6 +5,7 @@ local packageModuleFunc
 local php
 local setupDone
 local allowEnvFuncs = false
+local logBuffer = ''
 
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
@@ -381,5 +382,18 @@ function mw.executeFunction( chunk )
 	end
 	return table.concat( stringResults )
 end
+
+function mw.log( msg )
+	logBuffer = logBuffer .. tostring( msg ) .. '\n'
+end
+
+function mw.clearLogBuffer()
+	logBuffer = ''
+end
+
+function mw.getLogBuffer()
+	return logBuffer
+end
+
 
 return mw

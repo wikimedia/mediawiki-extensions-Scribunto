@@ -7,7 +7,7 @@ mw.scribunto = {
 		this.errors = errors;
 	},
 
-	'init': function () {
+	'init': function() {
 		var regex = /^mw-scribunto-error-(\d+)/;
 		var that = this;
 		var dialog = $( '<div/>' );
@@ -39,7 +39,7 @@ mw.scribunto = {
 						.dialog( 'open' );
 				} );
 		} );
-	}
+	},
 };
 
 $(document).ready( function() {

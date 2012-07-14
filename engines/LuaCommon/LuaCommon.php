@@ -107,6 +107,51 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return 'lua';
 	}
 
+	public function runConsole( $params ) {
+		/**
+		 * TODO: provide some means for giving correct line numbers for errors
+		 * in console input, and for producing an informative error message
+		 * if there is an error in prevQuestions.
+		 *
+		 * Maybe each console line could be evaluated as a different chunk, 
+		 * apparently that's what lua.c does.
+		 */
+		$code = "return function (__init)\n" .
+			"local p = mw.executeModule(__init)\n" .
+			"local print = mw.log\n";
+		foreach ( $params['prevQuestions'] as $q ) {
+			if ( substr( $q, 0, 1 ) === '=' ) {
+				$code .= "print(" . substr( $q, 1 ) . ")";
+			} else {
+				$code .= $q;
+			}
+			$code .= "\n";
+		}
+		$code .= "mw.clearLogBuffer()\n";
+		if ( substr( $params['question'], 0, 1 ) === '=' ) {
+			// Treat a statement starting with "=" as a return statement, like in lua.c
+			$code .= "return tostring(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
+		} else {
+			$code .= $params['question'] . "\n" .
+				"return nil, mw.getLogBuffer()\n";
+		}
+		$code .= "end\n";
+
+		$contentModule = $this->newModule( 
+			$params['content'], $params['title']->getPrefixedDBkey() );
+		$contentInit = $contentModule->getInitChunk();
+
+		$consoleModule = $this->newModule( $code, wfMsg( 'scribunto-console-current-src' ) );
+		$consoleInit = $consoleModule->getInitChunk();
+		$ret = $this->getInterpreter()->callFunction( $consoleInit );
+		$func = $ret[0];
+		$ret = $this->getInterpreter()->callFunction( $func, $contentInit );
+		return array(
+			'return' => isset( $ret[0] ) ? $ret[0] : null,
+			'print' => isset( $ret[1] ) ? $ret[1] : '',
+		);
+	}
+		
 	/**
 	 * Workalike for luaL_checktype()
 	 *
@@ -376,7 +421,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 }
 
 class Scribunto_LuaError extends ScribuntoException {
-	var $luaMessage;
+	var $luaMessage, $lineMap = array();
 
 	function __construct( $message, $options = array() ) {
 		$this->luaMessage = $message;
@@ -394,6 +439,10 @@ class Scribunto_LuaError extends ScribuntoException {
 		return $this->luaMessage;
 	}
 
+	function setLineMap( $map ) {
+		$this->lineMap = $map;
+	}
+
 	function getScriptTraceHtml( $options = array() ) {
 		if ( !isset( $this->params['trace'] ) ) {
 			return false;
@@ -406,13 +455,17 @@ class Scribunto_LuaError extends ScribuntoException {
 
 		$s = '<ol class="scribunto-trace">';
 		foreach ( $this->params['trace'] as $info ) {
-			$src = htmlspecialchars( $info['short_src'] );
-			if ( $info['currentline'] > 0 ) {
-				$src .= ':' . htmlspecialchars( $info['currentline'] );
+			$short_src = $srcdefined = $info['short_src'];
+			$currentline = $info['currentline'];
+			$linedefined = $info['linedefined'];
 
-				$title = Title::newFromText( $info['short_src'] );
+			$src = htmlspecialchars( $short_src );
+			if ( $currentline > 0 ) {
+				$src .= ':' . htmlspecialchars( $currentline );
+
+				$title = Title::newFromText( $short_src );
 				if ( $title && $title->getNamespace() === NS_MODULE ) {
-					$title->setFragment( '#mw-ce-l' . $info['currentline'] );
+					$title->setFragment( '#mw-ce-l' . $currentline );
 					$src = Html::rawElement( 'a', 
 						array( 'href' => $title->getFullURL( 'action=edit' ) ),
 						$src );
@@ -427,7 +480,7 @@ class Scribunto_LuaError extends ScribuntoException {
 				$function = '?';
 			} else {
 				$function = wfMsgExt( 'scribunto-lua-in-function-at', 
-					$msgOptions, $info['short_src'], $info['linedefined'] );
+					$msgOptions, $srcdefined, $linedefined );
 			}
 			$s .= "<li>\n\t" . 
 				wfMsgExt( 'scribunto-lua-backtrace-line', $msgOptions, "<strong>$src</strong>", $function ) .
