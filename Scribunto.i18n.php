@@ -118,6 +118,15 @@ $messages['de'] = array(
 	'scribunto-error-long' => 'Skriptfehler:
 
 $1',
+	'scribunto-console-intro' => '* Modulexporte sind über die Variable „p“ verfügbar. Sie enthalten auch nicht gespeicherte Änderungen.
+* Einer Zeile „=“ voranstellen, um sie als Ausdruck auszuwerten oder <code>print()</code> nutzen.
+* Innerhalb des Modulcodes <code>mw.log()</code> nutzen, um Nachrichten zu dieser Konsole zu senden.',
+	'scribunto-console-title' => 'Fehlerbereinigungskonsole',
+	'scribunto-console-too-large' => 'Dieser Konsolensitzung ist zu umfangreich. Bitte deaktiviere die Konsolenprotokollierung oder verringere die Größe des Moduls.',
+	'scribunto-console-current-src' => 'Konsoleneingabe',
+	'scribunto-console-previous-src' => 'vorherige Konsoleneingabe',
+	'scribunto-console-clear' => 'Leeren',
+	'scribunto-console-cleared' => 'Die Konsole wurde geleert, da das Modul aktualisiert wurde.',
 	'scribunto-common-nosuchmodule' => 'Skriptfehler: Ein solches Modul ist nicht vorhanden.',
 	'scribunto-common-nofunction' => 'Skriptfehler: Es muss eine aufzurufende Funktion angegeben werden.',
 	'scribunto-common-nosuchfunction' => 'Skriptfehler: Die angegebene Funktion ist nicht vorhanden.',
@@ -138,6 +147,23 @@ $1',
 	'scribunto-luastandalone-gone' => 'Interner Lua-Fehler: Der Interpreter wurde bereits beendet.',
 	'scribunto-luastandalone-signal' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Signal „$2“.',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
+);
+
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
+ * @author Kghbln
+ */
+$messages['de-formal'] = array(
+	'scribunto-console-too-large' => 'Dieser Konsolensitzung ist zu umfangreich. Bitte deaktivieren Sie die Konsolenprotokollierung oder verringeren Sie die Größe des Moduls.',
+);
+
+/** Zazaki (Zazaki)
+ * @author Erdemaslancan
+ */
+$messages['diq'] = array(
+	'scribunto-parser-error' => 'Xırabiya scripti',
+	'scribunto-parser-dialog-title' => 'Xırabiya scripti',
+	'scribunto-error-long' => 'Xırabiya scripti:
+$1',
 );
 
 /** Spanish (español)
@@ -268,6 +294,29 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so hižo skónčił.',
 	'scribunto-luastandalone-signal' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze signalom "$2" skónčił.',
 	'scribunto-luastandalone-exited' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze statusom $2 skónčił.',
+);
+
+/** Hungarian (magyar)
+ * @author TK-999
+ */
+$messages['hu'] = array(
+	'scribunto-desc' => 'Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására',
+	'scribunto-ignore-errors' => 'Hagyja figylemen kívül a kódhibákat',
+	'scribunto-line' => 'a(z) $1. sorban',
+	'scribunto-module-line' => 'a(z) $1 modulban a(z) $2. sorban',
+	'scribunto-parser-error' => 'Parancsfájl-hiba',
+	'scribunto-parser-dialog-title' => 'Parancsfájl-hiba',
+	'scribunto-error-short' => 'Parancsfájl-hiba: $1',
+	'scribunto-error-long' => 'Parancsfájl-hibák:
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Parancsfájl-hiba: nincs ilyen modul.',
+	'scribunto-common-nofunction' => 'Parancsfájl-hiba: meg kell adnod a használandó függvényt.',
+	'scribunto-common-nosuchfunction' => 'Parancsfájl-hiba: a megadott függvény nem létezik.',
+	'scribunto-common-timeout' => 'A parancsfájlok futtatására lefoglalt idő lejárt.',
+	'scribunto-common-oom' => 'A parancsfájlok futtatásához engedélyezett memória mennyisége túl lett lépve.',
+	'scribunto-lua-in-function' => 'a(z) "$1" függvényben',
+	'scribunto-lua-error' => 'Lua-hiba:  $2.',
 );
 
 /** Interlingua (interlingua)
