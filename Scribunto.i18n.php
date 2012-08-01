@@ -205,23 +205,42 @@ $1',
 /** French (français)
  * @author Brunoperel
  * @author Crochet.david
+ * @author Gomoko
+ * @author IAlex
  */
 $messages['fr'] = array(
+	'scribunto-desc' => "Cadre pour l'intégration des langages de script dans des pages de MediaWiki",
 	'scribunto-ignore-errors' => 'Ignorer les erreurs de code',
+	'scribunto-line' => 'à la ligne $1',
+	'scribunto-module-line' => 'dans $1 à la ligne $2',
 	'scribunto-parser-error' => 'Erreur de script',
 	'scribunto-parser-dialog-title' => 'Erreur de script',
 	'scribunto-error-short' => 'Erreur de script : $1',
 	'scribunto-error-long' => 'Erreur de script :
 
 $1',
+	'scribunto-console-title' => 'Console de débogage',
 	'scribunto-common-nosuchmodule' => 'Erreur de script : Pas de tel module.',
 	'scribunto-common-nofunction' => 'Erreur de script : vous devez spécifier une fonction à appeler.',
 	'scribunto-common-nosuchfunction' => 'Erreur de script : la fonction que vous avez spécifiée n’existe pas.',
 	'scribunto-common-timeout' => 'Le temps alloué pour l’exécution des scripts a expiré.',
 	'scribunto-common-oom' => 'La quantité de mémoire pour exécuter des scripts a été dépassée.',
+	'scribunto-common-backtrace' => 'Trace arrière:',
 	'scribunto-lua-in-function' => 'dans la fonction « $1 »',
+	'scribunto-lua-in-main' => 'dans le segment principal',
 	'scribunto-lua-in-function-at' => 'dans la fonction $1 : $2',
+	'scribunto-lua-backtrace-line' => '$1 : $2',
+	'scribunto-lua-error-location' => 'Erreur Lua $1: $2.',
 	'scribunto-lua-error' => 'Erreur Lua : $2',
+	'scribunto-lua-noreturn' => "Erreur de script: Le module n'a pas renvoyé de valeur, il doit renvoyer un tableau d'export.",
+	'scribunto-lua-notarrayreturn' => "Erreur de script: Le module a renvoyé quelque chose d'autre qu'une table, il devrait renvoyer un tableau d'export.",
+	'scribunto-luastandalone-proc-error' => 'Erreur LUA: Impossible de créer le processus.',
+	'scribunto-luastandalone-decode-error' => 'Erreur LUA: Erreur interne: Impossible de décoder le message.',
+	'scribunto-luastandalone-write-error' => "Erreur LUA: Erreur interne: Erreur d'écriture dans le pipe.",
+	'scribunto-luastandalone-read-error' => 'Erreur LUA: Erreur interne: Erreur de lecture du pipe.',
+	'scribunto-luastandalone-gone' => "Erreur LUA: Erreur interne: L'interpréteur est déjà terminé.",
+	'scribunto-luastandalone-signal' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le signal "$2".',
+	'scribunto-luastandalone-exited' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le statut "$2".',
 );
 
 /** Galician (galego)
