@@ -168,6 +168,7 @@ $1',
 
 /** Spanish (español)
  * @author Armando-Martin
+ * @author Jewbask
  */
 $messages['es'] = array(
 	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
@@ -180,6 +181,7 @@ $messages['es'] = array(
 	'scribunto-error-long' => 'Errores de secuencia de comandos (script):
 
 $1',
+	'scribunto-console-clear' => 'Limpiar',
 	'scribunto-common-nosuchmodule' => 'Error de secuencia de comandos (script): no existe ese módulo.',
 	'scribunto-common-nofunction' => 'Error de script: debe especificar una función a la que llamar.',
 	'scribunto-common-nosuchfunction' => 'Error de script: la función especificada no existe.',
@@ -482,6 +484,7 @@ $1',
 );
 
 /** Dutch (Nederlands)
+ * @author SPQRobin
  * @author Saruman
  * @author Siebrand
  */
@@ -496,6 +499,7 @@ $messages['nl'] = array(
 	'scribunto-error-long' => 'Scriptfouten:
 
 $1',
+	'scribunto-console-clear' => 'Wissen',
 	'scribunto-common-nosuchmodule' => 'Scriptfout: de module bestaat niet.',
 	'scribunto-common-nofunction' => 'Scriptfout: u moet een aan te roepen functie opgeven.',
 	'scribunto-common-nosuchfunction' => 'Scriptfout: de opgegeven functie bestaat niet.',
