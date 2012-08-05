@@ -295,6 +295,15 @@ $messages['hsb'] = array(
 	'scribunto-error-long' => 'Skriptowe zmylki:
 
 $1',
+	'scribunto-console-intro' => '* Modulowe eksporty steja jako wariabla "p" k dispoziciji, inkluziwnje njeskładowanych změnow.
+* Staj "=" před linku, zo by ju jako wuraz wuhódnoćił, abo wužij print().
+* Wužij mw.log() w modulowym kodźe, zo by powěsće na konsolu pósłał.',
+	'scribunto-console-title' => 'Konsola za porjedźenje zmylkow',
+	'scribunto-console-too-large' => 'Tute konsolowe posedźnje je přewulke. Prošu wuprózdń konsolowu historiju abo redukuj wulkosć modula.',
+	'scribunto-console-current-src' => 'konsolowe zapodaće',
+	'scribunto-console-previous-src' => 'předchadne konsolowe zapodaće',
+	'scribunto-console-clear' => 'Wuprózdnić',
+	'scribunto-console-cleared' => 'Konsola je so wuprózdniła, dokelž modul je so zaktualizował.',
 	'scribunto-common-nosuchmodule' => 'Skriptowy zmylk: Tajki modul njeje.',
 	'scribunto-common-nofunction' => 'Skriptowy zmylk: Dyrbiš funkciju podać, kotraž ma so wołać.',
 	'scribunto-common-nosuchfunction' => 'Skriptowy zmylk: Funkcija, kotruž sy podał, njeeksistuje.',
