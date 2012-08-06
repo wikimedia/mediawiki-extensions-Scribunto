@@ -580,6 +580,15 @@ $messages['tl'] = array(
 	'scribunto-error-long' => 'Mga kamalian sa panitik:
 
 $1',
+	'scribunto-console-intro' => '* Ang mga luwas ng modulo ay makukuha bilang ang nagpapabagu-bagong "p", kasama na ang hindi pa nasasagip na mga pagbabago.
+* Magpauna ng "=" sa isang guhit upang mahatulan ito bilang isang pagpapahayag, o gamitin ang paglimbag ().
+* Gamitin ang mw.log() na nasa kodigo ng modulo upang makapagpadala ng mga mensahe sa kahang pantaban na ito.',
+	'scribunto-console-title' => 'Kahang pantaban ng sira',
+	'scribunto-console-too-large' => 'Ang inilaang panahon sa kahang pantaban ay napakalaki. Paki hawiin ang kasaysayan ng kahang pantaban o bawasan ang sukat ng modyul.',
+	'scribunto-console-current-src' => 'pagpapasok sa kahang pantaban',
+	'scribunto-console-previous-src' => 'nakaraang ipinasok sa kahang pantaban',
+	'scribunto-console-clear' => 'Hawiin',
+	'scribunto-console-cleared' => 'Hinawi ang katayuan ng kahang pantaban dahil isinapanahon ang modyul.',
 	'scribunto-common-nosuchmodule' => 'Kamalian sa panitik: Walang ganyang modulo',
 	'scribunto-common-nofunction' => 'Kamalian sa panitik: Dapat kang magtukoy ng isang tungkuling tatawagin.',
 	'scribunto-common-nosuchfunction' => 'Kamalian sa panitik: Ang tinukoy mong tungkulin ay hindi umiiral.',
@@ -589,6 +598,7 @@ $1',
 	'scribunto-lua-in-function' => 'sa loob ng tungkuling "$1"',
 	'scribunto-lua-in-main' => 'sa loob ng pangunahing tipak',
 	'scribunto-lua-in-function-at' => 'sa loob ng tungkuling nasa $1:$2',
+	'scribunto-lua-backtrace-line' => '$1: $2',
 	'scribunto-lua-error-location' => 'Kamalian ng lua na $1: $2',
 	'scribunto-lua-error' => 'Kamalian ng lua: $2',
 	'scribunto-lua-noreturn' => 'Kamalian sa panitik: Ang modyul ay hindi nagbalik ng isang halaga, dapat itong magbalik ng isang talahanayan ng pag-aangkat.',
