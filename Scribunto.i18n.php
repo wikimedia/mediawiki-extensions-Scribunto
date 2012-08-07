@@ -281,6 +281,39 @@ $1',
 	'scribunto-luastandalone-exited' => 'Erro de Lua: Erro interno: O intérprete rematou co estado $2.',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'scribunto-desc' => 'מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי',
+	'scribunto-ignore-errors' => 'להתעלם משגיאות בקוד',
+	'scribunto-line' => 'בשורה $1',
+	'scribunto-module-line' => 'ביחידה $1 בשורה $2',
+	'scribunto-parser-error' => 'שגיאה בתסריט',
+	'scribunto-parser-dialog-title' => 'שגיאה בתסריט',
+	'scribunto-error-short' => 'שגיאה בתסריט: $1',
+	'scribunto-error-long' => 'שגיאות בתסריט:
+
+$1',
+	'scribunto-console-title' => 'מסוף לצעידה בקוד',
+	'scribunto-console-too-large' => 'השיחה במסוף התארכה יותר מדי. נא לנקות את ההיסטוריה או להקטין את היחידה.',
+	'scribunto-console-current-src' => 'קלט מסוף',
+	'scribunto-console-previous-src' => 'קלט יחידה קודם',
+	'scribunto-console-clear' => 'ניקוי',
+	'scribunto-console-cleared' => 'מצב המסוף נוקה כי היחידה עודכנה.',
+	'scribunto-common-nosuchmodule' => 'שגיאת תסריט: אין יחידה כזאת.',
+	'scribunto-common-nofunction' => 'שגיאת תסריט: חובה לציין לאיזו פונקציה לקרוא.',
+	'scribunto-common-nosuchfunction' => 'שגיאת תסריט: הפונקציה שציינת אינה קיימת.',
+	'scribunto-common-timeout' => 'הזמן שהוקצה להרצת תסריטים פג.',
+	'scribunto-common-oom' => 'הזיכרון שהוקצה להרצת תסריטים אזל.',
+	'scribunto-common-backtrace' => 'מחסנית קריאות:',
+	'scribunto-lua-in-function' => 'בפונקציה "$1"',
+	'scribunto-lua-in-main' => 'בגוש העיקרי',
+	'scribunto-lua-in-function-at' => 'בפונקציה $1 בשורה $2',
+	'scribunto-lua-error-location' => 'שגיאת לואה $1: $2.',
+	'scribunto-lua-error' => 'שגיאת לואה: $2.',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -508,7 +541,15 @@ $messages['nl'] = array(
 	'scribunto-error-long' => 'Scriptfouten:
 
 $1',
+	'scribunto-console-intro' => '* De moduleexports zijn beschikbaar als de variabele "p", inclusief nog niet opgeslagen wijzigingen;
+* Begin een regel met "=" om deze als expressie te evalueren, of gebruik print();
+* Gebruik mw.log() in modulecode om berichten aan deze console te zenden.',
+	'scribunto-console-title' => 'Debugconsole',
+	'scribunto-console-too-large' => 'Deze consolesessie is te groot. Wis de consolegeschiedenis of beperk de grootte van de module.',
+	'scribunto-console-current-src' => 'consoleinvoer',
+	'scribunto-console-previous-src' => 'vorige consoleinvoer',
 	'scribunto-console-clear' => 'Wissen',
+	'scribunto-console-cleared' => 'De consolestatus is gewist omdat de module is bijgewerkt.',
 	'scribunto-common-nosuchmodule' => 'Scriptfout: de module bestaat niet.',
 	'scribunto-common-nofunction' => 'Scriptfout: u moet een aan te roepen functie opgeven.',
 	'scribunto-common-nosuchfunction' => 'Scriptfout: de opgegeven functie bestaat niet.',
