@@ -58,6 +58,7 @@ $1',
 );
 
 /** Message documentation (Message documentation)
+ * @author Amire80
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -74,6 +75,9 @@ $messages['qqq'] = array(
 * $1 are the error details.',
 	'scribunto-error-long' => 'Error message. Parameters:
 * $1 are the error details.',
+	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
+
+"Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-common-nosuchmodule' => 'Error message displayed when referencing a non-existing module.',
 	'scribunto-common-nofunction' => 'Error message displayed when not specifying a function to call.',
 	'scribunto-common-nosuchfunction' => 'Error message displayed when referencing a non-existing function.',
@@ -295,6 +299,9 @@ $messages['he'] = array(
 	'scribunto-error-long' => 'שגיאות בתסריט:
 
 $1',
+	'scribunto-console-intro' => '* השמות המיוצאים מיחידה זמינים במשתנה "p", כולל שינויים שלא נשמרו.
+* כדי לחשב את השורה כביטוי יש להתחיל אותה בסימן "=" או להשתמש ב־print()&lrm;.
+* כדי לשלוח הודעות למסוף הזה, יש להשתמש ב־mw.log()&lrm;.',
 	'scribunto-console-title' => 'מסוף לצעידה בקוד',
 	'scribunto-console-too-large' => 'השיחה במסוף התארכה יותר מדי. נא לנקות את ההיסטוריה או להקטין את היחידה.',
 	'scribunto-console-current-src' => 'קלט מסוף',
@@ -312,6 +319,15 @@ $1',
 	'scribunto-lua-in-function-at' => 'בפונקציה $1 בשורה $2',
 	'scribunto-lua-error-location' => 'שגיאת לואה $1: $2.',
 	'scribunto-lua-error' => 'שגיאת לואה: $2.',
+	'scribunto-lua-noreturn' => 'שגיאת תסריט: היחידה לא החזירה ערך. היא אמורה להחזיר טבלת שמות מיוצאים.',
+	'scribunto-lua-notarrayreturn' => 'שגיאת תסריט: היחידה החזירה ערך שאינו טבלה. היא אמורה להחזיר טבלת שמות מיוצאים.',
+	'scribunto-luastandalone-proc-error' => 'שגיאת לואה: לא ניתן ליצור תהליך.',
+	'scribunto-luastandalone-decode-error' => 'שגיאת לואה: שגיאה פנימית: לא ניתן לפענח הודעה.',
+	'scribunto-luastandalone-write-error' => 'שגיאת לואה: שגיאה פנימית: שגיאה בכתיבה לצינור.',
+	'scribunto-luastandalone-read-error' => 'שגיאת לואה: שגיאה פנימית: שגיאה בקריאה מצינור.',
+	'scribunto-luastandalone-gone' => 'שגיאת לואה: שגיאה פנימית: המפענח כבר יצא.',
+	'scribunto-luastandalone-signal' => 'שגיאת לואה: שגיאה פנימית: המפענח גמר עם הסיגנל "$2".',
+	'scribunto-luastandalone-exited' => 'שגיאת לואה: שגיאה פנימית: המפענח יצא עם המצב $2.',
 );
 
 /** Upper Sorbian (hornjoserbsce)
