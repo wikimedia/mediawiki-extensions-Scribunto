@@ -211,6 +211,7 @@ $1',
 /** French (français)
  * @author Brunoperel
  * @author Crochet.david
+ * @author Erkethan
  * @author Gomoko
  * @author IAlex
  */
@@ -226,6 +227,7 @@ $messages['fr'] = array(
 
 $1',
 	'scribunto-console-title' => 'Console de débogage',
+	'scribunto-console-clear' => 'Effacer',
 	'scribunto-common-nosuchmodule' => 'Erreur de script : Pas de tel module.',
 	'scribunto-common-nofunction' => 'Erreur de script : vous devez spécifier une fonction à appeler.',
 	'scribunto-common-nosuchfunction' => 'Erreur de script : la fonction que vous avez spécifiée n’existe pas.',
@@ -586,6 +588,13 @@ $1',
 	'scribunto-luastandalone-gone' => 'Luafout: interne fout: de verwerkingsmodule is al klaar',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
+);
+
+/** Portuguese (português)
+ * @author SandroHc
+ */
+$messages['pt'] = array(
+	'scribunto-console-clear' => 'Limpar',
 );
 
 /** Brazilian Portuguese (português do Brasil)
