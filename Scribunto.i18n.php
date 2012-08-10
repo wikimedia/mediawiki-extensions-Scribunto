@@ -226,8 +226,15 @@ $messages['fr'] = array(
 	'scribunto-error-long' => 'Erreur de script :
 
 $1',
+	'scribunto-console-intro' => "* Les exportations de module sont représentés par la variable « p », y compris les modifications non enregistrées. 
+* Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). 
+* Utilisez mw.log() dans le code du module pour envoyer des messages à cette console.",
 	'scribunto-console-title' => 'Console de débogage',
+	'scribunto-console-too-large' => "Cette session de console est trop large. Veuillez effacer l'historique de la console ou réduire la taille du module.",
+	'scribunto-console-current-src' => 'entrée de la console',
+	'scribunto-console-previous-src' => 'entrée de la console précédente',
 	'scribunto-console-clear' => 'Effacer',
+	'scribunto-console-cleared' => "L'état de la console a été effacé parce que le module a été mis à jour.",
 	'scribunto-common-nosuchmodule' => 'Erreur de script : Pas de tel module.',
 	'scribunto-common-nofunction' => 'Erreur de script : vous devez spécifier une fonction à appeler.',
 	'scribunto-common-nosuchfunction' => 'Erreur de script : la fonction que vous avez spécifiée n’existe pas.',
@@ -476,22 +483,31 @@ $1',
  */
 $messages['ja'] = array(
 	'scribunto-desc' => 'MediaWiki ページにスクリプト言語を埋め込むフレームワーク',
+	'scribunto-ignore-errors' => 'コードのエラーを無視',
 	'scribunto-parser-error' => 'スクリプトエラー',
 	'scribunto-parser-dialog-title' => 'スクリプトエラー',
 	'scribunto-error-short' => 'スクリプトエラー：$1',
 	'scribunto-error-long' => 'スクリプトエラー：
 
 $1',
+	'scribunto-console-clear' => '消去',
 	'scribunto-common-nofunction' => 'スクリプトエラー：呼び出す関数を指定してください。',
 	'scribunto-common-nosuchfunction' => 'スクリプトエラー：指定した関数は存在しません。',
 	'scribunto-common-timeout' => 'スクリプトに割り当てた時間が終了しました。',
+	'scribunto-common-oom' => 'スクリプトの実行で使用を許可されているメモリー量です。',
 	'scribunto-common-backtrace' => 'バックトレース：',
+	'scribunto-lua-in-function' => '関数「$1」内',
+	'scribunto-lua-in-main' => 'メインチャンク内',
+	'scribunto-lua-in-function-at' => '関数内、$1:$2',
 	'scribunto-lua-error-location' => 'Lua エラー $1：$2',
 	'scribunto-lua-error' => 'Lua エラー：$2',
 	'scribunto-luastandalone-proc-error' => 'Lua エラー：プロセスを作成できません。',
 	'scribunto-luastandalone-decode-error' => 'Lua エラー：内部エラー：メッセージを復号できません。',
 	'scribunto-luastandalone-write-error' => 'Lua エラー：内部エラー：パイプへの書き込みエラーです。',
 	'scribunto-luastandalone-read-error' => 'Lua エラー：内部エラー：パイプからの読み込みエラーです。',
+	'scribunto-luastandalone-gone' => 'Lua エラー：内部エラー：インタープリターは既に終了しています。',
+	'scribunto-luastandalone-signal' => 'Lua エラー：内部エラー：インタープリターはシグナル「$2」で終了しました。',
+	'scribunto-luastandalone-exited' => 'Lua エラー：内部エラー：インタープリターはステータス $2 で終了しました。',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -630,6 +646,17 @@ $1',
 	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
 	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador foi finalizado com o sinal "$2"',
 	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador saiu com status $2',
+);
+
+/** Romanian (română)
+ * @author Minisarm
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'scribunto-console-title' => 'Consolă de depanare',
+	'scribunto-common-nosuchmodule' => 'Eroare în script: Niciun astfel modul.',
+	'scribunto-common-nofunction' => 'Eroare în script: Trebuie să specifici o funcție spre apelare.',
+	'scribunto-common-nosuchfunction' => 'Eroare în script: Funcția specificată nu există.',
 );
 
 /** Tagalog (Tagalog)
