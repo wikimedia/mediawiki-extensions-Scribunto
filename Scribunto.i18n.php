@@ -272,6 +272,15 @@ $messages['gl'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
+	'scribunto-console-intro' => '* As exportacións do módulo están dispoñibles como a variable "p", incluídas as modificacións sen gardar.
+* Poña un "=" ao comezo da liña para avaliala como unha expresión; tamén pode usar print().
+* Use mw.log() no código do módulo para enviar mensaxes a esta consola.',
+	'scribunto-console-title' => 'Consola de depuración',
+	'scribunto-console-too-large' => 'A sesión desta consola é grande de máis. Limpe o historial da consola ou reduza o tamaño do módulo.',
+	'scribunto-console-current-src' => 'entrada da consola',
+	'scribunto-console-previous-src' => 'entrada previa da consola',
+	'scribunto-console-clear' => 'Limpar',
+	'scribunto-console-cleared' => 'Limpouse o estado da consola debido á actualización do módulo.',
 	'scribunto-common-nosuchmodule' => 'Erro de script: Non existe ese módulo.',
 	'scribunto-common-nofunction' => 'Erro de script: Cómpre especificar a función que se quere chamar.',
 	'scribunto-common-nosuchfunction' => 'Erro de script: A función especificada non existe.',
@@ -537,6 +546,15 @@ $messages['mk'] = array(
 	'scribunto-error-long' => 'Грешки во скриптата:
 
 $1',
+	'scribunto-console-intro' => '* Извозот на модулот е достапен како променлива „p“, вклучувајќи ги незачуваните измени.
+* Пред редот ставајте „=“ за да ја вреднувате како израз, или пак користете print().
+* Во кодот на модулот користете mw.log() за испраќање на пораки до оваа конзола.',
+	'scribunto-console-title' => 'Конзола за решавање на грешки',
+	'scribunto-console-too-large' => 'Оваа сесија на конзолата е преголема. Исчистете ја нејзината историја или намалете ја големината на модулот.',
+	'scribunto-console-current-src' => 'внос во конзолата',
+	'scribunto-console-previous-src' => 'претходен внос во конзолата',
+	'scribunto-console-clear' => 'Исчисти',
+	'scribunto-console-cleared' => 'Состојбата на конзолата е исчистена поради поднова на модулот.',
 	'scribunto-common-nosuchmodule' => 'Грешка во скриптата: Нема таков модул',
 	'scribunto-common-nofunction' => 'Грешка во скриптата: Мора да ја наведете функцијата што треба да се повика.',
 	'scribunto-common-nosuchfunction' => 'Грешка во скриптата: Наведената функција не постои.',
@@ -653,6 +671,15 @@ $1',
  * @author Stelistcristi
  */
 $messages['ro'] = array(
+	'scribunto-ignore-errors' => 'Ignorați erorile de cod',
+	'scribunto-line' => 'la linia $1',
+	'scribunto-module-line' => 'în $1 la linia $2',
+	'scribunto-parser-error' => 'Eroare în script',
+	'scribunto-parser-dialog-title' => 'Eroare în script',
+	'scribunto-error-short' => 'Eroare în script',
+	'scribunto-error-long' => 'Erori în script:
+
+$1',
 	'scribunto-console-title' => 'Consolă de depanare',
 	'scribunto-common-nosuchmodule' => 'Eroare în script: Niciun astfel modul.',
 	'scribunto-common-nofunction' => 'Eroare în script: Trebuie să specifici o funcție spre apelare.',
