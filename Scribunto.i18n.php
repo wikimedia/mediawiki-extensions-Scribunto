@@ -519,6 +519,13 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua エラー：内部エラー：インタープリターはステータス $2 で終了しました。',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'scribunto-console-clear' => 'გასუფთავება',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
