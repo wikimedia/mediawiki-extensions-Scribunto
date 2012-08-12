@@ -739,3 +739,48 @@ $1',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
 );
 
+/** Simplified Chinese (‪中文（简体）‬)
+ * @author Liangent
+ */
+$messages['zh-hans'] = array(
+	'scribunto-desc' => '用于在MediaWiki页面中嵌入脚本语言的框架',
+	'scribunto-ignore-errors' => '忽略代码错误',
+	'scribunto-line' => '在第$1行',
+	'scribunto-module-line' => '在$1中的第$2行',
+	'scribunto-parser-error' => '脚本错误',
+	'scribunto-parser-dialog-title' => '脚本错误',
+	'scribunto-error-short' => '脚本错误：$1',
+	'scribunto-error-long' => '脚本错误：
+
+$1',
+	'scribunto-console-intro' => '* 此模块的导出表存于变量“p”中，包括没有保存的变更。
+* 在一行的前面加上“=”可以将其作为表达式来计算，或使用print()。
+* 在模块代码中使用mw.log()来向控制台发送消息。',
+	'scribunto-console-title' => '调试控制台',
+	'scribunto-console-too-large' => '此控制台会话太大。请清除控制台历史记录或减少模块的大小。',
+	'scribunto-console-current-src' => '控制台输入',
+	'scribunto-console-previous-src' => '先前的控制台输入',
+	'scribunto-console-clear' => '清除',
+	'scribunto-console-cleared' => '控制台状态已清除，因为模块已更新。',
+	'scribunto-common-nosuchmodule' => '脚本错误：没有这个模块。',
+	'scribunto-common-nofunction' => '脚本错误：您必须指定要调用的函数。',
+	'scribunto-common-nosuchfunction' => '脚本错误：您指定的函数不存在。',
+	'scribunto-common-timeout' => '为正在运行的脚本分配的时间已用完。',
+	'scribunto-common-oom' => '正在运行的脚本允许的内存用量已超出。',
+	'scribunto-common-backtrace' => '回溯：',
+	'scribunto-lua-in-function' => '在函数“$1”中',
+	'scribunto-lua-in-main' => '在主要块中',
+	'scribunto-lua-in-function-at' => '在函数 $1:$2 中',
+	'scribunto-lua-error-location' => 'Lua错误 $1：$2',
+	'scribunto-lua-error' => 'Lua错误：$2。',
+	'scribunto-lua-noreturn' => '脚本错误：该模块未返回一个值，它应该返回导出表。',
+	'scribunto-lua-notarrayreturn' => '脚本错误：该模块返回的不是表，它应该返回导出表。',
+	'scribunto-luastandalone-proc-error' => 'Lua错误：无法创建进程。',
+	'scribunto-luastandalone-decode-error' => 'Lua错误：内部错误：无法解码消息。',
+	'scribunto-luastandalone-write-error' => 'Lua错误：内部错误：写入管道时出错。',
+	'scribunto-luastandalone-read-error' => 'Lua错误：内部错误：从管道读取时出错。',
+	'scribunto-luastandalone-gone' => 'Lua错误：内部错误：解释器已退出。',
+	'scribunto-luastandalone-signal' => 'Lua错误：内部错误：解释器因收到信号“$2”而终止。',
+	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态码为$2。',
+);
+
