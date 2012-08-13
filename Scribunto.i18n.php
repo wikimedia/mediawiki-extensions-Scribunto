@@ -208,6 +208,13 @@ $1',
 	'scribunto-luastandalone-exited' => 'Error de Lua: Error interno: El intérprete ha finalizado con el estado $2.',
 );
 
+/** Estonian (eesti)
+ * @author Avjoska
+ */
+$messages['et'] = array(
+	'scribunto-console-clear' => 'Puhasta',
+);
+
 /** French (français)
  * @author Brunoperel
  * @author Crochet.david
