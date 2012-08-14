@@ -461,6 +461,7 @@ $1',
 
 /** Italian (italiano)
  * @author Beta16
+ * @author F. Cosoleto
  */
 $messages['it'] = array(
 	'scribunto-desc' => 'Framework per incorporare linguaggi di scripting in pagine MediaWiki',
@@ -472,6 +473,7 @@ $messages['it'] = array(
 	'scribunto-error-long' => 'Errori script:
 
 $1',
+	'scribunto-console-title' => 'Console di debug',
 	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
 	'scribunto-common-nofunction' => 'Errore script: devi specificare una funzione da chiamare.',
 	'scribunto-common-nosuchfunction' => 'Errore script: la funzione specificata non esiste.',
