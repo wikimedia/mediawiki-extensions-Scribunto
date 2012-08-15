@@ -135,14 +135,6 @@ $wgScribuntoEngineConf = array(
 );
 
 /**
- * Script namespace numbers.
- */
-$wgScribuntoNamespaceNumbers = array(
-	'Module' => 20,
-	'Module_talk' => 21,
-);
-
-/**
  * Set to true to enable the SyntaxHighlight_GeSHi extension
  */
 $wgScribuntoUseGeSHi = false;
@@ -152,10 +144,5 @@ $wgScribuntoUseGeSHi = false;
  */
 $wgScribuntoUseCodeEditor = false;
 
-function efDefineScribuntoNamespace() {
-	global $wgScribuntoNamespaceNumbers;
-	define( 'NS_MODULE', $wgScribuntoNamespaceNumbers['Module'] );
-	define( 'NS_MODULE_TALK', $wgScribuntoNamespaceNumbers['Module_talk'] );
-}
-
-$wgExtensionFunctions[] = 'efDefineScribuntoNamespace';
+define( 'NS_MODULE', 828 );
+define( 'NS_MODULE_TALK', 829 );
