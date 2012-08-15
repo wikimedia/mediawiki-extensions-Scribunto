@@ -327,9 +327,9 @@ $1',
 	'scribunto-console-intro' => '* השמות המיוצאים מיחידה זמינים במשתנה "p", כולל שינויים שלא נשמרו.
 * כדי לחשב את השורה כביטוי יש להתחיל אותה בסימן "=" או להשתמש ב־print()&lrm;.
 * כדי לשלוח הודעות למסוף הזה, יש להשתמש ב־mw.log()&lrm;.',
-	'scribunto-console-title' => 'מסוף לצעידה בקוד',
+	'scribunto-console-title' => 'מסוף לבדיקת קוד',
 	'scribunto-console-too-large' => 'השיחה במסוף התארכה יותר מדי. נא לנקות את ההיסטוריה או להקטין את היחידה.',
-	'scribunto-console-current-src' => 'קלט מסוף',
+	'scribunto-console-current-src' => 'קלט במסוף',
 	'scribunto-console-previous-src' => 'קלט יחידה קודם',
 	'scribunto-console-clear' => 'ניקוי',
 	'scribunto-console-cleared' => 'מצב המסוף נוקה כי היחידה עודכנה.',
@@ -502,23 +502,33 @@ $1',
 $messages['ja'] = array(
 	'scribunto-desc' => 'MediaWiki ページにスクリプト言語を埋め込むフレームワーク',
 	'scribunto-ignore-errors' => 'コードのエラーを無視',
+	'scribunto-line' => '$1 行目',
+	'scribunto-module-line' => '$1 内、$2 行目',
 	'scribunto-parser-error' => 'スクリプトエラー',
 	'scribunto-parser-dialog-title' => 'スクリプトエラー',
-	'scribunto-error-short' => 'スクリプトエラー：$1',
-	'scribunto-error-long' => 'スクリプトエラー：
+	'scribunto-error-short' => 'スクリプトエラー: $1',
+	'scribunto-error-long' => 'スクリプトエラー:
 
 $1',
+	'scribunto-console-title' => 'デバッグコンソール',
+	'scribunto-console-too-large' => 'このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。',
+	'scribunto-console-current-src' => 'コンソール入力',
+	'scribunto-console-previous-src' => '以前のコンソール入力',
 	'scribunto-console-clear' => '消去',
-	'scribunto-common-nofunction' => 'スクリプトエラー：呼び出す関数を指定してください。',
-	'scribunto-common-nosuchfunction' => 'スクリプトエラー：指定した関数は存在しません。',
+	'scribunto-console-cleared' => 'モジュールが更新されたため、コンソールの状態を消去しました。',
+	'scribunto-common-nosuchmodule' => 'スクリプトエラー: そのようなモジュールはありません。',
+	'scribunto-common-nofunction' => 'スクリプトエラー: 呼び出す関数を指定してください。',
+	'scribunto-common-nosuchfunction' => 'スクリプトエラー: 指定した関数は存在しません。',
 	'scribunto-common-timeout' => 'スクリプトに割り当てた時間が終了しました。',
 	'scribunto-common-oom' => 'スクリプトの実行で使用を許可されているメモリー量です。',
-	'scribunto-common-backtrace' => 'バックトレース：',
+	'scribunto-common-backtrace' => 'バックトレース:',
 	'scribunto-lua-in-function' => '関数「$1」内',
 	'scribunto-lua-in-main' => 'メインチャンク内',
 	'scribunto-lua-in-function-at' => '関数内、$1:$2',
 	'scribunto-lua-error-location' => 'Lua エラー $1：$2',
 	'scribunto-lua-error' => 'Lua エラー：$2',
+	'scribunto-lua-noreturn' => 'スクリプトエラー: モジュールは値を返しませんでしたが、書き出しテーブルを返す必要があります。',
+	'scribunto-lua-notarrayreturn' => 'スクリプトエラー: モジュールはテーブル以外の何かを返しましたが、書き出しテーブルを返す必要があります。',
 	'scribunto-luastandalone-proc-error' => 'Lua エラー：プロセスを作成できません。',
 	'scribunto-luastandalone-decode-error' => 'Lua エラー：内部エラー：メッセージを復号できません。',
 	'scribunto-luastandalone-write-error' => 'Lua エラー：内部エラー：パイプへの書き込みエラーです。',
@@ -700,6 +710,23 @@ $1',
 	'scribunto-common-nosuchmodule' => 'Eroare în script: Niciun astfel modul.',
 	'scribunto-common-nofunction' => 'Eroare în script: Trebuie să specifici o funcție spre apelare.',
 	'scribunto-common-nosuchfunction' => 'Eroare în script: Funcția specificată nu există.',
+);
+
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'scribunto-ignore-errors' => "No sce penzanne a le codece d'errore",
+	'scribunto-line' => "a 'a linèe $1",
+	'scribunto-module-line' => "jndr'à $1 a 'a linèe $2",
+	'scribunto-parser-error' => "Errore d'u script",
+	'scribunto-parser-dialog-title' => "Errore d'u script",
+	'scribunto-error-short' => "Errore d'u script: $1",
+	'scribunto-error-long' => "Errore d'u script:
+
+$1",
+	'scribunto-console-clear' => 'Pulizze',
+	'scribunto-lua-in-function' => 'jndr\'à funzione "$1"',
 );
 
 /** Tagalog (Tagalog)
