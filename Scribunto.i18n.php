@@ -215,6 +215,20 @@ $messages['et'] = array(
 	'scribunto-console-clear' => 'Puhasta',
 );
 
+/** Basque (euskara)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['eu'] = array(
+	'scribunto-console-clear' => 'Garbitu',
+);
+
+/** Finnish (suomi)
+ * @author Beluga
+ */
+$messages['fi'] = array(
+	'scribunto-console-clear' => 'Tyhjennä',
+);
+
 /** French (français)
  * @author Brunoperel
  * @author Crochet.david
@@ -538,6 +552,23 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua エラー：内部エラー：インタープリターはステータス $2 で終了しました。',
 );
 
+/** Javanese (Basa Jawa)
+ * @author NoiX180
+ */
+$messages['jv'] = array(
+	'scribunto-desc' => 'Rangka kerja kanggo nyisipaké basa skrip nèng kaca MediaWiki',
+	'scribunto-ignore-errors' => 'Bènaké kasalahan kodhé',
+	'scribunto-line' => 'nèng larik $1',
+	'scribunto-module-line' => 'nèng $1 larik $2',
+	'scribunto-parser-error' => 'Kasalahan skrip',
+	'scribunto-parser-dialog-title' => 'Kasalahan skrip',
+	'scribunto-error-short' => 'Kasalahan skrip: $1',
+	'scribunto-error-long' => 'Kasalahan skrip:
+
+$1',
+	'scribunto-console-title' => 'Debug konsol',
+);
+
 /** Georgian (ქართული)
  * @author David1010
  */
@@ -773,6 +804,13 @@ $1',
 	'scribunto-luastandalone-gone' => 'Kamalian sa lua: panloob na kamalian: lumabas na ang tagapagpaunawa',
 	'scribunto-luastandalone-signal' => 'Kamalian sa lua: panloob na kamalian: huminto ang tagapagpaliwanag na mayroong senyas na "$2"',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
+);
+
+/** Yiddish (ייִדיש)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['yi'] = array(
+	'scribunto-console-clear' => 'רייניקן',
 );
 
 /** Simplified Chinese (‪中文（简体）‬)
