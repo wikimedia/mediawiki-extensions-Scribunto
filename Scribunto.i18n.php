@@ -13,7 +13,7 @@ $messages = array();
  */
 $messages['en'] = array(
 	'scribunto-desc' => 'Framework for embedding scripting languages into MediaWiki pages',
-	'scribunto-ignore-errors' => 'Ignore code errors',
+	'scribunto-ignore-errors' => 'Allow saving code with errors',
 	'scribunto-line' => 'at line $1',
 	'scribunto-module-line' => 'in $1 at line $2',
 	'scribunto-parser-error' => 'Script error',
