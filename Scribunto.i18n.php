@@ -488,6 +488,7 @@ $messages['it'] = array(
 
 $1',
 	'scribunto-console-title' => 'Console di debug',
+	'scribunto-console-clear' => 'Pulisci',
 	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
 	'scribunto-common-nofunction' => 'Errore script: devi specificare una funzione da chiamare.',
 	'scribunto-common-nosuchfunction' => 'Errore script: la funzione specificata non esiste.',
