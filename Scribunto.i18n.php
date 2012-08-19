@@ -108,12 +108,21 @@ $messages['qqq'] = array(
 * $2 is an exit status.',
 );
 
+/** Breton (brezhoneg)
+ * @author Y-M D
+ */
+$messages['br'] = array(
+	'scribunto-line' => "d'al linenn $1",
+	'scribunto-module-line' => "e $1 d'al linenn $2",
+	'scribunto-console-clear' => 'Riñsañ',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
 $messages['de'] = array(
 	'scribunto-desc' => 'Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten',
-	'scribunto-ignore-errors' => 'Codefehler ignorieren',
+	'scribunto-ignore-errors' => 'Speicherung von fehlerhaftem Code zulassen',
 	'scribunto-line' => 'in Zeile $1',
 	'scribunto-module-line' => 'in $1, Zeile $2',
 	'scribunto-parser-error' => 'Skriptfehler',
@@ -176,7 +185,7 @@ $1',
  */
 $messages['es'] = array(
 	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
-	'scribunto-ignore-errors' => 'Ignorar los errores de código',
+	'scribunto-ignore-errors' => 'Permite guardar el código con errores',
 	'scribunto-line' => 'en la línea $1',
 	'scribunto-module-line' => 'en $1 en la línea $2',
 	'scribunto-parser-error' => 'Error de script',
@@ -284,7 +293,7 @@ $1',
  */
 $messages['gl'] = array(
 	'scribunto-desc' => 'Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki',
-	'scribunto-ignore-errors' => 'Ignorar os erros do código',
+	'scribunto-ignore-errors' => 'Permitir o gardado do código con erros',
 	'scribunto-line' => 'na liña $1',
 	'scribunto-module-line' => 'en $1 na liña $2',
 	'scribunto-parser-error' => 'Erro de script',
@@ -329,7 +338,7 @@ $1',
  */
 $messages['he'] = array(
 	'scribunto-desc' => 'מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי',
-	'scribunto-ignore-errors' => 'להתעלם משגיאות בקוד',
+	'scribunto-ignore-errors' => 'לאפשר שמירת קוד עם שגיאות',
 	'scribunto-line' => 'בשורה $1',
 	'scribunto-module-line' => 'ביחידה $1 בשורה $2',
 	'scribunto-parser-error' => 'שגיאה בתסריט',
@@ -374,7 +383,7 @@ $1',
  */
 $messages['hsb'] = array(
 	'scribunto-desc' => 'Wobłuk za zasadźenje skriptowych rěčow do stronow MediaWiki',
-	'scribunto-ignore-errors' => 'Kodowe zmylki ignorować',
+	'scribunto-ignore-errors' => 'Składowanje koda ze zmylkami dowolić',
 	'scribunto-line' => 'w lince $1',
 	'scribunto-module-line' => 'w $1, w lince $2',
 	'scribunto-parser-error' => 'Skriptowy zmylk',
@@ -479,6 +488,7 @@ $1',
  */
 $messages['it'] = array(
 	'scribunto-desc' => 'Framework per incorporare linguaggi di scripting in pagine MediaWiki',
+	'scribunto-ignore-errors' => 'Consenti di salvare codice con errori',
 	'scribunto-line' => 'alla linea $1',
 	'scribunto-module-line' => 'in $1 alla linea $2',
 	'scribunto-parser-error' => 'Errore script',
@@ -488,7 +498,9 @@ $messages['it'] = array(
 
 $1',
 	'scribunto-console-title' => 'Console di debug',
+	'scribunto-console-too-large' => 'Questa sessione della console è troppo grande, cancellare la cronologia della console o ridurre le dimensioni del modulo.',
 	'scribunto-console-clear' => 'Pulisci',
+	'scribunto-console-cleared' => 'Lo stato della console è stato azzerato perché il modulo è stato aggiornato.',
 	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
 	'scribunto-common-nofunction' => 'Errore script: devi specificare una funzione da chiamare.',
 	'scribunto-common-nosuchfunction' => 'Errore script: la funzione specificata non esiste.',
@@ -516,7 +528,7 @@ $1',
  */
 $messages['ja'] = array(
 	'scribunto-desc' => 'MediaWiki ページにスクリプト言語を埋め込むフレームワーク',
-	'scribunto-ignore-errors' => 'コードのエラーを無視',
+	'scribunto-ignore-errors' => 'エラーがあるコードを保存できるようにする',
 	'scribunto-line' => '$1 行目',
 	'scribunto-module-line' => '$1 内、$2 行目',
 	'scribunto-parser-error' => 'スクリプトエラー',
@@ -542,8 +554,8 @@ $1',
 	'scribunto-lua-in-function-at' => '関数内、$1:$2',
 	'scribunto-lua-error-location' => 'Lua エラー $1：$2',
 	'scribunto-lua-error' => 'Lua エラー：$2',
-	'scribunto-lua-noreturn' => 'スクリプトエラー: モジュールは値を返しませんでしたが、書き出しテーブルを返す必要があります。',
-	'scribunto-lua-notarrayreturn' => 'スクリプトエラー: モジュールはテーブル以外の何かを返しましたが、書き出しテーブルを返す必要があります。',
+	'scribunto-lua-noreturn' => 'スクリプトエラー: モジュールは値を返しませんでしたが、書き出しテーブルを返すことになっています。',
+	'scribunto-lua-notarrayreturn' => 'スクリプトエラー: モジュールはテーブル以外の何かを返しましたが、書き出しテーブルを返すことになっています。',
 	'scribunto-luastandalone-proc-error' => 'Lua エラー：プロセスを作成できません。',
 	'scribunto-luastandalone-decode-error' => 'Lua エラー：内部エラー：メッセージを復号できません。',
 	'scribunto-luastandalone-write-error' => 'Lua エラー：内部エラー：パイプへの書き込みエラーです。',
@@ -595,7 +607,7 @@ $1',
  */
 $messages['mk'] = array(
 	'scribunto-desc' => 'Рамка за вметнување на скриптни јазици во страница на МедијаВики',
-	'scribunto-ignore-errors' => 'Занемари грешки во кодот',
+	'scribunto-ignore-errors' => 'Дозволи зачувување на кодот и кога има грешки',
 	'scribunto-line' => 'во редот $1',
 	'scribunto-module-line' => 'во $1, ред $2',
 	'scribunto-parser-error' => 'Грешка во скриптата',
@@ -635,6 +647,70 @@ $1',
 	'scribunto-luastandalone-exited' => 'Грешка во Lua: внатрешна грешка: толкувачот напушти со статусот $2',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'scribunto-desc' => 'മീഡിയവിക്കി താളുകളിൽ സ്ക്രിപ്റ്റിങ് ഭാഷകൾ ഉൾക്കൊള്ളിക്കാനുള്ള ചട്ടക്കൂട്',
+	'scribunto-ignore-errors' => 'കോഡ് പിഴവുകളോടെ സേവ് ചെയ്യാൻ അനുവദിക്കുക',
+	'scribunto-line' => '$1 വരിയിൽ',
+	'scribunto-module-line' => '$1-ൽ $2 വരിയിൽ',
+	'scribunto-parser-error' => 'സ്ക്രിപ്റ്റ് പിഴവ്',
+	'scribunto-parser-dialog-title' => 'സ്ക്രിപ്റ്റ് പിഴവ്',
+	'scribunto-error-short' => 'സ്ക്രിപ്റ്റ് പിഴവ്: $1',
+	'scribunto-error-long' => 'സ്ക്രിപ്റ്റ് പിഴവുകൾ:
+
+$1',
+	'scribunto-console-clear' => 'ശൂന്യമാക്കുക',
+	'scribunto-lua-error-location' => 'ലുവ പിഴവ് $1 : $2',
+	'scribunto-lua-error' => 'ലുവ പിഴവ്: $2.',
+);
+
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'scribunto-desc' => 'Kerangka pembenaman bahasa skrip dalam halaman MediaWiki',
+	'scribunto-ignore-errors' => 'Benarkan penyimpanan kod dengan ralat',
+	'scribunto-line' => 'pada baris $1',
+	'scribunto-module-line' => 'pada baris $2 di $1',
+	'scribunto-parser-error' => 'Ralat skrip',
+	'scribunto-parser-dialog-title' => 'Ralat skrip',
+	'scribunto-error-short' => 'Ralat skrip: $1',
+	'scribunto-error-long' => 'Ralat-ralat skrip:
+
+$1',
+	'scribunto-console-intro' => '* Eksport modul terdapat dalam bentuk pembolehubah "p", termasuk pengubahsuaian yang belum disimpan.
+* Dahului baris dengan tanda "=" untuk menilainya sebagai ungkapan, atau gunakan print().
+* Gunakan mw.log() dalam kod modul untuk menghantar mesej ke konsol ini.',
+	'scribunto-console-title' => 'Konsol penyahpepijatan',
+	'scribunto-console-too-large' => 'Sesi konsol ini terlalu besar. Sila padamkan sejarah konsol atau kecilkan saiz modul.',
+	'scribunto-console-current-src' => 'input konsol',
+	'scribunto-console-previous-src' => 'input konsol terdahulu',
+	'scribunto-console-clear' => 'Padamkan',
+	'scribunto-console-cleared' => 'Keadaan konsol dipadamkan kerana modul dikemaskinikan.',
+	'scribunto-common-nosuchmodule' => 'Ralat skrip: Modul ini tidak wujud.',
+	'scribunto-common-nofunction' => 'Ralat skrip: Anda mesti menyatakan fungsi yang hendak diseru.',
+	'scribunto-common-nosuchfunction' => 'Ralat skrip: Fungsi yang anda nyatakan itu tidak wujud.',
+	'scribunto-common-timeout' => 'Masa yang diperuntukkan untuk menjalankan skrip sudah luput.',
+	'scribunto-common-oom' => 'Had jumlah ingatan yang dibenarkan untuk menjalankan skrip sudah dilampaui.',
+	'scribunto-common-backtrace' => 'Jejak balik:',
+	'scribunto-lua-in-function' => 'dalam fungsi "$1"',
+	'scribunto-lua-in-main' => 'dalam ketulan utama',
+	'scribunto-lua-in-function-at' => 'dalam fungsi di $1:$2',
+	'scribunto-lua-error-location' => 'Ralat Lua $1: $2.',
+	'scribunto-lua-error' => 'Ralat Lua: $2.',
+	'scribunto-lua-noreturn' => 'Ralat skrip: Modul tidak memulangkan nilai. Ia sepatutnya memulangkan jadual eksport.',
+	'scribunto-lua-notarrayreturn' => 'Ralat skrip: Modul sepatutnya memulangkan jadual eksport, tetapi lain pula yang dipulangkannya.',
+	'scribunto-luastandalone-proc-error' => 'Ralat Lua: Proses tidak boleh diwujudkan.',
+	'scribunto-luastandalone-decode-error' => 'Ralat Lua: Ralat dalaman: Pesanan tidak dapat dinyahkod.',
+	'scribunto-luastandalone-write-error' => 'Ralat Lua: Ralat dalaman: Ralat ketika menulis pada paip.',
+	'scribunto-luastandalone-read-error' => 'Ralat Lua: Ralat dalaman: Ralat ketika membaca dari paip.',
+	'scribunto-luastandalone-gone' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah keluar.',
+	'scribunto-luastandalone-signal' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan isyarat "$2".',
+	'scribunto-luastandalone-exited' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status "$2".',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Saruman
@@ -642,7 +718,7 @@ $1',
  */
 $messages['nl'] = array(
 	'scribunto-desc' => "Framework voor het inbedden van scripttalen in pagina's",
-	'scribunto-ignore-errors' => 'Codefouten negeren',
+	'scribunto-ignore-errors' => 'Opslaan van code met fouten toestaan',
 	'scribunto-line' => 'op regel $1',
 	'scribunto-module-line' => 'in $1 op regel $2',
 	'scribunto-parser-error' => 'Scriptfout',
@@ -729,7 +805,7 @@ $1',
  * @author Stelistcristi
  */
 $messages['ro'] = array(
-	'scribunto-ignore-errors' => 'Ignorați erorile de cod',
+	'scribunto-ignore-errors' => 'Permite salvarea codului cu erori',
 	'scribunto-line' => 'la linia $1',
 	'scribunto-module-line' => 'în $1 la linia $2',
 	'scribunto-parser-error' => 'Eroare în script',
@@ -761,12 +837,57 @@ $1",
 	'scribunto-lua-in-function' => 'jndr\'à funzione "$1"',
 );
 
+/** Russian (русский)
+ * @author Kalan
+ */
+$messages['ru'] = array(
+	'scribunto-desc' => 'Сресдтво для включения скриптовых языков на страницах MediaWiki',
+	'scribunto-ignore-errors' => 'Разрешить сохранение кода с ошибками',
+	'scribunto-line' => 'на строке $1',
+	'scribunto-module-line' => 'в $1 на строке $2',
+	'scribunto-parser-error' => 'Ошибка скрипта',
+	'scribunto-parser-dialog-title' => 'Ошибка скрипта',
+	'scribunto-error-short' => 'Ошибка скрипта: $1',
+	'scribunto-error-long' => 'Ошибки скрипта:
+
+$1',
+	'scribunto-console-intro' => '* То, что экспортирует данный модуль, доступно как переменная «p», включая несохранённые изменения.
+* Предваряйте строку знаком «=», чтобы вычислить её как выражение, или используйте print().
+* Используйте mw.log() в коде модуля для вывода сообщений в эту консоль.',
+	'scribunto-console-title' => 'Консоль отладки',
+	'scribunto-console-too-large' => 'Этот сеанс консоли слишком большой. Очистите историю консоли или уменьшите размер модуля.',
+	'scribunto-console-current-src' => 'ввод консоли',
+	'scribunto-console-previous-src' => 'прошлый ввод консоли',
+	'scribunto-console-clear' => 'Очистить',
+	'scribunto-console-cleared' => 'Консоль очищена, потому что модуль был обновлён.',
+	'scribunto-common-nosuchmodule' => 'Ошибка скрипта: Такого модуля нет.',
+	'scribunto-common-nofunction' => 'Ошибка скрипта: Вы должны указать вызываемую функцию.',
+	'scribunto-common-nosuchfunction' => 'Ошибка скрипта: Указанной вами функции не существует.',
+	'scribunto-common-timeout' => 'Время, выделенное для выполнения скриптов, истекло.',
+	'scribunto-common-oom' => 'Количество памяти, выделенное для выполнения скриптов, превышено.',
+	'scribunto-common-backtrace' => 'Трассировка вызовов:',
+	'scribunto-lua-in-function' => 'в функции «$1»',
+	'scribunto-lua-in-main' => 'в основной части кода',
+	'scribunto-lua-in-function-at' => 'в функции $1:$2',
+	'scribunto-lua-error-location' => 'Ошибка Lua $1: $2.',
+	'scribunto-lua-error' => 'Ошибка Lua: $2.',
+	'scribunto-lua-noreturn' => 'Ошибка скрипта: Модуль не вернул значение. Ожидается, что модуль вернёт таблицу экспорта.',
+	'scribunto-lua-notarrayreturn' => 'Ошибка скрипта: Модуль вернул значение, не являющееся таблицей экспорта. Ожидается, что модуль вернёт таблицу экспорта.',
+	'scribunto-luastandalone-proc-error' => 'Ошибка Lua: Не удалось создать процесс.',
+	'scribunto-luastandalone-decode-error' => 'Ошибка Lua: Внутренняя ошибка: Не удаётся декодировать сообщение.',
+	'scribunto-luastandalone-write-error' => 'Ошибка Lua: Внутренняя ошибка: Ошибка записи в конвейер.',
+	'scribunto-luastandalone-read-error' => 'Ошибка Lua: Внутренняя ошибка: Ошибка чтения из конвейера.',
+	'scribunto-luastandalone-gone' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор уже завершил работу.',
+	'scribunto-luastandalone-signal' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор был остановлен сигналом «$2».',
+	'scribunto-luastandalone-exited' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор завершил работу со статусом $2.',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
 $messages['tl'] = array(
 	'scribunto-desc' => 'Baskagan para sa pagbabaon ng mga wikang pampagpapanitik papaloob sa mga pahina ng MediaWiki',
-	'scribunto-ignore-errors' => 'Huwag pansinin ang mga kamalian sa kodigo',
+	'scribunto-ignore-errors' => 'Pahintulutan ang pagsagip ng mga kodigong may mga kamalian',
 	'scribunto-line' => 'sa guhit na $1',
 	'scribunto-module-line' => 'sa loob ng $1 na nasa guhit na $2',
 	'scribunto-parser-error' => 'Kamalian sa panitik',
@@ -805,6 +926,52 @@ $1',
 	'scribunto-luastandalone-gone' => 'Kamalian sa lua: panloob na kamalian: lumabas na ang tagapagpaunawa',
 	'scribunto-luastandalone-signal' => 'Kamalian sa lua: panloob na kamalian: huminto ang tagapagpaliwanag na mayroong senyas na "$2"',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'scribunto-desc' => 'Khuôn khổ đế nhúng ngôn ngữ kịch bản vào các trang MediaWiki',
+	'scribunto-ignore-errors' => 'Cho phép lưu mã nguồn có lỗi',
+	'scribunto-line' => 'tại dòng $1',
+	'scribunto-module-line' => 'trong $1 tại dòng $2',
+	'scribunto-parser-error' => 'Lỗi kịch bản',
+	'scribunto-parser-dialog-title' => 'Lỗi kịch bản',
+	'scribunto-error-short' => 'Lỗi kịch bản: $1',
+	'scribunto-error-long' => 'Lỗi kịch bản:
+
+$1',
+	'scribunto-console-intro' => '* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.
+* Đưa “=” vào đầu dòng để tính toán nó như một biểu thức, hoặc sử dụng print().
+* Sử dụng mw.log() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.',
+	'scribunto-console-title' => 'Bảng điều khiển gỡ lỗi',
+	'scribunto-console-too-large' => 'Phiên bảng điều khiển này đã dài quá. Xin vui lòng tẩy trống lịch sử bảng điều khiển hoặc giảm cỡ mô đun.',
+	'scribunto-console-current-src' => 'đầu vào bảng điều khiển',
+	'scribunto-console-previous-src' => 'đầu vào bảng điều khiển trước',
+	'scribunto-console-clear' => 'Tẩy trống',
+	'scribunto-console-cleared' => 'Trạng thái bảng điều khiển được tẩy trống vì mô đun đã được cập nhật.',
+	'scribunto-common-nosuchmodule' => 'Lỗi kịch bản: Không tìm thấy mô đun.',
+	'scribunto-common-nofunction' => 'Lỗi kịch bản: Bạn cần phải định rõ hàm để gọi.',
+	'scribunto-common-nosuchfunction' => 'Lỗi kịch bản: Hàm được định rõ không tồn tại.',
+	'scribunto-common-timeout' => 'Đã hết thời gian dành để chạy kịch bản.',
+	'scribunto-common-oom' => 'Đã vượt quá lượng bộ nhớ dành để chạy kịch bản.',
+	'scribunto-common-backtrace' => 'Danh sách ngăn xếp:',
+	'scribunto-lua-in-function' => 'trong hàm “$1”',
+	'scribunto-lua-in-main' => 'trong đoạn chính',
+	'scribunto-lua-in-function-at' => 'trong hàm tại $1:$2',
+	'scribunto-lua-backtrace-line' => '$1: $2',
+	'scribunto-lua-error-location' => 'Lỗi Lua $1: $2.',
+	'scribunto-lua-error' => 'Lỗi Lua: $2.',
+	'scribunto-lua-noreturn' => 'Lỗi kịch bản: Mô đun không cho ra một giá trị. Nó cần phải cho ra một bảng xuất khẩu.',
+	'scribunto-lua-notarrayreturn' => 'Lỗi kịch bản: Mô đun cho ra gì đó không phải là bảng. Nó cần phải cho ra một bảng xuất khẩu.',
+	'scribunto-luastandalone-proc-error' => 'Lỗi Lua: Không thể tạo ra quá trình.',
+	'scribunto-luastandalone-decode-error' => 'Lỗi Lua: Lỗi nội bộ: Không thể giải mã thông điệp.',
+	'scribunto-luastandalone-write-error' => 'Lỗi Lua: Lỗi nội bộ: Lỗi khi ghi vào đường ống.',
+	'scribunto-luastandalone-read-error' => 'Lỗi Lua: Lỗi nội bộ: Lỗi khi đọc từ đường ống.',
+	'scribunto-luastandalone-gone' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã thoát.',
+	'scribunto-luastandalone-signal' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã kết thúc với tín hiệu “$2”.',
+	'scribunto-luastandalone-exited' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã thoát với trạng thái $2.',
 );
 
 /** Yiddish (ייִדיש)
