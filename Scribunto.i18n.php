@@ -194,7 +194,15 @@ $messages['es'] = array(
 	'scribunto-error-long' => 'Errores de secuencia de comandos (script):
 
 $1',
+	'scribunto-console-intro' => '* Las exportaciones del módulo están disponibles como la variable "p", incluídas las modificaciones sin guardar.
+* Inicie una línea con el carácter "=" para evaluarla como una expresión; o use print().
+* Use mw.log() en el código del módulo para enviar mensajes a esta consola.',
+	'scribunto-console-title' => 'Consola de depuración de errores',
+	'scribunto-console-too-large' => 'La sesión de esta consola es demasiado grande. Limpia el historial de la consola o reduce el tamaño del módulo.',
+	'scribunto-console-current-src' => 'entrada de la consola',
+	'scribunto-console-previous-src' => 'entrada previa de la consola',
 	'scribunto-console-clear' => 'Limpiar',
+	'scribunto-console-cleared' => 'El estado de la consola se ha limpiado debido a que el módulo se ha actualizado.',
 	'scribunto-common-nosuchmodule' => 'Error de secuencia de comandos (script): no existe ese módulo.',
 	'scribunto-common-nofunction' => 'Error de script: debe especificar una función a la que llamar.',
 	'scribunto-common-nosuchfunction' => 'Error de script: la función especificada no existe.',
