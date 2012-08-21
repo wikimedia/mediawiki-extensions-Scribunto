@@ -832,7 +832,7 @@ $1',
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
-	'scribunto-ignore-errors' => "No sce penzanne a le codece d'errore",
+	'scribunto-ignore-errors' => "Permette 'a reggistrazione d'u codece cu l'errore",
 	'scribunto-line' => "a 'a linèe $1",
 	'scribunto-module-line' => "jndr'à $1 a 'a linèe $2",
 	'scribunto-parser-error' => "Errore d'u script",
@@ -843,6 +843,8 @@ $messages['roa-tara'] = array(
 $1",
 	'scribunto-console-clear' => 'Pulizze',
 	'scribunto-lua-in-function' => 'jndr\'à funzione "$1"',
+	'scribunto-lua-error-location' => 'Errore Lua: $1: $2.',
+	'scribunto-lua-error' => 'Errore Lua: $2.',
 );
 
 /** Russian (русский)
