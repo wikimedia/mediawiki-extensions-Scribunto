@@ -818,13 +818,13 @@ $messages['ro'] = array(
 	'scribunto-module-line' => 'în $1 la linia $2',
 	'scribunto-parser-error' => 'Eroare în script',
 	'scribunto-parser-dialog-title' => 'Eroare în script',
-	'scribunto-error-short' => 'Eroare în script',
+	'scribunto-error-short' => 'Eroare în script: $1',
 	'scribunto-error-long' => 'Erori în script:
 
 $1',
 	'scribunto-console-title' => 'Consolă de depanare',
-	'scribunto-common-nosuchmodule' => 'Eroare în script: Niciun astfel modul.',
-	'scribunto-common-nofunction' => 'Eroare în script: Trebuie să specifici o funcție spre apelare.',
+	'scribunto-common-nosuchmodule' => 'Eroare în script: Niciun astfel de modul.',
+	'scribunto-common-nofunction' => 'Eroare în script: Trebuie să specificați o funcție pentru apelare.',
 	'scribunto-common-nosuchfunction' => 'Eroare în script: Funcția specificată nu există.',
 );
 
