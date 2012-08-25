@@ -459,7 +459,7 @@ $1',
  */
 $messages['ia'] = array(
 	'scribunto-desc' => 'Structura pro incorporar linguages de script in paginas de MediaWiki',
-	'scribunto-ignore-errors' => 'Ignorar errores in codice',
+	'scribunto-ignore-errors' => 'Permitter salveguardar codice con errores',
 	'scribunto-line' => 'al linea $1',
 	'scribunto-module-line' => 'in $1 al linea $2',
 	'scribunto-parser-error' => 'Error de script',
@@ -468,6 +468,15 @@ $messages['ia'] = array(
 	'scribunto-error-long' => 'Errores de script:
 
 $1',
+	'scribunto-console-intro' => '* Le exportationes del modulo es disponibile como le variabile "p", incluse le modificationes non salveguardate.
+* Initia un linea con "=" pro evalutar lo como expression, o usa print().
+* Usa mw.log() in le codice del modulo pro inviar messages a iste consola.',
+	'scribunto-console-title' => 'Consola de debug',
+	'scribunto-console-too-large' => 'Iste session de consola es troppo grande. Per favor rade le historia del consola o reduce le dimension del modulo.',
+	'scribunto-console-current-src' => 'entrata del consola',
+	'scribunto-console-previous-src' => 'entrata previe del consola',
+	'scribunto-console-clear' => 'Rader',
+	'scribunto-console-cleared' => 'Le stato del consola ha essite radite perque le modulo ha essite actualisate.',
 	'scribunto-common-nosuchmodule' => 'Error de script: modulo non trovate',
 	'scribunto-common-nofunction' => 'Error de script: tu debe specificar un function a appellar.',
 	'scribunto-common-nosuchfunction' => 'Error de script: le function specificate non existe.',
