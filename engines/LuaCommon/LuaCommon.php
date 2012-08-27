@@ -331,8 +331,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( !$frame ) {
 			throw new Scribunto_LuaError( 'attempt to call mw.preprocess with no frame' );
 		}
-		$dom = $this->parser->getPreprocessor()->preprocessToObj( $text, Parser::PTD_FOR_INCLUSION );
-		$text = $this->doCachedExpansion( $frame, $dom,
+		$text = $this->doCachedExpansion( $frame, $text,
 			array(
 				'inputText' => $text,
 				'args' => $frame->getArguments()
@@ -340,9 +339,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return array( $text );
 	}
 
-	function doCachedExpansion( $frame, $dom, $cacheKey ) {
+	function doCachedExpansion( $frame, $input, $cacheKey ) {
 		$hash = md5( serialize( $cacheKey ) );
 		if ( !isset( $this->expandCache[$hash] ) ) {
+			if ( is_scalar( $input ) ) {
+				$dom = $this->parser->getPreprocessor()->preprocessToObj( 
+					$input, Parser::PTD_FOR_INCLUSION );
+			} else {
+				$dom = $input;
+			}
 			if ( count( $this->expandCache ) > self::MAX_EXPAND_CACHE_SIZE ) {
 				reset( $this->expandCache );
 				$oldHash = key( $this->expandCache );
