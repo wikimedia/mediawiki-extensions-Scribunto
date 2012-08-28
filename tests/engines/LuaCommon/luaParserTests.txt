@@ -132,7 +132,7 @@ Scribunto: no such module
 !! input
 {{#invoke:foo|bar}}
 !! result
-<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: No such module--></span></strong>
+<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: No such module.--></span></strong>
 </p>
 !! end
 
@@ -150,7 +150,7 @@ Scribunto: parse error
 !! input
 {{#invoke:Parse error|blah}}
 !! result
-<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Lua error in Module:Parse_error at line 1: unexpected symbol near '{'--></span></strong>
+<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Lua error in Module:Parse_error at line 1: unexpected symbol near '{'.--></span></strong>
 </p>
 !! end
 
