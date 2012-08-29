@@ -502,6 +502,7 @@ $1',
 /** Italian (italiano)
  * @author Beta16
  * @author F. Cosoleto
+ * @author Raoli
  */
 $messages['it'] = array(
 	'scribunto-desc' => 'Framework per incorporare linguaggi di scripting in pagine MediaWiki',
@@ -514,8 +515,13 @@ $messages['it'] = array(
 	'scribunto-error-long' => 'Errori script:
 
 $1',
+	'scribunto-console-intro' => 'The esportazioni del modulo sono rappresentate dalla variabile "p", incluse le modifiche non salvate.
+ * Precede una linea con "=" per valutarlo come una espressione, o utilizzare print().
+ * Usa mw.log() nel codice del modulo per inviare messaggi a questa console.',
 	'scribunto-console-title' => 'Console di debug',
 	'scribunto-console-too-large' => 'Questa sessione della console è troppo grande, cancellare la cronologia della console o ridurre le dimensioni del modulo.',
+	'scribunto-console-current-src' => 'input della console',
+	'scribunto-console-previous-src' => 'input della console precedente',
 	'scribunto-console-clear' => 'Pulisci',
 	'scribunto-console-cleared' => 'Lo stato della console è stato azzerato perché il modulo è stato aggiornato.',
 	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
