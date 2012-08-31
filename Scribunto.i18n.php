@@ -239,6 +239,14 @@ $messages['eu'] = array(
 	'scribunto-console-clear' => 'Garbitu',
 );
 
+/** Persian (فارسی)
+ * @author جواد
+ */
+$messages['fa'] = array(
+	'scribunto-line' => 'در خط $1',
+	'scribunto-module-line' => 'در $1 در خط $2',
+);
+
 /** Finnish (suomi)
  * @author Beluga
  */
