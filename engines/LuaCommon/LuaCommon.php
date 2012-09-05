@@ -28,6 +28,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return new Scribunto_LuaError( $message, $this->getDefaultExceptionParams() + $params );
 	}
 
+	public function destroy() {
+		// Break reference cycles
+		$this->interpreter = null;
+		$this->executeModuleFunc = null;
+		$this->mw = null;
+		$this->expandCache = null;
+		parent::destroy();
+	}
+
 	/**
 	 * Initialise the interpreter and the base environment
 	 */
@@ -38,9 +47,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->loaded = true;
 
 		$this->interpreter = $this->newInterpreter();
-		$this->mw = $this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/mw.lua' );
+		$this->mw = $this->loadLibraryFromFile( $this->getLuaLibDir()  . '/mw.lua' );
 
-		$this->loadLibraryFromFile( dirname( __FILE__ ) .'/lualib/package.lua' );
+		$this->loadLibraryFromFile( $this->getLuaLibDir() .'/package.lua' );
 
 		$this->interpreter->registerLibrary( 'mw_php', 
 			array(
@@ -54,6 +63,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$this->interpreter->callFunction( $this->mw['setup'],
 			array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
+	}
+
+	public function getLuaLibDir() {
+		return dirname( __FILE__ ) .'/lualib';
 	}
 
 	/**
@@ -201,7 +214,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->checkString( 'loadPackage', $args, 0 );
 
 		foreach ( $this->libraryPaths as $path ) {
-			$fileName = dirname( __FILE__ ) . "/lualib/$path/$name.lua";
+			$fileName = $this->getLuaLibDir() . "/$path/$name.lua";
 			if ( !file_exists( $fileName ) ) {
 				continue;
 			}

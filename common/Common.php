@@ -61,7 +61,10 @@ class Scribunto {
 	 * Remove the current engine instance from the parser
 	 */
 	public static function resetParserEngine( $parser ) {
-		$parser->scribunto_engine = null;
+		if ( !empty( $parser->scribunto_engine ) ) {
+			$parser->scribunto_engine->destroy();
+			$parser->scribunto_engine = null;
+		}
 	}
 }
 

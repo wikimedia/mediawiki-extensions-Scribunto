@@ -69,6 +69,17 @@ abstract class ScribuntoEngineBase {
 		}
 	}
 
+	function __destruct() {
+		$this->destroy();
+	}
+
+	public function destroy() {
+		// Break reference cycles
+		$this->parser = null;
+		$this->title = null;
+		$this->modules = null;
+	}
+
 	public function setTitle( $title ) {
 		$this->title = $title;
 	}
