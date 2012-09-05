@@ -256,6 +256,7 @@ $messages['fi'] = array(
 
 /** French (français)
  * @author Brunoperel
+ * @author Cquoi
  * @author Crochet.david
  * @author Erkethan
  * @author Gomoko
@@ -263,7 +264,7 @@ $messages['fi'] = array(
  */
 $messages['fr'] = array(
 	'scribunto-desc' => "Cadre pour l'intégration des langages de script dans des pages de MediaWiki",
-	'scribunto-ignore-errors' => 'Ignorer les erreurs de code',
+	'scribunto-ignore-errors' => "Permettre l'enregistrement de code avec des erreurs",
 	'scribunto-line' => 'à la ligne $1',
 	'scribunto-module-line' => 'dans $1 à la ligne $2',
 	'scribunto-parser-error' => 'Erreur de script',
