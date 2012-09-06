@@ -78,7 +78,6 @@ class ApiScribuntoConsole extends ApiBase {
 	protected function runConsole( $params ) {
 		global $wgParser;
 		$options = new ParserOptions;
-		$options->setTemplateCallback( array( $this, 'templateCallback' ) );
 		$wgParser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
 		$engine = Scribunto::getParserEngine( $wgParser );
 		try {
