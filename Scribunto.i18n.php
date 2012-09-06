@@ -34,6 +34,7 @@ $1',
 	'scribunto-console-cleared' => 'The console state was cleared because the module was updated.',
 
 
+	'scribunto-common-error-category' => 'Pages with script errors',
 	'scribunto-common-nosuchmodule' => 'Script error: No such module.',
 	'scribunto-common-nofunction' => 'Script error: You must specify a function to call.',
 	'scribunto-common-nosuchfunction' => 'Script error: The function you specified did not exist.',
@@ -78,6 +79,7 @@ $messages['qqq'] = array(
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
+	'scribunto-common-error-category' => 'Tracking category for pages with errors from #invoke',
 	'scribunto-common-nosuchmodule' => 'Error message displayed when referencing a non-existing module.',
 	'scribunto-common-nofunction' => 'Error message displayed when not specifying a function to call.',
 	'scribunto-common-nosuchfunction' => 'Error message displayed when referencing a non-existing function.',

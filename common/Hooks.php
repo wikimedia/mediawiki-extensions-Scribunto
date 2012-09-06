@@ -97,6 +97,7 @@ class ScribuntoHooks {
 			if ( !isset( $out->scribunto_errors ) ) {
 				$out->addOutputHook( 'ScribuntoError' );
 				$out->scribunto_errors = array();
+				$parser->addTrackingCategory( 'scribunto-common-error-category' );
 			}
 
 			$out->scribunto_errors[] = $html;
