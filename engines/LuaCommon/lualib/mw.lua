@@ -6,6 +6,7 @@ local php
 local setupDone
 local allowEnvFuncs = false
 local logBuffer = ''
+local currentFrame
 
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
@@ -374,8 +375,12 @@ end
 
 function mw.executeFunction( chunk )
 	local frame = newFrame( 'current' )
+	local oldFrame = currentFrame
 
+	currentFrame = frame
 	local results = { chunk( frame ) }
+	currentFrame = oldFrame
+
 	local stringResults = {}
 	for i, result in ipairs( results ) do
 		stringResults[i] = tostring( result )
@@ -395,5 +400,8 @@ function mw.getLogBuffer()
 	return logBuffer
 end
 
+function mw.getCurrentFrame()
+	return currentFrame
+end
 
 return mw
