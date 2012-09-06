@@ -526,6 +526,12 @@ function MWServer:newEnvironment()
 	env.debug = {
 		traceback = debug.traceback
 	}
+	env.os = {
+		date = os.date,
+		difftime = os.difftime,
+		time = os.time,
+		clock = os.clock
+	}
 	return env
 end
 
