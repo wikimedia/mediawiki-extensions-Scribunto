@@ -121,6 +121,7 @@ $messages['br'] = array(
 
 /** German (Deutsch)
  * @author Kghbln
+ * @author Metalhead64
  */
 $messages['de'] = array(
 	'scribunto-desc' => 'Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten',
@@ -142,6 +143,7 @@ $1',
 	'scribunto-console-previous-src' => 'vorherige Konsoleneingabe',
 	'scribunto-console-clear' => 'Leeren',
 	'scribunto-console-cleared' => 'Die Konsole wurde geleert, da das Modul aktualisiert wurde.',
+	'scribunto-common-error-category' => 'Seiten mit Skriptfehlern',
 	'scribunto-common-nosuchmodule' => 'Skriptfehler: Ein solches Modul ist nicht vorhanden.',
 	'scribunto-common-nofunction' => 'Skriptfehler: Es muss eine aufzurufende Funktion angegeben werden.',
 	'scribunto-common-nosuchfunction' => 'Skriptfehler: Die angegebene Funktion ist nicht vorhanden.',
