@@ -94,6 +94,10 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	 * @expectedExceptionMessage The time allocated for running scripts has expired.
 	 */
 	function testTimeLimit() {
+		if( php_uname( 's' ) === 'Darwin' ) {
+			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
+		}
+
 		$interpreter = $this->newInterpreter( array( 'cpuLimit' => 1 ) );
 		$chunk = $this->getBusyLoop( $interpreter );
 		$interpreter->callFunction( $chunk, 1e9 );
