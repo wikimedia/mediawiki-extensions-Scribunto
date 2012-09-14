@@ -629,6 +629,7 @@ $1',
 	'scribunto-console-previous-src' => '以前のコンソール入力',
 	'scribunto-console-clear' => '消去',
 	'scribunto-console-cleared' => 'モジュールが更新されたため、コンソールの状態を消去しました。',
+	'scribunto-common-error-category' => 'スクリプトエラーがあるページ',
 	'scribunto-common-nosuchmodule' => 'スクリプトエラー: そのようなモジュールはありません。',
 	'scribunto-common-nofunction' => 'スクリプトエラー: 呼び出す関数を指定してください。',
 	'scribunto-common-nosuchfunction' => 'スクリプトエラー: 指定した関数は存在しません。',
@@ -638,17 +639,17 @@ $1',
 	'scribunto-lua-in-function' => '関数「$1」内',
 	'scribunto-lua-in-main' => 'メインチャンク内',
 	'scribunto-lua-in-function-at' => '関数内、$1:$2',
-	'scribunto-lua-error-location' => 'Lua エラー $1：$2',
-	'scribunto-lua-error' => 'Lua エラー：$2',
+	'scribunto-lua-error-location' => 'Lua エラー $1: $2',
+	'scribunto-lua-error' => 'Lua エラー: $2',
 	'scribunto-lua-noreturn' => 'スクリプトエラー: モジュールは値を返しませんでしたが、書き出しテーブルを返すことになっています。',
 	'scribunto-lua-notarrayreturn' => 'スクリプトエラー: モジュールはテーブル以外の何かを返しましたが、書き出しテーブルを返すことになっています。',
-	'scribunto-luastandalone-proc-error' => 'Lua エラー：プロセスを作成できません。',
-	'scribunto-luastandalone-decode-error' => 'Lua エラー：内部エラー：メッセージを復号できません。',
-	'scribunto-luastandalone-write-error' => 'Lua エラー：内部エラー：パイプへの書き込みエラーです。',
-	'scribunto-luastandalone-read-error' => 'Lua エラー：内部エラー：パイプからの読み込みエラーです。',
-	'scribunto-luastandalone-gone' => 'Lua エラー：内部エラー：インタープリターは既に終了しています。',
-	'scribunto-luastandalone-signal' => 'Lua エラー：内部エラー：インタープリターはシグナル「$2」で終了しました。',
-	'scribunto-luastandalone-exited' => 'Lua エラー：内部エラー：インタープリターはステータス $2 で終了しました。',
+	'scribunto-luastandalone-proc-error' => 'Lua エラー: プロセスを作成できません。',
+	'scribunto-luastandalone-decode-error' => 'Lua エラー: 内部エラー: メッセージを復号できません。',
+	'scribunto-luastandalone-write-error' => 'Lua エラー: 内部エラー: パイプへの書き込みエラーです。',
+	'scribunto-luastandalone-read-error' => 'Lua エラー: 内部エラー: パイプからの読み取りエラーです。',
+	'scribunto-luastandalone-gone' => 'Lua エラー: 内部エラー: インタープリターは既に終了しています。',
+	'scribunto-luastandalone-signal' => 'Lua エラー: 内部エラー: インタープリターはシグナル「$2」により終了しました。',
+	'scribunto-luastandalone-exited' => 'Lua エラー: 内部エラー: インタープリターは終了コード $2 で終了しました。',
 );
 
 /** Javanese (Basa Jawa)
@@ -673,6 +674,24 @@ $1',
  */
 $messages['ka'] = array(
 	'scribunto-console-clear' => 'გასუფთავება',
+);
+
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'scribunto-ignore-errors' => '오류 코드 저장 허용',
+	'scribunto-line' => '$1줄',
+	'scribunto-module-line' => '$1 안, $2줄',
+	'scribunto-parser-error' => '스크립트 오류',
+	'scribunto-parser-dialog-title' => '스크립트 오류',
+	'scribunto-error-short' => '스크립트 오류: $1',
+	'scribunto-error-long' => '스크립트 오류:
+
+$1',
+	'scribunto-console-current-src' => '콘솔 입력',
+	'scribunto-console-clear' => '지우기',
+	'scribunto-common-error-category' => '스크립트 오류가 있는 문서',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -776,6 +795,7 @@ $1',
 	'scribunto-console-previous-src' => 'input konsol terdahulu',
 	'scribunto-console-clear' => 'Padamkan',
 	'scribunto-console-cleared' => 'Keadaan konsol dipadamkan kerana modul dikemaskinikan.',
+	'scribunto-common-error-category' => 'Halaman yang ada ralat skrip',
 	'scribunto-common-nosuchmodule' => 'Ralat skrip: Modul ini tidak wujud.',
 	'scribunto-common-nofunction' => 'Ralat skrip: Anda mesti menyatakan fungsi yang hendak diseru.',
 	'scribunto-common-nosuchfunction' => 'Ralat skrip: Fungsi yang anda nyatakan itu tidak wujud.',
