@@ -60,6 +60,7 @@ $1',
 
 /** Message documentation (Message documentation)
  * @author Amire80
+ * @author Mormegil
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -68,7 +69,7 @@ $messages['qqq'] = array(
 	'scribunto-line' => 'Reference to a code location. Parameters:
 * $1 is a line number.',
 	'scribunto-module-line' => 'Reference to a code location. Parameters:
-* $1 is a module;
+* $1 is a module (may also be {{msg-mw|Scribunto-console-current-src}});
 * $2 is a line number.',
 	'scribunto-parser-error' => 'Error message.',
 	'scribunto-parser-dialog-title' => 'Error message.',
@@ -79,6 +80,7 @@ $messages['qqq'] = array(
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
+	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
 	'scribunto-common-error-category' => 'Tracking category for pages with errors from #invoke',
 	'scribunto-common-nosuchmodule' => 'Error message displayed when referencing a non-existing module.',
 	'scribunto-common-nofunction' => 'Error message displayed when not specifying a function to call.',
@@ -126,7 +128,7 @@ $messages['cs'] = array(
 	'scribunto-desc' => 'Umožňuje vkládat do stránek MediaWiki skriptovací jazyky',
 	'scribunto-ignore-errors' => 'Dovolit uložení kódu s chybami',
 	'scribunto-line' => 'na řádku $1',
-	'scribunto-module-line' => 'v $1 na řádku $2',
+	'scribunto-module-line' => 'v modulu $1 na řádku $2',
 	'scribunto-parser-error' => 'Chyba skriptu',
 	'scribunto-parser-dialog-title' => 'Chyba skriptu',
 	'scribunto-error-short' => 'Chyba skriptu: $1',
@@ -843,6 +845,7 @@ $1',
 	'scribunto-console-previous-src' => 'vorige consoleinvoer',
 	'scribunto-console-clear' => 'Wissen',
 	'scribunto-console-cleared' => 'De consolestatus is gewist omdat de module is bijgewerkt.',
+	'scribunto-common-error-category' => "Pagina's met scriptfouten",
 	'scribunto-common-nosuchmodule' => 'Scriptfout: de module bestaat niet.',
 	'scribunto-common-nofunction' => 'Scriptfout: u moet een aan te roepen functie opgeven.',
 	'scribunto-common-nosuchfunction' => 'Scriptfout: de opgegeven functie bestaat niet.',
