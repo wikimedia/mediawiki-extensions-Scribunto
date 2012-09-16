@@ -820,6 +820,26 @@ $1',
 	'scribunto-luastandalone-exited' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status "$2".',
 );
 
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
+ * @author Danmichaelo
+ */
+$messages['nb'] = array(
+	'scribunto-desc' => 'Rammeverk for å bygge inn scriptspråk i MediaWiki-sider',
+	'scribunto-ignore-errors' => 'Tillatt lagring av kode med feil',
+	'scribunto-line' => 'i linje $1',
+	'scribunto-module-line' => 'i $1, linje $2',
+	'scribunto-parser-error' => 'Skriptfeil',
+	'scribunto-parser-dialog-title' => 'Skriptfeil',
+	'scribunto-error-short' => 'Skriptfeil: $1',
+	'scribunto-error-long' => 'Skriptfeil:
+
+$1',
+	'scribunto-console-intro' => '* Moduleksporteringer er tilgjengelig som variabelen «p», inkludert ulagrede endringer.
+* Start en linje med «=» for å evaluere den som et uttrykk, eller bruk print().
+* Bruk mw.log() i modulkode for å sende meldinger til denne konsollen.',
+	'scribunto-console-title' => 'Feilsøkingskonsoll',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Saruman
