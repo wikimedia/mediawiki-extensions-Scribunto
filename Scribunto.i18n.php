@@ -427,6 +427,7 @@ $1',
 	'scribunto-console-previous-src' => 'קלט יחידה קודם',
 	'scribunto-console-clear' => 'ניקוי',
 	'scribunto-console-cleared' => 'מצב המסוף נוקה כי היחידה עודכנה.',
+	'scribunto-common-error-category' => 'דפים עם שגיאות בתסריט',
 	'scribunto-common-nosuchmodule' => 'שגיאת תסריט: אין יחידה כזאת.',
 	'scribunto-common-nofunction' => 'שגיאת תסריט: חובה לציין לאיזו פונקציה לקרוא.',
 	'scribunto-common-nosuchfunction' => 'שגיאת תסריט: הפונקציה שציינת אינה קיימת.',
@@ -682,6 +683,7 @@ $messages['ka'] = array(
  * @author 아라
  */
 $messages['ko'] = array(
+	'scribunto-desc' => '미디어위키 문서에 스크립트 언어를 넣기 위한 프레임워크',
 	'scribunto-ignore-errors' => '오류 코드 저장 허용',
 	'scribunto-line' => '$1줄',
 	'scribunto-module-line' => '$1 안, $2줄',
@@ -691,9 +693,36 @@ $messages['ko'] = array(
 	'scribunto-error-long' => '스크립트 오류:
 
 $1',
+	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
+* 표현으로 평가하는 "="이 있는 줄을 앞에 넣거나 print()를 사용하세요.
+* 이 콘솔에 메시지를 보낼 모듈 코드에 mw.log()를 사용하세요.',
+	'scribunto-console-title' => '콘솔 디버그',
+	'scribunto-console-too-large' => '이 콘솔 세션이 너무 큽니다. 콘솔 역사를 삭제하거나 모듈의 크기를 줄이세요.',
 	'scribunto-console-current-src' => '콘솔 입력',
+	'scribunto-console-previous-src' => '이전 콘솔 입력',
 	'scribunto-console-clear' => '지우기',
+	'scribunto-console-cleared' => '모듈을 업데이트했기 때문에 콘솔 상태가 해제되었습니다.',
 	'scribunto-common-error-category' => '스크립트 오류가 있는 문서',
+	'scribunto-common-nosuchmodule' => '스크립트 오류: 그런 모듈이 없습니다.',
+	'scribunto-common-nofunction' => '스크립트 오류: 호출할 함수를 지정해야 합니다.',
+	'scribunto-common-nosuchfunction' => '스크립트 오류: 지정한 함수가 존재하지 않습니다.',
+	'scribunto-common-timeout' => '스크립트를 실행하는 데 할당한 시간이 만료되었습니다.',
+	'scribunto-common-oom' => '스크립트를 실행하는 데 허용하는 메모리 크기를 초과했습니다.',
+	'scribunto-common-backtrace' => '역추적:',
+	'scribunto-lua-in-function' => '"$1" 함수에서',
+	'scribunto-lua-in-main' => '주요 덩어리에서',
+	'scribunto-lua-in-function-at' => '$1:$2에 있는 함수에서',
+	'scribunto-lua-error-location' => 'Lua 오류 $1: $2.',
+	'scribunto-lua-error' => 'Lua 오류: $2.',
+	'scribunto-lua-noreturn' => '스크립트 오류: 모듈이 값을 반환하지 않았습니다. 내보내기 테이블을 반환해야 합니다.',
+	'scribunto-lua-notarrayreturn' => '스크립트 오류: 모듈이 테이블이 아닌 다른 무언가를 반환했습니다. 내보내기 테이블을 반환해야 합니다.',
+	'scribunto-luastandalone-proc-error' => 'Lua 오류: 프로세스를 만들 수 없습니다.',
+	'scribunto-luastandalone-decode-error' => 'Lua 오류: 내부 오류: 메시지를 디코드할 수 없습니다.',
+	'scribunto-luastandalone-write-error' => 'Lua 오류: 내부 오류: 파이프에 쓰는 도중 오류가 발생했습니다.',
+	'scribunto-luastandalone-read-error' => 'Lua 오류: 내부 오류: 파이프에서 읽는 도중 오류가 발생했습니다.',
+	'scribunto-luastandalone-gone' => 'Lua 오류: 내부 오류: 인터프리터가 이미 끝났습니다.',
+	'scribunto-luastandalone-signal' => 'Lua 오류: 내부 오류: 인터프리터가 "$2" 신호로 종료했습니다.',
+	'scribunto-luastandalone-exited' => 'Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
