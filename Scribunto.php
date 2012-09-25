@@ -111,7 +111,7 @@ $wgScribuntoEngineConf = array(
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
 
-		// Set this to true to allow setfenv() and getfenv() in user code. 
+		// Set this to true to allow setfenv() and getfenv() in user code.
 		// Note that these functions have been removed in Lua 5.2. Scribunto 
 		// does not yet support Lua 5.2, but we expect support will be 
 		// implemented in the future, and there is no guarantee that a 
