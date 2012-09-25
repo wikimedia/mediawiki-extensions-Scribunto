@@ -3,7 +3,7 @@
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = array();
-	
+
 	public function getLimitReport() {
 		$this->load();
 		$lang = Language::factory( 'en' );
@@ -14,11 +14,13 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		if ( $t < 1.0 ) {
 			return $s;
 		}
-		$percentProfile = $this->interpreter->getProfilerFunctionReport( LuaSandbox::PERCENT );
+		$percentProfile = $this->interpreter->getProfilerFunctionReport( 
+			Scribunto_LuaSandboxInterpreter::PERCENT );
 		if ( !count( $percentProfile ) ) {
 			return $s;
 		}
-		$timeProfile = $this->interpreter->getProfilerFunctionReport( LuaSandbox::SECONDS );
+		$timeProfile = $this->interpreter->getProfilerFunctionReport( 
+			Scribunto_LuaSandboxInterpreter::SECONDS );
 
 		$s .= "Lua Profile:\n";
 		$cumulativePercent = $cumulativeTime = 0;
@@ -63,6 +65,10 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 
 class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	var $engine, $sandbox, $libraries, $profilerEnabled;
+
+	const SAMPLES = 0;
+	const SECONDS = 1;
+	const PERCENT = 2;
 
 	function __construct( $engine, $options ) {
 		if ( !extension_loaded( 'luasandbox' ) ) {
@@ -137,7 +143,14 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 
 	public function getProfilerFunctionReport( $units ) {
 		if ( $this->profilerEnabled ) {
-			return $this->sandbox->getProfilerFunctionReport( $units );
+			static $unitsMap;
+			if ( !$unitsMap ) {
+				$unitsMap = array(
+					self::SAMPLES => LuaSandbox::SAMPLES,
+					self::SECONDS => LuaSandbox::SECONDS,
+					self::PERCENT => LuaSandbox::PERCENT );
+			}
+			return $this->sandbox->getProfilerFunctionReport( $unitsMap[$units] );
 		} else {
 			return array();
 		}
