@@ -1189,3 +1189,45 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态码为$2。',
 );
 
+/** Traditional Chinese (中文（繁體）‎) */
+$messages['zh-hant'] = array(
+	'scribunto-desc' => '用於在MediaWiki頁面中嵌入腳本語言的框架',
+	'scribunto-line' => '在第$1行',
+	'scribunto-module-line' => '在$1中的第$2行',
+	'scribunto-parser-error' => '腳本錯誤',
+	'scribunto-parser-dialog-title' => '腳本錯誤',
+	'scribunto-error-short' => '腳本錯誤：$1',
+	'scribunto-error-long' => '腳本錯誤：
+
+$1',
+	'scribunto-console-intro' => '* 此模塊的導出表存於變量“p”中，包括沒有保存的變更。
+* 在一行的前面加上“=”可以將其作為表達式來計算，或使用print()。
+* 在模塊代碼中使用mw.log()來向控制台發送消息。',
+	'scribunto-console-title' => '調試控制台',
+	'scribunto-console-too-large' => '此控制台會話太大。請清除控制台歷史記錄或減少模塊的大小。',
+	'scribunto-console-current-src' => '控制台輸入',
+	'scribunto-console-previous-src' => '先前的控制台輸入',
+	'scribunto-console-clear' => '清除',
+	'scribunto-console-cleared' => '控制台狀態已清除，因為模塊已更新。',
+	'scribunto-common-nosuchmodule' => '腳本錯誤：沒有這個模塊。',
+	'scribunto-common-nofunction' => '腳本錯誤：您必須指定要調用的函數。',
+	'scribunto-common-nosuchfunction' => '腳本錯誤：您指定的函數不存在。',
+	'scribunto-common-timeout' => '為正在運行的腳本分配的時間已用完。',
+	'scribunto-common-oom' => '正在運行的腳本允許的內存用量已超出。',
+	'scribunto-common-backtrace' => '回溯：',
+	'scribunto-lua-in-function' => '在函數“$1”中',
+	'scribunto-lua-in-main' => '在主要塊中',
+	'scribunto-lua-in-function-at' => '在函數 $1:$2 中',
+	'scribunto-lua-error-location' => 'Lua錯誤 $1：$2',
+	'scribunto-lua-error' => 'Lua錯誤：$2。',
+	'scribunto-lua-noreturn' => '腳本錯誤：該模塊未返回一個值，它應該返回導出表。',
+	'scribunto-lua-notarrayreturn' => '腳本錯誤：該模塊返回的不是表，它應該返回導出表。',
+	'scribunto-luastandalone-proc-error' => 'Lua錯誤：無法創建進程。',
+	'scribunto-luastandalone-decode-error' => 'Lua錯誤：內部錯誤：無法解碼消息。',
+	'scribunto-luastandalone-write-error' => 'Lua錯誤：內部錯誤：寫入管道時出錯。',
+	'scribunto-luastandalone-read-error' => 'Lua錯誤：內部錯誤：從管道讀取時出錯。',
+	'scribunto-luastandalone-gone' => 'Lua錯誤：內部錯誤：解釋器已退出。',
+	'scribunto-luastandalone-signal' => 'Lua錯誤：內部錯誤：解釋器因收到信號“$2”而終止。',
+	'scribunto-luastandalone-exited' => 'Lua錯誤：內部錯誤：解釋器已退出，狀態碼為$2。',
+);
+
