@@ -214,7 +214,7 @@ $1',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Kghbln
  */
 $messages['de-formal'] = array(
@@ -850,7 +850,7 @@ $1',
 	'scribunto-luastandalone-exited' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status "$2".',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Danmichaelo
  */
 $messages['nb'] = array(
@@ -1144,7 +1144,7 @@ $messages['yi'] = array(
 	'scribunto-console-clear' => 'רייניקן',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Liangent
  */
 $messages['zh-hans'] = array(
