@@ -15,6 +15,11 @@ $magicWords['ar'] = array(
 	'invoke' => array( 0, 'استدعاء' ),
 );
 
+/** German (Deutsch) */
+$magicWords['de'] = array(
+	'invoke' => array( 0, 'aufrufen' ),
+);
+
 /** Korean (한국어) */
 $magicWords['ko'] = array(
 	'invoke' => array( 0, '호출' ),
