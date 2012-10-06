@@ -54,7 +54,10 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 
 		if ( $newSession['size'] > self::SC_MAX_SIZE ) {
-			$this->dieUsage( wfMsg( 'scribunto-console-too-large' ), 'scribunto-console-too-large' );
+			$this->dieUsage(
+				$this->msg( 'scribunto-console-too-large' )->text(),
+				'scribunto-console-too-large'
+			);
 		}
 		$result = $this->runConsole( array(
 			'title' => $title,
@@ -87,7 +90,10 @@ class ApiScribuntoConsole extends ApiBase {
 			$message = $e->getMessage();
 			$html = Html::element( 'p', array(), $message );
 			if ( $trace !== false ) {
-				$html .= Html::element( 'p', array(), wfMsgForContent( 'scribunto-common-backtrace' ) ) . $trace;
+				$html .= Html::element( 'p',
+					array(),
+					$this->msg( 'scribunto-common-backtrace' )->inContentLanguage()->text()
+				) . $trace;
 			}
 			
 			return array(

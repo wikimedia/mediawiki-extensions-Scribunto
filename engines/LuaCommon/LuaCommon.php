@@ -154,7 +154,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$params['content'], $params['title']->getPrefixedDBkey() );
 		$contentInit = $contentModule->getInitChunk();
 
-		$consoleModule = $this->newModule( $code, wfMsg( 'scribunto-console-current-src' ) );
+		$consoleModule = $this->newModule(
+			$code,
+			wfMessage( 'scribunto-console-current-src' )->text()
+		);
 		$consoleInit = $consoleModule->getInitChunk();
 		$ret = $this->getInterpreter()->callFunction( $consoleInit );
 		$func = $ret[0];
