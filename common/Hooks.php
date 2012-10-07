@@ -91,7 +91,10 @@ class ScribuntoHooks {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
 			$html = Html::element( 'p', array(), $e->getMessage() );
 			if ( $trace !== false ) {
-				$html .= Html::element( 'p', array(), wfMsgForContent( 'scribunto-common-backtrace' ) ) . $trace;
+				$html .= Html::element( 'p',
+					array(),
+					wfMessage( 'scribunto-common-backtrace' )->inContentLanguage()->text()
+				) . $trace;
 			}
 			$out = $parser->getOutput();
 			if ( !isset( $out->scribunto_errors ) ) {
@@ -102,7 +105,7 @@ class ScribuntoHooks {
 
 			$out->scribunto_errors[] = $html;
 			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
-			$parserError = wfMsgForContent( 'scribunto-parser-error' ) . 
+			$parserError = wfMessage( 'scribunto-parser-error' )->inContentLanguage()->text() .
 				$parser->insertStripItem( '<!--' . htmlspecialchars( $e->getMessage() ) . '-->' );
 			wfProfileOut( __METHOD__ );
 
@@ -228,7 +231,7 @@ class ScribuntoHooks {
 		$checkboxes['scribunto'] =
 			Xml::check( $name, $req->getCheck( $name ), $attribs ) .
 			'&#160;' .
-			Xml::label( wfMsg( 'scribunto-ignore-errors' ), "mw-$name" );
+			Xml::label( wfMessage( 'scribunto-ignore-errors' )->text(), "mw-$name" );
 
 		// While we're here, lets set up the edit module
 		global $wgOut;
