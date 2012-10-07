@@ -21,36 +21,44 @@
 	overflow: auto;
 	background: #e0e0e0;
 }
+
 .mw-scribunto-input {
 	color: blue;
 	font: inherit;
 	font-weight: bold;
 	margin-top: .5em;
 }
+
 .mw-scribunto-normalOutput {
 	color: black;
 	background: white;
 }
+
 .mw-scribunto-print {
 	color: #630;
 	background: white;
 }
+
 .mw-scribunto-error {
 	color: red;
 	background: white;
 }
+
 .mw-scribunto-propList {
 	color: green;
 	background: white;
 }
+
 .mw-scribunto-message {
 	color: green;
 	background: white;
 }
+
 .mw-scribunto-tabcomplete {
 	color: purple;
 	background: white;
 }
+
 .mw-scribunto-clear {
 	color: red;
 	text-align: center;
