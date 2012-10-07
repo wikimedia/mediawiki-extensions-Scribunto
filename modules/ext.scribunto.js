@@ -8,9 +8,10 @@ mw.scribunto = {
 	},
 
 	'init': function() {
-		var regex = /^mw-scribunto-error-(\d+)/;
-		var that = this;
-		var dialog = $( '<div/>' );
+		var regex = /^mw-scribunto-error-(\d+)/,
+			that = this,
+			dialog = $( '<div>' );
+
 		dialog.dialog({
 			title: mw.msg( 'scribunto-parser-dialog-title' ),
 			autoOpen: false
@@ -18,7 +19,7 @@ mw.scribunto = {
 
 		$('.scribunto-error').each( function( index, span ) {
 			var matches = regex.exec( span.id );
-			if ( matches == null ) {
+			if ( matches === null ) {
 				console.log( "mw.scribunto.init: regex mismatch!" );
 				return;
 			}
@@ -26,7 +27,7 @@ mw.scribunto = {
 			$(span)
 				.css( 'cursor', 'pointer' )
 				.bind( 'click', function( evt ) {
-					if ( typeof that.errors[ errorId ] != 'string' ) {
+					if ( typeof that.errors[ errorId ] !== 'string' ) {
 						console.log( "mw.scribunto.init: error " + matches[1] + " not found, " +
 							"mw.loader.using() callback may not have been called yet." );
 						return;
@@ -39,7 +40,7 @@ mw.scribunto = {
 						.dialog( 'open' );
 				} );
 		} );
-	},
+	}
 };
 
 $(document).ready( function() {

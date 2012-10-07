@@ -41,20 +41,22 @@ function initConsole()
 function inputKeydown( e ) {
 	// Use onkeydown because IE doesn't support onkeypress for arrow keys
 
-	if ( e.shiftKey && e.keyCode == 13 ) { // shift-enter
+	if ( e.shiftKey && e.keyCode === 13 ) { // shift-enter
 		// don't do anything; allow the shift-enter to insert a line break as normal
-	} else if ( e.keyCode == 13 ) { // enter
+	} else if ( e.keyCode === 13 ) { // enter
 		// execute the input on enter
 		go();
-	} else if ( e.keyCode == 38 ) { // up
+	} else if ( e.keyCode === 38 ) { // up
 		// go up in history if at top or ctrl-up
-		if ( e.ctrlKey || caretInFirstLine( _in ) )
+		if ( e.ctrlKey || caretInFirstLine( _in ) ) {
 			hist( 'up' );
-	} else if ( e.keyCode == 40 ) { // down
+		}
+	} else if ( e.keyCode === 40 ) { // down
 		// go down in history if at end or ctrl-down
-		if ( e.ctrlKey || caretInLastLine( _in ) )
+		if ( e.ctrlKey || caretInLastLine( _in ) ) {
 			hist( 'down' );
-	} else { }
+		}
+	}
 
 	setTimeout( recalculateInputHeight, 0 );
 
@@ -81,19 +83,21 @@ function inputFocus( e ) {
 function caretInFirstLine( textbox )
 {
 	// IE doesn't support selectionStart/selectionEnd
-	if ( textbox.selectionStart == undefined )
+	if ( textbox.selectionStart === undefined ) {
 		return true;
+	}
 
 	var firstLineBreak = textbox.value.indexOf( "\n" );
 	
-	return ((firstLineBreak == -1) || (textbox.selectionStart <= firstLineBreak));
+	return ((firstLineBreak === -1) || (textbox.selectionStart <= firstLineBreak));
 }
 
 function caretInLastLine( textbox )
 {
 	// IE doesn't support selectionStart/selectionEnd
-	if ( textbox.selectionEnd == undefined )
+	if ( textbox.selectionEnd === undefined ) {
 		return true;
+	}
 
 	var lastLineBreak = textbox.value.lastIndexOf( "\n" );
 	
@@ -107,8 +111,9 @@ function recalculateInputHeight()
 		+ ( window.opera ? 1 : 0 ); // leave room for scrollbar in Opera
 	
 	// without this check, it is impossible to select text in Opera 7.60 or Opera 8.0.
-	if ( _in.rows != rows ) 
+	if ( _in.rows !== rows ) {
 		_in.rows = rows;
+	}
 }
 
 function println( s, type )
@@ -148,12 +153,13 @@ function hist( direction )
 
 	var L = histList.length;
 
-	if ( L == 1 )
+	if ( L === 1 ) {
 		return;
+	}
 
 	if ( direction === 'up' )
 	{
-		if ( histPos == L-1 )
+		if ( histPos === L-1 )
 		{
 			// Save this entry in case the user hits the down key.
 			histList[histPos] = _in.value;
@@ -169,8 +175,9 @@ function hist( direction )
 					_in.value = '';
 					_in.value = histList[histPos];
 					var caretPos = _in.value.length;
-					if (_in.setSelectionRange)
+					if (_in.setSelectionRange) {
 						_in.setSelectionRange(caretPos, caretPos);
+					}
 				},
 				0
 			);
@@ -183,7 +190,7 @@ function hist( direction )
 			histPos++;
 			_in.value = histList[histPos];
 		}
-		else if ( histPos == L-1 )
+		else if ( histPos === L-1 )
 		{
 			// Already on the current entry: clear but save
 			if ( _in.value )
@@ -209,12 +216,12 @@ function printError( er )
 	if ( er.name )
 	{
 		// lineNumberString should not be "", to avoid a very wacky bug in IE 6.
-		lineNumberString = (er.lineNumber != undefined) ? (" on line " + er.lineNumber + ": ") : ": ";
+		lineNumberString = (er.lineNumber !== undefined) ? (" on line " + er.lineNumber + ": ") : ": ";
 		// Because IE doesn't have error.toString.
 		println( er.name + lineNumberString + er.message, "mw-scribunto-error" ); 
-	}
-	else
+	} else {
 		println( er, "mw-scribunto-error" ); // Because security errors in Moz /only/ have toString.
+	}
 }
 
 function setPending() {
@@ -238,8 +245,9 @@ function go()
 
 	question = _in.value;
 
-	if ( question == "" )
+	if ( question === "" ) {
 		return;
+	}
 
 	histList[histList.length-1] = question;
 	histList[histList.length] = "";
@@ -257,8 +265,8 @@ function go()
 	var params = {
 		action: 'scribunto-console',
 		title: mw.config.get( 'wgTitle' ),
-		question: question,
-	}
+		question: question
+	};
 
 	var content = getContent();
 	if ( !sessionKey || sessionContent !== content ) {
@@ -305,14 +313,15 @@ function go()
 			}
 			clearPending();
 			setTimeout( refocus, 0 );
-		},
+		}
 	} );
 }
 
 function getContent() {
-	var $textarea = $( '#wpTextbox1' );
-	var context = $textarea.data( 'wikiEditor-context' );
-	if ( context == undefined || context.codeEditor == undefined ) {
+	var $textarea = $( '#wpTextbox1' ),
+		context = $textarea.data( 'wikiEditor-context' );
+
+	if ( context === undefined || context.codeEditor === undefined ) {
 		return $textarea.val();
 	} else {
 		return $textarea.textSelection( 'getContents' );
@@ -328,7 +337,7 @@ function onClearClick( e ) {
 mw.scribunto.edit = {
 	'init': function () {
 		var action = mw.config.get( 'wgAction' );
-		if ( action == 'edit' || action == 'submit' || action == 'editredlink' ) {
+		if ( action === 'edit' || action === 'submit' || action === 'editredlink' ) {
 			this.initEditPage();
 		}
 	},
