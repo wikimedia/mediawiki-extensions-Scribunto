@@ -464,6 +464,11 @@ class Scribunto_LuaError extends ScribuntoException {
 		$this->lineMap = $map;
 	}
 
+	/**
+	 * @param array $options Options for message processing. Currently supports:
+	 * $options['msgOptions']['content'] to use content language.
+	 * @return bool|string
+	 */
 	function getScriptTraceHtml( $options = array() ) {
 		if ( !isset( $this->params['trace'] ) ) {
 			return false;
@@ -478,7 +483,6 @@ class Scribunto_LuaError extends ScribuntoException {
 		foreach ( $this->params['trace'] as $info ) {
 			$short_src = $srcdefined = $info['short_src'];
 			$currentline = $info['currentline'];
-			$linedefined = $info['linedefined'];
 
 			$src = htmlspecialchars( $short_src );
 			if ( $currentline > 0 ) {
@@ -494,18 +498,25 @@ class Scribunto_LuaError extends ScribuntoException {
 			}
 
 			if ( strval( $info['namewhat'] ) !== '' ) {
-				$function = wfMsgExt( 'scribunto-lua-in-function', $msgOptions, $info['name'] );
+				$function = wfMessage( 'scribunto-lua-in-function', $info['name'] );
+				in_array( 'content', $msgOptions ) ?
+					$function = $function->inContentLanguage()->text() :
+					$function = $function->text();
 			} elseif ( $info['what'] == 'main' ) {
-				$function = wfMsgExt( 'scribunto-lua-in-main', $msgOptions );
+				$function = wfMessage( 'scribunto-lua-in-main' );
+				in_array( 'content', $msgOptions ) ?
+					$function = $function->inContentLanguage()->text() :
+					$function = $function->text();
 			} elseif ( $info['what'] == 'C' || $info['what'] == 'tail' ) {
 				$function = '?';
-			} else {
-				$function = wfMsgExt( 'scribunto-lua-in-function-at', 
-					$msgOptions, $srcdefined, $linedefined );
 			}
-			$s .= "<li>\n\t" . 
-				wfMsgExt( 'scribunto-lua-backtrace-line', $msgOptions, "<strong>$src</strong>", $function ) .
-				"\n</li>\n";
+
+			$backtraceLine = wfMessage( 'scribunto-lua-backtrace-line', "<strong>$src</strong>", $function );
+			in_array( 'content', $msgOptions ) ?
+				$backtraceLine = $backtraceLine->inContentLanguage()->text() :
+				$backtraceLine = $backtraceLine->text();
+
+			$s .= "<li>\n\t" . $backtraceLine  . "\n</li>\n";
 		}
 		$s .= '</ol>';
 		return $s;
