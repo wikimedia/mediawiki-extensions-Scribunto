@@ -234,6 +234,7 @@ $1',
 /** Spanish (español)
  * @author Armando-Martin
  * @author Jewbask
+ * @author Maor X
  */
 $messages['es'] = array(
 	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
@@ -501,7 +502,7 @@ $1',
  */
 $messages['hu'] = array(
 	'scribunto-desc' => 'Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására',
-	'scribunto-ignore-errors' => 'Hagyja figylemen kívül a kódhibákat',
+	'scribunto-ignore-errors' => 'Hagyja figylemen kívül a kódhibákat', # Fuzzy
 	'scribunto-line' => 'a(z) $1. sorban',
 	'scribunto-module-line' => 'a(z) $1 modulban a(z) $2. sorban',
 	'scribunto-parser-error' => 'Parancsfájl-hiba',
@@ -660,7 +661,7 @@ $1',
  */
 $messages['jv'] = array(
 	'scribunto-desc' => 'Rangka kerja kanggo nyisipaké basa skrip nèng kaca MediaWiki',
-	'scribunto-ignore-errors' => 'Bènaké kasalahan kodhé',
+	'scribunto-ignore-errors' => 'Bènaké kasalahan kodhé', # Fuzzy
 	'scribunto-line' => 'nèng larik $1',
 	'scribunto-module-line' => 'nèng $1 larik $2',
 	'scribunto-parser-error' => 'Kasalahan skrip',
@@ -1149,7 +1150,7 @@ $messages['yi'] = array(
  */
 $messages['zh-hans'] = array(
 	'scribunto-desc' => '用于在MediaWiki页面中嵌入脚本语言的框架',
-	'scribunto-ignore-errors' => '忽略代码错误',
+	'scribunto-ignore-errors' => '忽略代码错误', # Fuzzy
 	'scribunto-line' => '在第$1行',
 	'scribunto-module-line' => '在$1中的第$2行',
 	'scribunto-parser-error' => '脚本错误',
@@ -1189,7 +1190,8 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态码为$2。',
 );
 
-/** Traditional Chinese (中文（繁體）‎) */
+/** Traditional Chinese (中文（繁體）‎)
+ */
 $messages['zh-hant'] = array(
 	'scribunto-desc' => '用於在MediaWiki頁面中嵌入腳本語言的框架',
 	'scribunto-line' => '在第$1行',
@@ -1230,4 +1232,3 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lua錯誤：內部錯誤：解釋器因收到信號“$2”而終止。',
 	'scribunto-luastandalone-exited' => 'Lua錯誤：內部錯誤：解釋器已退出，狀態碼為$2。',
 );
-
