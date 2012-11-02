@@ -315,6 +315,7 @@ $messages['fi'] = array(
  * @author Erkethan
  * @author Gomoko
  * @author IAlex
+ * @author Urhixidur
  */
 $messages['fr'] = array(
 	'scribunto-desc' => "Cadre pour l'intégration des langages de script dans des pages de MediaWiki",
@@ -331,7 +332,7 @@ $1',
 * Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). 
 * Utilisez mw.log() dans le code du module pour envoyer des messages à cette console.",
 	'scribunto-console-title' => 'Console de débogage',
-	'scribunto-console-too-large' => "Cette session de console est trop large. Veuillez effacer l'historique de la console ou réduire la taille du module.",
+	'scribunto-console-too-large' => 'Cette session de console est trop grande. Veuillez effacer l’historique de la console ou réduire la taille du module.',
 	'scribunto-console-current-src' => 'entrée de la console',
 	'scribunto-console-previous-src' => 'entrée de la console précédente',
 	'scribunto-console-clear' => 'Effacer',
