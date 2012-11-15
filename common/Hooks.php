@@ -46,6 +46,17 @@ class ScribuntoHooks {
 	}
 
 	/**
+	 * Called when the parser is cloned
+	 *
+	 * @param $parser Parser
+	 * @return bool
+	 */
+	public static function parserCloned( $parser ) {
+		$parser->scribunto_engine = null;
+		return true;
+	}
+
+	/**
 	 * Hook function for {{#invoke:module|func}}
 	 *
 	 * @param $parser Parser
