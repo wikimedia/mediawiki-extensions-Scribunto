@@ -46,6 +46,7 @@ $wgAutoloadClasses['ApiScribuntoConsole'] = $dir.'common/ApiScribuntoConsole.php
 $wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
 $wgHooks['ParserLimitReport'][] = 'ScribuntoHooks::reportLimits';
 $wgHooks['ParserClearState'][] = 'ScribuntoHooks::clearState';
+$wgHooks['ParserCloned'][] = 'ScribuntoHooks::parserCloned';
 
 $wgHooks['CanonicalNamespaces'][] = 'ScribuntoHooks::addCanonicalNamespaces';
 $wgHooks['ArticleViewCustom'][] = 'ScribuntoHooks::handleScriptView';
