@@ -229,6 +229,7 @@ $messages['diq'] = array(
 	'scribunto-parser-dialog-title' => 'Xırabiya scripti',
 	'scribunto-error-long' => 'Xırabiya scripti:
 $1',
+	'scribunto-console-clear' => 'Bestern',
 );
 
 /** Spanish (español)
