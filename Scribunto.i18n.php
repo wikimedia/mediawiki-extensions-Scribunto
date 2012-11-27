@@ -1094,6 +1094,16 @@ $1',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
 );
 
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'scribunto-lua-error-location' => 'Помилка Lua $1: $2.',
+	'scribunto-lua-error' => 'Помилка Lua: $2.',
+	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
+	'scribunto-luastandalone-decode-error' => 'Помилка Lua: Внутрішня помилка: Не вдається декодувати повідомлення.',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
  */
