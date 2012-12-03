@@ -288,7 +288,7 @@
 				if ( 'error' in result && 'info' in result.error ) {
 					printError( result.error.info );
 				} else if ( 'exception' in result ) {
-					printError( result.exception.message );
+					printError( 'Error sending API request: ' + result.exception );
 				} else {
 					console.log( result );
 					printError( 'error' );

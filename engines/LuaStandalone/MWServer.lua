@@ -342,7 +342,7 @@ function MWServer:encodeMessage( message )
 	local serialized = self:serialize( message )
 	local length = #serialized
 	local check = length * 2 - 1
-	return string.format( '%08x%08x%s', length, check, serialized )
+	return string.format( '%08x%08x', length, check ) .. serialized
 end
 
 --- Convert a value to a string suitable for passing to PHP's unserialize().

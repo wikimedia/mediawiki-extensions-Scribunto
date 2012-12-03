@@ -100,6 +100,10 @@ function p.testNewParserValue( frame )
 	return frame:newParserValue( '{{Scribunto_all_args|{{{1}}}}}|x=y' ):expand()
 end
 
+function p.null( frame )
+	return '\0'
+end
+
 return p
 !! endarticle
 
@@ -303,3 +307,11 @@ Scribunto: invoke instance global isolation
 </p>
 !! end
 
+!! test
+Scribunto: ASCII null
+!! input
+{{#invoke:test|null}}
+!! result
+<p>�
+</p>
+!! end
