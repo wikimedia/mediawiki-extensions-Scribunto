@@ -44,7 +44,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $params Associative array. Options are:
 	 *    - title: The title object for the module being debugged
 	 *    - content: The text content of the module
-	 *    - precedingQuestions: An array of previous "questions" used to establish the state
+	 *    - prevQuestions: An array of previous "questions" used to establish the state
 	 *    - question: The current "question", a string script
 	 *
 	 * @return array containing:
