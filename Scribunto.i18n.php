@@ -61,6 +61,7 @@ $1',
 /** Message documentation (Message documentation)
  * @author Amire80
  * @author Mormegil
+ * @author Shirayuki
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -94,6 +95,7 @@ $messages['qqq'] = array(
 	'scribunto-lua-in-function-at' => 'Part of the backtrace creation routines. Parameters:
 * $1 is a function name;
 * $2 is a line number.',
+	'scribunto-lua-backtrace-line' => '{{optional}}',
 	'scribunto-lua-error-location' => 'Error message. Parameters:
 * $1 is ...;
 * $2 is ....',
