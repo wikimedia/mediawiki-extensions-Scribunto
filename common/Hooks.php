@@ -325,6 +325,7 @@ WIKI;
 			'engines/LuaCommon/CommonTest.php',
 			'engines/LuaCommon/SiteLibraryTest.php',
 			'engines/LuaCommon/UriLibraryTest.php',
+			'engines/LuaCommon/UstringLibraryTest.php',
 		);
 		foreach ( $tests as $test ) {
 			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
