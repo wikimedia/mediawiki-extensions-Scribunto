@@ -4,6 +4,9 @@
 // implement a data provider method and test method, using provideCommonTests()
 // and testCommonTests() as a template.
 
+require_once( __DIR__ . '/LuaDataProvider.php' );
+require_once( __DIR__ . '/UstringNormalizationTestProvider.php' );
+
 abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 	private $engine = null;
 	private $dataProviders = array();
@@ -25,8 +28,10 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 			$p->destroy();
 		}
 		$this->dataProviders = array();
-		$this->engine->destroy();
-		$this->engine = null;
+		if ( $this->engine ) {
+			$this->engine->destroy();
+			$this->engine = null;
+		}
 		parent::tearDown();
 	}
 
@@ -70,6 +75,8 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 		return array(
 			'TestFramework' => __DIR__ . '/TestFramework.lua',
 			'CommonTests' => __DIR__ . '/CommonTests.lua',
+			'UstringTests' => __DIR__ . '/UstringTests.lua',
+			'UstringNormalizationTests' => __DIR__ . '/UstringNormalizationTests.lua',
 		);
 	}
 
@@ -96,52 +103,40 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 	function testCommonTests( $key, $testName, $expected ) {
 		$this->runTestProvider( 'CommonTests', $key, $testName, $expected );
 	}
-}
 
-class LuaDataProvider implements Iterator {
-	protected $engine = null;
-	protected $exports = null;
-	protected $key = 1;
+	function provideUstringTests() {
+		return $this->getTestProvider( 'UstringTests' );
+	}
 
-	public function __construct( $engine, $moduleName ) {
-		$this->engine = $engine;
-		$this->key = 1;
-		$module = $engine->fetchModuleFromParser(
-			Title::makeTitle( NS_MODULE, $moduleName )
-		);
-		if ( $module === null ) {
-			throw new Exception( "Failed to load module $moduleName" );
+	/** @dataProvider provideUstringTests */
+	function testUstringTests( $key, $testName, $expected ) {
+		$this->runTestProvider( 'UstringTests', $key, $testName, $expected );
+	}
+
+	function testUstringNormalizationTestsAvailable() {
+		if ( UstringNormalizationTestProvider::available( $err ) ) {
+			$this->assertTrue( true );
+		} else {
+			$this->markTestSkipped( $err );
 		}
-		$this->exports = $module->execute();
 	}
 
-	public function destroy() {
-		$this->engine = null;
-		$this->exports = null;
+	function provideUstringNormalizationTests() {
+		if ( !isset( $this->dataProviders['UstringNormalizationTests'] ) ) {
+			$this->dataProviders['UstringNormalizationTests'] = new UstringNormalizationTestProvider( $this->getEngine() );
+		}
+		return $this->dataProviders['UstringNormalizationTests'];
 	}
 
-	public function rewind() {
-		$this->key = 1;
-	}
-
-	public function valid() {
-		return $this->key <= $this->exports['count'];
-	}
-
-	public function key() {
-		return $this->key;
-	}
-
-	public function next() {
-		$this->key++;
-	}
-
-	public function current() {
-		return $this->engine->getInterpreter()->callFunction( $this->exports['provide'], $this->key );
-	}
-
-	public function run( $key ) {
-		list( $ret ) = $this->engine->getInterpreter()->callFunction( $this->exports['run'], $key );
-		return $ret;
+	/**
+	 * @dataProvider provideUstringNormalizationTests
+	 */
+	function testUstringNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
+		$this->luaTestName = "UstringNormalization: $name";
+		$dataProvider = $this->provideUstringNormalizationTests();
+		$expected = array( $c2, $c2, $c2, $c4, $c4, $c3, $c3, $c3, $c5, $c5 );
+		$actual = $dataProvider->run( $c1, $c2, $c3, $c4, $c5 );
+		$this->assertSame( $expected, $actual );
+		$this->luaTestName = null;
 	}
 }

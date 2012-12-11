@@ -3,6 +3,7 @@
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = array();
+	protected $preferPureLua = false;
 
 	public function getLimitReport() {
 		$this->load();
@@ -151,6 +152,10 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 			"local ret = _G['$name'].func _G['$name'] = nil return ret"
 		)->call();
 		return $func;
+	}
+
+	public function isLuaFunction( $object ) {
+		return $object instanceof LuaSandboxFunction;
 	}
 
 	public function getPeakMemoryUsage() {

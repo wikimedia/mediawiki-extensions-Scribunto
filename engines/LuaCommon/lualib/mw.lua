@@ -72,6 +72,7 @@ function mw.setupInterface( options )
 
 	packageModuleFunc = php.loadPackage( 'package' )
 	packageCache = {}
+	makePackageModule( _G )
 end
 
 --- Do a "deep copy" of a table or other value.

@@ -7,6 +7,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $currentFrame = false;
 	protected $expandCache = array();
 	protected $languageModule;
+	protected $ustringModule;
+
+	protected $preferPureLua = true;
 
 	const MAX_EXPAND_CACHE_SIZE = 100;
 
@@ -68,6 +71,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$this->languageModule = new Scribunto_LuaLanguageModule( $this );
 		$this->languageModule->register();
+
+		$this->ustringModule = new Scribunto_LuaUstringModule( $this );
+		$this->ustringModule->register( $this->preferPureLua );
 
 	}
 
