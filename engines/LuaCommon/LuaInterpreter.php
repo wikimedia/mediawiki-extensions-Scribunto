@@ -19,6 +19,15 @@ abstract class Scribunto_LuaInterpreter {
 	abstract public function callFunction( $func /*...*/ );
 
 	/**
+	 * Wrap a PHP callable as a Lua function, which can be passed back into
+	 * Lua. If an error occurs, a Scribunto_LuaError will be thrown.
+	 *
+	 * @param $callable The PHP callable
+	 * @return a Lua function
+	 */
+	abstract public function wrapPhpFunction( $callable );
+
+	/**
 	 * Register a library of functions.
 	 *
 	 * @param $name string The global variable name to be created or added to.

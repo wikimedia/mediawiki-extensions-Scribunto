@@ -140,5 +140,22 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			'memoryLimit' );
 		$interpreter->callFunction( $chunk );
 	}
+
+	function testWrapPHPFunction() {
+		$interpreter = $this->newInterpreter();
+		$func = $interpreter->wrapPhpFunction( function ( $n ) {
+			return array( 42, $n );
+		} );
+		$res = $interpreter->callFunction( $func, 'From PHP' );
+		$this->assertEquals( $res, array( 42, 'From PHP' ) );
+
+		$chunk = $interpreter->loadString( '
+			f = ...
+			return f( "From Lua" )
+			',
+			'wrappedPhpFunction' );
+		$res = $interpreter->callFunction( $chunk, $func );
+		$this->assertEquals( $res, array( 42, 'From Lua' ) );
+	}
 }
 

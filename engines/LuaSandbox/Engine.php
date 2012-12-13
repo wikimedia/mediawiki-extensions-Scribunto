@@ -139,6 +139,26 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	public function wrapPhpFunction( $callable ) {
+		if ( is_callable( array( $this->sandbox, 'wrapPhpFunction' ) ) ) {
+			return $this->sandbox->wrapPhpFunction( $callable );
+		}
+
+		// We have to hack around the lack of the wrapper function by loading a
+		// dummy library with $callable, then extracting the function, and then
+		// for good measure nilling out the library table.
+		list( $name ) = $this->sandbox->loadString( '
+			for i = 0, math.huge do
+				if not _G["*LuaSandbox* temp" .. i] then return "*LuaSandbox* temp" .. i end
+			end
+			' )->call();
+		$this->sandbox->registerLibrary( $name, array( 'func' => $callable ) );
+		list( $func ) = $this->sandbox->loadString(
+			"local ret = _G['$name'].func _G['$name'] = nil return ret"
+		)->call();
+		return $func;
+	}
+
 	public function getPeakMemoryUsage() {
 		return $this->sandbox->getPeakMemoryUsage();
 	}
