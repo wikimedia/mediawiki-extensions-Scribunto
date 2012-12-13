@@ -179,6 +179,16 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return array_values( $result );
 	}
 
+	public function wrapPhpFunction( $callable ) {
+		static $uid = 0;
+		$id = "anonymous*" . ++$uid;
+		$this->callbacks[$id] = $callable;
+		$ret = $this->dispatch( array(
+			'op' => 'wrapPhpFunction',
+			'id' => $id ) );
+		return $ret[1];
+	}
+
 	public function registerLibrary( $name, $functions ) {
 		$functionIds = array();
 		foreach ( $functions as $funcName => $callback ) {

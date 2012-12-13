@@ -173,6 +173,25 @@ function MWServer:handleRegisterLibrary( message )
 	}
 end
 
+--- Handle a "wrapPhpFunction" message from PHP.
+-- Create an anonymous function
+--
+-- @param message The message from PHP
+-- @return The response message
+function MWServer:handleWrapPhpFunction( message )
+	local id = message.id
+	local func = function( ... )
+		return self:call( id, { ... } )
+	end
+	-- Protect the function against setfenv()
+	self.protectedFunctions[func] = true
+
+	return {
+		op = 'return',
+		values = { func }
+	}
+end
+
 --- Handle a "getStatus" message from PHP
 --
 -- @param message The request message
@@ -236,6 +255,9 @@ function MWServer:dispatch( msgToPhp )
 			self:sendMessage( msgToPhp )
 		elseif op == 'registerLibrary' then
 			msgToPhp = self:handleRegisterLibrary( msgFromPhp )
+			self:sendMessage( msgToPhp )
+		elseif op == 'wrapPhpFunction' then
+			msgToPhp = self:handleWrapPhpFunction( msgFromPhp )
 			self:sendMessage( msgToPhp )
 		elseif op == 'getStatus' then
 			msgToPhp = self:handleGetStatus( msgFromPhp )
