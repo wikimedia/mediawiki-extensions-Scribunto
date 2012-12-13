@@ -59,6 +59,25 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$this->assertSame( $args, $ret );
 	}
 
+	/**
+	 * This cannot be done in testRoundtrip and testDoubleRoundtrip, because
+	 * assertSame( NAN, NAN ) returns false.
+	 */
+	function testRoundtripNAN() {
+		$interpreter = $this->newInterpreter();
+
+		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
+		$ret = $interpreter->callFunction( $passthru, NAN );
+		$this->assertEquals( array( NAN ), $ret );
+
+		$interpreter->registerLibrary( 'test',
+			array( 'passthru' => array( $this, 'passthru' ) ) );
+		$doublePassthru = $interpreter->loadString(
+			'return test.passthru(...)', 'doublePassthru' );
+		$ret = $interpreter->callFunction( $doublePassthru, NAN );
+		$this->assertEquals( array( NAN ), $ret );
+	}
+
 	function normalizeOrder( $a ) {
 		ksort( $a );
 		foreach ( $a as &$value ) {
@@ -85,7 +104,9 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			array( array() ),
 			array( array( 0 => 'foo', 1 => 'bar' ) ),
 			array( array( 1 => 'foo', 2 => 'bar' ) ),
-			array( array( 'x' => 'foo', 'y' => 'bar', 'z' => array() ) )
+			array( array( 'x' => 'foo', 'y' => 'bar', 'z' => array() ) ),
+			array( INF ),
+			array( -INF ),
 		);
 	}
 

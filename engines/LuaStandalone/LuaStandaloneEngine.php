@@ -319,6 +319,15 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				return $var;
 			case 'double':
 				if ( !is_finite( $var ) ) {
+					if ( is_nan( $var ) ) {
+						return '(0/0)';
+					}
+					if ( $var === INF ) {
+						return '(1/0)';
+					}
+					if ( $var === -INF ) {
+						return '(-1/0)';
+					}
 					throw new MWException( __METHOD__.': cannot convert non-finite number' );
 				}
 				return $var;

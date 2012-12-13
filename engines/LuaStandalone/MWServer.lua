@@ -367,8 +367,14 @@ function MWServer:serialize( var )
 		elseif t == 'number' then
 			if isInteger(var) then
 				return 'i:' .. var .. ';'
-			else
+			elseif var < math.huge and var > -math.huge then
 				return 'd:' .. var .. ';'
+			elseif var == math.huge then
+				return 'd:INF;'
+			elseif var == -math.huge then
+				return 'd:-INF;'
+			else
+				return 'd:NAN;'
 			end
 		elseif t == 'string' then
 			return 's:' .. string.len( var ) .. ':"' .. var .. '";'
