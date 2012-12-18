@@ -1100,6 +1100,14 @@ $1',
  * @author Base
  */
 $messages['uk'] = array(
+	'scribunto-line' => 'у рядку $1',
+	'scribunto-module-line' => 'у $1 у рядку $2',
+	'scribunto-parser-error' => 'Помилка скрипту',
+	'scribunto-parser-dialog-title' => 'Помилка скрипту',
+	'scribunto-error-short' => 'Помилка скрипту: $1',
+	'scribunto-error-long' => 'Помилки скрипту:
+
+$1',
 	'scribunto-lua-error-location' => 'Помилка Lua $1: $2.',
 	'scribunto-lua-error' => 'Помилка Lua: $2.',
 	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
