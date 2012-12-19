@@ -1,20 +1,28 @@
-local test = require( 'Module:CommonTests' )
-local satest = {}
+local testframework = require( 'Module:TestFramework' )
 
-function satest.getTests()
-	return {
-		{ 'setfenv1', { error = '%s cannot set the requested environment%s' } },
-		{ 'getfenv1', 'ok' },
-	}
+local function setfenv1()
+	local ok, err = pcall( function()
+		setfenv( 2, {} )
+	end )
+	if not ok then
+		err = string.gsub( err, '^%S+:%d+: ', '' )
+		error( err )
+	end
 end
 
-function satest.setfenv1()
-	setfenv( 4, {} )
+local function getfenv1()
+	local env
+	pcall( function()
+		env = getfenv( 2 )
+	end )
+	return env
 end
 
-function satest.getfenv1()
-	assert( getfenv( 4 ) == nil )
-	return 'ok'
-end
-
-return satest
+return testframework.getTestProvider( {
+	{ name = 'setfenv on a C function', func = setfenv1,
+	  expect = "'setfenv' cannot set the requested environment, it is protected",
+	},
+	{ name = 'getfenv on a C function', func = getfenv1,
+	  expect = { nil },
+	},
+} )
