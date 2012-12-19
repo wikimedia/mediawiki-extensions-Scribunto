@@ -1,6 +1,15 @@
 <?php
 
+// To add additional test modules, add the module to getTestModules() and
+// implement a data provider method and test method, using provideCommonTests()
+// and testCommonTests() as a template.
+
+require_once( __DIR__ . '/LuaDataProvider.php' );
+
 abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
+	private $engine = null;
+	private $dataProviders = array();
+	private $luaTestName = null;
 
 	abstract function newEngine( $opts = array() );
 
@@ -13,22 +22,28 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 		}
 	}
 
+	function tearDown() {
+		foreach ( $this->dataProviders as $k => $p ) {
+			$p->destroy();
+		}
+		$this->dataProviders = array();
+		if ( $this->engine ) {
+			$this->engine->destroy();
+			$this->engine = null;
+		}
+		parent::tearDown();
+	}
+
 	function getEngine() {
+		if ( $this->engine ) {
+			return $this->engine;
+		}
 		$parser = new Parser;
 		$options = new ParserOptions;
 		$options->setTemplateCallback( array( $this, 'templateCallback' ) );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
-		return $this->newEngine( array( 'parser' => $parser ) );
-	}
-
-	function getFrame( $engine ) {
-		return $engine->getParser()->getPreprocessor()->newFrame();
-	}
-
-	function getTestModules() {
-		return array(
-			'CommonTests' => dirname( __FILE__ ) . '/CommonTests.lua'
-		);
+		$this->engine = $this->newEngine( array( 'parser' => $parser ) );
+		return $this->engine;
 	}
 
 	function templateCallback( $title, $parser ) {
@@ -46,52 +61,43 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 		return Parser::statelessFetchTemplate( $title, $parser );
 	}
 
-	function getTestModuleName() {
-		return 'CommonTests';
-	}
-
-	function getTestModule( $engine, $moduleName ) {
-		return $engine->fetchModuleFromParser( 
-			Title::makeTitle( NS_MODULE, $moduleName ) );
-	}
-
-	function testProvider() {
-		$tests = $this->provideLua();
-		$this->assertGreaterThan( 2, count( $tests ) );
-	}
-
-	function provideLua() {
-		$engine = $this->getEngine();
-		$allTests = array();
-		foreach ( $this->getTestModules() as $moduleName => $fileName ) {
-			$module = $this->getTestModule( $engine, $moduleName );
-			$exports = $module->execute();
-			$result = $engine->getInterpreter()->callFunction( $exports['getTests'] );
-			$moduleTests = $result[0];
-			foreach ( $moduleTests as $test ) {
-				array_unshift( $test, $moduleName );
-				$allTests[] = $test;
-			}
+	function toString() {
+		// When running tests written in Lua, return a nicer representation in
+		// the failure message.
+		if ( $this->luaTestName ) {
+			return $this->luaTestName;
 		}
-		return $allTests;
+		return parent::toString();
 	}
 
-	/** @dataProvider provideLua */
-	function testLua( $moduleName, $testName, $expected ) {
-		$engine = $this->getEngine();
-		$module = $this->getTestModule( $engine, $moduleName );
-		if ( is_array( $expected ) && isset( $expected['error'] ) ) {
-			$caught = false;
-			try {
-				$ret = $module->invoke( $testName, $this->getFrame( $engine ) );
-			} catch ( Scribunto_LuaError $e ) {
-				$caught = true;
-				$this->assertStringMatchesFormat( $expected['error'], $e->getLuaMessage() );
-			}
-			$this->assertTrue( $caught, 'expected an exception' );
-		} else {
-			$ret = $module->invoke( $testName, $this->getFrame( $engine ) );
-			$this->assertSame( $expected, $ret );
+	function getTestModules() {
+		return array(
+			'TestFramework' => __DIR__ . '/TestFramework.lua',
+			'CommonTests' => __DIR__ . '/CommonTests.lua',
+		);
+	}
+
+	function getTestProvider( $moduleName ) {
+		if ( !isset( $this->dataProviders[$moduleName] ) ) {
+			$this->dataProviders[$moduleName] = new LuaDataProvider( $this->getEngine(), $moduleName );
 		}
+		return $this->dataProviders[$moduleName];
+	}
+
+	function runTestProvider( $moduleName, $key, $testName, $expected ) {
+		$this->luaTestName = "{$moduleName}[$key]: $testName";
+		$dataProvider = $this->getTestProvider( $moduleName );
+		$actual = $dataProvider->run( $key );
+		$this->assertSame( $expected, $actual );
+		$this->luaTestName = null;
+	}
+
+	function provideCommonTests() {
+		return $this->getTestProvider( 'CommonTests' );
+	}
+
+	/** @dataProvider provideCommonTests */
+	function testCommonTests( $key, $testName, $expected ) {
+		$this->runTestProvider( 'CommonTests', $key, $testName, $expected );
 	}
 }
