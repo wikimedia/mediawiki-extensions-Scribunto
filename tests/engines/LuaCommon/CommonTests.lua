@@ -1,86 +1,26 @@
--- Parts are based on lua-TestMore (Copyright © 2009-2012 François Perrad, MIT
--- license)
+local testframework = require 'Module:TestFramework'
 
 local test = {}
-
-local function is_deeply (got, expected, name)
-    if type(got) ~= 'table' then
-        return false
-    elseif type(expected) ~= 'table' then
-        error("expected value isn't a table : " .. tostring(expected))
-    end
-    local msg1
-    local msg2
-
-    local function deep_eq (t1, t2, key_path)
-        if t1 == t2 then
-            return true
-        end
-        for k, v2 in pairs(t2) do
-            local v1 = t1[k]
-            if type(v1) == 'table' and type(v2) == 'table' then
-                local r = deep_eq(v1, v2, key_path .. "." .. tostring(k))
-                if not r then
-                    return false
-                end
-            else
-                if v1 ~= v2 then
-                    key_path = key_path .. "." .. tostring(k)
-                    msg1 = "     got" .. key_path .. ": " .. tostring(v1)
-                    msg2 = "expected" .. key_path .. ": " .. tostring(v2)
-                    return false
-                end
-            end
-        end
-        for k in pairs(t1) do
-            local v2 = t2[k]
-            if v2 == nil then
-                key_path = key_path .. "." .. tostring(k)
-                msg1 = "     got" .. key_path .. ": " .. tostring(t1[k])
-                msg2 = "expected" .. key_path .. ": " .. tostring(v2)
-                return false
-            end
-        end
-        return true
-    end -- deep_eq
-
-	return deep_eq(got, expected, '')
-end
-
-function test.getTests( engine )
-	return {
-		{ 'clone1', 'ok' },
-		{ 'clone2', 'ok' },
-		{ 'clone3', 'ok' },
-		{ 'clone4', 'ok' },
-		{ 'setfenv1', { error = '%s cannot set the global %s' } },
-		{ 'setfenv2', { error = '%s cannot set an environment %s' } },
-		{ 'setfenv3', { error = '%s cannot set the requested environment%s' } },
-		{ 'setfenv4', 'ok' },
-		{ 'setfenv5', 'ok' },
-		{ 'setfenv6', { error = '%s cannot be called on a protected function' } },
-		{ 'setfenv7', { error = '%s can only be called with a function%s' } },
-		{ 'getfenv1', 'ok' },
-		{ 'getfenv2', { error = '%s cannot get the global environment' } },
-		{ 'getfenv3', { error = '%Sno function environment for tail call %s' } },
-	}
-end
 
 function test.clone1()
 	local x = 1
 	local y = mw.clone( x )
-	assert( x == y )
-	return 'ok'
+	return ( x == y )
 end
 
 function test.clone2()
 	local x = { 'a' }
 	local y = mw.clone( x )
 	assert( x ~= y )
-	assert( is_deeply( y, x ) )
+	return testframework.deepEquals( x, y )
+end
+
+function test.clone2b()
+	local x = { 'a' }
+	local y = mw.clone( x )
+	assert( x ~= y )
 	y[2] = 'b'
-	assert( not is_deeply( y, x ) )
-	return 'ok'
+	return testframework.deepEquals( x, y )
 end
 
 function test.clone3()
@@ -89,8 +29,7 @@ function test.clone3()
 	setmetatable( x, mt )
 	local y = mw.clone( x )
 	assert( getmetatable( x ) ~= getmetatable( y ) )
-	assert( is_deeply( getmetatable( y ), getmetatable( x ) ) )
-	return 'ok'
+	return testframework.deepEquals( getmetatable( x ), getmetatable( y ) )
 end
 
 function test.clone4()
@@ -98,8 +37,7 @@ function test.clone4()
 	x.x = x
 	local y = mw.clone( x )
 	assert( x ~= y )
-	assert( y == y.x )
-	return 'ok'
+	return y == y.x
 end
 
 function test.setfenv1()
@@ -120,8 +58,8 @@ function test.setfenv3()
 end
 
 function test.setfenv4()
-	-- Set an unprotected environment at a higher stack level than a protected 
-	-- environment. It's assumed that any higher-level environment will protect 
+	-- Set an unprotected environment at a higher stack level than a protected
+	-- environment. It's assumed that any higher-level environment will protect
 	-- itself with its own setfenv wrapper, so this succeeds.
 	local function level3()
 		local function level2()
@@ -129,7 +67,7 @@ function test.setfenv4()
 			local function level1()
 				setfenv( 3, {} )
 			end
-			
+
 			setfenv( level1, env )()
 		end
 		local protected = {mw = mw}
@@ -165,10 +103,6 @@ function test.setfenv7()
 	setfenv( {}, {} )
 end
 
-function test.setfenv8()
-	setfenv( 2, {} )
-end
-
 function test.getfenv1()
 	assert( getfenv( 1 ) == _G )
 	return 'ok'
@@ -187,7 +121,62 @@ function test.getfenv3()
 		return foo()
 	end
 
-	bar()
+	-- The "at level #" bit varies between environments, so
+	-- catch the error and strip that part out
+	local ok, err = pcall( bar )
+	if not ok then
+		err = string.gsub( err, '^%S+:%d+: ', '' )
+		err = string.gsub( err, ' at level %d$', '' )
+		error( err )
+	end
 end
 
-return test
+return testframework.getTestProvider( {
+	{ name = 'clone', func = test.clone1,
+	  expect = { true },
+	},
+	{ name = 'clone table', func = test.clone2,
+	  expect = { true },
+	},
+	{ name = 'clone table then modify', func = test.clone2b,
+	  expect = { false, { 2 }, nil, 'b' },
+	},
+	{ name = 'clone table with metatable', func = test.clone3,
+	  expect = { true },
+	},
+	{ name = 'clone recursive table', func = test.clone4,
+	  expect = { true },
+	},
+
+	{ name = 'setfenv global', func = test.setfenv1,
+	  expect = "'setfenv' cannot set the global environment, it is protected",
+	},
+	{ name = 'setfenv invalid level', func = test.setfenv2,
+	  expect = "'setfenv' cannot set an environment at a level greater than 10",
+	},
+	{ name = 'setfenv invalid environment', func = test.setfenv3,
+	  expect = "'setfenv' cannot set the requested environment, it is protected",
+	},
+	{ name = 'setfenv on unprotected past protected', func = test.setfenv4,
+	  expect = { 'ok' },
+	},
+	{ name = 'setfenv from inside protected', func = test.setfenv5,
+	  expect = { 'ok' },
+	},
+	{ name = 'setfenv protected function', func = test.setfenv6,
+	  expect = "'setfenv' cannot be called on a protected function",
+	},
+	{ name = 'setfenv on a non-function', func = test.setfenv7,
+	  expect = "'setfenv' can only be called with a function or integer as the first argument",
+	},
+
+	{ name = 'getfenv(1)', func = test.getfenv1,
+	  expect = { 'ok' },
+	},
+	{ name = 'getfenv(0)', func = test.getfenv2,
+	  expect = "'getfenv' cannot get the global environment",
+	},
+	{ name = 'getfenv with tail call', func = test.getfenv3,
+	  expect = "no function environment for tail call",
+	},
+} )

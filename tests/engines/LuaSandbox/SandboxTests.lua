@@ -1,19 +1,18 @@
-local test = require( 'Module:CommonTests' )
-local sbtest = {}
+local testframework = require( 'Module:TestFramework' )
 
-function sbtest.getTests()
-	return {
-		{ 'setfenv1', { error = '%sinvalid level%s' } },
-		{ 'getfenv1', { error = '%sinvalid level%s' } },
-	}
+local function setfenv1()
+	setfenv( 5, {} )
 end
 
-function sbtest.setfenv1()
-	setfenv( 3, {} )
+local function getfenv1()
+	assert( getfenv( 5 ) == nil )
 end
 
-function sbtest.getfenv1()
-	assert( getfenv( 3 ) == nil )
-end
-
-return sbtest
+return testframework.getTestProvider( {
+	{ name = 'setfenv invalid level', func = setfenv1,
+	  expect = "bad argument #1 to 'old_getfenv' (invalid level)",
+	},
+	{ name = 'getfenv invalid level', func = getfenv1,
+	  expect = "bad argument #1 to 'old_getfenv' (invalid level)",
+	},
+} )
