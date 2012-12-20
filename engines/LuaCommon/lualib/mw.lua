@@ -74,6 +74,7 @@ function mw.setup( options )
 	mw_php = nil
 
 	packageModuleFunc = php.loadPackage( 'package' )
+	makePackageModule( _G )
 	packageCache = {}
 end
 

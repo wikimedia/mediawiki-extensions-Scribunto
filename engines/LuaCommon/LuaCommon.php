@@ -49,8 +49,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->interpreter = $this->newInterpreter();
 		$this->mw = $this->loadLibraryFromFile( $this->getLuaLibDir()  . '/mw.lua' );
 
-		$this->loadLibraryFromFile( $this->getLuaLibDir() .'/package.lua' );
-
 		$this->interpreter->registerLibrary( 'mw_php', 
 			array(
 				'loadPackage' => array( $this, 'loadPackage' ),
