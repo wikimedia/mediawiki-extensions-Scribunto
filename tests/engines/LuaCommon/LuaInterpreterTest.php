@@ -4,6 +4,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	abstract function newInterpreter( $opts = array() );
 	
 	function setUp() {
+		parent::setUp();
 		try {
 			$this->newInterpreter();
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
