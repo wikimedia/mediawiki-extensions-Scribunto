@@ -91,6 +91,7 @@ $wgAPIModules['scribunto-console'] = 'ApiScribuntoConsole';
 $wgAutoloadClasses['Scribunto_LuaEngine'] = $dir.'engines/LuaCommon/LuaCommon.php';
 $wgAutoloadClasses['Scribunto_LuaModule'] = $dir.'engines/LuaCommon/LuaCommon.php';
 $wgAutoloadClasses['Scribunto_LuaInterpreter'] = $dir.'engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaLanguageModule'] = $dir.'engines/LuaCommon/LanguageModule.php';
 $wgAutoloadClasses['Scribunto_LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
 $wgAutoloadClasses['Scribunto_LuaStandaloneEngine'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
 $wgAutoloadClasses['Scribunto_LuaStandaloneInterpreter'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';

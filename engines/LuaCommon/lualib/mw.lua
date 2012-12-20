@@ -3,7 +3,6 @@ mw = mw or {}
 local packageCache
 local packageModuleFunc
 local php
-local setupDone
 local allowEnvFuncs = false
 local logBuffer = ''
 local currentFrame
@@ -42,11 +41,9 @@ end
 
 --- Set up the base environment. The PHP host calls this function after any 
 -- necessary host-side initialisation has been done.
-function mw.setup( options )
-	if setupDone then
-		return
-	end
-	setupDone = true
+function mw.setupInterface( options )
+	-- Don't allow any more calls
+	mw.setupInterface = nil
 
 	-- Don't allow getmetatable() on a non-table, since if you can get the metatable,
 	-- you can set values in it, breaking isolation
@@ -63,15 +60,15 @@ function mw.setup( options )
 		allowEnvFuncs = true
 	end
 
-	-- Make mw_php private
+	-- Store the interface table
 	--
-	-- mw_php.loadPackage() returns function values with their environment
+	-- mw_interface.loadPackage() returns function values with their environment
 	-- set to the base environment, which would violate module isolation if they
 	-- were run from a cloned environment. We can only allow access to 
-	-- mw_php.loadPackage via our environment-setting wrapper.
+	-- mw_interface.loadPackage via our environment-setting wrapper.
 	--
-	php = mw_php
-	mw_php = nil
+	php = mw_interface
+	mw_interface = nil
 
 	packageModuleFunc = php.loadPackage( 'package' )
 	packageCache = {}

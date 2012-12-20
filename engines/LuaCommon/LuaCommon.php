@@ -6,6 +6,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $mw;
 	protected $currentFrame = false;
 	protected $expandCache = array();
+	protected $languageModule;
 
 	const MAX_EXPAND_CACHE_SIZE = 100;
 
@@ -47,22 +48,36 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->loaded = true;
 
 		$this->interpreter = $this->newInterpreter();
-		$this->mw = $this->loadLibraryFromFile( $this->getLuaLibDir()  . '/mw.lua' );
 
-		$this->loadLibraryFromFile( $this->getLuaLibDir() .'/package.lua' );
+		$funcs = array(
+			'loadPackage',
+			'parentFrameExists',
+			'getExpandedArgument',
+			'getAllExpandedArguments',
+			'expandTemplate',
+			'preprocess'
+		);
 
-		$this->interpreter->registerLibrary( 'mw_php', 
-			array(
-				'loadPackage' => array( $this, 'loadPackage' ),
-				'parentFrameExists' => array( $this, 'parentFrameExists' ),
-				'getExpandedArgument' => array( $this, 'getExpandedArgument' ),
-				'getAllExpandedArguments' => array( $this, 'getAllExpandedArguments' ),
-				'expandTemplate' => array( $this, 'expandTemplate' ),
-				'preprocess' => array( $this, 'preprocess' ),
-			) );
+		$lib = array();
+		foreach ( $funcs as $name ) {
+			$lib[$name] = array( $this, $name );
+		}
 
-		$this->interpreter->callFunction( $this->mw['setup'],
+		$this->mw = $this->registerInterface( 'mw.lua', $lib,
 			array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
+
+		$this->languageModule = new Scribunto_LuaLanguageModule( $this );
+		$this->languageModule->register();
+
+	}
+
+	public function registerInterface( $moduleFileName, $interfaceFuncs, $setupOptions = array() ) {
+		$this->interpreter->registerLibrary( 'mw_interface', $interfaceFuncs );
+		$package = $this->loadLibraryFromFile( "{$this->getLuaLibDir()}/{$moduleFileName}" );
+		if ( $package['setupInterface'] ) {
+			$this->interpreter->callFunction( $package['setupInterface'], $setupOptions );
+		}
+		return $package;
 	}
 
 	public function getLuaLibDir() {
@@ -207,7 +222,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for the mw_php.loadPackage() callback. Load the specified
+	 * Handler for the loadPackage() callback. Load the specified
 	 * module and return its chunk. It's not necessary to cache the resulting
 	 * chunk in the object instance, since there is caching in a wrapper on the
 	 * Lua side.
@@ -260,7 +275,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for mw_php.parentFrameExists()
+	 * Handler for parentFrameExists()
 	 */
 	function parentFrameExists() {
 		$frame = $this->getFrameById( 'parent' );
@@ -268,7 +283,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for mw_php.getExpandedArgument()
+	 * Handler for getExpandedArgument()
 	 */
 	function getExpandedArgument( $frameId, $name ) {
 		$args = func_get_args();
@@ -287,7 +302,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for mw_php.getAllExpandedArguments()
+	 * Handler for getAllExpandedArguments()
 	 */
 	function getAllExpandedArguments( $frameId ) {
 		$frame = $this->getFrameById( $frameId );
@@ -298,7 +313,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for mw_php.expandTemplate
+	 * Handler for expandTemplate()
 	 */
 	function expandTemplate( $frameId, $titleText, $args ) {
 		$frame = $this->getFrameById( $frameId );
@@ -336,7 +351,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Handler for mw_php.preprocess()
+	 * Handler for preprocess()
 	 */
 	function preprocess( $frameId, $text ) {
 		$args = func_get_args();
