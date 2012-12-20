@@ -388,8 +388,16 @@ function mw.executeFunction( chunk )
 	return table.concat( stringResults )
 end
 
-function mw.log( msg )
-	logBuffer = logBuffer .. tostring( msg ) .. '\n'
+function mw.allToString( ... )
+	local t = { ... }
+	for i = 1, #t do
+		t[i] = tostring( t[i] )
+	end
+	return table.concat( t, '\t' )
+end
+
+function mw.log( ... )
+	logBuffer = logBuffer .. mw.allToString( ... ) .. '\n'
 end
 
 function mw.clearLogBuffer()
