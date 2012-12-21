@@ -143,7 +143,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$code .= "mw.clearLogBuffer()\n";
 		if ( substr( $params['question'], 0, 1 ) === '=' ) {
 			// Treat a statement starting with "=" as a return statement, like in lua.c
-			$code .= "return tostring(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
+			$code .= "return mw.allToString(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
 		} else {
 			$code .= $params['question'] . "\n" .
 				"return nil, mw.getLogBuffer()\n";
