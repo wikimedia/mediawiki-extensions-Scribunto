@@ -297,11 +297,13 @@ $messages['eu'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Mjbmr
  * @author جواد
  */
 $messages['fa'] = array(
 	'scribunto-line' => 'در خط $1',
 	'scribunto-module-line' => 'در $1 در خط $2',
+	'scribunto-console-clear' => 'پاک‌سازی',
 );
 
 /** Finnish (suomi)
@@ -1050,6 +1052,20 @@ $1',
 	'scribunto-luastandalone-exited' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор завершил работу со статусом $2.',
 );
 
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'scribunto-parser-error' => 'අක්ෂර දෝෂය',
+	'scribunto-parser-dialog-title' => 'අක්ෂර දෝෂය',
+	'scribunto-error-short' => 'අක්ෂර දෝෂය: $1',
+	'scribunto-error-long' => 'අක්ෂර දෝෂ:
+
+$1',
+	'scribunto-console-clear' => 'හිස් කරන්න',
+	'scribunto-common-error-category' => 'අක්ෂර දෝෂ සහිත පිටු',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
@@ -1098,6 +1114,7 @@ $1',
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Steve.rusyn
  */
 $messages['uk'] = array(
 	'scribunto-line' => 'у рядку $1',
@@ -1108,6 +1125,7 @@ $messages['uk'] = array(
 	'scribunto-error-long' => 'Помилки скрипту:
 
 $1',
+	'scribunto-console-clear' => 'Очистити',
 	'scribunto-lua-error-location' => 'Помилка Lua $1: $2.',
 	'scribunto-lua-error' => 'Помилка Lua: $2.',
 	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
@@ -1173,7 +1191,7 @@ $messages['yi'] = array(
  */
 $messages['zh-hans'] = array(
 	'scribunto-desc' => '用于在MediaWiki页面中嵌入脚本语言的框架',
-	'scribunto-ignore-errors' => '忽略代码错误', # Fuzzy
+	'scribunto-ignore-errors' => '允许保存有错误的代码',
 	'scribunto-line' => '在第$1行',
 	'scribunto-module-line' => '在$1中的第$2行',
 	'scribunto-parser-error' => '脚本错误',
@@ -1191,6 +1209,7 @@ $1',
 	'scribunto-console-previous-src' => '先前的控制台输入',
 	'scribunto-console-clear' => '清除',
 	'scribunto-console-cleared' => '控制台状态已清除，因为模块已更新。',
+	'scribunto-common-error-category' => '有脚本错误的页面',
 	'scribunto-common-nosuchmodule' => '脚本错误：没有这个模块。',
 	'scribunto-common-nofunction' => '脚本错误：您必须指定要调用的函数。',
 	'scribunto-common-nosuchfunction' => '脚本错误：您指定的函数不存在。',
