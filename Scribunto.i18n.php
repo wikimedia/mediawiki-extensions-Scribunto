@@ -114,6 +114,13 @@ $messages['qqq'] = array(
 * $2 is an exit status.',
 );
 
+/** Bulgarian (български)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['bg'] = array(
+	'scribunto-console-clear' => 'Изчистване',
+);
+
 /** Breton (brezhoneg)
  * @author Y-M D
  */
@@ -924,6 +931,28 @@ $1',
 	'scribunto-luastandalone-gone' => 'Luafout: interne fout: de verwerkingsmodule is al klaar',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
+);
+
+/** Polish (polski)
+ * @author Matma Rex
+ */
+$messages['pl'] = array(
+	'scribunto-desc' => 'Framework pozwalający na osadzanie języków skryptowych na stronach MediaWiki',
+	'scribunto-ignore-errors' => 'Pozwól na zapisywanie kodu z błędami',
+	'scribunto-line' => 'w linii $1',
+	'scribunto-module-line' => 'w module „$1”, w linii $2',
+	'scribunto-parser-error' => 'Błąd skryptu',
+	'scribunto-parser-dialog-title' => 'Błąd skryptu',
+	'scribunto-error-short' => 'Błąd skryptu: $1',
+	'scribunto-error-long' => 'Błędy skryptu:
+
+$1',
+	'scribunto-console-title' => 'Konsola debugowania',
+	'scribunto-console-current-src' => 'wejście z konsoli',
+	'scribunto-console-previous-src' => 'poprzednie wejście z konsoli',
+	'scribunto-console-clear' => 'Wyczyść',
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'w funkcji „$1”',
 );
 
 /** Portuguese (português)
