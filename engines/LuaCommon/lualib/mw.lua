@@ -391,7 +391,7 @@ end
 
 function mw.allToString( ... )
 	local t = { ... }
-	for i = 1, #t do
+	for i = 1, select( '#', ... ) do
 		t[i] = tostring( t[i] )
 	end
 	return table.concat( t, '\t' )
