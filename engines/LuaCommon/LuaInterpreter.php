@@ -28,6 +28,14 @@ abstract class Scribunto_LuaInterpreter {
 	abstract public function wrapPhpFunction( $callable );
 
 	/**
+	 * Test whether an object is a Lua function.
+	 *
+	 * @param $object
+	 * @return boolean
+	 */
+	abstract public function isLuaFunction( $object );
+
+	/**
 	 * Register a library of functions.
 	 *
 	 * @param $name string The global variable name to be created or added to.

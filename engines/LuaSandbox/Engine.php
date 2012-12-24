@@ -159,6 +159,10 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		return $func;
 	}
 
+	public function isLuaFunction( $object ) {
+		return $object instanceof LuaSandboxFunction;
+	}
+
 	public function getPeakMemoryUsage() {
 		return $this->sandbox->getPeakMemoryUsage();
 	}
