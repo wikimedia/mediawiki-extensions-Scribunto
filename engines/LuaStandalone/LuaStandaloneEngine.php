@@ -189,6 +189,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $ret[1];
 	}
 
+	public function isLuaFunction( $object ) {
+		return $object instanceof Scribunto_LuaStandaloneInterpreterFunction;
+	}
+
 	public function registerLibrary( $name, $functions ) {
 		$functionIds = array();
 		foreach ( $functions as $funcName => $callback ) {
