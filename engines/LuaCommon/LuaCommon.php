@@ -157,7 +157,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			wfMessage( 'scribunto-console-current-src' )->text()
 		);
 		$consoleInit = $consoleModule->getInitChunk();
-		$ret = $this->getInterpreter()->callFunction( $consoleInit );
+		$ret = $this->executeModule( $consoleInit );
 		$func = $ret[0];
 		$ret = $this->getInterpreter()->callFunction( $func, $contentInit );
 		return array(
