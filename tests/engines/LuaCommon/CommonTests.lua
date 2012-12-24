@@ -131,6 +131,15 @@ function test.getfenv3()
 	end
 end
 
+function test.stringMetatableHidden1()
+	return getmetatable( "" )
+end
+
+function test.stringMetatableHidden2()
+	string.foo = 42
+	return ("").foo
+end
+
 return testframework.getTestProvider( {
 	{ name = 'clone', func = test.clone1,
 	  expect = { true },
@@ -178,5 +187,13 @@ return testframework.getTestProvider( {
 	},
 	{ name = 'getfenv with tail call', func = test.getfenv3,
 	  expect = "no function environment for tail call",
+	},
+
+	{ name = 'string metatable is hidden', func = test.stringMetatableHidden1,
+	  expect = { nil }
+	},
+
+	{ name = 'string is not string metatable', func = test.stringMetatableHidden2,
+	  expect = { nil }
 	},
 } )
