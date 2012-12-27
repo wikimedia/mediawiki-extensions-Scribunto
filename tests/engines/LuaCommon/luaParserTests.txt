@@ -15,6 +15,24 @@ function p.getAllArgs( frame )
     local buf = {}
 	local names = {}
 	local values = {}
+    for name, value in pairs( frame.args ) do
+		table.insert(names, name)
+		values[name] = value
+	end
+	table.sort(names, function (a, b) return tostring(a) < tostring(b) end)
+	for index, name in ipairs(names) do
+        if #buf ~= 0 then
+            table.insert( buf, ', ' )
+        end
+        table.insert( buf, name .. '=' .. values[name] )
+    end
+    return table.concat( buf )
+end
+
+function p.getAllArgs2( frame )
+    local buf = {}
+	local names = {}
+	local values = {}
     for name, value in frame:argumentPairs() do
 		table.insert(names, name)
 		values[name] = value
@@ -27,6 +45,17 @@ function p.getAllArgs( frame )
         table.insert( buf, name .. '=' .. values[name] )
     end
     return table.concat( buf )
+end
+
+function p.getNumericArgs( frame )
+	local buf = {}
+	for index, value in ipairs(frame.args) do
+		if #buf ~= 0 then
+			table.insert( buf, ', ' )
+		end
+		table.insert( buf, index .. '=' .. value )
+	end
+	return table.concat( buf )
 end
 
 function p.getArg( frame )
@@ -170,9 +199,27 @@ Scribunto: hello world
 !! test
 Scribunto: getAllArgs
 !! input
-{{#invoke:test|getAllArgs|x|y|z|a=1|b=2|c=3}}
+{{#invoke:test|getAllArgs|x|y|z|a=1|b=2|c=3|7=?}}
 !! result
-<p>1=x, 2=y, 3=z, a=1, b=2, c=3
+<p>1=x, 2=y, 3=z, 7=?, a=1, b=2, c=3
+</p>
+!! end
+
+!! test
+Scribunto: getAllArgs, deprecated style
+!! input
+{{#invoke:test|getAllArgs2|x|y|z|a=1|b=2|c=3|7=?}}
+!! result
+<p>1=x, 2=y, 3=z, 7=?, a=1, b=2, c=3
+</p>
+!! end
+
+!! test
+Scribunto: getNumericArgs
+!! input
+{{#invoke:test|getNumericArgs|x|y|z|a=1|b=2|c=3|7=?}}
+!! result
+<p>1=x, 2=y, 3=z
 </p>
 !! end
 
