@@ -146,6 +146,19 @@ setmetatable( pairs_test_table, {
 	__ipairs = function () return 4, 5, 6, 'ignore' end,
 } )
 
+function test.noLeaksViaPackageLoaded()
+	assert( package.loaded.debug == debug, "package.loaded.debug ~= debug" )
+	assert( package.loaded.string == string, "package.loaded.string ~= string" )
+	assert( package.loaded.math == math, "package.loaded.math ~= math" )
+	assert( package.loaded.io == io, "package.loaded.io ~= io" )
+	assert( package.loaded.os == os, "package.loaded.os ~= os" )
+	assert( package.loaded.table == table, "package.loaded.table ~= table" )
+	assert( package.loaded._G == _G , "package.loaded._G ~= _G " )
+	assert( package.loaded.coroutine == coroutine, "package.loaded.coroutine ~= coroutine" )
+	assert( package.loaded.package == package, "package.loaded.package ~= package" )
+	return 'ok'
+end
+
 return testframework.getTestProvider( {
 	{ name = 'clone', func = test.clone1,
 	  expect = { true },
@@ -211,5 +224,10 @@ return testframework.getTestProvider( {
 	{ name = 'ipairs with __ipairs',
 	  func = ipairs, args = { pairs_test_table },
 	  expect = { 4, 5, 6 },
+	},
+
+	{ name = 'package.loaded does not leak references to out-of-environment objects',
+	  func = test.noLeaksViaPackageLoaded,
+	  expect = { 'ok' },
 	},
 } )

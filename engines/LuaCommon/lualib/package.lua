@@ -24,8 +24,8 @@
 --]]
 
 
-local assert, error, ipairs, pairs, setmetatable, type = assert, error, ipairs, pairs, setmetatable, type
-local find, format, gfind, gsub, sub = string.find, string.format, string.gfind, string.gsub, string.sub
+local assert, error, ipairs, setmetatable, type = assert, error, ipairs, setmetatable, type
+local format = string.format
 
 --
 -- avoid overwriting the package table if it's already there
@@ -34,6 +34,15 @@ package = package or {}
 local _PACKAGE = package
 
 package.loaded = package.loaded or {}
+package.loaded.debug = debug
+package.loaded.string = string
+package.loaded.math = math
+package.loaded.io = io
+package.loaded.os = os
+package.loaded.table = table
+package.loaded._G = _G
+package.loaded.coroutine = coroutine
+package.loaded.package = package
 local _LOADED = package.loaded
 
 --
@@ -102,25 +111,6 @@ function _G.require (modname)
 	return _LOADED[modname]
 end
 
-
--- findtable
-local function findtable (t, f)
-	assert (type(f)=="string", "not a valid field name ("..tostring(f)..")")
-	local ff = f.."."
-	local ok, e, w = find (ff, '(.-)%.', 1)
-	while ok do
-		local nt = rawget (t, w)
-		if not nt then
-			nt = {}
-			t[w] = nt
-		elseif type(t) ~= "table" then
-			return sub (f, e+1)
-		end
-		t = nt
-		ok, e, w = find (ff, '(.-)%.', e+1)
-	end
-	return t
-end
 
 --
 -- package.seeall function
