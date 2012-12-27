@@ -140,6 +140,12 @@ function test.stringMetatableHidden2()
 	return ("").foo
 end
 
+local pairs_test_table = {}
+setmetatable( pairs_test_table, {
+	__pairs = function () return 1, 2, 3, 'ignore' end,
+	__ipairs = function () return 4, 5, 6, 'ignore' end,
+} )
+
 return testframework.getTestProvider( {
 	{ name = 'clone', func = test.clone1,
 	  expect = { true },
@@ -195,5 +201,15 @@ return testframework.getTestProvider( {
 
 	{ name = 'string is not string metatable', func = test.stringMetatableHidden2,
 	  expect = { nil }
+	},
+
+	{ name = 'pairs with __pairs',
+	  func = pairs, args = { pairs_test_table },
+	  expect = { 1, 2, 3 },
+	},
+
+	{ name = 'ipairs with __ipairs',
+	  func = ipairs, args = { pairs_test_table },
+	  expect = { 4, 5, 6 },
 	},
 } )
