@@ -315,8 +315,11 @@ $messages['fa'] = array(
 
 /** Finnish (suomi)
  * @author Beluga
+ * @author VezonThunder
  */
 $messages['fi'] = array(
+	'scribunto-ignore-errors' => 'Salli virheitä sisältävän koodin tallentaminen',
+	'scribunto-line' => 'rivillä $1',
 	'scribunto-console-clear' => 'Tyhjennä',
 );
 
