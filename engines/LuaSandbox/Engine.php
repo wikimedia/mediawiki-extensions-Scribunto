@@ -79,9 +79,15 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $options['memoryLimit'] );
 		$this->sandbox->setCPULimit( $options['cpuLimit'] );
-		if ( is_callable( array( $this->sandbox, 'enableProfiler' ) ) ) {
-			$this->profilerEnabled = true;
-			$this->sandbox->enableProfiler( 0.002 );
+		if ( is_callable( array( $this->sandbox, 'enableProfiler' ) ) ) 
+		{
+			if ( !isset( $options['profilerPeriod'] ) ) {
+				$options['profilerPeriod'] = 0.02;
+			}
+			if ( $options['profilerPeriod'] ) {
+				$this->profilerEnabled = true;
+				$this->sandbox->enableProfiler( $options['profilerPeriod'] );
+			}
 		}
 	}
 
