@@ -8,6 +8,27 @@ local allowEnvFuncs = false
 local logBuffer = ''
 local currentFrame
 
+-- Extend pairs and ipairs to recognize __pairs and __ipairs, if they don't already
+( function ()
+	local t = {}
+	setmetatable( t, { __pairs = function() return 1, 2, 3 end } )
+	local f = pairs( t )
+	if f ~= 1 then
+		local old_pairs = pairs
+		pairs = function ( t )
+			local mt = getmetatable( t )
+			local f, s, var = ( mt and mt.__pairs or old_pairs )( t )
+			return f, s, var
+		end
+		local old_ipairs = ipairs
+		ipairs = function ( t )
+			local mt = getmetatable( t )
+			local f, s, var = ( mt and mt.__ipairs or old_ipairs )( t )
+			return f, s, var
+		end
+	end
+end )()
+
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
 -- module functions from other cloned environments would break module isolation.
