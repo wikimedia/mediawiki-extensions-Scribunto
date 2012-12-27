@@ -112,6 +112,9 @@ $wgScribuntoEngineConf = array(
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
 
+		// The profiler sample period, or false to disable the profiler
+		'profilerPeriod' => 0.02,
+
 		// Set this to true to allow setfenv() and getfenv() in user code.
 		// Note that these functions have been removed in Lua 5.2. Scribunto 
 		// does not yet support Lua 5.2, but we expect support will be 
