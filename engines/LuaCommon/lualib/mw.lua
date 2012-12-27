@@ -222,6 +222,7 @@ local function newFrame( frameId )
 	local frame = {}
 	local argCache = {}
 	local argNames
+	local args_mt = {}
 
 	local function checkSelf( self, method )
 		if self ~= frame then
@@ -232,6 +233,7 @@ local function newFrame( frameId )
 		end
 	end
 
+	-- Getter for args
 	local function getExpandedArgument( dummy, name )
 		name = tostring( name )
 		if argCache[name] == nil then
@@ -249,6 +251,41 @@ local function newFrame( frameId )
 		end
 	end
 
+	args_mt.__index = getExpandedArgument
+
+	-- pairs handler for args
+	args_mt.__pairs = function ()
+		if not argNames then
+			local arguments = php.getAllExpandedArguments( frameId )
+			argNames = {}
+			for name, value in pairs( arguments ) do
+				table.insert( argNames, name )
+				argCache[name] = value
+			end
+		end
+
+		local index = 0
+		return function ()
+			index = index + 1
+			if argNames[index] then
+				return argNames[index], argCache[argNames[index]]
+			end
+		end
+	end
+
+	-- ipairs 'next' function for args
+	local function argsInext( dummy, i )
+		local value = getExpandedArgument( dummy, i + 1 )
+		if value then
+			return i + 1, value
+		end
+	end
+
+	args_mt.__ipairs = function () return argsInext, nil, 0 end
+
+	frame.args = {}
+	setmetatable( frame.args, args_mt )
+
 	local function newCallbackParserValue( callback )
 		value = {}
 		local cache
@@ -262,9 +299,6 @@ local function newFrame( frameId )
 
 		return value
 	end
-
-	frame.args = {}
-	setmetatable( frame.args, { __index = getExpandedArgument } )
 
 	function frame:getArgument( opt )
 		checkSelf( self, 'getArgument' )
@@ -366,28 +400,10 @@ local function newFrame( frameId )
 			)
 	end
 
+	-- For backwards compat
 	function frame:argumentPairs()
 		checkSelf( self, 'argumentPairs' )
-
-		local index = 0
-
-		local function argumentNext()
-			index = index + 1
-			if argNames[index] then
-				return argNames[index], argCache[argNames[index]]
-			end
-		end
-
-		if argNames == nil then
-			local arguments = php.getAllExpandedArguments( frameId )
-			argNames = {}
-			for name, value in pairs( arguments ) do
-				table.insert( argNames, name )
-				argCache[name] = value
-			end
-		end
-		
-		return argumentNext
+		return pairs( self.args )
 	end
 
 	return frame
