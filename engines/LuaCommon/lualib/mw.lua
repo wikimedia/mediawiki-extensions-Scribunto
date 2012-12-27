@@ -96,6 +96,7 @@ function mw.setup( options )
 
 	packageModuleFunc = php.loadPackage( 'package' )
 	makePackageModule( _G )
+	package.loaded.mw = mw
 	packageCache = {}
 end
 
