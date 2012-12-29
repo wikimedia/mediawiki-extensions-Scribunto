@@ -958,6 +958,53 @@ $1',
 	'scribunto-lua-in-function' => 'w funkcji „$1”',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ * @author පසිඳු කාවින්ද
+ */
+$messages['pms'] = array(
+	'scribunto-desc' => 'Piataforma për ancorporé lenguagi dë scripting an pagine MediaWiki',
+	'scribunto-ignore-errors' => 'Përmëtt ëd salvé còdes con eror',
+	'scribunto-line' => 'a la linia $1',
+	'scribunto-module-line' => 'an $1 a la linia $2',
+	'scribunto-parser-error' => 'Eror dë script',
+	'scribunto-parser-dialog-title' => 'Eror dë script',
+	'scribunto-error-short' => 'Eror dë script: $1',
+	'scribunto-error-long' => 'Eror dë script:
+
+$1',
+	'scribunto-console-intro' => '* J\'esportassion dël mòdul a son disponìbij com la variàbil "p", comprèis modificassion pa salvà.
+* Ancamin-a na linia con "=" për valutelo com n\'espression, o dòvra print().
+* Dòvra mw.log() ant ël còdes dël mòdul për mandé mëssagi a sta console.',
+	'scribunto-console-title' => 'Console ëd debug',
+	'scribunto-console-too-large' => "Sta session ëd console a l'é tròp gròssa. Për piasì scansela la stòria dla console o riduv la dimension dël mòdul.",
+	'scribunto-console-current-src' => 'anseriment ëd la console',
+	'scribunto-console-previous-src' => 'anserimente precedent ëd la console',
+	'scribunto-console-clear' => 'Scancela',
+	'scribunto-console-cleared' => "Lë stat ëd la console a l'é stàit scanselà përché ël mòdul a l'é stàit agiornà.",
+	'scribunto-common-error-category' => 'Pagine con eror dë script',
+	'scribunto-common-nosuchmodule' => 'Eror dë script: Gnun mòduj parèj.',
+	'scribunto-common-nofunction' => 'Eror dë script. It deuve specifiché na funsion da ciamé.',
+	'scribunto-common-nosuchfunction' => "Eror dë script. La funsion ch'it l'has specificà a esist pa.",
+	'scribunto-common-timeout' => "Ël temp alocà për fé viré jë script a l'é finì.",
+	'scribunto-common-oom' => "La quantità ëd memòria alocà për fé viré jë script a l'é stàita superà.",
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'ant la funsion "$1"',
+	'scribunto-lua-in-main' => 'ant ël blòch prinsipal',
+	'scribunto-lua-in-function-at' => 'ant la funsion a $1:$2',
+	'scribunto-lua-error-location' => 'Eror Lua $1: $2.',
+	'scribunto-lua-error' => 'Eror Lua: $2.',
+	'scribunto-lua-noreturn' => "Eror dë script. Ël mòdul a l'ha artornà gnun eror. A dovrìa artorné na tabela d'esportassion.",
+	'scribunto-lua-notarrayreturn' => "Eror dë script: Ël mòdul a l'ha artornà quaicòs àutr nopà Ëd na tabela. A dovrìa artorné na tabela d'esportassion.",
+	'scribunto-luastandalone-proc-error' => 'Eror Lua: As peul pa creesse un process.',
+	'scribunto-luastandalone-decode-error' => 'Eror Lua: Eror intern: A peul pa decodefiché un mëssagi.',
+	'scribunto-luastandalone-write-error' => 'Eror Lua: Eror intern: Eror scrivend ant ël canal.',
+	'scribunto-luastandalone-read-error' => 'Eror Lua: Eror intern: Eror lesend da canal.',
+	'scribunto-luastandalone-gone' => "Eror Lua: Eror intern: L'antérpret a l'ha già finì.",
+	'scribunto-luastandalone-signal' => 'Eror Lua: Eror intern: L\'antérpret a l\'ha finì con signal "$2".',
+	'scribunto-luastandalone-exited' => "Eror Lua: Eror intern: L'antérpret a l'ha finì con stat $2.",
+);
+
 /** Portuguese (português)
  * @author SandroHc
  */
@@ -1088,14 +1135,17 @@ $1',
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'scribunto-line' => '$1 පේලියේදී',
 	'scribunto-parser-error' => 'අක්ෂර දෝෂය',
 	'scribunto-parser-dialog-title' => 'අක්ෂර දෝෂය',
 	'scribunto-error-short' => 'අක්ෂර දෝෂය: $1',
 	'scribunto-error-long' => 'අක්ෂර දෝෂ:
 
 $1',
+	'scribunto-console-current-src' => 'කොන්සෝල ආදානය',
 	'scribunto-console-clear' => 'හිස් කරන්න',
 	'scribunto-common-error-category' => 'අක්ෂර දෝෂ සහිත පිටු',
+	'scribunto-common-backtrace' => 'ආපසුවිතගමන:',
 );
 
 /** Tagalog (Tagalog)
