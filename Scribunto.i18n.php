@@ -1142,10 +1142,24 @@ $messages['si'] = array(
 	'scribunto-error-long' => 'අක්ෂර දෝෂ:
 
 $1',
+	'scribunto-console-title' => 'නිදොස්කිරීම් කොන්සෝලය',
 	'scribunto-console-current-src' => 'කොන්සෝල ආදානය',
 	'scribunto-console-clear' => 'හිස් කරන්න',
 	'scribunto-common-error-category' => 'අක්ෂර දෝෂ සහිත පිටු',
+	'scribunto-common-nosuchmodule' => 'අක්ෂර දෝෂය: සැබෑ මොඩියුලක් නොමැත.',
 	'scribunto-common-backtrace' => 'ආපසුවිතගමන:',
+	'scribunto-lua-in-function' => '"$1" ක්‍රියාවෙහි',
+	'scribunto-lua-in-main' => 'ප්‍රධාන කුට්ටියේ',
+	'scribunto-lua-in-function-at' => '$1:$2 හිදී කාර්යය තුල',
+	'scribunto-lua-error-location' => 'Lua දෝෂය $1: $2.',
+	'scribunto-lua-error' => 'Lua දෝෂය: $2.',
+	'scribunto-luastandalone-proc-error' => 'Lua දෝෂය: ක්‍රියාවලිය තැනිය නොහැක.',
+	'scribunto-luastandalone-decode-error' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: පණිවුඩය විකේතනය කල නොහැක.',
+	'scribunto-luastandalone-write-error' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: pipe වෙත ලිවීමේ දෝෂය.',
+	'scribunto-luastandalone-read-error' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: pipe වෙතින් කියවීමේ දෝෂය.',
+	'scribunto-luastandalone-gone' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ දැනටමත් පවතී.',
+	'scribunto-luastandalone-signal' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" සංඥාව සමඟ අවසාන වුණි.',
+	'scribunto-luastandalone-exited' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" තත්වය සමඟ ඉවත් වුණි.',
 );
 
 /** Tagalog (Tagalog)
@@ -1192,6 +1206,13 @@ $1',
 	'scribunto-luastandalone-gone' => 'Kamalian sa lua: panloob na kamalian: lumabas na ang tagapagpaunawa',
 	'scribunto-luastandalone-signal' => 'Kamalian sa lua: panloob na kamalian: huminto ang tagapagpaliwanag na mayroong senyas na "$2"',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
+);
+
+/** Uyghur (Arabic script) (ئۇيغۇرچە)
+ * @author Sahran
+ */
+$messages['ug-arab'] = array(
+	'scribunto-console-clear' => 'تازىلا',
 );
 
 /** Ukrainian (українська)
