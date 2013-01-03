@@ -114,6 +114,22 @@ $messages['qqq'] = array(
 * $2 is an exit status.',
 );
 
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'scribunto-desc' => 'Фрэймворк для выкарыстаньня скрыптавых моваў на старонках MediaWiki',
+	'scribunto-ignore-errors' => 'Дазволіць захаваньне коду з хібамі',
+	'scribunto-line' => 'на радку $1',
+	'scribunto-module-line' => 'у $1 на радку $2',
+	'scribunto-parser-error' => 'Памылка скрыпту',
+	'scribunto-parser-dialog-title' => 'Памылка скрыпту',
+	'scribunto-error-short' => 'Памылка скрыпту: $1',
+	'scribunto-error-long' => 'Памылкі скрыпту:
+
+$1',
+);
+
 /** Bulgarian (български)
  * @author පසිඳු කාවින්ද
  */
