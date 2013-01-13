@@ -128,6 +128,31 @@ $messages['be-tarask'] = array(
 	'scribunto-error-long' => 'Памылкі скрыпту:
 
 $1',
+	'scribunto-console-intro' => '* Экспартаваныя зьвесткі модуля даступныя празь зьменную «p», у тым ліку незахаваныя зьмены.
+* Калі хочаце вылічыць радок як выраз, ужывайце перад радком знак «=», або выкарыстоўвайце print().
+* Каб дасылаць паведамленьні ў гэтую кансоль, выкарыстоўвайце mw.log() у кодзе модуля.',
+	'scribunto-console-title' => 'Кансоль адладкі',
+	'scribunto-console-too-large' => 'Гэтая сэсія кансолі надта вялікая. Калі ласка, ачысьціце гісторыю кансолі ці паменшыце памер модуля.',
+	'scribunto-console-current-src' => 'увод кансолі',
+	'scribunto-console-previous-src' => 'папярэдні ўвод кансолі',
+	'scribunto-console-clear' => 'Ачысьціць',
+	'scribunto-console-cleared' => 'Стан кансолі ачышчаны праз абнаўленьне модуля.',
+	'scribunto-common-error-category' => 'Старонкі з памылкамі ў скрыптах',
+	'scribunto-common-nosuchmodule' => 'Памылка скрыпта: модуль не існуе.',
+	'scribunto-common-nofunction' => 'Памылка скрыпта: вы мусіце пазначыць функцыю, якую выклікаеце.',
+	'scribunto-common-nosuchfunction' => 'Памылка скрыпта: пазначаная вамі функцыя не існуе.',
+	'scribunto-common-timeout' => 'Час, адведзены пад выкананьне скрыптаў, выйшаў.',
+	'scribunto-common-oom' => 'Перавышаная вобласьць памяці, адведзенай пад выкананьне скрыптаў.',
+	'scribunto-common-backtrace' => 'Шлях выклікаў:',
+	'scribunto-lua-in-function' => 'у функцыі «$1»',
+	'scribunto-lua-in-main' => 'у асноўнай частцы коду',
+	'scribunto-lua-in-function-at' => 'у функцыі $1:$2',
+	'scribunto-lua-error-location' => 'Памылка Lua $1: $2.',
+	'scribunto-lua-error' => 'Памылка Lua: $2.',
+	'scribunto-lua-noreturn' => 'Памылка скрыпта: модуль не вярнуў значэньне. Модуль мусіў вярнуць табліцу экспарту.',
+	'scribunto-lua-notarrayreturn' => 'Памылка скрыпта: модуль вярнуў значэньне, якое ня ёсьць табліцай экспарту. Модуль мусіў вярнуць табліцу экспарту.',
+	'scribunto-luastandalone-proc-error' => 'Памылка Lua: немагчыма стварыць працэс.',
+	'scribunto-luastandalone-decode-error' => 'Памылка Lua: Унутраная памылка: не атрымалася раскадаваць паведамленьне.',
 );
 
 /** Bulgarian (български)
