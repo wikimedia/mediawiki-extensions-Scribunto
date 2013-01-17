@@ -623,6 +623,32 @@ $1',
 	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
 );
 
+/** Icelandic (íslenska)
+ * @author Snævar
+ */
+$messages['is'] = array(
+	'scribunto-ignore-errors' => 'Leyfa vistun kóða með villum',
+	'scribunto-line' => 'í línu $1',
+	'scribunto-module-line' => 'í $1, línu $2',
+	'scribunto-parser-error' => 'Villa í skriftu',
+	'scribunto-parser-dialog-title' => 'Villa í skriftu',
+	'scribunto-error-short' => 'Villa í skriftu: $1',
+	'scribunto-error-long' => 'Villur í skriftu: 
+
+$1',
+	'scribunto-common-nosuchmodule' => 'Villa í skriftu: Einingin er ekki til.',
+	'scribunto-common-nofunction' => 'Villa í skriftu: Þú þarft að kalla á aðgerð.',
+	'scribunto-common-nosuchfunction' => 'Villa í skriftu: Aðgerðin sem þú tilgreindir er ekki til.',
+	'scribunto-common-timeout' => 'Skriftan keyrir of lengi.',
+	'scribunto-common-oom' => 'Skriftan notar of mikið minni.',
+	'scribunto-common-backtrace' => 'Afturekja:',
+	'scribunto-lua-in-function' => 'í aðgerðinni „$1"',
+	'scribunto-lua-in-main' => 'í aðal hlutanum',
+	'scribunto-lua-in-function-at' => 'í aðgerðinni $1:$2',
+	'scribunto-lua-error-location' => 'Lua villa $1: $2.',
+	'scribunto-lua-error' => 'Lua villa: $2',
+);
+
 /** Italian (italiano)
  * @author Beta16
  * @author F. Cosoleto
