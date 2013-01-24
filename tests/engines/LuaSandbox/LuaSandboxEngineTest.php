@@ -1,7 +1,7 @@
 <?php
 
 if ( php_sapi_name() !== 'cli' ) exit;
-require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaEngineTest.php' );
+require_once( __DIR__ . '/../LuaCommon/LuaEngineTest.php' );
 
 class Scribunto_LuaSandboxEngineTest extends Scribunto_LuaEngineTest {
 	var $stdOpts = array(
@@ -17,8 +17,17 @@ class Scribunto_LuaSandboxEngineTest extends Scribunto_LuaEngineTest {
 
 	function getTestModules() {
 		return parent::getTestModules() + array(
-			'SandboxTests' => dirname( __FILE__ ) . '/SandboxTests.lua'
+			'SandboxTests' => __DIR__ . '/SandboxTests.lua'
 		);
+	}
+
+	function provideSandboxTests() {
+		return $this->getTestProvider( 'SandboxTests' );
+	}
+
+	/** @dataProvider provideSandboxTests */
+	function testSandboxTests( $key, $testName, $expected ) {
+		$this->runTestProvider( 'SandboxTests', $key, $testName, $expected );
 	}
 }
 

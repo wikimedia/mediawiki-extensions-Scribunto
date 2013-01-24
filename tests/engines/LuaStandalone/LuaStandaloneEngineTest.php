@@ -1,7 +1,7 @@
 <?php
 
 if ( php_sapi_name() !== 'cli' ) exit;
-require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaEngineTest.php' );
+require_once( __DIR__ . '/../LuaCommon/LuaEngineTest.php' );
 
 class Scribunto_LuaStandaloneEngineTest extends Scribunto_LuaEngineTest {
 	var $stdOpts = array(
@@ -16,11 +16,20 @@ class Scribunto_LuaStandaloneEngineTest extends Scribunto_LuaEngineTest {
 		$opts = $opts + $this->stdOpts;
 		return new Scribunto_LuaStandaloneEngine( $opts );
 	}
-	
+
 	function getTestModules() {
 		return parent::getTestModules() + array(
-			'StandloneTests' => dirname( __FILE__ ) . '/StandaloneTests.lua'
+			'StandaloneTests' => __DIR__ . '/StandaloneTests.lua'
 		);
+	}
+
+	function provideStandaloneTests() {
+		return $this->getTestProvider( 'StandaloneTests' );
+	}
+
+	/** @dataProvider provideStandaloneTests */
+	function testStandaloneTests( $key, $testName, $expected ) {
+		$this->runTestProvider( 'StandaloneTests', $key, $testName, $expected );
 	}
 }
 
