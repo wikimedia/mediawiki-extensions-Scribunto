@@ -534,7 +534,6 @@ function MWServer:newEnvironment()
 		"xpcall",
 		"_VERSION",
 		-- libs
-		"string",
 		"table",
 		"math"
 	}
@@ -543,6 +542,10 @@ function MWServer:newEnvironment()
 	for i = 1, #allowedGlobals do
 		env[allowedGlobals[i]] = mw.clone( _G[allowedGlobals[i]] )
 	end
+
+	-- Cloning 'string' doesn't work right, because strings still use the old
+	-- 'string' as the metatable. So just copy it.
+	env.string = string
 
 	env._G = env
 	env.tostring = function( val )
