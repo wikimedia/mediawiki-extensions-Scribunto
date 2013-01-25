@@ -4,6 +4,12 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = array();
 
+	public function getPerformanceCharacteristics() {
+		return array(
+			'phpCallsRequireSerialization' => false,
+		);
+	}
+
 	public function getLimitReport() {
 		$this->load();
 		$lang = Language::factory( 'en' );

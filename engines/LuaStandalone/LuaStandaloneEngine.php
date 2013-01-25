@@ -13,6 +13,12 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	public function getPerformanceCharacteristics() {
+		return array(
+			'phpCallsRequireSerialization' => true,
+		);
+	}
+
 	/**
 	 * @return string
 	 */
