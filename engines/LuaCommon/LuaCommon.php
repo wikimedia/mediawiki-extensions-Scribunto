@@ -9,6 +9,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		'mw.site' => 'Scribunto_LuaSiteLibrary',
 		'mw.uri' => 'Scribunto_LuaUriLibrary',
 		'mw.ustring' => 'Scribunto_LuaUstringLibrary',
+		'mw.language' => 'Scribunto_LuaLanguageLibrary',
 	);
 
 	/**
