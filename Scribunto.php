@@ -100,6 +100,7 @@ $wgAutoloadClasses['Scribunto_LuaLibraryBase'] = $dir.'engines/LuaCommon/Library
 $wgAutoloadClasses['Scribunto_LuaEngineTestBase'] = $dir.'tests/engines/LuaCommon/LuaEngineTestBase.php';
 $wgAutoloadClasses['Scribunto_LuaDataProvider'] = $dir.'tests/engines/LuaCommon/LuaDataProvider.php';
 $wgAutoloadClasses['Scribunto_LuaSiteLibrary'] = $dir.'engines/LuaCommon/SiteLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaUriLibrary'] = $dir.'engines/LuaCommon/UriLibrary.php';
 
 /***** Configuration *****/
 
