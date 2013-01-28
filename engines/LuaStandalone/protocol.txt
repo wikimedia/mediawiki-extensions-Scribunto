@@ -22,7 +22,8 @@ message. In this way, a stack of pending requests can be accumulated. This
 mechanism allows re-entrant and recursive calls. 
 
 All numerically-indexed arrays should start from index 1 unless otherwise
-specified.
+specified. Note that the number of values in an array may not match what Lua's
+'#' operator returns if the array contains nils.
 
 == Request messages sent from PHP to Lua ==
 
@@ -38,6 +39,7 @@ Message parameters:
 On success, the response message is:
 
 * op: "return"
+* nvalues: 1
 * values: An array with a single element with the ID in it
 
 On failure, the response message is:
@@ -52,11 +54,13 @@ Call a Lua function.
 Message parameters:
 * op: "call"
 * id: The chunk ID
+* nargs: Number of arguments, including nils
 * args: The argument array
 
 On success, the response message is:
 
 * op: "return"
+* nvalues: Number of return values, including nils
 * values: All return values as an array
 
 On failure, the response message is:
@@ -81,6 +85,7 @@ Message parameters:
 On success, the response message is:
 
 * op: "return"
+* nvalues: 0
 * values: An empty array
 
 On failure the response message is:
@@ -98,6 +103,7 @@ Message parameters:
 On success, the response message is:
 
 * op: "return"
+* nvalues: 1
 * values: An array with a single element, which is an associative array mapping
   status key to value. The status keys are:
 ** pid: The process identifier
@@ -108,6 +114,7 @@ On success, the response message is:
 On failure, the response message is:
 
 * op: "return"
+* nvalues: 0
 * values: An empty array
 
 === quit ===
@@ -128,11 +135,13 @@ Call a PHP function.
 Message parameters:
 * op: "call"
 * id: The function ID given by registerLibrary
+* nargs: Number of arguments, including nils
 * args: An array giving the function arguments
 
 On success, the response message is:
 
 * op: "return"
+* nvalues: Number of return values, including nils
 * values: All return values as an array
 
 On failure the response message is:
