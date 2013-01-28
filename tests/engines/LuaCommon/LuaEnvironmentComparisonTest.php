@@ -60,7 +60,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 			xxxseen = {}
 			function xxxGetTable( t )
 				if xxxseen[t] then
-					return xxxseen[t]
+					return 'table'
 				end
 				local ret = {}
 				xxxseen[t] = ret
