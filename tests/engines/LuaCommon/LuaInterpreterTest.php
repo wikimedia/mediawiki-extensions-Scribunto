@@ -108,6 +108,10 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			array( array( 'x' => 'foo', 'y' => 'bar', 'z' => array() ) ),
 			array( INF ),
 			array( -INF ),
+			array( 'ok', null, 'ok' ),
+			array( null, 'ok' ),
+			array( 'ok', null ),
+			array( null ),
 		);
 	}
 

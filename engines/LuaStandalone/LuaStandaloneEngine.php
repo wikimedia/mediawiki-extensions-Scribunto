@@ -174,6 +174,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$result = $this->dispatch( array(
 			'op' => 'call',
 			'id' => $func->id,
+			'nargs' => count( $args ),
 			'args' => $args ) );
 		// Convert return values to zero-based
 		return array_values( $result );
@@ -212,7 +213,23 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $result[1];
 	}
 
+	/**
+	 * Fill in missing nulls in a list received from Lua
+	 *
+	 * @param $array array List received from Lua
+	 * @param $count integer Number of values that should be in the list
+	 * @return array Non-sparse array
+	 */
+	private static function fixNulls( array $array, $count ) {
+		if ( count( $array ) === $count ) {
+			return $array;
+		} else {
+			return array_replace( array_fill( 1, $count, null ), $array );
+		}
+	}
+
 	protected function handleCall( $message ) {
+		$message['args'] = self::fixNulls( $message['args'], $message['nargs'] );
 		try {
 			$result = $this->callback( $message['id'], $message['args'] );
 		} catch ( Scribunto_LuaError $e ) {
@@ -230,6 +247,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		return array(
 			'op' => 'return',
+			'nvalues' => count( $result ),
 			'values' => $result
 		);
 	}
@@ -258,7 +276,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 			switch ( $msgFromLua['op'] ) {
 				case 'return':
-					return $msgFromLua['values'];
+					return self::fixNulls( $msgFromLua['values'], $msgFromLua['nvalues'] );
 				case 'call':
 					$msgToLua = $this->handleCall( $msgFromLua );
 					$this->sendMessage( $msgToLua );

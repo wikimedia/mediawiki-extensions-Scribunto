@@ -34,21 +34,28 @@ function MWServer:execute()
 	self:debug( 'MWServer:execute: returning' )
 end
 
+-- Convert a multiple-return-value or a ... into a count and a table
+function MWServer:listToCountAndTable( ... )
+	return select( '#', ... ), { ... }
+end
+
 --- Call a PHP function
 -- Raise an error if the PHP handler requests it. May return any number
 -- of values.
 --
 -- @param id The function ID, specified by a registerLibrary message
+-- @param nargs Count of function arguments
 -- @param args The function arguments
 -- @return The return values from the PHP function
-function MWServer:call( id, args )
+function MWServer:call( id, nargs, args )
 	local result = self:dispatch( {
 		op = 'call',
 		id = id,
+		nargs = nargs,
 		args = args
 	} )
 	if result.op == 'return' then
-		return unpack( result.values )
+		return unpack( result.values, 1, result.nvalues )
 	elseif result.op == 'error' then
 		-- Raise an error in the actual user code that called the function
 		-- The level is 3 since our immediate caller is a closure
@@ -63,19 +70,22 @@ end
 -- @param message The message from PHP
 -- @return A response message to send back to PHP
 function MWServer:handleCall( message )
-	local result = { xpcall( 
+	local n, result = self:listToCountAndTable( xpcall(
 		function ()
-			return self.chunks[message.id]( unpack( message.args ) )
+			return self.chunks[message.id]( unpack( message.args, 1, message.nargs ) )
 		end,
 		function ( err )
 			return MWServer:attachTrace( err )
-		end 
-		) }
-	
+		end
+	) )
+
 	if result[1] then
-		table.remove( result, 1 )
+		-- table.remove( result, 1 ) renumbers from 2 to #result. But #result
+		-- is not necessarily "right" if result contains nils.
+		result = { unpack( result, 2, n ) }
 		return {
 			op = 'return',
+			nvalues = n - 1,
 			values = result
 		}
 	else
@@ -124,6 +134,7 @@ function MWServer:handleLoadString( message )
 		local id = self:addChunk( chunk )
 		return {
 			op = 'return',
+			nvalues = 1,
 			values = {id}
 		}
 	else
@@ -161,14 +172,15 @@ function MWServer:handleRegisterLibrary( message )
 
 	for name, id in pairs( message.functions ) do
 		t[name] = function( ... )
-			return self:call( id, { ... } )
+			return self:call( id, self:listToCountAndTable( ... ) )
 		end
 		-- Protect the function against setfenv()
 		self.protectedFunctions[t[name]] = true
 	end
-	
+
 	return {
 		op = 'return',
+		nvalues = 0,
 		values = {}
 	}
 end
@@ -181,13 +193,14 @@ end
 function MWServer:handleWrapPhpFunction( message )
 	local id = message.id
 	local func = function( ... )
-		return self:call( id, { ... } )
+		return self:call( id, self:listToCountAndTable( ... ) )
 	end
 	-- Protect the function against setfenv()
 	self.protectedFunctions[func] = true
 
 	return {
 		op = 'return',
+		nvalues = 1,
 		values = { func }
 	}
 end
@@ -199,6 +212,7 @@ end
 function MWServer:handleGetStatus( message )
 	local nullRet = {
 		op = 'return',
+		nvalues = 0,
 		values = {}
 	}
 	local file = io.open( '/proc/self/stat' )
@@ -216,6 +230,7 @@ function MWServer:handleGetStatus( message )
 	end
 	return {
 		op = 'return',
+		nvalues = 1,
 		values = {{
 			pid = tonumber(t[1]),
 			time = tonumber(t[14]) + tonumber(t[15]) + tonumber(t[16]) + tonumber(t[17]),
