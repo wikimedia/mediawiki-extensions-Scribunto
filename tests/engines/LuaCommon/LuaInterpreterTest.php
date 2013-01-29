@@ -147,7 +147,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			return array( 42, $n );
 		} );
 		$res = $interpreter->callFunction( $func, 'From PHP' );
-		$this->assertEquals( $res, array( 42, 'From PHP' ) );
+		$this->assertEquals( array( 42, 'From PHP' ), $res );
 
 		$chunk = $interpreter->loadString( '
 			f = ...
@@ -155,7 +155,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			',
 			'wrappedPhpFunction' );
 		$res = $interpreter->callFunction( $chunk, $func );
-		$this->assertEquals( $res, array( 42, 'From Lua' ) );
+		$this->assertEquals( array( 42, 'From Lua' ), $res );
 	}
 }
 
