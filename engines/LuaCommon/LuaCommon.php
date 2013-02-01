@@ -2,6 +2,7 @@
 
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	static $libraryClasses = array(
+		'mw.site' => 'Scribunto_LuaSiteLibrary',
 	);
 
 	protected $loaded = false;

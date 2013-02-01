@@ -323,6 +323,7 @@ WIKI;
 			'engines/LuaSandbox/SandboxTest.php',
 			'engines/LuaCommon/LuaEnvironmentComparisonTest.php',
 			'engines/LuaCommon/CommonTest.php',
+			'engines/LuaCommon/SiteLibraryTest.php',
 		);
 		foreach ( $tests as $test ) {
 			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
