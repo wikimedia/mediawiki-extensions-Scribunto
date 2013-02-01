@@ -432,4 +432,8 @@ function mw.getCurrentFrame()
 	return currentFrame
 end
 
+function mw.incrementExpensiveFunctionCount()
+	php.incrementExpensiveFunctionCount()
+end
+
 return mw

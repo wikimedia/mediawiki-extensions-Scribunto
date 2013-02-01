@@ -183,6 +183,8 @@ abstract class Scribunto_LuaEngineTest extends MediaWikiTestCase {
 
 	/** @dataProvider provideCommonTests */
 	function testCommonTests( $key, $testName, $expected ) {
+		// Note this depends on every iteration of the data provider running with a clean parser
+		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 		$this->runTestProvider( 'CommonTests', $key, $testName, $expected );
 	}
 }
