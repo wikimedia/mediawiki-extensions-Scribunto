@@ -58,7 +58,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			'getExpandedArgument',
 			'getAllExpandedArguments',
 			'expandTemplate',
-			'preprocess'
+			'preprocess',
+			'incrementExpensiveFunctionCount',
 		);
 
 		$lib = array();
@@ -381,6 +382,18 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'args' => $frame->getArguments()
 			) );
 		return array( $text );
+	}
+
+	/**
+	 * Increment the expensive function count, and throw if limit exceeded
+	 *
+	 * @return null
+	 */
+	public function incrementExpensiveFunctionCount() {
+		if ( !$this->getParser()->incrementExpensiveFunctionCount() ) {
+			throw new Scribunto_LuaError( "too many expensive function calls" );
+		}
+		return null;
 	}
 
 	function doCachedExpansion( $frame, $input, $cacheKey ) {

@@ -131,6 +131,13 @@ function test.getfenv3()
 	end
 end
 
+function test.executeExpensiveCalls( n )
+	for i = 1, n do
+		mw.incrementExpensiveFunctionCount()
+	end
+	return 'Did not error out'
+end
+
 function test.stringMetatableHidden1()
 	return getmetatable( "" )
 end
@@ -206,6 +213,16 @@ return testframework.getTestProvider( {
 	},
 	{ name = 'getfenv with tail call', func = test.getfenv3,
 	  expect = "no function environment for tail call",
+	},
+
+	{ name = 'Not quite too many expensive function calls',
+	  func = test.executeExpensiveCalls, args = { 10 },
+	  expect = { 'Did not error out' }
+	},
+
+	{ name = 'Too many expensive function calls',
+	  func = test.executeExpensiveCalls, args = { 11 },
+	  expect = 'too many expensive function calls'
 	},
 
 	{ name = 'string metatable is hidden', func = test.stringMetatableHidden1,

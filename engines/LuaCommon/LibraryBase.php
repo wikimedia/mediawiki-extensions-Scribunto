@@ -157,4 +157,13 @@ abstract class Scribunto_LuaLibraryBase {
 			$this->checkType( $name, $argIdx, $arg, $expectType );
 		}
 	}
+
+	/**
+	 * Increment the expensive function count, and throw if limit exceeded
+	 *
+	 * @return null
+	 */
+	public function incrementExpensiveFunctionCount() {
+		return $this->getEngine()->incrementExpensiveFunctionCount();
+	}
 }
