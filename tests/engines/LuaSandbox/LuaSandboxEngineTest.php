@@ -1,6 +1,6 @@
 <?php
 
-if ( php_sapi_name() !== 'cli' ) exit;
+if ( PHP_SAPI !== 'cli' ) exit;
 require_once( __DIR__ . '/../LuaCommon/LuaEngineTest.php' );
 
 class Scribunto_LuaSandboxEngineTest extends Scribunto_LuaEngineTest {

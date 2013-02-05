@@ -1,6 +1,6 @@
 <?php
 
-if ( php_sapi_name() !== 'cli' ) exit;
+if ( PHP_SAPI !== 'cli' ) exit;
 require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaInterpreterTest.php' );
 
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
