@@ -1,6 +1,6 @@
 <?php
 
-class LuaDataProvider implements Iterator {
+class Scribunto_LuaDataProvider implements Iterator {
 	protected $engine = null;
 	protected $exports = null;
 	protected $key = 1;
