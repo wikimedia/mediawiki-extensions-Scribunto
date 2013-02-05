@@ -318,9 +318,12 @@ WIKI;
 	public static function unitTestsList( &$files ) {
 		$tests = array(
 			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
-			'engines/LuaStandalone/LuaStandaloneEngineTest.php',
+			'engines/LuaStandalone/StandaloneTest.php',
 			'engines/LuaSandbox/LuaSandboxInterpreterTest.php',
-			'engines/LuaSandbox/LuaSandboxEngineTest.php' );
+			'engines/LuaSandbox/SandboxTest.php',
+			'engines/LuaCommon/LuaEnvironmentComparisonTest.php',
+			'engines/LuaCommon/CommonTest.php',
+		);
 		foreach ( $tests as $test ) {
 			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
 		}
