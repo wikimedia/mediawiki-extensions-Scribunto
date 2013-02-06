@@ -8,7 +8,6 @@ function site.setupInterface( info )
 
 	site.siteName = info.siteName
 	site.server = info.server
-	site.serverName = info.serverName
 	site.scriptPath = info.scriptPath
 	site.stylePath = info.stylePath
 	site.currentVersion = info.currentVersion

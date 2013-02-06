@@ -18,7 +18,6 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		$info = array(
 			'siteName' => $GLOBALS['wgSitename'],
 			'server' => $GLOBALS['wgServer'],
-			'serverName' => $GLOBALS['wgServerName'],
 			'scriptPath' => $GLOBALS['wgScriptPath'],
 			'stylePath' => $GLOBALS['wgStylePath'],
 			'currentVersion' => SpecialVersion::getVersion(),
