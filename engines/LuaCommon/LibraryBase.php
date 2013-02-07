@@ -74,6 +74,15 @@ abstract class Scribunto_LuaLibraryBase {
 	}
 
 	/**
+	 * Get the title
+	 *
+	 * @return Title title
+	 */
+	protected function getTitle() {
+		return $this->getEngine()->getTitle();
+	}
+
+	/**
 	 * Get the parser options
 	 *
 	 * @return ParserOptions parser options
