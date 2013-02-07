@@ -1,26 +1,5 @@
 local testframework = require 'Module:TestFramework'
 
--- Execute a function and assert expected results
--- Expected value is a list of return values, or a string error message
-testframework.types.ToString = {
-	format = function ( expect )
-		if type( expect ) == 'string' then
-			return 'ERROR: ' .. expect
-		else
-			return tostring( expect[1] )
-		end
-	end,
-	exec = function ( func, args )
-		local got = { pcall( func, unpack( args ) ) }
-		if table.remove( got, 1 ) then
-			return tostring( got[1] )
-		else
-			got = string.gsub( got[1], '^%S+:%d+: ', '' )
-			return 'ERROR: ' .. got
-		end
-	end
-}
-
 -- Tests
 local tests = {
 	{ name = 'uri.encode', func = mw.uri.encode,

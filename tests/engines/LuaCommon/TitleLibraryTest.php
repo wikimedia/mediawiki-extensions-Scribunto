@@ -1,0 +1,77 @@
+<?php
+
+// Hook to inject our interwiki prefix
+$wgHooks['InterwikiLoadPrefix'][] = function ( $prefix, &$data ) {
+	if ( $prefix !== 'scribuntotitletest' ) {
+		return true;
+	}
+
+	$data = array(
+		'iw_prefix' => 'scribuntotitletest',
+		'iw_url'    => '//test.wikipedia.org/wiki/$1',
+		'iw_api'    => 1,
+		'iw_wikiid' => 0,
+		'iw_local'  => 0,
+		'iw_trans'  => 0
+	);
+	return false;
+};
+
+class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
+	protected static $moduleName = 'TitleLibraryTests';
+
+	public static function suite( $className ) {
+		global $wgInterwikiCache;
+		if ( $wgInterwikiCache ) {
+			$suite = new PHPUnit_Framework_TestSuite;
+			$suite->setName( $className );
+			$suite->addTest(
+				new Scribunto_LuaEngineTestSkip(
+					$className, 'Cannot run TitleLibrary tests when $wgInterwikiCache is set'
+				), array( 'Lua' )
+			);
+			return $suite;
+		}
+
+		return parent::suite( $className );
+	}
+
+	function setUp() {
+		parent::setUp();
+
+		// Note this depends on every iteration of the data provider running with a clean parser
+		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
+
+		$this->setMwGlobals( array(
+			'wgServer' => '//wiki.local',
+			'wgCanonicalServer' => 'http://wiki.local',
+			'wgUsePathInfo' => true,
+			'wgActionPaths' => array(),
+			'wgScript' => '/w/index.php',
+			'wgScriptPath' => '/w',
+			'wgArticlePath' => '/wiki/$1',
+		) );
+	}
+
+	function getTestModules() {
+		return parent::getTestModules() + array(
+			'TitleLibraryTests' => __DIR__ . '/TitleLibraryTests.lua',
+		);
+	}
+
+	function testAddsLinks() {
+		$engine = $this->getEngine();
+		$interpreter = $engine->getInterpreter();
+
+		$links = $engine->getParser()->getOutput()->getLinks();
+		$this->assertFalse( isset( $links[NS_PROJECT]['Referenced_from_Lua'] ) );
+
+		$interpreter->callFunction(
+			$interpreter->loadString( 'mw.title.new( "Project:Referenced from Lua" )', 'reference title' )
+		);
+
+		$links = $engine->getParser()->getOutput()->getLinks();
+		$this->assertArrayHasKey( NS_PROJECT, $links );
+		$this->assertArrayHasKey( 'Referenced_from_Lua', $links[NS_PROJECT] );
+	}
+}

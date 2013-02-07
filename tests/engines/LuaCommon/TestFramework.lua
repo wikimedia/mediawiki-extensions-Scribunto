@@ -176,6 +176,34 @@ testframework.types.Iterator = {
 	end
 }
 
+-- Execute a function and assert expected results
+-- Expected value is a list of return values, or a string error message
+testframework.types.ToString = {
+	format = function ( expect )
+		if type( expect ) == 'string' then
+			return 'ERROR: ' .. expect
+		else
+			local ret = {}
+			for k, v in pairs( expect ) do
+				ret[k] = tostring( v )
+			end
+			return deepToString( ret )
+		end
+	end,
+	exec = function ( func, args )
+		local got = { pcall( func, unpack( args ) ) }
+		if table.remove( got, 1 ) then
+			for k, v in pairs( got ) do
+				got[k] = tostring( v )
+			end
+			return deepToString( got )
+		else
+			got = string.gsub( got[1], '^%S+:%d+: ', '' )
+			return 'ERROR: ' .. got
+		end
+	end
+}
+
 -- This takes a list of tests to run, and returns the object used by PHP to
 -- call them.
 --

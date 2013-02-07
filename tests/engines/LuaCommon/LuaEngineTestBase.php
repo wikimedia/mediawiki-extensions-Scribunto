@@ -82,8 +82,9 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 				$engine->getInterpreter();
 			} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 				$suite->addTest(
-					new $className( 'skipUnavailable', array(), '', $engineName ),
-					array( 'Lua', $engineName )
+					new Scribunto_LuaEngineTestSkip(
+						$className, "interpreter for $engineName is not available"
+					), array( 'Lua', $engineName )
 				);
 				continue;
 			}
@@ -167,10 +168,6 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		return $this->engine;
 	}
 
-	function skipUnavailable() {
-		$this->markTestSkipped( "interpreter for $this->engineName is not available" );
-	}
-
 	function templateCallback( $title, $parser ) {
 		if ( isset($this->extraModules[$title->getFullText()]) ) {
 			return array(
@@ -223,5 +220,29 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		$actual = $this->provideLuaData()->run( $key );
 		$this->assertSame( $expected, $actual );
 		$this->luaTestName = null;
+	}
+}
+
+class Scribunto_LuaEngineTestSkip extends PHPUnit_Framework_TestCase {
+	private $className = '';
+	private $message = '';
+
+	public function __construct( $className = '', $message = '' ) {
+		$this->className = $className;
+		$this->message = $message;
+		parent::__construct( 'testDummy' );
+	}
+
+	public function testDummy() {
+		if ( $this->className ) {
+			$this->markTestSkipped( $this->message );
+		} else {
+			// Dummy
+			$this->assertTrue( true );
+		}
+	}
+
+	public function toString() {
+		return $this->className;
 	}
 }
