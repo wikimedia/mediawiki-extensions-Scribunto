@@ -28,6 +28,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 			$engine = new Scribunto_LuaSandboxEngine(
 				array( 'parser' => $parser ) + $this->sandboxOpts
 			);
+			$engine->setTitle( $parser->getTitle() );
 			$engine->getInterpreter();
 			$this->engines['LuaSandbox'] = $engine;
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
@@ -39,6 +40,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 			$engine = new Scribunto_LuaStandaloneEngine(
 				array( 'parser' => $parser ) + $this->standaloneOpts
 			);
+			$engine->setTitle( $parser->getTitle() );
 			$engine->getInterpreter();
 			$this->engines['LuaStandalone'] = $engine;
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
