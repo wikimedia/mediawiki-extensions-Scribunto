@@ -246,7 +246,7 @@
 
 		var params = {
 			action: 'scribunto-console',
-			title: mw.config.get( 'wgTitle' ),
+			title: mw.config.get( 'wgPageName' ),
 			question: question
 		};
 
