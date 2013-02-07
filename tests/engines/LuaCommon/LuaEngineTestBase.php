@@ -78,6 +78,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 				$engine = new $engineClass(
 					self::$engineConfigurations[$engineName] + array( 'parser' => $parser )
 				);
+				$engine->setTitle( $parser->getTitle() );
 				$engine->getInterpreter();
 			} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 				$suite->addTest(
@@ -161,6 +162,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 			$this->engine = new $class(
 				self::$engineConfigurations[$this->engineName] + array( 'parser' => $parser )
 			);
+			$this->engine->setTitle( $parser->getTitle() );
 		}
 		return $this->engine;
 	}
