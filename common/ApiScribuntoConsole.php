@@ -26,11 +26,13 @@ class ApiScribuntoConsole extends ApiBase {
 		$sessionKey = wfMemcKey( 'scribunto-console', $wgUser->getId(), $sessionId );
 		$cache = ObjectCache::getInstance( CACHE_ANYTHING );
 		$session = null;
+		$sessionIsNew = false;
 		if ( $params['session'] ) {
 			$session = $cache->get( $sessionKey );
 		}
 		if ( !isset( $session['version'] ) ) {
 			$session = $this->newSession();
+			$sessionIsNew = true;
 		}
 
 		// Create a variable holding the session which will be stored if there 
@@ -73,6 +75,9 @@ class ApiScribuntoConsole extends ApiBase {
 		$result['session'] = $sessionId;
 		$result['sessionSize'] = $newSession['size'];
 		$result['sessionMaxSize'] = self::SC_MAX_SIZE;
+		if ( $sessionIsNew ) {
+			$result['sessionIsNew'] = '';
+		}
 		foreach ( $result as $key => $value ) {
 			$this->getResult()->addValue( null, $key, $value );
 		}
