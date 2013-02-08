@@ -247,13 +247,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$args = func_get_args();
 		$this->checkString( 'loadPackage', $args, 0 );
 
+		# This is what Lua does for its built-in loaders
+		$luaName = str_replace( '.', '/', $name ) . '.lua';
 		foreach ( $this->libraryPaths as $path ) {
-			$fileName = $this->getLuaLibDir() . "/$path/$name.lua";
+			$fileName = $this->getLuaLibDir() . "/$path/$luaName";
 			if ( !file_exists( $fileName ) ) {
 				continue;
 			}
 			$code = file_get_contents( $fileName );
-			$init = $this->interpreter->loadString( $code, "@$name.lua" );
+			$init = $this->interpreter->loadString( $code, "@$luaName" );
 			return array( $init );
 		}
 
