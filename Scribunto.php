@@ -82,6 +82,7 @@ $wgResourceModules['ext.scribunto.edit'] = $sbtpl + array(
 		'scribunto-console-intro',
 		'scribunto-console-clear',
 		'scribunto-console-cleared',
+		'scribunto-console-cleared-session-lost',
 	),
 );
 $wgAPIModules['scribunto-console'] = 'ApiScribuntoConsole';

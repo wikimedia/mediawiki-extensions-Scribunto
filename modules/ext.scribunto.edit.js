@@ -73,7 +73,7 @@
 		}
 
 		if ( getContent() !== sessionContent ) {
-			printClearBar();
+			printClearBar( 'scribunto-console-cleared' );
 			clearNextRequest = true;
 		}
 	}
@@ -128,10 +128,10 @@
 		div.insertBefore( head, div.firstChild );
 	}
 
-	function printClearBar() {
+	function printClearBar( msg ) {
 		$( '<div/>' )
 			.attr( 'class', 'mw-scribunto-clear' )
-			.text( mw.msg( 'scribunto-console-cleared' ) )
+			.text( mw.msg( msg ) )
 			.appendTo( _out );
 	}
 
@@ -251,9 +251,11 @@
 		};
 
 		var content = getContent();
+		var sentContent = false;
 		if ( !sessionKey || sessionContent !== content ) {
 			params.clear = true;
 			params.content = content;
+			sentContent = true;
 		}
 		if ( sessionKey ) {
 			params.session = sessionKey;
@@ -268,6 +270,15 @@
 
 		api.post( params, {
 			ok: function ( result ) {
+				if ( result.sessionIsNew === '' && !sentContent ) {
+					// Session was lost. Resend query, with content
+					printClearBar( 'scribunto-console-cleared-session-lost' );
+					sessionContent = null;
+					clearPending();
+					_in.value = params.question;
+					go();
+					return;
+				}
 				sessionKey = result.session;
 				sessionContent = content;
 				if ( result.type === 'error' ) {
