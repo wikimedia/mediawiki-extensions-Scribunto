@@ -761,6 +761,12 @@ $1',
  * @author David1010
  */
 $messages['ka'] = array(
+	'scribunto-parser-error' => 'სკრიპტის შეცდომა',
+	'scribunto-parser-dialog-title' => 'სკრიპტის შეცდომა',
+	'scribunto-error-short' => 'სკრიპტის შეცდომა: $1',
+	'scribunto-error-long' => 'სკრიპტის შეცდომები:
+
+$1',
 	'scribunto-console-clear' => 'გასუფთავება',
 );
 
