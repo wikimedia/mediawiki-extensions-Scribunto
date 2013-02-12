@@ -32,6 +32,7 @@ $1',
 	'scribunto-console-previous-src' => 'previous console input',
 	'scribunto-console-clear' => 'Clear',
 	'scribunto-console-cleared' => 'The console state was cleared because the module was updated.',
+	'scribunto-console-cleared-session-lost' => 'The console state was cleared because the session data was lost.',
 
 
 	'scribunto-common-error-category' => 'Pages with script errors',
@@ -89,6 +90,8 @@ $messages['qqq'] = array(
 	'scribunto-common-timeout' => 'Error message displayed when script execution has passed a threshold.',
 	'scribunto-common-oom' => 'Error message displayed when the script requires more memory than the threshold.',
 	'scribunto-common-backtrace' => 'A backtrace is a list of the function calls that are currently active in a thread. This message is followed by a backtrace.',
+	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
+	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
 	'scribunto-lua-in-function' => 'Reference to a function name. Parameters:
 * $1 is a function name.',
 	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.',
