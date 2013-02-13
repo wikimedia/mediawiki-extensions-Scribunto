@@ -83,6 +83,8 @@ $messages['qqq'] = array(
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
+	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
+	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
 	'scribunto-common-error-category' => 'Tracking category for pages with errors from #invoke',
 	'scribunto-common-nosuchmodule' => 'Error message displayed when referencing a non-existing module.',
 	'scribunto-common-nofunction' => 'Error message displayed when not specifying a function to call.',
@@ -90,8 +92,6 @@ $messages['qqq'] = array(
 	'scribunto-common-timeout' => 'Error message displayed when script execution has passed a threshold.',
 	'scribunto-common-oom' => 'Error message displayed when the script requires more memory than the threshold.',
 	'scribunto-common-backtrace' => 'A backtrace is a list of the function calls that are currently active in a thread. This message is followed by a backtrace.',
-	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
-	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
 	'scribunto-lua-in-function' => 'Reference to a function name. Parameters:
 * $1 is a function name.',
 	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.',
@@ -244,6 +244,7 @@ $1',
 	'scribunto-console-previous-src' => 'vorherige Konsoleneingabe',
 	'scribunto-console-clear' => 'Leeren',
 	'scribunto-console-cleared' => 'Die Konsole wurde geleert, da das Modul aktualisiert wurde.',
+	'scribunto-console-cleared-session-lost' => 'Der Konsolenstatus wurde gelöscht, da die Sitzungsdaten verloren gegangen sind.',
 	'scribunto-common-error-category' => 'Seiten mit Skriptfehlern',
 	'scribunto-common-nosuchmodule' => 'Skriptfehler: Ein solches Modul ist nicht vorhanden.',
 	'scribunto-common-nofunction' => 'Skriptfehler: Es muss eine aufzurufende Funktion angegeben werden.',
@@ -396,6 +397,7 @@ $1',
 	'scribunto-console-previous-src' => 'entrée de la console précédente',
 	'scribunto-console-clear' => 'Effacer',
 	'scribunto-console-cleared' => "L'état de la console a été effacé parce que le module a été mis à jour.",
+	'scribunto-console-cleared-session-lost' => 'L’état de la console a été nettoyé car les données de sessions ont été perdues.',
 	'scribunto-common-error-category' => 'Pages avec des erreurs de script',
 	'scribunto-common-nosuchmodule' => 'Erreur de script : Pas de tel module.',
 	'scribunto-common-nofunction' => 'Erreur de script : vous devez spécifier une fonction à appeler.',
@@ -1010,6 +1012,32 @@ $1',
 	'scribunto-luastandalone-gone' => 'Luafout: interne fout: de verwerkingsmodule is al klaar',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
+);
+
+/** Norwegian Nynorsk (norsk nynorsk)
+ * @author Njardarlogar
+ */
+$messages['nn'] = array(
+	'scribunto-desc' => 'Rammeverk for å byggja inn skriptspråk i MediaWiki-sider',
+	'scribunto-parser-error' => 'Skriptfeil',
+	'scribunto-parser-dialog-title' => 'Skriptfeil',
+	'scribunto-error-short' => 'Skriptfeil: $1',
+	'scribunto-error-long' => 'Skriptfeil:
+
+$1',
+	'scribunto-console-intro' => '* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.
+* Byrja ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().
+* Bruk mw.log() i modulkode for å senda meldingar til denne konsollen.',
+	'scribunto-console-title' => 'Feilsøkingskonsoll',
+	'scribunto-console-clear' => 'Tøm',
+	'scribunto-common-error-category' => 'Sider med skriptfeil',
+	'scribunto-common-nosuchmodule' => 'Skriptfeil: Modulen finst ikkje.',
+	'scribunto-common-nofunction' => 'Skriptfeil: du lyt oppgje ein funksjon som skal kallast.',
+	'scribunto-common-nosuchfunction' => 'Skriptfeil: funksjonen du oppgav finst ikkje.',
+	'scribunto-common-timeout' => 'Tida tildelt skriptkøyring har gått utt.',
+	'scribunto-common-oom' => 'Mengda minne tildelt skriptkøyring er overstigen.',
+	'scribunto-lua-in-function' => 'i funksjonen «$1»',
+	'scribunto-lua-in-main' => 'i hovuddelen',
 );
 
 /** Polish (polski)
