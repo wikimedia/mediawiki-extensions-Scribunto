@@ -1,4 +1,4 @@
-testframework = testframework or {}
+local testframework = testframework or {}
 
 -- Return a string represetation of a value, including the deep structure of a table
 local function deepToString( val, indent, done )

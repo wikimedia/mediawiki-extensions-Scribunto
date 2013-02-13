@@ -3,6 +3,43 @@
 class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'CommonTests';
 
+	private static $allowedGlobals = array(
+		// Functions
+		'assert',
+		'error',
+		'getfenv',
+		'getmetatable',
+		'ipairs',
+		'next',
+		'pairs',
+		'pcall',
+		'rawequal',
+		'rawget',
+		'rawset',
+		'require',
+		'select',
+		'setfenv',
+		'setmetatable',
+		'tonumber',
+		'tostring',
+		'type',
+		'unpack',
+		'xpcall',
+
+		// Packages
+		'_G',
+		'debug',
+		'math',
+		'mw',
+		'os',
+		'package',
+		'string',
+		'table',
+
+		// Misc
+		'_VERSION',
+	);
+
 	function setUp() {
 		parent::setUp();
 
@@ -13,6 +50,22 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	function getTestModules() {
 		return parent::getTestModules() + array(
 			'CommonTests' => __DIR__ . '/CommonTests.lua',
+		);
+	}
+
+	function testNoLeakedGlobals() {
+		$interpreter = $this->getEngine()->getInterpreter();
+
+		list( $actualGlobals ) = $interpreter->callFunction(
+			$interpreter->loadString(
+				'local t = {} for k in pairs( _G ) do t[#t+1] = k end return t',
+				'getglobals'
+			)
+		);
+
+		$leakedGlobals = array_diff( $actualGlobals, self::$allowedGlobals );
+		$this->assertEquals( 0, count( $leakedGlobals ),
+			'The following globals are leaked: ' . join( ' ', $leakedGlobals )
 		);
 	}
 
