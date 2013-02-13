@@ -19,7 +19,7 @@ function site.setupInterface( info )
 
 	-- Process namespace list into more useful tables
 	site.namespaces = {}
-	namespacesByName = {}
+	local namespacesByName = {}
 	site.subjectNamespaces = {}
 	site.talkNamespaces = {}
 	site.contentNamespaces = {}

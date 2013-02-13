@@ -287,7 +287,7 @@ local function newFrame( frameId )
 	setmetatable( frame.args, args_mt )
 
 	local function newCallbackParserValue( callback )
-		value = {}
+		local value = {}
 		local cache
 
 		function value:expand()

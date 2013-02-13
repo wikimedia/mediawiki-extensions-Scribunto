@@ -6,7 +6,7 @@ package.loaded.ustring = old_ustring
 old_ustring = nil
 
 local util = require 'libraryUtil'
-checkType = util.checkType
+local checkType = util.checkType
 
 local gmatch_init = nil
 local gmatch_callback = nil
