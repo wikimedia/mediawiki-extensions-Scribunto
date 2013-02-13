@@ -79,30 +79,6 @@ function ustring.setupInterface( opt )
 		end
 	end
 
-	-- Extend string
-	local map = {
-		isutf8 = ustring.isutf8,
-		byteoffset = ustring.byteoffset,
-		codepoint = ustring.codepoint,
-		gcodepoint = ustring.gcodepoint,
-		toNFC = ustring.toNFC,
-		toNFD = ustring.toNFD,
-		uchar = ustring.char,
-		ulen = ustring.len,
-		usub = ustring.sub,
-		uupper = ustring.upper,
-		ulower = ustring.lower,
-		ufind = ustring.find,
-		umatch = ustring.match,
-		ugmatch = ustring.gmatch,
-		ugsub = ustring.gsub
-	}
-	for k, v in pairs( map ) do
-		if not string[k] then
-			string[k] = v
-		end
-	end
-
 	-- Register this library in the "mw" global
 	mw = mw or {}
 	mw.ustring = ustring
