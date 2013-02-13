@@ -4,8 +4,8 @@ local urimt = {}
 local php
 
 local util = require 'libraryUtil'
-checkType = util.checkType
-checkTypeForIndex = util.checkTypeForIndex
+local checkType = util.checkType
+local checkTypeForIndex = util.checkTypeForIndex
 
 function uri.setupInterface( options )
 	-- Boilerplate
@@ -562,9 +562,5 @@ function urifuncs:extend( parameters )
 
 	return self
 end
-
-string.urlencode = uri.encode
-string.urldecode = uri.decode
-string.anchorEncode = uri.anchorEncode
 
 return uri
