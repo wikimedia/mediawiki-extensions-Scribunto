@@ -1,10 +1,17 @@
 <?php
 
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
-	static $libraryClasses = array(
+	protected static $libraryClasses = array(
 		'mw.site' => 'Scribunto_LuaSiteLibrary',
 		'mw.uri' => 'Scribunto_LuaUriLibrary',
 		'mw.ustring' => 'Scribunto_LuaUstringLibrary',
+	);
+
+	protected static $libraryPaths = array(
+		'.',
+		'luabit',
+		'stringtools',
+		'ustring',
 	);
 
 	protected $loaded = false;
@@ -15,13 +22,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $loadedLibraries = array();
 
 	const MAX_EXPAND_CACHE_SIZE = 100;
-
-	var $libraryPaths = array(
-		'.',
-		'luabit',
-		'stringtools',
-		'ustring',
-	);
 
 	/**
 	 * Create a new interpreter object
@@ -74,7 +74,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->mw = $this->registerInterface( 'mw.lua', $lib,
 			array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
 
-		foreach ( self::$libraryClasses as $name => $class ) {
+		$libraries = $this->getLibraries( 'lua', self::$libraryClasses );
+		foreach ( $libraries as $name => $class ) {
 			$this->loadedLibraries[$name] = new $class( $this );
 			$this->loadedLibraries[$name]->register();
 		}
@@ -82,7 +83,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	public function registerInterface( $moduleFileName, $interfaceFuncs, $setupOptions = array() ) {
 		$this->interpreter->registerLibrary( 'mw_interface', $interfaceFuncs );
-		$package = $this->loadLibraryFromFile( "{$this->getLuaLibDir()}/{$moduleFileName}" );
+		$moduleFileName = $this->normalizeModuleFileName( $moduleFileName );
+		$package = $this->loadLibraryFromFile( $moduleFileName );
 		if ( $package['setupInterface'] ) {
 			$this->interpreter->callFunction( $package['setupInterface'], $setupOptions );
 		}
@@ -91,6 +93,17 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	public function getLuaLibDir() {
 		return dirname( __FILE__ ) .'/lualib';
+	}
+
+	/**
+	 * Normalize a lua module to its full path. If path does not begin with "/",
+	 * prepend getLuaLibDir()
+	 *
+	 * @param $file String name of the lua module file
+	 * @return string
+	 */
+	protected function normalizeModuleFileName( $fileName ) {
+		return $fileName[0] !== '/' ? "{$this->getLuaLibDir()}/{$fileName}" : $fileName;
 	}
 
 	/**
@@ -251,8 +264,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		# This is what Lua does for its built-in loaders
 		$luaName = str_replace( '.', '/', $name ) . '.lua';
-		foreach ( $this->libraryPaths as $path ) {
-			$fileName = $this->getLuaLibDir() . "/$path/$luaName";
+		$paths = $this->getLibraryPaths( 'lua', self::$libraryPaths );
+		foreach ( $paths as $path ) {
+			$fileName = $this->normalizeModuleFileName( "$path/$luaName" );
 			if ( !file_exists( $fileName ) ) {
 				continue;
 			}
