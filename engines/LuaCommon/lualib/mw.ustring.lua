@@ -14,10 +14,6 @@ local function php_gmatch( s, pattern )
 	checkType( 'gmatch', 1, s, 'string' )
 	checkType( 'gmatch', 2, pattern, 'string' )
 
-	if string.sub( pattern, 1, 1 ) == '^' then
-		return function() return nil end, nil, nil
-	end
-
 	local re, capt = gmatch_init( s, pattern )
 	local pos = 0
 	return function()
