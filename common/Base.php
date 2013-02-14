@@ -170,6 +170,32 @@ abstract class ScribuntoEngineBase {
 	public function getParser() {
 		return $this->parser;
 	}
+
+	/**
+	 * Load a list of all libraries supported by this engine
+	 *
+	 * @param $engine String script engine we're using (eg: lua)
+	 * @param $coreLibraries Array of core libraries we support
+	 * @return array
+	 */
+	protected function getLibraries( $engine, $coreLibraries = array() ) {
+		$extraLibraries = array();
+		wfRunHooks( 'ScribuntoExternalLibraries', array( $engine, &$extraLibraries ) );
+		return $coreLibraries + $extraLibraries;
+	}
+
+	/**
+	 * Load a list of all paths libraries can be in for this engine
+	 *
+	 * @param $engine String script engine we're using (eg: lua)
+	 * @param $coreLibraryPaths Array of library paths to use by default
+	 * @return array
+	 */
+	protected function getLibraryPaths( $engine, $coreLibraryPaths = array() ) {
+		$extraLibraryPaths = array();
+		wfRunHooks( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
+		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
+	}
 }
 
 /**
