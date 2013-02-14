@@ -52,7 +52,7 @@ function test.setfenv3()
 	local function jailbreak()
 		setfenv( 2, {} )
 	end
-	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncs( { [_G] = true }, {} )
+	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncsForTest( { [_G] = true }, {} )
 	setfenv( jailbreak, {setfenv = new_setfenv} )
 	jailbreak()
 end
@@ -62,17 +62,17 @@ function test.setfenv4()
 	-- environment. It's assumed that any higher-level environment will protect
 	-- itself with its own setfenv wrapper, so this succeeds.
 	local function level3()
+		local protected = {setfenv = setfenv, getfenv = getfenv, mw = mw}
 		local function level2()
-			local env = {setfenv = setfenv}
 			local function level1()
 				setfenv( 3, {} )
 			end
 
+			local env = {}
+			env.setfenv, env.getfenv = mw.makeProtectedEnvFuncsForTest(
+				{[protected] = true}, {} )
 			setfenv( level1, env )()
 		end
-		local protected = {mw = mw}
-		protected.setfenv, protected.getfenv = mw.makeProtectedEnvFuncs(
-			{[protected] = true}, {} )
 		setfenv( level2, protected )()
 	end
 	local unprotected = {setfenv = setfenv, getfenv = getfenv, mw = mw}
@@ -85,7 +85,7 @@ function test.setfenv5()
 	local function allowed()
 		(function() setfenv( 2, {} ) end )()
 	end
-	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncs( { [_G] = true }, {} )
+	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncsForTest( { [_G] = true }, {} )
 	setfenv( allowed, {setfenv = new_setfenv} )()
 	return 'ok'
 end
@@ -95,7 +95,7 @@ function test.setfenv6()
 	local function jailbreak()
 		setfenv( target, {} )
 	end
-	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncs( {}, { [target] = true } )
+	local new_setfenv, new_getfenv = mw.makeProtectedEnvFuncsForTest( {}, { [target] = true } )
 	setfenv( jailbreak, {setfenv = new_setfenv} )()
 end
 

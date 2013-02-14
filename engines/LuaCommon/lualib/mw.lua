@@ -136,6 +136,9 @@ function mw.executeModule( chunk )
 	local env = mw.clone( _G )
 	makePackageModule( env )
 
+	-- This is unsafe
+	env.mw.makeProtectedEnvFuncs = nil
+
 	if allowEnvFuncs then
 		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
 	else
@@ -187,6 +190,10 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 		elseif type( func ) == 'function' then
 			if protectedFunctions[func] then
 				error( "'setfenv' cannot be called on a protected function", 2 )
+			end
+			local env = old_getfenv( func )
+			if env == nil or protectedEnvironments[ env ] then
+				error( "'setfenv' cannot set the requested environment, it is protected", 2 )
 			end
 			old_setfenv( func, newEnv )
 		else
