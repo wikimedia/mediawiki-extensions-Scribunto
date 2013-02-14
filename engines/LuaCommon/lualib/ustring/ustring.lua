@@ -397,10 +397,11 @@ setmetatable( charset_cache, { __weak = 'kv' } )
 -- @param rawpat string  Pattern
 -- @param pattern table  Exploded pattern
 -- @param init int  Starting index
+-- @param noAnchor boolean  True to ignore '^'
 -- @return int starting index of the match
 -- @return int ending index of the match
 -- @return string|int* captures
-local function find( s, cps, rawpat, pattern, init )
+local function find( s, cps, rawpat, pattern, init, noAnchor )
 	local charsets = require 'ustring/charsets'
 	local anchor = false
 	local ncapt, captures
@@ -676,7 +677,7 @@ local function find( s, cps, rawpat, pattern, init )
 	-- match.
 	local sp = init
 	local pp = 1
-	if pattern.codepoints[1] == 0x5e then -- '^': Pattern is anchored
+	if not noAnchor and pattern.codepoints[1] == 0x5e then -- '^': Pattern is anchored
 		anchor = true
 		pp = 2
 	end
@@ -838,15 +839,8 @@ function ustring.gmatch( s, pattern )
 	end
 	local init = 1
 
-	if pat.codepoints[1] == 0x5e then -- '^': Pattern is anchored
-		-- Lua special-cases this to never match
-		return function ()
-			return nil
-		end
-	end
-
 	return function ()
-		local m = { find( s, cps, pattern, pat, init ) }
+		local m = { find( s, cps, pattern, pat, init, true ) }
 		if not m[1] then
 			return nil
 		end

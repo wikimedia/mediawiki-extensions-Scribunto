@@ -232,7 +232,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/* Convert a Lua pattern into a PCRE regex */
-	private function patternToRegex( $pattern ) {
+	private function patternToRegex( $pattern, $noAnchor = false ) {
 		$pat = preg_split( '//us', $pattern, null, PREG_SPLIT_NO_EMPTY );
 
 		static $charsets = null, $brcharsets = null;
@@ -295,7 +295,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			switch ( $pat[$i] ) {
 			case '^':
 				$q = $i;
-				$re .= $q ? '\\^' : '^';
+				$re .= ( $noAnchor || $q ) ? '\\^' : '^';
 				break;
 
 			case '$':
@@ -497,7 +497,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkString( 'gmatch', $s );
 		$this->checkPattern( 'gmatch', $pattern );
 
-		list( $re, $capt ) = $this->patternToRegex( $pattern );
+		list( $re, $capt ) = $this->patternToRegex( $pattern, true );
 		return array( $re, $capt );
 	}
 
