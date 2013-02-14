@@ -45,6 +45,12 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
+
+		// Some of the tests need this
+		$interpreter = $this->getEngine()->getInterpreter();
+		$interpreter->callFunction(
+			$interpreter->loadString( 'mw.makeProtectedEnvFuncsForTest = mw.makeProtectedEnvFuncs', 'fortest' )
+		);
 	}
 
 	function getTestModules() {
