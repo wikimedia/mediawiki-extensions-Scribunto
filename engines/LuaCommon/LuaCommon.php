@@ -1,12 +1,21 @@
 <?php
 
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
+	/**
+	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
+	 * @var array Maps module names to PHP classes
+	 */
 	protected static $libraryClasses = array(
 		'mw.site' => 'Scribunto_LuaSiteLibrary',
 		'mw.uri' => 'Scribunto_LuaUriLibrary',
 		'mw.ustring' => 'Scribunto_LuaUstringLibrary',
 	);
 
+	/**
+	 * Paths for modules that may be loaded from Lua. See also the
+	 * 'ScribuntoExternalLibraryPaths' hook.
+	 * @var array Paths
+	 */
 	protected static $libraryPaths = array(
 		'.',
 		'luabit',
@@ -25,6 +34,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Create a new interpreter object
+	 * @return Scribunto_LuaInterpreter
 	 */
 	abstract function newInterpreter();
 
@@ -81,6 +91,21 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 	}
 
+	/**
+	 * Register a Lua Library
+	 *
+	 * This should be called from the library's PHP module's register() method.
+	 *
+	 * The value for $interfaceFuncs is used to populate the mw_interface
+	 * global that is defined when the library's Lua module is loaded. Values
+	 * must be PHP callables, which will be seen in Lua as functions.
+	 *
+	 * @param $moduleFileName string The path to the Lua portion of the library
+	 *         (absolute, or relative to $this->getLuaLibDir())
+	 * @param $interfaceFuncs array Populates mw_interface
+	 * @param $setupOptions array Passed to the modules setupInterface() method.
+	 * @return Lua package
+	 */
 	public function registerInterface( $moduleFileName, $interfaceFuncs, $setupOptions = array() ) {
 		$this->interpreter->registerLibrary( 'mw_interface', $interfaceFuncs );
 		$moduleFileName = $this->normalizeModuleFileName( $moduleFileName );
@@ -91,6 +116,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return $package;
 	}
 
+	/**
+	 * Return the base path for Lua modules.
+	 * @return string
+	 */
 	public function getLuaLibDir() {
 		return dirname( __FILE__ ) .'/lualib';
 	}
@@ -112,11 +141,14 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * phpCallsRequireSerialization: boolean
 	 *   whether calls between PHP and Lua functions require (slow)
 	 *   serialization of parameters and return values
+	 *
+	 * @return array
 	 */
 	public abstract function getPerformanceCharacteristics();
 
 	/**
 	 * Get the current interpreter object
+	 * @return Scribunto_LuaInterpreter
 	 */
 	public function getInterpreter() {
 		$this->load();
@@ -145,7 +177,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Load a library from the given file and execute it in the base environment.
-	 * Return the export list, or null if there isn't one.
+	 * @param string File name/path to load
+	 * @return mixed the export list, or null if there isn't one.
 	 */
 	protected function loadLibraryFromFile( $fileName ) {
 		$code = file_get_contents( $fileName );
