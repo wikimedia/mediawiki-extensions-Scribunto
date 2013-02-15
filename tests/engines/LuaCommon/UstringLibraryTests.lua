@@ -396,8 +396,8 @@ return testframework.getTestProvider( {
 	  type = 'Iterator'
 	},
 	{ name = 'gmatch: anchored', func = mw.ustring.gmatch,
-	  args = { str2, '^f%a+' },
-	  expect = {},
+	  args = { "fóó1 ^fóó2 fóó3 ^fóó4", '^fóó%d+' },
+	  expect = { { "^fóó2" }, { "^fóó4" } },
 	  type = 'Iterator'
 	},
 
