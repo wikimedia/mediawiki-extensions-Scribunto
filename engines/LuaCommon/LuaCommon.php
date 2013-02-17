@@ -53,6 +53,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->executeModuleFunc = null;
 		$this->mw = null;
 		$this->expandCache = null;
+		$this->loadedLibraries = null;
 		parent::destroy();
 	}
 
