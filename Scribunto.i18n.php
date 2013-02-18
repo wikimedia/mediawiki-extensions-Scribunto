@@ -197,6 +197,7 @@ $1',
 	'scribunto-console-previous-src' => 'předchozí konzolový vstup',
 	'scribunto-console-clear' => 'Vymazat',
 	'scribunto-console-cleared' => 'Stav konzole byl vymazán, protože modul byl změněn.',
+	'scribunto-console-cleared-session-lost' => 'Stav konzole byl vymazán, protože se ztratila data sezení.',
 	'scribunto-common-error-category' => 'Stránky s chybami skriptů',
 	'scribunto-common-nosuchmodule' => 'Chyba skriptu: Zadaný modul neexistuje.',
 	'scribunto-common-nofunction' => 'Chyba skriptu: Musíte uvést funkci, která se má zavolat.',
@@ -539,6 +540,7 @@ $1',
 	'scribunto-console-previous-src' => 'předchadne konsolowe zapodaće',
 	'scribunto-console-clear' => 'Wuprózdnić',
 	'scribunto-console-cleared' => 'Konsola je so wuprózdniła, dokelž modul je so zaktualizował.',
+	'scribunto-console-cleared-session-lost' => 'Status konsole je so zhašał, dokelž posedźenske daty su so zhubili.',
 	'scribunto-common-error-category' => 'Strony ze skriptowymi zmylkami',
 	'scribunto-common-nosuchmodule' => 'Skriptowy zmylk: Tajki modul njeje.',
 	'scribunto-common-nofunction' => 'Skriptowy zmylk: Dyrbiš funkciju podać, kotraž ma so wołać.',
@@ -1089,23 +1091,24 @@ $1',
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  * @author පසිඳු කාවින්ද
  */
 $messages['pms'] = array(
-	'scribunto-desc' => 'Piataforma për ancorporé lenguagi dë scripting an pagine MediaWiki',
-	'scribunto-ignore-errors' => 'Përmëtt ëd salvé còdes con eror',
+	'scribunto-desc' => "Quàder për l'antëgrassion dij langagi ëd copin an dle pàgine ëd MediaWiki",
+	'scribunto-ignore-errors' => "Përmëtte ëd salvé ëd còdes con dj'eror",
 	'scribunto-line' => 'a la linia $1',
 	'scribunto-module-line' => 'an $1 a la linia $2',
-	'scribunto-parser-error' => 'Eror dë script',
-	'scribunto-parser-dialog-title' => 'Eror dë script',
-	'scribunto-error-short' => 'Eror dë script: $1',
-	'scribunto-error-long' => 'Eror dë script:
+	'scribunto-parser-error' => 'Eror ëd copion',
+	'scribunto-parser-dialog-title' => 'Eror ëd copion',
+	'scribunto-error-short' => 'Eror ëd copion: $1',
+	'scribunto-error-long' => 'Eror ëd copion:
 
 $1',
-	'scribunto-console-intro' => '* J\'esportassion dël mòdul a son disponìbij com la variàbil "p", comprèis modificassion pa salvà.
-* Ancamin-a na linia con "=" për valutelo com n\'espression, o dòvra print().
-* Dòvra mw.log() ant ël còdes dël mòdul për mandé mëssagi a sta console.',
+	'scribunto-console-intro' => "* J'esportassion ëd mòdul a son disponìbij com la variàbil «p», comprèise le modìfiche nen salvà.
+* Ch'a ancamin-a na linia con «=» për valutela com n'espression, o ch'a deuvra print().
+* Ch'a deuvra mw.log() ant ël còdes dël mòdul për mandé dij mëssagi a costa plancia.",
 	'scribunto-console-title' => 'Console ëd debug',
 	'scribunto-console-too-large' => "Sta session ëd console a l'é tròp gròssa. Për piasì scansela la stòria dla console o riduv la dimension dël mòdul.",
 	'scribunto-console-current-src' => 'anseriment ëd la console',
@@ -1422,6 +1425,7 @@ $messages['yi'] = array(
 
 /** Simplified Chinese (中文（简体）‎)
  * @author Liangent
+ * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
 	'scribunto-desc' => '用于在MediaWiki页面中嵌入脚本语言的框架',
@@ -1443,6 +1447,7 @@ $1',
 	'scribunto-console-previous-src' => '先前的控制台输入',
 	'scribunto-console-clear' => '清除',
 	'scribunto-console-cleared' => '控制台状态已清除，因为模块已更新。',
+	'scribunto-console-cleared-session-lost' => '控制台状态已被清除，因为会话数据已丢失。',
 	'scribunto-common-error-category' => '有脚本错误的页面',
 	'scribunto-common-nosuchmodule' => '脚本错误：没有这个模块。',
 	'scribunto-common-nofunction' => '脚本错误：您必须指定要调用的函数。',
