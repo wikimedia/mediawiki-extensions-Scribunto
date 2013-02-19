@@ -202,4 +202,35 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			'data module was stored in top level\'s package.loaded'
 		);
 	}
+
+	function testFrames() {
+		$engine = $this->getEngine();
+
+		$ret = $engine->runConsole( array(
+			'prevQuestions' => array(),
+			'question' => '=mw.getCurrentFrame()',
+			'content' => 'return {}',
+			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
+		) );
+		$this->assertSame( 'table', $ret['return'], 'frames can be used in the console' );
+
+		$ret = $engine->runConsole( array(
+			'prevQuestions' => array(),
+			'question' => '=mw.getCurrentFrame():newChild{}',
+			'content' => 'return {}',
+			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
+		) );
+		$this->assertSame( 'table', $ret['return'], 'child frames can be created' );
+
+		$ret = $engine->runConsole( array(
+			'prevQuestions' => array(
+				'f = mw.getCurrentFrame():newChild{ args = { "ok" } }',
+				'f2 = f:newChild{ args = {} }'
+			),
+			'question' => '=f2:getParent().args[1], f2:getParent():getParent()',
+			'content' => 'return {}',
+			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
+		) );
+		$this->assertSame( "ok\ttable", $ret['return'], 'child frames have correct parents' );
+	}
 }

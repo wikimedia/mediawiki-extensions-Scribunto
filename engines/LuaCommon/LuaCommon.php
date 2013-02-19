@@ -28,7 +28,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $loaded = false;
 	protected $executeModuleFunc, $interpreter;
 	protected $mw;
-	protected $currentFrame = false;
+	protected $currentFrames = array();
 	protected $expandCache = array();
 	protected $loadedLibraries = array();
 
@@ -71,7 +71,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$funcs = array(
 			'loadPackage',
-			'parentFrameExists',
+			'frameExists',
+			'newChildFrame',
 			'getExpandedArgument',
 			'getAllExpandedArguments',
 			'expandTemplate',
@@ -169,12 +170,20 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Execute a module function chunk
 	 */
 	public function executeFunctionChunk( $chunk, $frame ) {
-		$oldFrame = $this->currentFrame;
-		$this->currentFrame = $frame;
-		$result = $this->getInterpreter()->callFunction(
-			$this->mw['executeFunction'],
-			$chunk );
-		$this->currentFrame = $oldFrame;
+		$oldFrames = $this->currentFrames;
+		$this->currentFrames = array(
+			'current' => $frame,
+			'parent' => isset( $frame->parent ) ? $frame->parent : null,
+		);
+		try {
+			$result = $this->getInterpreter()->callFunction(
+				$this->mw['executeFunction'],
+				$chunk );
+		} catch ( Exception $ex ) {
+			$this->currentFrames = $oldFrames;
+			throw $ex;
+		}
+		$this->currentFrames = $oldFrames;
 		return $result;
 	}
 
@@ -203,47 +212,59 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	public function runConsole( $params ) {
-		/**
-		 * TODO: provide some means for giving correct line numbers for errors
-		 * in console input, and for producing an informative error message
-		 * if there is an error in prevQuestions.
-		 *
-		 * Maybe each console line could be evaluated as a different chunk, 
-		 * apparently that's what lua.c does.
-		 */
-		$code = "return function (__init)\n" .
-			"local p = mw.executeModule(__init)\n" .
-			"local print = mw.log\n";
-		foreach ( $params['prevQuestions'] as $q ) {
-			if ( substr( $q, 0, 1 ) === '=' ) {
-				$code .= "print(" . substr( $q, 1 ) . ")";
-			} else {
-				$code .= $q;
-			}
-			$code .= "\n";
-		}
-		$code .= "mw.clearLogBuffer()\n";
-		if ( substr( $params['question'], 0, 1 ) === '=' ) {
-			// Treat a statement starting with "=" as a return statement, like in lua.c
-			$code .= "return mw.allToString(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
-		} else {
-			$code .= $params['question'] . "\n" .
-				"return nil, mw.getLogBuffer()\n";
-		}
-		$code .= "end\n";
-
-		$contentModule = $this->newModule( 
-			$params['content'], $params['title']->getPrefixedDBkey() );
-		$contentInit = $contentModule->getInitChunk();
-
-		$consoleModule = $this->newModule(
-			$code,
-			wfMessage( 'scribunto-console-current-src' )->text()
+		$oldFrames = $this->currentFrames;
+		$this->currentFrames = array(
+			'current' => $this->getParser()->getPreprocessor()->newFrame(),
 		);
-		$consoleInit = $consoleModule->getInitChunk();
-		$ret = $this->executeModule( $consoleInit );
-		$func = $ret[0];
-		$ret = $this->getInterpreter()->callFunction( $func, $contentInit );
+
+		try {
+			/**
+			 * TODO: provide some means for giving correct line numbers for errors
+			 * in console input, and for producing an informative error message
+			 * if there is an error in prevQuestions.
+			 *
+			 * Maybe each console line could be evaluated as a different chunk, 
+			 * apparently that's what lua.c does.
+			 */
+			$code = "return function (__init)\n" .
+				"local p = mw.executeModule(__init)\n" .
+				"local print = mw.log\n";
+			foreach ( $params['prevQuestions'] as $q ) {
+				if ( substr( $q, 0, 1 ) === '=' ) {
+					$code .= "print(" . substr( $q, 1 ) . ")";
+				} else {
+					$code .= $q;
+				}
+				$code .= "\n";
+			}
+			$code .= "mw.clearLogBuffer()\n";
+			if ( substr( $params['question'], 0, 1 ) === '=' ) {
+				// Treat a statement starting with "=" as a return statement, like in lua.c
+				$code .= "return mw.allToString(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
+			} else {
+				$code .= $params['question'] . "\n" .
+					"return nil, mw.getLogBuffer()\n";
+			}
+			$code .= "end\n";
+
+			$contentModule = $this->newModule( 
+				$params['content'], $params['title']->getPrefixedDBkey() );
+			$contentInit = $contentModule->getInitChunk();
+
+			$consoleModule = $this->newModule(
+				$code,
+				wfMessage( 'scribunto-console-current-src' )->text()
+			);
+			$consoleInit = $consoleModule->getInitChunk();
+			$ret = $this->executeModule( $consoleInit );
+			$func = $ret[0];
+			$ret = $this->getInterpreter()->callFunction( $func, $contentInit );
+		} catch ( Exception $ex ) {
+			$this->currentFrames = $oldFrames;
+			throw $ex;
+		}
+
+		$this->currentFrames = $oldFrames;
 		return array(
 			'return' => isset( $ret[0] ) ? $ret[0] : null,
 			'print' => isset( $ret[1] ) ? $ret[1] : '',
@@ -328,28 +349,42 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Helper function for the implementation of frame methods
 	 */
 	protected function getFrameById( $frameId ) {
-		if ( !$this->currentFrame ) {
-			return false;
-		}
-		if ( $frameId === 'parent' ) {
-			if ( !isset( $this->currentFrame->parent ) ) {
-				return false;
-			} else {
-				return $this->currentFrame->parent;
-			}
-		} elseif ( $frameId === 'current' ) {
-			return $this->currentFrame;
+		if ( isset( $this->currentFrames[$frameId] ) ) {
+			return $this->currentFrames[$frameId];
 		} else {
 			throw new Scribunto_LuaError( 'invalid frame ID' );
 		}
 	}
 
 	/**
-	 * Handler for parentFrameExists()
+	 * Handler for frameExists()
 	 */
-	function parentFrameExists() {
-		$frame = $this->getFrameById( 'parent' );
-		return array( $frame !== false );
+	function frameExists( $frameId ) {
+		return array( isset( $this->currentFrames[$frameId] ) );
+	}
+
+	/**
+	 * Handler for newChildFrame()
+	 */
+	function newChildFrame( $frameId, $title, $args ) {
+		if ( count( $this->currentFrames ) > 100 ) {
+			throw new Scribunto_LuaError( 'newChild: too many frames' );
+		}
+
+		$frame = $this->getFrameById( $frameId );
+		if ( $title === false ) {
+			$title = $frame->getTitle();
+		} else {
+			$title = Title::newFromText( $title );
+			if ( !$title ) {
+				throw new Scribunto_LuaError( 'newChild: invalid title' );
+			}
+		}
+		$args = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
+		$newFrame = $frame->newChild( $args, $title );
+		$newFrameId = 'frame' . count( $this->currentFrames );
+		$this->currentFrames[$newFrameId] = $newFrame;
+		return array( $newFrameId );
 	}
 
 	/**
@@ -360,9 +395,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->checkString( 'getExpandedArgument', $args, 0 );
 
 		$frame = $this->getFrameById( $frameId );
-		if ( $frame === false ) {
-			return array();
-		}
 		$this->getInterpreter()->pauseUsageTimer();
 		$result = $frame->getArgument( $name );
 		if ( $result === false ) {
@@ -377,9 +409,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	function getAllExpandedArguments( $frameId ) {
 		$frame = $this->getFrameById( $frameId );
-		if ( $frame === false ) {
-			return array();
-		}
 		$this->getInterpreter()->pauseUsageTimer();
 		return array( $frame->getArguments() );
 	}
@@ -389,10 +418,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	function expandTemplate( $frameId, $titleText, $args ) {
 		$frame = $this->getFrameById( $frameId );
-		if ( $frame === false ) {
-			throw new Scribunto_LuaError( 'attempt to call mw.expandTemplate with no frame' );
-		}
-
 		$title = Title::newFromText( $titleText, NS_TEMPLATE );
 		if ( !$title ) {
 			throw new Scribunto_LuaError( 'expandTemplate: invalid title' );

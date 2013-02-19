@@ -226,8 +226,13 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 	return my_setfenv, my_getfenv
 end
 
-local function newFrame( frameId )
+local function newFrame( frameId, ... )
+	if not php.frameExists( frameId ) then
+		return nil
+	end
+
 	local frame = {}
+	local parentFrameIds = { ... }
 	local argCache = {}
 	local argNames
 	local args_mt = {}
@@ -328,13 +333,46 @@ local function newFrame( frameId )
 	function frame:getParent()
 		checkSelf( self, 'getParent' )
 
-		if frameId == 'parent' then
-			return nil
-		elseif php.parentFrameExists() then
-			return newFrame( 'parent' )
-		else
-			return nil
+		return newFrame( unpack( parentFrameIds ) )
+	end
+
+	function frame:newChild( opt )
+		checkSelf( self, 'newChild' )
+
+		if type( opt ) ~= 'table' then
+			error( "frame:newChild: the first parameter must be a table", 2 )
 		end
+
+		local title, args
+		if opt.title == nil then
+			title = false
+		else
+			title = tostring( opt.title )
+		end
+		if opt.args == nil then
+			args = {}
+		elseif type( opt.args ) ~= 'table' then
+			error( "frame:newChild: args must be a table", 2 )
+		else
+			args = {}
+			for k, v in pairs( opt.args ) do
+				local tp = type( k )
+				if tp ~= 'string' and tp ~= 'number' then
+					error( "frame:newChild: arg keys must be strings or numbers, " .. tp .. " given", 2 )
+				end
+				local tp = type( v )
+				if tp == 'boolean' then
+					args[k] = v and '1' or ''
+				elseif tp == 'string' or tp == 'number' then
+					args[k] = tostring( v )
+				else
+					error( "frame:newChild: invalid type " .. tp .. " for arg '" .. k .. "'", 2 )
+				end
+			end
+		end
+
+		local newFrameId = php.newChildFrame( frameId, title, args )
+		return newFrame( newFrameId, frameId, unpack( parentFrameIds ) )
 	end
 
 	function frame:expandTemplate( opt )
@@ -354,7 +392,7 @@ local function newFrame( frameId )
 		if opt.args == nil then
 			args = {}
 		elseif type( opt.args ) ~= 'table' then
-			error( "frame:expandTitle: args must be a table" )
+			error( "frame:expandTemplate: args must be a table" )
 		else
 			args = opt.args
 		end
@@ -418,7 +456,7 @@ local function newFrame( frameId )
 end
 
 function mw.executeFunction( chunk )
-	local frame = newFrame( 'current' )
+	local frame = newFrame( 'current', 'parent' )
 	local oldFrame = currentFrame
 
 	currentFrame = frame
@@ -453,6 +491,9 @@ function mw.getLogBuffer()
 end
 
 function mw.getCurrentFrame()
+	if not currentFrame then
+		currentFrame = newFrame( 'current', 'parent' )
+	end
 	return currentFrame
 end
 
