@@ -81,7 +81,7 @@ class ScribuntoHooks {
 			$moduleName = trim( $frame->expand( $args[0] ) );
 			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
-			if ( !$title ) {
+			if ( !$title || Scribunto::isDocSubpage( $title ) ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
@@ -127,52 +127,15 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * Overrides the standard view for modules. Enables syntax highlighting when
-	 * possible.
-	 *
-	 * @param $text string
-	 * @param $title Title
-	 * @param $output OutputPage
-	 * @return bool
-	 */
-	public static function handleScriptView( $text, $title, $output ) {
-		global $wgScribuntoUseGeSHi;
-
-		if( $title->getNamespace() == NS_MODULE ) {
-			$engine = Scribunto::newDefaultEngine();
-			$language = $engine->getGeSHiLanguage();
-			
-			if( $wgScribuntoUseGeSHi && $language ) {
-				$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
-				$geshi->set_language( $language );
-				if( $geshi instanceof GeSHi && !$geshi->error() ) {
-					$code = $geshi->parse_code();
-					if( $code ) {
-						$output->addHeadItem( "source-{$language}", SyntaxHighlight_GeSHi::buildHeadItem( $geshi ) );
-						$output->addHTML( "<div dir=\"ltr\">{$code}</div>" );
-						return false;
-					}
-				}
-			}
-
-			// No GeSHi, or GeSHi can't parse it, use plain <pre>
-			$output->addHTML( "<pre class=\"mw-code mw-script\" dir=\"ltr\">\n" );
-			$output->addHTML( htmlspecialchars( $text ) );
-			$output->addHTML( "\n</pre>\n" );
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/**
 	 * @param $title Title
 	 * @param $lang string
 	 * @return bool
 	 */
 	public static function getCodeLanguage( $title, &$lang ) {
 		global $wgScribuntoUseCodeEditor;
-		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE ) {
+		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
+			!Scribunto::isDocSubpage( $title )
+		) {
 			$engine = Scribunto::newDefaultEngine();
 			if( $engine->getCodeEditorLanguage() ) {
 				$lang = $engine->getCodeEditorLanguage();
@@ -184,14 +147,14 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * Indicates that modules are not wikitext.
+	 * Set the Scribunto content handler for modules
 	 * @param $title Title
-	 * @param $result
+	 * @param &$model string
 	 * @return bool
 	 */
-	public static function isWikitextPage( $title, &$result ) {
-		if( $title->getNamespace() == NS_MODULE ) {
-			$result = false;
+	public static function contentHandlerDefaultModelFor( $title, &$model ) {
+		if( $title->getNamespace() == NS_MODULE && !Scribunto::isDocSubpage( $title ) ) {
+			$model = 'Scribunto';
 			return false;
 		}
 		return true;
@@ -232,6 +195,10 @@ class ScribuntoHooks {
 			return true;
 		}
 
+		if ( Scribunto::isDocSubpage( $editor->getTitle() ) ) {
+			return true;
+		}
+
 		$req = RequestContext::getMain()->getRequest();
 		$name = 'scribunto_ignore_errors';
 
@@ -262,6 +229,10 @@ class ScribuntoHooks {
 			return true;
 		}
 
+		if ( Scribunto::isDocSubpage( $editor->getTitle() ) ) {
+			return true;
+		}
+
 		unset( $buttons['preview'] );
 		return true;
 	}
@@ -278,6 +249,10 @@ class ScribuntoHooks {
 		$title = $editor->getTitle();
 
 		if( $title->getNamespace() != NS_MODULE ) {
+			return true;
+		}
+
+		if ( Scribunto::isDocSubpage( $title ) ) {
 			return true;
 		}
 
@@ -342,5 +317,25 @@ WIKI;
 		$outputPage->addInlineScript( 'mw.loader.using("ext.scribunto", function() {' . 
 			Xml::encodeJsCall( 'mw.scribunto.setErrors', array( $parserOutput->scribunto_errors ) )
 			. '});' );
+	}
+
+	/**
+	 * @param &$article Article
+	 * @param &$outputDone boolean
+	 * @param &$pcache boolean
+	 * @return boolean
+	 */
+	public static function showDocSubpageHeader( &$article, &$outputDone, &$pcache ) {
+		global $wgOut;
+
+		$title = $article->getTitle();
+		if( $title->getNamespace() === NS_MODULE && Scribunto::isDocSubpage( $title ) ) {
+			$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->plain();
+			$title = substr( $title, 0, -strlen( $docSubpage ) - 1 );
+			$wgOut->addHTML(
+				wfMessage( 'scribunto-doc-subpage-header', $title )->parseAsBlock()
+			);
+		}
+		return true;
 	}
 }

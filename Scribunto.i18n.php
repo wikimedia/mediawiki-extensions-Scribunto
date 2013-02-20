@@ -22,6 +22,11 @@ $messages['en'] = array(
 	'scribunto-error-long' => 'Script errors:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''Documentation for this module may be created at [[$1]]''",
+	'scribunto-doc-subpage-show' => '{{$1}}
+<hr>',
+	'scribunto-doc-subpage-header' => "'''This is the documentation subpage for [[$1]]'''",
 
 	'scribunto-console-intro' => '* The module exports are available as the variable "p", including unsaved modifications.
 * Precede a line with "=" to evaluate it as an expression, or use print().
@@ -82,6 +87,10 @@ $messages['qqq'] = array(
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
+	'scribunto-doc-subpage-name' => 'Subpage name for module documentation.',
+	'scribunto-doc-subpage-does-not-exist' => 'Message displayed if the documentation subpage does not exist. $1 is the prefixed title of the subpage.',
+	'scribunto-doc-subpage-show' => 'Message displayed if the documentation subpage does exist. $1 is the prefixed title of the subpage. Should probably transclude that page.',
+	'scribunto-doc-subpage-header' => 'Message displayed at the top of the documentation subpage. $1 is the prefixed title of the module.',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
 	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',

@@ -42,6 +42,8 @@ $wgAutoloadClasses['ScribuntoHooks'] = $dir.'common/Hooks.php';
 $wgAutoloadClasses['ScribuntoException'] = $dir.'common/Common.php';
 $wgAutoloadClasses['Scribunto'] = $dir.'common/Common.php';
 $wgAutoloadClasses['ApiScribuntoConsole'] = $dir.'common/ApiScribuntoConsole.php';
+$wgAutoloadClasses['ScribuntoContentHandler'] = $dir.'common/ScribuntoContentHandler.php';
+$wgAutoloadClasses['ScribuntoContent'] = $dir.'common/ScribuntoContent.php';
 
 $wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
 $wgHooks['ParserLimitReport'][] = 'ScribuntoHooks::reportLimits';
@@ -49,17 +51,18 @@ $wgHooks['ParserClearState'][] = 'ScribuntoHooks::clearState';
 $wgHooks['ParserCloned'][] = 'ScribuntoHooks::parserCloned';
 
 $wgHooks['CanonicalNamespaces'][] = 'ScribuntoHooks::addCanonicalNamespaces';
-$wgHooks['ArticleViewCustom'][] = 'ScribuntoHooks::handleScriptView';
-$wgHooks['TitleIsWikitextPage'][] = 'ScribuntoHooks::isWikitextPage';
 $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
 $wgHooks['EditPageBeforeEditChecks'][] = 'ScribuntoHooks::beforeEditChecks';
 $wgHooks['EditPageBeforeEditButtons'][] = 'ScribuntoHooks::beforeEditButtons';
 $wgHooks['EditFilterMerged'][] = 'ScribuntoHooks::validateScript';
+$wgHooks['ArticleViewHeader'][] = 'ScribuntoHooks::showDocSubpageHeader';
+$wgHooks['ContentHandlerDefaultModelFor'][] = 'ScribuntoHooks::contentHandlerDefaultModelFor';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
 $wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
 
 $wgParserOutputHooks['ScribuntoError'] = 'ScribuntoHooks::parserOutputHook';
+$wgContentHandlers['Scribunto'] = 'ScribuntoContentHandler';
 
 $sbtpl = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',

@@ -66,6 +66,35 @@ class Scribunto {
 			$parser->scribunto_engine = null;
 		}
 	}
+
+	/**
+	 * Test whether the page should be considered a documentation subpage
+	 * @param $title Title
+	 * @return boolean
+	 */
+	public static function isDocSubpage( $title ) {
+		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' );
+		if ( $docSubpage->isDisabled() ) {
+			return false;
+		}
+
+		$docSubpage = '/' . $docSubpage->plain();
+		return ( substr( $title->getText(), -strlen( $docSubpage ) ) === $docSubpage );
+	}
+
+	/**
+	 * Return the Title for the documentation subpage
+	 * @param $title Title
+	 * @return Title|null
+	 */
+	public static function getDocSubpage( $title ) {
+		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' );
+		if ( $docSubpage->isDisabled() ) {
+			return null;
+		}
+
+		return $title->getSubpage( $docSubpage->plain() );
+	}
 }
 
 /**
