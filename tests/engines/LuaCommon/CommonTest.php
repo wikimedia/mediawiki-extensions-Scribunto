@@ -56,6 +56,12 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	function getTestModules() {
 		return parent::getTestModules() + array(
 			'CommonTests' => __DIR__ . '/CommonTests.lua',
+			'CommonTests-data' => __DIR__ . '/CommonTests-data.lua',
+			'CommonTests-data-fail1' => __DIR__ . '/CommonTests-data-fail1.lua',
+			'CommonTests-data-fail2' => __DIR__ . '/CommonTests-data-fail2.lua',
+			'CommonTests-data-fail3' => __DIR__ . '/CommonTests-data-fail3.lua',
+			'CommonTests-data-fail4' => __DIR__ . '/CommonTests-data-fail4.lua',
+			'CommonTests-data-fail5' => __DIR__ . '/CommonTests-data-fail5.lua',
 		);
 	}
 
@@ -148,6 +154,52 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		$interpreter->callFunction(
 			$interpreter->loadString( 'string.testModuleStringExtend = nil', 'unextendstring' )
+		);
+	}
+
+	function testLoadDataLoadedOnce() {
+		$engine = $this->getEngine();
+		$interpreter = $engine->getInterpreter();
+		$frame = $engine->getParser()->getPreprocessor()->newFrame();
+
+		$loadcount = 0;
+		$interpreter->callFunction(
+			$interpreter->loadString( 'mw.markLoaded = ...', 'fortest' ),
+			$interpreter->wrapPHPFunction( function () use (&$loadcount) {
+				$loadcount++;
+			} )
+		);
+		$this->extraModules['Module:TestLoadDataLoadedOnce-data'] = '
+			mw.markLoaded()
+			return {}
+		';
+		$this->extraModules['Module:TestLoadDataLoadedOnce'] = '
+			local data = mw.loadData( "Module:TestLoadDataLoadedOnce-data" )
+			return {
+				foo = function() end,
+				bar = function()
+					return tostring( package.loaded["Module:TestLoadDataLoadedOnce-data"] )
+				end,
+			}
+		';
+
+		// Make sure data module isn't parsed twice. Simulate several {{#invoke:}}s
+		$title = Title::makeTitle( NS_MODULE, 'TestLoadDataLoadedOnce' );
+		for ( $i = 0; $i < 10; $i++ ) {
+			$module = $engine->fetchModuleFromParser( $title );
+			$module->invoke( 'foo', $frame->newChild() );
+		}
+		$this->assertSame( 1, $loadcount, 'data module was loaded more than once' );
+
+		// Make sure data module isn't in package.loaded
+		$this->assertSame( 'nil', $module->invoke( 'bar', $frame ),
+			'data module was stored in module\'s package.loaded'
+		);
+		$this->assertSame( array( 'nil' ),
+			$interpreter->callFunction( $interpreter->loadString(
+				'return tostring( package.loaded["Module:TestLoadDataLoadedOnce-data"] )', 'getLoaded'
+			) ),
+			'data module was stored in top level\'s package.loaded'
 		);
 	}
 }

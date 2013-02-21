@@ -6,6 +6,7 @@ local php
 local allowEnvFuncs = false
 local logBuffer = ''
 local currentFrame
+local loadedData = {}
 
 -- Extend pairs and ipairs to recognize __pairs and __ipairs, if they don't already
 ( function ()
@@ -457,6 +458,126 @@ end
 
 function mw.incrementExpensiveFunctionCount()
 	php.incrementExpensiveFunctionCount()
+end
+
+---
+-- Wrapper for mw.loadData. This creates the read-only dummy table for
+-- accessing the real data.
+--
+-- @param data table Data to access
+-- @param seen table|nil Table of already-seen tables.
+-- @return table
+local function dataWrapper( data, seen )
+	local t = {}
+	seen = seen or { [data] = t }
+
+	local function pairsfunc( s, k )
+		k = next( data, k )
+		if k ~= nil then
+			return k, t[k]
+		end
+		return nil
+	end
+
+	local function ipairsfunc( s, i )
+		i = i + 1
+		if data[i] ~= nil then
+			return i, t[i]
+		end
+		return -- no nil to match default ipairs()
+	end
+
+	local mt = {
+		__index = function ( tt, k )
+			assert( t == tt )
+			local v = data[k]
+			if type( v ) == 'table' then
+				seen[v] = seen[v] or dataWrapper( v, seen )
+				return seen[v]
+			end
+			return v
+		end,
+		__newindex = function ( t, k, v )
+			error( "table from mw.loadData is read-only", 2 )
+		end,
+		__pairs = function ( tt )
+			assert( t == tt )
+			return pairsfunc, t, nil
+		end,
+		__ipairs = function ( tt )
+			assert( t == tt )
+			return ipairsfunc, t, 0
+		end,
+	}
+	-- This is just to make setmetatable() fail
+	mt.__metatable = mt
+
+	return setmetatable( t, mt )
+end
+
+---
+-- Validator for mw.loadData. This scans through the data looking for things
+-- that are not supported, e.g. functions (which may be closures).
+--
+-- @param d table Data to access.
+-- @param seen table|nil Table of already-seen tables.
+-- @return string|nil Error message, if any
+local function validateData( d, seen )
+	seen = seen or {}
+	local tp = type( d )
+	if tp == 'nil' or tp == 'boolean' or tp == 'number' or tp == 'string' then
+		return nil
+	elseif tp == 'table' then
+		if seen[d] then
+			return nil
+		end
+		seen[d] = true
+		if getmetatable( d ) ~= nil then
+			return "data for mw.loadData contains a table with a metatable"
+		end
+		for k, v in pairs( d ) do
+			if type( k ) == 'table' then
+				return "data for mw.loadData contains a table as a key"
+			end
+			local err = validateData( k, seen ) or validateData( v, seen )
+			if err then
+				return err
+			end
+		end
+		return nil
+	else
+		return "data for mw.loadData contains unsupported data type '" .. tp .. "'"
+	end
+end
+
+function mw.loadData( module )
+	local data = loadedData[module]
+	if type( data ) == 'string' then
+		-- No point in re-validating
+		error( data, 2 )
+	end
+	if not data then
+		-- The point of this is to load big data, so don't save it in package.loaded
+		-- where it will have to be copied for all future modules.
+		local l = package.loaded[module]
+		data = require( module )
+		package.loaded[module] = l
+
+		-- Validate data
+		local err
+		if type( data ) == 'table' then
+			err = validateData( data )
+		else
+			err = module .. ' returned ' .. type( data ) .. ', table expected'
+		end
+		if err then
+			loadedData[module] = err
+			error( err, 2 )
+		end
+		loadedData[module] = data
+	end
+
+	return dataWrapper( data )
 end
 
 return mw
