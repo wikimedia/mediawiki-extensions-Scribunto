@@ -166,6 +166,58 @@ function test.noLeaksViaPackageLoaded()
 	return 'ok'
 end
 
+test.loadData = {}
+
+function test.loadData.get( ... )
+	local d = mw.loadData( 'Module:CommonTests-data' )
+	for i = 1, select( '#', ... ) do
+		local k = select( i, ... )
+		d = d[k]
+	end
+	return d
+end
+
+function test.loadData.set( v, ... )
+	local d = mw.loadData( 'Module:CommonTests-data' )
+	local n = select( '#', ... )
+	for i = 1, n - 1 do
+		local k = select( i, ... )
+		d = d[k]
+	end
+	d[select( n, ... )] = v
+	return d[select( n, ... )]
+end
+
+function test.loadData.recursion()
+	local d = mw.loadData( 'Module:CommonTests-data' )
+	return d == d.t, d.t == d.t.t, d.table2 == d.table
+end
+
+function test.loadData.iterate( func )
+	local d = mw.loadData( 'Module:CommonTests-data' )
+	local ret = {}
+	for k, v in func( d.table ) do
+		ret[k] = v
+	end
+	return ret
+end
+
+function test.loadData.setmetatable()
+	local d = mw.loadData( 'Module:CommonTests-data' )
+	setmetatable( d, {} )
+	return 'setmetatable succeeded'
+end
+
+function test.loadData.rawset()
+	-- We can't easily prevent rawset (and it's not worth trying to redefine
+	-- it), but we can make sure it doesn't affect other instances of the data
+	local d1 = mw.loadData( 'Module:CommonTests-data' )
+	local d2 = mw.loadData( 'Module:CommonTests-data' )
+	rawset( d1, 'str', 'ugh' )
+	local d3 = mw.loadData( 'Module:CommonTests-data' )
+	return d1.str, d2.str, d3.str
+end
+
 return testframework.getTestProvider( {
 	{ name = 'clone', func = test.clone1,
 	  expect = { true },
@@ -246,5 +298,90 @@ return testframework.getTestProvider( {
 	{ name = 'package.loaded does not leak references to out-of-environment objects',
 	  func = test.noLeaksViaPackageLoaded,
 	  expect = { 'ok' },
+	},
+
+	{ name = 'mw.loadData, returning non-table',
+	  func = mw.loadData, args = { 'Module:CommonTests-data-fail1' },
+	  expect = "Module:CommonTests-data-fail1 returned string, table expected",
+	},
+	{ name = 'mw.loadData, containing function',
+	  func = mw.loadData, args = { 'Module:CommonTests-data-fail2' },
+	  expect = "data for mw.loadData contains unsupported data type 'function'",
+	},
+	{ name = 'mw.loadData, containing table-with-metatable',
+	  func = mw.loadData, args = { 'Module:CommonTests-data-fail3' },
+	  expect = "data for mw.loadData contains a table with a metatable",
+	},
+	{ name = 'mw.loadData, containing function as key',
+	  func = mw.loadData, args = { 'Module:CommonTests-data-fail4' },
+	  expect = "data for mw.loadData contains unsupported data type 'function'",
+	},
+	{ name = 'mw.loadData, containing table-with-metatable as key',
+	  func = mw.loadData, args = { 'Module:CommonTests-data-fail5' },
+	  expect = "data for mw.loadData contains a table as a key",
+	},
+	{ name = 'mw.loadData, getter (true)',
+	  func = test.loadData.get, args = { 'true' },
+	  expect = { true }
+	},
+	{ name = 'mw.loadData, getter (false)',
+	  func = test.loadData.get, args = { 'false' },
+	  expect = { false }
+	},
+	{ name = 'mw.loadData, getter (NaN)',
+	  func = test.loadData.get, args = { 'NaN' },
+	  expect = { 0/0 }
+	},
+	{ name = 'mw.loadData, getter (inf)',
+	  func = test.loadData.get, args = { 'inf' },
+	  expect = { 1/0 }
+	},
+	{ name = 'mw.loadData, getter (num)',
+	  func = test.loadData.get, args = { 'num' },
+	  expect = { 12.5 }
+	},
+	{ name = 'mw.loadData, getter (str)',
+	  func = test.loadData.get, args = { 'str' },
+	  expect = { 'foo bar' }
+	},
+	{ name = 'mw.loadData, getter (table.2)',
+	  func = test.loadData.get, args = { 'table', 2 },
+	  expect = { 'two' }
+	},
+	{ name = 'mw.loadData, getter (t.t.t.t.str)',
+	  func = test.loadData.get, args = { 't', 't', 't', 't', 'str' },
+	  expect = { 'foo bar' }
+	},
+	{ name = 'mw.loadData, getter recursion',
+	  func = test.loadData.recursion,
+	  expect = { true, true, true },
+	},
+	{ name = 'mw.loadData, pairs',
+	  func = test.loadData.iterate, args = { pairs },
+	  expect = { { 'one', 'two', 'three', foo = 'bar' } },
+	},
+	{ name = 'mw.loadData, ipairs',
+	  func = test.loadData.iterate, args = { ipairs },
+	  expect = { { 'one', 'two', 'three' } },
+	},
+	{ name = 'mw.loadData, setmetatable',
+	  func = test.loadData.setmetatable,
+	  expect = "cannot change a protected metatable"
+	},
+	{ name = 'mw.loadData, setter (1)',
+	  func = test.loadData.set, args = { 'ugh', 'str' },
+	  expect = "table from mw.loadData is read-only",
+	},
+	{ name = 'mw.loadData, setter (2)',
+	  func = test.loadData.set, args = { 'ugh', 'table', 2 },
+	  expect = "table from mw.loadData is read-only",
+	},
+	{ name = 'mw.loadData, setter (3)',
+	  func = test.loadData.set, args = { 'ugh', 't' },
+	  expect = "table from mw.loadData is read-only",
+	},
+	{ name = 'mw.loadData, rawset',
+	  func = test.loadData.rawset,
+	  expect = { 'ugh', 'foo bar', 'foo bar' },
 	},
 } )
