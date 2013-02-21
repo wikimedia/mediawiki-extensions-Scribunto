@@ -5,7 +5,7 @@ local p = {}
 
 local isoTestData = ''
 
-require('bit')
+local bit = require('bit')
 
 function p.tooFewArgs()
   require()

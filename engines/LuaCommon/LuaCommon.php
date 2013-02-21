@@ -22,7 +22,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected static $libraryPaths = array(
 		'.',
 		'luabit',
-		'stringtools',
 		'ustring',
 	);
 

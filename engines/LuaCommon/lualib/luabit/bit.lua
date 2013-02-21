@@ -27,6 +27,8 @@ Please note that bit.brshift and bit.blshift only support number within
 Under the MIT license.
 
 copyright(c) 2006~2007 hanzhao (abrash_han@hotmail.com)
+
+2013-02-20: Brad Jorsch: Fix to not try messing with globals, doesn't work in Scribunto
 --]]---------------
 
 do
@@ -218,7 +220,7 @@ end
 --------------------
 -- bit lib interface
 
-bit = {
+local bit = {
  -- bit operations
  bnot = bit_not,
  band = bit_and,
@@ -233,6 +235,8 @@ bit = {
  tobits = to_bits,
  tonumb = tbl_to_number,
 }
+
+return bit
 
 end
 

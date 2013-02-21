@@ -12,9 +12,11 @@ Part of LuaBit(http://luaforge.net/projects/bit/).
 Under the MIT license.
 
 copyright(c) 2006~2007 hanzhao (abrash_han@hotmail.com)
+
+2013-02-20: Brad Jorsch: Fix to not try messing with globals, doesn't work in Scribunto
 --]]---------------
 
-require 'bit'
+local bit = require 'bit'
 
 do 
 
@@ -70,10 +72,12 @@ end
 
 --------------------
 -- hex lib interface
-hex = {
+local hex = {
  to_dec = to_dec,
  to_hex = to_hex,
 }
+
+return hex
 
 end
 
