@@ -159,3 +159,7 @@ $wgScribuntoUseCodeEditor = false;
 
 define( 'NS_MODULE', 828 );
 define( 'NS_MODULE_TALK', 829 );
+
+// Set subpages by default
+$wgNamespacesWithSubpages[NS_MODULE] = true;
+$wgNamespacesWithSubpages[NS_MODULE_TALK] = true;
