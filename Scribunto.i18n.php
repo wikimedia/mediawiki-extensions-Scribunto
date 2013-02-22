@@ -84,13 +84,13 @@ $messages['qqq'] = array(
 * $1 are the error details.',
 	'scribunto-error-long' => 'Error message. Parameters:
 * $1 are the error details.',
-	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
-
-"Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-doc-subpage-name' => 'Subpage name for module documentation.',
 	'scribunto-doc-subpage-does-not-exist' => 'Message displayed if the documentation subpage does not exist. $1 is the prefixed title of the subpage.',
 	'scribunto-doc-subpage-show' => 'Message displayed if the documentation subpage does exist. $1 is the prefixed title of the subpage. Should probably transclude that page.',
 	'scribunto-doc-subpage-header' => 'Message displayed at the top of the documentation subpage. $1 is the prefixed title of the module.',
+	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
+
+"Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
 	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
@@ -251,6 +251,9 @@ $messages['de'] = array(
 	'scribunto-error-long' => 'Skriptfehler:
 
 $1',
+	'scribunto-doc-subpage-name' => 'Doku',
+	'scribunto-doc-subpage-does-not-exist' => "''Die Dokumentation für dieses Modul kann unter [[$1]] erstellt werden''",
+	'scribunto-doc-subpage-header' => "'''Dies ist die Dokumentationsunterseite für [[$1]]'''",
 	'scribunto-console-intro' => '* Modulexporte sind über die Variable „p“ verfügbar. Sie enthalten auch nicht gespeicherte Änderungen.
 * Einer Zeile „=“ voranstellen, um sie als Ausdruck auszuwerten oder <code>print()</code> nutzen.
 * Innerhalb des Modulcodes <code>mw.log()</code> nutzen, um Nachrichten zu dieser Konsole zu senden.',
@@ -404,6 +407,9 @@ $messages['fr'] = array(
 	'scribunto-error-long' => 'Erreur de script :
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''La documentation pour ce module peut être créée à [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Voici la sous-page de documentation pour [[$1]]'''",
 	'scribunto-console-intro' => "* Les exportations de module sont représentés par la variable « p », y compris les modifications non enregistrées. 
 * Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). 
 * Utilisez mw.log() dans le code du module pour envoyer des messages à cette console.",
@@ -452,6 +458,9 @@ $messages['gl'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''A documentación deste módulo pódese crear en \"[[\$1]]\"''",
+	'scribunto-doc-subpage-header' => "'''Esta é a subpáxina de documentación de \"[[\$1]]\"'''",
 	'scribunto-console-intro' => '* As exportacións do módulo están dispoñibles como a variable "p", incluídas as modificacións sen gardar.
 * Poña un "=" ao comezo da liña para avaliala como unha expresión; tamén pode usar print().
 * Use mw.log() no código do módulo para enviar mensaxes a esta consola.',
@@ -735,6 +744,9 @@ $messages['ja'] = array(
 	'scribunto-error-long' => 'スクリプトエラー:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''このモジュールについての説明文ページを [[$1]] に作成できます''",
+	'scribunto-doc-subpage-header' => "'''このページは、[[[$1]]]の説明文を記述する下位ページです。'''",
 	'scribunto-console-title' => 'デバッグコンソール',
 	'scribunto-console-too-large' => 'このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。',
 	'scribunto-console-current-src' => 'コンソール入力',
@@ -869,6 +881,9 @@ $messages['mk'] = array(
 	'scribunto-error-long' => 'Грешки во скриптата:
 
 $1',
+	'scribunto-doc-subpage-name' => 'док',
+	'scribunto-doc-subpage-does-not-exist' => "''Документацијата за овој модул можете да ја создадете на [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Ова е потстраницата за документација на [[$1]]'''",
 	'scribunto-console-intro' => '* Извозот на модулот е достапен како променлива „p“, вклучувајќи ги незачуваните измени.
 * Пред редот ставајте „=“ за да ја вреднувате како израз, или пак користете print().
 * Во кодот на модулот користете mw.log() за испраќање на пораки до оваа конзола.',
@@ -1147,10 +1162,10 @@ $1',
 	'scribunto-luastandalone-proc-error' => 'Eror Lua: As peul pa creesse un process.',
 	'scribunto-luastandalone-decode-error' => 'Eror Lua: Eror intern: A peul pa decodifichesse ël mëssagi.',
 	'scribunto-luastandalone-write-error' => 'Eror Lua: Eror intern: Eror scrivend ant ël canal.',
-	'scribunto-luastandalone-read-error' => 'Eror Lua: Eror intern: Eror lesend da canal.',
+	'scribunto-luastandalone-read-error' => 'Eror Lua: Eror intern: Eror ëd letura dal canal.',
 	'scribunto-luastandalone-gone' => "Eror Lua: Eror intern: L'antérpret a l'ha già finì.",
-	'scribunto-luastandalone-signal' => 'Eror Lua: Eror intern: L\'antérpret a l\'ha finì con signal "$2".',
-	'scribunto-luastandalone-exited' => "Eror Lua: Eror intern: L'antérpret a l'ha finì con stat $2.",
+	'scribunto-luastandalone-signal' => "Eror Lua: Eror intern: L'antérpret a l'ha finì con ël signal «$2».",
+	'scribunto-luastandalone-exited' => "Eror Lua: Eror intern: L'antérpret a l'ha finì con lë statù $2.",
 );
 
 /** Portuguese (português)
