@@ -92,6 +92,7 @@ $messages['qqq'] = array(
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
+	'scribunto-console-clear' => '{{Identical|Clear}}',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
 	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
 	'scribunto-common-error-category' => 'Tracking category for pages with errors from #invoke',
@@ -820,6 +821,9 @@ $messages['ko'] = array(
 	'scribunto-error-long' => '스크립트 오류:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''이 모듈에 대한 설명문은 [[$1]]에서 만들 수 있습니다''",
+	'scribunto-doc-subpage-header' => "''[[$1]]에 대한 설명문 하위 문서입니다''",
 	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
 * 표현으로 평가하는 "="이 있는 줄을 앞에 넣거나 print()를 사용하세요.
 * 이 콘솔에 메시지를 보낼 모듈 코드에 mw.log()를 사용하세요.',
