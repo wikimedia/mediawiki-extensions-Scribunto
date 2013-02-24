@@ -954,6 +954,9 @@ $messages['ms'] = array(
 	'scribunto-error-long' => 'Ralat-ralat skrip:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''Dokumentasi untuk modul ini boleh diwujudkan di [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Ini ialah subhalaman dokumentasi untuk [[$1]]'''",
 	'scribunto-console-intro' => '* Eksport modul terdapat dalam bentuk pembolehubah "p", termasuk pengubahsuaian yang belum disimpan.
 * Dahului baris dengan tanda "=" untuk menilainya sebagai ungkapan, atau gunakan print().
 * Gunakan mw.log() dalam kod modul untuk menghantar mesej ke konsol ini.',
@@ -1023,6 +1026,9 @@ $messages['nl'] = array(
 	'scribunto-error-long' => 'Scriptfouten:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''Documentatie voor deze module kan aangemaakt worden op de volgende pagina: [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Dit is de subpagina met documentatie voor [[$1]]'''",
 	'scribunto-console-intro' => '* De moduleexports zijn beschikbaar als de variabele "p", inclusief nog niet opgeslagen wijzigingen;
 * Begin een regel met "=" om deze als expressie te evalueren, of gebruik print();
 * Gebruik mw.log() in modulecode om berichten aan deze console te zenden.',
@@ -1032,6 +1038,7 @@ $1',
 	'scribunto-console-previous-src' => 'vorige consoleinvoer',
 	'scribunto-console-clear' => 'Wissen',
 	'scribunto-console-cleared' => 'De consolestatus is gewist omdat de module is bijgewerkt.',
+	'scribunto-console-cleared-session-lost' => 'De consolestatus is gewist omdat de sessiegegevens verloren zijn gegaan.',
 	'scribunto-common-error-category' => "Pagina's met scriptfouten",
 	'scribunto-common-nosuchmodule' => 'Scriptfout: de module bestaat niet.',
 	'scribunto-common-nofunction' => 'Scriptfout: u moet een aan te roepen functie opgeven.',
