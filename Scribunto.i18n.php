@@ -25,7 +25,7 @@ $1',
 	'scribunto-doc-subpage-name' => 'doc',
 	'scribunto-doc-subpage-does-not-exist' => "''Documentation for this module may be created at [[$1]]''",
 	'scribunto-doc-subpage-show' => '{{$1}}
-<hr>',
+<hr />',
 	'scribunto-doc-subpage-header' => "'''This is the documentation subpage for [[$1]]'''",
 
 	'scribunto-console-intro' => '* The module exports are available as the variable "p", including unsaved modifications.
