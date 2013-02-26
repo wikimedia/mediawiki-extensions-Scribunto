@@ -1423,6 +1423,9 @@ $messages['vi'] = array(
 	'scribunto-error-long' => 'Lỗi kịch bản:
 
 $1',
+	'scribunto-doc-subpage-name' => 'tài liệu',
+	'scribunto-doc-subpage-does-not-exist' => "''Có thể viết tài liệu về mô đun này tại [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Đây là trang con dành cho tài liệu về [[$1]]'''",
 	'scribunto-console-intro' => '* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.
 * Đưa “=” vào đầu dòng để tính toán nó như một biểu thức, hoặc sử dụng print().
 * Sử dụng mw.log() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.',
