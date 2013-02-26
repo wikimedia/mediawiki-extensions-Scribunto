@@ -69,14 +69,14 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
 		$ret = $interpreter->callFunction( $passthru, NAN );
-		$this->assertEquals( array( NAN ), $ret );
+		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not passed through' );
 
 		$interpreter->registerLibrary( 'test',
 			array( 'passthru' => array( $this, 'passthru' ) ) );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 		$ret = $interpreter->callFunction( $doublePassthru, NAN );
-		$this->assertEquals( array( NAN ), $ret );
+		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not double passed through' );
 	}
 
 	function normalizeOrder( $a ) {
