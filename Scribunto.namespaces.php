@@ -7,6 +7,11 @@ $namespaceNames['en'] = array(
 	829 => 'Module_talk',
 );
 
+$namespaceNames['de'] = array(
+	828 => 'Modul',
+	829 => 'Modul_Diskussion',
+);
+
 $namespaceNames['fr'] = array(
 	828 => 'Module',
 	829 => 'Discussion_module',
