@@ -71,7 +71,7 @@ $1',
  * @author Siebrand
  */
 $messages['qqq'] = array(
-	'scribunto-desc' => '{{desc}}',
+	'scribunto-desc' => '{{desc|name=Scribunto|url=http://www.mediawiki.org/wiki/Extension:Scribunto}}',
 	'scribunto-ignore-errors' => 'Label for a checkbox on the edit page. When clicked, parse errors are ignored on save.',
 	'scribunto-line' => 'Reference to a code location. Parameters:
 * $1 is a line number.',
