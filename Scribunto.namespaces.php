@@ -1,4 +1,10 @@
 <?php
+/**
+ * Internationalisation file for extension Scribunto.
+ *
+ * @file
+ * @ingroup Extensions
+ */
 
 $namespaceNames = array();
 
@@ -20,6 +26,11 @@ $namespaceNames['fr'] = array(
 $namespaceNames['he'] = array(
 	828 => 'יחידה',
 	829 => 'שיחת_יחידה',
+);
+
+$namespaceNames['nl'] = array(
+	828 => 'Module',
+	829 => 'Overleg_module',
 );
 
 $namespaceNames['zh-hans'] = array(
