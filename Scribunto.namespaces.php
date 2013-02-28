@@ -13,6 +13,11 @@ $namespaceNames['en'] = array(
 	829 => 'Module_talk',
 );
 
+$namespaceNames['be-tarask'] = array(
+	828 => 'Модуль',
+	829 => 'Абмеркаваньне_модулю',
+);
+
 $namespaceNames['de'] = array(
 	828 => 'Modul',
 	829 => 'Modul_Diskussion',
