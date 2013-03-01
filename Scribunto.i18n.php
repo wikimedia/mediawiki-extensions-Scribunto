@@ -34,7 +34,6 @@ $1',
 	'scribunto-console-title' => 'Debug console',
 	'scribunto-console-too-large' => 'This console session is too large. Please clear the console history or reduce the size of the module.',
 	'scribunto-console-current-src' => 'console input',
-	'scribunto-console-previous-src' => 'previous console input',
 	'scribunto-console-clear' => 'Clear',
 	'scribunto-console-cleared' => 'The console state was cleared because the module was updated.',
 	'scribunto-console-cleared-session-lost' => 'The console state was cleared because the session data was lost.',
@@ -91,6 +90,8 @@ $messages['qqq'] = array(
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
+	'scribunto-console-title' => 'Legend for the debug console fieldset',
+	'scribunto-console-too-large' => 'Error message displayed when the console history contains too much data.',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
 	'scribunto-console-clear' => '{{Identical|Clear}}',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
