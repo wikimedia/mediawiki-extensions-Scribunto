@@ -591,10 +591,11 @@ $1',
 
 /** Hungarian (magyar)
  * @author TK-999
+ * @author Tgr
  */
 $messages['hu'] = array(
 	'scribunto-desc' => 'Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására',
-	'scribunto-ignore-errors' => 'Hagyja figylemen kívül a kódhibákat', # Fuzzy
+	'scribunto-ignore-errors' => 'Engedje a kód elmentését akkor is, ha hibás',
 	'scribunto-line' => 'a(z) $1. sorban',
 	'scribunto-module-line' => 'a(z) $1 modulban a(z) $2. sorban',
 	'scribunto-parser-error' => 'Parancsfájl-hiba',
@@ -603,11 +604,19 @@ $messages['hu'] = array(
 	'scribunto-error-long' => 'Parancsfájl-hibák:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''A modult a [[$1]] lapon tudod dokumentálni''",
+	'scribunto-doc-subpage-header' => "'''Ez a [[$1]] dokumentációs lapja'''",
+	'scribunto-console-title' => 'Hibakereső konzol',
+	'scribunto-console-current-src' => 'konzol bemenet',
+	'scribunto-console-previous-src' => 'előző konzol bemenet',
+	'scribunto-console-clear' => 'törlés',
 	'scribunto-common-nosuchmodule' => 'Parancsfájl-hiba: nincs ilyen modul.',
 	'scribunto-common-nofunction' => 'Parancsfájl-hiba: meg kell adnod a használandó függvényt.',
 	'scribunto-common-nosuchfunction' => 'Parancsfájl-hiba: a megadott függvény nem létezik.',
 	'scribunto-common-timeout' => 'A parancsfájlok futtatására lefoglalt idő lejárt.',
 	'scribunto-common-oom' => 'A parancsfájlok futtatásához engedélyezett memória mennyisége túl lett lépve.',
+	'scribunto-common-backtrace' => 'Backtrace:',
 	'scribunto-lua-in-function' => 'a(z) "$1" függvényben',
 	'scribunto-lua-error' => 'Lua-hiba:  $2.',
 );
