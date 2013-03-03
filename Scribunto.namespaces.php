@@ -33,6 +33,11 @@ $namespaceNames['he'] = array(
 	829 => 'שיחת_יחידה',
 );
 
+$namespaceNames['hu'] = array(
+	828 => 'Modul',
+	829 => 'Modulvita',
+);
+
 $namespaceNames['nl'] = array(
 	828 => 'Module',
 	829 => 'Overleg_module',
