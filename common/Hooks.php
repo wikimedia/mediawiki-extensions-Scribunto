@@ -303,6 +303,7 @@ WIKI;
 			'engines/LuaCommon/UstringLibraryTest.php',
 			'engines/LuaCommon/MessageLibraryTest.php',
 			'engines/LuaCommon/TitleLibraryTest.php',
+			'engines/LuaCommon/TextLibraryTest.php',
 		);
 		foreach ( $tests as $test ) {
 			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
