@@ -8,7 +8,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	private $titleCache = array();
 	private $idCache = array();
 
-	function register( $pureLua = false ) {
+	function register() {
 		$lib = array(
 			'newTitle' => array( $this, 'newTitle' ),
 			'makeTitle' => array( $this, 'makeTitle' ),
