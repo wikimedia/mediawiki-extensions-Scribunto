@@ -324,6 +324,9 @@ $1',
 	'scribunto-doc-subpage-name' => 'documentacija',
 	'scribunto-doc-subpage-does-not-exist' => "''Dokumentacija za toś ten modul dajo se na [[$1]] napóraś''",
 	'scribunto-doc-subpage-header' => "'''To jo dokumentaciski pódbok za [[$1]]'''",
+	'scribunto-console-intro' => '* Modulowe eksporty stoje ako wariabla "p" k dispoziciji, inkluziwnje njeskładowanych změnow.
+* Staj "=" pśed smužku, aby ju ako wuraz wugódnośił, abo wužyj print().
+* Wužyj mw.log() w modulowem koźe, aby powěsći na konsolu pósłał.',
 	'scribunto-console-title' => 'Konsola za wótpóranje zmólkow',
 	'scribunto-console-too-large' => 'Toś to konsolowe pósejźenje jo pśewjelike. Pšosym wuprozni konsolowu historiju abo reducěruj wjelikosć modula.',
 	'scribunto-console-current-src' => 'konsolowe zapódaśe',
@@ -334,14 +337,73 @@ $1',
 	'scribunto-common-nosuchmodule' => 'Skriptowa zmólka: Taki modul njejo.',
 	'scribunto-common-nofunction' => 'Skriptowa zmólka: Musyš funkciju pódaś, kótaraž ma se wołaś.',
 	'scribunto-common-nosuchfunction' => 'Skriptowa zmólka: Funkcija, kótaruž sy pódał, njeeksistěrujo.',
+	'scribunto-common-timeout' => 'Cas, kótaryž jo se za wuwjeźenje skriptow póstajił, jo se minył.',
+	'scribunto-common-oom' => 'Wjelikosć źěłowego składa, kótaraž jo za wuwjeźenje skriptow dowólona, jo pśekšocona.',
 	'scribunto-common-backtrace' => 'Slědkslědowanje:',
 	'scribunto-lua-in-function' => 'we funkciji "$1"',
 	'scribunto-lua-in-main' => 'w głownem segmenśe',
 	'scribunto-lua-in-function-at' => 'we funkciji pśi $1:$2',
 	'scribunto-lua-error-location' => 'Lua-zmólka $1:  $2.',
 	'scribunto-lua-error' => 'Lua-zmólka:  $2.',
+	'scribunto-lua-noreturn' => 'Skriptowa zmólka: Modul njejo gódnotu wrośił, lěcrownož by měł eksportowu tabelu wrośiś.',
+	'scribunto-lua-notarrayreturn' => 'Skriptowa zmólka: Modul jo něco druge ako tabelu wrośił, wón by měł eksportowu tabelu wrośiś.',
 	'scribunto-luastandalone-proc-error' => 'Lua-zmólka: Proces njedajo se napóraś.',
 	'scribunto-luastandalone-decode-error' => 'Lua-zmólka: Nutśkowna zmólka: Powěźeńka njedajo se dekoděrowaś.',
+	'scribunto-luastandalone-write-error' => 'Lua-zmólka: Nutśkowna zmólka: Pśi pisanju jo zmólka nastała.',
+	'scribunto-luastandalone-read-error' => 'Lua-zmólka: Nutśkowna zmólka: Pśi cytanju jo zmólka nastała.',
+	'scribunto-luastandalone-gone' => 'Lua-zmólka: Nutśkowna zmólka: Interpreter jo se južo skóńcył.',
+	'scribunto-luastandalone-signal' => 'Lua-zmólka: Nutśkowna zmólka: Interpreter jo se ze signalom "$2" skóńcył.',
+	'scribunto-luastandalone-exited' => 'Lua-zmólka: Nutśkowna zmólka: Interpreter jo se ze statusom $2 skóńcył.',
+);
+
+/** Esperanto (Esperanto)
+ * @author Michawiki
+ * @author Tlustulimu
+ */
+$messages['eo'] = array(
+	'scribunto-desc' => 'Framo por enkorpigi skriptlingvojn en paĝojn de MediaWiki',
+	'scribunto-ignore-errors' => 'Permesi konservadon de kodo kun eraroj',
+	'scribunto-line' => 'en linio $1',
+	'scribunto-module-line' => 'en $1, linio $2',
+	'scribunto-parser-error' => 'Skripteraro',
+	'scribunto-parser-dialog-title' => 'Skripteraro',
+	'scribunto-error-short' => 'Skripteraro: $1',
+	'scribunto-error-long' => 'Skripteraroj:
+
+$1',
+	'scribunto-doc-subpage-name' => 'dokumentado',
+	'scribunto-doc-subpage-does-not-exist' => "''Dokumentado por ĉi tiu modulo povas esti kreatata en [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Tio estas la subpaĝo de la dokumentado por [[$1]]'''",
+	'scribunto-console-intro' => '* La modulaj eksportoj estas disponeblaj kiel variablo "p" , inkluzive de la nekonservitaj ŝanĝoj.
+* Prefiksu linion per "=" por taksi ĝin kiel esprimon aŭ uzu print().
+* Uzu mw.log() en la modulkodo por sendi mesaĝojn al ĉi tiu konzolo.',
+	'scribunto-console-title' => 'Sencimiga konzolo',
+	'scribunto-console-too-large' => 'Ĉi tiu konzola seanco estas tro ampleksa. Bonvolu vakigi la konzolan historion aŭ reduku la grandecon de la modulo.',
+	'scribunto-console-current-src' => 'Konzola enigo',
+	'scribunto-console-clear' => 'Vakigi',
+	'scribunto-console-cleared' => 'Konzola stato estis vakigata, ĉar la modulo estis ĝisdatigata.',
+	'scribunto-console-cleared-session-lost' => 'La konzola stato estis vakigata, ĉar la seancaj datumoj perdiĝis.',
+	'scribunto-common-error-category' => 'Paĝoj kun skripteraroj',
+	'scribunto-common-nosuchmodule' => 'Skripteraro: Tia modulo ne ekzistas.',
+	'scribunto-common-nofunction' => 'Skripteraro: Vi devas specifi vokotan funkcion.',
+	'scribunto-common-nosuchfunction' => 'Skripteraro: La funkcio, kiun vi specifis, ne ekzistis.',
+	'scribunto-common-timeout' => 'La planita tempo por plenumi skriptojn pasis.',
+	'scribunto-common-oom' => 'La sumo de memoro permesata por lanĉi skriptojn estas transpasita.',
+	'scribunto-common-backtrace' => 'Retrospurado:',
+	'scribunto-lua-in-function' => 'en funkcio "$1"',
+	'scribunto-lua-in-main' => 'en la ĉefsegmento',
+	'scribunto-lua-in-function-at' => 'en la funkcio ĉe $1: $2',
+	'scribunto-lua-error-location' => 'Lua-eraro $1: $2.',
+	'scribunto-lua-error' => 'Lua-eraro: $2.',
+	'scribunto-lua-noreturn' => 'Skripteraro: La modulo  ne liveris valoron. Ĝi liveru eksportotabelon.',
+	'scribunto-lua-notarrayreturn' => 'Skripteraro: La modulo liveris ion alian ol tabelon. Ĝi liveru eksportotabelon.',
+	'scribunto-luastandalone-proc-error' => 'Lua-eraro: Ne povas krei proceson.',
+	'scribunto-luastandalone-decode-error' => 'Lua-eraro: Interna eraro: Ne eblas dekodi mesaĝon.',
+	'scribunto-luastandalone-write-error' => 'Lua-eraro: Interna eraro: Eraro skribante al dukto.',
+	'scribunto-luastandalone-read-error' => 'Lua-eraro: Interna eraro: Eraro legante el dukto.',
+	'scribunto-luastandalone-gone' => 'Lua-eraro: Interna eraro: La interpretilo estas jam eligita.',
+	'scribunto-luastandalone-signal' => 'Lua-eraro: Interna eraro: La interpretilo finiĝis kun signalo "$2".',
+	'scribunto-luastandalone-exited' => 'Lua-eraro: Interna eraro: La interpretilo finiĝis kun statuso "$2".',
 );
 
 /** Spanish (español)
@@ -610,7 +672,7 @@ $1',
 	'scribunto-common-nofunction' => 'Skriptowy zmylk: Dyrbiš funkciju podać, kotraž ma so wołać.',
 	'scribunto-common-nosuchfunction' => 'Skriptowy zmylk: Funkcija, kotruž sy podał, njeeksistuje.',
 	'scribunto-common-timeout' => 'Čas, kotryž je so za wuwjedźenje skriptow postajił, je spadnył.',
-	'scribunto-common-oom' => 'Wysokosć dźěłoweho składa, kotraž je za wuwjedźenje skriptow dowolena, je překročena.',
+	'scribunto-common-oom' => 'Wulkosć dźěłoweho składa, kotraž je za wuwjedźenje skriptow dowolena, je překročena.',
 	'scribunto-common-backtrace' => 'Wróćoslědowanje:',
 	'scribunto-lua-in-function' => 'we funkciji "$1"',
 	'scribunto-lua-in-main' => 'we hłownym segmenće',
@@ -732,6 +794,7 @@ $1',
 
 /** Italian (italiano)
  * @author Beta16
+ * @author Codicorumus
  * @author F. Cosoleto
  * @author Raoli
  */
@@ -746,15 +809,17 @@ $messages['it'] = array(
 	'scribunto-error-long' => 'Errori script:
 
 $1',
+	'scribunto-doc-subpage-does-not-exist' => "''La documentazione per questo modulo può essere creata in [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Questa è la sottopagina di documentazione per [[$1]]'''",
 	'scribunto-console-intro' => '* Le esportazioni del modulo sono rappresentate dalla variabile "p", incluse le modifiche non salvate.
-* Precede una linea con "=" per valutarlo come una espressione, o utilizzare print().
+* Per valutare una linea come espressione, iniziala con "=" oppure usa print().
 * Usa mw.log() nel codice del modulo per inviare messaggi a questa console.',
 	'scribunto-console-title' => 'Console di debug',
 	'scribunto-console-too-large' => 'Questa sessione della console è troppo grande, cancellare la cronologia della console o ridurre le dimensioni del modulo.',
 	'scribunto-console-current-src' => 'input della console',
-	'scribunto-console-previous-src' => 'input della console precedente',
 	'scribunto-console-clear' => 'Pulisci',
 	'scribunto-console-cleared' => 'Lo stato della console è stato azzerato perché il modulo è stato aggiornato.',
+	'scribunto-console-cleared-session-lost' => 'Lo stato della console è stato azzerato perché i dati della sessione sono andati persi.',
 	'scribunto-common-error-category' => 'Pagine con errori di script',
 	'scribunto-common-nosuchmodule' => 'Errore script: nessun modulo corrispondente trovato.',
 	'scribunto-common-nofunction' => 'Errore script: devi specificare una funzione da chiamare.',
@@ -1378,6 +1443,24 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ දැනටමත් පවතී.',
 	'scribunto-luastandalone-signal' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" සංඥාව සමඟ අවසාන වුණි.',
 	'scribunto-luastandalone-exited' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" තත්වය සමඟ ඉවත් වුණි.',
+);
+
+/** Slovak (slovenčina)
+ * @author KuboF
+ */
+$messages['sk'] = array(
+	'scribunto-desc' => 'Umožňuje vkladať do stránok MediaWiki skriptovacie jazyky',
+	'scribunto-ignore-errors' => 'Povoliť uloženie kódu s chybami',
+	'scribunto-line' => 'na riadku $1',
+	'scribunto-parser-error' => 'Chyba skriptu',
+	'scribunto-parser-dialog-title' => 'Chyba skriptu',
+	'scribunto-error-short' => 'Chyba skriptu: $1',
+	'scribunto-error-long' => 'Chyby skriptu:
+
+$1',
+	'scribunto-doc-subpage-name' => 'Dokumentácia',
+	'scribunto-doc-subpage-does-not-exist' => "''Dokumentácia pre tento modul môže byť vytvorená na [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Toto je podstránka dokumentácie pre [[$1]]'''",
 );
 
 /** Tagalog (Tagalog)
