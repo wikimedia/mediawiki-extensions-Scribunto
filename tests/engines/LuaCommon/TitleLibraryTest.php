@@ -39,6 +39,13 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 	function setUp() {
 		parent::setUp();
 
+		// Page for getContent test
+		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestPage' ) );
+		$page->doEditContent(
+			new WikitextContent( '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' ),
+			'Summary'
+		);
+
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 

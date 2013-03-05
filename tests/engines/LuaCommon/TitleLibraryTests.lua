@@ -40,6 +40,10 @@ local function test_expensive_cached()
 	return 'did not error'
 end
 
+local function test_getContent()
+	return mw.title.new( 'ScribuntoTestPage' ):getContent()
+end
+
 -- Tests
 local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
@@ -255,6 +259,10 @@ local tests = {
 		  'http://wiki.local/wiki/Talk:Has/A/Subpage#frag',
 		  'http://wiki.local/wiki/Not/A/Subpage'
 	  }
+	},
+
+	{ name = '.getContent()', func = test_getContent,
+	  expect = { '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' }
 	},
 
 	{ name = 'expensive functions', func = test_expensive,

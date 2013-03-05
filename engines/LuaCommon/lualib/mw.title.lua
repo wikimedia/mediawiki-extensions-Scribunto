@@ -144,6 +144,16 @@ local function makeTitleObject( data )
 		return php.getUrl( self.fullText, 'canonicalUrl', query )
 	end
 
+	function data:getContent()
+		checkSelf( self, 'getContent' )
+		local content = php.getContent( self.fullText )
+		data.getContent = function ( self )
+			checkSelf( self, 'getContent' )
+			return content
+		end
+		return content
+	end
+
 	return setmetatable( obj, {
 		__eq = title.equals,
 		__lt = lt,

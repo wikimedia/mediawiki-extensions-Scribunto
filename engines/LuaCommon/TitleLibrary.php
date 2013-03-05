@@ -13,6 +13,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'newTitle' => array( $this, 'newTitle' ),
 			'makeTitle' => array( $this, 'makeTitle' ),
 			'getUrl' => array( $this, 'getUrl' ),
+			'getContent' => array( $this, 'getContent' ),
 		);
 		$this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
@@ -194,5 +195,21 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			return array( null );
 		}
 		return array( call_user_func_array( array( $title, $func ), $args ) );
+	}
+
+	function getContent( $text ) {
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return array( null );
+		}
+		$rev = Revision::newFromTitle( $title );
+		if ( !$rev ) {
+			return array( null );
+		}
+		$content = $rev->getContent();
+		if ( !$content ) {
+			return array( null );
+		}
+		return array( $content->serialize() );
 	}
 }
