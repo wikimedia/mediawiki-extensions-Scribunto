@@ -139,6 +139,10 @@ return testframework.getTestProvider( {
 	  args = { str1, 5, 5 },
 	  expect = { "\224\160\128" }
 	},
+	{ name = 'sub: empty string', func = mw.ustring.sub,
+	  args = { '', 5 },
+	  expect = { "" }
+	},
 
 	{ name = 'upper: basic test', func = mw.ustring.upper,
 	  args = { "fóó?" },
@@ -276,6 +280,10 @@ return testframework.getTestProvider( {
 	{ name = 'find: (.-)', func = mw.ustring.find,
 	  args = { "¡foo¡ ¡bar¡ baz", '¡.-¡' },
 	  expect = { 1, 5 }
+	},
+	{ name = 'find: plain', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '¡.¡', 1, true },
+	  expect = { 5, 7 }
 	},
 
 	{ name = 'find: capture (1)', func = mw.ustring.find,
