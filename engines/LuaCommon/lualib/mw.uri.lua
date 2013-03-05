@@ -453,12 +453,12 @@ function urimt:__newindex( key, value )
 			checkTypeForIndex( key, value, 'string' )
 			local i, j = nil, string.len( value )
 			i = string.find( value, '#', 1, true )
-			if i and i < j then
+			if i and i <= j then
 				fragment = string.sub( value, i + 1, j )
 				j = i - 1
 			end
 			i = string.find( value, '?', 1, true )
-			if i and i < j then
+			if i and i <= j then
 				query = uri.parseQueryString( string.sub( value, i + 1, j ) )
 				j = i - 1
 			end

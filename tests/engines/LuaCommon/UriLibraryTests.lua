@@ -101,6 +101,16 @@ local tests = {
 	  args = { 'Example', { action = 'edit' } },
 	  expect = { 'http://wiki.local/w/index.php?title=Example&action=edit' },
 	},
+
+	{ name = 'uri.new with empty query string', func = mw.uri.new, type = 'ToString',
+	  args = { 'http://wiki.local/w/index.php?' },
+	  expect = { 'http://wiki.local/w/index.php?' },
+	},
+
+	{ name = 'uri.new with empty fragment', func = mw.uri.new, type = 'ToString',
+	  args = { 'http://wiki.local/w/index.php#' },
+	  expect = { 'http://wiki.local/w/index.php#' },
+	},
 }
 
 -- Add tests to test round-tripping for every combination of parameters
