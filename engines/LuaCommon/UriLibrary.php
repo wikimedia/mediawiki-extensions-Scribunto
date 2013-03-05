@@ -1,7 +1,7 @@
 <?php
 
 class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
-	function register( $pureLua = false ) {
+	function register() {
 		$lib = array(
 			'anchorEncode' => array( $this, 'anchorEncode' ),
 			'localUrl' => array( $this, 'localUrl' ),
