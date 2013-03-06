@@ -34,3 +34,8 @@ $magicWords['mk'] = array(
 $magicWords['nl'] = array(
 	'invoke' => array( 0, 'aanroepen' ),
 );
+
+/** Vietnamese (Tiếng Việt) */
+$magicWords['vi'] = array(
+	'invoke' => array( 0, 'gọi' ),
+);

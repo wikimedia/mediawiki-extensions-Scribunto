@@ -809,6 +809,7 @@ $messages['it'] = array(
 	'scribunto-error-long' => 'Errori script:
 
 $1',
+	'scribunto-doc-subpage-name' => 'man',
 	'scribunto-doc-subpage-does-not-exist' => "''La documentazione per questo modulo può essere creata in [[$1]]''",
 	'scribunto-doc-subpage-header' => "'''Questa è la sottopagina di documentazione per [[$1]]'''",
 	'scribunto-console-intro' => '* Le esportazioni del modulo sono rappresentate dalla variabile "p", incluse le modifiche non salvate.
