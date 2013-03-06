@@ -65,8 +65,6 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		$suite->setName( $className );
 
 		$class = new ReflectionClass( $className );
-		$parser = new Parser;
-		$parser->startExternalParse( Title::newMainPage(), new ParserOptions, Parser::OT_HTML, true );
 
 		foreach ( self::$engineConfigurations as $engineName => $opts ) {
 			if ( $group !== null && $group !== $engineName ) {
@@ -74,10 +72,13 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 			}
 
 			try {
+				$parser = new Parser;
+				$parser->startExternalParse( Title::newMainPage(), new ParserOptions, Parser::OT_HTML, true );
 				$engineClass = "Scribunto_{$engineName}Engine";
 				$engine = new $engineClass(
 					self::$engineConfigurations[$engineName] + array( 'parser' => $parser )
 				);
+				$parser->scribunto_engine = $engine;
 				$engine->setTitle( $parser->getTitle() );
 				$engine->getInterpreter();
 			} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
@@ -163,6 +164,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 			$this->engine = new $class(
 				self::$engineConfigurations[$this->engineName] + array( 'parser' => $parser )
 			);
+			$parser->scribunto_engine = $this->engine;
 			$this->engine->setTitle( $parser->getTitle() );
 		}
 		return $this->engine;
