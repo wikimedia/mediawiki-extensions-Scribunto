@@ -23,6 +23,16 @@ $namespaceNames['de'] = array(
 	829 => 'Modul_Diskussion',
 );
 
+$namespaceNames['dsb'] = array(
+	828 => 'Modul',
+	829 => 'Modul_diskusija',
+);
+
+$namespaceNames['eo'] = array(
+	828 => 'Modulo',
+	829 => 'Modulo-Diskuto',
+);
+
 $namespaceNames['fr'] = array(
 	828 => 'Module',
 	829 => 'Discussion_module',
@@ -31,6 +41,11 @@ $namespaceNames['fr'] = array(
 $namespaceNames['he'] = array(
 	828 => 'יחידה',
 	829 => 'שיחת_יחידה',
+);
+
+$namespaceNames['hsb'] = array(
+	828 => 'Modul',
+	829 => 'Modul_diskusija',
 );
 
 $namespaceNames['hu'] = array(
