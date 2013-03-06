@@ -45,6 +45,18 @@ abstract class Scribunto_LuaInterpreter {
 	 *    pcall(). 
 	 */
 	abstract public function registerLibrary( $name, $functions );
+
+	/**
+	 * Pause CPU usage and limits
+	 * @return void
+	 */
+	abstract public function pauseUsageTimer();
+
+	/**
+	 * Unpause CPU usage and limits
+	 * @return void
+	 */
+	abstract public function unpauseUsageTimer();
 }
 
 class Scribunto_LuaInterpreterNotFoundError extends MWException {}

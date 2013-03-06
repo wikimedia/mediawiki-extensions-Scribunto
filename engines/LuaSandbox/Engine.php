@@ -191,6 +191,18 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 			return array();
 		}
 	}
+
+	public function pauseUsageTimer() {
+		if ( is_callable( array( $this->sandbox, 'pauseUsageTimer' ) ) ) {
+			$this->sandbox->pauseUsageTimer();
+		}
+	}
+
+	public function unpauseUsageTimer() {
+		if ( is_callable( array( $this->sandbox, 'unpauseUsageTimer' ) ) ) {
+			$this->sandbox->unpauseUsageTimer();
+		}
+	}
 }
 
 class Scribunto_LuaSandboxCallback {

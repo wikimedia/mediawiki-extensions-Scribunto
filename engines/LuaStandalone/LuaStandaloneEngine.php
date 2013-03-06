@@ -219,6 +219,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $result[1];
 	}
 
+	public function pauseUsageTimer() {
+	}
+
+	public function unpauseUsageTimer() {
+	}
+
 	/**
 	 * Fill in missing nulls in a list received from Lua
 	 *

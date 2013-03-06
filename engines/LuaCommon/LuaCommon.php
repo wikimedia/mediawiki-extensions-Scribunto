@@ -363,6 +363,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( $frame === false ) {
 			return array();
 		}
+		$this->getInterpreter()->pauseUsageTimer();
 		$result = $frame->getArgument( $name );
 		if ( $result === false ) {
 			return array();
@@ -379,6 +380,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( $frame === false ) {
 			return array();
 		}
+		$this->getInterpreter()->pauseUsageTimer();
 		return array( $frame->getArguments() );
 	}
 
@@ -432,10 +434,17 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( !$frame ) {
 			throw new Scribunto_LuaError( 'attempt to call mw.preprocess with no frame' );
 		}
+
+		// Don't count the time for expanding all the frame arguments against
+		// the Lua time limit.
+		$this->getInterpreter()->pauseUsageTimer();
+		$args = $frame->getArguments();
+		$this->getInterpreter()->unpauseUsageTimer();
+
 		$text = $this->doCachedExpansion( $frame, $text,
 			array(
 				'inputText' => $text,
-				'args' => $frame->getArguments()
+				'args' => $args,
 			) );
 		return array( $text );
 	}
