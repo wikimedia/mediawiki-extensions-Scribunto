@@ -85,6 +85,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$interpreter = $engine->getInterpreter();
 
+		// Loading a title should create a link
 		$links = $engine->getParser()->getOutput()->getLinks();
 		$this->assertFalse( isset( $links[NS_PROJECT]['Referenced_from_Lua'] ) );
 
@@ -95,5 +96,17 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$links = $engine->getParser()->getOutput()->getLinks();
 		$this->assertArrayHasKey( NS_PROJECT, $links );
 		$this->assertArrayHasKey( 'Referenced_from_Lua', $links[NS_PROJECT] );
+
+		// Loading the page content should create a templatelink
+		$templates = $engine->getParser()->getOutput()->getTemplates();
+		$this->assertFalse( isset( $links[NS_PROJECT]['Loaded_from_Lua'] ) );
+
+		$interpreter->callFunction(
+			$interpreter->loadString( 'mw.title.new( "Project:Loaded from Lua" ):getContent()', 'load title' )
+		);
+
+		$templates = $engine->getParser()->getOutput()->getTemplates();
+		$this->assertArrayHasKey( NS_PROJECT, $templates );
+		$this->assertArrayHasKey( 'Loaded_from_Lua', $templates[NS_PROJECT] );
 	}
 }

@@ -202,6 +202,12 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( !$title ) {
 			return array( null );
 		}
+
+		// Record in templatelinks, so edits cause the page to be refreshed
+		$this->getParser()->getOutput()->addTemplate(
+			$title, $title->getArticleID(), $title->getLatestRevID()
+		);
+
 		$rev = Revision::newFromTitle( $title );
 		if ( !$rev ) {
 			return array( null );
