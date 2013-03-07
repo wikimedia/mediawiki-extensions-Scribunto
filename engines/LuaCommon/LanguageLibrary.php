@@ -29,6 +29,8 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			'caseFold',
 			'formatNum',
 			'formatDate',
+			'formatDuration',
+			'getDurationIntervals',
 			'parseFormattedNumber',
 			'convertPlural',
 			'convertGrammar',
@@ -264,6 +266,36 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 		$ret = $lang->sprintfDate( $format, $ts );
 		$this->timeCache[$format][$cacheKey][$langcode][$local] = $ret;
+		return array( $ret );
+	}
+
+	/**
+	 * formatDuration handler
+	 */
+	function formatDuration( $lang, $args ) {
+		$this->checkType( 'formatDuration', 1, $args[0], 'number' );
+		$this->checkTypeOptional( 'formatDuration', 2, $args[1], 'table', array() );
+
+		list( $seconds, $chosenIntervals ) = $args;
+		$langcode = $lang->getCode();
+		$chosenIntervals = array_values( $chosenIntervals );
+
+		$ret = $lang->formatDuration( $seconds, $chosenIntervals );
+		return array( $ret );
+	}
+
+	/**
+	 * getDurationIntervals handler
+	 */
+	function getDurationIntervals( $lang, $args ) {
+		$this->checkType( 'getDurationIntervals', 1, $args[0], 'number' );
+		$this->checkTypeOptional( 'getDurationIntervals', 2, $args[1], 'table', array() );
+
+		list( $seconds, $chosenIntervals ) = $args;
+		$langcode = $lang->getCode();
+		$chosenIntervals = array_values( $chosenIntervals );
+
+		$ret = $lang->getDurationIntervals( $seconds, $chosenIntervals );
 		return array( $ret );
 	}
 }

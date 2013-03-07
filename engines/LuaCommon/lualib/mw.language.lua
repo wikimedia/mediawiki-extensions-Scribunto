@@ -61,7 +61,6 @@ function language.new( code )
 	local checkSelf = util.makeCheckSelfFunction( 'mw.language', 'lang', lang, 'language object' )
 
 	local wrappers = {
-		isRTL = 0,
 		lcfirst = 1,
 		ucfirst = 1,
 		lc = 1,
@@ -70,6 +69,8 @@ function language.new( code )
 		formatNum = 1,
 		formatDate = 1,
 		parseFormattedNumber = 1,
+		formatDuration = 1,
+		getDurationIntervals = 1,
 		convertPlural = 2,
 		convertGrammar = 2,
 		gender = 2,
@@ -85,6 +86,16 @@ function language.new( code )
 		end
 	end
 
+	-- This one could use caching
+	function lang:isRTL()
+		checkSelf( self, 'isRTL' )
+		local rtl = php.isRTL( self.code )
+		self.isRTL = function ()
+			return rtl
+		end
+		return rtl
+	end
+
 	-- Alias
 	lang.plural = lang.convertPlural
 
@@ -94,9 +105,52 @@ function language.new( code )
 		return self:convertGrammar( word, case )
 	end
 
+	-- Other functions
 	function lang:getCode()
 		checkSelf( self, 'getCode' )
 		return self.code
+	end
+
+	function lang:getDir()
+		checkSelf( self, 'getDir' )
+		return self:isRTL() and 'rtl' or 'ltr'
+	end
+
+	function lang:getDirMark( opposite )
+		checkSelf( self, 'getDirMark' )
+		local b = self:isRTL()
+		if opposite then
+			b = not b
+		end
+		return b and '\226\128\143' or '\226\128\142'
+	end
+
+	function lang:getDirMarkEntity( opposite )
+		checkSelf( self, 'getDirMarkEntity' )
+		local b = self:isRTL()
+		if opposite then
+			b = not b
+		end
+		return b and '&rlm;' or '&lrm;'
+	end
+
+	function lang:getArrow( direction )
+		checkSelf( self, 'getArrow' )
+		direction = direction or 'forwards'
+		util.checkType( 'getArrow', 1, direction, 'string' )
+		if direction == 'forwards' then
+			return self:isRTL() and '←' or '→'
+		elseif direction == 'backwards' then
+			return self:isRTL() and '→' or '←'
+		elseif direction == 'left' then
+			return '←'
+		elseif direction == 'right' then
+			return '→'
+		elseif direction == 'up' then
+			return '↑'
+		elseif direction == 'down' then
+			return '↓'
+		end
 	end
 
 	return lang
