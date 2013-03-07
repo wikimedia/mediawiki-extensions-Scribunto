@@ -1,22 +1,5 @@
 <?php
 
-// Hook to inject our interwiki prefix
-$wgHooks['InterwikiLoadPrefix'][] = function ( $prefix, &$data ) {
-	if ( $prefix !== 'scribuntotitletest' ) {
-		return true;
-	}
-
-	$data = array(
-		'iw_prefix' => 'scribuntotitletest',
-		'iw_url'    => '//test.wikipedia.org/wiki/$1',
-		'iw_api'    => 1,
-		'iw_wikiid' => 0,
-		'iw_local'  => 0,
-		'iw_trans'  => 0
-	);
-	return false;
-};
-
 class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
 
@@ -37,7 +20,27 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	function setUp() {
+		global $wgHooks;
+
 		parent::setUp();
+
+		// Hook to inject our interwiki prefix
+		$this->hooks = $wgHooks;
+		$wgHooks['InterwikiLoadPrefix'][] = function ( $prefix, &$data ) {
+			if ( $prefix !== 'scribuntotitletest' ) {
+				return true;
+			}
+
+			$data = array(
+				'iw_prefix' => 'scribuntotitletest',
+				'iw_url'    => '//test.wikipedia.org/wiki/$1',
+				'iw_api'    => 1,
+				'iw_wikiid' => 0,
+				'iw_local'  => 0,
+				'iw_trans'  => 0,
+			);
+			return false;
+		};
 
 		// Page for getContent test
 		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestPage' ) );
@@ -49,6 +52,12 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 
+		// Indicate to the tests that it's safe to create the title objects
+		$interpreter = $this->getEngine()->getInterpreter();
+		$interpreter->callFunction(
+			$interpreter->loadString( 'mw.ok = true', 'fortest' )
+		);
+
 		$this->setMwGlobals( array(
 			'wgServer' => '//wiki.local',
 			'wgCanonicalServer' => 'http://wiki.local',
@@ -58,6 +67,12 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 			'wgScriptPath' => '/w',
 			'wgArticlePath' => '/wiki/$1',
 		) );
+	}
+
+	function tearDown() {
+		global $wgHooks;
+		$wgHooks = $this->hooks;
+		parent::tearDown();
 	}
 
 	function getTestModules() {

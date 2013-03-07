@@ -1,14 +1,17 @@
 local testframework = require 'Module:TestFramework'
 
-local title = mw.title.getCurrentTitle()
-local title_copy = mw.title.getCurrentTitle()
-local title2 = mw.title.new( 'Module:TestFramework' )
-local title3 = mw.title.new( 'scribuntotitletest:Module:TestFramework' )
-local title4 = mw.title.new( 'Talk:Has/A/Subpage' )
-local title5 = mw.title.new( 'Not/A/Subpage' )
-title4.fragment = 'frag'
+local title, title_copy, title2, title3, title4, title5, title4p
+if mw.ok then
+	title = mw.title.getCurrentTitle()
+	title_copy = mw.title.getCurrentTitle()
+	title2 = mw.title.new( 'Module:TestFramework' )
+	title3 = mw.title.new( 'scribuntotitletest:Module:TestFramework' )
+	title4 = mw.title.new( 'Talk:Has/A/Subpage' )
+	title5 = mw.title.new( 'Not/A/Subpage' )
+	title4.fragment = 'frag'
 
-local title4p = mw.title.new( 'Talk:Has/A' )
+	title4p = mw.title.new( 'Talk:Has/A' )
+end
 
 local function prop_foreach( prop )
 	return title[prop], title2[prop], title3[prop], title4[prop], title5[prop]
