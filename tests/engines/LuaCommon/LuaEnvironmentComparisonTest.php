@@ -16,33 +16,34 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 
 	protected $engines = array();
 
-	function setUp() {
-		parent::setUp();
-
+	function makeEngine( $class, $opts ) {
 		$parser = new Parser;
 		$options = new ParserOptions;
 		$options->setTemplateCallback( array( $this, 'templateCallback' ) );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
+		$engine = new $class ( array( 'parser' => $parser ) + $opts );
+		$parser->scribunto_engine = $engine;
+		$engine->setTitle( $parser->getTitle() );
+		$engine->getInterpreter();
+		return $engine;
+	}
+
+	function setUp() {
+		parent::setUp();
 
 		try {
-			$engine = new Scribunto_LuaSandboxEngine(
-				array( 'parser' => $parser ) + $this->sandboxOpts
+			$this->engines['LuaSandbox'] = $this->makeEngine(
+				'Scribunto_LuaSandboxEngine', $this->sandboxOpts
 			);
-			$engine->setTitle( $parser->getTitle() );
-			$engine->getInterpreter();
-			$this->engines['LuaSandbox'] = $engine;
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaSandbox interpreter not available" );
 			return;
 		}
 
 		try {
-			$engine = new Scribunto_LuaStandaloneEngine(
-				array( 'parser' => $parser ) + $this->standaloneOpts
+			$this->engines['LuaStandalone'] = $this->makeEngine(
+				'Scribunto_LuaStandaloneEngine', $this->standaloneOpts
 			);
-			$engine->setTitle( $parser->getTitle() );
-			$engine->getInterpreter();
-			$this->engines['LuaStandalone'] = $engine;
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaStandalone interpreter not available" );
 			return;
