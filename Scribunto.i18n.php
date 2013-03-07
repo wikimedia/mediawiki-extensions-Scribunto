@@ -1186,13 +1186,15 @@ $messages['nn'] = array(
 	'scribunto-error-long' => 'Skriptfeil:
 
 $1',
+	'scribunto-doc-subpage-name' => 'dok',
+	'scribunto-doc-subpage-does-not-exist' => "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Dette er dokumentasjonsundersida for [[$1]]'''",
 	'scribunto-console-intro' => '* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.
 * Byrja ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().
 * Bruk mw.log() i modulkode for å senda meldingar til denne konsollen.',
 	'scribunto-console-title' => 'Feilsøkingskonsoll',
 	'scribunto-console-too-large' => 'Konsolløkta er for stor. Tøm konsollhistorikken eller minsk storleiken på modulen.',
 	'scribunto-console-current-src' => 'konsollinndata',
-	'scribunto-console-previous-src' => 'førre konsollinndataen',
 	'scribunto-console-clear' => 'Tøm',
 	'scribunto-console-cleared' => 'Konsollstoda vart tømd av di modulen vart oppdatert.',
 	'scribunto-console-cleared-session-lost' => 'Konsollstoda vart tømd av di øktdataa vart tapte.',
