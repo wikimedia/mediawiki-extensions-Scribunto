@@ -55,7 +55,7 @@ $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
 $wgHooks['EditPageBeforeEditChecks'][] = 'ScribuntoHooks::beforeEditChecks';
 $wgHooks['EditPageBeforeEditButtons'][] = 'ScribuntoHooks::beforeEditButtons';
 $wgHooks['EditFilterMerged'][] = 'ScribuntoHooks::validateScript';
-$wgHooks['ArticleViewHeader'][] = 'ScribuntoHooks::showDocSubpageHeader';
+$wgHooks['ArticleViewHeader'][] = 'ScribuntoHooks::showDocPageHeader';
 $wgHooks['ContentHandlerDefaultModelFor'][] = 'ScribuntoHooks::contentHandlerDefaultModelFor';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
