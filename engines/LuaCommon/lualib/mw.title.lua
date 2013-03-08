@@ -1,5 +1,6 @@
 local title = {}
 local php
+local NS_MEDIA = -2
 
 local util = require 'libraryUtil'
 local checkType = util.checkType
@@ -59,7 +60,6 @@ local function makeTitleObject( data )
 	data.isExternal = data.interwiki ~= ''
 	data.isSpecialPage = data.namespace == mw.site.namespaces.Special.id
 	data.isTalkPage = ns.isTalk
-	data.exists = data.id ~= 0
 	data.subjectNsText = ns.subject.name
 	data.canTalk = ns.talk ~= nil
 
@@ -154,10 +154,28 @@ local function makeTitleObject( data )
 		return content
 	end
 
+	-- Read-only fields, both those defined above and any dynamically handled
+	-- in __index.
+	local readOnlyFields = {
+		fullText = true,
+		rootPageTitle = true,
+		basePageTitle = true,
+		talkPageTitle = true,
+		subjectPageTitle = true,
+		fileExists = true,
+	}
+	for k in pairs( data ) do
+		readOnlyFields[k] = true
+	end
+
 	return setmetatable( obj, {
 		__eq = title.equals,
 		__lt = lt,
 		__index = function ( t, k )
+			if k == 'exists' and data.namespace == NS_MEDIA then
+				k = 'fileExists'
+			end
+
 			if k == 'fullText' then
 				if data.fragment ~= '' then
 					return data.prefixedText .. '#' .. data.fragment
@@ -189,6 +207,12 @@ local function makeTitleObject( data )
 				end
 				return title.makeTitle( ns.id, data.text )
 			end
+			if k == 'fileExists' then
+				if data.fileExists == nil then
+					data.fileExists = php.fileExists( data.prefixedText )
+				end
+				return data.fileExists
+			end
 
 			return data[k]
 		end,
@@ -196,7 +220,7 @@ local function makeTitleObject( data )
 			if k == 'fragment' then
 				checkTypeForIndex( k, v, 'string' )
 				data[k] = v
-			elseif data[k] then
+			elseif readOnlyFields[k] then
 				error( "index '" .. k .. "' is read only", 2 )
 			else
 				rawset( t, k, v )
@@ -213,6 +237,7 @@ function title.setupInterface( options )
 	title.setupInterface = nil
 	php = mw_interface
 	mw_interface = nil
+	NS_MEDIA = options.NS_MEDIA
 
 	-- Set current title
 	title.getCurrentTitle = function ()

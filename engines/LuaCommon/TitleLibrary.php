@@ -14,9 +14,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'makeTitle' => array( $this, 'makeTitle' ),
 			'getUrl' => array( $this, 'getUrl' ),
 			'getContent' => array( $this, 'getContent' ),
+			'fileExists' => array( $this, 'fileExists' ),
 		);
 		$this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
+			'NS_MEDIA' => NS_MEDIA,
 		) );
 	}
 
@@ -69,11 +71,12 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$this->getParser()->getOutput()->addLink( $title );
 		}
 
-		return array(
+		$ns = $title->getNamespace();
+		$ret = array(
 			'isLocal' => (bool)$title->isLocal(),
 			'isRedirect' => (bool)$title->isRedirect(),
 			'interwiki' => $title->getInterwiki(),
-			'namespace' => $title->getNamespace(),
+			'namespace' => $ns,
 			'nsText' => $title->getNsText(),
 			'text' => $title->getText(),
 			'id' => $title->getArticleID(),
@@ -81,6 +84,15 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'contentModel' => $title->getContentModel(),
 			'thePartialUrl' => $title->getPartialURL(),
 		);
+		if ( $ns === NS_SPECIAL ) {
+			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
+		} else {
+			$ret['exists'] = $ret['id'] > 0;
+		}
+		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
+			$ret['fileExists'] = false;
+		}
+		return $ret;
 	}
 
 	/**
@@ -198,6 +210,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	function getContent( $text ) {
+		$this->checkType( 'getContent', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
 			return array( null );
@@ -217,5 +230,27 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			return array( null );
 		}
 		return array( $content->serialize() );
+	}
+
+	function fileExists( $text ) {
+		$this->checkType( 'fileExists', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return array( false );
+		}
+		$ns = $title->getNamespace();
+		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
+			return array( false );
+		}
+
+		$this->incrementExpensiveFunctionCount();
+		$file = wfFindFile( $title );
+		if ( !$file ) {
+			return array( false );
+		}
+		$this->getParser()->getOutput()->addImage(
+			$file->getName(), $file->getTimestamp(), $file->getSha1()
+		);
+		return array( (bool)$file->exists() );
 	}
 }
