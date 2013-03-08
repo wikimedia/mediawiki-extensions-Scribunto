@@ -25,7 +25,6 @@
 				}
 				var errorId = parseInt( matches[1] );
 				$( span )
-					.css( 'cursor', 'pointer' )
 					.bind( 'click', function ( evt ) {
 						if ( typeof that.errors[ errorId ] !== 'string' ) {
 							console.log( "mw.scribunto.init: error " + matches[1] + " not found, " +
