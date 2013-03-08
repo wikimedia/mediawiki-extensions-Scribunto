@@ -183,9 +183,11 @@ $messages['bg'] = array(
 );
 
 /** Breton (brezhoneg)
+ * @author Fohanno
  * @author Y-M D
  */
 $messages['br'] = array(
+	'scribunto-ignore-errors' => 'Aotren enrollañ kod gant fazioù',
 	'scribunto-line' => "d'al linenn $1",
 	'scribunto-module-line' => "e $1 d'al linenn $2",
 	'scribunto-console-clear' => 'Riñsañ',
