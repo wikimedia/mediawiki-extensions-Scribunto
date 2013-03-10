@@ -142,13 +142,15 @@ $messages['be-tarask'] = array(
 	'scribunto-error-long' => 'Памылкі скрыпту:
 
 $1',
+	'scribunto-doc-subpage-name' => 'Дакумэнтацыя',
+	'scribunto-doc-subpage-does-not-exist' => "''Дакумэнтацыю да гэтага модуля можна стварыць у [[$1]]''",
+	'scribunto-doc-subpage-header' => "''Гэта падстаронка-дакумэнтацыя для [[$1]]''",
 	'scribunto-console-intro' => '* Экспартаваныя зьвесткі модуля даступныя празь зьменную «p», у тым ліку незахаваныя зьмены.
 * Калі хочаце вылічыць радок як выраз, ужывайце перад радком знак «=», або выкарыстоўвайце print().
 * Каб дасылаць паведамленьні ў гэтую кансоль, выкарыстоўвайце mw.log() у кодзе модуля.',
 	'scribunto-console-title' => 'Кансоль адладкі',
 	'scribunto-console-too-large' => 'Гэтая сэсія кансолі надта вялікая. Калі ласка, ачысьціце гісторыю кансолі ці паменшыце памер модуля.',
 	'scribunto-console-current-src' => 'увод кансолі',
-	'scribunto-console-previous-src' => 'папярэдні ўвод кансолі',
 	'scribunto-console-clear' => 'Ачысьціць',
 	'scribunto-console-cleared' => 'Стан кансолі ачышчаны праз абнаўленьне модуля.',
 	'scribunto-console-cleared-session-lost' => 'Стан кансолі ачышчаны праз страту зьвестак сэсіі.',
@@ -194,11 +196,12 @@ $messages['br'] = array(
 );
 
 /** Czech (česky)
+ * @author Danny B.
  * @author Mormegil
  */
 $messages['cs'] = array(
-	'scribunto-desc' => 'Umožňuje vkládat do stránek MediaWiki skriptovací jazyky',
-	'scribunto-ignore-errors' => 'Dovolit uložení kódu s chybami',
+	'scribunto-desc' => 'Framework pro vkládání skriptovacích jazyků do stránek MediaWiki',
+	'scribunto-ignore-errors' => 'Povolit uložení kódu s chybami',
 	'scribunto-line' => 'na řádku $1',
 	'scribunto-module-line' => 'v modulu $1 na řádku $2',
 	'scribunto-parser-error' => 'Chyba skriptu',
@@ -213,7 +216,6 @@ $1',
 	'scribunto-console-title' => 'Ladicí konzole',
 	'scribunto-console-too-large' => 'Toto konzolové sezení je příliš velké. Vymažte historii konzole nebo zmenšete modul.',
 	'scribunto-console-current-src' => 'konzolový vstup',
-	'scribunto-console-previous-src' => 'předchozí konzolový vstup',
 	'scribunto-console-clear' => 'Vymazat',
 	'scribunto-console-cleared' => 'Stav konzole byl vymazán, protože modul byl změněn.',
 	'scribunto-console-cleared-session-lost' => 'Stav konzole byl vymazán, protože se ztratila data sezení.',
