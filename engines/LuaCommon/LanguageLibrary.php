@@ -248,6 +248,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 		# Set output timezone.
 		if ( $local ) {
+			global $wgLocaltimezone;
 			if ( isset( $wgLocaltimezone ) ) {
 				$tz = new DateTimeZone( $wgLocaltimezone );
 			} else {
