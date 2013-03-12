@@ -73,7 +73,7 @@ class Scribunto {
 	 * @return boolean
 	 */
 	public static function isDocSubpage( $title ) {
-		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' );
+		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage();
 		if ( $docSubpage->isDisabled() ) {
 			return false;
 		}
@@ -88,7 +88,7 @@ class Scribunto {
 	 * @return Title|null
 	 */
 	public static function getDocSubpage( $title ) {
-		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' );
+		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage();
 		if ( $docSubpage->isDisabled() ) {
 			return null;
 		}

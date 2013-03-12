@@ -332,7 +332,7 @@ WIKI;
 
 		$title = $article->getTitle();
 		if( $title->getNamespace() === NS_MODULE && Scribunto::isDocSubpage( $title ) ) {
-			$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->plain();
+			$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage()->plain();
 			$title = substr( $title, 0, -strlen( $docSubpage ) - 1 );
 			$wgOut->addHTML(
 				wfMessage( 'scribunto-doc-subpage-header', $title )->parseAsBlock()
