@@ -1307,6 +1307,7 @@ $messages['pt'] = array(
  */
 $messages['pt-br'] = array(
 	'scribunto-desc' => 'Estrutura para incorporar linguagens de script em páginas do MediaWiki',
+	'scribunto-ignore-errors' => 'Permitir salvar o código com erros',
 	'scribunto-line' => 'na linha $1',
 	'scribunto-module-line' => 'em $1 na linha $2',
 	'scribunto-parser-error' => 'Erro de script',
@@ -1315,6 +1316,16 @@ $messages['pt-br'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
+	'scribunto-doc-subpage-name' => 'doc',
+	'scribunto-doc-subpage-does-not-exist' => "''A documentação para este módulo pode ser criada em [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Esta é a subpágina de documentação para [[$1]]'''",
+	'scribunto-console-intro' => '* As exportações do módulo estão disponíveis por meio da variável "p", incluindo modificações não salvas.
+* Preceda uma linha com "=" para avaliá-la como uma expressão ou utilize print().
+* Utilize mw.log() no código do módulo para enviar mensagens para este interpretador de comandos.',
+	'scribunto-console-title' => 'Interpretador de depuração de erros',
+	'scribunto-console-current-src' => 'entrada do interpretador',
+	'scribunto-console-clear' => 'Limpar',
+	'scribunto-common-error-category' => 'Páginas com erros de script',
 	'scribunto-common-nosuchmodule' => 'Erro de script: módulo não encontrado',
 	'scribunto-common-nofunction' => 'Erro de script: você deve especificar uma função para chamar.',
 	'scribunto-common-nosuchfunction' => 'Erro de script: a função especificada não existe.',
