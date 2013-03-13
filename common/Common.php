@@ -68,32 +68,43 @@ class Scribunto {
 	}
 
 	/**
-	 * Test whether the page should be considered a documentation subpage
+	 * Test whether the page should be considered a documentation page
 	 * @param $title Title
+	 * @param &$forModule Title Module for which this is a doc page
 	 * @return boolean
 	 */
-	public static function isDocSubpage( $title ) {
-		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage();
-		if ( $docSubpage->isDisabled() ) {
+	public static function isDocPage( $title, &$forModule = null ) {
+		$docPage = wfMessage( 'scribunto-doc-page-name' )->inContentLanguage();
+		if ( $docPage->isDisabled() ) {
 			return false;
 		}
 
-		$docSubpage = '/' . $docSubpage->plain();
-		return ( substr( $title->getText(), -strlen( $docSubpage ) ) === $docSubpage );
+		// Canonicalize the input pseudo-title. The unreplaced "$1" shouldn't
+		// cause a problem.
+		$docPage = Title::newFromText( $docPage->plain() )->getPrefixedText();
+
+		// Make it into a regex, and match it against the input title
+		$docPage = str_replace( '\\$1', '(.+)', preg_quote( $docPage, '/' ) );
+		if ( preg_match( "/^$docPage$/", $title->getPrefixedText(), $m ) ) {
+			$forModule = Title::makeTitleSafe( NS_MODULE, $m[1] );
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
-	 * Return the Title for the documentation subpage
+	 * Return the Title for the documentation page
 	 * @param $title Title
 	 * @return Title|null
 	 */
-	public static function getDocSubpage( $title ) {
-		$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage();
-		if ( $docSubpage->isDisabled() ) {
+	public static function getDocPage( $title ) {
+		$docPage = wfMessage( 'scribunto-doc-page-name', $title->getText() )->inContentLanguage();
+		if ( $docPage->isDisabled() ) {
 			return null;
 		}
 
-		return $title->getSubpage( $docSubpage->plain() );
+		return Title::newFromText( $docPage->plain() );
 	}
 }
 

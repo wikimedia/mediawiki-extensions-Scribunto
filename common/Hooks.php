@@ -81,7 +81,7 @@ class ScribuntoHooks {
 			$moduleName = trim( $frame->expand( $args[0] ) );
 			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
-			if ( !$title || Scribunto::isDocSubpage( $title ) ) {
+			if ( !$title || Scribunto::isDocPage( $title ) ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
@@ -134,7 +134,7 @@ class ScribuntoHooks {
 	public static function getCodeLanguage( $title, &$lang ) {
 		global $wgScribuntoUseCodeEditor;
 		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
-			!Scribunto::isDocSubpage( $title )
+			!Scribunto::isDocPage( $title )
 		) {
 			$engine = Scribunto::newDefaultEngine();
 			if( $engine->getCodeEditorLanguage() ) {
@@ -153,7 +153,7 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function contentHandlerDefaultModelFor( $title, &$model ) {
-		if( $title->getNamespace() == NS_MODULE && !Scribunto::isDocSubpage( $title ) ) {
+		if( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
 			$model = 'Scribunto';
 			return false;
 		}
@@ -195,7 +195,7 @@ class ScribuntoHooks {
 			return true;
 		}
 
-		if ( Scribunto::isDocSubpage( $editor->getTitle() ) ) {
+		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
 			return true;
 		}
 
@@ -229,7 +229,7 @@ class ScribuntoHooks {
 			return true;
 		}
 
-		if ( Scribunto::isDocSubpage( $editor->getTitle() ) ) {
+		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
 			return true;
 		}
 
@@ -252,7 +252,7 @@ class ScribuntoHooks {
 			return true;
 		}
 
-		if ( Scribunto::isDocSubpage( $title ) ) {
+		if ( Scribunto::isDocPage( $title ) ) {
 			return true;
 		}
 
@@ -327,15 +327,13 @@ WIKI;
 	 * @param &$pcache boolean
 	 * @return boolean
 	 */
-	public static function showDocSubpageHeader( &$article, &$outputDone, &$pcache ) {
+	public static function showDocPageHeader( &$article, &$outputDone, &$pcache ) {
 		global $wgOut;
 
 		$title = $article->getTitle();
-		if( $title->getNamespace() === NS_MODULE && Scribunto::isDocSubpage( $title ) ) {
-			$docSubpage = wfMessage( 'scribunto-doc-subpage-name' )->inContentLanguage()->plain();
-			$title = substr( $title, 0, -strlen( $docSubpage ) - 1 );
+		if ( Scribunto::isDocPage( $title, $forModule ) ) {
 			$wgOut->addHTML(
-				wfMessage( 'scribunto-doc-subpage-header', $title )->parseAsBlock()
+				wfMessage( 'scribunto-doc-page-header', $forModule->getPrefixedText() )->parseAsBlock()
 			);
 		}
 		return true;

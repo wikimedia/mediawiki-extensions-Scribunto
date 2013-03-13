@@ -41,10 +41,10 @@ class ScribuntoContent extends TextContent {
 
 		// Get documentation, if any
 		$output = new ParserOutput();
-		$doc = Scribunto::getDocSubpage( $title );
+		$doc = Scribunto::getDocPage( $title );
 		if ( $doc ) {
 			$msg = wfMessage(
-				$doc->exists() ? 'scribunto-doc-subpage-show' : 'scribunto-doc-subpage-does-not-exist',
+				$doc->exists() ? 'scribunto-doc-page-show' : 'scribunto-doc-page-does-not-exist',
 				$doc->getPrefixedText()
 			)->inContentLanguage();
 			if ( !$msg->isDisabled() ) {
@@ -53,8 +53,8 @@ class ScribuntoContent extends TextContent {
 				$output = $wgParser->parse( $msg->plain(), $title, $options, true, true, $revId );
 			}
 
-			// Mark the /doc subpage as a transclusion, so we get purged when
-			// it changes.
+			// Mark the doc page as a transclusion, so we get purged when it
+			// changes.
 			$output->addTemplate( $doc, $doc->getArticleID(), $doc->getLatestRevID() );
 		}
 
