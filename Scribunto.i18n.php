@@ -195,6 +195,38 @@ $messages['br'] = array(
 	'scribunto-console-clear' => 'Riñsañ',
 );
 
+/** Catalan (català)
+ * @author Toniher
+ * @author Vriullop
+ */
+$messages['ca'] = array(
+	'scribunto-ignore-errors' => 'Permet desar codi amb errors',
+	'scribunto-line' => 'a la línia $1',
+	'scribunto-module-line' => 'a $1 a la línia $2',
+	'scribunto-parser-error' => "Error de l'script",
+	'scribunto-parser-dialog-title' => "Error de l'script",
+	'scribunto-error-short' => "Error de l'script: $1",
+	'scribunto-error-long' => "Errors de l'script:
+
+$1",
+	'scribunto-doc-subpage-name' => 'ús',
+	'scribunto-doc-subpage-does-not-exist' => "''La documentació d'ús d'aquest mòdul es pot crear a [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Aquesta és la subpàgina de documentació per a [[$1]]'''",
+	'scribunto-console-title' => 'Consola de depuració',
+	'scribunto-console-too-large' => "La sessió de la consola és massa gran. Netegeu l'historial de la consola o reduïu la mida del mòdul.",
+	'scribunto-console-current-src' => 'entrada de la consola',
+	'scribunto-console-clear' => 'Neteja',
+	'scribunto-console-cleared' => "S'ha netejat l'estat de la consola perquè el mòdul s'ha actualitzat.",
+	'scribunto-console-cleared-session-lost' => "S'ha netejat l'estat de la consola perquè s'han perdut les dades de la sessió.",
+	'scribunto-common-error-category' => "Pàgines amb errors d'script",
+	'scribunto-common-nosuchmodule' => "Error de l'script: no existeix el mòdul.",
+	'scribunto-common-nofunction' => "Error de l'script: cal que especifiqueu una funció per cridar.",
+	'scribunto-common-nosuchfunction' => "Error de l'script: la funció que heu especificat no existeix.",
+	'scribunto-common-timeout' => "S'ha exhaurit el temps assignat per a l'execució d'scripts.",
+	'scribunto-common-oom' => "S'ha exhaurit la quantitat de memòria permesa per a l'execució d'scripts.",
+	'scribunto-lua-in-function' => 'a la funció «$1»',
+);
+
 /** Czech (česky)
  * @author Danny B.
  * @author Mormegil
@@ -783,6 +815,14 @@ $messages['is'] = array(
 	'scribunto-error-long' => 'Villur í skriftu: 
 
 $1',
+	'scribunto-doc-subpage-does-not-exist' => "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''Þetta er leiðbeiningar undirsíða fyrir [[$1]]'''",
+	'scribunto-console-title' => 'Aflúsunar stjórnborð',
+	'scribunto-console-too-large' => 'Þessi seta stjórnborðsins er of stór. Vinsamlegast hreinsaðu setu stjórnborðsins eða minnkaðu stærð skriftunnar.',
+	'scribunto-console-clear' => 'Hreinsa',
+	'scribunto-console-cleared' => 'Staða stjórnborðsins var hreinsuð því skriftan var uppfærð.',
+	'scribunto-console-cleared-session-lost' => 'Staða stjórnborðsins var hreinsuð því setu gögn töpuðust.',
+	'scribunto-common-error-category' => 'Síður með villum í skriftum',
 	'scribunto-common-nosuchmodule' => 'Villa í skriftu: Einingin er ekki til.',
 	'scribunto-common-nofunction' => 'Villa í skriftu: Þú þarft að kalla á aðgerð.',
 	'scribunto-common-nosuchfunction' => 'Villa í skriftu: Aðgerðin sem þú tilgreindir er ekki til.',
@@ -794,6 +834,10 @@ $1',
 	'scribunto-lua-in-function-at' => 'í aðgerðinni $1:$2',
 	'scribunto-lua-error-location' => 'Lua villa $1: $2.',
 	'scribunto-lua-error' => 'Lua villa: $2',
+	'scribunto-lua-noreturn' => 'Villa í skriftu: Skriftan skilaði ekki gildi. Hún á að skila útflutnings töflu.',
+	'scribunto-lua-notarrayreturn' => 'Villa í skriftu: Skriftan skilaði einhverju öðru en töflu. Hún á að skila útflutnings töflu.',
+	'scribunto-luastandalone-proc-error' => 'Lua villa: Mistókst að búa til ferli.',
+	'scribunto-luastandalone-decode-error' => 'Lua villa: Innri villa: Ófær um að afkóta skilaboð.',
 );
 
 /** Italian (italiano)
@@ -1226,6 +1270,7 @@ $1',
 );
 
 /** Polish (polski)
+ * @author Beau
  * @author Matma Rex
  */
 $messages['pl'] = array(
@@ -1239,10 +1284,16 @@ $messages['pl'] = array(
 	'scribunto-error-long' => 'Błędy skryptu:
 
 $1',
+	'scribunto-doc-subpage-name' => 'opis',
+	'scribunto-doc-subpage-does-not-exist' => "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
+	'scribunto-doc-subpage-header' => "'''To jest podstrona dokumentacji dla [[$1]]'''",
 	'scribunto-console-title' => 'Konsola debugowania',
 	'scribunto-console-current-src' => 'wejście z konsoli',
-	'scribunto-console-previous-src' => 'poprzednie wejście z konsoli',
 	'scribunto-console-clear' => 'Wyczyść',
+	'scribunto-common-error-category' => 'Strony z błędami skryptów',
+	'scribunto-common-nosuchmodule' => 'Błąd skryptu: nie ma takiego modułu.',
+	'scribunto-common-nofunction' => 'Błąd skryptu: nie została podana nazwa funkcji.',
+	'scribunto-common-nosuchfunction' => 'Błąd skryptu: nie ma takiej funkcji.',
 	'scribunto-common-backtrace' => 'Backtrace:',
 	'scribunto-lua-in-function' => 'w funkcji „$1”',
 );
