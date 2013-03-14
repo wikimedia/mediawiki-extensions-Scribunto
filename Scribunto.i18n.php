@@ -66,6 +66,18 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua error: Internal error: The interpreter exited with status $2.',
 
 	'scribunto-module-with-errors-category' => 'Scribunto modules with errors',
+
+	'scribunto-limitreport-timeusage' => 'Lua time usage',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 seconds',
+	'scribunto-limitreport-virtmemusage' => 'Lua virtual size',
+	'scribunto-limitreport-virtmemusage-value' => '$1/$2',
+	'scribunto-limitreport-estmemusage' => 'Lua estimated memory usage',
+	'scribunto-limitreport-estmemusage-value' => '$1',
+	'scribunto-limitreport-memusage' => 'Lua memory usage',
+	'scribunto-limitreport-memusage-value' => '$1/$2',
+	'scribunto-limitreport-profile' => 'Lua Profile',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
+	'scribunto-limitreport-profile-percent' => '$1%',
 );
 
 /** Message documentation (Message documentation)
@@ -178,6 +190,26 @@ Parameters:
 
 See also:
 * {{msg-mw|scribunto-ignore-errors}}',
+	'scribunto-limitreport-timeusage' => 'Label for the "Lua time usage" row in the limit report table',
+	'scribunto-limitreport-timeusage-value' => 'Format for the "Lua time usage" value in the limit report table.
+* $1 is the usage in seconds
+* $2 is the maximum',
+	'scribunto-limitreport-virtmemusage' => 'Label for the "Lua virtual size" row in the limit report table',
+	'scribunto-limitreport-virtmemusage-value' => 'Format for the "Lua virtual size" value in the limit report table.
+* $1 is the usage
+* $2 is the maximum',
+	'scribunto-limitreport-estmemusage' => 'Label for the "Lua estimated memory usage" row in the limit report table',
+	'scribunto-limitreport-estmemusage-value' => 'Format for the "Lua estimated memory usage" value in the limit report table.
+* $1 is the value',
+	'scribunto-limitreport-memusage' => 'Label for the "Lua memory usage" row in the limit report table',
+	'scribunto-limitreport-memusage-value' => 'Format for the "Lua memory usage" value in the limit report table.
+* $1 is the usage
+* $2 is the maximum',
+	'scribunto-limitreport-profile' => 'Label for the "Lua Profile" row in the limit report table',
+	'scribunto-limitreport-profile-ms' => 'Text to format the milliseconds in the "Lua Profile" table
+* $1 is the time in milliseconds',
+	'scribunto-limitreport-profile-percent' => 'Text to format the time percentage in the "Lua Profile" table
+* $1 is the percentage',
 );
 
 /** Afrikaans (Afrikaans)

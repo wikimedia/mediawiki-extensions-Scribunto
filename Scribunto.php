@@ -48,7 +48,9 @@ $wgAutoloadClasses['ScribuntoContent'] = $dir.'common/ScribuntoContent.php';
 $wgHooks['SoftwareInfo'][] = 'ScribuntoHooks::getSoftwareInfo';
 
 $wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
-$wgHooks['ParserLimitReport'][] = 'ScribuntoHooks::reportLimits';
+$wgHooks['ParserLimitReport']['scribunto'] = 'ScribuntoHooks::reportLimits';
+$wgHooks['ParserLimitReportPrepare'][] = 'ScribuntoHooks::reportLimitData';
+$wgHooks['ParserLimitReportFormat'][] = 'ScribuntoHooks::formatLimitData';
 $wgHooks['ParserClearState'][] = 'ScribuntoHooks::clearState';
 $wgHooks['ParserCloned'][] = 'ScribuntoHooks::parserCloned';
 

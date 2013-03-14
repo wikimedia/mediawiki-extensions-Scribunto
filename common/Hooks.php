@@ -174,7 +174,8 @@ class ScribuntoHooks {
 
 	/**
 	 * Adds report of number of evaluations by the single wikitext page.
-	 * 
+	 *
+	 * @deprecated
 	 * @param $parser Parser
 	 * @param $report
 	 * @return bool
@@ -185,6 +186,40 @@ class ScribuntoHooks {
 			$report .= $engine->getLimitReport();
 		}
 		return true;
+	}
+
+	/**
+	 * Adds report of number of evaluations by the single wikitext page.
+	 *
+	 * @param $parser Parser
+	 * @param $output ParserOutput
+	 * @return bool
+	 */
+	public static function reportLimitData( $parser, $output ) {
+		// Unhook the deprecated hook, since the new one exists.
+		global $wgHooks;
+		unset( $wgHooks['ParserLimitReport']['scribunto'] );
+
+		if ( Scribunto::isParserEnginePresent( $parser ) ) {
+			$engine = Scribunto::getParserEngine( $parser );
+			$engine->reportLimitData( $output );
+		}
+		return true;
+	}
+
+	/**
+	 * Formats the limit report data
+	 *
+	 * @param $key string
+	 * @param &$value string
+	 * @param &$report string
+	 * @param $isHTML bool
+	 * @param $localize bool
+	 * @return bool
+	 */
+	public static function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
+		$engine = Scribunto::newDefaultEngine();
+		return $engine->formatLimitData( $key, $value, $report, $isHTML, $localize );
 	}
 
 	/**

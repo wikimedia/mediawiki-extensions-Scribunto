@@ -28,32 +28,38 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
-	public function getLimitReport() {
+	private function getLimitReportData() {
+		$ret = array();
 		$this->load();
-		$lang = Language::factory( 'en' );
 
 		$t = $this->interpreter->getCPUUsage();
-		$s = 'Lua time usage: ' . sprintf( "%.3f", $t ) . "s\n" .
-			'Lua memory usage: ' . $lang->formatSize( $this->interpreter->getPeakMemoryUsage() ) . "\n";
+		$ret['scribunto-limitreport-timeusage'] = array(
+			sprintf( "%.3f", $t ),
+			sprintf( "%.3f", $this->options['cpuLimit'] )
+		);
+		$ret['scribunto-limitreport-memusage'] = array(
+			$this->interpreter->getPeakMemoryUsage(),
+			$this->options['memoryLimit'],
+		);
 		if ( $t < 1.0 ) {
-			return $s;
+			return $ret;
 		}
-		$percentProfile = $this->interpreter->getProfilerFunctionReport( 
-			Scribunto_LuaSandboxInterpreter::PERCENT );
-		if ( !count( $percentProfile ) ) {
-			return $s;
-		}
-		$timeProfile = $this->interpreter->getProfilerFunctionReport( 
-			Scribunto_LuaSandboxInterpreter::SECONDS );
 
-		$s .= "Lua Profile:\n";
-		$cumulativePercent = $cumulativeTime = 0;
+		$percentProfile = $this->interpreter->getProfilerFunctionReport(
+			Scribunto_LuaSandboxInterpreter::PERCENT
+		);
+		if ( !count( $percentProfile ) ) {
+			return $ret;
+		}
+		$timeProfile = $this->interpreter->getProfilerFunctionReport(
+			Scribunto_LuaSandboxInterpreter::SECONDS
+		);
+
+		$lines = array();
+		$cumulativePercent = 0;
 		$num = $otherTime = $otherPercent = 0;
-		$format = "    %-59s %8.0f ms %8.1f%%\n";
 		foreach ( $percentProfile as $name => $percent ) {
 			$time = $timeProfile[$name] * 1000;
-			$cumulativePercent += $percent;
-			$cumulativeTime += $time;
 			$num++;
 			if ( $cumulativePercent <= 99 && $num <= 10 ) {
 				// Map some regularly appearing internal names
@@ -63,16 +69,116 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 						$name = $m[2] . ' ' . $name;
 					}
 				}
-				$s .= sprintf( $format, $name, $time, $percent );
+				$lines[] = array( $name, sprintf( '%.0f', $time ), sprintf( '%.1f', $percent ) );
 			} else {
 				$otherTime += $time;
 				$otherPercent += $percent;
 			}
+			$cumulativePercent += $percent;
 		}
 		if ( $otherTime ) {
-			$s .= sprintf( $format, "[others]", $otherTime, $otherPercent );
+			$lines[] = array( '[others]', sprintf( '%.0f', $otherTime ), sprintf( '%.1f', $otherPercent ) );
+		}
+		$ret['scribunto-limitreport-profile'] = $lines;
+		return $ret;
+	}
+
+	public function getLimitReport() {
+		$data = $this->getLimitReportData();
+		$lang = Language::factory( 'en' );
+
+		$t = $this->interpreter->getCPUUsage();
+		$s = 'Lua time usage: ' . sprintf( "%.3f", $data['scribunto-limitreport-timeusage'] ) . "s\n" .
+			'Lua memory usage: ' . $lang->formatSize( $data['scribunto-limitreport-memusage'] ) . "\n";
+		if ( isset( $data['scribunto-limitreport-profile'] ) ) {
+			$s .= "Lua Profile:\n";
+			$format = "    %-59s %8.0f ms %8.1f%%\n";
+			foreach ( $data['scribunto-limitreport-profile'] as $line ) {
+				$s .= sprintf( $format, $line[0], $line[1], $line[2] );
+			}
 		}
 		return $s;
+	}
+
+	public function reportLimitData( ParserOutput $output ) {
+		$data = $this->getLimitReportData();
+		foreach ( $data as $k => $v ) {
+			$output->setLimitReportData( $k, $v );
+		}
+	}
+
+	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
+		global $wgLang;
+		$lang = $localize ? $wgLang : Language::factory( 'en' );
+		switch ( $key ) {
+			case 'scribunto-limitreport-memusage':
+				$value = array_map( array( $lang, 'formatSize' ), $value );
+				break;
+		}
+
+		if ( $key !== 'scribunto-limitreport-profile' ) {
+			return true;
+		}
+
+		$keyMsg = wfMessage( 'scribunto-limitreport-profile' );
+		$msMsg = wfMessage( 'scribunto-limitreport-profile-ms' );
+		$percentMsg = wfMessage( 'scribunto-limitreport-profile-percent' );
+		if ( !$localize ) {
+			$keyMsg->inLanguage( 'en' )->useDatabase( false );
+			$msMsg->inLanguage( 'en' )->useDatabase( false );
+			$percentMsg->inLanguage( 'en' )->useDatabase( false );
+		}
+
+		// To avoid having to do actual work in Message::fetchMessage for each
+		// line in the loops below, call ->exists() here to populate ->message.
+		$msMsg->exists();
+		$percentMsg->exists();
+
+		if ( $isHTML ) {
+			$report .= Html::openElement( 'tr' ) .
+				Html::rawElement( 'th', array( 'colspan' => 2 ), $keyMsg->parse() ) .
+				Html::closeElement( 'tr' ) .
+				Html::openElement( 'tr' ) .
+				Html::openElement( 'td', array( 'colspan' => 2 ) ) .
+				Html::openElement( 'table' );
+			foreach ( $value as $line ) {
+				$name = $line[0];
+				$location = '';
+				if ( preg_match( '/^(.*?) *<([^<>]+):(\d+)>$/', $name, $m ) ) {
+					$name = $m[1];
+					$title = Title::newFromText( $m[2] );
+					if ( $title && $title->getNamespace() === NS_MODULE ) {
+						$location = '&lt;' . Linker::link( $title ) . ":{$m[3]}&gt;";
+					} else {
+						$location = htmlspecialchars( "<{$m[2]}:{$m[3]}>" );
+					}
+				}
+				$ms = clone $msMsg;
+				$ms->params( $line[1] );
+				$pct = clone $percentMsg;
+				$pct->params( $line[2] );
+				$report .= Html::openElement( 'tr' ) .
+					Html::element( 'td', null, $name ) .
+					Html::rawElement( 'td', null, $location ) .
+					Html::rawElement( 'td', array( 'align' => 'right' ), $ms->parse() ) .
+					Html::rawElement( 'td', array( 'align' => 'right' ), $pct->parse() ) .
+					Html::closeElement( 'tr' );
+			}
+			$report .= Html::closeElement( 'table' ) .
+				Html::closeElement( 'td' ) .
+				Html::closeElement( 'tr' );
+		} else {
+			$report .= $keyMsg->text() . ":\n";
+			foreach ( $value as $line ) {
+				$ms = clone $msMsg;
+				$ms->params( $line[1] );
+				$pct = clone $percentMsg;
+				$pct->params( $line[2] );
+				$report .= sprintf( "    %-59s %11s %11s\n", $line[0], $ms->text(), $pct->text() );
+			}
+		}
+
+		return false;
 	}
 
 	protected function getMwLuaLine( $lineNum ) {

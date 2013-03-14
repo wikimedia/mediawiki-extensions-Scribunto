@@ -42,6 +42,47 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 			$lang->formatSize( $status['vsize'] - $this->initialStatus['vsize'] ) . "\n";
 	}
 
+	function reportLimitData( ParserOutput $output ) {
+		try {
+			$this->load();
+		} catch ( Exception $e ) {
+			return;
+		}
+		if ( !$this->initialStatus ) {
+			return;
+		}
+		$status = $this->interpreter->getStatus();
+		$output->setLimitReportData( 'scribunto-limitreport-timeusage',
+			array(
+				sprintf( "%.3f", $status['time'] / $this->getClockTick() ),
+				sprintf( "%.3f", $this->options['cpuLimit'] )
+			)
+		);
+		$output->setLimitReportData( 'scribunto-limitreport-virtmemusage',
+			array(
+				$status['vsize'],
+				$this->options['memoryLimit']
+			)
+		);
+		$output->setLimitReportData( 'scribunto-limitreport-estmemusage',
+			$status['vsize'] - $this->initialStatus['vsize']
+		);
+	}
+
+	function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
+		global $wgLang;
+		$lang = $localize ? $wgLang : Language::factory( 'en' );
+		switch ( $key ) {
+			case 'scribunto-limitreport-virtmemusage':
+				$value = array_map( array( $lang, 'formatSize' ), $value );
+				break;
+			case 'scribunto-limitreport-estmemusage':
+				$value = $lang->formatSize( $value );
+				break;
+		}
+		return true;
+	}
+
 	/**
 	 * @return mixed
 	 */

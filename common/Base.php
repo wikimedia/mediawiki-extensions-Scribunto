@@ -209,6 +209,39 @@ abstract class ScribuntoEngineBase {
 		wfRunHooks( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
 	}
+
+	/**
+	 * Get text for the limit report, old style
+	 *
+	 * @deprecated
+	 * @return string
+	 */
+	public function getLimitReport(){
+		return '';
+	}
+
+	/**
+	 * Add limit report data to a ParserOutput object
+	 *
+	 * @param $output ParserOutput ParserOutput object in which to add limit data
+	 * @return null
+	 */
+	public function reportLimitData( ParserOutput $output ){
+	}
+
+	/**
+	 * Format limit report data
+	 *
+	 * @param $key string
+	 * @param &$value string
+	 * @param &$report string
+	 * @param $isHTML bool
+	 * @param $localize bool
+	 * @return bool
+	 */
+	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ){
+		return true;
+	}
 }
 
 /**
