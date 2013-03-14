@@ -136,7 +136,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @return string
 	 */
 	protected function normalizeModuleFileName( $fileName ) {
-		return $fileName[0] !== '/' ? "{$this->getLuaLibDir()}/{$fileName}" : $fileName;
+		return $fileName[0] !== DIRECTORY_SEPARATOR ? "{$this->getLuaLibDir()}/{$fileName}" : $fileName;
 	}
 
 	/**
