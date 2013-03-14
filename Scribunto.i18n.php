@@ -83,17 +83,23 @@ $messages['qqq'] = array(
 * $1 are the error details.',
 	'scribunto-error-long' => 'Error message. Parameters:
 * $1 are the error details.',
-	'scribunto-doc-page-name' => 'Page name for module documentation. $1 is the unprefixed name of the module.',
-	'scribunto-doc-page-does-not-exist' => 'Message displayed if the documentation page does not exist. $1 is the prefixed title of the doc page.',
+	'scribunto-doc-page-name' => 'Page name for module documentation. Parameters:
+* $1 - the unprefixed name of the module',
+	'scribunto-doc-page-does-not-exist' => 'Message displayed if the documentation page does not exist. Parameters:
+* $1 - the prefixed title of the doc page',
 	'scribunto-doc-page-show' => 'Message displayed if the documentation page does exist. $1 is the prefixed title of the doc page. Should probably transclude that page.',
-	'scribunto-doc-page-header' => 'Message displayed at the top of the documentation page. $1 is the prefixed title of the module.',
+	'scribunto-doc-page-header' => 'Message displayed at the top of the documentation page. Parameters:
+* $1 - the prefixed title of the module',
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
 
 "Module exports" are the names that are exported. See the chapter [http://www.lua.org/pil/15.2.html Privacy] in the book "Programming in Lua".',
 	'scribunto-console-title' => 'Legend for the debug console fieldset',
 	'scribunto-console-too-large' => 'Error message displayed when the console history contains too much data.',
-	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console. May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
-	'scribunto-console-clear' => '{{Identical|Clear}}',
+	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console.
+
+May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
+	'scribunto-console-clear' => 'Used as button text which enables to clear the console.
+{{Identical|Clear}}',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
 	'scribunto-console-cleared-session-lost' => 'Message displayed in the console when the session has expired.',
 	'scribunto-common-error-category' => 'Tracking category for pages with errors from #invoke',
@@ -110,11 +116,12 @@ $messages['qqq'] = array(
 * $1 is a function name;
 * $2 is a line number.',
 	'scribunto-lua-backtrace-line' => '{{optional}}',
-	'scribunto-lua-error-location' => 'Error message. Parameters:
-* $1 is ...;
-* $2 is ....',
+	'scribunto-lua-error-location' => 'Error message when module and line are given. Parameters:
+* $1 - code line from {{msg-mw|Scribunto-line}} or {{msg-mw|Scribunto-module-line}}
+* $2 - error message, not localized. (e.g. "too many language codes requested")',
 	'scribunto-lua-error' => 'Error message. Parameters:
-* $2 is ....',
+* $1 - (Unused)
+* $2 - error message, not localized. (e.g. "too many language codes requested")',
 	'scribunto-lua-noreturn' => 'Error message.',
 	'scribunto-lua-notarrayreturn' => 'Error message.',
 	'scribunto-luastandalone-proc-error' => 'Exception message.',
@@ -123,9 +130,11 @@ $messages['qqq'] = array(
 	'scribunto-luastandalone-read-error' => 'Exception message.',
 	'scribunto-luastandalone-gone' => 'Exception message.',
 	'scribunto-luastandalone-signal' => 'Exception message. Parameters:
-* $2 is an exit status.',
+* $1 - (Unused)
+* $2 - an exit status (may also be a signal name)',
 	'scribunto-luastandalone-exited' => 'Exception message. Parameters:
-* $2 is an exit status.',
+* $1 - (Unused)
+* $2 - an exit status',
 );
 
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
@@ -142,9 +151,9 @@ $messages['be-tarask'] = array(
 	'scribunto-error-long' => 'Памылкі скрыпту:
 
 $1',
-	'scribunto-doc-subpage-name' => 'Дакумэнтацыя',
-	'scribunto-doc-subpage-does-not-exist' => "''Дакумэнтацыю да гэтага модуля можна стварыць у [[$1]]''",
-	'scribunto-doc-subpage-header' => "''Гэта падстаронка-дакумэнтацыя для [[$1]]''",
+	'scribunto-doc-page-name' => 'Модуль:$1/Дакумэнтацыя',
+	'scribunto-doc-page-does-not-exist' => "''Дакумэнтацыю да гэтага модуля можна стварыць у [[$1]]''",
+	'scribunto-doc-page-header' => "''Гэта падстаронка-дакумэнтацыя для [[$1]]''",
 	'scribunto-console-intro' => '* Экспартаваныя зьвесткі модуля даступныя празь зьменную «p», у тым ліку незахаваныя зьмены.
 * Калі хочаце вылічыць радок як выраз, ужывайце перад радком знак «=», або выкарыстоўвайце print().
 * Каб дасылаць паведамленьні ў гэтую кансоль, выкарыстоўвайце mw.log() у кодзе модуля.',
@@ -200,6 +209,7 @@ $messages['br'] = array(
  * @author Vriullop
  */
 $messages['ca'] = array(
+	'scribunto-desc' => "Un entorn de treball per a incrustar llenguatges d'script a les pàgines de MediaWiki",
 	'scribunto-ignore-errors' => 'Permet desar codi amb errors',
 	'scribunto-line' => 'a la línia $1',
 	'scribunto-module-line' => 'a $1 a la línia $2',
@@ -209,9 +219,12 @@ $messages['ca'] = array(
 	'scribunto-error-long' => "Errors de l'script:
 
 $1",
-	'scribunto-doc-subpage-name' => 'ús',
-	'scribunto-doc-subpage-does-not-exist' => "''La documentació d'ús d'aquest mòdul es pot crear a [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Aquesta és la subpàgina de documentació per a [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/ús',
+	'scribunto-doc-page-does-not-exist' => "''La documentació d'ús d'aquest mòdul es pot crear a [[$1]]''",
+	'scribunto-doc-page-header' => "'''Aquesta és la pàgina de documentació per a [[$1]]'''",
+	'scribunto-console-intro' => "* Les exportacions del mòdul són disponibles com a part de la variable «p», incloent-hi aquelles modificacions que no s'han desat.
+* Escriviu «=» davant d'una línia per a avaluar-ho com a expressió, o bé feu servir print().
+* Utilitzeu mw.log() al codi del mòdul per a enviar missatges a la consola.",
 	'scribunto-console-title' => 'Consola de depuració',
 	'scribunto-console-too-large' => "La sessió de la consola és massa gran. Netegeu l'historial de la consola o reduïu la mida del mòdul.",
 	'scribunto-console-current-src' => 'entrada de la consola',
@@ -224,7 +237,21 @@ $1",
 	'scribunto-common-nosuchfunction' => "Error de l'script: la funció que heu especificat no existeix.",
 	'scribunto-common-timeout' => "S'ha exhaurit el temps assignat per a l'execució d'scripts.",
 	'scribunto-common-oom' => "S'ha exhaurit la quantitat de memòria permesa per a l'execució d'scripts.",
+	'scribunto-common-backtrace' => 'Traça inversa:',
 	'scribunto-lua-in-function' => 'a la funció «$1»',
+	'scribunto-lua-in-main' => 'en el fragment principal',
+	'scribunto-lua-in-function-at' => 'a la funció a $1:$2',
+	'scribunto-lua-error-location' => 'Error de Lua $1: $2.',
+	'scribunto-lua-error' => 'Error de Lua: $2.',
+	'scribunto-lua-noreturn' => "Error de l'script: el mòdul no ha retornat cap valor. Se suposa que havia de retornar una taula d'exportació.",
+	'scribunto-lua-notarrayreturn' => "Error de l'script: el mòdul ha retornat quelcom que no és una taula. Se suposa que havia de retornar una taula d'exportació.",
+	'scribunto-luastandalone-proc-error' => 'Error de Lua: no es pot crear el procés.',
+	'scribunto-luastandalone-decode-error' => 'Error de Lua: error intern: no es pot descodificar el missatge.',
+	'scribunto-luastandalone-write-error' => "Error de Lua: error intern: s'ha produït un error en escriure al conducte.",
+	'scribunto-luastandalone-read-error' => "Error de Lua: error intern: s'ha produït un error en llegir del conducte.",
+	'scribunto-luastandalone-gone' => "Error de Lua: error intern: l'intèrpret ja ha sortit.",
+	'scribunto-luastandalone-signal' => "Error de Lua: error intern: l'intèrpret ha terminat amb el senyal «$2».",
+	'scribunto-luastandalone-exited' => "Error de Lua: error intern: l'intèrpret ha sortit amb l'estat «$2».",
 );
 
 /** Czech (česky)
@@ -242,6 +269,9 @@ $messages['cs'] = array(
 	'scribunto-error-long' => 'Chyby skriptu:
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/Dokumentace',
+	'scribunto-doc-page-does-not-exist' => 'Dokumentace pro tento modul může být vytvořena na [[$1]]',
+	'scribunto-doc-page-header' => 'Toto je dokumentace pro [[$1]]',
 	'scribunto-console-intro' => '* Exporty z modulu jsou dostupné jako proměnná „p“ včetně neuložených změn.
 * Řádek začínající „=“ se vyhodnotí jako výraz, případně můžete použít print().
 * V kódu modulu můžete zprávy do konzole poslat pomocí mw.log().',
@@ -289,16 +319,15 @@ $messages['de'] = array(
 	'scribunto-error-long' => 'Skriptfehler:
 
 $1',
-	'scribunto-doc-subpage-name' => 'Doku',
-	'scribunto-doc-subpage-does-not-exist' => "''Die Dokumentation für dieses Modul kann unter [[$1]] erstellt werden''",
-	'scribunto-doc-subpage-header' => "'''Dies ist die Dokumentationsunterseite für [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/Doku',
+	'scribunto-doc-page-does-not-exist' => "''Die Dokumentation für dieses Modul kann unter [[$1]] erstellt werden''",
+	'scribunto-doc-page-header' => "'''Dies ist die Dokumentationsseite für [[$1]]'''",
 	'scribunto-console-intro' => '* Modulexporte sind über die Variable „p“ verfügbar. Sie enthalten auch nicht gespeicherte Änderungen.
 * Einer Zeile „=“ voranstellen, um sie als Ausdruck auszuwerten oder <code>print()</code> nutzen.
 * Innerhalb des Modulcodes <code>mw.log()</code> nutzen, um Nachrichten zu dieser Konsole zu senden.',
 	'scribunto-console-title' => 'Fehlerbereinigungskonsole',
 	'scribunto-console-too-large' => 'Dieser Konsolensitzung ist zu umfangreich. Bitte deaktiviere die Konsolenprotokollierung oder verringere die Größe des Moduls.',
 	'scribunto-console-current-src' => 'Konsoleneingabe',
-	'scribunto-console-previous-src' => 'vorherige Konsoleneingabe',
 	'scribunto-console-clear' => 'Leeren',
 	'scribunto-console-cleared' => 'Die Konsole wurde geleert, da das Modul aktualisiert wurde.',
 	'scribunto-console-cleared-session-lost' => 'Der Konsolenstatus wurde gelöscht, da die Sitzungsdaten verloren gegangen sind.',
@@ -691,9 +720,9 @@ $messages['hsb'] = array(
 	'scribunto-error-long' => 'Skriptowe zmylki:
 
 $1',
-	'scribunto-doc-subpage-name' => 'dokumentacija',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentacija za tutón modul hodźi so na [[$1]] wutworić''",
-	'scribunto-doc-subpage-header' => "'''To je dokumentaciska podstrona za [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/dokumentacija',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentacija za tutón modul hodźi so na [[$1]] wutworić''",
+	'scribunto-doc-page-header' => "'''To je dokumentaciska strona za [[$1]]'''",
 	'scribunto-console-intro' => '* Modulowe eksporty steja jako wariabla "p" k dispoziciji, inkluziwnje njeskładowanych změnow.
 * Staj "=" před linku, zo by ju jako wuraz wuhódnoćił, abo wužij print().
 * Wužij mw.log() w modulowym kodźe, zo by powěsće na konsolu pósłał.',
@@ -802,6 +831,55 @@ $1',
 	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
 );
 
+/** Iloko (Ilokano)
+ * @author Lam-ang
+ */
+$messages['ilo'] = array(
+	'scribunto-desc' => 'Obra a batayan para iti panagikabil ti pagsasao a panagisurat kadagiti panid ti MediaWiki',
+	'scribunto-ignore-errors' => 'Agpalubos nga agidulin ti kodigo nga adda dagiti biddutna',
+	'scribunto-line' => 'iti linia $1',
+	'scribunto-module-line' => 'iti $1 iti linia $2',
+	'scribunto-parser-error' => 'Biddut nga eskritu',
+	'scribunto-parser-dialog-title' => 'Biddut nga eskritu',
+	'scribunto-error-short' => 'Biddut nga eskritu: $1',
+	'scribunto-error-long' => 'Dagiti biddut nga eskritu:
+
+$1',
+	'scribunto-doc-page-name' => 'Modulo:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Ti dokumentasion para iti daytoy a modulo ket mabalin a mapartuat idiay [[$1]]''",
+	'scribunto-doc-page-header' => "'''Daytoy ket dokumentasion a panid para iti [[$1]]'''",
+	'scribunto-console-intro' => '* Dagiti modulo nga eksport ket magun-od a kas ti nadumaduma a "p", a mairaman dagiti saan a naidulin a panagbalbaliw.
+* Pasarunuan ti maysa a linia iti "=" tapno mapategan daytoy a kas maysa a panangisao, wenno agusar ti prenta().
+* Usaren ti mw.log() iti kodigo timodulo tapno makaipatulod kadagiti mensahe iti daytoy a konsola.',
+	'scribunto-console-title' => 'Konsola a pagpasayaatan',
+	'scribunto-console-too-large' => 'Dakkel unay daytoy a sesion ti konsola. Pangngaasi a dalusam ti pakasaritaan ti konsola wenno pabassiten ti kadakkel ti modulo.',
+	'scribunto-console-current-src' => 'naipastrek ti konsola',
+	'scribunto-console-clear' => 'Dalusan',
+	'scribunto-console-cleared' => 'Ti kasasaad ti konsola ket nadalusan idi gaputa ti modulo ket napabaro idi.',
+	'scribunto-console-cleared-session-lost' => 'Ti kasasaad ti konsola ket nadalusan idi gaputa ti sesion ti datos ket napukaw idi.',
+	'scribunto-common-error-category' => 'Pampanid nga adda dagiti biddut ti eskritu',
+	'scribunto-common-nosuchmodule' => 'Biddut nga eskritu: Awan ti kasta a modulo.',
+	'scribunto-common-nofunction' => 'Biddut nga eskritu: Nasken a naganam ti maawagan a pamay-an.',
+	'scribunto-common-nosuchfunction' => 'Biddut nga eskritu: Ti pamay-an nga innaganam ket awan.',
+	'scribunto-common-timeout' => 'Ti oras a maipalubos para iti panagpataray kadagiti eskritu ket nagpason.',
+	'scribunto-common-oom' => 'Ti kaadu ti lagip a mapalubosan para iti panagpataray kadagiti eskritu ket nalabsanen.',
+	'scribunto-common-backtrace' => 'Sublian:',
+	'scribunto-lua-in-function' => 'iti pamay-an "$1"',
+	'scribunto-lua-in-main' => 'iti kangrunaan a pisi',
+	'scribunto-lua-in-function-at' => 'iti pamay-an idiay $1:$2',
+	'scribunto-lua-error-location' => '$1 a biddut a Lua: $2.',
+	'scribunto-lua-error' => 'Biddut a Lua: $2.',
+	'scribunto-lua-noreturn' => 'Biddut nga eskritu: Ti modulo ket saan a nangisubli ti maysa a pateg. Daytoy ket nasken koma nga agisubli ti eksport a tabla.',
+	'scribunto-lua-notarrayreturn' => 'Biddut nga eskritu: Ti modulo ket nangisubli ti sabali a saana maysa a tabla. Daytoy ket nasken koma nga agisubli ti eksport a tabla.',
+	'scribunto-luastandalone-proc-error' => 'Biddut a Lua: Saan a mapartuat ti pamuspusan.',
+	'scribunto-luastandalone-decode-error' => 'Biddut a Lua: Akin-uneg a biddut: Saan a nakudiguan ti mensahe.',
+	'scribunto-luastandalone-write-error' => 'Biddut a Lua: Akin-uneg a biddut: Biddut ti panagsurat iti pipa.',
+	'scribunto-luastandalone-read-error' => 'Biddut a Lua: Akin-uneg a biddut: Biddut a panagbasa manipud ti pipa.',
+	'scribunto-luastandalone-gone' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket nakaruaren.',
+	'scribunto-luastandalone-signal' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket pinasardengna ti senial ti "$2".',
+	'scribunto-luastandalone-exited' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket rimmuar nga adda ti kasasaad iti $2.',
+);
+
 /** Icelandic (íslenska)
  * @author Snævar
  */
@@ -815,8 +893,8 @@ $messages['is'] = array(
 	'scribunto-error-long' => 'Villur í skriftu: 
 
 $1',
-	'scribunto-doc-subpage-does-not-exist' => "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Þetta er leiðbeiningar undirsíða fyrir [[$1]]'''",
+	'scribunto-doc-page-does-not-exist' => "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
+	'scribunto-doc-page-header' => "'''Þetta er leiðbeiningar undirsíða fyrir [[$1]]'''", # Fuzzy
 	'scribunto-console-title' => 'Aflúsunar stjórnborð',
 	'scribunto-console-too-large' => 'Þessi seta stjórnborðsins er of stór. Vinsamlegast hreinsaðu setu stjórnborðsins eða minnkaðu stærð skriftunnar.',
 	'scribunto-console-clear' => 'Hreinsa',
@@ -857,9 +935,9 @@ $messages['it'] = array(
 	'scribunto-error-long' => 'Errori script:
 
 $1',
-	'scribunto-doc-subpage-name' => 'man',
-	'scribunto-doc-subpage-does-not-exist' => "''La documentazione per questo modulo può essere creata in [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Questa è la sottopagina di documentazione per [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/man',
+	'scribunto-doc-page-does-not-exist' => "''La documentazione per questo modulo può essere creata in [[$1]]''",
+	'scribunto-doc-page-header' => "'''Questa è la pagina di documentazione per [[$1]]'''",
 	'scribunto-console-intro' => '* Le esportazioni del modulo sono rappresentate dalla variabile "p", incluse le modifiche non salvate.
 * Per valutare una linea come espressione, iniziala con "=" oppure usa print().
 * Usa mw.log() nel codice del modulo per inviare messaggi a questa console.',
@@ -906,13 +984,12 @@ $messages['ja'] = array(
 	'scribunto-error-long' => 'スクリプトエラー:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''このモジュールについての説明文ページを [[$1]] に作成できます''",
-	'scribunto-doc-subpage-header' => "'''このページは、[[[$1]]]の説明文を記述する下位ページです。'''",
+	'scribunto-doc-page-name' => 'モジュール:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''このモジュールについての説明文ページを [[$1]] に作成できます''",
+	'scribunto-doc-page-header' => "'''このページは、[[[$1]]]の説明文を記述するページです。'''",
 	'scribunto-console-title' => 'デバッグコンソール',
 	'scribunto-console-too-large' => 'このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。',
 	'scribunto-console-current-src' => 'コンソール入力',
-	'scribunto-console-previous-src' => '以前のコンソール入力',
 	'scribunto-console-clear' => '消去',
 	'scribunto-console-cleared' => 'モジュールが更新されたため、コンソールの状態を消去しました。',
 	'scribunto-common-error-category' => 'スクリプトエラーがあるページ',
@@ -969,22 +1046,23 @@ $1',
 );
 
 /** Korean (한국어)
+ * @author Klutzy
  * @author 아라
  */
 $messages['ko'] = array(
 	'scribunto-desc' => '미디어위키 문서에 스크립트 언어를 넣기 위한 프레임워크',
 	'scribunto-ignore-errors' => '오류 코드 저장 허용',
-	'scribunto-line' => '$1줄',
-	'scribunto-module-line' => '$1 안, $2줄',
+	'scribunto-line' => '$1번째 줄에서',
+	'scribunto-module-line' => '$1 $2번째 줄에서',
 	'scribunto-parser-error' => '스크립트 오류',
 	'scribunto-parser-dialog-title' => '스크립트 오류',
 	'scribunto-error-short' => '스크립트 오류: $1',
 	'scribunto-error-long' => '스크립트 오류:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''이 모듈에 대한 설명문은 [[$1]]에서 만들 수 있습니다''",
-	'scribunto-doc-subpage-header' => "''[[$1]]에 대한 설명문 하위 문서입니다''",
+	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''이 모듈에 대한 설명문은 [[$1]]에서 만들 수 있습니다''",
+	'scribunto-doc-page-header' => "''[[$1]]에 대한 설명문 하위 문서입니다''", # Fuzzy
 	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
 * 표현으로 평가하는 "="이 있는 줄을 앞에 넣거나 print()를 사용하세요.
 * 이 콘솔에 메시지를 보낼 모듈 코드에 mw.log()를 사용하세요.',
@@ -995,24 +1073,24 @@ $1',
 	'scribunto-console-cleared' => '모듈을 업데이트했기 때문에 콘솔 상태가 지워졌습니다.',
 	'scribunto-console-cleared-session-lost' => '세션 데이터를 잃었기 때문에 콘솔 상태가 지워졌습니다.',
 	'scribunto-common-error-category' => '스크립트 오류가 있는 문서',
-	'scribunto-common-nosuchmodule' => '스크립트 오류: 그런 모듈이 없습니다.',
+	'scribunto-common-nosuchmodule' => '스크립트 오류: 해당 모듈을 찾을 수 없습니다.',
 	'scribunto-common-nofunction' => '스크립트 오류: 호출할 함수를 지정해야 합니다.',
 	'scribunto-common-nosuchfunction' => '스크립트 오류: 지정한 함수가 존재하지 않습니다.',
 	'scribunto-common-timeout' => '스크립트를 실행하는 데 할당한 시간이 만료되었습니다.',
 	'scribunto-common-oom' => '스크립트를 실행하는 데 허용하는 메모리 크기를 초과했습니다.',
 	'scribunto-common-backtrace' => '역추적:',
 	'scribunto-lua-in-function' => '"$1" 함수에서',
-	'scribunto-lua-in-main' => '주요 덩어리에서',
-	'scribunto-lua-in-function-at' => '$1:$2에 있는 함수에서',
-	'scribunto-lua-error-location' => 'Lua 오류 $1: $2.',
+	'scribunto-lua-in-main' => '메인 청크에서',
+	'scribunto-lua-in-function-at' => '함수 $1, $2번째 줄에서',
+	'scribunto-lua-error-location' => '$1 Lua 오류: $2.',
 	'scribunto-lua-error' => 'Lua 오류: $2.',
 	'scribunto-lua-noreturn' => '스크립트 오류: 모듈이 값을 반환하지 않았습니다. 내보내기 테이블을 반환해야 합니다.',
 	'scribunto-lua-notarrayreturn' => '스크립트 오류: 모듈이 테이블이 아닌 다른 무언가를 반환했습니다. 내보내기 테이블을 반환해야 합니다.',
-	'scribunto-luastandalone-proc-error' => 'Lua 오류: 프로세스를 만들 수 없습니다.',
+	'scribunto-luastandalone-proc-error' => 'Lua 오류: 프로세스를 생성할 수 없습니다.',
 	'scribunto-luastandalone-decode-error' => 'Lua 오류: 내부 오류: 메시지를 디코드할 수 없습니다.',
 	'scribunto-luastandalone-write-error' => 'Lua 오류: 내부 오류: 파이프에 쓰는 도중 오류가 발생했습니다.',
 	'scribunto-luastandalone-read-error' => 'Lua 오류: 내부 오류: 파이프에서 읽는 도중 오류가 발생했습니다.',
-	'scribunto-luastandalone-gone' => 'Lua 오류: 내부 오류: 인터프리터가 이미 끝났습니다.',
+	'scribunto-luastandalone-gone' => 'Lua 오류: 내부 오류: 인터프리터가 이미 종료되었습니다.',
 	'scribunto-luastandalone-signal' => 'Lua 오류: 내부 오류: 인터프리터가 "$2" 신호로 종료했습니다.',
 	'scribunto-luastandalone-exited' => 'Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.',
 );
@@ -1284,9 +1362,9 @@ $messages['pl'] = array(
 	'scribunto-error-long' => 'Błędy skryptu:
 
 $1',
-	'scribunto-doc-subpage-name' => 'opis',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''To jest podstrona dokumentacji dla [[$1]]'''",
+	'scribunto-doc-page-name' => 'opis', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
+	'scribunto-doc-page-header' => "'''To jest podstrona dokumentacji dla [[$1]]'''", # Fuzzy
 	'scribunto-console-title' => 'Konsola debugowania',
 	'scribunto-console-current-src' => 'wejście z konsoli',
 	'scribunto-console-clear' => 'Wyczyść',
@@ -1347,10 +1425,38 @@ $1',
 );
 
 /** Portuguese (português)
+ * @author Helder.wiki
  * @author SandroHc
  */
 $messages['pt'] = array(
+	'scribunto-desc' => "''Framework'' para incluir linguagens de scripts em páginas do MediaWiki",
+	'scribunto-ignore-errors' => 'Permitir que o código seja gravado com erros',
+	'scribunto-line' => 'na linha $1',
+	'scribunto-module-line' => 'em $1 na linha $2',
+	'scribunto-parser-error' => 'Erro no script',
+	'scribunto-parser-dialog-title' => 'Erro no script',
+	'scribunto-error-short' => 'Erro no script: $1',
+	'scribunto-error-long' => 'Erro no script:
+
+$1',
+	'scribunto-doc-page-name' => 'Módulo:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''A documentação para este módulo pode ser criada na página [[$1]]''",
+	'scribunto-doc-page-header' => "'''Esta é a página de documentação de [[$1]]'''",
 	'scribunto-console-clear' => 'Limpar',
+	'scribunto-common-error-category' => 'Páginas com erros de scripts',
+	'scribunto-common-backtrace' => 'Pilha de chamadas:',
+	'scribunto-lua-in-function' => 'na função "$1"',
+	'scribunto-lua-in-main' => 'na parte principal',
+	'scribunto-lua-in-function-at' => 'na função em $1:$2',
+	'scribunto-lua-error-location' => 'Erro em Lua $1: $2.',
+	'scribunto-lua-error' => 'Erro em Lua: $2.',
+	'scribunto-luastandalone-proc-error' => 'Erro em Lua: não é possível criar o processo.',
+	'scribunto-luastandalone-decode-error' => 'Erro em Lua: erro interno: não é possível decodificar a mensagem.',
+	'scribunto-luastandalone-write-error' => 'Erro em Lua: erro interno: erro ao escrever na canalização.',
+	'scribunto-luastandalone-read-error' => 'Erro em Lua: erro interno: erro ao ler da canalização.',
+	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
+	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador terminou com o sinal "$2".',
+	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador finalizou com o estado $2.',
 );
 
 /** Brazilian Portuguese (português do Brasil)
@@ -1367,15 +1473,18 @@ $messages['pt-br'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''A documentação para este módulo pode ser criada em [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Esta é a subpágina de documentação para [[$1]]'''",
+	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''A documentação para este módulo pode ser criada em [[$1]]''",
+	'scribunto-doc-page-header' => "'''Esta é a subpágina de documentação para [[$1]]'''", # Fuzzy
 	'scribunto-console-intro' => '* As exportações do módulo estão disponíveis por meio da variável "p", incluindo modificações não salvas.
 * Preceda uma linha com "=" para avaliá-la como uma expressão ou utilize print().
 * Utilize mw.log() no código do módulo para enviar mensagens para este interpretador de comandos.',
 	'scribunto-console-title' => 'Interpretador de depuração de erros',
+	'scribunto-console-too-large' => 'Esta sessão do interpretador está muito grande. Por favor, limpe o histórico do interpretador ou reduza o tamanho do módulo.',
 	'scribunto-console-current-src' => 'entrada do interpretador',
 	'scribunto-console-clear' => 'Limpar',
+	'scribunto-console-cleared' => 'O estado do interpretador foi esvaziado porque o módulo foi atualizado.',
+	'scribunto-console-cleared-session-lost' => 'O estado do interpretador foi esvaziado porque os dados de sessão foram perdidos.',
 	'scribunto-common-error-category' => 'Páginas com erros de script',
 	'scribunto-common-nosuchmodule' => 'Erro de script: módulo não encontrado',
 	'scribunto-common-nofunction' => 'Erro de script: você deve especificar uma função para chamar.',
@@ -1587,9 +1696,11 @@ $messages['ug-arab'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author DixonD
  * @author Steve.rusyn
  */
 $messages['uk'] = array(
+	'scribunto-ignore-errors' => 'Дозволити збереження коду з помилками',
 	'scribunto-line' => 'у рядку $1',
 	'scribunto-module-line' => 'у $1 у рядку $2',
 	'scribunto-parser-error' => 'Помилка скрипту',
@@ -1598,7 +1709,9 @@ $messages['uk'] = array(
 	'scribunto-error-long' => 'Помилки скрипту:
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/документація',
 	'scribunto-console-clear' => 'Очистити',
+	'scribunto-common-error-category' => 'Сторінки з помилками скриптів',
 	'scribunto-lua-error-location' => 'Помилка Lua $1: $2.',
 	'scribunto-lua-error' => 'Помилка Lua: $2.',
 	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
@@ -1619,9 +1732,9 @@ $messages['vi'] = array(
 	'scribunto-error-long' => 'Lỗi kịch bản:
 
 $1',
-	'scribunto-doc-subpage-name' => 'tài liệu',
-	'scribunto-doc-subpage-does-not-exist' => "''Có thể viết tài liệu về mô đun này tại [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Đây là trang con dành cho tài liệu về [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/tài liệu',
+	'scribunto-doc-page-does-not-exist' => "''Có thể viết tài liệu về mô đun này tại [[$1]]''",
+	'scribunto-doc-page-header' => "'''Đây là trang dành cho tài liệu về [[$1]]'''",
 	'scribunto-console-intro' => '* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.
 * Đưa “=” vào đầu dòng để tính toán nó như một biểu thức, hoặc sử dụng print().
 * Sử dụng mw.log() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.',
@@ -1667,7 +1780,7 @@ $messages['yi'] = array(
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
-	'scribunto-desc' => '用于在MediaWiki页面中嵌入脚本语言的框架',
+	'scribunto-desc' => '嵌入脚本语言到MediaWiki页面中的框架',
 	'scribunto-ignore-errors' => '允许保存有错误的代码',
 	'scribunto-line' => '在第$1行',
 	'scribunto-module-line' => '在$1中的第$2行',
@@ -1677,37 +1790,39 @@ $messages['zh-hans'] = array(
 	'scribunto-error-long' => '脚本错误：
 
 $1',
+	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''此模块的文档可以创建在[[$1]]''",
+	'scribunto-doc-page-header' => "'''这是[[$1]]的文档子页面'''", # Fuzzy
 	'scribunto-console-intro' => '* 此模块的导出表存于变量“p”中，包括没有保存的变更。
 * 在一行的前面加上“=”可以将其作为表达式来计算，或使用print()。
 * 在模块代码中使用mw.log()来向控制台发送消息。',
 	'scribunto-console-title' => '调试控制台',
 	'scribunto-console-too-large' => '此控制台会话太大。请清除控制台历史记录或减少模块的大小。',
 	'scribunto-console-current-src' => '控制台输入',
-	'scribunto-console-previous-src' => '先前的控制台输入',
 	'scribunto-console-clear' => '清除',
 	'scribunto-console-cleared' => '控制台状态已清除，因为模块已更新。',
-	'scribunto-console-cleared-session-lost' => '控制台状态已被清除，因为会话数据已丢失。',
+	'scribunto-console-cleared-session-lost' => '控制台状态已清除，因为会话数据已丢失。',
 	'scribunto-common-error-category' => '有脚本错误的页面',
 	'scribunto-common-nosuchmodule' => '脚本错误：没有这个模块。',
 	'scribunto-common-nofunction' => '脚本错误：您必须指定要调用的函数。',
 	'scribunto-common-nosuchfunction' => '脚本错误：您指定的函数不存在。',
-	'scribunto-common-timeout' => '为正在运行的脚本分配的时间已用完。',
-	'scribunto-common-oom' => '正在运行的脚本允许的内存用量已超出。',
+	'scribunto-common-timeout' => '为运行的脚本分配的时间已耗尽。',
+	'scribunto-common-oom' => '运行的脚本超出允许的内存用量。',
 	'scribunto-common-backtrace' => '回溯：',
 	'scribunto-lua-in-function' => '在函数“$1”中',
-	'scribunto-lua-in-main' => '在主要块中',
+	'scribunto-lua-in-main' => '在主块中',
 	'scribunto-lua-in-function-at' => '在函数 $1:$2 中',
 	'scribunto-lua-error-location' => 'Lua错误 $1：$2',
 	'scribunto-lua-error' => 'Lua错误：$2。',
-	'scribunto-lua-noreturn' => '脚本错误：该模块未返回一个值，它应该返回导出表。',
-	'scribunto-lua-notarrayreturn' => '脚本错误：该模块返回的不是表，它应该返回导出表。',
+	'scribunto-lua-noreturn' => '脚本错误：该模块未返回一个值，它应该返回一个导出表。',
+	'scribunto-lua-notarrayreturn' => '脚本错误：该模块返回的不是一个表。它应该返回一个导出表。',
 	'scribunto-luastandalone-proc-error' => 'Lua错误：无法创建进程。',
 	'scribunto-luastandalone-decode-error' => 'Lua错误：内部错误：无法解码消息。',
 	'scribunto-luastandalone-write-error' => 'Lua错误：内部错误：写入管道时出错。',
 	'scribunto-luastandalone-read-error' => 'Lua错误：内部错误：从管道读取时出错。',
 	'scribunto-luastandalone-gone' => 'Lua错误：内部错误：解释器已退出。',
 	'scribunto-luastandalone-signal' => 'Lua错误：内部错误：解释器因收到信号“$2”而终止。',
-	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态码为$2。',
+	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态为 $2。',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
