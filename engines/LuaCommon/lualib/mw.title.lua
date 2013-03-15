@@ -154,9 +154,10 @@ local function makeTitleObject( data )
 		return content
 	end
 
-	-- Read-only fields, both those defined above and any dynamically handled
-	-- in __index.
+	-- Known fields, both those defined above and any dynamically handled in
+	-- __index, mapped to whether they are read-only.
 	local readOnlyFields = {
+		fragment = false,
 		fullText = true,
 		rootPageTitle = true,
 		basePageTitle = true,
@@ -168,9 +169,24 @@ local function makeTitleObject( data )
 		readOnlyFields[k] = true
 	end
 
+	local function pairsfunc( t, k )
+		local v
+		repeat
+			k = next( readOnlyFields, k )
+			if k == nil then
+				return nil
+			end
+			v = t[k]
+		until v ~= nil
+		return k, v
+	end
+
 	return setmetatable( obj, {
 		__eq = title.equals,
 		__lt = lt,
+		__pairs = function ( t )
+			return pairsfunc, t, nil
+		end,
 		__index = function ( t, k )
 			if k == 'exists' and data.namespace == NS_MEDIA then
 				k = 'fileExists'
@@ -223,6 +239,7 @@ local function makeTitleObject( data )
 			elseif readOnlyFields[k] then
 				error( "index '" .. k .. "' is read only", 2 )
 			else
+				readOnlyFields[k] = v and false  -- assigns nil if v == nil, false otherwise
 				rawset( t, k, v )
 			end
 		end,

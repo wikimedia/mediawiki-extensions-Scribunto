@@ -1,15 +1,13 @@
 <?php
 
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
-	private static $siteStatsLoaded = false;
 	private static $namespacesCache = null;
 	private $pagesInCategoryCache = array();
 
 	function register() {
-		global $wgContLang, $wgNamespaceAliases;
+		global $wgContLang, $wgNamespaceAliases, $wgDisableCounters;
 
 		$lib = array(
-			'loadSiteStats' => array( $this, 'loadSiteStats' ),
 			'getNsIndex' => array( $this, 'getNsIndex' ),
 			'pagesInCategory' => array( $this, 'pagesInCategory' ),
 			'pagesInNamespace' => array( $this, 'pagesInNamespace' ),
@@ -71,19 +69,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$info['namespaces'] = self::$namespacesCache;
 
-		if ( self::$siteStatsLoaded ) {
-			$stats = $this->loadSiteStats();
-			$info['stats'] = $stats[0];
-		}
-
-		$this->getEngine()->registerInterface( 'mw.site.lua', $lib, $info );
-	}
-
-	public function loadSiteStats() {
-		global $wgDisableCounters;
-
-		self::$siteStatsLoaded = true;
-		return array( array(
+		$info['stats'] = array(
 			'pages' => (int)SiteStats::pages(),
 			'articles' => (int)SiteStats::articles(),
 			'files' => (int)SiteStats::images(),
@@ -91,7 +77,10 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'views' => $wgDisableCounters ? null : (int)SiteStats::views(),
 			'users' => (int)SiteStats::users(),
 			'activeUsers' => (int)SiteStats::activeUsers(),
-		) );
+			'admins' => (int)SiteStats::numberingroup( 'sysop' ),
+		);
+
+		$this->getEngine()->registerInterface( 'mw.site.lua', $lib, $info );
 	}
 
 	public function pagesInCategory( $category = null, $which = null ) {

@@ -1,5 +1,16 @@
 local testframework = require 'Module:TestFramework'
 
+local function test_new( arg )
+	-- Skip the functions
+	local ret = {}
+	for k, v in pairs( mw.uri.new( arg ) ) do
+		if type( v ) ~= 'function' then
+			ret[k] = v
+		end
+	end
+	return ret
+end
+
 -- Tests
 local tests = {
 	{ name = 'uri.encode', func = mw.uri.encode,
@@ -41,19 +52,23 @@ local tests = {
 	  expect = { 'foo_b.C3.A1r' }
 	},
 
-	{ name = 'uri.new', func = mw.uri.new,
+	{ name = 'uri.new', func = test_new,
 	  args = { 'http://www.example.com/test?foo=1&bar&baz=1&baz=2#fragment' },
 	  expect = {
 		  {
 			  protocol = 'http',
 			  host = 'www.example.com',
+			  hostPort = 'www.example.com',
+			  authority = 'www.example.com',
 			  path = '/test',
 			  query = {
 				  foo = '1',
 				  bar = false,
 				  baz = { '1', '2' },
 			  },
+			  queryString = 'foo=1&bar&baz=1&baz=2',
 			  fragment = 'fragment',
+			  relativePath = '/test?foo=1&bar&baz=1&baz=2#fragment',
 		  },
 	  },
 	},

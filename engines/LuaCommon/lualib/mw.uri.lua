@@ -322,6 +322,42 @@ function uri.buildQueryString( qs )
 	return table.concat( t, '', 2 )
 end
 
+-- Fields mapped to whether they're handled by __index
+local knownFields = {
+	protocol = false,
+	user = false,
+	password = false,
+	host = false,
+	port = false,
+	path = false,
+	query = false,
+	fragment = false,
+	userInfo = true,
+	hostPort = true,
+	authority = true,
+	queryString = true,
+	relativePath = true,
+}
+
+local function pairsfunc( t, k )
+	local v, f
+	repeat
+		k, f = next( knownFields, k )
+		if k == nil then
+			return nil
+		end
+		if f then
+			v = t[k]
+		else
+			v = rawget( t, k )
+		end
+	until v ~= nil
+	return k, v
+end
+function urimt:__pairs()
+	return pairsfunc, self, nil
+end
+
 function urimt:__index( key )
 	if urifuncs[key] then
 		return urifuncs[key]
@@ -470,7 +506,12 @@ function urimt:__newindex( key, value )
 		return
 	end
 
+	if knownFields[key] then
+		error( "index '" .. key .. "' is read only", 2 )
+	end
+
 	-- Default behavior
+	knownFields[key] = false
 	rawset( self, key, value )
 end
 
@@ -561,6 +602,11 @@ function urifuncs:extend( parameters )
 	end
 
 	return self
+end
+
+-- Add all urifuncs as known fields
+for k in pairs( urifuncs ) do
+	knownFields[k] = true
 end
 
 return uri

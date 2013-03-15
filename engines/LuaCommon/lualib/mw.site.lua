@@ -11,11 +11,10 @@ function site.setupInterface( info )
 	site.scriptPath = info.scriptPath
 	site.stylePath = info.stylePath
 	site.currentVersion = info.currentVersion
-	site.stats = {
-		pagesInCategory = php.pagesInCategory,
-		pagesInNamespace = php.pagesInNamespace,
-		usersInGroup = php.usersInGroup,
-	}
+	site.stats = info.stats
+	site.stats.pagesInCategory = php.pagesInCategory
+	site.stats.pagesInNamespace = php.pagesInNamespace
+	site.stats.usersInGroup = php.usersInGroup
 
 	-- Process namespace list into more useful tables
 	site.namespaces = {}
@@ -75,34 +74,6 @@ function site.setupInterface( info )
 	-- something like site.namespaces.Wikipedia works without having
 	-- pairs( site.namespaces ) iterate all those names.
 	setmetatable( site.namespaces, { __index = namespacesByName } )
-
-	-- Copy the site stats, and set up the metatable to load them if necessary.
-	local loadSiteStats = php.loadSiteStats
-	site.stats.x = php.loadSiteStats
-	if info.stats then
-		loadSiteStats = nil
-		for k, v in pairs( info.stats ) do
-			site.stats[k] = v
-		end
-	end
-	setmetatable( site.stats, {
-		__index = function ( t, k )
-			if t ~= site.stats then -- cloned
-				return site.stats[k]
-			end
-
-			if k == 'admins' then
-				t.admins = t.usersInGroup( 'sysop' )
-			elseif loadSiteStats then
-				for k, v in pairs( loadSiteStats() ) do
-					t[k] = v
-				end
-				loadSiteStats = nil
-			end
-
-			return rawget( t, k )
-		end
-	} )
 
 	-- Register this library in the "mw" global
 	mw = mw or {}

@@ -84,9 +84,8 @@ local function makeMessage( options )
 		lang = php.options.lang,
 		useDB = true,
 	}
-	local funcs = {}
 
-	function funcs:params( ... )
+	function obj:params( ... )
 		checkSelf( self, 'params' )
 		local params = checkParams( 'params', true, ... )
 		local j = #data.params
@@ -96,7 +95,7 @@ local function makeMessage( options )
 		return self
 	end
 
-	function funcs:rawParams( ... )
+	function obj:rawParams( ... )
 		checkSelf( self, 'rawParams' )
 		local params = checkParams( 'rawParams', false, ... )
 		local j = #data.params
@@ -106,7 +105,7 @@ local function makeMessage( options )
 		return self
 	end
 
-	function funcs:numParams( ... )
+	function obj:numParams( ... )
 		checkSelf( self, 'numParams' )
 		local params = checkParams( 'numParams', false, ... )
 		local j = #data.params
@@ -116,7 +115,7 @@ local function makeMessage( options )
 		return self
 	end
 
-	function funcs:inLanguage( lang )
+	function obj:inLanguage( lang )
 		checkSelf( self, 'inLanguage' )
 		if type( lang ) == 'table' and lang.getCode then
 			-- probably a mw.language object
@@ -127,14 +126,14 @@ local function makeMessage( options )
 		return self
 	end
 
-	function funcs:useDatabase( value )
+	function obj:useDatabase( value )
 		checkSelf( self, 'useDatabase' )
 		checkType( 'useDatabase', 1, value, 'boolean' )
 		data.useDB = value
 		return self
 	end
 
-	function funcs:title( title )
+	function obj:title( title )
 		checkSelf( self, 'title' )
 		if type( title ) == 'table' and title.prefixedText then
 			-- probably a mw.title object
@@ -145,48 +144,47 @@ local function makeMessage( options )
 		return self
 	end
 
-	function funcs:parse()
+	function obj:parse()
 		checkSelf( self, 'parse' )
 		return php.toString( 'parse', data )
 	end
 
-	function funcs:text()
+	function obj:text()
 		checkSelf( self, 'text' )
 		return php.toString( 'text', data )
 	end
 
-	function funcs:plain()
+	function obj:plain()
 		checkSelf( self, 'plain' )
 		return php.toString( 'plain', data )
 	end
 
-	function funcs:escaped()
+	function obj:escaped()
 		checkSelf( self, 'escaped' )
 		return php.toString( 'escaped', data )
 	end
 
-	function funcs:parseAsBlock()
+	function obj:parseAsBlock()
 		checkSelf( self, 'parseAsBlock' )
 		return php.toString( 'parseAsBlock', data )
 	end
 
-	function funcs:exists()
+	function obj:exists()
 		checkSelf( self, 'exists' )
 		return php.check( 'exists', data )
 	end
 
-	function funcs:isBlank()
+	function obj:isBlank()
 		checkSelf( self, 'isBlank' )
 		return php.check( 'isBlank', data )
 	end
 
-	function funcs:isDisabled()
+	function obj:isDisabled()
 		checkSelf( self, 'isDisabled' )
 		return php.check( 'isDisabled', data )
 	end
 
 	return setmetatable( obj, {
-		__index = funcs,
 		__tostring = function ( t )
 			return t:text()
 		end
