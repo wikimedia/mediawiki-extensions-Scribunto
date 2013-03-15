@@ -65,6 +65,7 @@ $1',
 
 /** Message documentation (Message documentation)
  * @author Amire80
+ * @author Anomie
  * @author Mormegil
  * @author Shirayuki
  * @author Siebrand
@@ -83,7 +84,8 @@ $messages['qqq'] = array(
 * $1 are the error details.',
 	'scribunto-error-long' => 'Error message. Parameters:
 * $1 are the error details.',
-	'scribunto-doc-page-name' => 'Page name for module documentation. Parameters:
+	'scribunto-doc-page-name' => '{{doc-important|Do not translate the namespace "Module:"}}
+Page name for module documentation. Parameters:
 * $1 - the unprefixed name of the module',
 	'scribunto-doc-page-does-not-exist' => 'Message displayed if the documentation page does not exist. Parameters:
 * $1 - the prefixed title of the doc page',
@@ -270,8 +272,8 @@ $messages['cs'] = array(
 
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/Dokumentace',
-	'scribunto-doc-page-does-not-exist' => 'Dokumentace pro tento modul může být vytvořena na [[$1]]',
-	'scribunto-doc-page-header' => 'Toto je dokumentace pro [[$1]]',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentaci tohoto modulu lze vytvořit na stránce [[$1]]''",
+	'scribunto-doc-page-header' => "'''Toto je dokumentace pro [[$1]]'''",
 	'scribunto-console-intro' => '* Exporty z modulu jsou dostupné jako proměnná „p“ včetně neuložených změn.
 * Řádek začínající „=“ se vyhodnotí jako výraz, případně můžete použít print().
 * V kódu modulu můžete zprávy do konzole poslat pomocí mw.log().',
@@ -374,6 +376,7 @@ $1',
 
 /** Lower Sorbian (dolnoserbski)
  * @author Michawiki
+ * @author Tlustulimu
  */
 $messages['dsb'] = array(
 	'scribunto-desc' => 'Wobcerk za zasajźenje skriptowych rěcow do bokow MediaWiki',
@@ -386,9 +389,9 @@ $messages['dsb'] = array(
 	'scribunto-error-long' => 'Skriptowe zmólki:
 
 $1',
-	'scribunto-doc-subpage-name' => 'documentacija',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentacija za toś ten modul dajo se na [[$1]] napóraś''",
-	'scribunto-doc-subpage-header' => "'''To jo dokumentaciski pódbok za [[$1]]'''",
+	'scribunto-doc-page-name' => 'Modul:$1/Documentacija',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentacija za toś ten modul dajo se na [[$1]] napóraś''",
+	'scribunto-doc-page-header' => "'''To jo dokumentaciski bok za [[$1]]'''",
 	'scribunto-console-intro' => '* Modulowe eksporty stoje ako wariabla "p" k dispoziciji, inkluziwnje njeskładowanych změnow.
 * Staj "=" pśed smužku, aby ju ako wuraz wugódnośił, abo wužyj print().
 * Wužyj mw.log() w modulowem koźe, aby powěsći na konsolu pósłał.',
@@ -436,9 +439,9 @@ $messages['eo'] = array(
 	'scribunto-error-long' => 'Skripteraroj:
 
 $1',
-	'scribunto-doc-subpage-name' => 'dokumentado',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentado por ĉi tiu modulo povas esti kreatata en [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Tio estas la subpaĝo de la dokumentado por [[$1]]'''",
+	'scribunto-doc-page-name' => 'Modulo:$1/dokumentado',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentado por ĉi tiu modulo povas esti kreatata en [[$1]]''",
+	'scribunto-doc-page-header' => "'''Tio estas la paĝo de la dokumentado por [[$1]]'''",
 	'scribunto-console-intro' => '* La modulaj eksportoj estas disponeblaj kiel variablo "p" , inkluzive de la nekonservitaj ŝanĝoj.
 * Prefiksu linion per "=" por taksi ĝin kiel esprimon aŭ uzu print().
 * Uzu mw.log() en la modulkodo por sendi mesaĝojn al ĉi tiu konzolo.',
@@ -535,12 +538,44 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Mjbmr
+ * @author ZxxZxxZ
  * @author جواد
  */
 $messages['fa'] = array(
+	'scribunto-desc' => 'چارچوبی برای تعبیه‌کردن زبان‌های اسکریپت‌نویسی در صفحه‌های مدیاویکی',
+	'scribunto-ignore-errors' => 'اجازهٔ ذخیره‌سازی کدهای خطادار را بده',
 	'scribunto-line' => 'در خط $1',
 	'scribunto-module-line' => 'در $1 در خط $2',
+	'scribunto-parser-error' => 'خطای اسکریپتی',
+	'scribunto-parser-dialog-title' => 'خطای اسکریپتی',
+	'scribunto-error-short' => 'خطای اسکریپتی: $1',
+	'scribunto-error-long' => 'خطاهای اسکریپتی:
+
+$1',
+	'scribunto-doc-page-name' => 'Module:$1/توضیحات',
+	'scribunto-doc-page-does-not-exist' => "''توضیحات این ماژول می‌تواند در [[$1]] قرار گیرد.''",
+	'scribunto-doc-page-header' => "'''این صفحهٔ توضیحات [[$1]] است'''",
+	'scribunto-console-title' => 'میزفرمان اشکال‌زدایی',
+	'scribunto-console-too-large' => 'نشست میزفرمان خیلی بزرگ است. لطفاً تاریخچهٔ میزفرمان را پاک کنید یا حجم ماژول را کمتر کنید.',
+	'scribunto-console-current-src' => 'ورودی میزفرمان',
 	'scribunto-console-clear' => 'پاک‌سازی',
+	'scribunto-common-error-category' => 'صفحه‌های دارای خطاهای اسکریپتی',
+	'scribunto-common-nosuchmodule' => 'خطای اسکریپتی: چنین ماژولی وجود ندارد.',
+	'scribunto-common-nofunction' => 'خطای اسکریپتی: برای فراخوانی باید تابعی را مشخص کنید.',
+	'scribunto-common-nosuchfunction' => 'خطای اسکریپتی: تابعی که مشخص کردید وجود ندارد.',
+	'scribunto-lua-in-function' => 'در تابع «$1»',
+	'scribunto-lua-in-function-at' => 'در تابع در $1:$2',
+	'scribunto-lua-error-location' => 'خطای لوآ $1:$2.',
+	'scribunto-lua-error' => 'خطای لوآ: $2.',
+	'scribunto-lua-noreturn' => 'خطای اسکریپتی: ماژول مقداری را برنگرداند. (باید یک جدول برون‌ریزی برگرداند)',
+	'scribunto-lua-notarrayreturn' => 'خطای اسکریپتی: ماژول چیزی غیر از یک جدول برگرداند. (باید یک جدول برون‌ریزی برگرداند)',
+	'scribunto-luastandalone-proc-error' => 'خطای لوآ: نمی‌تواند فرآیند را ایجاد کند.',
+	'scribunto-luastandalone-decode-error' => 'خطای لوآ: خطای داخلی: نمی‌تواند پیغام را کدبرداری کند.',
+	'scribunto-luastandalone-write-error' => 'خطای لوآ: خطای داخلی: خطا در نوشتن لوله.',
+	'scribunto-luastandalone-read-error' => 'خطای لوآ: خطای داخلی: خطا در خواندن لوله.',
+	'scribunto-luastandalone-gone' => 'خطای لوآ: خطای داخلی: مفسر قبلاً خارج شده است.',
+	'scribunto-luastandalone-signal' => 'خطای لوآ: خطای داخلی: مفسر با سیگنال «$2» خاتمه یافته است.',
+	'scribunto-luastandalone-exited' => 'خطای لوآ: خطای داخلی: مفسر با وضعیت $2 خارج شده است.',
 );
 
 /** Finnish (suomi)
@@ -615,7 +650,7 @@ $1',
  */
 $messages['gl'] = array(
 	'scribunto-desc' => 'Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki',
-	'scribunto-ignore-errors' => 'Permitir o gardado do código con erros',
+	'scribunto-ignore-errors' => 'Permitir o gardado de código con erros',
 	'scribunto-line' => 'na liña $1',
 	'scribunto-module-line' => 'en $1 na liña $2',
 	'scribunto-parser-error' => 'Erro de script',
@@ -624,9 +659,9 @@ $messages['gl'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''A documentación deste módulo pódese crear en \"[[\$1]]\"''",
-	'scribunto-doc-subpage-header' => "'''Esta é a subpáxina de documentación de \"[[\$1]]\"'''",
+	'scribunto-doc-page-name' => 'Módulo:$1/uso',
+	'scribunto-doc-page-does-not-exist' => "''A documentación deste módulo pódese crear en \"[[\$1]]\"''",
+	'scribunto-doc-page-header' => "'''Esta é a páxina de documentación de \"[[\$1]]\"'''",
 	'scribunto-console-intro' => '* As exportacións do módulo están dispoñibles como a variable "p", incluídas as modificacións sen gardar.
 * Poña un "=" ao comezo da liña para avaliala como unha expresión; tamén pode usar print().
 * Use mw.log() no código do módulo para enviar mensaxes a esta consola.',
@@ -673,13 +708,15 @@ $messages['he'] = array(
 	'scribunto-error-long' => 'שגיאות בתסריט:
 
 $1',
+	'scribunto-doc-page-name' => 'יחידה:$1/תיעוד',
+	'scribunto-doc-page-does-not-exist' => 'ניתן למצוא תיעוד על היחידה הזאת בדף [[$1]]',
+	'scribunto-doc-page-header' => 'זהו דך התיעוד עבור [[$1]]',
 	'scribunto-console-intro' => '* השמות המיוצאים מיחידה זמינים במשתנה "p", כולל שינויים שלא נשמרו.
 * כדי לחשב את השורה כביטוי יש להתחיל אותה בסימן "=" או להשתמש ב־print()‎.
 * כדי לשלוח הודעות למסוף הזה, יש להשתמש ב־mw.log()‎.',
 	'scribunto-console-title' => 'מסוף לבדיקת קוד',
 	'scribunto-console-too-large' => 'השיחה במסוף גדולה מדי. נא לנקות את ההיסטוריה או להקטין את היחידה.',
 	'scribunto-console-current-src' => 'קלט במסוף',
-	'scribunto-console-previous-src' => 'קלט יחידה קודם',
 	'scribunto-console-clear' => 'ניקוי',
 	'scribunto-console-cleared' => 'מצב המסוף נוקה כי היחידה עודכנה.',
 	'scribunto-console-cleared-session-lost' => 'מצב המסוף נוקה, כי נתוני השיחה אבדו.',
@@ -708,6 +745,7 @@ $1',
 
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
+ * @author Tlustulimu
  */
 $messages['hsb'] = array(
 	'scribunto-desc' => 'Wobłuk za zasadźenje skriptowych rěčow do stronow MediaWiki',
@@ -720,7 +758,7 @@ $messages['hsb'] = array(
 	'scribunto-error-long' => 'Skriptowe zmylki:
 
 $1',
-	'scribunto-doc-page-name' => 'Module:$1/dokumentacija',
+	'scribunto-doc-page-name' => 'Modul:$1/dokumentacija',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentacija za tutón modul hodźi so na [[$1]] wutworić''",
 	'scribunto-doc-page-header' => "'''To je dokumentaciska strona za [[$1]]'''",
 	'scribunto-console-intro' => '* Modulowe eksporty steja jako wariabla "p" k dispoziciji, inkluziwnje njeskładowanych změnow.
@@ -1047,6 +1085,7 @@ $1',
 
 /** Korean (한국어)
  * @author Klutzy
+ * @author Kwj2772
  * @author 아라
  */
 $messages['ko'] = array(
@@ -1060,9 +1099,9 @@ $messages['ko'] = array(
 	'scribunto-error-long' => '스크립트 오류:
 
 $1',
-	'scribunto-doc-page-name' => 'doc', # Fuzzy
-	'scribunto-doc-page-does-not-exist' => "''이 모듈에 대한 설명문은 [[$1]]에서 만들 수 있습니다''",
-	'scribunto-doc-page-header' => "''[[$1]]에 대한 설명문 하위 문서입니다''", # Fuzzy
+	'scribunto-doc-page-name' => '모듈:$1/설명문서',
+	'scribunto-doc-page-does-not-exist' => "''이 모듈에 대한 설명문서는 [[$1]]에서 만들 수 있습니다''",
+	'scribunto-doc-page-header' => "'''이 문서는 [[$1]]에 대한 설명문서입니다'''",
 	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
 * 표현으로 평가하는 "="이 있는 줄을 앞에 넣거나 print()를 사용하세요.
 * 이 콘솔에 메시지를 보낼 모듈 코드에 mw.log()를 사용하세요.',
@@ -1710,12 +1749,30 @@ $messages['uk'] = array(
 
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/документація',
+	'scribunto-doc-page-does-not-exist' => "''Документацію для цього модуля можна створити у [[$1]]''",
+	'scribunto-doc-page-header' => "'''Це сторінка документації для [[$1]]'''",
+	'scribunto-console-intro' => '* Експорти модуля доступні як змінна "p", у тому числі і незбережені зміни.
+* Починайте рядок з "=", щоб обчислити його як вираз, або використовуйте print().
+* Використовуйте mw.log() у коді модуля, що відправити повідомлення в цю консоль.',
+	'scribunto-console-title' => 'Консоль налагодження',
+	'scribunto-console-current-src' => 'консольному вводі',
 	'scribunto-console-clear' => 'Очистити',
 	'scribunto-common-error-category' => 'Сторінки з помилками скриптів',
+	'scribunto-common-nosuchmodule' => 'Помилка скрипту: Такого модуля немає.',
+	'scribunto-common-nofunction' => 'Помилка скрипту: Ви повинні вказати функцію для виклику.',
+	'scribunto-common-nosuchfunction' => 'Помилка скрипту: Вказаної вами функції не існує.',
+	'scribunto-lua-in-function' => 'у функції «$1»',
+	'scribunto-lua-in-main' => 'в головній частині коду',
+	'scribunto-lua-in-function-at' => 'у функції в $1:$2',
 	'scribunto-lua-error-location' => 'Помилка Lua $1: $2.',
 	'scribunto-lua-error' => 'Помилка Lua: $2.',
+	'scribunto-lua-noreturn' => 'Помилка скрипту: Модуль не повернув значення. Він повинен повернутися таблицю експорту.',
+	'scribunto-lua-notarrayreturn' => 'Помилка скрипту: Модуль повернув значення, що не є таблицею. Він повинен повернутися таблицю експорту.',
 	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
 	'scribunto-luastandalone-decode-error' => 'Помилка Lua: Внутрішня помилка: Не вдається декодувати повідомлення.',
+	'scribunto-luastandalone-gone' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор вже завершив роботу.',
+	'scribunto-luastandalone-signal' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор було зупинено з сигналом «$2».',
+	'scribunto-luastandalone-exited' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор завершив роботу зі статусом $2.',
 );
 
 /** Vietnamese (Tiếng Việt)
