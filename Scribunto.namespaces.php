@@ -23,6 +23,11 @@ $namespaceNames['bs'] = array(
 	829 => 'Razgovor_o_modulu',
 );
 
+$namespaceNames['cs'] = array(
+	828 => 'Modul',
+	829 => 'Diskuse_k_modulu',
+);
+
 $namespaceNames['de'] = array(
 	828 => 'Modul',
 	829 => 'Modul_Diskussion',
