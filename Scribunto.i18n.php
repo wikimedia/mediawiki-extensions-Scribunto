@@ -206,6 +206,15 @@ $messages['br'] = array(
 	'scribunto-console-clear' => 'Riñsañ',
 );
 
+/** Bosnian (bosanski)
+ * @author DzWiki
+ */
+$messages['bs'] = array(
+	'scribunto-doc-page-name' => 'Module:$1/dok',
+	'scribunto-doc-page-header' => "'''Ovo je stranica dokumentacije za [[$1]]'''",
+	'scribunto-console-clear' => 'Očisti',
+);
+
 /** Catalan (català)
  * @author Toniher
  * @author Vriullop
@@ -580,12 +589,15 @@ $1',
 
 /** Finnish (suomi)
  * @author Beluga
+ * @author Stryn
  * @author VezonThunder
  */
 $messages['fi'] = array(
 	'scribunto-ignore-errors' => 'Salli virheitä sisältävän koodin tallentaminen',
 	'scribunto-line' => 'rivillä $1',
+	'scribunto-doc-page-does-not-exist' => "''Tämän moduulin dokumentoinnin voi tehdä sivulle [[$1]]''",
 	'scribunto-console-clear' => 'Tyhjennä',
+	'scribunto-lua-error' => 'Lua-virhe: $2.',
 );
 
 /** French (français)
@@ -1010,6 +1022,7 @@ $1',
 
 /** Japanese (日本語)
  * @author Shirayuki
+ * @author Whym
  */
 $messages['ja'] = array(
 	'scribunto-desc' => 'MediaWiki ページにスクリプト言語を埋め込むフレームワーク',
@@ -1022,20 +1035,24 @@ $messages['ja'] = array(
 	'scribunto-error-long' => 'スクリプトエラー:
 
 $1',
-	'scribunto-doc-page-name' => 'モジュール:$1/doc',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''このモジュールについての説明文ページを [[$1]] に作成できます''",
 	'scribunto-doc-page-header' => "'''このページは、[[[$1]]]の説明文を記述するページです。'''",
+	'scribunto-console-intro' => '* モジュールのエクスポートは、保存していない変更も含めて、「p」という変数として利用できます。
+* 式として評価するには、行頭に「=」をつけるか print() を使ってください。
+* モジュールのコードからこのコンソールにメッセージを送信するには mw.log() を使ってください。',
 	'scribunto-console-title' => 'デバッグコンソール',
 	'scribunto-console-too-large' => 'このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。',
 	'scribunto-console-current-src' => 'コンソール入力',
 	'scribunto-console-clear' => '消去',
 	'scribunto-console-cleared' => 'モジュールが更新されたため、コンソールの状態を消去しました。',
+	'scribunto-console-cleared-session-lost' => 'セッションデータが失われたため、コンソールの状態を消去しました。',
 	'scribunto-common-error-category' => 'スクリプトエラーがあるページ',
 	'scribunto-common-nosuchmodule' => 'スクリプトエラー: そのようなモジュールはありません。',
 	'scribunto-common-nofunction' => 'スクリプトエラー: 呼び出す関数を指定してください。',
 	'scribunto-common-nosuchfunction' => 'スクリプトエラー: 指定した関数は存在しません。',
 	'scribunto-common-timeout' => 'スクリプトに割り当てた時間が終了しました。',
-	'scribunto-common-oom' => 'スクリプトの実行で使用を許可されているメモリー量です。',
+	'scribunto-common-oom' => 'スクリプトの実行で使用を許可されているメモリ量を超過しました。',
 	'scribunto-common-backtrace' => 'バックトレース:',
 	'scribunto-lua-in-function' => '関数「$1」内',
 	'scribunto-lua-in-main' => 'メインチャンク内',
@@ -1162,16 +1179,15 @@ $messages['mk'] = array(
 	'scribunto-error-long' => 'Грешки во скриптата:
 
 $1',
-	'scribunto-doc-subpage-name' => 'док',
-	'scribunto-doc-subpage-does-not-exist' => "''Документацијата за овој модул можете да ја создадете на [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Ова е потстраницата за документација на [[$1]]'''",
+	'scribunto-doc-page-name' => 'док', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''Документацијата за овој модул можете да ја создадете на [[$1]]''",
+	'scribunto-doc-page-header' => "'''Ова е страницата за документација на [[$1]]'''",
 	'scribunto-console-intro' => '* Извозот на модулот е достапен како променлива „p“, вклучувајќи ги незачуваните измени.
 * Пред редот ставајте „=“ за да ја вреднувате како израз, или пак користете print().
 * Во кодот на модулот користете mw.log() за испраќање на пораки до оваа конзола.',
 	'scribunto-console-title' => 'Конзола за решавање на грешки',
 	'scribunto-console-too-large' => 'Оваа сесија на конзолата е преголема. Исчистете ја нејзината историја или намалете ја големината на модулот.',
 	'scribunto-console-current-src' => 'внос во конзолата',
-	'scribunto-console-previous-src' => 'претходен внос во конзолата',
 	'scribunto-console-clear' => 'Исчисти',
 	'scribunto-console-cleared' => 'Состојбата на конзолата е исчистена поради поднова на модулот.',
 	'scribunto-console-cleared-session-lost' => 'Состојбата на конзолата е исчистена поради загуба на сесиските податоци.',
@@ -1401,7 +1417,7 @@ $messages['pl'] = array(
 	'scribunto-error-long' => 'Błędy skryptu:
 
 $1',
-	'scribunto-doc-page-name' => 'opis', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/opis',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
 	'scribunto-doc-page-header' => "'''To jest podstrona dokumentacji dla [[$1]]'''", # Fuzzy
 	'scribunto-console-title' => 'Konsola debugowania',
@@ -1680,6 +1696,13 @@ $1',
 	'scribunto-doc-subpage-header' => "'''Toto je podstránka dokumentácie pre [[$1]]'''",
 );
 
+/** Swedish (svenska)
+ * @author Lokal Profil
+ */
+$messages['sv'] = array(
+	'scribunto-doc-page-name' => 'Module:$1/dok',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
@@ -1790,8 +1813,8 @@ $messages['vi'] = array(
 
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/tài liệu',
-	'scribunto-doc-page-does-not-exist' => "''Có thể viết tài liệu về mô đun này tại [[$1]]''",
-	'scribunto-doc-page-header' => "'''Đây là trang dành cho tài liệu về [[$1]]'''",
+	'scribunto-doc-page-does-not-exist' => "''Có thể viết tài liệu về mô đun này tại [[$1]].''",
+	'scribunto-doc-page-header' => "'''Đây là trang dành cho tài liệu về [[$1]].'''",
 	'scribunto-console-intro' => '* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.
 * Đưa “=” vào đầu dòng để tính toán nó như một biểu thức, hoặc sử dụng print().
 * Sử dụng mw.log() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.',
@@ -1847,9 +1870,9 @@ $messages['zh-hans'] = array(
 	'scribunto-error-long' => '脚本错误：
 
 $1',
-	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''此模块的文档可以创建在[[$1]]''",
-	'scribunto-doc-page-header' => "'''这是[[$1]]的文档子页面'''", # Fuzzy
+	'scribunto-doc-page-header' => "'''这是[[$1]]的文档页面'''",
 	'scribunto-console-intro' => '* 此模块的导出表存于变量“p”中，包括没有保存的变更。
 * 在一行的前面加上“=”可以将其作为表达式来计算，或使用print()。
 * 在模块代码中使用mw.log()来向控制台发送消息。',
@@ -1883,6 +1906,7 @@ $1',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Yfdyh000
  */
 $messages['zh-hant'] = array(
 	'scribunto-desc' => '用於在MediaWiki頁面中嵌入腳本語言的框架',
@@ -1894,13 +1918,13 @@ $messages['zh-hant'] = array(
 	'scribunto-error-long' => '腳本錯誤：
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-console-intro' => '* 此模塊的導出表存於變量“p”中，包括沒有保存的變更。
 * 在一行的前面加上“=”可以將其作為表達式來計算，或使用print()。
 * 在模塊代碼中使用mw.log()來向控制台發送消息。',
 	'scribunto-console-title' => '調試控制台',
 	'scribunto-console-too-large' => '此控制台會話太大。請清除控制台歷史記錄或減少模塊的大小。',
 	'scribunto-console-current-src' => '控制台輸入',
-	'scribunto-console-previous-src' => '先前的控制台輸入',
 	'scribunto-console-clear' => '清除',
 	'scribunto-console-cleared' => '控制台狀態已清除，因為模塊已更新。',
 	'scribunto-common-nosuchmodule' => '腳本錯誤：沒有這個模塊。',
