@@ -53,6 +53,16 @@ $namespaceNames['hu'] = array(
 	829 => 'Modulvita',
 );
 
+$namespaceNames['pt'] = array(
+	828 => 'Módulo',
+	829 => 'Módulo_Discussão',
+);
+
+$namespaceNames['pt-br'] = array(
+	828 => 'Módulo',
+	829 => 'Módulo_Discussão',
+);
+
 $namespaceNames['nl'] = array(
 	828 => 'Module',
 	829 => 'Overleg_module',
