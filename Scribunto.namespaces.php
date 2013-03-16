@@ -68,6 +68,11 @@ $namespaceNames['nl'] = array(
 	829 => 'Overleg_module',
 );
 
+$namespaceNames['vi'] = array(
+	828 => 'Mô_đun',
+	829 => 'Thảo_luận_Mô_đun',
+);
+
 $namespaceNames['zh-hans'] = array(
 	828 => '模块',
 	829 => '模块讨论',
