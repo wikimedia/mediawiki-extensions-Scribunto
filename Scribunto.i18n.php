@@ -1116,7 +1116,7 @@ $messages['ko'] = array(
 	'scribunto-error-long' => '스크립트 오류:
 
 $1',
-	'scribunto-doc-page-name' => '모듈:$1/설명문서',
+	'scribunto-doc-page-name' => 'Module:$1/설명문서',
 	'scribunto-doc-page-does-not-exist' => "''이 모듈에 대한 설명문서는 [[$1]]에서 만들 수 있습니다''",
 	'scribunto-doc-page-header' => "'''이 문서는 [[$1]]에 대한 설명문서입니다'''",
 	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
