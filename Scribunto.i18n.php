@@ -153,7 +153,7 @@ $messages['be-tarask'] = array(
 	'scribunto-error-long' => 'Памылкі скрыпту:
 
 $1',
-	'scribunto-doc-page-name' => 'Модуль:$1/Дакумэнтацыя',
+	'scribunto-doc-page-name' => 'Module:$1/Дакумэнтацыя',
 	'scribunto-doc-page-does-not-exist' => "''Дакумэнтацыю да гэтага модуля можна стварыць у [[$1]]''",
 	'scribunto-doc-page-header' => "''Гэта падстаронка-дакумэнтацыя для [[$1]]''",
 	'scribunto-console-intro' => '* Экспартаваныя зьвесткі модуля даступныя празь зьменную «p», у тым ліку незахаваныя зьмены.
