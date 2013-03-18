@@ -67,7 +67,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->idCache[$title->getArticleID()] = $title;
 
 		// Record a link
-		if ( $this->getParser() ) {
+		if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
 			$this->getParser()->getOutput()->addLink( $title );
 		}
 
