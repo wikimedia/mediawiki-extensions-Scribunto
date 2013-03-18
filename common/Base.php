@@ -119,14 +119,20 @@ abstract class ScribuntoEngineBase {
 	 * @return ScribuntoEngineModule
 	 */
 	function fetchModuleFromParser( Title $title ) {
-		list( $text, $finalTitle ) = $this->parser->fetchTemplateAndTitle( $title );
-		if ( $text === false ) {
-			return null;
-		}
+		$key = $title->getPrefixedDBkey();
+		if ( !array_key_exists( $key, $this->modules ) ) {
+			list( $text, $finalTitle ) = $this->parser->fetchTemplateAndTitle( $title );
+			if ( $text === false ) {
+				$this->modules[$key] = null;
+				return null;
+			}
 
-		$key = $finalTitle->getPrefixedDBkey();
-		if ( !isset( $this->modules[$key] ) ) {
-			$this->modules[$key] = $this->newModule( $text, $key );
+			$finalKey = $finalTitle->getPrefixedDBkey();
+			if ( !isset( $this->modules[$finalKey] ) ) {
+				$this->modules[$finalKey] = $this->newModule( $text, $finalKey );
+			}
+			// Almost certainly $key === $finalKey, but just in case...
+			$this->modules[$key] = $this->modules[$finalKey];
 		}
 		return $this->modules[$key];
 	}
