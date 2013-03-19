@@ -620,16 +620,15 @@ $messages['fr'] = array(
 	'scribunto-error-long' => 'Erreur de script :
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''La documentation pour ce module peut être créée à [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Voici la sous-page de documentation pour [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''La documentation pour ce module peut être créée à [[$1]]''",
+	'scribunto-doc-page-header' => "'''Voici la page de documentation pour [[$1]]'''",
 	'scribunto-console-intro' => "* Les exportations de module sont représentés par la variable « p », y compris les modifications non enregistrées. 
 * Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). 
 * Utilisez mw.log() dans le code du module pour envoyer des messages à cette console.",
 	'scribunto-console-title' => 'Console de débogage',
 	'scribunto-console-too-large' => 'Cette session de console est trop grande. Veuillez effacer l’historique de la console ou réduire la taille du module.',
 	'scribunto-console-current-src' => 'entrée de la console',
-	'scribunto-console-previous-src' => 'entrée de la console précédente',
 	'scribunto-console-clear' => 'Effacer',
 	'scribunto-console-cleared' => "L'état de la console a été effacé parce que le module a été mis à jour.",
 	'scribunto-console-cleared-session-lost' => 'L’état de la console a été nettoyé car les données de sessions ont été perdues.',
@@ -879,6 +878,20 @@ $1',
 	'scribunto-luastandalone-gone' => 'Error de Lua: error interne: le interpretator ha jam exite',
 	'scribunto-luastandalone-signal' => 'Error de Lua: error interne: le interpretator ha terminate con le signal "$2"',
 	'scribunto-luastandalone-exited' => 'Error de Lua: error interne: le interpretator exiva con le stato $2',
+);
+
+/** Indonesian (Bahasa Indonesia)
+ * @author Iwan Novirion
+ */
+$messages['id'] = array(
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentasi untuk modul ini dapat dibuat di [[$1]]''",
+	'scribunto-doc-page-header' => "'''Ini adalah halaman dokumentasi untuk [[$1]]'''",
+	'scribunto-console-clear' => 'Kosongkan',
+	'scribunto-console-cleared' => 'Pernyataan konsol dibersihkan karena modul telah diperbarui.',
+	'scribunto-console-cleared-session-lost' => 'Pernyataan konsol dibersihkan karena data sesi hilang.',
+	'scribunto-common-error-category' => 'Halaman dengan galat skrip',
+	'scribunto-common-nosuchmodule' => 'Galat skrip: tidak ada modul tersebut.',
 );
 
 /** Iloko (Ilokano)
@@ -1179,7 +1192,7 @@ $messages['mk'] = array(
 	'scribunto-error-long' => 'Грешки во скриптата:
 
 $1',
-	'scribunto-doc-page-name' => 'док', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/док',
 	'scribunto-doc-page-does-not-exist' => "''Документацијата за овој модул можете да ја создадете на [[$1]]''",
 	'scribunto-doc-page-header' => "'''Ова е страницата за документација на [[$1]]'''",
 	'scribunto-console-intro' => '* Извозот на модулот е достапен како променлива „p“, вклучувајќи ги незачуваните измени.
@@ -1282,7 +1295,7 @@ $1',
 	'scribunto-luastandalone-exited' => 'Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status "$2".',
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎)
+/** Norwegian Bokmål (norsk bokmål)
  * @author Danmichaelo
  */
 $messages['nb'] = array(
@@ -1296,10 +1309,36 @@ $messages['nb'] = array(
 	'scribunto-error-long' => 'Skriptfeil:
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/dok',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentasjon for denne modulen kan opprettes på [[$1]]''",
+	'scribunto-doc-page-header' => "'''Dette er dokumentasjonssiden for [[$1]]'''",
 	'scribunto-console-intro' => '* Moduleksporteringer er tilgjengelig som variabelen «p», inkludert ulagrede endringer.
 * Start en linje med «=» for å evaluere den som et uttrykk, eller bruk print().
 * Bruk mw.log() i modulkode for å sende meldinger til denne konsollen.',
 	'scribunto-console-title' => 'Feilsøkingskonsoll',
+	'scribunto-console-too-large' => 'Denne konsollsesjonen er for stor. Vennligst tøm konsollhistorikken eller reduser størrelsen på modulen.',
+	'scribunto-console-current-src' => 'konsollinndata',
+	'scribunto-console-clear' => 'Tøm',
+	'scribunto-console-cleared' => 'Konsolltilstanden ble tømt siden modulen ble oppdatert.',
+	'scribunto-console-cleared-session-lost' => 'Konsolltilstanden ble tømt fordi sesjonsdata ble mistet.',
+	'scribunto-common-error-category' => 'Sider med skriptfeil',
+	'scribunto-common-nosuchmodule' => 'Skriptfeil: Ingen slik modul',
+	'scribunto-common-nofunction' => 'Skriptfeil: Du må angi en funksjon som skal kalles.',
+	'scribunto-common-nosuchfunction' => 'Skriptfeil: Funksjonen du anga eksisterer ikke.',
+	'scribunto-common-backtrace' => 'Tilbakesporing:',
+	'scribunto-lua-in-function' => 'i funksjon "$1"',
+	'scribunto-lua-in-function-at' => 'i funksjonen ved $1:$2',
+	'scribunto-lua-error-location' => 'Lua-feil $1: $2.',
+	'scribunto-lua-error' => 'Lua-feil: $2.',
+	'scribunto-lua-noreturn' => 'Skriptfeil: Modulen returnerte ingen verdi. Det forventes at den returnerer en eksporttabell.',
+	'scribunto-lua-notarrayreturn' => 'Skriptfeil: Modulen returnerte noe annet enn en tabell. Det forventes at den returnerer en eksporttabell.',
+	'scribunto-luastandalone-proc-error' => 'Lua-feil: Kan ikke opprette prosess.',
+	'scribunto-luastandalone-decode-error' => 'Lua-feil: Intern feil: Kunne ikke dekode meldingen.',
+	'scribunto-luastandalone-write-error' => 'Lua-feil: Intern feil: Feil ved skriving til rør.',
+	'scribunto-luastandalone-read-error' => 'Lua-feil: Intern feil: Feil ved lesing fra rør.',
+	'scribunto-luastandalone-gone' => 'Lua-feil: Intern feil: Fortolkeren har allerede avsluttet.',
+	'scribunto-luastandalone-signal' => 'Lua-feil: Intern feil: Fortolkeren har avsluttet med signal «$2».',
+	'scribunto-luastandalone-exited' => 'Lua-feil: Intern feil: Fortolkeren har avsluttet med status $2.',
 );
 
 /** Dutch (Nederlands)
