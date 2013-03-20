@@ -76,6 +76,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			'getExpandedArgument',
 			'getAllExpandedArguments',
 			'expandTemplate',
+			'callParserFunction',
 			'preprocess',
 			'incrementExpensiveFunctionCount',
 		);
@@ -445,6 +446,76 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'args' => $args
 			) );
 		return array( $text );
+	}
+
+	/**
+	 * Handler for callParserFunction()
+	 */
+	function callParserFunction( $frameId, $function, $args ) {
+		$frame = $this->getFrameById( $frameId );
+
+		# Make zero-based, without screwing up named args
+		$args = array_merge( array(), $args );
+
+		# Sort, since we can't rely on the order coming in from Lua
+		uksort( $args, function ( $a, $b ) {
+			if ( is_int( $a ) !== is_int( $b ) ) {
+				return is_int( $a ) ? -1 : 1;
+			}
+			if ( is_int( $a ) ) {
+				return $a - $b;
+			}
+			return strcmp( $a, $b );
+		} );
+
+		# Be user-friendly
+		$colonPos = strpos( $function, ':' );
+		if ( $colonPos !== false ) {
+			array_unshift( $args, trim( substr( $function, $colonPos + 1 ) ) );
+			$function = substr( $function, 0, $colonPos );
+		}
+
+		$result = $this->parser->callParserFunction( $frame, $function, $args );
+		if ( !$result['found'] ) {
+			throw new Scribunto_LuaError( "callParserFunction: function \"$function\" was not found" );
+		}
+
+		# Set defaults for various flags
+		$result += array(
+			'nowiki' => false,
+			'isChildObj' => false,
+			'isLocalObj' => false,
+			'isHTML' => false,
+			'title' => false,
+		);
+
+		$text = $result['text'];
+		if ( $result['isChildObj'] ) {
+			$newFrame = $frame->newChild( $args, $result['title'] );
+			if ( $result['nowiki'] ) {
+				$text = $newFrame->expand( $text, PPFrame::RECOVER_ORIG );
+			} else {
+				$text = $newFrame->expand( $text );
+			}
+		}
+		if ( $result['isLocalObj'] && $result['nowiki'] ) {
+			$text = $frame->expand( $text, PPFrame::RECOVER_ORIG );
+			$result['isLocalObj'] = false;
+		}
+
+		# Replace raw HTML by a placeholder
+		if ( $result['isHTML'] ) {
+			$text = $this->parser->insertStripItem( $text );
+		} elseif ( $result['nowiki'] ) {
+			# Escape nowiki-style return values
+			$text = wfEscapeWikiText( $text );
+		}
+
+		if ( $result['isLocalObj'] ) {
+			$text = $frame->expand( $text );
+		}
+
+		return array( "$text" );
 	}
 
 	/**

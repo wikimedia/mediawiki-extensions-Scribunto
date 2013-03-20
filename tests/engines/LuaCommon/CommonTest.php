@@ -233,4 +233,133 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		) );
 		$this->assertSame( "ok\ttable", $ret['return'], 'child frames have correct parents' );
 	}
+
+	function testCallParserFunction() {
+		global $wgContLang;
+
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+
+		$args = array(
+			'prevQuestions' => array(),
+			'content' => 'return {}',
+			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
+		);
+
+		// Test argument calling conventions
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction{
+				name = "urlencode", args = { "x x", "wiki" }
+			}',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (named args w/table)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction{
+				name = "urlencode", args = "x x"
+			}',
+		) + $args );
+		$this->assertSame( "x+x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x}} (named args w/scalar)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode", { "x x", "wiki" } )',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (positional args w/table)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode", "x x", "wiki" )',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (positional args w/scalars)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction{
+				name = "urlencode:x x", args = { "wiki" }
+			}',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, named args w/table)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction{
+				name = "urlencode:x x", args = "wiki"
+			}',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, named args w/scalar)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode:x x", { "wiki" } )',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, positional args w/table)'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode:x x", "wiki" )',
+		) + $args );
+		$this->assertSame( "x_x", $ret['return'],
+			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, positional args w/scalars)'
+		);
+
+		// Test named args to the parser function
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():callParserFunction( "#tag:pre",
+				{ "foo", style = "margin-left: 1.6em" }
+			)',
+		) + $args );
+		$this->assertSame(
+			'<pre style="margin-left: 1.6em">foo</pre>',
+			$parser->mStripState->unstripBoth( $ret['return'] ),
+			'callParserFunction works for {{#tag:pre|foo|style=margin-left: 1.6em}}'
+		);
+
+		// Test extensionTag
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():extensionTag( "pre", "foo",
+				{ style = "margin-left: 1.6em" }
+			)',
+		) + $args );
+		$this->assertSame(
+			'<pre style="margin-left: 1.6em">foo</pre>',
+			$parser->mStripState->unstripBoth( $ret['return'] ),
+			'extensionTag works for {{#tag:pre|foo|style=margin-left: 1.6em}}'
+		);
+
+		$ret = $engine->runConsole( array(
+			'question' => '=mw.getCurrentFrame():extensionTag{ name = "pre", content = "foo",
+				args = { style = "margin-left: 1.6em" }
+			}',
+		) + $args );
+		$this->assertSame(
+			'<pre style="margin-left: 1.6em">foo</pre>',
+			$parser->mStripState->unstripBoth( $ret['return'] ),
+			'extensionTag works for {{#tag:pre|foo|style=margin-left: 1.6em}}'
+		);
+
+		// Test calling a non-existent function
+		try {
+			$ret = $engine->runConsole( array(
+				'question' => '=mw.getCurrentFrame():callParserFunction{
+					name = "thisDoesNotExist", arg1 = ""
+				}',
+			) + $args );
+			$this->fail( "Expected LuaError not thrown for nonexistent parser function" );
+		} catch ( Scribunto_LuaError $err ) {
+			$this->assertSame(
+				'Lua error: callParserFunction: function "thisDoesNotExist" was not found.',
+				$err->getMessage(),
+				'callParserFunction correctly errors for nonexistent function'
+			);
+		}
+	}
 }

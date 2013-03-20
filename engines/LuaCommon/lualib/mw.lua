@@ -400,6 +400,85 @@ local function newFrame( frameId, ... )
 		return php.expandTemplate( frameId, title, args )
 	end
 
+	function frame:callParserFunction( name, args, ... )
+		checkSelf( self, 'callParserFunction' )
+
+		if type( name ) == 'table' then
+			name, args = name.name, name.args
+			if type( args ) ~= 'table' then
+				args = { args }
+			end
+		elseif type( args ) ~= 'table' then
+			args = { args, ... }
+		end
+
+		if name == nil then
+			error( "frame:callParserFunction: a function name is required", 2 )
+		elseif type( name ) == 'string' or type( name ) == 'number' then
+			name = tostring( name )
+		else
+			error( "frame:callParserFunction: function name must be a string or number", 2 )
+		end
+
+		for k, v in pairs( args ) do
+			if type( k ) ~= 'string' and type( k ) ~= 'number' then
+				error( "frame:callParserFunction: arg keys must be strings or numbers", 2 )
+			end
+			if type( v ) ~= 'string' and type( v ) ~= 'number' then
+				error( "frame:callParserFunction: args must be strings or numbers", 2 )
+			end
+		end
+
+		return php.callParserFunction( frameId, name, args )
+	end
+
+	function frame:extensionTag( name, content, args )
+		checkSelf( self, 'extensionTag' )
+
+		if type( name ) == 'table' then
+			name, content, args = name.name, name.content, name.args
+		end
+
+		if name == nil then
+			error( "frame:extensionTag: a function name is required", 2 )
+		elseif type( name ) == 'string' or type( name ) == 'number' then
+			name = tostring( name )
+		else
+			error( "frame:extensionTag: tag name must be a string or number", 2 )
+		end
+
+		if content == nil then
+			content = ''
+		elseif type( content ) == 'string' or type( content ) == 'number' then
+			content = tostring( content )
+		else
+			error( "frame:extensionTag: content must be a string or number", 2 )
+		end
+
+		if args == nil then
+			args = {}
+		elseif type( args ) == 'string' or type( args ) == 'number' then
+			args = { content, args }
+		elseif type( args ) == 'table' then
+			local tmp = args
+			args = {}
+			for k, v in pairs( tmp ) do
+				if type( k ) ~= 'string' and type( k ) ~= 'number' then
+					error( "frame:extensionTag: arg keys must be strings or numbers", 2 )
+				end
+				if type( v ) ~= 'string' and type( v ) ~= 'number' then
+					error( "frame:extensionTag: arg values must be strings or numbers", 2 )
+				end
+				args[k] = v
+			end
+			table.insert( args, 1, content )
+		else
+			error( "frame:extensionTag: args must be a string, number, or table", 2 )
+		end
+
+		return php.callParserFunction( frameId, '#tag:' .. name, args )
+	end
+
 	function frame:preprocess( opt )
 		checkSelf( self, 'preprocess' )
 
