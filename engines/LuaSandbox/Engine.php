@@ -10,6 +10,24 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		);
 	}
 
+	public function getSoftwareInfo( &$software ) {
+		if ( is_callable( 'LuaSandbox::getVersionInfo' ) ) {
+			$versions = LuaSandbox::getVersionInfo();
+		} else {
+			$sandbox = new LuaSandbox;
+			list( $luaver ) = $sandbox->loadString( 'return _VERSION' )->call();
+			$versions = array(
+				'LuaSandbox' => phpversion( "LuaSandbox" ),
+				'Lua' => $luaver,
+			);
+		}
+		$software['[https://www.mediawiki.org/wiki/Extension:Scribunto#LuaSandbox LuaSandbox]'] = $versions['LuaSandbox'];
+		$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
+		if ( isset( $versions['LuaJIT'] ) ) {
+			$software['[http://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
+		}
+	}
+
 	public function getLimitReport() {
 		$this->load();
 		$lang = Language::factory( 'en' );

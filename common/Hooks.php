@@ -25,6 +25,18 @@
  */
 class ScribuntoHooks {
 	/**
+	 * Get software information for Special:Version
+	 * @param &$software array
+	 * @return bool
+	 */
+	public static function getSoftwareInfo( &$software ) {
+		$engine = Scribunto::newDefaultEngine();
+		$engine->setTitle( Title::makeTitle( NS_SPECIAL, 'Version' ) );
+		$engine->getSoftwareInfo( $software );
+		return true;
+	}
+
+	/**
 	 * Register parser hooks.
 	 * @param $parser Parser
 	 * @return bool

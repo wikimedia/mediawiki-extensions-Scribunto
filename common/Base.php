@@ -54,6 +54,13 @@ abstract class ScribuntoEngineBase {
 	abstract function runConsole( $params );
 
 	/**
+	 * Get software information for Special:Version
+	 * @param &$software array
+	 * @return bool
+	 */
+	abstract public function getSoftwareInfo( &$software );
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param $options array Associative array of options:

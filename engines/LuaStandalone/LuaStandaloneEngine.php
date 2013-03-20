@@ -59,6 +59,17 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	function newInterpreter() {
 		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options );
 	}
+
+	public function getSoftwareInfo( &$software ) {
+		$ver = Scribunto_LuaStandaloneInterpreter::getLuaVersion( $this->options );
+		if ( $ver !== null ) {
+			if ( substr( $ver, 0, 6 ) === 'LuaJIT' ) {
+				$software['[http://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $ver );
+			} else {
+				$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $ver );
+			}
+		}
+	}
 }
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
@@ -68,9 +79,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( $options['errorFile'] === null ) {
 			$options['errorFile'] = wfGetNull();
 		}
+
 		if ( $options['luaPath'] === null ) {
 			$path = false;
 
+			// Note, if you alter these, also alter getLuaVersion() below
 			if ( PHP_OS == 'Linux' ) {
 				if ( PHP_INT_SIZE == 4 ) {
 					$path = 'lua5_1_5_linux_32_generic/lua';
@@ -141,6 +154,36 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	function __destruct() {
 		$this->terminate();
+	}
+
+	public static function getLuaVersion( $options ) {
+		if ( $options['luaPath'] === null ) {
+			// We know which versions are distributed, no need to run them.
+			if ( PHP_OS == 'Linux' ) {
+				return 'Lua 5.1.5';
+			} elseif ( PHP_OS == 'Windows' || PHP_OS == 'WINNT' || PHP_OS == 'Win32' ) {
+				return 'Lua 5.1.4';
+			} elseif ( PHP_OS == 'Darwin' ) {
+				return 'Lua 5.1.5';
+			} else {
+				return null;
+			}
+		}
+
+		// Ask the interpreter what version it is, using the "-v" option.
+		// The output is expected to be one line, something like these:
+		//   Lua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio
+		//   LuaJIT 2.0.0 -- Copyright (C) 2005-2012 Mike Pall. http://luajit.org/
+		$cmd = wfEscapeShellArg( $options['luaPath'] ) . ' -v';
+		$handle = popen( $cmd, 'r' );
+		if ( $handle ) {
+			$ret = fgets( $handle, 80 );
+			pclose( $handle );
+			if( $ret && preg_match( '/^Lua(?:JIT)? \S+/', $ret, $m ) ) {
+				return $m[0];
+			}
+		}
+		return null;
 	}
 
 	public function terminate() {
