@@ -1342,6 +1342,7 @@ $1',
 );
 
 /** Dutch (Nederlands)
+ * @author Konovalov
  * @author SPQRobin
  * @author Saruman
  * @author Siebrand
@@ -1357,9 +1358,9 @@ $messages['nl'] = array(
 	'scribunto-error-long' => 'Scriptfouten:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''Documentatie voor deze module kan aangemaakt worden op de volgende pagina: [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Dit is de subpagina met documentatie voor [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Documentatie voor deze module kan aangemaakt worden op de volgende pagina: [[$1]]''",
+	'scribunto-doc-page-header' => "'''Dit is de documentatie pagina voor [[$1]]'''",
 	'scribunto-console-intro' => '* De moduleexports zijn beschikbaar als de variabele "p", inclusief nog niet opgeslagen wijzigingen;
 * Begin een regel met "=" om deze als expressie te evalueren, of gebruik print();
 * Gebruik mw.log() in modulecode om berichten aan deze console te zenden.',
@@ -1642,6 +1643,7 @@ $1",
 );
 
 /** Russian (русский)
+ * @author Ignatus
  * @author Kalan
  */
 $messages['ru'] = array(
@@ -1655,13 +1657,13 @@ $messages['ru'] = array(
 	'scribunto-error-long' => 'Ошибки скрипта:
 
 $1',
+	'scribunto-doc-page-header' => "''Это страница документации [[$1]]''",
 	'scribunto-console-intro' => '* То, что экспортирует данный модуль, доступно как переменная «p», включая несохранённые изменения.
 * Предваряйте строку знаком «=», чтобы вычислить её как выражение, или используйте print().
 * Используйте mw.log() в коде модуля для вывода сообщений в эту консоль.',
 	'scribunto-console-title' => 'Консоль отладки',
 	'scribunto-console-too-large' => 'Этот сеанс консоли слишком большой. Очистите историю консоли или уменьшите размер модуля.',
 	'scribunto-console-current-src' => 'ввод консоли',
-	'scribunto-console-previous-src' => 'прошлый ввод консоли',
 	'scribunto-console-clear' => 'Очистить',
 	'scribunto-console-cleared' => 'Консоль очищена, потому что модуль был обновлён.',
 	'scribunto-common-nosuchmodule' => 'Ошибка скрипта: Такого модуля нет.',
