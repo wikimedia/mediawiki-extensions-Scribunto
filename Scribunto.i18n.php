@@ -1657,6 +1657,8 @@ $messages['ru'] = array(
 	'scribunto-error-long' => 'Ошибки скрипта:
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Для документации этого модуля может быть создана страница [[$1]]''",
 	'scribunto-doc-page-header' => "''Это страница документации [[$1]]''",
 	'scribunto-console-intro' => '* То, что экспортирует данный модуль, доступно как переменная «p», включая несохранённые изменения.
 * Предваряйте строку знаком «=», чтобы вычислить её как выражение, или используйте print().
@@ -1666,6 +1668,8 @@ $1',
 	'scribunto-console-current-src' => 'ввод консоли',
 	'scribunto-console-clear' => 'Очистить',
 	'scribunto-console-cleared' => 'Консоль очищена, потому что модуль был обновлён.',
+	'scribunto-console-cleared-session-lost' => 'Состояние консоли очищено, поскольку потеряны данные сессии.',
+	'scribunto-common-error-category' => 'Страницы с ошибками скриптов',
 	'scribunto-common-nosuchmodule' => 'Ошибка скрипта: Такого модуля нет.',
 	'scribunto-common-nofunction' => 'Ошибка скрипта: Вы должны указать вызываемую функцию.',
 	'scribunto-common-nosuchfunction' => 'Ошибка скрипта: Указанной вами функции не существует.',
@@ -1742,6 +1746,24 @@ $1',
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
+);
+
+/** Thai (ไทย)
+ * @author Nullzero
+ */
+$messages['th'] = array(
+	'scribunto-line' => 'บรรทัดที่ $1',
+	'scribunto-parser-error' => 'สคริปต์ผิดพลาด',
+	'scribunto-parser-dialog-title' => 'สคริปต์ผิดพลาด',
+	'scribunto-error-short' => 'สคริปต์ผิดพลาด: $1',
+	'scribunto-error-long' => 'สคริปต์ผิดพลาด:
+
+$1',
+	'scribunto-doc-page-does-not-exist' => "''เอกสารการใช้งานของมอดูลนี้อาจสร้างขึ้นที่ [[$1]]''",
+	'scribunto-console-clear' => 'ล้าง',
+	'scribunto-common-error-category' => 'หน้าที่มีสคริปต์ผิดพลาด',
+	'scribunto-lua-error-location' => 'สคริปต์ลูอาผิดพลาด $1: $2',
+	'scribunto-lua-error' => 'สคริปต์ลูอาผิดพลาด: $2',
 );
 
 /** Tagalog (Tagalog)
