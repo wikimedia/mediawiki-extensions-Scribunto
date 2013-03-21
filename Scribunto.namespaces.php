@@ -18,6 +18,11 @@ $namespaceNames['be-tarask'] = array(
 	829 => 'Абмеркаваньне_модулю',
 );
 
+$namespaceNames['bs'] = array(
+	828 => 'Modul',
+	829 => 'Razgovor_o_modulu',
+);
+
 $namespaceNames['de'] = array(
 	828 => 'Modul',
 	829 => 'Modul_Diskussion',
