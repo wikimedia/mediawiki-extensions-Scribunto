@@ -6,7 +6,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// addition besides the one for the current page calls
 	// incrementExpensiveFunctionCount()
 	private $titleCache = array();
-	private $idCache = array();
+	private $idCache = array( 0 => null );
 
 	function register() {
 		$lib = array(
@@ -58,13 +58,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 * @return array Lua data
 	 */
 	private function returnTitleToLua( Title $title ) {
-		if ( !$title ) {
-			return array( null );
-		}
-
 		// Cache it
 		$this->titleCache[$title->getPrefixedDBkey()] = $title;
-		$this->idCache[$title->getArticleID()] = $title;
+		if ( $title->getArticleID() > 0 ) {
+			$this->idCache[$title->getArticleID()] = $title;
+		}
 
 		// Record a link
 		if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
@@ -115,6 +113,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				$this->incrementExpensiveFunctionCount();
 				$title = Title::newFromID( $text_or_id );
 				$this->idCache[$text_or_id] = $title;
+			}
+			if ( !$title ) {
+				return array( null );
 			}
 		} elseif ( $type === 'string' ) {
 			$this->checkNamespace( 'title.new', 2, $defaultNamespace, NS_MAIN );
