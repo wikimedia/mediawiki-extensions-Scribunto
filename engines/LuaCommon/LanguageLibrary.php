@@ -254,10 +254,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			} else {
 				$tz = new DateTimeZone( date_default_timezone_get() );
 			}
-			$dateObject->setTimezone( $tz );
 		} else {
-			$dateObject->setTimezone( $utc );
+			$tz = $utc;
 		}
+		$dateObject->setTimezone( $tz );
 		# Generate timestamp
 		$ts = $dateObject->format( 'YmdHis' );
 
@@ -265,7 +265,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years up to 9999" );
 		}
 
-		$ret = $lang->sprintfDate( $format, $ts );
+		$ret = $lang->sprintfDate( $format, $ts, $tz );
 		$this->timeCache[$format][$cacheKey][$langcode][$local] = $ret;
 		return array( $ret );
 	}
