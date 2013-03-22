@@ -73,6 +73,11 @@ $namespaceNames['nl'] = array(
 	829 => 'Overleg_module',
 );
 
+$namespaceNames['tr'] = array(
+	828 => 'Modül',
+	829 => 'Modül_tartışma',
+);
+
 $namespaceNames['vi'] = array(
 	828 => 'Mô_đun',
 	829 => 'Thảo_luận_Mô_đun',
