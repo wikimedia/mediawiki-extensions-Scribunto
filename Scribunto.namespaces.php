@@ -78,6 +78,11 @@ $namespaceNames['nl'] = array(
 	829 => 'Overleg_module',
 );
 
+$namespaceNames['sv'] = array(
+	828 => 'Modul',
+	829 => 'Moduldiskussion',
+);
+
 $namespaceNames['tr'] = array(
 	828 => 'Modül',
 	829 => 'Modül_tartışma',
