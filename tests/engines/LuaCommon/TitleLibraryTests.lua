@@ -1,7 +1,7 @@
 local testframework = require 'Module:TestFramework'
 
-local title, title_copy, title2, title3, title4, title5, title4p
-if mw.ok then
+local title, title_copy, title2, title3, title4, title5, title6, title4p
+if mw.title.testPageId then
 	title = mw.title.getCurrentTitle()
 	title_copy = mw.title.getCurrentTitle()
 	title2 = mw.title.new( 'Module:TestFramework' )
@@ -118,6 +118,18 @@ local tests = {
 	{ name = 'title.new with invalid title', func = mw.title.new,
 	  args = { '<bad title>' },
 	  expect = { nil }
+	},
+	{ name = 'title.new with nonexistent pageid', func = mw.title.new,
+	  args = { -1 },
+	  expect = { nil }
+	},
+	{ name = 'title.new with pageid 0', func = mw.title.new,
+	  args = { 0 },
+	  expect = { nil }
+	},
+	{ name = 'title.new with existing pageid', func = mw.title.new, type = 'ToString',
+	  args = { mw.title.testPageId },
+	  expect = { 'ScribuntoTestPage' }
 	},
 
 	{ name = 'title.makeTitle', func = mw.title.makeTitle, type = 'ToString',

@@ -55,7 +55,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Indicate to the tests that it's safe to create the title objects
 		$interpreter = $this->getEngine()->getInterpreter();
 		$interpreter->callFunction(
-			$interpreter->loadString( 'mw.ok = true', 'fortest' )
+			$interpreter->loadString( "mw.title.testPageId = {$page->getId()}", 'fortest' )
 		);
 
 		$this->setMwGlobals( array(
