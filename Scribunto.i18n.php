@@ -533,8 +533,11 @@ $1',
 
 /** Estonian (eesti)
  * @author Avjoska
+ * @author Pikne
  */
 $messages['et'] = array(
+	'scribunto-doc-page-does-not-exist' => "''Selle mooduli dokumentatsiooni saab kirjutada asukohta [[$1]]''.",
+	'scribunto-doc-page-header' => "'''See on üksuse [[$1]] dokumentatsiooni lehekülg.'''",
 	'scribunto-console-clear' => 'Puhasta',
 );
 
@@ -589,6 +592,7 @@ $1',
 
 /** Finnish (suomi)
  * @author Beluga
+ * @author Silvonen
  * @author Stryn
  * @author VezonThunder
  */
@@ -597,6 +601,7 @@ $messages['fi'] = array(
 	'scribunto-line' => 'rivillä $1',
 	'scribunto-doc-page-does-not-exist' => "''Tämän moduulin dokumentoinnin voi tehdä sivulle [[$1]]''",
 	'scribunto-console-clear' => 'Tyhjennä',
+	'scribunto-lua-error-location' => 'Lua-virhe $1: $2.',
 	'scribunto-lua-error' => 'Lua-virhe: $2.',
 );
 
@@ -908,12 +913,12 @@ $messages['ilo'] = array(
 	'scribunto-error-long' => 'Dagiti biddut nga eskritu:
 
 $1',
-	'scribunto-doc-page-name' => 'Modulo:$1/doc',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''Ti dokumentasion para iti daytoy a modulo ket mabalin a mapartuat idiay [[$1]]''",
 	'scribunto-doc-page-header' => "'''Daytoy ket dokumentasion a panid para iti [[$1]]'''",
 	'scribunto-console-intro' => '* Dagiti modulo nga eksport ket magun-od a kas ti nadumaduma a "p", a mairaman dagiti saan a naidulin a panagbalbaliw.
 * Pasarunuan ti maysa a linia iti "=" tapno mapategan daytoy a kas maysa a panangisao, wenno agusar ti prenta().
-* Usaren ti mw.log() iti kodigo timodulo tapno makaipatulod kadagiti mensahe iti daytoy a konsola.',
+* Usaren ti mw.log() iti kodigo ti modulo tapno makaipatulod kadagiti mensahe iti daytoy a konsola.',
 	'scribunto-console-title' => 'Konsola a pagpasayaatan',
 	'scribunto-console-too-large' => 'Dakkel unay daytoy a sesion ti konsola. Pangngaasi a dalusam ti pakasaritaan ti konsola wenno pabassiten ti kadakkel ti modulo.',
 	'scribunto-console-current-src' => 'naipastrek ti konsola',
@@ -1360,7 +1365,7 @@ $messages['nl'] = array(
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''Documentatie voor deze module kan aangemaakt worden op de volgende pagina: [[$1]]''",
-	'scribunto-doc-page-header' => "'''Dit is de documentatie pagina voor [[$1]]'''",
+	'scribunto-doc-page-header' => "'''Dit is de documentatiepagina voor [[$1]]'''",
 	'scribunto-console-intro' => '* De moduleexports zijn beschikbaar als de variabele "p", inclusief nog niet opgeslagen wijzigingen;
 * Begin een regel met "=" om deze als expressie te evalueren, of gebruik print();
 * Gebruik mw.log() in modulecode om berichten aan deze console te zenden.',
@@ -1407,9 +1412,9 @@ $messages['nn'] = array(
 	'scribunto-error-long' => 'Skriptfeil:
 
 $1',
-	'scribunto-doc-subpage-name' => 'dok',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Dette er dokumentasjonsundersida for [[$1]]'''",
+	'scribunto-doc-page-name' => 'dok', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
+	'scribunto-doc-page-header' => "'''Dette er dokumentasjonsundersida for [[$1]]'''", # Fuzzy
 	'scribunto-console-intro' => '* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.
 * Byrja ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().
 * Bruk mw.log() i modulkode for å senda meldingar til denne konsollen.',
@@ -1437,9 +1442,9 @@ $1',
 	'scribunto-luastandalone-decode-error' => 'Lua-feil: Intern feil: kan ikkje avkoda melding.',
 	'scribunto-luastandalone-write-error' => 'Lua-feil: Intern feil: feil under skriving til røyret.',
 	'scribunto-luastandalone-read-error' => 'Lua-feil: Intern feil: feil under lesing av røyret.',
-	'scribunto-luastandalone-gone' => 'Lua-feil: Intern feil: tolkaren har alt fare bort.',
+	'scribunto-luastandalone-gone' => 'Lua-feil: Intern feil: tolkaren har alt avslutta.',
 	'scribunto-luastandalone-signal' => 'Lua-feil: Intern feil: tolkaren har avslutta med signalet «$2».',
-	'scribunto-luastandalone-exited' => 'Lua-feil: Intern feil: tolkaren fór bort med stoda $2.',
+	'scribunto-luastandalone-exited' => 'Lua-feil: Intern feil: tolkaren avslutta med stoda $2.',
 );
 
 /** Polish (polski)
