@@ -250,6 +250,46 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
+	 * Get data logged by modules
+	 * @return string Logged data
+	 */
+	protected function getLogBuffer() {
+		if ( !$this->loaded ) {
+			return '';
+		}
+		try {
+			$log = $this->getInterpreter()->callFunction( $this->mw['getLogBuffer'] );
+			return $log[0];
+		} catch ( ScribuntoException $ex ) {
+			// Probably time expired, ignore it.
+			return '';
+		}
+	}
+
+	/**
+	 * Format the logged data for HTML output
+	 * @param string $logs Logged data
+	 * @param boolean $localize Whether to localize the message key
+	 * @return string HTML
+	 */
+	protected function formatHtmlLogs( $logs, $localize ) {
+		$keyMsg = wfMessage( 'scribunto-limitreport-logs' );
+		if ( !$localize ) {
+			$keyMsg->inLanguage( 'en' )->useDatabase( false );
+		}
+		return Html::openElement( 'tr' ) .
+			Html::rawElement( 'th', array( 'colspan' => 2 ), $keyMsg->parse() ) .
+			Html::closeElement( 'tr' ) .
+			Html::openElement( 'tr' ) .
+			Html::openElement( 'td', array( 'colspan' => 2 ) ) .
+			Html::openElement( 'div', array( 'class' => 'mw-collapsible mw-collapsed' ) ) .
+			Html::element( 'pre', array( 'class' => 'scribunto-limitreport-logs' ), $logs ) .
+			Html::closeElement( 'div' ) .
+			Html::closeElement( 'td' ) .
+			Html::closeElement( 'tr' );
+	}
+
+	/**
 	 * Load a library from the given file and execute it in the base environment.
 	 * @param string File name/path to load
 	 * @return mixed the export list, or null if there isn't one.

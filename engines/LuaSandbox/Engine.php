@@ -41,6 +41,12 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			$this->interpreter->getPeakMemoryUsage(),
 			$this->options['memoryLimit'],
 		);
+
+		$logs = $this->getLogBuffer();
+		if ( $logs !== '' ) {
+			$ret['scribunto-limitreport-logs'] = $logs;
+		}
+
 		if ( $t < 1.0 ) {
 			return $ret;
 		}
@@ -105,12 +111,21 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		foreach ( $data as $k => $v ) {
 			$output->setLimitReportData( $k, $v );
 		}
+		if ( isset( $data['scribunto-limitreport-logs'] ) ) {
+			$output->addModules( 'ext.scribunto' );
+		}
 	}
 
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
 		switch ( $key ) {
+			case 'scribunto-limitreport-logs':
+				if ( $isHTML ) {
+					$report .= $this->formatHtmlLogs( $value, $localize );
+				}
+				return false;
+
 			case 'scribunto-limitreport-memusage':
 				$value = array_map( array( $lang, 'formatSize' ), $value );
 				break;
