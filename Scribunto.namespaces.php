@@ -63,6 +63,16 @@ $namespaceNames['hu'] = array(
 	829 => 'Modulvita',
 );
 
+$namespaceNames['ilo'] = array(
+	828 => 'Modulo',
+	829 => 'Modulo_tungtungan',
+);
+
+$namespaceNames['nl'] = array(
+	828 => 'Module',
+	829 => 'Overleg_module',
+);
+
 $namespaceNames['pt'] = array(
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
@@ -71,11 +81,6 @@ $namespaceNames['pt'] = array(
 $namespaceNames['pt-br'] = array(
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
-);
-
-$namespaceNames['nl'] = array(
-	828 => 'Module',
-	829 => 'Overleg_module',
 );
 
 $namespaceNames['sv'] = array(
