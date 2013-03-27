@@ -1746,6 +1746,19 @@ $1',
 	'scribunto-doc-subpage-header' => "'''Toto je podstránka dokumentácie pre [[$1]]'''",
 );
 
+/** Slovenian (slovenščina)
+ * @author Eleassar
+ */
+$messages['sl'] = array(
+	'scribunto-parser-error' => 'Skriptna napaka',
+	'scribunto-error-short' => 'Skriptna napaka: $1',
+	'scribunto-common-nosuchmodule' => 'Skriptna napaka: tak modul ne obstaja.',
+	'scribunto-common-nofunction' => 'Skriptna napaka: določiti morate funkcijo za klic.',
+	'scribunto-common-nosuchfunction' => 'Skriptna napaka: funkcija, ki ste jo določili, ne obstaja.',
+	'scribunto-lua-noreturn' => 'Skriptna napaka: modul ni vrnil vrednosti. Vrniti bi moral izvozno tabelo.',
+	'scribunto-lua-notarrayreturn' => 'Skriptna napaka: modul je vrnil nekaj drugega kot tabelo. Vrniti bi moral izvozno tabelo.',
+);
+
 /** Swedish (svenska)
  * @author Lokal Profil
  */
