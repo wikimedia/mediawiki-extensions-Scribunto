@@ -382,7 +382,19 @@ function MWServer:encodeMessage( message )
 	return string.format( '%08x%08x', length, check ) .. serialized
 end
 
+-- Faster to create the table once than for each call to MWServer:serialize()
+local serialize_replacements = {
+	['\r'] = '\\r',
+	['\n'] = '\\n',
+	['\\'] = '\\\\',
+}
+
 --- Convert a value to a string suitable for passing to PHP's unserialize().
+-- Note that the following replacements must be performed before calling
+-- unserialize:
+--   "\\r" => "\r"
+--   "\\n" => "\n"
+--   "\\\\" => "\\"
 --
 -- @param var The value.
 function MWServer:serialize( var )
@@ -459,7 +471,7 @@ function MWServer:serialize( var )
 		end
 	end
 
-	return recursiveEncode( var, 0 )
+	return recursiveEncode( var, 0 ):gsub( '[\r\n\\]', serialize_replacements )
 end
 
 --- Convert a Lua expression string to its corresponding value. 

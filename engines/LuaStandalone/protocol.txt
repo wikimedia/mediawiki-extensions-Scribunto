@@ -8,9 +8,11 @@ For messages passed from PHP to Lua, the body is encoded as a Lua expression.
 The expression may reference a table in a variable called "chunks", which
 contains an array of functions.
 
-Messages passed from Lua to PHP have their body encoded in PHP serialize() format. 
-They may include instances of function objects which have an "id" member for
-passing back to Lua as an index in the chunk table.
+Messages passed from Lua to PHP have their body encoded in PHP serialize()
+format, and then "\\", "\r", and "\n" are replaced with "\\\\", "\\r", and
+"\\n" to avoid issues with text-mode file handles. They may include instances
+of function objects which have an "id" member for passing back to Lua as an
+index in the chunk table.
 
 The expressions encoded into the message bodies are associative arrays. The "op"
 member of the array gives the operation to be performed by the message.

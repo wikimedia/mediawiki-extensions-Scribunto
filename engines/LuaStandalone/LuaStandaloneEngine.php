@@ -381,6 +381,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$body .= $buffer;
 			$lengthRemaining -= strlen( $buffer );
 		}
+		$body = strtr( $body, array(
+			'\\r' => "\r",
+			'\\n' => "\n",
+			'\\\\' => '\\',
+		) );
 		$msg = unserialize( $body );
 		$this->debug( "RX <== {$msg['op']}" );
 		return $msg;
