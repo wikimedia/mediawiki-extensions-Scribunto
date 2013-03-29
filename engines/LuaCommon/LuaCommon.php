@@ -131,14 +131,18 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Normalize a lua module to its full path. If path does not begin with "/",
-	 * prepend getLuaLibDir()
+	 * Normalize a lua module to its full path. If path does not look like an
+	 * absolute path (i.e. begins with DIRECTORY_SEPARATOR or "X:"), prepend
+	 * getLuaLibDir()
 	 *
 	 * @param $file String name of the lua module file
 	 * @return string
 	 */
 	protected function normalizeModuleFileName( $fileName ) {
-		return $fileName[0] !== DIRECTORY_SEPARATOR ? "{$this->getLuaLibDir()}/{$fileName}" : $fileName;
+		if ( !preg_match( '<^(?:[a-zA-Z]:)?' . preg_quote( DIRECTORY_SEPARATOR ) . '>', $fileName ) ) {
+			$fileName = "{$this->getLuaLibDir()}/{$fileName}";
+		}
+		return $fileName;
 	}
 
 	/**
