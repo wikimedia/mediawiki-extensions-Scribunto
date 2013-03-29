@@ -1412,7 +1412,7 @@ $messages['nn'] = array(
 	'scribunto-error-long' => 'Skriptfeil:
 
 $1',
-	'scribunto-doc-page-name' => 'dok', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
 	'scribunto-doc-page-header' => "'''Dette er dokumentasjonsundersida for [[$1]]'''", # Fuzzy
 	'scribunto-console-intro' => '* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.
