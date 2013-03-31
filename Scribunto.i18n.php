@@ -315,6 +315,39 @@ $1',
 	'scribunto-luastandalone-exited' => 'Chyba Lua: Interní chyba: Interpret byl ukončen s výsledkem $2.',
 );
 
+/** Danish (dansk)
+ * @author Peter Alberti
+ */
+$messages['da'] = array(
+	'scribunto-desc' => 'Gør det muligt at indlejre skriptsprog i MediaWiki-sider',
+	'scribunto-ignore-errors' => 'Tillad at gemme kode med fejl',
+	'scribunto-line' => 'i linje $1',
+	'scribunto-module-line' => 'i $1 på linje $2',
+	'scribunto-parser-error' => 'Skriptfejl',
+	'scribunto-parser-dialog-title' => 'Skriptfejl',
+	'scribunto-error-short' => 'Skriptfejl: $1',
+	'scribunto-error-long' => 'Skriptfejl:
+
+$1',
+	'scribunto-doc-page-name' => 'Module:$1/dok',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentation for dette modul kan oprettes på [[$1]]''",
+	'scribunto-doc-page-header' => "'''Dette er dokumentationssiden for [[$1]]'''",
+	'scribunto-console-title' => 'Fejlsøgningskonsol',
+	'scribunto-console-current-src' => 'konsolinput',
+	'scribunto-console-clear' => 'Ryd',
+	'scribunto-common-error-category' => 'Sider med skriptfejl',
+	'scribunto-common-nosuchmodule' => 'Skriptfejl: Intet modul med det navn.',
+	'scribunto-common-nosuchfunction' => 'Skriptfejl: Den angivne funktion findes ikke.',
+	'scribunto-common-oom' => 'Mængden af hukommelse, der er tilladt for kørsel af skripts, er overskredet.',
+	'scribunto-common-backtrace' => 'Tilbagesporing:',
+	'scribunto-lua-in-function' => 'i funktionen "$1"',
+	'scribunto-lua-in-main' => 'i hoveddelen',
+	'scribunto-lua-in-function-at' => 'i funktionen ved $1:$2',
+	'scribunto-lua-error-location' => 'Lua-fejl $1: $2.',
+	'scribunto-lua-error' => 'Lua-fejl: $2.',
+	'scribunto-luastandalone-proc-error' => 'Lua-fejl: Kan ikke oprette proces.',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
