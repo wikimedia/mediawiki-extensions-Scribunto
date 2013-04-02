@@ -625,6 +625,7 @@ $1',
 
 /** Finnish (suomi)
  * @author Beluga
+ * @author Crt
  * @author Silvonen
  * @author Stryn
  * @author VezonThunder
@@ -632,7 +633,8 @@ $1',
 $messages['fi'] = array(
 	'scribunto-ignore-errors' => 'Salli virheitä sisältävän koodin tallentaminen',
 	'scribunto-line' => 'rivillä $1',
-	'scribunto-doc-page-does-not-exist' => "''Tämän moduulin dokumentoinnin voi tehdä sivulle [[$1]]''",
+	'scribunto-doc-page-name' => 'Module:$1/ohje',
+	'scribunto-doc-page-does-not-exist' => "''Tämän moduulin ohjeistuksen voi tehdä sivulle [[$1]]''",
 	'scribunto-console-clear' => 'Tyhjennä',
 	'scribunto-lua-error-location' => 'Lua-virhe $1: $2.',
 	'scribunto-lua-error' => 'Lua-virhe: $2.',
