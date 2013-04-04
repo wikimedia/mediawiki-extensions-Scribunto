@@ -1208,6 +1208,13 @@ $1',
 	'scribunto-luastandalone-exited' => 'Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.',
 );
 
+/** Kurdish (Latin script) (Kurdî (latînî)‎)
+ * @author Ghybu
+ */
+$messages['ku-latn'] = array(
+	'scribunto-doc-page-name' => 'Module:$1/belge',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
