@@ -751,6 +751,7 @@ $1',
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author ערן
  */
 $messages['he'] = array(
 	'scribunto-desc' => 'מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי',
@@ -765,7 +766,7 @@ $messages['he'] = array(
 $1',
 	'scribunto-doc-page-name' => 'יחידה:$1/תיעוד',
 	'scribunto-doc-page-does-not-exist' => 'ניתן למצוא תיעוד על היחידה הזאת בדף [[$1]]',
-	'scribunto-doc-page-header' => 'זהו דך התיעוד עבור [[$1]]',
+	'scribunto-doc-page-header' => 'זהו דף התיעוד עבור [[$1]]',
 	'scribunto-console-intro' => '* השמות המיוצאים מיחידה זמינים במשתנה "p", כולל שינויים שלא נשמרו.
 * כדי לחשב את השורה כביטוי יש להתחיל אותה בסימן "=" או להשתמש ב־print()‎.
 * כדי לשלוח הודעות למסוף הזה, יש להשתמש ב־mw.log()‎.',
