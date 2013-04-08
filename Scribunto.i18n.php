@@ -139,6 +139,29 @@ May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line
 * $2 - an exit status',
 );
 
+/** Afrikaans (Afrikaans)
+ * @author Naudefj
+ */
+$messages['af'] = array(
+	'scribunto-line' => 'op reël $1',
+	'scribunto-module-line' => 'in $1 op reël $2',
+	'scribunto-parser-dialog-title' => 'Skripfout',
+	'scribunto-error-short' => 'Skripfout: $1',
+	'scribunto-error-long' => 'Skripfoute:
+
+$1',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentasie vir hierdie module kan geskep word by: [[$1]]''",
+	'scribunto-doc-page-header' => "'''Hierdie is die dokumentasieblad vir [[$1]]'''",
+	'scribunto-common-error-category' => 'Bladsye met skripfoute',
+	'scribunto-common-nosuchmodule' => 'Skripfout: die module bestaan nie.',
+	'scribunto-lua-in-function' => 'in funksie "$1"',
+	'scribunto-lua-in-main' => 'in die hoofgedeelte',
+	'scribunto-lua-in-function-at' => 'in die funksie op $1:$2',
+	'scribunto-lua-error-location' => 'Luafout $1: $2',
+	'scribunto-lua-error' => 'Luafout: $2',
+);
+
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
