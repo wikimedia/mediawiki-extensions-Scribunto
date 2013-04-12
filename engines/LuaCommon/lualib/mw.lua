@@ -133,12 +133,18 @@ end
 -- {{#invoke}}.
 --
 -- @param chunk The module chunk
-function mw.executeModule( chunk )
+-- @param isConsole Whether this is the debug console
+function mw.executeModule( chunk, isConsole )
 	local env = mw.clone( _G )
 	makePackageModule( env )
 
-	-- This is unsafe
+	-- These are unsafe
 	env.mw.makeProtectedEnvFuncs = nil
+	env.mw.executeModule = nil
+	if not isConsole then
+		env.mw.getLogBuffer = nil
+		env.mw.clearLogBuffer = nil
+	end
 
 	if allowEnvFuncs then
 		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )

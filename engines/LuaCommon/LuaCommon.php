@@ -27,7 +27,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	);
 
 	protected $loaded = false;
-	protected $executeModuleFunc, $interpreter;
+	protected $interpreter;
 	protected $mw;
 	protected $currentFrames = array();
 	protected $expandCache = array();
@@ -52,7 +52,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	public function destroy() {
 		// Break reference cycles
 		$this->interpreter = null;
-		$this->executeModuleFunc = null;
 		$this->mw = null;
 		$this->expandCache = null;
 		$this->loadedLibraries = null;
@@ -232,8 +231,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			 * Maybe each console line could be evaluated as a different chunk, 
 			 * apparently that's what lua.c does.
 			 */
-			$code = "return function (__init)\n" .
-				"local p = mw.executeModule(__init)\n" .
+			$code = "return function (__init, exe)\n" .
+				"local p = exe(__init)\n" .
+				"__init, exe = nil, nil\n" .
 				"local print = mw.log\n";
 			foreach ( $params['prevQuestions'] as $q ) {
 				if ( substr( $q, 0, 1 ) === '=' ) {
@@ -246,7 +246,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$code .= "mw.clearLogBuffer()\n";
 			if ( substr( $params['question'], 0, 1 ) === '=' ) {
 				// Treat a statement starting with "=" as a return statement, like in lua.c
-				$code .= "return mw.allToString(" . substr( $params['question'], 1 ) . "), mw.getLogBuffer()\n";
+				$code .= "local ret = mw.allToString(" . substr( $params['question'], 1 ) . ")\n" .
+					"return ret, mw.getLogBuffer()\n";
 			} else {
 				$code .= $params['question'] . "\n" .
 					"return nil, mw.getLogBuffer()\n";
@@ -262,9 +263,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				wfMessage( 'scribunto-console-current-src' )->text()
 			);
 			$consoleInit = $consoleModule->getInitChunk();
-			$ret = $this->executeModule( $consoleInit );
+			$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, true );
 			$func = $ret[0];
-			$ret = $this->getInterpreter()->callFunction( $func, $contentInit );
+			$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $this->mw['executeModule'] );
 		} catch ( Exception $ex ) {
 			$this->currentFrames = $oldFrames;
 			throw $ex;
