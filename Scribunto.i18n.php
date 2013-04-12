@@ -960,6 +960,7 @@ $messages['id'] = array(
 	'scribunto-console-cleared-session-lost' => 'Pernyataan konsol dibersihkan karena data sesi hilang.',
 	'scribunto-common-error-category' => 'Halaman dengan galat skrip',
 	'scribunto-common-nosuchmodule' => 'Galat skrip: tidak ada modul tersebut.',
+	'scribunto-lua-backtrace-line' => '$1: $2',
 );
 
 /** Iloko (Ilokano)
