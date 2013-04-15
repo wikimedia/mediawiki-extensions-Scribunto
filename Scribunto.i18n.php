@@ -1485,7 +1485,7 @@ $messages['nn'] = array(
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
-	'scribunto-doc-page-header' => "'''Dette er dokumentasjonsundersida for [[$1]]'''", # Fuzzy
+	'scribunto-doc-page-header' => "'''Dette er dokumentasjonssida for [[$1]]'''",
 	'scribunto-console-intro' => '* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.
 * Byrja ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().
 * Bruk mw.log() i modulkode for å senda meldingar til denne konsollen.',
