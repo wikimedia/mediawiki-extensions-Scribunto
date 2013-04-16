@@ -68,7 +68,6 @@ function language.new( code )
 		caseFold = 1,
 		formatNum = 1,
 		formatDate = 1,
-		parseFormattedNumber = 1,
 		formatDuration = 1,
 		getDurationIntervals = 1,
 		convertPlural = 2,
@@ -94,6 +93,15 @@ function language.new( code )
 			return rtl
 		end
 		return rtl
+	end
+
+	-- Fix semantics
+	function lang:parseFormattedNumber( ... )
+		checkSelf( self, 'parseFormattedNumber' )
+		if select( '#', ... ) < 1 then
+			error( "too few arguments to mw.language:parseFormattedNumber", 2 )
+		end
+		return tonumber( php.parseFormattedNumber( self.code, ... ) )
 	end
 
 	-- Alias
