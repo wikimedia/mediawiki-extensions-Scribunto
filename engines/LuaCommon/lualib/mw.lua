@@ -35,6 +35,11 @@ end )()
 -- 
 -- @param env The cloned environment
 local function makePackageModule( env )
+	-- Remove loaders from env, we don't want it inheriting our loadPackage.
+	if env.package then
+		env.package.loaders = nil
+	end
+
 	-- Create the package globals in the given environment
 	setfenv( packageModuleFunc, env )()
 
@@ -686,7 +691,7 @@ function mw.loadData( module )
 		-- The point of this is to load big data, so don't save it in package.loaded
 		-- where it will have to be copied for all future modules.
 		local l = package.loaded[module]
-		data = require( module )
+		data = mw.executeModule( function() return require( module ) end )
 		package.loaded[module] = l
 
 		-- Validate data
