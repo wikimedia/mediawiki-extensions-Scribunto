@@ -20,6 +20,11 @@ $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
 );
 
+/** Galician (Galego) */
+$magicWords['gl'] = array(
+	'invoke' => array( 0, 'chamar' ),
+);
+
 /** Korean (한국어) */
 $magicWords['ko'] = array(
 	'invoke' => array( 0, '호출' ),
