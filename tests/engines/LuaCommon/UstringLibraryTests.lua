@@ -285,6 +285,38 @@ return testframework.getTestProvider( {
 	  args = { "¡a¡ ¡.¡", '¡.¡', 1, true },
 	  expect = { 5, 7 }
 	},
+	{ name = 'find: empty delimiter', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '' },
+	  expect = { 1, 0 }
+	},
+	{ name = 'find: empty delimiter (2)', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '', 2 },
+	  expect = { 2, 1 }
+	},
+	{ name = 'find: plain + empty delimiter', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '', 1, true },
+	  expect = { 1, 0 }
+	},
+	{ name = 'find: plain + empty delimiter (2)', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '', 2, true },
+	  expect = { 2, 1 }
+	},
+	{ name = 'find: excessive init', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '()', 20 },
+	  expect = { 8, 7, 8 }
+	},
+	{ name = 'find: excessive init (2)', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '()', -20 },
+	  expect = { 1, 0, 1 }
+	},
+	{ name = 'find: plain + excessive init', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '', 20, true },
+	  expect = { 8, 7 }
+	},
+	{ name = 'find: plain + excessive init', func = mw.ustring.find,
+	  args = { "¡a¡ ¡.¡", '', -20, true },
+	  expect = { 1, 0 }
+	},
 
 	{ name = 'find: capture (1)', func = mw.ustring.find,
 	  args = { "bar ¡foo bar", '(¡foo)' },
@@ -326,6 +358,22 @@ return testframework.getTestProvider( {
 	{ name = 'match: (2)', func = mw.ustring.match,
 	  args = { "bar fóo bar", 'f(%a+)' },
 	  expect = { 'óo' }
+	},
+	{ name = 'match: empty pattern', func = mw.ustring.match,
+	  args = { "¡a¡ ¡.¡", '()' },
+	  expect = { 1 }
+	},
+	{ name = 'match: empty pattern (2)', func = mw.ustring.match,
+	  args = { "¡a¡ ¡.¡", '()', 2 },
+	  expect = { 2 }
+	},
+	{ name = 'match: excessive init', func = mw.ustring.match,
+	  args = { "¡a¡ ¡.¡", '()', 20 },
+	  expect = { 8 }
+	},
+	{ name = 'match: excessive init (2)', func = mw.ustring.match,
+	  args = { "¡a¡ ¡.¡", '()', -20 },
+	  expect = { 1 }
 	},
 
 	{ name = 'gsub: (string 1)', func = mw.ustring.gsub,

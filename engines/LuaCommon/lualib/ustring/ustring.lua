@@ -151,6 +151,9 @@ end
 -- @return int
 local function cpoffset( cps, i )
 	local min, max, p = 0, cps.len + 1
+	if i == 0 then
+		return 0
+	end
 	while min + 1 < max do
 		p = math.floor( ( min + max ) / 2 ) + 1
 		if cps.bytepos[p] <= i then
@@ -673,6 +676,12 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 		end
 	end
 
+	init = init or 1
+	if init < 0 then
+		init = cps.len + init + 1
+	end
+	init = math.max( 1, math.min( init, cps.len + 1 ) )
+
 	-- Here is the actual match loop. It just calls 'match' on successive
 	-- starting positions (or not, if the pattern is anchored) until it finds a
 	-- match.
@@ -758,17 +767,15 @@ function ustring.find( s, pattern, init, plain )
 	end
 
 	if plain or patternIsSimple( pattern ) then
+		if init and init > cps.len + 1 then
+			init = cps.len + 1
+		end
 		local m = { S.find( s, pattern, cps.bytepos[init], plain ) }
 		if m[1] then
 			m[1] = cpoffset( cps, m[1] )
 			m[2] = cpoffset( cps, m[2] )
 		end
 		return unpack( m )
-	end
-
-	init = init or 1
-	if init < 0 then
-		init = cps.len + init + 1
 	end
 
 	return find( s, cps, pattern, pat, init )
@@ -797,11 +804,6 @@ function ustring.match( s, pattern, init )
 
 	if patternIsSimple( pattern ) then
 		return S.match( s, pattern, cps.bytepos[init] )
-	end
-
-	init = init or 1
-	if init < 0 then
-		init = cps.len + init + 1
 	end
 
 	local m = { find( s, cps, pattern, pat, init ) }
