@@ -261,7 +261,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		# Generate timestamp
 		$ts = $dateObject->format( 'YmdHis' );
 
-		if ( $ts >= 100000000000000 ) {
+		if ( $ts < 0 ) {
+			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years from 0" );
+		} elseif ( $ts >= 100000000000000 ) {
 			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years up to 9999" );
 		}
 
