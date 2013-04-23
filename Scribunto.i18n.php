@@ -1336,9 +1336,9 @@ $messages['ms'] = array(
 	'scribunto-error-long' => 'Ralat-ralat skrip:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentasi untuk modul ini boleh diwujudkan di [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Ini ialah subhalaman dokumentasi untuk [[$1]]'''",
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => "''Dokumentasi untuk modul ini boleh diwujudkan di [[$1]]''",
+	'scribunto-doc-page-header' => "'''Ini ialah halaman pendokumenan untuk [[$1]]'''",
 	'scribunto-console-intro' => '* Eksport modul terdapat dalam bentuk pembolehubah "p", termasuk pengubahsuaian yang belum disimpan.
 * Dahului baris dengan tanda "=" untuk menilainya sebagai ungkapan, atau gunakan print().
 * Gunakan mw.log() dalam kod modul untuk menghantar mesej ke konsol ini.',

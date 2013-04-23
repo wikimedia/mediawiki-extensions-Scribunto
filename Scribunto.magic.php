@@ -20,7 +20,7 @@ $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
 );
 
-/** Galician (Galego) */
+/** Galician (galego) */
 $magicWords['gl'] = array(
 	'invoke' => array( 0, 'chamar' ),
 );
