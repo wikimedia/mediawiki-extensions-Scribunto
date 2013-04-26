@@ -241,8 +241,9 @@ $namespaceNames['vi'] = array(
 	829 => 'Thảo_luận_Mô_đun',
 );
 
-$namespaceNames['zh'] = array(
+$namespaceNames['yue'] = array(
 	828 => '模組',
+	829 => '模組討論',
 );
 
 $namespaceNames['zh-hans'] = array(
@@ -253,8 +254,4 @@ $namespaceNames['zh-hans'] = array(
 $namespaceNames['zh-hant'] = array(
 	828 => '模組',
 	829 => '模組討論',
-);
-
-$namespaceNames['zh-yue'] = array(
-	828 => '模組',
 );
