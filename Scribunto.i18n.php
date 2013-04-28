@@ -592,9 +592,23 @@ $1',
  * @author Pikne
  */
 $messages['et'] = array(
+	'scribunto-ignore-errors' => 'Luba salvestada kood tõrgetega',
+	'scribunto-line' => '$1. real',
+	'scribunto-parser-error' => 'Skriptitõrge',
+	'scribunto-parser-dialog-title' => 'Skriptitõrge',
+	'scribunto-error-short' => 'Skriptitõrge: $1',
+	'scribunto-error-long' => 'Skriptitõrked:
+
+$1',
 	'scribunto-doc-page-does-not-exist' => "''Selle mooduli dokumentatsiooni saab kirjutada asukohta [[$1]]''.",
 	'scribunto-doc-page-header' => "'''See on üksuse [[$1]] dokumentatsiooni lehekülg.'''",
 	'scribunto-console-clear' => 'Puhasta',
+	'scribunto-common-error-category' => 'Skriptitõrgetega leheküljed',
+	'scribunto-common-nosuchmodule' => 'Skriptitõrge: Sellist moodulit pole.',
+	'scribunto-common-nosuchfunction' => 'Script error: Määratud funktsioon puudub.',
+	'scribunto-lua-in-function' => 'funktsioonis "$1"',
+	'scribunto-lua-error-location' => 'Lua tõrge $1: $2.',
+	'scribunto-lua-error' => 'Lua tõrge: $2.',
 );
 
 /** Basque (euskara)
