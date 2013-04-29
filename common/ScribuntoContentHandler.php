@@ -11,8 +11,16 @@
 
 class ScribuntoContentHandler extends TextContentHandler {
 
-	public function __construct( $modelId = 'Scribunto', $formats = array( 'CONTENT_FORMAT_TEXT' ) ) {
+	public function __construct( $modelId = 'Scribunto', $formats = array( CONTENT_FORMAT_TEXT ) ) {
 		parent::__construct( $modelId, $formats );
+	}
+
+	public function isSupportedFormat( $format ) {
+		// An error in an earlier version of Scribunto means we might see this.
+		if ( $format === 'CONTENT_FORMAT_TEXT' ) {
+			$format = CONTENT_FORMAT_TEXT;
+		}
+		return parent::isSupportedFormat( $format );
 	}
 
 	/**
