@@ -212,10 +212,18 @@ $1',
 );
 
 /** Bulgarian (български)
+ * @author Termininja
  * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
+	'scribunto-parser-error' => 'Грешка в скрипта',
+	'scribunto-parser-dialog-title' => 'Грешка в скрипта',
+	'scribunto-error-short' => 'Грешка в скрипта: $1',
+	'scribunto-error-long' => 'Грешки в скрипта: $1',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-console-clear' => 'Изчистване',
+	'scribunto-common-error-category' => 'Страници с повреден код',
+	'scribunto-common-nosuchmodule' => 'Грешка в скрипта: Няма такъв модул.',
 );
 
 /** Breton (brezhoneg)
@@ -1846,10 +1854,12 @@ $messages['sl'] = array(
 );
 
 /** Swedish (svenska)
+ * @author GameOn
  * @author Lokal Profil
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
+	'scribunto-common-error-category' => 'Sidor med skriptfel',
 );
 
 /** Thai (ไทย)
