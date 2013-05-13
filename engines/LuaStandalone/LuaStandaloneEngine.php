@@ -23,7 +23,11 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	 * @return string
 	 */
 	function getLimitReport() {
-		$this->load();
+		try {
+			$this->load();
+		} catch ( Exception $e ) {
+			return '';
+		}
 		if ( !$this->initialStatus ) {
 			return '';
 		}
