@@ -212,34 +212,37 @@ $1',
 );
 
 /** Bulgarian (български)
+ * @author DCLXVI
  * @author Termininja
  * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
-	'scribunto-ignore-errors' => 'Позволи запазването на кода с грешки',
+	'scribunto-ignore-errors' => 'Позволяване съхраняването на код с грешки',
 	'scribunto-line' => 'на ред $1',
 	'scribunto-module-line' => 'в $1 на ред $2',
 	'scribunto-parser-error' => 'Грешка в скрипта',
 	'scribunto-parser-dialog-title' => 'Грешка в скрипта',
 	'scribunto-error-short' => 'Грешка в скрипта: $1',
-	'scribunto-error-long' => 'Грешки в скрипта: $1',
+	'scribunto-error-long' => 'Грешки в скрипта:
+
+$1',
 	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''Документация за този модул може да бъде създадена на [[$1]]''",
-	'scribunto-doc-page-header' => "'''Това е подстраница с документация за [[$1]]'''",
+	'scribunto-doc-page-header' => "'''Това е страница с документация за [[$1]]'''",
 	'scribunto-console-title' => 'Конзола за отстраняване на грешки',
 	'scribunto-console-clear' => 'Изчистване',
-	'scribunto-common-error-category' => 'Страници с грешки в скрипта',
+	'scribunto-common-error-category' => 'Страници с грешки в скриптoвете',
 	'scribunto-common-nosuchmodule' => 'Грешка в скрипта: Няма такъв модул.',
-	'scribunto-common-nofunction' => 'Грешка в скрипта: Трябва да зададете име на функция.',
-	'scribunto-common-nosuchfunction' => 'Грешка в скрипта: Посочената от вас функция не съществува.',
-	'scribunto-common-timeout' => 'Времето, определено за изпълнение на скриптове е изтекло.',
-	'scribunto-common-oom' => 'Количеството памет, отделено за изпълнение на скриптове е надвишено.',
-	'scribunto-lua-in-function' => 'във функцията "$1"',
+	'scribunto-common-nofunction' => 'Грешка в скрипта: Необходимо е да се посочи име на функция.',
+	'scribunto-common-nosuchfunction' => 'Грешка в скрипта: Посочената функция не съществува.',
+	'scribunto-common-timeout' => 'Времето, отделено за изпълнение на скриптове, е изтекло.',
+	'scribunto-common-oom' => 'Количеството памет, отделено за изпълнение на скриптове, е надвишено.',
+	'scribunto-lua-in-function' => 'във функцията „$1“',
 	'scribunto-lua-in-main' => 'в основната част от кода',
 	'scribunto-lua-in-function-at' => 'във функцията $1:$2',
 	'scribunto-lua-error-location' => 'Грешка в Lua $1: $2.',
 	'scribunto-lua-error' => 'Грешка в Lua: $2.',
-	'scribunto-luastandalone-proc-error' => 'Грешка в Lua: Не може да се създаде процес.',
+	'scribunto-luastandalone-proc-error' => 'Грешка в Lua: Не може да бъде създаден процес.',
 	'scribunto-luastandalone-decode-error' => 'Грешка в Lua: Вътрешна грешка: Не може да се декодира съобщението.',
 );
 
@@ -1759,11 +1762,12 @@ $1",
 );
 
 /** Russian (русский)
+ * @author Base
  * @author Ignatus
  * @author Kalan
  */
 $messages['ru'] = array(
-	'scribunto-desc' => 'Сресдтво для включения скриптовых языков на страницах MediaWiki',
+	'scribunto-desc' => 'Средство для включения скриптовых языков на страницах MediaWiki',
 	'scribunto-ignore-errors' => 'Разрешить сохранение кода с ошибками',
 	'scribunto-line' => 'на строке $1',
 	'scribunto-module-line' => 'в $1 на строке $2',
@@ -1956,6 +1960,7 @@ $messages['ug-arab'] = array(
  * @author Steve.rusyn
  */
 $messages['uk'] = array(
+	'scribunto-desc' => 'Фреймворк для включення скриптових мов на сторінки MediaWiki',
 	'scribunto-ignore-errors' => 'Дозволити збереження коду з помилками',
 	'scribunto-line' => 'у рядку $1',
 	'scribunto-module-line' => 'у $1 у рядку $2',
