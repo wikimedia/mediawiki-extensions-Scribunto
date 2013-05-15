@@ -1243,7 +1243,7 @@ $messages['ko'] = array(
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/설명문서',
 	'scribunto-doc-page-does-not-exist' => "''이 모듈에 대한 설명문서는 [[$1]]에서 만들 수 있습니다''",
-	'scribunto-doc-page-header' => "'''이 문서는 [[$1]]에 대한 설명문서입니다'''",
+	'scribunto-doc-page-header' => "'''이 문서는 [[$1]]에 대한 설명문서입니다.'''",
 	'scribunto-console-intro' => '* 모듈 내보내기는 저장하지 않은 수정을 포함하여 변수 "p"로 사용할 수 있습니다.
 * 표현으로 평가하는 "="이 있는 줄을 앞에 넣거나 print()를 사용하세요.
 * 이 콘솔에 메시지를 보낼 모듈 코드에 mw.log()를 사용하세요.',
