@@ -162,6 +162,39 @@ $1',
 	'scribunto-lua-error' => 'Luafout: $2',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'scribunto-desc' => 'Infraestructura pa incrustar llinguaxes de script nes páxines de MediaWiki',
+	'scribunto-ignore-errors' => 'Permite guardar códigu con errores',
+	'scribunto-line' => 'na llinia $1',
+	'scribunto-module-line' => 'en $1 na llinia $2',
+	'scribunto-parser-error' => 'Error de script',
+	'scribunto-parser-dialog-title' => 'Error de script',
+	'scribunto-error-short' => 'Error de script: $1',
+	'scribunto-error-long' => 'Errores de script:
+
+$1',
+	'scribunto-doc-page-name' => 'Módulu:$1/usu',
+	'scribunto-doc-page-does-not-exist' => "''La documentación pa esti módulu pue crease'n [[$1]]''",
+	'scribunto-doc-page-header' => "'''Esta ye la páxina de documentación pa [[$1]]'''",
+	'scribunto-console-intro' => '* Les esportaciones del módulu tan disponibles como la variable "p", incluyendo los cambios ensin guardar.
+* Ponga un "=" delantre de la llinia pa evaluala como una espresión, o use print().
+* Use mw.log() nel códigu del módulu pa unviar los mensaxes a esta consola.',
+	'scribunto-console-title' => 'Consola de depuración',
+	'scribunto-console-too-large' => "La sesión d'esta consola ye enforma grande. Llimpíe l'historial de la consola o reduza'l tamañu del módulu.",
+	'scribunto-console-current-src' => 'entrada de la consola',
+	'scribunto-console-clear' => 'Llimpiar',
+	'scribunto-console-cleared' => "Llimpióse l'estáu de la consola porque'l módulu anovóse.",
+	'scribunto-console-cleared-session-lost' => "Llimpióse l'estáu de la consola porque perdieronse los datos de la sesión.",
+	'scribunto-common-error-category' => 'Páxines con errores de script',
+	'scribunto-common-nosuchmodule' => 'Error de script: Nun esiste esi módulu.',
+	'scribunto-common-nofunction' => "Error de script: Tien d'especificar una función a la que llamar.",
+	'scribunto-common-nosuchfunction' => "Error de script: La función qu'especificó nun esiste.",
+	'scribunto-common-timeout' => "Acabó'l tiempu acutáu pa executar scripts.",
+);
+
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
@@ -231,7 +264,7 @@ $1',
 	'scribunto-doc-page-header' => "'''Това е страница с документация за [[$1]]'''",
 	'scribunto-console-title' => 'Конзола за отстраняване на грешки',
 	'scribunto-console-clear' => 'Изчистване',
-	'scribunto-common-error-category' => 'Страници с грешки в скриптoвете',
+	'scribunto-common-error-category' => 'Страници с грешки в скрипта',
 	'scribunto-common-nosuchmodule' => 'Грешка в скрипта: Няма такъв модул.',
 	'scribunto-common-nofunction' => 'Грешка в скрипта: Необходимо е да се посочи име на функция.',
 	'scribunto-common-nosuchfunction' => 'Грешка в скрипта: Посочената функция не съществува.',
