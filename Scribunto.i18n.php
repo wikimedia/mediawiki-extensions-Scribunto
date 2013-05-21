@@ -1101,7 +1101,7 @@ $messages['is'] = array(
 
 $1',
 	'scribunto-doc-page-does-not-exist' => "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
-	'scribunto-doc-page-header' => "'''Þetta er leiðbeiningar undirsíða fyrir [[$1]]'''", # Fuzzy
+	'scribunto-doc-page-header' => "'''Þetta er leiðbeiningar síða fyrir [[$1]]'''",
 	'scribunto-console-title' => 'Aflúsunar stjórnborð',
 	'scribunto-console-too-large' => 'Þessi seta stjórnborðsins er of stór. Vinsamlegast hreinsaðu setu stjórnborðsins eða minnkaðu stærð skriftunnar.',
 	'scribunto-console-clear' => 'Hreinsa',
@@ -2103,7 +2103,7 @@ $messages['zh-hans'] = array(
 
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/doc',
-	'scribunto-doc-page-does-not-exist' => "''此模块的文档可以创建在[[$1]]''",
+	'scribunto-doc-page-does-not-exist' => "''此模块的文档可以在[[$1]]创建''",
 	'scribunto-doc-page-header' => "'''这是[[$1]]的文档页面'''",
 	'scribunto-console-intro' => '* 此模块的导出表存于变量“p”中，包括没有保存的变更。
 * 在一行的前面加上“=”可以将其作为表达式来计算，或使用print()。
