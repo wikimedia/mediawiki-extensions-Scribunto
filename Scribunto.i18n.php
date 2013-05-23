@@ -66,6 +66,7 @@ $1',
 /** Message documentation (Message documentation)
  * @author Amire80
  * @author Anomie
+ * @author Gomada
  * @author Mormegil
  * @author Shirayuki
  * @author Siebrand
@@ -78,12 +79,12 @@ $messages['qqq'] = array(
 	'scribunto-module-line' => 'Reference to a code location. Parameters:
 * $1 is a module (may also be {{msg-mw|Scribunto-console-current-src}});
 * $2 is a line number.',
-	'scribunto-parser-error' => 'Error message.',
-	'scribunto-parser-dialog-title' => 'Error message.',
-	'scribunto-error-short' => 'Error message. Parameters:
-* $1 are the error details.',
-	'scribunto-error-long' => 'Error message. Parameters:
-* $1 are the error details.',
+	'scribunto-parser-error' => 'Peyama çewtiyê.',
+	'scribunto-parser-dialog-title' => 'Peyama çewtiyê.',
+	'scribunto-error-short' => 'Peyama çewtiyê. Parametre:
+* $1 hûragahiyên çewtiyê ne.',
+	'scribunto-error-long' => 'Peyama çewtiyê. Parametre:
+* $1 hûragahiyên çewtiyê ne.',
 	'scribunto-doc-page-name' => '{{doc-important|Do not translate the namespace "Module:"}}
 Page name for module documentation. Parameters:
 * $1 - the unprefixed name of the module',
@@ -1311,9 +1312,21 @@ $1',
 
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author Ghybu
+ * @author Gomada
  */
 $messages['ku-latn'] = array(
+	'scribunto-ignore-errors' => 'Destûra tomarkirina kodan a bi çewtiyan bide',
+	'scribunto-line' => 'li ser rêza $1',
+	'scribunto-module-line' => 'di $1 de, li ser rêza $2',
+	'scribunto-parser-error' => 'Çewtiya nivîsê',
+	'scribunto-parser-dialog-title' => 'Çewtiya nivîsê',
+	'scribunto-error-short' => 'Çewtiya nivîsê: $1',
+	'scribunto-error-long' => 'Çewtiyên nivîsê:
+
+$1',
 	'scribunto-doc-page-name' => 'Module:$1/belge',
+	'scribunto-doc-page-header' => "'''Ev rûpela belgekirinê ya [[$1]] ye'''",
+	'scribunto-console-clear' => 'Jê bibe',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
