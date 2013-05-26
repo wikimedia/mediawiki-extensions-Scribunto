@@ -280,6 +280,32 @@ $1',
 	'scribunto-luastandalone-decode-error' => 'Грешка в Lua: Вътрешна грешка: Не може да се декодира съобщението.',
 );
 
+/** Bengali (বাংলা)
+ * @author Aftab1995
+ */
+$messages['bn'] = array(
+	'scribunto-ignore-errors' => 'ত্রুটি সহ কোড সংরক্ষণের অনুমতি দিন',
+	'scribunto-line' => '$1 লাইনে',
+	'scribunto-module-line' => '$1 এর $2 লাইনে',
+	'scribunto-parser-error' => 'স্ক্রিপ্ট ত্রুটি',
+	'scribunto-parser-dialog-title' => 'স্ক্রিপ্ট ত্রুটি',
+	'scribunto-error-short' => 'স্ক্রিপ্ট ত্রুটি: $1',
+	'scribunto-error-long' => 'স্ক্রিপ্ট ত্রুটি:
+
+$1',
+	'scribunto-doc-page-name' => 'Module:$1/নথি',
+	'scribunto-doc-page-does-not-exist' => "''এই মডিউলের জন্য [[$1]]-এ নথিপত্র তৈরি করা হয়ে থাকতে পারে''",
+	'scribunto-doc-page-header' => "'''এই নথির পাতাটি [[$1]]-এর জন্য'''",
+	'scribunto-console-current-src' => 'কনসোল ইনপুট',
+	'scribunto-console-clear' => 'পরিস্কার',
+	'scribunto-common-error-category' => 'স্ক্রিপ্ট ত্রুটিসহ পাতা',
+	'scribunto-common-nosuchmodule' => 'স্ক্রিপ্ট ত্রুটি: এই জাতীয় মডিউল নেই।',
+	'scribunto-lua-error-location' => '$1 লুয়া ত্রুটি: $2।',
+	'scribunto-lua-error' => 'লুয়া ত্রুটি: $2।',
+	'scribunto-luastandalone-proc-error' => 'লুয়া ত্রুটি: প্রক্রিয়া তৈরি করতে পারবে না।',
+	'scribunto-luastandalone-exited' => 'লুয়া ত্রুটি: অভ্যন্তরীণ ত্রুটি: প্রস্থানের সময় অনুবাদকের অবস্থা $2।',
+);
+
 /** Breton (brezhoneg)
  * @author Fohanno
  * @author Y-M D
