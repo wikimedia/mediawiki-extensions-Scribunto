@@ -282,11 +282,12 @@ $1',
 
 /** Bengali (বাংলা)
  * @author Aftab1995
+ * @author Bellayet
  */
 $messages['bn'] = array(
 	'scribunto-ignore-errors' => 'ত্রুটি সহ কোড সংরক্ষণের অনুমতি দিন',
-	'scribunto-line' => '$1 লাইনে',
-	'scribunto-module-line' => '$1 এর $2 লাইনে',
+	'scribunto-line' => '$1 নম্বর লাইনে',
+	'scribunto-module-line' => '$1 এর $2 নম্বর লাইনে',
 	'scribunto-parser-error' => 'স্ক্রিপ্ট ত্রুটি',
 	'scribunto-parser-dialog-title' => 'স্ক্রিপ্ট ত্রুটি',
 	'scribunto-error-short' => 'স্ক্রিপ্ট ত্রুটি: $1',
@@ -299,8 +300,8 @@ $1',
 	'scribunto-console-current-src' => 'কনসোল ইনপুট',
 	'scribunto-console-clear' => 'পরিস্কার',
 	'scribunto-common-error-category' => 'স্ক্রিপ্ট ত্রুটিসহ পাতা',
-	'scribunto-common-nosuchmodule' => 'স্ক্রিপ্ট ত্রুটি: এই জাতীয় মডিউল নেই।',
-	'scribunto-lua-error-location' => '$1 লুয়া ত্রুটি: $2।',
+	'scribunto-common-nosuchmodule' => 'স্ক্রিপ্ট ত্রুটি: এমন মডিউল নেই।',
+	'scribunto-lua-error-location' => 'লুয়া ত্রুটি $1: $2।',
 	'scribunto-lua-error' => 'লুয়া ত্রুটি: $2।',
 	'scribunto-luastandalone-proc-error' => 'লুয়া ত্রুটি: প্রক্রিয়া তৈরি করতে পারবে না।',
 	'scribunto-luastandalone-exited' => 'লুয়া ত্রুটি: অভ্যন্তরীণ ত্রুটি: প্রস্থানের সময় অনুবাদকের অবস্থা $2।',
