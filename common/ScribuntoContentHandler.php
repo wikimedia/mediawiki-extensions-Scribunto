@@ -35,4 +35,22 @@ class ScribuntoContentHandler extends TextContentHandler {
 	public function makeEmptyContent() {
 		return new ScribuntoContent( '' );
 	}
+
+	/**
+	 * Scripts themselves should be in English.
+	 *
+	 * @return Language wfGetLangObj( 'en' )
+	 */
+	public function getPageLanguage( Title $title, Content $content = null ) {
+		return wfGetLangObj( 'en' );
+	}
+
+	/**
+	 * Scripts themselves should be in English.
+	 *
+	 * @return Language wfGetLangObj( 'en' )
+	 */
+	public function getPageViewLanguage( Title $title, Content $content = null ) {
+		return wfGetLangObj( 'en' );
+	}
 }

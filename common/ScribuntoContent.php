@@ -34,11 +34,6 @@ class ScribuntoContent extends TextContent {
 		$text = $this->getNativeData();
 		$output = null;
 
-		if ( !$options ) {
-			//NOTE: use canonical options per default to produce cacheable output
-			$options = $this->getContentHandler()->makeParserOptions( 'canonical' );
-		}
-
 		// Get documentation, if any
 		$output = new ParserOutput();
 		$doc = Scribunto::getDocPage( $title );
@@ -50,7 +45,18 @@ class ScribuntoContent extends TextContent {
 			if ( !$msg->isDisabled() ) {
 				// We need the ParserOutput for categories and such, so we
 				// can't use $msg->parse().
-				$output = $wgParser->parse( $msg->plain(), $title, $options, true, true, $revId );
+				$docViewLang = $doc->getPageViewLanguage();
+				$docWikitext = '<div lang="' . htmlspecialchars( $docViewLang->getHtmlCode() ) . '"'
+					. ' dir="' . $docViewLang->getDir() . '">' . $msg->plain() . '</div>';
+				if ( !$options ) {
+					// NOTE: use canonical options per default to produce cacheable output
+					$options = ContentHandler::getForTitle( $doc )->makeParserOptions( 'canonical' );
+				} else {
+					if ( $options->getTargetLanguage() === null ) {
+						$options->setTargetLanguage( $doc->getPageLanguage() );
+					}
+				}
+				$output = $wgParser->parse( $docWikitext, $title, $options, true, true, $revId );
 			}
 
 			// Mark the doc page as a transclusion, so we get purged when it
@@ -74,7 +80,7 @@ class ScribuntoContent extends TextContent {
 				$code = $geshi->parse_code();
 				if( $code ) {
 					$output->addHeadItem( SyntaxHighlight_GeSHi::buildHeadItem( $geshi ), "source-{$language}" );
-					$output->setText( $output->getText() . "<div dir=\"ltr\">{$code}</div>" );
+					$output->setText( $output->getText() . $code );
 					return $output;
 				}
 			}
