@@ -40,6 +40,11 @@ $magicWords['nl'] = array(
 	'invoke' => array( 0, 'aanroepen' ),
 );
 
+/** Brazilian Portuguese (português do Brasil) */
+$magicWords['pt-br'] = array(
+	'invoke' => array( 0, 'invocar' ),
+);
+
 /** Vietnamese (Tiếng Việt) */
 $magicWords['vi'] = array(
 	'invoke' => array( 0, 'gọi' ),
