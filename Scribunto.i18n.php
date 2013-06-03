@@ -70,6 +70,7 @@ $1',
  * @author Mormegil
  * @author Shirayuki
  * @author Siebrand
+ * @author Snævar
  */
 $messages['qqq'] = array(
 	'scribunto-desc' => '{{desc|name=Scribunto|url=http://www.mediawiki.org/wiki/Extension:Scribunto}}',
@@ -79,10 +80,10 @@ $messages['qqq'] = array(
 	'scribunto-module-line' => 'Reference to a code location. Parameters:
 * $1 is a module (may also be {{msg-mw|Scribunto-console-current-src}});
 * $2 is a line number.',
-	'scribunto-parser-error' => 'Peyama çewtiyê.',
-	'scribunto-parser-dialog-title' => 'Peyama çewtiyê.',
-	'scribunto-error-short' => 'Peyama çewtiyê. Parametre:
-* $1 hûragahiyên çewtiyê ne.',
+	'scribunto-parser-error' => 'Error message.',
+	'scribunto-parser-dialog-title' => 'Error message.',
+	'scribunto-error-short' => 'Error message. Parameters:
+* $1 are the error details.',
 	'scribunto-error-long' => 'Peyama çewtiyê. Parametre:
 * $1 hûragahiyên çewtiyê ne.',
 	'scribunto-doc-page-name' => '{{doc-important|Do not translate the namespace "Module:"}}
@@ -194,6 +195,22 @@ $1',
 	'scribunto-common-nofunction' => "Error de script: Tien d'especificar una función a la que llamar.",
 	'scribunto-common-nosuchfunction' => "Error de script: La función qu'especificó nun esiste.",
 	'scribunto-common-timeout' => "Acabó'l tiempu acutáu pa executar scripts.",
+	'scribunto-common-oom' => 'Superóse la cantidá de memoria permitida pa executar scripts.',
+	'scribunto-common-backtrace' => 'Trazáu inversu (backtrace):',
+	'scribunto-lua-in-function' => 'na función "$1"',
+	'scribunto-lua-in-main' => 'nel fragmentu principal',
+	'scribunto-lua-in-function-at' => 'na función en $1:$2',
+	'scribunto-lua-error-location' => 'Error de Lua $1: $2.',
+	'scribunto-lua-error' => 'Error de Lua: $2.',
+	'scribunto-lua-noreturn' => "Error de script: El módulu nun devolvió nengún valor. Esperase que devuelva una tabla d'esportación.",
+	'scribunto-lua-notarrayreturn' => "Error de script: El módulu devolvió una cosa distinta d'una tabla. Esperase que devuelva una tabla d'esportación.",
+	'scribunto-luastandalone-proc-error' => "Error de Lua: Nun pue crease'l procesu.",
+	'scribunto-luastandalone-decode-error' => "Error de Lua: Error internu: Nun pudo descodificase'l mensaxe.",
+	'scribunto-luastandalone-write-error' => 'Error de Lua: Error internu: Error al escribir nun conductu (pipe).',
+	'scribunto-luastandalone-read-error' => "Error de Lua: Error internu: Error al lleer d'un conductu (pipe).",
+	'scribunto-luastandalone-gone' => "Error de Lua: Error internu: L'intérprete yá acabó.",
+	'scribunto-luastandalone-signal' => 'Error de Lua: Error internu: L\'intérprete acabó cola señal "$2".',
+	'scribunto-luastandalone-exited' => "Error de Lua: Error internu: L'intérprete acabó col estáu $2.",
 );
 
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
@@ -1363,10 +1380,12 @@ $messages['lb'] = array(
 	'scribunto-line' => 'an der Linn $1',
 	'scribunto-parser-error' => 'Script-Feeler',
 	'scribunto-parser-dialog-title' => 'Script-Feeler',
+	'scribunto-error-short' => 'Script-Feeler: $1',
 	'scribunto-error-long' => 'Script-Feeler:
 
 $1',
 	'scribunto-console-clear' => 'Eidel maachen',
+	'scribunto-lua-error-location' => 'Lua-Feeler $1: $2.',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
 );
 
