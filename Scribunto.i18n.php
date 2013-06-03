@@ -667,7 +667,6 @@ $1',
 	'scribunto-console-title' => 'Consola de depuración de errores',
 	'scribunto-console-too-large' => 'La sesión de esta consola es demasiado grande. Limpia el historial de la consola o reduce el tamaño del módulo.',
 	'scribunto-console-current-src' => 'entrada de la consola',
-	'scribunto-console-previous-src' => 'entrada previa de la consola',
 	'scribunto-console-clear' => 'Limpiar',
 	'scribunto-console-cleared' => 'El estado de la consola se ha limpiado debido a que el módulo se ha actualizado.',
 	'scribunto-common-error-category' => 'Páginas con errores de secuencia de comandos (script)',
@@ -1007,9 +1006,9 @@ $messages['hu'] = array(
 	'scribunto-error-long' => 'Parancsfájl-hibák:
 
 $1',
-	'scribunto-doc-subpage-name' => 'doc',
-	'scribunto-doc-subpage-does-not-exist' => "''A modult a [[$1]] lapon tudod dokumentálni''",
-	'scribunto-doc-subpage-header' => "'''Ez a [[$1]] dokumentációs lapja'''",
+	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''A modult a [[$1]] lapon tudod dokumentálni''",
+	'scribunto-doc-page-header' => "'''Ez a [[$1]] dokumentációs lapja'''", # Fuzzy
 	'scribunto-console-title' => 'Hibakereső konzol',
 	'scribunto-console-current-src' => 'konzol bemenet',
 	'scribunto-console-clear' => 'törlés',
@@ -1043,7 +1042,6 @@ $1',
 	'scribunto-console-title' => 'Consola de debug',
 	'scribunto-console-too-large' => 'Iste session de consola es troppo grande. Per favor rade le historia del consola o reduce le dimension del modulo.',
 	'scribunto-console-current-src' => 'entrata del consola',
-	'scribunto-console-previous-src' => 'entrata previe del consola',
 	'scribunto-console-clear' => 'Rader',
 	'scribunto-console-cleared' => 'Le stato del consola ha essite radite perque le modulo ha essite actualisate.',
 	'scribunto-common-nosuchmodule' => 'Error de script: modulo non trovate',
@@ -1704,7 +1702,6 @@ $1',
 	'scribunto-console-title' => "Plancia d'eliminassion dij givo",
 	'scribunto-console-too-large' => "Sta session ëd plancia a l'é tròp gròssa. Për piasì, ch'a scancela la stòria dla plancia o ch'a riduv la dimension dël mòdul.",
 	'scribunto-console-current-src' => 'anseriment ëd la plancia',
-	'scribunto-console-previous-src' => 'anserimente ëd la plancia prima',
 	'scribunto-console-clear' => 'Scancela',
 	'scribunto-console-cleared' => "Lë stat ëd la plancia a l'é stàit ëscancelà përché ël mòdul a l'é stàit agiornà.",
 	'scribunto-common-error-category' => 'Pàgine con eror ëd copion',
@@ -1948,9 +1945,9 @@ $messages['sk'] = array(
 	'scribunto-error-long' => 'Chyby skriptu:
 
 $1',
-	'scribunto-doc-subpage-name' => 'Dokumentácia',
-	'scribunto-doc-subpage-does-not-exist' => "''Dokumentácia pre tento modul môže byť vytvorená na [[$1]]''",
-	'scribunto-doc-subpage-header' => "'''Toto je podstránka dokumentácie pre [[$1]]'''",
+	'scribunto-doc-page-name' => 'Dokumentácia', # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''Dokumentácia pre tento modul môže byť vytvorená na [[$1]]''",
+	'scribunto-doc-page-header' => "'''Toto je podstránka dokumentácie pre [[$1]]'''", # Fuzzy
 );
 
 /** Slovenian (slovenščina)
@@ -2013,7 +2010,6 @@ $1',
 	'scribunto-console-title' => 'Kahang pantaban ng sira',
 	'scribunto-console-too-large' => 'Ang inilaang panahon sa kahang pantaban ay napakalaki. Paki hawiin ang kasaysayan ng kahang pantaban o bawasan ang sukat ng modyul.',
 	'scribunto-console-current-src' => 'pagpapasok sa kahang pantaban',
-	'scribunto-console-previous-src' => 'nakaraang ipinasok sa kahang pantaban',
 	'scribunto-console-clear' => 'Hawiin',
 	'scribunto-console-cleared' => 'Hinawi ang katayuan ng kahang pantaban dahil isinapanahon ang modyul.',
 	'scribunto-common-nosuchmodule' => 'Kamalian sa panitik: Walang ganyang modulo',
