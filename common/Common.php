@@ -87,7 +87,7 @@ class Scribunto {
 		$docPage = str_replace( '\\$1', '(.+)', preg_quote( $docPage, '/' ) );
 		if ( preg_match( "/^$docPage$/", $title->getPrefixedText(), $m ) ) {
 			$forModule = Title::makeTitleSafe( NS_MODULE, $m[1] );
-			return true;
+			return $forModule !== null;
 		} else {
 			return false;
 		}
