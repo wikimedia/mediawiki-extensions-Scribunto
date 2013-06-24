@@ -1299,6 +1299,7 @@ $messages['ka'] = array(
 	'scribunto-error-long' => 'სკრიპტის შეცდომები:
 
 $1',
+	'scribunto-doc-page-name' => 'Module:$1/ინფო',
 	'scribunto-doc-page-header' => "''ეს არის „[[$1]]“-ის დოკუმენტაციის გვერდი''",
 	'scribunto-console-clear' => 'გასუფთავება',
 );
