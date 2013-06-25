@@ -70,6 +70,22 @@ return testframework.getTestProvider( {
 	  args = { "fóo", 0, 5 },
 	  expect = { nil }
 	},
+	{ name = 'byteoffset: (0,-1)', func = mw.ustring.byteoffset,
+	  args = { "fóo", 0, -1 },
+	  expect = { 4 }
+	},
+	{ name = 'byteoffset: (0,-1)', func = mw.ustring.byteoffset,
+	  args = { "foó", 0, -1 },
+	  expect = { 3 }
+	},
+	{ name = 'byteoffset: (1,-1)', func = mw.ustring.byteoffset,
+	  args = { "fóo", 1, -1 },
+	  expect = { 4 }
+	},
+	{ name = 'byteoffset: (1,-1)', func = mw.ustring.byteoffset,
+	  args = { "foó", 1, -1 },
+	  expect = { nil }
+	},
 
 	{ name = 'codepoint: whole string', func = mw.ustring.codepoint,
 	  args = { str1, 1, -1 },

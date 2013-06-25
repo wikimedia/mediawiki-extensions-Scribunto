@@ -104,7 +104,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 		$bytelen = strlen( $s );
 		if ( $i < 0 ) {
-			$i = $bytelen + $i - 1;
+			$i = $bytelen + $i + 1;
 		}
 		if ( $i < 1 || $i > $bytelen ) {
 			return array( null );
