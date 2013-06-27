@@ -572,6 +572,94 @@ function mw.log( ... )
 	logBuffer = logBuffer .. mw.allToString( ... ) .. '\n'
 end
 
+function mw.logObject( object, prefix )
+	local doneTable = {}
+	local doneObj = {}
+	local ct = {}
+	local function sorter( a, b )
+		local ta, tb = type( a ), type( b )
+		if ta ~= tb then
+			return ta < tb
+		end
+		if ta == 'string' or ta == 'number' then
+			return a < b
+		end
+		if ta == 'boolean' then
+			return tostring( a ) < tostring( b )
+		end
+		return false -- Incomparable
+	end
+	local function _logObject( object, indent, expandTable )
+		local tp = type( object )
+		if tp == 'number' or tp == 'nil' or tp == 'boolean' then
+			return tostring( object )
+		elseif tp == 'string' then
+			return string.format( "%q", object )
+		elseif tp == 'table' then
+			if not doneObj[object] then
+				local s = tostring( object )
+				if s == 'table' then
+					ct[tp] = ( ct[tp] or 0 ) + 1
+					doneObj[object] = 'table#' .. ct[tp]
+				else
+					doneObj[object] = s
+					doneTable[object] = true
+				end
+			end
+			if doneTable[object] or not expandTable then
+				return doneObj[object]
+			end
+			doneTable[object] = true
+
+			local ret = { doneObj[object], ' {\n' }
+			local mt = getmetatable( object )
+			if mt then
+				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = 'metatable = '
+				ret[#ret + 1] = _logObject( mt, indent + 2, false )
+				ret[#ret + 1] = "\n"
+			end
+
+			local doneKeys = {}
+			for key, value in ipairs( object ) do
+				doneKeys[key] = true
+				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = _logObject( value, indent + 2, true )
+				ret[#ret + 1] = ',\n'
+			end
+			local keys = {}
+			for key in pairs( object ) do
+				if not doneKeys[key] then
+					keys[#keys + 1] = key
+				end
+			end
+			table.sort( keys, sorter )
+			for i = 1, #keys do
+				local key = keys[i]
+				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = '['
+				ret[#ret + 1] = _logObject( key, indent + 3, false )
+				ret[#ret + 1] = '] = '
+				ret[#ret + 1] = _logObject( object[key], indent + 2, true )
+				ret[#ret + 1] = ",\n"
+			end
+			ret[#ret + 1] = string.rep( " ", indent )
+			ret[#ret + 1] = '}'
+			return table.concat( ret )
+		else
+			if not doneObj[object] then
+				ct[tp] = ( ct[tp] or 0 ) + 1
+				doneObj[object] = tostring( object ) .. '#' .. ct[tp]
+			end
+			return doneObj[object]
+		end
+	end
+	if prefix and prefix ~= '' then
+		logBuffer = logBuffer .. prefix .. ' = '
+	end
+	logBuffer = logBuffer .. _logObject( object, 0, true ) .. '\n'
+end
+
 function mw.clearLogBuffer()
 	logBuffer = ''
 end
