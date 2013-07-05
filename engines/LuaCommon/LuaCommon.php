@@ -67,32 +67,38 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 		$this->loaded = true;
 
-		$this->interpreter = $this->newInterpreter();
+		try {
+			$this->interpreter = $this->newInterpreter();
 
-		$funcs = array(
-			'loadPackage',
-			'frameExists',
-			'newChildFrame',
-			'getExpandedArgument',
-			'getAllExpandedArguments',
-			'expandTemplate',
-			'callParserFunction',
-			'preprocess',
-			'incrementExpensiveFunctionCount',
-		);
+			$funcs = array(
+				'loadPackage',
+				'frameExists',
+				'newChildFrame',
+				'getExpandedArgument',
+				'getAllExpandedArguments',
+				'expandTemplate',
+				'callParserFunction',
+				'preprocess',
+				'incrementExpensiveFunctionCount',
+			);
 
-		$lib = array();
-		foreach ( $funcs as $name ) {
-			$lib[$name] = array( $this, $name );
-		}
+			$lib = array();
+			foreach ( $funcs as $name ) {
+				$lib[$name] = array( $this, $name );
+			}
 
-		$this->mw = $this->registerInterface( 'mw.lua', $lib,
-			array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
+			$this->mw = $this->registerInterface( 'mw.lua', $lib,
+				array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
 
-		$libraries = $this->getLibraries( 'lua', self::$libraryClasses );
-		foreach ( $libraries as $name => $class ) {
-			$this->loadedLibraries[$name] = new $class( $this );
-			$this->loadedLibraries[$name]->register();
+			$libraries = $this->getLibraries( 'lua', self::$libraryClasses );
+			foreach ( $libraries as $name => $class ) {
+				$this->loadedLibraries[$name] = new $class( $this );
+				$this->loadedLibraries[$name]->register();
+			}
+		} catch ( Exception $ex ) {
+			$this->loaded = false;
+			$this->interpreter = null;
+			throw $ex;
 		}
 	}
 
