@@ -497,7 +497,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$text = $result['text'];
 		if ( $result['isChildObj'] ) {
-			$newFrame = $frame->newChild( $args, $result['title'] );
+			$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
+			$newFrame = $frame->newChild( $fargs, $result['title'] );
 			if ( $result['nowiki'] ) {
 				$text = $newFrame->expand( $text, PPFrame::RECOVER_ORIG );
 			} else {
