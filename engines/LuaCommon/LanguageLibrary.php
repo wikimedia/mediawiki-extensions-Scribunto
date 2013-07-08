@@ -113,7 +113,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				if ( is_numeric( $args[0] ) ) {
 					$args[0] = strval( $args[0] );
 				}
-				$this->checkType( $name, 1, $args[0], 'string' );
+				if ( $this->getLuaType( $args[0] ) !== 'string' ) {
+					// Be like tonumber(), return nil instead of erroring out
+					return array( null );
+				}
 				return array( $lang->$name( $args[0] ) );
 
 			// Custom handling
