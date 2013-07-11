@@ -396,6 +396,13 @@ $1",
 	'scribunto-luastandalone-exited' => "Error de Lua: error intern: l'intèrpret ha sortit amb l'estat «$2».",
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
+);
+
 /** Czech (česky)
  * @author Danny B.
  * @author Mormegil
