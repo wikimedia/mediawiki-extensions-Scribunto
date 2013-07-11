@@ -91,10 +91,21 @@ return testframework.getTestProvider( {
 	  args = { str1, 1, -1 },
 	  expect = { 0, 0x7f, 0x80, 0x7ff, 0x800, 0xffff, 0x10000, 0x10ffff }
 	},
-
 	{ name = 'codepoint: substring', func = mw.ustring.codepoint,
 	  args = { str1, 5, -2 },
 	  expect = { 0x800, 0xffff, 0x10000 }
+	},
+	{ name = 'codepoint: (5,4)', func = mw.ustring.codepoint,
+	  args = { str1, 5, 4 },
+	  expect = {}
+	},
+	{ name = 'codepoint: (1,0)', func = mw.ustring.codepoint,
+	  args = { str1, 1, 0 },
+	  expect = {}
+	},
+	{ name = 'codepoint: (9,9)', func = mw.ustring.codepoint,
+	  args = { str1, 9, 9 },
+	  expect = {}
 	},
 
 	{ name = 'char: basic test', func = mw.ustring.char,
@@ -151,9 +162,17 @@ return testframework.getTestProvider( {
 	  args = { str1, 4, 3 },
 	  expect = { "" }
 	},
+	{ name = 'sub: (1,0)', func = mw.ustring.sub,
+	  args = { str2, 1, 0 },
+	  expect = { "" }
+	},
 	{ name = 'sub: (5,5)', func = mw.ustring.sub,
 	  args = { str1, 5, 5 },
 	  expect = { "\224\160\128" }
+	},
+	{ name = 'sub: (9,9)', func = mw.ustring.sub,
+	  args = { str1, 9, 9 },
+	  expect = { "" }
 	},
 	{ name = 'sub: empty string', func = mw.ustring.sub,
 	  args = { '', 5 },
@@ -454,6 +473,21 @@ return testframework.getTestProvider( {
 	{ name = 'gcodepoint: (4, -2)', func = mw.ustring.gcodepoint,
 	  args = { str1, 4, -2 },
 	  expect = { { 0x7ff }, { 0x800 }, { 0xffff }, { 0x10000 } },
+	  type = 'Iterator'
+	},
+	{ name = 'gcodepoint: (4, 3)', func = mw.ustring.gcodepoint,
+	  args = { str1, 4, 3 },
+	  expect = {},
+	  type = 'Iterator'
+	},
+	{ name = 'gcodepoint: (1, 0)', func = mw.ustring.gcodepoint,
+	  args = { str1, 1, 0 },
+	  expect = {},
+	  type = 'Iterator'
+	},
+	{ name = 'gcodepoint: (9, 9)', func = mw.ustring.gcodepoint,
+	  args = { str1, 9, 9 },
+	  expect = {},
 	  type = 'Iterator'
 	},
 
