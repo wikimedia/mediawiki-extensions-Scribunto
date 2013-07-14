@@ -734,6 +734,7 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Mjbmr
+ * @author Reza1615
  * @author ZxxZxxZ
  * @author جواد
  */
@@ -749,13 +750,13 @@ $messages['fa'] = array(
 
 $1',
 	'scribunto-doc-page-name' => 'Module:$1/توضیحات',
-	'scribunto-doc-page-does-not-exist' => "''توضیحات این ماژول می‌تواند در [[$1]] قرار گیرد.''",
+	'scribunto-doc-page-does-not-exist' => "''توضیحات این پودمان می‌تواند در [[$1]] قرار گیرد.''",
 	'scribunto-doc-page-header' => "'''این صفحهٔ توضیحات [[$1]] است'''",
 	'scribunto-console-title' => 'میزفرمان اشکال‌زدایی',
-	'scribunto-console-too-large' => 'نشست میزفرمان خیلی بزرگ است. لطفاً تاریخچهٔ میزفرمان را پاک کنید یا حجم ماژول را کمتر کنید.',
+	'scribunto-console-too-large' => 'نشست میز فرمان خیلی بزرگ است. لطفاً تاریخچهٔ میز فرمان را پاک کنید یا حجم پودمان را کمتر کنید.',
 	'scribunto-console-current-src' => 'ورودی میزفرمان',
 	'scribunto-console-clear' => 'پاک‌سازی',
-	'scribunto-console-cleared' => 'وضعیت میزفرمان پاک‌سازی شد، چون ماژول تغییر کرد.',
+	'scribunto-console-cleared' => 'وضعیت میز فرمان پاک‌سازی شد، چون پودمان تغییر کرد.',
 	'scribunto-console-cleared-session-lost' => 'وضعیت میزفرمان پاک‌سازی شد، چون اطلاعات نشست از دست رفت.',
 	'scribunto-common-error-category' => 'صفحه‌های دارای خطاهای اسکریپتی',
 	'scribunto-common-nosuchmodule' => 'خطای اسکریپتی: چنین ماژولی وجود ندارد.',
@@ -767,8 +768,8 @@ $1',
 	'scribunto-lua-in-function-at' => 'در تابع در $1:$2',
 	'scribunto-lua-error-location' => 'خطای لوآ $1: $2.',
 	'scribunto-lua-error' => 'خطای لوآ: $2.',
-	'scribunto-lua-noreturn' => 'خطای اسکریپتی: ماژول مقداری را برنگرداند. (باید یک جدول برون‌ریزی برگرداند)',
-	'scribunto-lua-notarrayreturn' => 'خطای اسکریپتی: ماژول چیزی غیر از یک جدول برگرداند. (باید یک جدول برون‌ریزی برگرداند)',
+	'scribunto-lua-noreturn' => 'خطای اسکریپتی: پودمان مقداری را برنگرداند. (باید یک جدول برون‌ریزی برگرداند)',
+	'scribunto-lua-notarrayreturn' => 'خطای اسکریپتی: پودمان چیزی غیر از یک جدول برگرداند. (باید یک جدول برون‌ریزی برگرداند)',
 	'scribunto-luastandalone-proc-error' => 'خطای لوآ: نمی‌تواند فرآیند را ایجاد کند.',
 	'scribunto-luastandalone-decode-error' => 'خطای لوآ: خطای داخلی: نمی‌تواند پیغام را کدبرداری کند.',
 	'scribunto-luastandalone-write-error' => 'خطای لوآ: خطای داخلی: خطا در نوشتن لوله.',

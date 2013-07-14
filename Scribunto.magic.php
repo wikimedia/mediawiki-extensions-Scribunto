@@ -20,6 +20,16 @@ $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
 );
 
+/** Persian (فارسی) */
+$magicWords['fa'] = array(
+	'invoke' => array( 0, 'درخواست' ),
+);
+
+/** French (français) */
+$magicWords['fr'] = array(
+	'invoke' => array( 0, 'invoque' ),
+);
+
 /** Galician (galego) */
 $magicWords['gl'] = array(
 	'invoke' => array( 0, 'chamar' ),
@@ -38,6 +48,11 @@ $magicWords['mk'] = array(
 /** Dutch (Nederlands) */
 $magicWords['nl'] = array(
 	'invoke' => array( 0, 'aanroepen' ),
+);
+
+/** Norwegian Nynorsk (norsk nynorsk) */
+$magicWords['nn'] = array(
+	'invoke' => array( 0, 'køyr' ),
 );
 
 /** Brazilian Portuguese (português do Brasil) */
