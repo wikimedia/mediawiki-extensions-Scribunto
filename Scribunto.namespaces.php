@@ -53,6 +53,11 @@ $namespaceNames['ca'] = array(
 	829 => 'Mòdul_Discussió',
 );
 
+$namespaceNames['ce'] = array(
+	828 => 'Модуль',
+	829 => 'Модулин_дийцаре',
+);
+
 $namespaceNames['crh'] = array(
 	828 => 'Modul',
 	829 => 'Modul_muzakeresi',
