@@ -2060,6 +2060,7 @@ $messages['ug-arab'] = array(
  * @author Base
  * @author DixonD
  * @author Steve.rusyn
+ * @author SteveR
  */
 $messages['uk'] = array(
 	'scribunto-desc' => 'Фреймворк для включення скриптових мов на сторінки MediaWiki',
@@ -2085,6 +2086,8 @@ $1',
 	'scribunto-common-nosuchmodule' => 'Помилка скрипту: Такого модуля немає.',
 	'scribunto-common-nofunction' => 'Помилка скрипту: Ви повинні вказати функцію для виклику.',
 	'scribunto-common-nosuchfunction' => 'Помилка скрипту: Вказаної вами функції не існує.',
+	'scribunto-common-timeout' => 'Закінчився час, виділений для виконання скриптів.',
+	'scribunto-common-oom' => "Перевищено розмір пам'яті, дозволений для виконання скриптів.",
 	'scribunto-lua-in-function' => 'у функції «$1»',
 	'scribunto-lua-in-main' => 'в головній частині коду',
 	'scribunto-lua-in-function-at' => 'у функції в $1:$2',
