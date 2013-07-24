@@ -1984,7 +1984,7 @@ $messages['sl'] = array(
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
-	'scribunto-doc-page-does-not-exist' => "'' Dokumentation för denna modul kan skapas på [[ $1 ]]''", # Fuzzy
+	'scribunto-doc-page-does-not-exist' => "''Dokumentationen för denna modul kan skapas på [[$1]]''",
 	'scribunto-common-error-category' => 'Sidor med skriptfel',
 );
 
