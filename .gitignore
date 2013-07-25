@@ -2,5 +2,7 @@
 *~
 *.kate-swp
 .*.swp
+\#*#
+.#*
 
 NormalizationTest.txt
