@@ -33,10 +33,10 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 		$status = $this->interpreter->getStatus();
 		$lang = Language::factory( 'en' );
-		return 
-			'Lua time usage: ' . sprintf( "%.3f", $status['time'] / $this->getClockTick() ) . "s\n" .			
-			'Lua virtual size: ' . 
-			$lang->formatSize( $status['vsize'] ) . ' / ' . 
+		return
+			'Lua time usage: ' . sprintf( "%.3f", $status['time'] / $this->getClockTick() ) . "s\n" .
+			'Lua virtual size: ' .
+			$lang->formatSize( $status['vsize'] ) . ' / ' .
 			$lang->formatSize( $this->options['memoryLimit'] ) . "\n" .
 			'Lua estimated memory usage: ' .
 			$lang->formatSize( $status['vsize'] - $this->initialStatus['vsize'] ) . "\n";
@@ -104,11 +104,15 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				$path = 'lua5_1_5_mac_lion_fat_generic/lua';
 			}
 			if ( $path === false ) {
-				throw new Scribunto_LuaInterpreterNotFoundError( 
+				throw new Scribunto_LuaInterpreterNotFoundError(
 					'No Lua interpreter was given in the configuration, ' .
 					'and no bundled binary exists for this platform.' );
 			}
 			$options['luaPath'] = dirname( __FILE__ ) . "/binaries/$path";
+
+			if( !is_executable( $options['luaPath'] ) ) {
+				throw new MWException( sprintf( 'The lua binary (%s) is not executable.', $options['luaPath'] ) );
+			}
 		}
 
 		$this->engine = $engine;
@@ -116,14 +120,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		$pipes = null;
 		$cmd = wfEscapeShellArg(
-			$options['luaPath'], 
+			$options['luaPath'],
 			dirname( __FILE__ ) . '/mw_main.lua',
 			dirname( dirname( dirname( __FILE__ ) ) ) );
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
 				'/bin/sh',
-				dirname( __FILE__ ) . '/lua_ulimit.sh', 
+				dirname( __FILE__ ) . '/lua_ulimit.sh',
 				$options['cpuLimit'], # soft limit (SIGXCPU)
 				$options['cpuLimit'] + 1, # hard limit
 				intval( $options['memoryLimit'] / 1024 ),
@@ -138,7 +142,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			// so we use the fix similar to one in wfShellExec()
 			$cmd = '"' . $cmd . '"';
 		}
-		
+
 		wfDebug( __METHOD__.": creating interpreter: $cmd\n" );
 
 		// Check whether proc_open is available before trying to call it (e.g.
@@ -152,7 +156,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		@trigger_error( '' );
 
 		$this->proc = proc_open(
-			$cmd, 
+			$cmd,
 			array(
 				array( 'pipe', 'r' ),
 				array( 'pipe', 'w' ),
@@ -448,7 +452,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				return $var;
 			case 'string':
 				return '"' .
-					strtr( $var, array( 
+					strtr( $var, array(
 						'"' => '\\"',
 						'\\' => '\\\\',
 						"\n" => '\\n',
@@ -471,7 +475,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				if ( $var instanceof Scribunto_LuaStandaloneInterpreterFunction ) {
 					return 'chunks[' . intval( $var->id )  . ']';
 				} else {
-					throw new MWException( __METHOD__.': unable to convert object of type ' . 
+					throw new MWException( __METHOD__.': unable to convert object of type ' .
 						get_class( $var ) );
 				}
 			case 'resource':
