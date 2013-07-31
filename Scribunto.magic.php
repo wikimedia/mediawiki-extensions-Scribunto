@@ -35,9 +35,19 @@ $magicWords['gl'] = array(
 	'invoke' => array( 0, 'chamar' ),
 );
 
+/** Indonesian (Bahasa Indonesia) */
+$magicWords['id'] = array(
+	'invoke' => array( 0, 'pinta' ),
+);
+
 /** Korean (한국어) */
 $magicWords['ko'] = array(
 	'invoke' => array( 0, '호출' ),
+);
+
+/** Minangkabau (Baso Minangkabau) */
+$magicWords['min'] = array(
+	'invoke' => array( 0, 'pinta' ),
 );
 
 /** Macedonian (македонски) */
