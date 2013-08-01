@@ -81,7 +81,11 @@ class Scribunto {
 
 		// Canonicalize the input pseudo-title. The unreplaced "$1" shouldn't
 		// cause a problem.
-		$docPage = Title::newFromText( $docPage->plain() )->getPrefixedText();
+		$docTitle = Title::newFromText( $docPage->plain() );
+		if ( !$docTitle ) {
+			return false;
+		}
+		$docPage = $docTitle->getPrefixedText();
 
 		// Make it into a regex, and match it against the input title
 		$docPage = str_replace( '\\$1', '(.+)', preg_quote( $docPage, '/' ) );
