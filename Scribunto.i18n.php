@@ -1505,6 +1505,9 @@ $messages['ml'] = array(
 	'scribunto-error-long' => 'സ്ക്രിപ്റ്റ് പിഴവുകൾ:
 
 $1',
+	'scribunto-doc-page-name' => 'ഘടകം: $1/വിവരണം',
+	'scribunto-doc-page-does-not-exist' => "''ഈ ഘടകത്തിന്റെ വിവരണം [[$1]] എന്ന താളിൽ നിർമ്മിക്കാവുന്നതാണ്''",
+	'scribunto-doc-page-header' => "'''ഇത് [[$1]] എന്നതിന്റെ വിവരണതാൾ ആണ്'''",
 	'scribunto-console-clear' => 'ശൂന്യമാക്കുക',
 	'scribunto-lua-error-location' => 'ലുവ പിഴവ് $1 : $2',
 	'scribunto-lua-error' => 'ലുവ പിഴവ്: $2.',
