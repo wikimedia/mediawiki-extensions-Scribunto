@@ -1435,6 +1435,7 @@ $1',
 	'scribunto-doc-page-does-not-exist' => "''D'Dokumentatioun fir dëse Modul kann op [[$1]] ugeluecht ginn''",
 	'scribunto-doc-page-header' => "'''Dëst ass d'Dokumentationsäit fir [[$1]]'''",
 	'scribunto-console-clear' => 'Eidel maachen',
+	'scribunto-common-error-category' => 'Säite mat Scriptfeeler',
 	'scribunto-lua-error-location' => 'Lua-Feeler $1: $2.',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
 );
