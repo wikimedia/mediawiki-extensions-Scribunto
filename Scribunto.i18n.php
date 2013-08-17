@@ -2099,6 +2099,21 @@ $1',
 	'scribunto-luastandalone-exited' => 'Kamalian sa lua: panloob na kamalian: ang tagapagpaunawa ay lumabas na mayroong katayuang $2',
 );
 
+/** Turkish (Türkçe)
+ * @author Sadrettin
+ */
+$messages['tr'] = array(
+	'scribunto-parser-error' => 'Betik hatası',
+	'scribunto-parser-dialog-title' => 'Betik hatası',
+	'scribunto-error-short' => 'Betik hatası: $1',
+	'scribunto-error-long' => 'Betik hataları:
+$1',
+	'scribunto-doc-page-name' => 'Modül:$1/belge',
+	'scribunto-doc-page-does-not-exist' => 'Bu modül için bir belgeleme oluşturabilirsiniz: [[$1]]',
+	'scribunto-doc-page-header' => 'Bu belgeleme sayfası için [[$1]]',
+	'scribunto-console-clear' => 'Temizle',
+);
+
 /** Uyghur (Arabic script) (ئۇيغۇرچە)
  * @author Sahran
  */
@@ -2107,6 +2122,7 @@ $messages['ug-arab'] = array(
 );
 
 /** Ukrainian (українська)
+ * @author Andriykopanytsia
  * @author Base
  * @author DixonD
  * @author Steve.rusyn
@@ -2130,14 +2146,18 @@ $1',
 * Починайте рядок з "=", щоб обчислити його як вираз, або використовуйте print().
 * Використовуйте mw.log() у коді модуля, що відправити повідомлення в цю консоль.',
 	'scribunto-console-title' => 'Консоль налагодження',
+	'scribunto-console-too-large' => 'Цей сеанс консолі занадто великий. Очистіть історію консолі або зменшіть розмір модуля.',
 	'scribunto-console-current-src' => 'консольному вводі',
 	'scribunto-console-clear' => 'Очистити',
+	'scribunto-console-cleared' => 'Консоль очищена, тому що модуль був оновлений.',
+	'scribunto-console-cleared-session-lost' => 'Стан консолі очищено, оскільки втрачені дані сесії.',
 	'scribunto-common-error-category' => 'Сторінки з помилками скриптів',
 	'scribunto-common-nosuchmodule' => 'Помилка скрипту: Такого модуля немає.',
 	'scribunto-common-nofunction' => 'Помилка скрипту: Ви повинні вказати функцію для виклику.',
 	'scribunto-common-nosuchfunction' => 'Помилка скрипту: Вказаної вами функції не існує.',
 	'scribunto-common-timeout' => 'Закінчився час, виділений для виконання скриптів.',
 	'scribunto-common-oom' => "Перевищено розмір пам'яті, дозволений для виконання скриптів.",
+	'scribunto-common-backtrace' => 'Зворотне трасування:',
 	'scribunto-lua-in-function' => 'у функції «$1»',
 	'scribunto-lua-in-main' => 'в головній частині коду',
 	'scribunto-lua-in-function-at' => 'у функції в $1:$2',
@@ -2146,7 +2166,12 @@ $1',
 	'scribunto-lua-noreturn' => 'Помилка скрипту: Модуль не повернув значення. Він повинен повернутися таблицю експорту.',
 	'scribunto-lua-notarrayreturn' => 'Помилка скрипту: Модуль повернув значення, що не є таблицею. Він повинен повернутися таблицю експорту.',
 	'scribunto-luastandalone-proc-error' => 'Помилка Lua: Неможливо створити процес.',
+	'scribunto-luastandalone-proc-error-msg' => 'Помилка Lua: Неможливо створити процес $2.',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Помилка Lua: не вдалося створити процес - proc_open недоступна. Перевірте директиви конфігурації РНР "disable_functions".',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Lua помилка: не вдалося створити процес. Зверніть увагу, що увімкнено застарілу директиву конфігурації РНР  "safe_mode".',
 	'scribunto-luastandalone-decode-error' => 'Помилка Lua: Внутрішня помилка: Не вдається декодувати повідомлення.',
+	'scribunto-luastandalone-write-error' => 'Помилка Lua: Внутрішня помилка: Помилка запису в конвеєр.',
+	'scribunto-luastandalone-read-error' => 'Помилка Lua: Внутрішня помилка: Помилка читання з конвеєра.',
 	'scribunto-luastandalone-gone' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор вже завершив роботу.',
 	'scribunto-luastandalone-signal' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор було зупинено з сигналом «$2».',
 	'scribunto-luastandalone-exited' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор завершив роботу зі статусом $2.',
