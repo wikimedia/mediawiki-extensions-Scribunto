@@ -1,8 +1,3 @@
-/* Code is supposed to be always LTR. See bug 39364. */
-.ace_editor {
-	/* @noflip */ direction: ltr;
-}
-
 .mw-scribunto-console-fieldset {
 	background: white;
 	color: black;
