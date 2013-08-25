@@ -116,13 +116,25 @@ May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line
 	'scribunto-common-timeout' => 'Error message displayed when script execution has passed a threshold.',
 	'scribunto-common-oom' => 'Error message displayed when the script requires more memory than the threshold.',
 	'scribunto-common-backtrace' => 'A backtrace is a list of the function calls that are currently active in a thread. This message is followed by a backtrace.',
-	'scribunto-lua-in-function' => 'Reference to a function name. Parameters:
-* $1 is a function name.',
-	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.',
+	'scribunto-lua-in-function' => 'Reference to a function name.
+
+Used as <code>$2</code> in {{msg-mw|Scribunto-lua-backtrace-line}} (Optional message).
+
+Parameters:
+* $1 - a function name',
+	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.
+
+Used as <code>$2</code> in {{msg-mw|Scribunto-lua-backtrace-line}} (Optional message).',
 	'scribunto-lua-in-function-at' => 'Part of the backtrace creation routines. Parameters:
 * $1 is a function name;
 * $2 is a line number.',
-	'scribunto-lua-backtrace-line' => '{{optional}}',
+	'scribunto-lua-backtrace-line' => '{{optional}}
+Parameters:
+* $1 - src
+* $2 - any one of the following:
+** {{msg-mw|Scribunto-lua-in-function}}
+** {{msg-mw|Scribunto-lua-in-main}}
+** "?" (hard-coded)',
 	'scribunto-lua-error-location' => 'Error message when module and line are given. Parameters:
 * $1 - code line from {{msg-mw|Scribunto-line}} or {{msg-mw|Scribunto-module-line}}
 * $2 - error message, not localized. (e.g. "too many language codes requested")',
@@ -1161,6 +1173,9 @@ $1',
 	'scribunto-lua-noreturn' => 'Biddut nga eskritu: Ti modulo ket saan a nangisubli ti maysa a pateg. Daytoy ket nasken koma nga agisubli ti eksport a tabla.',
 	'scribunto-lua-notarrayreturn' => 'Biddut nga eskritu: Ti modulo ket nangisubli ti sabali a saana maysa a tabla. Daytoy ket nasken koma nga agisubli ti eksport a tabla.',
 	'scribunto-luastandalone-proc-error' => 'Biddut a Lua: Saan a mapartuat ti pamuspusan.',
+	'scribunto-luastandalone-proc-error-msg' => 'Biddut a Lua: Saan a makaaramid ti proseso: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Biddut a Lua: Saan a makaaramid ti proseso: ti proc_open ket saan a magun-od. Kitaen ti "disable_functions" ti PHP a pannakaaramid ti direktibo.',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Biddut ti Lua: Saan a makaaramid ti proseso. Laglagipen a ti naikkaten a "safe_mode" ti PHP a pannakaaramid ti direktibo ket napakabaelanen.',
 	'scribunto-luastandalone-decode-error' => 'Biddut a Lua: Akin-uneg a biddut: Saan a nakudiguan ti mensahe.',
 	'scribunto-luastandalone-write-error' => 'Biddut a Lua: Akin-uneg a biddut: Biddut ti panagsurat iti pipa.',
 	'scribunto-luastandalone-read-error' => 'Biddut a Lua: Akin-uneg a biddut: Biddut a panagbasa manipud ti pipa.',
@@ -1604,6 +1619,7 @@ $1',
 	'scribunto-lua-noreturn' => 'Skriptfeil: Modulen returnerte ingen verdi. Det forventes at den returnerer en eksporttabell.',
 	'scribunto-lua-notarrayreturn' => 'Skriptfeil: Modulen returnerte noe annet enn en tabell. Det forventes at den returnerer en eksporttabell.',
 	'scribunto-luastandalone-proc-error' => 'Lua-feil: Kan ikke opprette prosess.',
+	'scribunto-luastandalone-proc-error-msg' => 'Lua-feil: Kan ikke opprette prosess: 2', # Fuzzy
 	'scribunto-luastandalone-decode-error' => 'Lua-feil: Intern feil: Kunne ikke dekode meldingen.',
 	'scribunto-luastandalone-write-error' => 'Lua-feil: Intern feil: Feil ved skriving til rør.',
 	'scribunto-luastandalone-read-error' => 'Lua-feil: Intern feil: Feil ved lesing fra rør.',
