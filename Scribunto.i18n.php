@@ -104,7 +104,7 @@ Page name for module documentation. Parameters:
 	'scribunto-console-too-large' => 'Error message displayed when the console history contains too much data.',
 	'scribunto-console-current-src' => 'Name of the fictional Lua module created in the debugging console.
 
-May appear e.g. in Lua error messages (like $1 in {{msg-mw|Scribunto-module-line}})',
+May appear e.g. in Lua error messages (like <code>$1</code> in {{msg-mw|Scribunto-module-line}})',
 	'scribunto-console-clear' => 'Used as button text which enables to clear the console.
 {{Identical|Clear}}',
 	'scribunto-console-cleared' => 'Message displayed in the console when the module source has been changed.',
