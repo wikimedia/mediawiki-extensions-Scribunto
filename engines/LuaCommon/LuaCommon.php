@@ -722,7 +722,9 @@ class Scribunto_LuaError extends ScribuntoException {
 				in_array( 'content', $msgOptions ) ?
 					$function = $function->inContentLanguage()->text() :
 					$function = $function->text();
-			} elseif ( $info['what'] == 'C' || $info['what'] == 'tail' ) {
+			} else {
+				// C function, tail call, or a Lua function where Lua can't
+				// guess the name
 				$function = '?';
 			}
 
