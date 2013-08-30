@@ -1455,6 +1455,24 @@ $1',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
 );
 
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'scribunto-ignore-errors' => 'Atļaut saglabāt kļūdainu kodu',
+	'scribunto-parser-error' => 'Skripta kļūda',
+	'scribunto-parser-dialog-title' => 'Skripta kļūda',
+	'scribunto-error-short' => 'Skripta kļūda: $1',
+	'scribunto-error-long' => 'Skripta kļūdas:
+
+$1',
+	'scribunto-lua-in-function' => 'funkcijā "$1"',
+	'scribunto-lua-error-location' => 'Lua kļūda $1: $2.',
+	'scribunto-lua-error' => 'Lua kļūda: $2.',
+	'scribunto-luastandalone-proc-error' => 'Lua kļūda: Nevar izveidot procesu.',
+	'scribunto-luastandalone-proc-error-msg' => 'Lua kļūda: Nevar izveidot procesu: $2',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
