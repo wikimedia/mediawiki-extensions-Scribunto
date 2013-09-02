@@ -78,11 +78,15 @@ $1',
 $messages['qqq'] = array(
 	'scribunto-desc' => '{{desc|name=Scribunto|url=http://www.mediawiki.org/wiki/Extension:Scribunto}}',
 	'scribunto-ignore-errors' => 'Label for a checkbox on the edit page. When clicked, parse errors are ignored on save.',
-	'scribunto-line' => 'Reference to a code location. Parameters:
-* $1 is a line number.',
-	'scribunto-module-line' => 'Reference to a code location. Parameters:
-* $1 is a module (may also be {{msg-mw|Scribunto-console-current-src}});
-* $2 is a line number.',
+	'scribunto-line' => 'Used as reference to a code location. Parameters:
+* $1 - a line number
+See also:
+* {{msg-mw|Scribunto-module-line}}',
+	'scribunto-module-line' => 'Used as reference to a code location. Parameters:
+* $1 - a module (may also be {{msg-mw|Scribunto-console-current-src}})
+* $2 - a line number
+See also:
+* {{msg-mw|Scribunto-line}}',
 	'scribunto-parser-error' => 'Error message.',
 	'scribunto-parser-dialog-title' => 'Error message.',
 	'scribunto-error-short' => 'Error message. Parameters:
@@ -125,9 +129,13 @@ Parameters:
 	'scribunto-lua-in-main' => 'Part of the backtrace creation routines. Refers to the main part of the code.
 
 Used as <code>$2</code> in {{msg-mw|Scribunto-lua-backtrace-line}} (Optional message).',
-	'scribunto-lua-in-function-at' => 'Part of the backtrace creation routines. Parameters:
-* $1 is a function name;
-* $2 is a line number.',
+	'scribunto-lua-in-function-at' => 'Unused at this time.
+
+Part of the backtrace creation routines.
+
+Parameters:
+* $1 - a function name
+* $2 - a line number',
 	'scribunto-lua-backtrace-line' => '{{optional}}
 Parameters:
 * $1 - src
