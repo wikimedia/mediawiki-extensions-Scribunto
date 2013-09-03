@@ -101,19 +101,38 @@ local nowikiRepl1 = {
 }
 
 local nowikiRepl2 = {
-	["\n#"] = "\n&#35;",
-	["\n*"] = "\n&#42;",
-	["\n:"] = "\n&#58;",
-	["\n;"] = "\n&#59;",
+	["\n#"] = "\n&#35;", ["\r#"] = "\r&#35;",
+	["\n*"] = "\n&#42;", ["\r*"] = "\r&#42;",
+	["\n:"] = "\n&#58;", ["\r:"] = "\r&#58;",
+	["\n;"] = "\n&#59;", ["\r;"] = "\r&#59;",
+	["\n "] = "\n&#32;", ["\r "] = "\r&#32;",
 }
+
+local nowikiReplMagic = {}
+for sp, esc in pairs( {
+	[' '] = '&#32;',
+	['\t'] = '&#9;',
+	['\r'] = '&#13;',
+	['\n'] = '&#10;',
+	['\f'] = '&#12;',
+} ) do
+	nowikiReplMagic['ISBN' .. sp] = 'ISBN' .. esc
+	nowikiReplMagic['RFC' .. sp] = 'RFC' .. esc
+	nowikiReplMagic['PMID' .. sp] = 'PMID' .. esc
+end
 
 function mwtext.nowiki( s )
 	-- string.gsub is safe here, because we're only caring about ASCII chars
 	s = string.gsub( s, '["&\'<=>%[%]{|}]', nowikiRepl1 )
-	s = string.sub( string.gsub( '\n' .. s, '\n[#*:;]', nowikiRepl2 ), 2 )
+	s = string.sub( string.gsub( '\n' .. s, '[\r\n][#*:; ]', nowikiRepl2 ), 2 )
+	s = string.gsub( s, '__', '_&#95;' )
 	s = string.gsub( s, '://', '&#58;//' )
-	s = string.gsub( s, 'ISBN ', 'ISBN&#32;' )
-	s = string.gsub( s, 'RFC ', 'RFC&#32;' )
+	s = string.gsub( s, 'ISBN%s', nowikiReplMagic )
+	s = string.gsub( s, 'RFC%s', nowikiReplMagic )
+	s = string.gsub( s, 'PMID%s', nowikiReplMagic )
+	for k, v in pairs( options.nowiki_protocols ) do
+		s = string.gsub( s, k, v )
+	end
 
 	return s
 end
