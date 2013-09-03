@@ -2,16 +2,37 @@
 
 class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
+		global $wgUrlProtocols;
+
 		$lib = array(
 			'unstrip' => array( $this, 'textUnstrip' ),
 			'getEntityTable' => array( $this, 'getEntityTable' ),
 		);
-		$this->getEngine()->registerInterface( 'mw.text.lua', $lib, array(
+		$opts = array(
 			'comma' => wfMessage( 'comma-separator' )->inContentLanguage()->text(),
 			'and' => wfMessage( 'and' )->inContentLanguage()->text() .
 				wfMessage( 'word-separator' )->inContentLanguage()->text(),
 			'ellipsis' => wfMessage( 'ellipsis' )->inContentLanguage()->text(),
-		) );
+			'nowiki_protocols' => array(),
+		);
+
+		foreach ( $wgUrlProtocols as $prot ) {
+			if ( substr( $prot, -1 ) === ':' ) {
+				// To convert the protocol into a case-insensitive Lua pattern,
+				// we need to replace letters with a character class like [Xx]
+				// and insert a '%' before various punctuation.
+				$prot = preg_replace_callback( '/([a-zA-Z])|([()^$%.\[\]*+?-])/', function ( $m ) {
+					if ( $m[1] ) {
+						return '[' . strtoupper( $m[1] ) . strtolower( $m[1] ) . ']';
+					} else {
+						return '%' . $m[2];
+					}
+				}, substr( $prot, 0, -1 ) );
+				$opts['nowiki_protocols']["($prot):"] = '%1&#58;';
+			}
+		}
+
+		$this->getEngine()->registerInterface( 'mw.text.lua', $lib, $opts );
 	}
 
 	function textUnstrip( $s ) {
