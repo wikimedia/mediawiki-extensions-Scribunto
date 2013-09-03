@@ -1553,6 +1553,7 @@ $1',
 	'scribunto-console-clear' => 'ശൂന്യമാക്കുക',
 	'scribunto-lua-error-location' => 'ലുവ പിഴവ് $1 : $2',
 	'scribunto-lua-error' => 'ലുവ പിഴവ്: $2.',
+	'scribunto-luastandalone-decode-error' => 'ലുവ പിഴവ്: ആന്തരിക പിഴവ്: സന്ദേശം നിർഗൂഢീകരിക്കാൻ സാധിച്ചില്ല.',
 );
 
 /** Malay (Bahasa Melayu)
