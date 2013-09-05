@@ -1868,6 +1868,7 @@ $1',
 );
 
 /** Brazilian Portuguese (português do Brasil)
+ * @author Cainamarques
  * @author Jaideraf
  */
 $messages['pt-br'] = array(
@@ -1881,9 +1882,9 @@ $messages['pt-br'] = array(
 	'scribunto-error-long' => 'Erros de script:
 
 $1',
-	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''A documentação para este módulo pode ser criada em [[$1]]''",
-	'scribunto-doc-page-header' => "'''Esta é a subpágina de documentação para [[$1]]'''", # Fuzzy
+	'scribunto-doc-page-header' => "'''Esta é a página de documentação para [[$1]]'''",
 	'scribunto-console-intro' => '* As exportações do módulo estão disponíveis por meio da variável "p", incluindo modificações não salvas.
 * Preceda uma linha com "=" para avaliá-la como uma expressão ou utilize print().
 * Utilize mw.log() no código do módulo para enviar mensagens para este interpretador de comandos.',
@@ -1908,6 +1909,9 @@ $1',
 	'scribunto-lua-noreturn' => 'Erro de script: o módulo não retornou um valor, ele deveria retornar uma tabela de exportação.',
 	'scribunto-lua-notarrayreturn' => 'Erro de script: o módulo retornou algo diferente de uma tabela, ele deveria retornar uma tabela de exportação.',
 	'scribunto-luastandalone-proc-error' => 'Erro em Lua: impossível criar o processo',
+	'scribunto-luastandalone-proc-error-msg' => 'Erro em Lua: Não é possível criar o processo: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Erro em Lua: Não é possível criar o processo: proc_open não está disponível. Verifique a diretiva de configuração "disable_functions".',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Erro em Lua: Não é possível criar o processo: Note que a diretiva de configuração "safe_mode" do PHP, já depreciada, está ativada.',
 	'scribunto-luastandalone-decode-error' => 'Erro em Lua: erro interno: não foi possível decodificar a mensagem',
 	'scribunto-luastandalone-write-error' => 'Erro em Lua: erro interno: erro ao gravar pipe',
 	'scribunto-luastandalone-read-error' => 'Erro em Lua: erro interno: erro ao ler do pipe',
