@@ -90,9 +90,13 @@ See also:
 	'scribunto-parser-error' => 'Error message.',
 	'scribunto-parser-dialog-title' => 'Error message.',
 	'scribunto-error-short' => 'Error message. Parameters:
-* $1 are the error details.',
-	'scribunto-error-long' => 'Peyama çewtiyê. Parametre:
-* $1 hûragahiyên çewtiyê ne.',
+* $1 - the error details
+See also:
+* {{msg-mw|Scribunto-error-long}}',
+	'scribunto-error-long' => 'Error message. Parameters:
+* $1 - the error details
+See also:
+* {{msg-mw|Scribunto-error-short}}',
 	'scribunto-doc-page-name' => '{{doc-important|Do not translate the namespace "Module:"}}
 Page name for module documentation. Parameters:
 * $1 - the unprefixed name of the module',
