@@ -55,6 +55,11 @@ $magicWords['mk'] = array(
 	'invoke' => array( 0, 'повикај' ),
 );
 
+/** Malayalam (മലയാളം) */
+$magicWords['ml'] = array(
+	'invoke' => array( 0, 'ഉണർത്തുക' ),
+);
+
 /** Dutch (Nederlands) */
 $magicWords['nl'] = array(
 	'invoke' => array( 0, 'aanroepen' ),
