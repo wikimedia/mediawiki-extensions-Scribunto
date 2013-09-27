@@ -177,6 +177,11 @@ $namespaceNames['min'] = array(
 	829 => 'Rundiang_Modul',
 );
 
+$namespaceNames['mk'] = array(
+	828 => 'Модул',
+	829 => 'Разговор_за_модул',
+);
+
 $namespaceNames['ms'] = array(
 	828 => 'Modul',
 );
