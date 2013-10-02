@@ -2321,13 +2321,14 @@ $messages['yi'] = array(
 
 /** Simplified Chinese (中文（简体）‎)
  * @author Liangent
+ * @author Xiaomingyan
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
 	'scribunto-desc' => '嵌入脚本语言到MediaWiki页面中的框架',
 	'scribunto-ignore-errors' => '允许保存有错误的代码',
-	'scribunto-line' => '在第$1行',
-	'scribunto-module-line' => '在$1中的第$2行',
+	'scribunto-line' => '第$1行',
+	'scribunto-module-line' => '$1的第$2行',
 	'scribunto-parser-error' => '脚本错误',
 	'scribunto-parser-dialog-title' => '脚本错误',
 	'scribunto-error-short' => '脚本错误：$1',
@@ -2361,12 +2362,13 @@ $1',
 	'scribunto-lua-noreturn' => '脚本错误：该模块未返回一个值，它应该返回一个导出表。',
 	'scribunto-lua-notarrayreturn' => '脚本错误：该模块返回的不是一个表。它应该返回一个导出表。',
 	'scribunto-luastandalone-proc-error' => 'Lua错误：无法创建进程。',
+	'scribunto-luastandalone-proc-error-msg' => 'Lua错误：无法创建进程：$2',
 	'scribunto-luastandalone-decode-error' => 'Lua错误：内部错误：无法解码消息。',
 	'scribunto-luastandalone-write-error' => 'Lua错误：内部错误：写入管道时出错。',
 	'scribunto-luastandalone-read-error' => 'Lua错误：内部错误：从管道读取时出错。',
 	'scribunto-luastandalone-gone' => 'Lua错误：内部错误：解释器已退出。',
 	'scribunto-luastandalone-signal' => 'Lua错误：内部错误：解释器因收到信号“$2”而终止。',
-	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态为 $2。',
+	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态为$2。',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
