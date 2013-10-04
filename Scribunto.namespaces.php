@@ -182,6 +182,11 @@ $namespaceNames['mk'] = array(
 	829 => 'Разговор_за_модул',
 );
 
+$namespaceNames['ml'] = array(
+	828 => 'ഘടകം',
+	829 => 'ഘടകത്തിന്റെ_സംവാദം',
+);
+
 $namespaceNames['ms'] = array(
 	828 => 'Modul',
 );
