@@ -467,7 +467,7 @@ local function newFrame( frameId, ... )
 		end
 
 		if args == nil then
-			args = {}
+			args = { content }
 		elseif type( args ) == 'string' or type( args ) == 'number' then
 			args = { content, args }
 		elseif type( args ) == 'table' then
