@@ -1998,6 +1998,7 @@ $1",
  * @author Base
  * @author Ignatus
  * @author Kalan
+ * @author Okras
  */
 $messages['ru'] = array(
 	'scribunto-desc' => 'Средство для включения скриптовых языков на страницах MediaWiki',
@@ -2037,6 +2038,9 @@ $1',
 	'scribunto-lua-noreturn' => 'Ошибка скрипта: Модуль не вернул значение. Ожидается, что модуль вернёт таблицу экспорта.',
 	'scribunto-lua-notarrayreturn' => 'Ошибка скрипта: Модуль вернул значение, не являющееся таблицей экспорта. Ожидается, что модуль вернёт таблицу экспорта.',
 	'scribunto-luastandalone-proc-error' => 'Ошибка Lua: Не удалось создать процесс.',
+	'scribunto-luastandalone-proc-error-msg' => 'Ошибка Lua: не удаётся создать процесс:  $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Ошибка Lua: не удаётся создать процесс: proc_open не доступен. Проверьте директиву конфигурации PHP «disable_functions».',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Ошибка Lua: не удаётся создать процесс. Обратите внимание, что нерекомедуемая директива конфигурации PHP «safe_mode» включена.',
 	'scribunto-luastandalone-decode-error' => 'Ошибка Lua: Внутренняя ошибка: Не удаётся декодировать сообщение.',
 	'scribunto-luastandalone-write-error' => 'Ошибка Lua: Внутренняя ошибка: Ошибка записи в конвейер.',
 	'scribunto-luastandalone-read-error' => 'Ошибка Lua: Внутренняя ошибка: Ошибка чтения из конвейера.',
