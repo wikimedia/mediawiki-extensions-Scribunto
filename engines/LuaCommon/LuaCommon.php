@@ -462,7 +462,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			throw new Scribunto_LuaError( 'expandTemplate: template loop detected' );
 		}
 
-		$newFrame = $this->parser->getPreprocessor()->newCustomFrame( $args );
+		$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
+		$newFrame = $frame->newChild( $fargs, $finalTitle );
 		$text = $this->doCachedExpansion( $newFrame, $dom, 
 			array(
 				'template' => $finalTitle->getPrefixedDBkey(),
