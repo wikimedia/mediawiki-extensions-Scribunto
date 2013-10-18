@@ -1482,6 +1482,7 @@ $1',
  * @author Robby
  */
 $messages['lb'] = array(
+	'scribunto-ignore-errors' => 'Späichere vu Code mat Feeler erlaben',
 	'scribunto-line' => 'an der Linn $1',
 	'scribunto-parser-error' => 'Script-Feeler',
 	'scribunto-parser-dialog-title' => 'Script-Feeler',
@@ -1494,6 +1495,7 @@ $1',
 	'scribunto-doc-page-header' => "'''Dëst ass d'Dokumentationsäit fir [[$1]]'''",
 	'scribunto-console-clear' => 'Eidel maachen',
 	'scribunto-common-error-category' => 'Säite mat Scriptfeeler',
+	'scribunto-lua-in-function' => 'an der Funktioun "$1"',
 	'scribunto-lua-error-location' => 'Lua-Feeler $1: $2.',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
 );
