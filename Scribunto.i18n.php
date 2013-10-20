@@ -1086,6 +1086,7 @@ $1',
 );
 
 /** Hungarian (magyar)
+ * @author Misibacsi
  * @author TK-999
  * @author Tgr
  */
@@ -1100,7 +1101,7 @@ $messages['hu'] = array(
 	'scribunto-error-long' => 'Parancsfájl-hibák:
 
 $1',
-	'scribunto-doc-page-name' => 'doc', # Fuzzy
+	'scribunto-doc-page-name' => 'Module:$1/doc',
 	'scribunto-doc-page-does-not-exist' => "''A modult a [[$1]] lapon tudod dokumentálni''",
 	'scribunto-doc-page-header' => "'''Ez a [[$1]] dokumentációs lapja'''", # Fuzzy
 	'scribunto-console-title' => 'Hibakereső konzol',
