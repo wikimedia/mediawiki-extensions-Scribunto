@@ -469,6 +469,7 @@ $1",
  * @author Умар
  */
 $messages['ce'] = array(
+	'scribunto-console-clear' => 'ЦӀанъян',
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
 );
 
