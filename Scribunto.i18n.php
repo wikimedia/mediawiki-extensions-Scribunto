@@ -2118,12 +2118,28 @@ $messages['sl'] = array(
 /** Swedish (svenska)
  * @author GameOn
  * @author Hangsna
+ * @author Jopparn
  * @author Lokal Profil
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentationen för denna modul kan skapas på [[$1]]''",
+	'scribunto-console-clear' => 'Rensa',
+	'scribunto-console-cleared' => 'Konsol-tillståndet tömdes eftersom modulen uppdaterades.',
+	'scribunto-console-cleared-session-lost' => 'Konsol-tillståndet tömdes eftersom sessionsdata uppdaterades.',
 	'scribunto-common-error-category' => 'Sidor med skriptfel',
+	'scribunto-lua-error-location' => 'Luafel $1: $2.',
+	'scribunto-lua-error' => 'Luafel: $2.',
+	'scribunto-luastandalone-proc-error' => 'Luafel: Kan inte starta processen.',
+	'scribunto-luastandalone-proc-error-msg' => 'Luafel: Kan inte skapa processen: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Luafel: kan inte skapa processen: proc_open är inte tillgänglig. Kontrollera PHP:s "disable_functions" konfigurationsdirektiv.',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Luafel: Kan inte skapa processen. Observera att PHP:s föråldrade konfigurationsdirektiv "safe_mode" är aktiverat.',
+	'scribunto-luastandalone-decode-error' => 'Luafel: Internt fel: det gick inte att avkoda meddelandet.',
+	'scribunto-luastandalone-write-error' => 'Luafel: Internt fel: Fel vid skrivning till pipe.',
+	'scribunto-luastandalone-read-error' => 'Luafel: Internt fel: Fel vid läsning från pipe.',
+	'scribunto-luastandalone-gone' => 'Luafel: Internt fel: Tolken har redan avslutats.',
+	'scribunto-luastandalone-signal' => 'Luafel: Internt fel: Tolken har avslutats med signalen "$2".',
+	'scribunto-luastandalone-exited' => 'Luafel: Internt fel: Tolken avslutades med status $2.',
 );
 
 /** Thai (ไทย)
