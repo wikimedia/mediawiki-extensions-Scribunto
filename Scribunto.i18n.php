@@ -2120,16 +2120,29 @@ $messages['sl'] = array(
  * @author Hangsna
  * @author Jopparn
  * @author Lokal Profil
+ * @author Skalman
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentationen för denna modul kan skapas på [[$1]]''",
+	'scribunto-console-current-src' => 'konsol-indata',
 	'scribunto-console-clear' => 'Rensa',
 	'scribunto-console-cleared' => 'Konsol-tillståndet tömdes eftersom modulen uppdaterades.',
 	'scribunto-console-cleared-session-lost' => 'Konsol-tillståndet tömdes eftersom sessionsdata uppdaterades.',
 	'scribunto-common-error-category' => 'Sidor med skriptfel',
+	'scribunto-common-nosuchmodule' => 'Skriptfel: Det finns ingen sådan modul.',
+	'scribunto-common-nofunction' => 'Skriptfel: Du måste ange en funktion att kalla.',
+	'scribunto-common-nosuchfunction' => 'Skriptfel: Funktionen du angav finns inte.',
+	'scribunto-common-timeout' => 'Den tid som avsatts för att köra skript har löpt ut.',
+	'scribunto-common-oom' => 'Mängden minne som tillåts för att köra skript har överskridits.',
+	'scribunto-common-backtrace' => 'Backtrace:',
+	'scribunto-lua-in-function' => 'i funktionen "$1"',
+	'scribunto-lua-in-main' => 'i det största segmentet',
+	'scribunto-lua-in-function-at' => 'i funktionen på $1:$2',
 	'scribunto-lua-error-location' => 'Luafel $1: $2.',
 	'scribunto-lua-error' => 'Luafel: $2.',
+	'scribunto-lua-noreturn' => 'Script fel: Modulen returnerade inte något värde. Den förväntas returnera en exporttabell.',
+	'scribunto-lua-notarrayreturn' => 'Skriptfel: Modulen returnerade något annat än en tabell. Den förväntas returnera en exporttabell.',
 	'scribunto-luastandalone-proc-error' => 'Luafel: Kan inte starta processen.',
 	'scribunto-luastandalone-proc-error-msg' => 'Luafel: Kan inte skapa processen: $2',
 	'scribunto-luastandalone-proc-error-proc-open' => 'Luafel: kan inte skapa processen: proc_open är inte tillgänglig. Kontrollera PHP:s "disable_functions" konfigurationsdirektiv.',
