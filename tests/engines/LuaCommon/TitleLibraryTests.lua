@@ -1,6 +1,6 @@
 local testframework = require 'Module:TestFramework'
 
-local title, title_copy, title2, title3, title4, title5, title6, title4p
+local title, title_copy, title2, title3, title4, title5, title6u, title6s, title4p
 if mw.title.testPageId then
 	title = mw.title.getCurrentTitle()
 	title_copy = mw.title.getCurrentTitle()
@@ -11,10 +11,16 @@ if mw.title.testPageId then
 	title4.fragment = 'frag'
 
 	title4p = mw.title.new( 'Talk:Has/A' )
+
+	title6u = mw.title.new( 'Module_talk:Test_Framework' )
+	title6u.fragment = '__frag__frag__'
+
+	title6s = mw.title.new( 'Module talk:Test Framework' )
+	title6s.fragment = '  frag  frag  '
 end
 
 local function prop_foreach( prop )
-	return title[prop], title2[prop], title3[prop], title4[prop], title5[prop]
+	return title[prop], title2[prop], title3[prop], title4[prop], title5[prop], title6u[prop], title6s[prop]
 end
 
 local function func_foreach( func, ... )
@@ -22,11 +28,18 @@ local function func_foreach( func, ... )
 		title2[func]( title2, ... ),
 		title3[func]( title3, ... ),
 		title4[func]( title4, ... ),
-		title5[func]( title5, ... )
+		title5[func]( title5, ... ),
+		title6u[func]( title6u, ... ),
+		title6s[func]( title6s, ... )
 end
 
 local function identity( ... )
 	return ...
+end
+
+local function test_space_normalization( s )
+	local title = mw.title.new( s )
+	return tostring( title ), tostring( title.fragment )
 end
 
 local function test_expensive()
@@ -50,8 +63,12 @@ end
 -- Tests
 local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
-	  args = { title, title2, title3, title4, title5 },
-	  expect = { 'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework', 'Talk:Has/A/Subpage', 'Not/A/Subpage' }
+	  args = { title, title2, title3, title4, title5, title6u, title6s },
+	  expect = {
+		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Talk:Has/A/Subpage', 'Not/A/Subpage',
+		  'Module talk:Test Framework', 'Module talk:Test Framework'
+	  }
 	},
 
 	{ name = 'title.equal', func = mw.title.equals,
@@ -92,6 +109,10 @@ local tests = {
 	  args = { title2, title3 },
 	  expect = { -1 }
 	},
+	{ name = 'title.compare (6)', func = mw.title.compare,
+	  args = { title6s, title6u },
+	  expect = { 0 }
+	},
 	{ name = '<', func = function ()
 		return title < title, title < title_copy, title < title2, title2 < title
 	  end,
@@ -114,6 +135,10 @@ local tests = {
 	{ name = 'title.new with namespace (3)', func = mw.title.new, type = 'ToString',
 	  args = { 'Template:TestFramework', 'Module' },
 	  expect = { 'Template:TestFramework' }
+	},
+	{ name = 'title.new space normalization', func = test_space_normalization,
+	  args = { ' __ Template __ : __ Test _ Framework __ # _ frag _ frag _ ' },
+	  expect = { 'Template:Test Framework', ' frag frag' }
 	},
 	{ name = 'title.new with invalid title', func = mw.title.new,
 	  args = { '<bad title>' },
@@ -147,83 +172,108 @@ local tests = {
 
 	{ name = '.isLocal', func = prop_foreach,
 	  args = { 'isLocal' },
-	  expect = { true, true, false, true, true }
+	  expect = { true, true, false, true, true, true, true }
 	},
 	{ name = '.isTalkPage', func = prop_foreach,
 	  args = { 'isTalkPage' },
-	  expect = { false, false, false, true, false }
+	  expect = { false, false, false, true, false, true, true }
 	},
 	{ name = '.isSubpage', func = prop_foreach,
 	  args = { 'isSubpage' },
-	  expect = { false, false, false, true, false }
+	  expect = { false, false, false, true, false, false, false }
 	},
 	{ name = '.text', func = prop_foreach,
 	  args = { 'text' },
-	  expect = { 'Main Page', 'TestFramework', 'Module:TestFramework', 'Has/A/Subpage', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'TestFramework', 'Module:TestFramework', 'Has/A/Subpage', 'Not/A/Subpage',
+		  'Test Framework', 'Test Framework'
+	  }
 	},
 	{ name = '.prefixedText', func = prop_foreach,
 	  args = { 'prefixedText' },
-	  expect = { 'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework', 'Talk:Has/A/Subpage', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Talk:Has/A/Subpage', 'Not/A/Subpage', 'Module talk:Test Framework', 'Module talk:Test Framework',
+	  }
 	},
 	{ name = '.rootText', func = prop_foreach,
 	  args = { 'rootText' },
-	  expect = { 'Main Page', 'TestFramework', 'Module:TestFramework', 'Has', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'TestFramework', 'Module:TestFramework', 'Has', 'Not/A/Subpage',
+		  'Test Framework', 'Test Framework'
+	  }
 	},
 	{ name = '.baseText', func = prop_foreach,
 	  args = { 'baseText' },
-	  expect = { 'Main Page', 'TestFramework', 'Module:TestFramework', 'Has/A', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'TestFramework', 'Module:TestFramework', 'Has/A', 'Not/A/Subpage',
+		  'Test Framework', 'Test Framework'
+	  }
 	},
 	{ name = '.subpageText', func = prop_foreach,
 	  args = { 'subpageText' },
-	  expect = { 'Main Page', 'TestFramework', 'Module:TestFramework', 'Subpage', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'TestFramework', 'Module:TestFramework', 'Subpage', 'Not/A/Subpage',
+		  'Test Framework', 'Test Framework'
+	  }
 	},
 	{ name = '.fullText', func = prop_foreach,
 	  args = { 'fullText' },
-	  expect = { 'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework', 'Talk:Has/A/Subpage#frag', 'Not/A/Subpage' }
+	  expect = {
+		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Talk:Has/A/Subpage#frag', 'Not/A/Subpage',
+		  'Module talk:Test Framework# frag frag', 'Module talk:Test Framework# frag frag'
+	  }
 	},
 	{ name = '.subjectNsText', func = prop_foreach,
 	  args = { 'subjectNsText' },
-	  expect = { '', 'Module', '', '', '' }
+	  expect = { '', 'Module', '', '', '', 'Module', 'Module' }
 	},
 	{ name = '.fragment', func = prop_foreach,
 	  args = { 'fragment' },
-	  expect = { '', '', '', 'frag', '' }
+	  expect = { '', '', '', 'frag', '', ' frag frag', ' frag frag' }
 	},
 	{ name = '.interwiki', func = prop_foreach,
 	  args = { 'interwiki' },
-	  expect = { '', '', 'scribuntotitletest', '', '' }
+	  expect = { '', '', 'scribuntotitletest', '', '', '', '' }
 	},
 	{ name = '.namespace', func = prop_foreach,
 	  args = { 'namespace' },
-	  expect = { 0, mw.site.namespaces.Module.id, 0, 1, 0 }
+	  expect = {
+		  0, mw.site.namespaces.Module.id, 0, 1, 0,
+		  mw.site.namespaces.Module_talk.id, mw.site.namespaces.Module_talk.id
+	  }
 	},
 	{ name = '.inNamespace()', func = func_foreach,
 	  args = { 'inNamespace', 'Module' },
-	  expect = { false, true, false, false, false }
+	  expect = { false, true, false, false, false, false, false }
 	},
 	{ name = '.inNamespace() 2', func = func_foreach,
 	  args = { 'inNamespace', mw.site.namespaces.Module.id },
-	  expect = { false, true, false, false, false }
+	  expect = { false, true, false, false, false, false, false }
 	},
 	{ name = '.inNamespaces()', func = func_foreach,
 	  args = { 'inNamespaces', 0, 1 },
-	  expect = { true, false, true, true, true }
+	  expect = { true, false, true, true, true, false, false }
 	},
 	{ name = '.hasSubjectNamespace()', func = func_foreach,
 	  args = { 'hasSubjectNamespace', 0 },
-	  expect = { true, false, true, true, true }
+	  expect = { true, false, true, true, true, false, false }
 	},
 	{ name = '.isSubpageOf() 1', func = func_foreach,
 	  args = { 'isSubpageOf', title },
-	  expect = { false, false, false, false, false }
+	  expect = { false, false, false, false, false, false, false }
 	},
 	{ name = '.isSubpageOf() 2', func = func_foreach,
 	  args = { 'isSubpageOf', title4p },
-	  expect = { false, false, false, true, false }
+	  expect = { false, false, false, true, false, false, false }
 	},
 	{ name = '.partialUrl()', func = func_foreach,
 	  args = { 'partialUrl' },
-	  expect = { 'Main_Page', 'TestFramework', 'Module:TestFramework', 'Has/A/Subpage', 'Not/A/Subpage' }
+	  expect = {
+		  'Main_Page', 'TestFramework', 'Module:TestFramework', 'Has/A/Subpage', 'Not/A/Subpage',
+		  'Test_Framework', 'Test_Framework'
+	  }
 	},
 	{ name = '.fullUrl()', func = func_foreach,
 	  args = { 'fullUrl' },
@@ -232,7 +282,9 @@ local tests = {
 		  '//wiki.local/wiki/Module:TestFramework',
 		  '//test.wikipedia.org/wiki/Module:TestFramework',
 		  '//wiki.local/wiki/Talk:Has/A/Subpage#frag',
-		  '//wiki.local/wiki/Not/A/Subpage'
+		  '//wiki.local/wiki/Not/A/Subpage',
+		  '//wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
+		  '//wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
 	  }
 	},
 	{ name = '.fullUrl() 2', func = func_foreach,
@@ -242,7 +294,9 @@ local tests = {
 		  '//wiki.local/w/index.php?title=Module:TestFramework&action=test',
 		  '//test.wikipedia.org/wiki/Module:TestFramework?action=test',
 		  '//wiki.local/w/index.php?title=Talk:Has/A/Subpage&action=test#frag',
-		  '//wiki.local/w/index.php?title=Not/A/Subpage&action=test'
+		  '//wiki.local/w/index.php?title=Not/A/Subpage&action=test',
+		  '//wiki.local/w/index.php?title=Module_talk:Test_Framework&action=test#_frag_frag',
+		  '//wiki.local/w/index.php?title=Module_talk:Test_Framework&action=test#_frag_frag',
 	  }
 	},
 	{ name = '.fullUrl() 3', func = func_foreach,
@@ -252,7 +306,9 @@ local tests = {
 		  'http://wiki.local/wiki/Module:TestFramework',
 		  'http://test.wikipedia.org/wiki/Module:TestFramework',
 		  'http://wiki.local/wiki/Talk:Has/A/Subpage#frag',
-		  'http://wiki.local/wiki/Not/A/Subpage'
+		  'http://wiki.local/wiki/Not/A/Subpage',
+		  'http://wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
+		  'http://wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
 	  }
 	},
 	{ name = '.localUrl()', func = func_foreach,
@@ -262,7 +318,9 @@ local tests = {
 		  '/wiki/Module:TestFramework',
 		  '//test.wikipedia.org/wiki/Module:TestFramework',
 		  '/wiki/Talk:Has/A/Subpage',
-		  '/wiki/Not/A/Subpage'
+		  '/wiki/Not/A/Subpage',
+		  '/wiki/Module_talk:Test_Framework',
+		  '/wiki/Module_talk:Test_Framework',
 	  }
 	},
 	{ name = '.canonicalUrl()', func = func_foreach,
@@ -272,7 +330,9 @@ local tests = {
 		  'http://wiki.local/wiki/Module:TestFramework',
 		  'http://test.wikipedia.org/wiki/Module:TestFramework',
 		  'http://wiki.local/wiki/Talk:Has/A/Subpage#frag',
-		  'http://wiki.local/wiki/Not/A/Subpage'
+		  'http://wiki.local/wiki/Not/A/Subpage',
+		  'http://wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
+		  'http://wiki.local/wiki/Module_talk:Test_Framework#_frag_frag',
 	  }
 	},
 

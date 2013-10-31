@@ -65,7 +65,7 @@ local function makeTitleObject( data )
 
 	data.prefixedText = data.text
 	if data.nsText ~= '' then
-		data.prefixedText = data.nsText .. ':' .. data.prefixedText
+		data.prefixedText = string.gsub( data.nsText .. ':' .. data.prefixedText, '_', ' ' )
 	end
 	if data.interwiki ~= '' then
 		data.prefixedText = data.interwiki .. ':' .. data.prefixedText
@@ -235,6 +235,8 @@ local function makeTitleObject( data )
 		__newindex = function ( t, k, v )
 			if k == 'fragment' then
 				checkTypeForIndex( k, v, 'string' )
+				v = string.gsub( v, '[%s_]+', ' ' )
+				v = string.gsub( v, '^(.-) ?$', '%1' )
 				data[k] = v
 			elseif readOnlyFields[k] then
 				error( "index '" .. k .. "' is read only", 2 )
