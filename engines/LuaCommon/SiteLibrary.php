@@ -126,6 +126,8 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	public function getNsIndex( $name = null ) {
 		global $wgContLang;
 		$this->checkType( 'getNsIndex', 1, $name, 'string' );
+		// PHP call is case-insensitive but chokes on non-standard spaces/underscores.
+		$name = trim( preg_replace( '/[\s_]+/', '_', $name ), '_' );
 		return array( $wgContLang->getNsIndex( $name ) );
 	}
 }
