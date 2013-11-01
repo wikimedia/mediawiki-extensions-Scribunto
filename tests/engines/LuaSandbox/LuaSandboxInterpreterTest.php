@@ -3,7 +3,10 @@
 if ( PHP_SAPI !== 'cli' ) exit;
 require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaInterpreterTest.php' );
 
-
+/**
+ * @group Lua
+ * @group LuaSandbox
+ */
 class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 	var $stdOpts = array(
 		'memoryLimit' => 50000000,

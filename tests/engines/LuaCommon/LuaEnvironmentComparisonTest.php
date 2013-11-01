@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @group Lua
+ * @group LuaSandbox
+ * @group LuaStandalone
+ */
 class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 	var $sandboxOpts = array(
 		'memoryLimit' => 50000000,
