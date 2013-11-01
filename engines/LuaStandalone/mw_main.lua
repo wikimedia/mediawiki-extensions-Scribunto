@@ -3,6 +3,6 @@ package.path = arg[1] .. '/engines/LuaStandalone/?.lua;' ..
 
 require('MWServer')
 require('mw')
-server = MWServer:new()
+server = MWServer:new( arg[2] )
 server:execute()
 

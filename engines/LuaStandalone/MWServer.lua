@@ -1,8 +1,15 @@
 MWServer = {}
 
 --- Create a new MWServer object
-function MWServer:new()
+function MWServer:new( interpreterId )
+	interpreterId = tonumber( interpreterId )
+	if not interpreterId then
+		error( "bad argument #1 to 'MWServer:new' (must be a number or convertible to a number)", 2 )
+	end
+
 	obj = {
+		interpreterId = interpreterId,
+		nextChunkId = 1,
 		chunks = {},
 		xchunks = {},
 		protectedFunctions = {},
@@ -70,6 +77,13 @@ end
 -- @param message The message from PHP
 -- @return A response message to send back to PHP
 function MWServer:handleCall( message )
+	if not self.chunks[message.id] then
+		return {
+			op = 'error',
+			value = 'function id ' .. message.id .. ' does not exist'
+		}
+	end
+
 	local n, result = self:listToCountAndTable( xpcall(
 		function ()
 			return self.chunks[message.id]( unpack( message.args, 1, message.nargs ) )
@@ -151,10 +165,31 @@ end
 -- @param chunk The function value
 -- @return The chunk ID
 function MWServer:addChunk( chunk )
-	local id = #self.chunks + 1
+	local id = self.nextChunkId
+	self.nextChunkId = id + 1
 	self.chunks[id] = chunk
 	self.xchunks[chunk] = id
 	return id
+end
+
+--- Handle a "cleanupChunks" message from PHP.
+-- Remove any chunks no longer referenced by PHP code.
+--
+-- @param message The message from PHP
+-- @return A response message to send back to PHP
+function MWServer:handleCleanupChunks( message )
+	for id, chunk in pairs( self.chunks ) do
+		if not message.ids[id] then
+			self.chunks[id] = nil
+			self.xchunks[chunk] = nil
+		end
+	end
+
+	return {
+		op = 'return',
+		nvalues = 0,
+		values = {}
+	}
 end
 
 --- Handle a "registerLibrary" message from PHP.
@@ -273,6 +308,9 @@ function MWServer:dispatch( msgToPhp )
 			self:sendMessage( msgToPhp )
 		elseif op == 'wrapPhpFunction' then
 			msgToPhp = self:handleWrapPhpFunction( msgFromPhp )
+			self:sendMessage( msgToPhp )
+		elseif op == 'cleanupChunks' then
+			msgToPhp = self:handleCleanupChunks( msgFromPhp )
 			self:sendMessage( msgToPhp )
 		elseif op == 'getStatus' then
 			msgToPhp = self:handleGetStatus( msgFromPhp )
@@ -464,7 +502,8 @@ function MWServer:serialize( var )
 			else
 				id = self:addChunk(var)
 			end
-			return 'O:42:"Scribunto_LuaStandaloneInterpreterFunction":1:{s:2:"id";i:' .. id .. ';}'
+			return 'O:42:"Scribunto_LuaStandaloneInterpreterFunction":2:{s:13:"interpreterId";i:' ..
+				self.interpreterId .. ';s:2:"id";i:' .. id .. ';}'
 		elseif t == 'thread' then
 			error("Cannot pass thread to PHP")
 		elseif t == 'userdata' then

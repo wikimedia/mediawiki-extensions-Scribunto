@@ -119,6 +119,20 @@ On failure, the response message is:
 * nvalues: 0
 * values: An empty array
 
+=== cleanupChunks ===
+
+Tell Lua to release any chunks no longer referenced by PHP.
+
+Message parameters:
+* op: "cleanupChunks"
+* ids: Table with keys being the chunk IDs still referenced by PHP, and non-falsey values
+
+The response message is:
+
+* op: "return"
+* nvalues: 0
+* values: An empty array
+
 === quit ===
 
 Request graceful shutdown.

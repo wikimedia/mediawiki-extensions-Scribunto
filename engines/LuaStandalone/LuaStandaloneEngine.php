@@ -118,9 +118,12 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 }
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
-	var $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError;
+	static $nextInterpreterId = 0;
+	var $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError, $id;
 
 	function __construct( $engine, $options ) {
+		$this->id = self::$nextInterpreterId++;
+
 		if ( $options['errorFile'] === null ) {
 			$options['errorFile'] = wfGetNull();
 		}
@@ -163,7 +166,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$cmd = wfEscapeShellArg(
 			$options['luaPath'],
 			dirname( __FILE__ ) . '/mw_main.lua',
-			dirname( dirname( dirname( __FILE__ ) ) ) );
+			dirname( dirname( dirname( __FILE__ ) ) ),
+			$this->id
+		);
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
@@ -272,21 +277,28 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function loadString( $text, $chunkName ) {
+		$this->cleanupLuaChunks();
+
 		$result = $this->dispatch( array(
 			'op' => 'loadString',
 			'text' => $text,
 			'chunkName' => $chunkName
 		) );
-		return new Scribunto_LuaStandaloneInterpreterFunction( $result[1] );
+		return new Scribunto_LuaStandaloneInterpreterFunction( $this->id, $result[1] );
 	}
 
 	public function callFunction( $func /* ... */ ) {
 		if ( !($func instanceof Scribunto_LuaStandaloneInterpreterFunction) ) {
 			throw new MWException( __METHOD__.': invalid function type' );
 		}
+		if ( $func->interpreterId !== $this->id ) {
+			throw new MWException( __METHOD__.': function belongs to a different interpreter' );
+		}
 		$args = func_get_args();
 		unset( $args[0] );
 		// $args is now conveniently a 1-based array, as required by the Lua server
+
+		$this->cleanupLuaChunks();
 
 		$result = $this->dispatch( array(
 			'op' => 'call',
@@ -305,6 +317,16 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			'op' => 'wrapPhpFunction',
 			'id' => $id ) );
 		return $ret[1];
+	}
+
+	public function cleanupLuaChunks() {
+		if ( isset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] ) ) {
+			unset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] );
+			$this->dispatch( array(
+				'op' => 'cleanupChunks',
+				'ids' => Scribunto_LuaStandaloneInterpreterFunction::$activeChunkIds[$this->id]
+			) );
+		}
 	}
 
 	public function isLuaFunction( $object ) {
@@ -513,11 +535,13 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				$s .= '}';
 				return $s;
 			case 'object':
-				if ( $var instanceof Scribunto_LuaStandaloneInterpreterFunction ) {
-					return 'chunks[' . intval( $var->id )  . ']';
-				} else {
+				if ( !( $var instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
 					throw new MWException( __METHOD__.': unable to convert object of type ' .
 						get_class( $var ) );
+				} elseif ( $var->interpreterId !== $this->id ) {
+					throw new MWException( __METHOD__.': unable to convert function belonging to a different interpreter' );
+				} else {
+					return 'chunks[' . intval( $var->id )  . ']';
 				}
 			case 'resource':
 				throw new MWException( __METHOD__.': unable to convert resource' );
@@ -581,9 +605,47 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 }
 
 class Scribunto_LuaStandaloneInterpreterFunction {
-	public $id;
+	public static $anyChunksDestroyed = array();
+	public static $activeChunkIds = array();
 
-	function __construct( $id ) {
+	public $interpreterId, $id;
+
+	function __construct( $interpreterId, $id ) {
+		$this->interpreterId = $interpreterId;
 		$this->id = $id;
+		$this->incrementRefCount();
+	}
+
+	function __clone() {
+		$this->incrementRefCount();
+	}
+
+	function __wakeup() {
+		$this->incrementRefCount();
+	}
+
+	function __destruct() {
+		$this->decrementRefCount();
+	}
+
+	private function incrementRefCount() {
+		if ( !isset( self::$activeChunkIds[$this->interpreterId] ) ) {
+			self::$activeChunkIds[$this->interpreterId] = array( $this->id => 1 );
+		} elseif ( !isset( self::$activeChunkIds[$this->interpreterId][$this->id] ) ) {
+			self::$activeChunkIds[$this->interpreterId][$this->id] = 1;
+		} else {
+			self::$activeChunkIds[$this->interpreterId][$this->id]++;
+		}
+	}
+
+	private function decrementRefCount() {
+		if ( isset( self::$activeChunkIds[$this->interpreterId][$this->id] ) ) {
+			if ( --self::$activeChunkIds[$this->interpreterId][$this->id] <= 0 ) {
+				unset( self::$activeChunkIds[$this->interpreterId][$this->id] );
+				self::$anyChunksDestroyed[$this->interpreterId] = true;
+			}
+		} else {
+			self::$anyChunksDestroyed[$this->interpreterId] = true;
+		}
 	}
 }
