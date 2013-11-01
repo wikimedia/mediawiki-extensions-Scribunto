@@ -675,6 +675,10 @@ function mw.getCurrentFrame()
 	return currentFrame
 end
 
+function mw.isSubsting()
+	return php.isSubsting()
+end
+
 function mw.incrementExpensiveFunctionCount()
 	php.incrementExpensiveFunctionCount()
 end
