@@ -80,6 +80,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'callParserFunction',
 				'preprocess',
 				'incrementExpensiveFunctionCount',
+				'isSubsting',
 			);
 
 			$lib = array();
@@ -568,6 +569,16 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			throw new Scribunto_LuaError( "too many expensive function calls" );
 		}
 		return null;
+	}
+
+	/**
+	 * Return whether the parser is currently substing
+	 *
+	 * @return array
+	 */
+	public function isSubsting() {
+		// See Parser::braceSubstitution, OT_WIKI is the switch
+		return array( $this->getParser()->OutputType() === Parser::OT_WIKI );
 	}
 
 	function doCachedExpansion( $frame, $input, $cacheKey ) {
