@@ -63,6 +63,11 @@ $namespaceNames['ce'] = array(
 	829 => 'Модулин_дийцаре',
 );
 
+$namespaceNames['ckb'] = array(
+	828 => 'مۆدیوول',
+	829 => 'لێدوانی_مۆدیوول',
+);
+
 $namespaceNames['crh'] = array(
 	828 => 'Modul',
 	829 => 'Modul_muzakeresi',
