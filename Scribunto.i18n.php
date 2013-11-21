@@ -102,7 +102,8 @@ Page name for module documentation. Parameters:
 * $1 - the unprefixed name of the module',
 	'scribunto-doc-page-does-not-exist' => 'Message displayed if the documentation page does not exist. Parameters:
 * $1 - the prefixed title of the doc page',
-	'scribunto-doc-page-show' => 'Message displayed if the documentation page does exist. $1 is the prefixed title of the doc page. Should probably transclude that page.',
+	'scribunto-doc-page-show' => 'Message displayed if the documentation page does exist. Parameters:
+* $1 - the prefixed title of the doc page. Should probably transclude that page',
 	'scribunto-doc-page-header' => 'Message displayed at the top of the documentation page. Parameters:
 * $1 - the prefixed title of the module',
 	'scribunto-console-intro' => 'An explanatory message shown to module programmers in the debug console, where they can run Lua commands and see how they work.
