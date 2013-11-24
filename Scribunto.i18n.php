@@ -1686,7 +1686,7 @@ $1',
 	'scribunto-lua-noreturn' => 'Skriptfeil: Modulen returnerte ingen verdi. Det forventes at den returnerer en eksporttabell.',
 	'scribunto-lua-notarrayreturn' => 'Skriptfeil: Modulen returnerte noe annet enn en tabell. Det forventes at den returnerer en eksporttabell.',
 	'scribunto-luastandalone-proc-error' => 'Lua-feil: Kan ikke opprette prosess.',
-	'scribunto-luastandalone-proc-error-msg' => 'Lua-feil: Kan ikke opprette prosess: 2', # Fuzzy
+	'scribunto-luastandalone-proc-error-msg' => 'Lua-feil: Kan ikke opprette prosess: $2',
 	'scribunto-luastandalone-decode-error' => 'Lua-feil: Intern feil: Kunne ikke dekode meldingen.',
 	'scribunto-luastandalone-write-error' => 'Lua-feil: Intern feil: Feil ved skriving til rør.',
 	'scribunto-luastandalone-read-error' => 'Lua-feil: Intern feil: Feil ved lesing fra rør.',
