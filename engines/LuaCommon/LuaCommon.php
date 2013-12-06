@@ -662,21 +662,26 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	function doCachedExpansion( $frame, $input, $cacheKey ) {
 		$hash = md5( serialize( $cacheKey ) );
-		if ( !isset( $this->expandCache[$hash] ) ) {
-			if ( is_scalar( $input ) ) {
-				$dom = $this->parser->getPreprocessor()->preprocessToObj( 
-					$input, Parser::PTD_FOR_INCLUSION );
-			} else {
-				$dom = $input;
-			}
+		if ( isset( $this->expandCache[$hash] ) ) {
+			return $this->expandCache[$hash];
+		}
+
+		if ( is_scalar( $input ) ) {
+			$dom = $this->parser->getPreprocessor()->preprocessToObj(
+				$input, Parser::PTD_FOR_INCLUSION );
+		} else {
+			$dom = $input;
+		}
+		$ret = $frame->expand( $dom );
+		if ( !is_callable( array( $frame, 'isVolatile' ) ) || !$frame->isVolatile() ) {
 			if ( count( $this->expandCache ) > self::MAX_EXPAND_CACHE_SIZE ) {
 				reset( $this->expandCache );
 				$oldHash = key( $this->expandCache );
 				unset( $this->expandCache[$oldHash] );
 			}
-			$this->expandCache[$hash] = $frame->expand( $dom );
+			$this->expandCache[$hash] = $ret;
 		}
-		return $this->expandCache[$hash];
+		return $ret;
 	}
 }
 

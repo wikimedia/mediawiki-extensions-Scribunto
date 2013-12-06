@@ -473,4 +473,54 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module->invoke( 'specificDateAndTime', $frame );
 		$this->assertNull( $frame->getTTL(), 'TTL must not be set when os.date() or os.time() are called with a specific time' );
 	}
+
+	/**
+	 * @dataProvider provideVolatileCaching
+	 */
+	function testVolatileCaching( $func ) {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		if ( !is_callable( array( $pp->newFrame(), 'isVolatile' ) ) ) {
+			$this->markTestSkipped( "PPFrame::isVolatile is not available" );
+		}
+
+		$count = 0;
+		$parser->setHook( 'scribuntocount', function ( $str, $argv, $parser, $frame ) use ( &$count ) {
+			$frame->setVolatile();
+			return ++$count;
+		} );
+
+		$this->extraModules['Template:ScribuntoTestVolatileCaching'] = '<scribuntocount/>';
+		$this->extraModules['Module:TestVolatileCaching'] = '
+			return {
+				preprocess = function ( frame )
+					return frame:preprocess( "<scribuntocount/>" )
+				end,
+				extensionTag = function ( frame )
+					return frame:extensionTag( "scribuntocount" )
+				end,
+				expandTemplate = function ( frame )
+					return frame:expandTemplate{ title = "ScribuntoTestVolatileCaching" }
+				end,
+			}
+		';
+
+		$frame = $pp->newFrame();
+		$count = 0;
+		$wikitext = "{{#invoke:TestVolatileCaching|$func}}";
+		$text = $frame->expand( $pp->preprocessToObj( "$wikitext $wikitext" ) );
+		$text = $parser->mStripState->unstripBoth( $text );
+		$this->assertTrue( $frame->isVolatile(), "Frame is marked volatile" );
+		$this->assertEquals( '1 2', $text, "Volatile wikitext was not cached" );
+	}
+
+	function provideVolatileCaching() {
+		return array(
+			array( 'preprocess' ),
+			array( 'extensionTag' ),
+			array( 'expandTemplate' ),
+		);
+	}
 }
