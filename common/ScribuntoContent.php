@@ -64,6 +64,32 @@ class ScribuntoContent extends TextContent {
 			$output->addTemplate( $doc, $doc->getArticleID(), $doc->getLatestRevID() );
 		}
 
+		// Validate the script, and include an error message and tracking
+		// category if it's invalid
+		$engine = Scribunto::newDefaultEngine();
+		$engine->setTitle( $title );
+		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
+		if( !$status->isOK() ) {
+			$output->setText( $output->getText() .
+				Html::rawElement( 'div', array( 'class' => 'errorbox' ),
+					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
+				)
+			);
+			$catmsg = wfMessage( 'scribunto-module-with-errors-category' )
+				->title( $title )->inContentLanguage();
+			if ( !$catmsg->isDisabled() ) {
+				$cat = Title::makeTitleSafe( NS_CATEGORY, $catmsg->text() );
+				if ( $cat ) {
+					$sort = (string)$output->getProperty( 'defaultsort' );
+					$output->addCategory( $cat->getDBkey(), $sort );
+				} else {
+					wfDebug( __METHOD__ . ": [[MediaWiki:scribunto-module-with-errors-category]] " .
+						"is not a valid title!\n"
+					);
+				}
+			}
+		}
+
 		if ( !$generateHtml ) {
 			// We don't need the actual HTML
 			$output->setText( '' );
@@ -71,7 +97,6 @@ class ScribuntoContent extends TextContent {
 		}
 
 		// Add HTML for the actual script
-		$engine = Scribunto::newDefaultEngine();
 		$language = $engine->getGeSHiLanguage();
 		if( $wgScribuntoUseGeSHi && $language ) {
 			$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );

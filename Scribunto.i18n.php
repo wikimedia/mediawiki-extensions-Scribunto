@@ -64,6 +64,8 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua error: Internal error: The interpreter has already exited.',
 	'scribunto-luastandalone-signal' => 'Lua error: Internal error: The interpreter has terminated with signal "$2".',
 	'scribunto-luastandalone-exited' => 'Lua error: Internal error: The interpreter exited with status $2.',
+
+	'scribunto-module-with-errors-category' => 'Scribunto modules with errors',
 );
 
 /** Message documentation (Message documentation)
@@ -172,6 +174,11 @@ Parameters:
 	'scribunto-luastandalone-exited' => 'Exception message. Parameters:
 * $1 - (Unused)
 * $2 - an exit status',
+
+	'scribunto-module-with-errors-category' => 'Name of [[mw:Help:Tracking categories|tracking category]] where modules saved with errors are listed.
+
+See also:
+* {{msg-mw|scribunto-ignore-errors}}',
 );
 
 /** Afrikaans (Afrikaans)
