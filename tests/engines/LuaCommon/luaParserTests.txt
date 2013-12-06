@@ -137,6 +137,10 @@ function p.isSubsting( frame )
 	return tostring( mw.isSubsting() )
 end
 
+function p.getFrameTitle( frame )
+	return frame:getTitle()
+end
+
 return p
 !! endarticle
 
@@ -383,5 +387,14 @@ Scribunto: isSubsting during normal parse
 {{safesubst:#invoke:test|isSubsting}}
 !! result
 <p>false
+</p>
+!! end
+
+!! test
+Scribunto: frame:getTitle
+!! input
+{{#invoke:test|getFrameTitle}}
+!! result
+<p>Module:Test
 </p>
 !! end

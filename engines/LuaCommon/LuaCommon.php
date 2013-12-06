@@ -81,6 +81,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'preprocess',
 				'incrementExpensiveFunctionCount',
 				'isSubsting',
+				'getFrameTitle',
 			);
 
 			$lib = array();
@@ -399,6 +400,14 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$newFrameId = 'frame' . count( $this->currentFrames );
 		$this->currentFrames[$newFrameId] = $newFrame;
 		return array( $newFrameId );
+	}
+
+	/**
+	 * Handler for getTitle()
+	 */
+	function getFrameTitle( $frameId ) {
+		$frame = $this->getFrameById( $frameId );
+		return array( $frame->getTitle()->getPrefixedText() );
 	}
 
 	/**
