@@ -474,7 +474,7 @@ $messages['ce'] = array(
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Danny B.
  * @author Mormegil
  */
@@ -1739,6 +1739,9 @@ $1',
 	'scribunto-lua-noreturn' => 'Scriptfout: de module heeft geen waarde teruggegeven. Deze hoort een exporttabel terug te geven.',
 	'scribunto-lua-notarrayreturn' => 'Scriptfout: de module heeft iets anders dan een tabel teruggegeven. Deze hoort een exporttabel terug te geven.',
 	'scribunto-luastandalone-proc-error' => 'Luafout: het was niet mogelijk een proces te creëren.',
+	'scribunto-luastandalone-proc-error-msg' => 'Luafout: kan proces niet aanmaken: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Luafout: kan proces niet maken: proc_open is niet beschikbaar. Controleer de PHP-instelling "disable_functions".',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Luafout: kan proces niet maken. Het lijkt er op dat de verouderde PHP-instelling "safe_mode" is ingeschakeld.',
 	'scribunto-luastandalone-decode-error' => 'Luafout: interne fout: het was niet mogelijk het bericht te decoderen.',
 	'scribunto-luastandalone-write-error' => 'Luafout: interne fout: fout tijdens het schrijven naar de pipe.',
 	'scribunto-luastandalone-read-error' => 'Luafout: interne fout: fout tijdens het lezen van de pipe.',
