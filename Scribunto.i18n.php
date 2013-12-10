@@ -174,7 +174,6 @@ Parameters:
 	'scribunto-luastandalone-exited' => 'Exception message. Parameters:
 * $1 - (Unused)
 * $2 - an exit status',
-
 	'scribunto-module-with-errors-category' => 'Name of [[mw:Help:Tracking categories|tracking category]] where modules saved with errors are listed.
 
 See also:
@@ -618,6 +617,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Interner Lua-Fehler: Der Interpreter wurde bereits beendet.',
 	'scribunto-luastandalone-signal' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Signal „$2“.',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
+	'scribunto-module-with-errors-category' => 'Scribunto-Module mit Fehlern',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -937,6 +937,7 @@ $1',
 	'scribunto-luastandalone-gone' => "Erreur LUA: Erreur interne: L'interpréteur est déjà terminé.",
 	'scribunto-luastandalone-signal' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le signal "$2".',
 	'scribunto-luastandalone-exited' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le statut "$2".',
+	'scribunto-module-with-errors-category' => 'Modules Scribunto avec des erreurs',
 );
 
 /** Galician (galego)
@@ -1042,6 +1043,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'שגיאת לואה: שגיאה פנימית: המפענח כבר יצא.',
 	'scribunto-luastandalone-signal' => 'שגיאת לואה: שגיאה פנימית: המפענח גמר עם הסיגנל "$2".',
 	'scribunto-luastandalone-exited' => 'שגיאת לואה: שגיאה פנימית: המפענח יצא עם המצב $2.',
+	'scribunto-module-with-errors-category' => 'יחידות סקריבונטו עם שגיאות',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -1328,6 +1330,7 @@ $1',
 	'scribunto-luastandalone-gone' => "Errore Lua: errore interno - l'interprete è già stato terminato.",
 	'scribunto-luastandalone-signal' => 'Errore Lua: errore interno - l\'interprete è terminato con il segnale "$2".',
 	'scribunto-luastandalone-exited' => "Errore Lua: errore interno - l'interprete è uscito con stato $2.",
+	'scribunto-module-with-errors-category' => 'Moduli Scribunto con errori',
 );
 
 /** Japanese (日本語)
@@ -1381,6 +1384,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua エラー: 内部エラー: インタープリターは既に終了しています。',
 	'scribunto-luastandalone-signal' => 'Lua エラー: 内部エラー: インタープリターはシグナル「$2」により終了しました。',
 	'scribunto-luastandalone-exited' => 'Lua エラー: 内部エラー: インタープリターは終了コード $2 で終了しました。',
+	'scribunto-module-with-errors-category' => 'エラーがあるScribuntoモジュール',
 );
 
 /** Javanese (Basa Jawa)
@@ -1700,6 +1704,13 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua-feil: Intern feil: Fortolkeren har allerede avsluttet.',
 	'scribunto-luastandalone-signal' => 'Lua-feil: Intern feil: Fortolkeren har avsluttet med signal «$2».',
 	'scribunto-luastandalone-exited' => 'Lua-feil: Intern feil: Fortolkeren har avsluttet med status $2.',
+);
+
+/** Nepali (नेपाली)
+ * @author सरोज कुमार ढकाल
+ */
+$messages['ne'] = array(
+	'scribunto-module-with-errors-category' => 'स्क्रिबुन्टो मोड्युल त्रुटि सहित',
 );
 
 /** Dutch (Nederlands)
@@ -2065,6 +2076,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор уже завершил работу.',
 	'scribunto-luastandalone-signal' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор был остановлен сигналом «$2».',
 	'scribunto-luastandalone-exited' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор завершил работу со статусом $2.',
+	'scribunto-module-with-errors-category' => 'Модули Scribunto с ошибками',
 );
 
 /** Sinhala (සිංහල)
@@ -2308,6 +2320,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор вже завершив роботу.',
 	'scribunto-luastandalone-signal' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор було зупинено з сигналом «$2».',
 	'scribunto-luastandalone-exited' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор завершив роботу зі статусом $2.',
+	'scribunto-module-with-errors-category' => 'Модулі Scribunto з помилками',
 );
 
 /** Vietnamese (Tiếng Việt)
