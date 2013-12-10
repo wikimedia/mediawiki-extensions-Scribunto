@@ -17,6 +17,7 @@
 		question,
 		_in,
 		_out,
+		_$spinner,
 		lastError = null,
 		sessionContent = null,
 		sessionKey = null,
@@ -31,6 +32,7 @@
 	function initConsole() {
 		_in = document.getElementById( "mw-scribunto-input" );
 		_out = document.getElementById( "mw-scribunto-output" );
+		_$spinner = $.createSpinner( { size: 'small', type: 'block' } );
 
 		recalculateInputHeight();
 		println( mw.msg( 'scribunto-console-intro' ), 'mw-scribunto-message' );
@@ -208,9 +210,11 @@
 	function setPending() {
 		pending = true;
 		_in.readOnly = true;
+		_$spinner.insertBefore( _in );
 	}
 
 	function clearPending() {
+		_$spinner.remove();
 		pending = false;
 		_in.readOnly = false;
 	}

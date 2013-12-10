@@ -82,7 +82,7 @@ $wgResourceModules['ext.scribunto'] = $sbtpl + array(
 $wgResourceModules['ext.scribunto.edit'] = $sbtpl + array(
 	'scripts' => 'ext.scribunto.edit.js',
 	'styles' => 'ext.scribunto.edit.css',
-	'dependencies' => array( 'ext.scribunto', 'mediawiki.api' ),
+	'dependencies' => array( 'ext.scribunto', 'mediawiki.api', 'jquery.spinner' ),
 	'messages' => array(
 		'scribunto-console-title',
 		'scribunto-console-intro',
