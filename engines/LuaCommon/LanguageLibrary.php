@@ -20,6 +20,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			'isValidCode',
 			'isValidBuiltInCode',
 			'fetchLanguageName',
+			'fetchLanguageNames',
 		);
 		$methods = array(
 			'lcfirst',
@@ -80,6 +81,12 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkType( 'fetchLanguageName', 1, $code, 'string' );
 		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', null );
 		return array( Language::fetchLanguageName( $code, $inLanguage ) );
+	}
+
+	function fetchLanguageNames( $inLanguage, $include ) {
+		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', null );
+		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', 'mw' );
+		return array( Language::fetchLanguageNames( $inLanguage, $include ) );
 	}
 
 	/**

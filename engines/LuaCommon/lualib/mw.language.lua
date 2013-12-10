@@ -51,6 +51,10 @@ function language.fetchLanguageName( code, inLanguage )
 	return php.fetchLanguageName( code, inLanguage )
 end
 
+function language.fetchLanguageNames( inLanguage, include )
+	return php.fetchLanguageNames( inLanguage, include )
+end
+
 function language.new( code )
 	if code == nil then
 		error( "too few arguments to mw.language.new()", 2 )
