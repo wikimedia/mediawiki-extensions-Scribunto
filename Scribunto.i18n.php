@@ -1254,8 +1254,12 @@ $messages['is'] = array(
 $1',
 	'scribunto-doc-page-does-not-exist' => "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
 	'scribunto-doc-page-header' => "'''Þetta er leiðbeiningar síða fyrir [[$1]]'''",
+	'scribunto-console-intro' => '* Útkomur skriftunar eru aðgengilegar sem gildið „p”, þar á meðal óvistaðar breytingar.
+* Byrjaðu línu með „=” til að ákvarða gildi sem segð, eða notaðu "print()".
+* Notaðu "mw.log()" í kóða skriftunnar til að senda skilaboð til stjórnborðsins hér.',
 	'scribunto-console-title' => 'Aflúsunar stjórnborð',
 	'scribunto-console-too-large' => 'Þessi seta stjórnborðsins er of stór. Vinsamlegast hreinsaðu setu stjórnborðsins eða minnkaðu stærð skriftunnar.',
+	'scribunto-console-current-src' => 'Inntak stjórnborðs',
 	'scribunto-console-clear' => 'Hreinsa',
 	'scribunto-console-cleared' => 'Staða stjórnborðsins var hreinsuð því skriftan var uppfærð.',
 	'scribunto-console-cleared-session-lost' => 'Staða stjórnborðsins var hreinsuð því setu gögn töpuðust.',
@@ -1274,7 +1278,11 @@ $1',
 	'scribunto-lua-noreturn' => 'Villa í skriftu: Skriftan skilaði ekki gildi. Hún á að skila útflutnings töflu.',
 	'scribunto-lua-notarrayreturn' => 'Villa í skriftu: Skriftan skilaði einhverju öðru en töflu. Hún á að skila útflutnings töflu.',
 	'scribunto-luastandalone-proc-error' => 'Lua villa: Mistókst að búa til ferli.',
+	'scribunto-luastandalone-proc-error-msg' => 'Lua villa: Get ekki búið til ferli: $2',
 	'scribunto-luastandalone-decode-error' => 'Lua villa: Innri villa: Ófær um að afkóta skilaboð.',
+	'scribunto-luastandalone-write-error' => 'Lua villa: Innri villa: Mistókst að skrifa til pípu (biðminnis).',
+	'scribunto-luastandalone-read-error' => 'Lua villa: Innri villa: Villa við að lesa frá pípu (biðminni).',
+	'scribunto-module-with-errors-category' => 'Scribunto skriftur með villum',
 );
 
 /** Italian (italiano)
@@ -2374,6 +2382,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã thoát.',
 	'scribunto-luastandalone-signal' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã kết thúc với tín hiệu “$2”.',
 	'scribunto-luastandalone-exited' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã thoát với trạng thái $2.',
+	'scribunto-module-with-errors-category' => 'Mô đun Scribunto có lỗi',
 );
 
 /** Yiddish (ייִדיש)
