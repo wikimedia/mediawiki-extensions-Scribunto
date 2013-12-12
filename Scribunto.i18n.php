@@ -1590,6 +1590,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Грешка во Lua: внатрешна грешка: толкувачот веќе напушти',
 	'scribunto-luastandalone-signal' => 'Грешка во Lua: внатрешна грешка: толкувачот прекина да работи со сигналот „$2“',
 	'scribunto-luastandalone-exited' => 'Грешка во Lua: внатрешна грешка: толкувачот напушти со статусот $2',
+	'scribunto-module-with-errors-category' => 'Модули на Scribunto со грешки',
 );
 
 /** Malayalam (മലയാളം)
