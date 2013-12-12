@@ -280,11 +280,3 @@ $namespaceNames['zh-hant'] = array(
 	828 => '模組',
 	829 => '模組討論',
 );
-
-# Namespace aliases
-$namespaceAliases = array();
-
-$namespaceAliases['ml'] = array(
-	'ഘ' => 828,
-	'ഘസം' => 829,
-);
