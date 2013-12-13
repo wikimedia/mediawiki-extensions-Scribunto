@@ -253,6 +253,7 @@ $1',
 	'scribunto-luastandalone-gone' => "Error de Lua: Error internu: L'intérprete yá acabó.",
 	'scribunto-luastandalone-signal' => 'Error de Lua: Error internu: L\'intérprete acabó cola señal "$2".',
 	'scribunto-luastandalone-exited' => "Error de Lua: Error internu: L'intérprete acabó col estáu $2.",
+	'scribunto-module-with-errors-category' => 'Módulos de Scribunto con errores',
 );
 
 /** Belarusian (беларуская)
@@ -1237,6 +1238,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket nakaruaren.',
 	'scribunto-luastandalone-signal' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket pinasardengna ti senial ti "$2".',
 	'scribunto-luastandalone-exited' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket rimmuar nga adda ti kasasaad iti $2.',
+	'scribunto-module-with-errors-category' => 'Dagiti modulo ti Scribunto nga addaan kadagiti biddut',
 );
 
 /** Icelandic (íslenska)
