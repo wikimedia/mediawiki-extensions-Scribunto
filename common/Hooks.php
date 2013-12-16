@@ -316,9 +316,10 @@ WIKI;
 			'engines/LuaCommon/MessageLibraryTest.php',
 			'engines/LuaCommon/TitleLibraryTest.php',
 			'engines/LuaCommon/TextLibraryTest.php',
+			'engines/LuaCommon/HtmlLibraryTest.php',
 		);
 		foreach ( $tests as $test ) {
-			$files[] = dirname( __FILE__ ) .'/../tests/' . $test;
+			$files[] = __DIR__ . '/../tests/' . $test;
 		}
 		return true;
 	}

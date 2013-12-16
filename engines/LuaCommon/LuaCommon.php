@@ -13,6 +13,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		'mw.message' => 'Scribunto_LuaMessageLibrary',
 		'mw.title' => 'Scribunto_LuaTitleLibrary',
 		'mw.text' => 'Scribunto_LuaTextLibrary',
+		'mw.html' => 'Scribunto_LuaHtmlLibrary',
 	);
 
 	/**
@@ -134,7 +135,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @return string
 	 */
 	public function getLuaLibDir() {
-		return dirname( __FILE__ ) .'/lualib';
+		return __DIR__ . '/lualib';
 	}
 
 	/**
