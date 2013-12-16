@@ -21,6 +21,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			'isValidBuiltInCode',
 			'fetchLanguageName',
 			'fetchLanguageNames',
+			'getFallbacksFor',
 		);
 		$methods = array(
 			'lcfirst',
@@ -87,6 +88,16 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', null );
 		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', 'mw' );
 		return array( Language::fetchLanguageNames( $inLanguage, $include ) );
+	}
+
+	function getFallbacksFor( $code ) {
+		$this->checkType( 'fetchLanguageNames', 1, $code , 'string' );
+		$ret = Language::getFallbacksFor( $code );
+		// Make 1-based
+		if ( count( $ret ) ) {
+			$ret = array_combine( range( 1, count( $ret ) ), $ret );
+		}
+		return array( $ret );
 	}
 
 	/**

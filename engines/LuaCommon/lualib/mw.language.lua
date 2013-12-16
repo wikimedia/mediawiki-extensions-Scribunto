@@ -55,6 +55,10 @@ function language.fetchLanguageNames( inLanguage, include )
 	return php.fetchLanguageNames( inLanguage, include )
 end
 
+function language.getFallbacksFor( code )
+	return php.getFallbacksFor( code )
+end
+
 function language.new( code )
 	if code == nil then
 		error( "too few arguments to mw.language.new()", 2 )
@@ -163,6 +167,11 @@ function language.new( code )
 		elseif direction == 'down' then
 			return '↓'
 		end
+	end
+
+	function lang:getFallbackLanguages()
+		checkSelf( self, 'getFallbackLanguages' )
+		return language.getFallbacksFor( self.code )
 	end
 
 	return lang
