@@ -1777,6 +1777,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Luafout: interne fout: de verwerkingsmodule is al klaar',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
+	'scribunto-module-with-errors-category' => 'Scribuntomodules met fouten',
 );
 
 /** Norwegian Nynorsk (norsk nynorsk)
