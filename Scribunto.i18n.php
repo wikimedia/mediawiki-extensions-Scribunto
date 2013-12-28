@@ -532,6 +532,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Chyba Lua: Interní chyba: Interpret již byl ukončen.',
 	'scribunto-luastandalone-signal' => 'Chyba Lua: Interní chyba: Interpret byl ukončen signálem „$2“.',
 	'scribunto-luastandalone-exited' => 'Chyba Lua: Interní chyba: Interpret byl ukončen s výsledkem $2.',
+	'scribunto-module-with-errors-category' => 'Moduly Scribunto obsahující chyby',
 );
 
 /** Danish (dansk)
