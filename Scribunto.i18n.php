@@ -2441,12 +2441,15 @@ $1',
 	'scribunto-lua-notarrayreturn' => '脚本错误：该模块返回的不是一个表。它应该返回一个导出表。',
 	'scribunto-luastandalone-proc-error' => 'Lua错误：无法创建进程。',
 	'scribunto-luastandalone-proc-error-msg' => 'Lua错误：无法创建进程：$2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Lua错误：无法创建进程：proc_open不可用。请检查PHP的指令配置“disable_functions”。',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'Lua错误：无法创建进程。另请注意，PHP已废弃的指令“safe_mode”已启用。',
 	'scribunto-luastandalone-decode-error' => 'Lua错误：内部错误：无法解码消息。',
 	'scribunto-luastandalone-write-error' => 'Lua错误：内部错误：写入管道时出错。',
 	'scribunto-luastandalone-read-error' => 'Lua错误：内部错误：从管道读取时出错。',
 	'scribunto-luastandalone-gone' => 'Lua错误：内部错误：解释器已退出。',
 	'scribunto-luastandalone-signal' => 'Lua错误：内部错误：解释器因收到信号“$2”而终止。',
 	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态为$2。',
+	'scribunto-module-with-errors-category' => 'Scribunto模块有错误',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
