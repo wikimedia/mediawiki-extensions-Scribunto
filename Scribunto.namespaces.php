@@ -128,6 +128,11 @@ $namespaceNames['fa'] = array(
 	829 => 'بحث_پودمان',
 );
 
+$namespaceNames['fi'] = array(
+	828 => 'Moduuli',
+	829 => 'Keskustelu_moduulista',
+);
+
 $namespaceNames['fr'] = array(
 	828 => 'Module',
 	829 => 'Discussion_module',
@@ -201,17 +206,17 @@ $namespaceNames['ms'] = array(
 	828 => 'Modul',
 );
 
+$namespaceNames['nb'] = array(
+	828 => 'Modul',
+	829 => 'Moduldiskusjon',
+);
+
 $namespaceNames['nl'] = array(
 	828 => 'Module',
 	829 => 'Overleg_module',
 );
 
 $namespaceNames['nn'] = array(
-	828 => 'Modul',
-	829 => 'Moduldiskusjon',
-);
-
-$namespaceNames['no'] = array(
 	828 => 'Modul',
 	829 => 'Moduldiskusjon',
 );
@@ -229,6 +234,11 @@ $namespaceNames['pt'] = array(
 $namespaceNames['pt-br'] = array(
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
+);
+
+$namespaceNames['ro'] = array(
+	828 => 'Modul',
+	829 => 'Discuție_Modul',
 );
 
 $namespaceNames['ru'] = array(
