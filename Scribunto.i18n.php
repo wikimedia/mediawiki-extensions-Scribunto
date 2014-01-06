@@ -477,8 +477,12 @@ $1",
  * @author Умар
  */
 $messages['ce'] = array(
+	'scribunto-parser-error' => 'Скриптан гӀалат',
+	'scribunto-parser-dialog-title' => 'Скриптан гӀалат',
+	'scribunto-error-short' => 'Скриптан гӀалат: $1',
 	'scribunto-console-clear' => 'ЦӀанъян',
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
+	'scribunto-common-nosuchmodule' => 'Скриптан гӀалат: Ишта модуль яц.',
 );
 
 /** Czech (čeština)
