@@ -2395,10 +2395,12 @@ $1',
 );
 
 /** Yiddish (ייִדיש)
+ * @author פוילישער
  * @author පසිඳු කාවින්ද
  */
 $messages['yi'] = array(
 	'scribunto-console-clear' => 'רייניקן',
+	'scribunto-common-nosuchmodule' => 'סקריפטים־פעלער: נישט פאראן אזא מאדול.',
 );
 
 /** Simplified Chinese (中文（简体）‎)
