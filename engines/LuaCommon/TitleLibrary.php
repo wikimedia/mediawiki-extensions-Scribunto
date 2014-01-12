@@ -15,6 +15,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'getUrl' => array( $this, 'getUrl' ),
 			'getContent' => array( $this, 'getContent' ),
 			'fileExists' => array( $this, 'fileExists' ),
+			'protectionLevels' => array( $this, 'protectionLevels' ),
 		);
 		$this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
@@ -253,5 +254,40 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$file->getName(), $file->getTimestamp(), $file->getSha1()
 		);
 		return array( (bool)$file->exists() );
+	}
+
+	private function makeRestrictionsArraysOneBased( $restrictions ) {
+		$ret = array();
+		foreach ( $restrictions as $action => $requirements ) {
+			if ( empty( $requirements ) ) {
+				$ret[$action] = $requirements;
+			} else {
+				$ret[$action] = array_combine( range( 1, count( $requirements ) ), array_values( $requirements ) );
+			}
+		}
+		return $ret;
+	}
+
+	public function protectionLevels( $text ) {
+		$this->checkType( 'protectionLevels', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return array( null );
+		}
+
+		// @todo Once support for MediaWiki prior to 1.23 is dropped, remove this if block
+		// (and maybe inline makeRestrictionsArraysOneBased)
+		if ( !is_callable( array( $title, 'areRestrictionsLoaded' ) ) ) {
+			if ( !$title->mRestrictionsLoaded ) {
+				$this->incrementExpensiveFunctionCount();
+				$title->loadRestrictions();
+			}
+			return array( $this->makeRestrictionsArraysOneBased( $title->mRestrictions ) );
+		}
+
+		if ( !$title->areRestrictionsLoaded() ) {
+			$this->incrementExpensiveFunctionCount();
+		}
+		return array( $this->makeRestrictionsArraysOneBased( $title->getAllRestrictions() ) );
 	}
 }

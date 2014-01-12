@@ -164,6 +164,7 @@ local function makeTitleObject( data )
 		talkPageTitle = true,
 		subjectPageTitle = true,
 		fileExists = true,
+		protectionLevels = true,
 	}
 	for k in pairs( data ) do
 		readOnlyFields[k] = true
@@ -228,6 +229,12 @@ local function makeTitleObject( data )
 					data.fileExists = php.fileExists( data.prefixedText )
 				end
 				return data.fileExists
+			end
+			if k == 'protectionLevels' then
+				if data.protectionLevels == nil then
+					data.protectionLevels = php.protectionLevels( data.prefixedText )
+				end
+				return data.protectionLevels
 			end
 
 			return data[k]
