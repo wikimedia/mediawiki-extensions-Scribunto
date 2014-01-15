@@ -244,6 +244,14 @@ local tests = {
 		  mw.site.namespaces.Module_talk.id, mw.site.namespaces.Module_talk.id
 	  }
 	},
+	{ name = '.protectionLevels', func = prop_foreach,
+	  args = { 'protectionLevels' },
+	  expect = {
+		  { edit = {}, move = {} }, { edit = { 'sysop', 'bogus' }, move = { 'sysop', 'bogus' } },
+		  {}, { create = { 'sysop' } }, { edit = { 'autoconfirmed' }, move = { 'sysop' } },
+		  { edit = {}, move = { 'sysop' } }, { edit = {}, move = { 'sysop' } }
+	  }
+	},
 	{ name = '.inNamespace()', func = func_foreach,
 	  args = { 'inNamespace', 'Module' },
 	  expect = { false, true, false, false, false, false, false }
