@@ -154,12 +154,24 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * Get the title used for unit tests
+	 *
+	 * @return Title
+	 */
+	protected function getTestTitle() {
+		return Title::newMainPage();
+	}
+
+	/**
+	 * @return ScribuntoEngineBase
+	 */
 	function getEngine() {
 		if ( !$this->engine ) {
 			$parser = new Parser;
 			$options = new ParserOptions;
 			$options->setTemplateCallback( array( $this, 'templateCallback' ) );
-			$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
+			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );
 			$class = "Scribunto_{$this->engineName}Engine";
 			$this->engine = new $class(
 				self::$engineConfigurations[$this->engineName] + array( 'parser' => $parser )
