@@ -148,6 +148,11 @@ $namespaceNames['he'] = array(
 	829 => 'שיחת_יחידה',
 );
 
+$namespaceNames['hr'] = array(
+	828 => 'Modul',
+	829 => 'Razgovor_o_modulu',
+);
+
 $namespaceNames['hsb'] = array(
 	828 => 'Modul',
 	829 => 'Modul_diskusija',
@@ -264,6 +269,11 @@ $namespaceNames['sl'] = array(
 $namespaceNames['sr-ec'] = array(
 	828 => 'Модул',
 	829 => 'Разговор_о_модулу',
+);
+
+$namespaceNames['sr-el'] = array(
+	828 => 'Modul',
+	829 => 'Razgovor_o_modulu',
 );
 
 $namespaceNames['sv'] = array(
