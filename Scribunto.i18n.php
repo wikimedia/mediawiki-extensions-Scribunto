@@ -1094,12 +1094,14 @@ $1',
 	'scribunto-lua-noreturn' => 'Skriptowy zmylk: Modul njeje hódnotu wróćił, byrnjež měł eksportowu tabelu wróćić.',
 	'scribunto-lua-notarrayreturn' => 'Skriptowy zmylk: Modul je něšto druhe hač tabelu wróćił, wón měł eksportowu tabelu wróćić.',
 	'scribunto-luastandalone-proc-error' => 'Lua-zmylk: Proces njeda so wutworić.',
+	'scribunto-luastandalone-proc-error-msg' => 'Lua-zmylk: Proces njeda so wutworić: $2',
 	'scribunto-luastandalone-decode-error' => 'Lua-zmylk: Nutřkowny zmylk: Zdźělenka njeda so dekodować.',
 	'scribunto-luastandalone-write-error' => 'Lua-zmylk: Nutřkowny zmylk: Při pisanju je zmylk wustupił.',
 	'scribunto-luastandalone-read-error' => 'Lua-zmylk: Nutřkowny zmylk: Při čitanju je zmylk wustupił.',
 	'scribunto-luastandalone-gone' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so hižo skónčił.',
 	'scribunto-luastandalone-signal' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze signalom "$2" skónčił.',
 	'scribunto-luastandalone-exited' => 'Lua-zmylk: Nutřkowny zmylk: Interpreter je so ze statusom $2 skónčił.',
+	'scribunto-module-with-errors-category' => 'Module Scribunto ze zmylkami',
 );
 
 /** Hungarian (magyar)
@@ -1437,6 +1439,7 @@ $1',
 /** Korean (한국어)
  * @author Klutzy
  * @author Kwj2772
+ * @author Priviet
  * @author 아라
  */
 $messages['ko'] = array(
@@ -1486,6 +1489,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua 오류: 내부 오류: 인터프리터가 이미 종료되었습니다.',
 	'scribunto-luastandalone-signal' => 'Lua 오류: 내부 오류: 인터프리터가 "$2" 신호로 종료했습니다.',
 	'scribunto-luastandalone-exited' => 'Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.',
+	'scribunto-module-with-errors-category' => '에러가 있는 Scribunto 모듈',
 );
 
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
