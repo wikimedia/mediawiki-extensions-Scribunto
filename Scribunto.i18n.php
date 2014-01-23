@@ -477,6 +477,7 @@ $1",
  * @author Умар
  */
 $messages['ce'] = array(
+	'scribunto-desc' => 'MediaWiki агӀонашкахь скриптийн мотт лато хӀума',
 	'scribunto-parser-error' => 'Скриптан гӀалат',
 	'scribunto-parser-dialog-title' => 'Скриптан гӀалат',
 	'scribunto-error-short' => 'Скриптан гӀалат: $1',
