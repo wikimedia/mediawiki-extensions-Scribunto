@@ -824,6 +824,7 @@ $messages['eu'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Armin1392
  * @author Mjbmr
  * @author Reza1615
  * @author ZxxZxxZ
@@ -862,6 +863,7 @@ $1',
 	'scribunto-lua-noreturn' => 'خطای اسکریپتی: پودمان مقداری را برنگرداند. (باید یک جدول برون‌ریزی برگرداند)',
 	'scribunto-lua-notarrayreturn' => 'خطای اسکریپتی: پودمان چیزی غیر از یک جدول برگرداند. (باید یک جدول برون‌ریزی برگرداند)',
 	'scribunto-luastandalone-proc-error' => 'خطای لوآ: نمی‌تواند فرآیند را ایجاد کند.',
+	'scribunto-luastandalone-proc-error-msg' => 'خطای لوا: روند نتوانست ایجاد شود: $2',
 	'scribunto-luastandalone-decode-error' => 'خطای لوآ: خطای داخلی: نمی‌تواند پیغام را کدبرداری کند.',
 	'scribunto-luastandalone-write-error' => 'خطای لوآ: خطای داخلی: خطا در نوشتن لوله.',
 	'scribunto-luastandalone-read-error' => 'خطای لوآ: خطای داخلی: خطا در خواندن لوله.',
