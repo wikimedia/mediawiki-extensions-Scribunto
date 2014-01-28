@@ -999,6 +999,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Erro de Lua: Erro interno: O intérprete xa rematou.',
 	'scribunto-luastandalone-signal' => 'Erro de Lua: Erro interno: O intérprete rematou co sinal "$2".',
 	'scribunto-luastandalone-exited' => 'Erro de Lua: Erro interno: O intérprete rematou co estado $2.',
+	'scribunto-module-with-errors-category' => 'Módulos de Scribunto con erros',
 );
 
 /** Hebrew (עברית)
