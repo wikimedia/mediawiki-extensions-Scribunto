@@ -1,0 +1,19 @@
+{
+	"name": "mediawiki/scribunto",
+	"type": "mediawiki-extension",
+	"description": "Framework for embedding scripting languages into MediaWiki pages",
+	"homepage": "https://www.mediawiki.org/wiki/Extension:Scribunto",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Victor Vasiliev",
+			"email": "vasilvv@gmail.com"
+		}, {
+			"name": "Tim Starling",
+			"email": "tstarling@users.mediawiki.org"
+		}
+	],
+	"require": {
+		"composer/installers" : ">=1.0.1"
+	}
+}
