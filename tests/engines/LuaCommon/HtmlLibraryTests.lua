@@ -108,9 +108,16 @@ local tests = {
 	  args = { 'div', { selfClosing = true } },
 	  expect = { '<div />' }
 	},
-	{ name = 'mw.html.create (invalid tag)', func = mw.html.create, type='ToString',
+	{ name = 'mw.html.create (invalid tag 1)', func = mw.html.create, type='ToString',
 	  args = { '$$$$' },
 	  expect = 'Invalid tag name: $$$$'
+	},
+	{ name = 'mw.html.create (invalid tag 2)', func = mw.html.create, type='ToString',
+	  args = { {} },
+	  expect = 'Tag name must be a string'
+	},
+	{ name = 'mw.html.create (invalid tag 3)', func = mw.html.create, type='ToString',
+	  expect = 'Tag name must be a string'
 	},
 	{ name = 'mw.html.wikitext', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'wikitext', 'Plain text' },

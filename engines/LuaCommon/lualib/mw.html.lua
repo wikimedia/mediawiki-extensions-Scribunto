@@ -341,6 +341,10 @@ end
 -- @param tagName
 -- @param args
 function HtmlBuilder.create( tagName, args )
+	if type( tagName ) ~= 'string' then
+		error( "Tag name must be a string" )
+	end
+
 	if tagName ~= '' and not isValidTag( tagName ) then
 		error( "Invalid tag name: " .. tagName )
 	end
