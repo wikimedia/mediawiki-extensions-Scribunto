@@ -47,7 +47,7 @@ class ScribuntoContent extends TextContent {
 				// can't use $msg->parse().
 				$docViewLang = $doc->getPageViewLanguage();
 				$docWikitext = '<div lang="' . htmlspecialchars( $docViewLang->getHtmlCode() ) . '"'
-					. ' dir="' . $docViewLang->getDir() . '">' . $msg->plain() . '</div>';
+					. ' dir="' . $docViewLang->getDir() . "\">\n" . $msg->plain() . "\n</div>";
 				if ( !$options ) {
 					// NOTE: use canonical options per default to produce cacheable output
 					$options = ContentHandler::getForTitle( $doc )->makeParserOptions( 'canonical' );
