@@ -636,13 +636,14 @@ $messages['de-formal'] = array(
 
 /** Zazaki (Zazaki)
  * @author Erdemaslancan
+ * @author Mirzali
  */
 $messages['diq'] = array(
 	'scribunto-parser-error' => 'Xırabiya scripti',
 	'scribunto-parser-dialog-title' => 'Xırabiya scripti',
 	'scribunto-error-long' => 'Xırabiya scripti:
 $1',
-	'scribunto-console-clear' => 'Bestern',
+	'scribunto-console-clear' => 'Bestere',
 );
 
 /** Lower Sorbian (dolnoserbski)
