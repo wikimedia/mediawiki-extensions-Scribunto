@@ -15,25 +15,14 @@ function test_language( key )
 		lang = mw.language.new( 'ru' )
 	end
 
-	return mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( 'en' ):text(),
-		mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( 'ru' ):text(),
-		mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( lang ):text()
+	return mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( 'en' ):plain(),
+		mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( 'ru' ):plain(),
+		mw.message.new( 'mainpage' ):useDatabase( false ):inLanguage( lang ):plain()
 end
 
 function test_params( rawMessage, func, ... )
 	local msg = mw.message.newRawMessage( rawMessage ):inLanguage( 'en' )
-	return msg[func]( msg, ... ):parse()
-end
-
-function test_title()
-	-- If mw.title is available, test that too
-	local title = 'Main Page'
-	if mw.title then
-		title = mw.title.new( title )
-	end
-
-	return mw.message.newRawMessage( '{{PAGENAME}}' ):title( 'Main Page' ):text(),
-		mw.message.newRawMessage( '{{PAGENAME}}' ):title( title ):text()
+	return msg[func]( msg, ... ):plain()
 end
 
 return testframework.getTestProvider( {
@@ -50,13 +39,9 @@ return testframework.getTestProvider( {
 	  expect = { 'Main Page', 'Заглавная страница', 'Заглавная страница' }
 	},
 
-	{ name = 'title', func = test_title,
-	  expect = { 'Main Page', 'Main Page' }
-	},
-
 	{ name = 'plain param', func = test_params,
 	  args = { '($1 $2)', 'params', "'''foo'''", 123456 },
-	  expect = { "(<b>foo</b> 123456)" }
+	  expect = { "('''foo''' 123456)" }
 	},
 	{ name = 'raw param', func = test_params,
 	  args = { '($1 $2)', 'rawParams', "'''foo'''", 123456 },
@@ -64,13 +49,13 @@ return testframework.getTestProvider( {
 	},
 	{ name = 'num param', func = test_params,
 	  args = { '($1 $2)', 'numParams', "'''foo'''", 123456 },
-	  expect = { "(<b>foo</b> 123,456)" }
+	  expect = { "('''foo''' 123,456)" }
 	},
 	{ name = 'mixed params', func = test_params,
 	  args = { '($1 $2 $3)', 'params',
 		"'''foo'''", mw.message.rawParam( "'''foo'''" ), mw.message.numParam( 123456 )
 	  },
-	  expect = { "(<b>foo</b> '''foo''' 123,456)" }
+	  expect = { "('''foo''' '''foo''' 123,456)" }
 	},
 
 	{ name = 'message as param', func = test_params,

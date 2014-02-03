@@ -133,40 +133,9 @@ local function makeMessage( options )
 		return self
 	end
 
-	function obj:title( title )
-		checkSelf( self, 'title' )
-		if type( title ) == 'table' and title.prefixedText then
-			-- probably a mw.title object
-			title = title.prefixedText
-		end
-		checkType( 'title', 1, title , 'string', true )
-		data.title = title
-		return self
-	end
-
-	function obj:parse()
-		checkSelf( self, 'parse' )
-		return php.toString( 'parse', data )
-	end
-
-	function obj:text()
-		checkSelf( self, 'text' )
-		return php.toString( 'text', data )
-	end
-
 	function obj:plain()
 		checkSelf( self, 'plain' )
-		return php.toString( 'plain', data )
-	end
-
-	function obj:escaped()
-		checkSelf( self, 'escaped' )
-		return php.toString( 'escaped', data )
-	end
-
-	function obj:parseAsBlock()
-		checkSelf( self, 'parseAsBlock' )
-		return php.toString( 'parseAsBlock', data )
+		return php.plain( data )
 	end
 
 	function obj:exists()
@@ -186,7 +155,7 @@ local function makeMessage( options )
 
 	return setmetatable( obj, {
 		__tostring = function ( t )
-			return t:text()
+			return t:plain()
 		end
 	} )
 end

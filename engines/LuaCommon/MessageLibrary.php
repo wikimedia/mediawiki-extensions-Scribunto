@@ -3,7 +3,7 @@
 class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
 		$lib = array(
-			'toString' => array( $this, 'messageToString' ),
+			'plain' => array( $this, 'messagePlain' ),
 			'check' => array( $this, 'messageCheck' ),
 		);
 
@@ -41,21 +41,12 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		return $msg;
 	}
 
-	function messageToString( $format, $data ) {
-		if ( !in_array( $format, array( 'parse', 'text', 'plain', 'escaped', 'parseAsBlock' ) ) ) {
-			throw new Scribunto_LuaError( "invalid format for 'messageToString'" );
-		}
-
-		if ( in_array( $format, array( 'parse', 'parseAsBlock' ) ) ) {
-			// Limit calls into the full parser
-			$this->incrementExpensiveFunctionCount();
-		}
-
+	function messagePlain( $data ) {
 		try {
 			$msg = $this->makeMessage( $data, true );
-			return array( call_user_func( array( $msg, $format ) ) );
+			return array( $msg->plain() );
 		} catch( MWException $ex ) {
-			throw new Scribunto_LuaError( "msg:$format() failed (" . $ex->getMessage() . ")" );
+			throw new Scribunto_LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
 		}
 	}
 
