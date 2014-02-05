@@ -265,7 +265,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				'P' => '\P{P}',
 				'S' => '\P{Xps}',
 				'U' => '\P{Lu}',
-				'W' => '[\P{L}\P{Nd}]',
+				'W' => '[^\p{L}\p{Nd}]',
 				'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
 				'Z' => '[^\0]',
 			);

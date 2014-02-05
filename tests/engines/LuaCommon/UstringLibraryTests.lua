@@ -328,6 +328,10 @@ return testframework.getTestProvider( {
 	  args = { "fóó? bar", '%A+' },
 	  expect = { 4, 5 }
 	},
+	{ name = 'find: (%W)', func = mw.ustring.find,
+	  args = { "fóó? bar", '%W+' },
+	  expect = { 4, 5 }
+	},
 	{ name = 'find: ([^])', func = mw.ustring.find,
 	  args = { "fóó? bar", '[^a-zó]+' },
 	  expect = { 4, 5 }
