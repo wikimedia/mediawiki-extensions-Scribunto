@@ -657,6 +657,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Signal „$2“.',
 	'scribunto-luastandalone-exited' => 'Interner Lua-Fehler: Der Interpreter beendet sich mit dem Status $2.',
 	'scribunto-module-with-errors-category' => 'Scribunto-Module mit Fehlern',
+	'scribunto-limitreport-timeusage' => 'Lua – Zeitnutzung',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 Sekunden',
+	'scribunto-limitreport-virtmemusage' => 'Lua – virtuelle Größe',
+	'scribunto-limitreport-estmemusage' => 'Lua – geschätzte Speichernutzung',
+	'scribunto-limitreport-memusage' => 'Lua – Speichernutzung',
+	'scribunto-limitreport-profile' => 'Lua – Profil',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -1388,6 +1395,12 @@ $1',
 	'scribunto-luastandalone-signal' => 'Errore Lua: errore interno - l\'interprete è terminato con il segnale "$2".',
 	'scribunto-luastandalone-exited' => "Errore Lua: errore interno - l'interprete è uscito con stato $2.",
 	'scribunto-module-with-errors-category' => 'Moduli Scribunto con errori',
+	'scribunto-limitreport-timeusage' => 'Tempo di utilizzo Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 secondi',
+	'scribunto-limitreport-virtmemusage' => 'Dimensione virtuale Lua',
+	'scribunto-limitreport-estmemusage' => "Stima dell'utilizzo della memoria Lua",
+	'scribunto-limitreport-memusage' => 'Utilizzo della memoria Lua',
+	'scribunto-limitreport-profile' => 'Profilo Lua',
 );
 
 /** Japanese (日本語)
