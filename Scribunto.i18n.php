@@ -85,6 +85,7 @@ $1',
  * @author Anomie
  * @author Gomada
  * @author Mormegil
+ * @author Raymond
  * @author Shirayuki
  * @author Siebrand
  * @author Snævar
@@ -190,26 +191,62 @@ Parameters:
 
 See also:
 * {{msg-mw|scribunto-ignore-errors}}',
-	'scribunto-limitreport-timeusage' => 'Label for the "Lua time usage" row in the limit report table',
-	'scribunto-limitreport-timeusage-value' => 'Format for the "Lua time usage" value in the limit report table.
-* $1 is the usage in seconds
-* $2 is the maximum',
-	'scribunto-limitreport-virtmemusage' => 'Label for the "Lua virtual size" row in the limit report table',
-	'scribunto-limitreport-virtmemusage-value' => 'Format for the "Lua virtual size" value in the limit report table.
-* $1 is the usage
-* $2 is the maximum',
-	'scribunto-limitreport-estmemusage' => 'Label for the "Lua estimated memory usage" row in the limit report table',
+	'scribunto-limitreport-timeusage' => 'Label for the "Lua time usage" row in the limit report table.
+
+See also:
+* {{msg-mw|Scribunto-limitreport-timeusage-value}}',
+	'scribunto-limitreport-timeusage-value' => 'Format for the "Lua time usage" value in the limit report table. Parameters:
+* $1 - the usage in seconds
+* $2 - the maximum
+See also:
+* {{msg-mw|Scribunto-limitreport-timeusage}}',
+	'scribunto-limitreport-virtmemusage' => 'Label for the "Lua virtual size" row in the limit report table.
+
+See also:
+* {{msg-mw|Scribunto-limitreport-virtmemusage-value}}',
+	'scribunto-limitreport-virtmemusage-value' => '{{optional}}
+Format for the "Lua virtual size" value in the limit report table. Parameters:
+* $1 - the usage
+* $2 - the maximum
+See also:
+* {{msg-mw|Scribunto-limitreport-virtmemusage}}',
+	'scribunto-limitreport-estmemusage' => 'Label for the "Lua estimated memory usage" row in the limit report table.
+
+See also:
+* {{msg-mw|Scribunto-limitreport-estmemusage-value}}',
 	'scribunto-limitreport-estmemusage-value' => 'Format for the "Lua estimated memory usage" value in the limit report table.
-* $1 is the value',
-	'scribunto-limitreport-memusage' => 'Label for the "Lua memory usage" row in the limit report table',
-	'scribunto-limitreport-memusage-value' => 'Format for the "Lua memory usage" value in the limit report table.
-* $1 is the usage
-* $2 is the maximum',
-	'scribunto-limitreport-profile' => 'Label for the "Lua Profile" row in the limit report table',
-	'scribunto-limitreport-profile-ms' => 'Text to format the milliseconds in the "Lua Profile" table
-* $1 is the time in milliseconds',
-	'scribunto-limitreport-profile-percent' => 'Text to format the time percentage in the "Lua Profile" table
-* $1 is the percentage',
+
+Parameters:
+* $1 - the value
+See also:
+* {{msg-mw|Scribunto-limitreport-estmemusage}}',
+	'scribunto-limitreport-memusage' => 'Label for the "Lua memory usage" row in the limit report table.
+
+See also:
+* {{msg-mw|Scribunto-limitreport-memusage-value}}',
+	'scribunto-limitreport-memusage-value' => '{{optional}}
+Format for the "Lua memory usage" value in the limit report table. Parameters:
+* $1 - the usage
+* $2 - the maximum
+See also:
+* {{msg-mw|Scribunto-limitreport-memusage}}',
+	'scribunto-limitreport-profile' => 'Label for the "Lua Profile" row in the limit report table.
+
+Followed by {{msg-mw|Scribunto-limitreport-profile-ms}} and {{msg-mw|Scribunto-limitreport-profile-percent}}.',
+	'scribunto-limitreport-profile-ms' => 'Text to format the milliseconds in the "Lua Profile" table.
+
+Preceded by {{msg-mw|Scribunto-limitreport-profile}}.
+
+Followed by {{msg-mw|Scribunto-limitreport-profile-percent}}.
+
+Parameters:
+* $1 - the time in milliseconds',
+	'scribunto-limitreport-profile-percent' => 'Text to format the time percentage in the "Lua Profile" table.
+
+Preceded by {{msg-mw|Scribunto-limitreport-profile}} and {{msg-mw|Scribunto-limitreport-profile-ms}}.
+
+Parameters:
+* $1 - the percentage',
 );
 
 /** Afrikaans (Afrikaans)
@@ -286,6 +323,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Error de Lua: Error internu: L\'intérprete acabó cola señal "$2".',
 	'scribunto-luastandalone-exited' => "Error de Lua: Error internu: L'intérprete acabó col estáu $2.",
 	'scribunto-module-with-errors-category' => 'Módulos de Scribunto con errores',
+	'scribunto-limitreport-timeusage' => "Tiempu d'usu de Lua",
+	'scribunto-limitreport-timeusage-value' => '$1/$2 segundos',
+	'scribunto-limitreport-virtmemusage' => 'Tamañu virtual de Lua',
+	'scribunto-limitreport-estmemusage' => 'Usu de memoria estimáu de Lua',
+	'scribunto-limitreport-memusage' => 'Usu de memoria de Lua',
+	'scribunto-limitreport-profile' => 'Perfil de Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Belarusian (беларуская)
@@ -570,6 +614,14 @@ $1',
 	'scribunto-luastandalone-signal' => 'Chyba Lua: Interní chyba: Interpret byl ukončen signálem „$2“.',
 	'scribunto-luastandalone-exited' => 'Chyba Lua: Interní chyba: Interpret byl ukončen s výsledkem $2.',
 	'scribunto-module-with-errors-category' => 'Moduly Scribunto obsahující chyby',
+	'scribunto-limitreport-timeusage' => 'Využití času Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 sekund',
+	'scribunto-limitreport-virtmemusage' => 'Virtuální velikost Lua',
+	'scribunto-limitreport-estmemusage' => 'Odhad využití paměti Lua',
+	'scribunto-limitreport-memusage' => 'Využití paměti Lua',
+	'scribunto-limitreport-profile' => 'Profil Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
+	'scribunto-limitreport-profile-percent' => '$1 %',
 );
 
 /** Danish (dansk)
@@ -853,10 +905,17 @@ $1',
 	'scribunto-console-clear' => 'Puhasta',
 	'scribunto-common-error-category' => 'Skriptitõrgetega leheküljed',
 	'scribunto-common-nosuchmodule' => 'Skriptitõrge: Sellist moodulit pole.',
-	'scribunto-common-nosuchfunction' => 'Script error: Määratud funktsioon puudub.',
+	'scribunto-common-nosuchfunction' => 'Skriptitõrge: Määratud funktsioon puudub.',
 	'scribunto-lua-in-function' => 'funktsioonis "$1"',
 	'scribunto-lua-error-location' => 'Lua tõrge $1: $2.',
 	'scribunto-lua-error' => 'Lua tõrge: $2.',
+	'scribunto-module-with-errors-category' => 'Tõrgetega Scribunto-moodulid',
+	'scribunto-limitreport-timeusage' => 'Lua ajakasutus',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 sekundit',
+	'scribunto-limitreport-virtmemusage' => 'Lua virtuaalne suurus',
+	'scribunto-limitreport-estmemusage' => 'Lua hinnanguline mälukasutus',
+	'scribunto-limitreport-memusage' => 'Lua mälukasutus',
+	'scribunto-limitreport-profile' => 'Lua profiil',
 );
 
 /** Basque (euskara)
@@ -990,6 +1049,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le signal "$2".',
 	'scribunto-luastandalone-exited' => 'Erreur LUA: Erreur interne: L\'interpréteur s\'est terminé avec le statut "$2".',
 	'scribunto-module-with-errors-category' => 'Modules Scribunto avec des erreurs',
+	'scribunto-limitreport-timeusage' => 'Temps d’utilisation de Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 secondes',
+	'scribunto-limitreport-virtmemusage' => 'Taille virtuelle de Lua',
+	'scribunto-limitreport-estmemusage' => 'Utilisation mémoire estimée de Lua',
+	'scribunto-limitreport-memusage' => 'Utilisation mémoire de Lua',
+	'scribunto-limitreport-profile' => 'Profil Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Galician (galego)
@@ -1097,6 +1163,71 @@ $1',
 	'scribunto-luastandalone-signal' => 'שגיאת לואה: שגיאה פנימית: המפענח גמר עם הסיגנל "$2".',
 	'scribunto-luastandalone-exited' => 'שגיאת לואה: שגיאה פנימית: המפענח יצא עם המצב $2.',
 	'scribunto-module-with-errors-category' => 'יחידות סקריבונטו עם שגיאות',
+	'scribunto-limitreport-timeusage' => 'שימוש של לואה בזמן',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 שניות',
+	'scribunto-limitreport-virtmemusage' => 'גודל וירטואלי של לואה',
+	'scribunto-limitreport-estmemusage' => 'שימוש מוערך של לואה בזיכרון',
+	'scribunto-limitreport-memusage' => 'שימוש של לואה בזיכרון',
+	'scribunto-limitreport-profile' => 'פרופיל לואה',
+	'scribunto-limitreport-profile-ms' => '$1 מ"ש',
+);
+
+/** Hindi (हिन्दी)
+ * @author Siddhartha Ghai
+ */
+$messages['hi'] = array(
+	'scribunto-desc' => 'मीडियाविकि पृष्ठों में स्क्रिप्टिंग भाषाएँ डालने का ढाँचा',
+	'scribunto-ignore-errors' => 'त्रुटियों वाला कोड सहेजना संभव करें',
+	'scribunto-line' => 'पंक्ति $1 पर',
+	'scribunto-module-line' => '$1 में पंक्ति $2 पर',
+	'scribunto-parser-error' => 'स्क्रिप्ट त्रुटि',
+	'scribunto-parser-dialog-title' => 'स्क्रिप्ट त्रुटि',
+	'scribunto-error-short' => 'स्क्रिप्ट त्रुटि: $1',
+	'scribunto-error-long' => 'स्क्रिप्ट त्रुटियाँ:
+
+$1',
+	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-does-not-exist' => '"इस मॉड्यूल हेतु प्रलेख [[$1]] पर बनाया जा सकता है"',
+	'scribunto-doc-page-header' => "'''यह [[$1]] हेतु प्रलेख पृष्ठ है'''",
+	'scribunto-console-intro' => '* मॉड्यूल के निर्यात वेरियेबल "p" में उपलब्ध हैं, नहीं सहेजे गये बदलावों सहित।
+*किसी पंक्ति को एक्सप्रेशन की तरह चलाने के लिए उससे पहले "=" लगाएँ, अथवा print() का प्रयोग करें।
+* इस कौन्सोल को सन्देश भेजने के लिए मॉड्यूल कोड में mw.log() का प्रयोग करें',
+	'scribunto-console-title' => 'डीबग कौन्सोल',
+	'scribunto-console-too-large' => 'यह कौन्सोल सेशन बहुत बड़ा है। कृपया कौन्सोल इतिहास खाली करें अथवा मॉड्यूल का आकार छोटा करें।',
+	'scribunto-console-current-src' => 'कौन्सोल इनपुट',
+	'scribunto-console-clear' => 'खाली करें',
+	'scribunto-console-cleared' => 'कौन्सोल को खाली किया गया है क्योंकि मॉड्यूल में बदलाव हुए हैं।',
+	'scribunto-console-cleared-session-lost' => 'कौन्सोल को खाली किया गया है क्योंकि सेशन डाटा खो गया।',
+	'scribunto-common-error-category' => 'स्क्रिप्ट त्रुटियों वाले पृष्ठ',
+	'scribunto-common-nosuchmodule' => 'स्क्रिप्ट त्रुटि: ऐसा कोई मॉड्यूल नहीं है।',
+	'scribunto-common-nofunction' => 'स्क्रिप्ट त्रुटि: आपको बुलाने के लिए कोई फंक्शन बताना होगा।',
+	'scribunto-common-nosuchfunction' => 'स्क्रिप्ट त्रुटि: आपके द्वारा बताया गया फंक्शन मौजूद नहीं है।',
+	'scribunto-common-timeout' => 'स्क्रिप्ट चलाने हेतु आवंटित समय समाप्त हो गया है।',
+	'scribunto-common-oom' => 'स्क्रिप्ट चलाने हेतु आवंटित मेमोरी सीमा पार हो गयी है।',
+	'scribunto-common-backtrace' => 'बैकट्रेस (बुलाए गए फंक्शन):',
+	'scribunto-lua-in-function' => 'फंक्शन "$1" में',
+	'scribunto-lua-in-main' => 'मुख्य खंड में',
+	'scribunto-lua-in-function-at' => 'फंक्शन में $1:$2 पर',
+	'scribunto-lua-error-location' => 'लुआ त्रुटि $1: $2।',
+	'scribunto-lua-error' => 'लुआ त्रुटि: $2।',
+	'scribunto-lua-noreturn' => 'स्क्रिप्ट त्रुटि: मॉड्यूल ने कुछ भी उत्तर नहीं दिया। मॉड्यूल को उत्तर में एक निर्यात सारणी देनी चाहिए।',
+	'scribunto-lua-notarrayreturn' => 'स्क्रिप्ट त्रुटि: मॉड्यूल ने उत्तर में सारणी के अलावा कुछ और दिया। मॉड्यूल को उत्तर में एक निर्यात सारणी देनी चाहिए।',
+	'scribunto-luastandalone-proc-error' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकती।',
+	'scribunto-luastandalone-proc-error-msg' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: proc_open उपलब्ध नहीं है। PHP का "disable_functions" कन्फिगरेशन डायरेक्टिव जाँचें।',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी। ध्यान दें कि PHP का पुराना (डेप्रिकेटेड) "safe_mode" कन्फिगरेशन डायरेक्टिव सक्षम है।',
+	'scribunto-luastandalone-decode-error' => 'लुआ त्रुटि: आतंरिक त्रुटि: सन्देश डीकोड नहीं किया जा सका।',
+	'scribunto-luastandalone-gone' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर पहले ही बंद हो चुका है।',
+	'scribunto-luastandalone-signal' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर "$2" संकेत के साथ बंद हो चुका है।',
+	'scribunto-luastandalone-exited' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर $2 स्थिति-संकेत के साथ बंद हुआ।',
+	'scribunto-module-with-errors-category' => 'त्रुटियों वाले स्क्रिबुंटो मॉड्यूल',
+	'scribunto-limitreport-timeusage' => 'लुआ समय प्रयोग',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 सेकेंड',
+	'scribunto-limitreport-virtmemusage' => 'लुआ वर्चुअल आकार',
+	'scribunto-limitreport-estmemusage' => 'अनुमानित लुआ मेमोरी प्रयोग',
+	'scribunto-limitreport-memusage' => 'लुआ मेमोरी प्रयोग',
+	'scribunto-limitreport-profile' => 'लुआ प्रोफ़ाइल',
+	'scribunto-limitreport-profile-ms' => '$1 मिलीसेकेंड',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -1455,6 +1586,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lua エラー: 内部エラー: インタープリターはシグナル「$2」により終了しました。',
 	'scribunto-luastandalone-exited' => 'Lua エラー: 内部エラー: インタープリターは終了コード $2 で終了しました。',
 	'scribunto-module-with-errors-category' => 'エラーがあるScribuntoモジュール',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 秒',
+	'scribunto-limitreport-virtmemusage-value' => '$1/$2',
+	'scribunto-limitreport-memusage' => 'Lua のメモリ使用量',
+	'scribunto-limitreport-memusage-value' => '$1/$2',
+	'scribunto-limitreport-profile' => 'Lua プロファイル',
+	'scribunto-limitreport-profile-ms' => '$1 ミリ秒',
+	'scribunto-limitreport-profile-percent' => '$1%',
 );
 
 /** Javanese (Basa Jawa)
@@ -1655,6 +1793,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Грешка во Lua: внатрешна грешка: толкувачот прекина да работи со сигналот „$2“',
 	'scribunto-luastandalone-exited' => 'Грешка во Lua: внатрешна грешка: толкувачот напушти со статусот $2',
 	'scribunto-module-with-errors-category' => 'Модули на Scribunto со грешки',
+	'scribunto-limitreport-timeusage' => 'Lua – употреба на време',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 секунди',
+	'scribunto-limitreport-virtmemusage' => 'Lua – виртуелна големина',
+	'scribunto-limitreport-estmemusage' => 'Lua – проценета употреба на складот',
+	'scribunto-limitreport-memusage' => 'Lua – употреба на складот',
+	'scribunto-limitreport-profile' => 'Lua – Профил',
+	'scribunto-limitreport-profile-ms' => '$1 мс',
 );
 
 /** Malayalam (മലയാളം)
@@ -1896,6 +2041,7 @@ $1',
 
 /** Polish (polski)
  * @author Beau
+ * @author Chrumps
  * @author Matma Rex
  */
 $messages['pl'] = array(
@@ -1921,6 +2067,8 @@ $1',
 	'scribunto-common-nosuchfunction' => 'Błąd skryptu: nie ma takiej funkcji.',
 	'scribunto-common-backtrace' => 'Backtrace:',
 	'scribunto-lua-in-function' => 'w funkcji „$1”',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 sekund',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Piedmontese (Piemontèis)
@@ -1972,6 +2120,7 @@ $1',
 
 /** Portuguese (português)
  * @author Helder.wiki
+ * @author Imperadeiro98
  * @author SandroHc
  */
 $messages['pt'] = array(
@@ -2003,6 +2152,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
 	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador terminou com o sinal "$2".',
 	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador finalizou com o estado $2.',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 segundos',
 );
 
 /** Brazilian Portuguese (português do Brasil)
@@ -2151,6 +2301,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор был остановлен сигналом «$2».',
 	'scribunto-luastandalone-exited' => 'Ошибка Lua: Внутренняя ошибка: Интерпретатор завершил работу со статусом $2.',
 	'scribunto-module-with-errors-category' => 'Модули Scribunto с ошибками',
+	'scribunto-limitreport-timeusage' => 'Время использование Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 секунд',
+	'scribunto-limitreport-virtmemusage' => 'Виртуальный размер Lua',
+	'scribunto-limitreport-estmemusage' => 'Предположительное использование памяти Lua',
+	'scribunto-limitreport-memusage' => 'Использование памяти Lua',
+	'scribunto-limitreport-profile' => 'Профиль Lua',
+	'scribunto-limitreport-profile-ms' => '$1 мс',
 );
 
 /** Sinhala (සිංහල)
@@ -2458,10 +2615,12 @@ $1',
 $messages['yi'] = array(
 	'scribunto-console-clear' => 'רייניקן',
 	'scribunto-common-nosuchmodule' => 'סקריפטים־פעלער: נישט פאראן אזא מאדול.',
+	'scribunto-limitreport-profile' => 'לוא פראפֿיל',
 );
 
 /** Simplified Chinese (中文（简体）‎)
  * @author Liangent
+ * @author Liuxinyu970226
  * @author Xiaomingyan
  * @author Yfdyh000
  */
@@ -2513,9 +2672,16 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lua错误：内部错误：解释器因收到信号“$2”而终止。',
 	'scribunto-luastandalone-exited' => 'Lua错误：内部错误：解释器已退出，状态为$2。',
 	'scribunto-module-with-errors-category' => 'Scribunto模块有错误',
+	'scribunto-limitreport-timeusage' => 'Lua使用时间',
+	'scribunto-limitreport-timeusage-value' => '$1/$2秒',
+	'scribunto-limitreport-memusage' => 'Lua内存使用情况',
+	'scribunto-limitreport-profile' => 'Lua属性',
+	'scribunto-limitreport-profile-ms' => '$1毫秒',
+	'scribunto-limitreport-profile-percent' => '$1%',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Liuxinyu970226
  * @author Yfdyh000
  */
 $messages['zh-hant'] = array(
@@ -2557,4 +2723,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua錯誤：內部錯誤：解釋器已退出。',
 	'scribunto-luastandalone-signal' => 'Lua錯誤：內部錯誤：解釋器因收到信號“$2”而終止。',
 	'scribunto-luastandalone-exited' => 'Lua錯誤：內部錯誤：解釋器已退出，狀態碼為$2。',
+	'scribunto-limitreport-profile' => 'Lua屬性',
+	'scribunto-limitreport-profile-ms' => '$1毫秒',
+	'scribunto-limitreport-profile-percent' => '$1%',
 );
