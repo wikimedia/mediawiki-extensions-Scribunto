@@ -1681,6 +1681,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lua 오류: 내부 오류: 인터프리터가 "$2" 신호로 종료했습니다.',
 	'scribunto-luastandalone-exited' => 'Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.',
 	'scribunto-module-with-errors-category' => '에러가 있는 Scribunto 모듈',
+	'scribunto-limitreport-timeusage' => '루아 시간 사용',
+	'scribunto-limitreport-timeusage-value' => '$1/$2초',
+	'scribunto-limitreport-virtmemusage' => '루아 가상 크기',
+	'scribunto-limitreport-estmemusage' => '루아 추정 메모리 사용',
+	'scribunto-limitreport-memusage' => '루아 메모리 사용',
+	'scribunto-limitreport-profile' => '루아 프로필',
+	'scribunto-limitreport-profile-ms' => '$1ms',
 );
 
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
@@ -2378,6 +2385,7 @@ $messages['sl'] = array(
  * @author Jopparn
  * @author Lokal Profil
  * @author Skalman
+ * @author WikiPhoenix
  */
 $messages['sv'] = array(
 	'scribunto-doc-page-name' => 'Module:$1/dok',
@@ -2410,6 +2418,8 @@ $messages['sv'] = array(
 	'scribunto-luastandalone-gone' => 'Luafel: Internt fel: Tolken har redan avslutats.',
 	'scribunto-luastandalone-signal' => 'Luafel: Internt fel: Tolken har avslutats med signalen "$2".',
 	'scribunto-luastandalone-exited' => 'Luafel: Internt fel: Tolken avslutades med status $2.',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 sekunder',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Thai (ไทย)
@@ -2674,6 +2684,7 @@ $1',
 	'scribunto-module-with-errors-category' => 'Scribunto模块有错误',
 	'scribunto-limitreport-timeusage' => 'Lua使用时间',
 	'scribunto-limitreport-timeusage-value' => '$1/$2秒',
+	'scribunto-limitreport-virtmemusage' => 'Lua虚拟尺寸',
 	'scribunto-limitreport-memusage' => 'Lua内存使用情况',
 	'scribunto-limitreport-profile' => 'Lua属性',
 	'scribunto-limitreport-profile-ms' => '$1毫秒',
@@ -2717,12 +2728,15 @@ $1',
 	'scribunto-lua-noreturn' => '腳本錯誤：該模塊未返回一個值，它應該返回導出表。',
 	'scribunto-lua-notarrayreturn' => '腳本錯誤：該模塊返回的不是表，它應該返回導出表。',
 	'scribunto-luastandalone-proc-error' => 'Lua錯誤：無法創建進程。',
+	'scribunto-luastandalone-proc-error-proc-open' => 'Lua錯誤：無法創建進程：proc_open無法使用。檢查PHP的「disable_functions」指令配置。',
 	'scribunto-luastandalone-decode-error' => 'Lua錯誤：內部錯誤：無法解碼消息。',
 	'scribunto-luastandalone-write-error' => 'Lua錯誤：內部錯誤：寫入管道時出錯。',
 	'scribunto-luastandalone-read-error' => 'Lua錯誤：內部錯誤：從管道讀取時出錯。',
 	'scribunto-luastandalone-gone' => 'Lua錯誤：內部錯誤：解釋器已退出。',
 	'scribunto-luastandalone-signal' => 'Lua錯誤：內部錯誤：解釋器因收到信號“$2”而終止。',
 	'scribunto-luastandalone-exited' => 'Lua錯誤：內部錯誤：解釋器已退出，狀態碼為$2。',
+	'scribunto-limitreport-virtmemusage' => 'Lua虛擬大小',
+	'scribunto-limitreport-memusage' => 'Lua記憶體使用情況',
 	'scribunto-limitreport-profile' => 'Lua屬性',
 	'scribunto-limitreport-profile-ms' => '$1毫秒',
 	'scribunto-limitreport-profile-percent' => '$1%',
