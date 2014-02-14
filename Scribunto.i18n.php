@@ -1387,7 +1387,7 @@ $messages['ilo'] = array(
 	'scribunto-error-long' => 'Dagiti biddut nga eskritu:
 
 $1',
-	'scribunto-doc-page-name' => 'Module:$1/doc',
+	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Ti dokumentasion para iti daytoy a modulo ket mabalin a mapartuat idiay [[$1]]''",
 	'scribunto-doc-page-header' => "'''Daytoy ket dokumentasion a panid para iti [[$1]]'''",
 	'scribunto-console-intro' => '* Dagiti modulo nga eksport ket magun-od a kas ti nadumaduma a "p", a mairaman dagiti saan a naidulin a panagbalbaliw.
@@ -1424,6 +1424,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket pinasardengna ti senial ti "$2".',
 	'scribunto-luastandalone-exited' => 'Biddut a Lua: Akin-uneg a biddut: Ti agipatpatarus ket rimmuar nga adda ti kasasaad iti $2.',
 	'scribunto-module-with-errors-category' => 'Dagiti modulo ti Scribunto nga addaan kadagiti biddut',
+	'scribunto-limitreport-timeusage' => 'Oras a panag-usar ti Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 segundo',
+	'scribunto-limitreport-virtmemusage' => 'Birtual a kadakkel ti Lua',
+	'scribunto-limitreport-estmemusage' => 'Nakarkulo a panag-usar ti memoria ti Lua',
+	'scribunto-limitreport-memusage' => 'Panag-usar ti memoria ti Lua',
+	'scribunto-limitreport-profile' => 'Bariweswes ti Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Icelandic (íslenska)
@@ -2562,6 +2569,12 @@ $1',
 	'scribunto-luastandalone-signal' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор було зупинено з сигналом «$2».',
 	'scribunto-luastandalone-exited' => 'Помилка Lua: Внутрішня помилка: Інтерпретатор завершив роботу зі статусом $2.',
 	'scribunto-module-with-errors-category' => 'Модулі Scribunto з помилками',
+	'scribunto-limitreport-timeusage' => 'Час використання Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 секунд',
+	'scribunto-limitreport-virtmemusage' => 'Віртуальний розмір Lua',
+	'scribunto-limitreport-memusage' => "Використання пам'яті Lua",
+	'scribunto-limitreport-profile' => 'Профіль Lua',
+	'scribunto-limitreport-profile-ms' => '$1 мс',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -2626,6 +2639,13 @@ $messages['yi'] = array(
 	'scribunto-console-clear' => 'רייניקן',
 	'scribunto-common-nosuchmodule' => 'סקריפטים־פעלער: נישט פאראן אזא מאדול.',
 	'scribunto-limitreport-profile' => 'לוא פראפֿיל',
+);
+
+/** Cantonese (粵語)
+ * @author Antonytse
+ */
+$messages['yue'] = array(
+	'scribunto-limitreport-profile-ms' => '$1毫秒',
 );
 
 /** Simplified Chinese (中文（简体）‎)
