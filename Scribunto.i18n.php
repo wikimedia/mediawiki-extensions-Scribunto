@@ -841,6 +841,7 @@ $1',
  * @author Armando-Martin
  * @author Jewbask
  * @author Maor X
+ * @author Peter Bowman
  */
 $messages['es'] = array(
 	'scribunto-desc' => 'Marco para la incorporación de lenguajes de script en páginas de MediaWiki',
@@ -853,6 +854,8 @@ $messages['es'] = array(
 	'scribunto-error-long' => 'Errores de secuencia de comandos (script):
 
 $1',
+	'scribunto-doc-page-does-not-exist' => "''La documentación para este módulo puede ser creada en [[$1]]''",
+	'scribunto-doc-page-header' => "'''Esta es la página de documentación de [[$1]]'''",
 	'scribunto-console-intro' => '* Las exportaciones del módulo están disponibles como la variable "p", incluídas las modificaciones sin guardar.
 * Inicie una línea con el carácter "=" para evaluarla como una expresión; o use print().
 * Use mw.log() en el código del módulo para enviar mensajes a esta consola.',
@@ -1736,6 +1739,9 @@ $1',
 	'scribunto-lua-in-function' => 'an der Funktioun "$1"',
 	'scribunto-lua-error-location' => 'Lua-Feeler $1: $2.',
 	'scribunto-lua-error' => 'Lua Feeler: $2',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 Sekonnen',
+	'scribunto-limitreport-profile' => 'Lua – Profil',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Latvian (latviešu)
@@ -1950,6 +1956,7 @@ $messages['ne'] = array(
  * @author SPQRobin
  * @author Saruman
  * @author Siebrand
+ * @author Sjoerddebruin
  */
 $messages['nl'] = array(
 	'scribunto-desc' => "Framework voor het inbedden van scripttalen in pagina's",
@@ -1999,6 +2006,7 @@ $1',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
 	'scribunto-module-with-errors-category' => 'Scribuntomodules met fouten',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Norwegian Nynorsk (norsk nynorsk)
