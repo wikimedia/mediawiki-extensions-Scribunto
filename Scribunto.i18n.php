@@ -1700,6 +1700,14 @@ $1',
 	'scribunto-limitreport-profile-ms' => '$1ms',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'scribunto-limitreport-virtmemusage-value' => '$1 vun $2',
+	'scribunto-limitreport-memusage-value' => '$1 vun $2',
+);
+
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author Ghybu
  * @author Gomada
