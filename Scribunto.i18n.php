@@ -624,6 +624,13 @@ $1',
 	'scribunto-limitreport-profile-percent' => '$1 %',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'scribunto-limitreport-timeusage-value' => '$1/$2 eiliad',
+);
+
 /** Danish (dansk)
  * @author Peter Alberti
  */
