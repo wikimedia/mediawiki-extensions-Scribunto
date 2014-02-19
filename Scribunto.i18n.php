@@ -175,11 +175,23 @@ Parameters:
 	'scribunto-luastandalone-proc-error-msg' => 'Exception message. Parameters:
 * $1 - (Unused)
 * $2 - Warning/error text from PHP',
-	'scribunto-luastandalone-proc-error-proc-open' => "Exception message displayed when PHP's proc_open function is not available, which is needed by the LuaStandalone engine.",
+	'scribunto-luastandalone-proc-error-proc-open' => "Exception message displayed when PHP's proc_open function is not available, which is needed by the LuaStandalone engine.
+
+See also:
+* proc_open: http://www.php.net/manual/en/function.proc-open.php
+* disable_functions: http://www.php.net/manual/en/ini.core.php",
 	'scribunto-luastandalone-proc-error-safe-mode' => 'Exception message displayed when PHP\'s "safe_mode" configuration directive is enabled.',
 	'scribunto-luastandalone-decode-error' => 'Exception message.',
-	'scribunto-luastandalone-write-error' => 'Exception message.',
-	'scribunto-luastandalone-read-error' => 'Exception message.',
+	'scribunto-luastandalone-write-error' => 'Exception message.<br />
+A [[wikipedia:unix pipe|unix pipe]] is similar to an electronic pipeline for data.
+
+See also:
+* {{msg-mw|Scribunto-luastandalone-read-error}}',
+	'scribunto-luastandalone-read-error' => 'Exception message.
+A [[wikipedia:unix pipe|unix pipe]] is similar to an electronic pipeline for data.
+
+See also:
+* {{msg-mw|Scribunto-luastandalone-write-error}}',
 	'scribunto-luastandalone-gone' => 'Exception message.',
 	'scribunto-luastandalone-signal' => 'Exception message. Parameters:
 * $1 - (Unused)
@@ -477,6 +489,13 @@ $1',
 	'scribunto-lua-error' => 'লুয়া ত্রুটি: $2।',
 	'scribunto-luastandalone-proc-error' => 'লুয়া ত্রুটি: প্রক্রিয়া তৈরি করতে পারবে না।',
 	'scribunto-luastandalone-exited' => 'লুয়া ত্রুটি: অভ্যন্তরীণ ত্রুটি: প্রস্থানের সময় অনুবাদকের অবস্থা $2।',
+	'scribunto-limitreport-timeusage' => 'লুয়া সময় ব্যবহার',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 সেকেন্ড',
+	'scribunto-limitreport-virtmemusage' => 'লুয়া ভার্চুয়াল আকার',
+	'scribunto-limitreport-estmemusage' => 'লুয়া আনুমানিক স্মৃতি ব্যবহার',
+	'scribunto-limitreport-memusage' => 'লুয়া স্মৃতি ব্যবহার',
+	'scribunto-limitreport-profile' => 'লুয়া বৃত্তান্ত',
+	'scribunto-limitreport-profile-ms' => '$1 মি.সে.',
 );
 
 /** Breton (brezhoneg)
@@ -560,6 +579,12 @@ $messages['ce'] = array(
 	'scribunto-console-clear' => 'ЦӀанъян',
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
 	'scribunto-common-nosuchmodule' => 'Скриптан гӀалат: Ишта модуль яц.',
+	'scribunto-limitreport-timeusage' => 'Lua лелоран хан',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 секунд',
+	'scribunto-limitreport-virtmemusage' => 'Виртуалан барам Lua',
+	'scribunto-limitreport-memusage' => 'Lua меттиг лелор',
+	'scribunto-limitreport-profile' => 'Профиль Lua',
+	'scribunto-limitreport-profile-ms' => '$1 мс',
 );
 
 /** Czech (čeština)
@@ -1711,6 +1736,10 @@ $1',
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'scribunto-luastandalone-write-error' => 'Fähler em Lua.
+Ene entärne Fähler es opjetrodde beim Schriive en en <i lang="en" xml:lang="en">pipe</i>.',
+	'scribunto-luastandalone-read-error' => 'Fähler em Lua.
+Ene entärne Fähler es opjetrodde beim Lässe us ener <i lang="en" xml:lang="en">pipe</i>.',
 	'scribunto-limitreport-virtmemusage-value' => '$1 vun $2',
 	'scribunto-limitreport-memusage-value' => '$1 vun $2',
 );
@@ -1858,6 +1887,13 @@ $1',
 	'scribunto-lua-error-location' => 'ലുവ പിഴവ് $1 : $2',
 	'scribunto-lua-error' => 'ലുവ പിഴവ്: $2.',
 	'scribunto-luastandalone-decode-error' => 'ലുവ പിഴവ്: ആന്തരിക പിഴവ്: സന്ദേശം നിർഗൂഢീകരിക്കാൻ സാധിച്ചില്ല.',
+);
+
+/** Marathi (मराठी)
+ * @author V.narsikar
+ */
+$messages['mr'] = array(
+	'scribunto-limitreport-timeusage-value' => '$1/$2 सेकंद',
 );
 
 /** Malay (Bahasa Melayu)

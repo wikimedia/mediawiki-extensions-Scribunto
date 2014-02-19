@@ -15,6 +15,11 @@ $magicWords['ar'] = array(
 	'invoke' => array( 0, 'استدعاء' ),
 );
 
+/** Egyptian Spoken Arabic (مصرى) */
+$magicWords['arz'] = array(
+	'invoke' => array( 0, 'استدعا' ),
+);
+
 /** German (Deutsch) */
 $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
@@ -78,4 +83,9 @@ $magicWords['pt-br'] = array(
 /** Vietnamese (Tiếng Việt) */
 $magicWords['vi'] = array(
 	'invoke' => array( 0, 'gọi' ),
+);
+
+/** Simplified Chinese (中文（简体）‎) */
+$magicWords['zh-hans'] = array(
+	'invoke' => array( 0, '调用' ),
 );
