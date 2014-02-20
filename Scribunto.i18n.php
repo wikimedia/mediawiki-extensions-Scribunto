@@ -2383,6 +2383,19 @@ $1',
 	'scribunto-limitreport-profile-ms' => '$1 мс',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'scribunto-limitreport-timeusage' => 'Lua time uissage',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 seicons',
+	'scribunto-limitreport-virtmemusage' => 'Lua virtual size',
+	'scribunto-limitreport-estmemusage' => 'Lua estimated memory uissage',
+	'scribunto-limitreport-memusage' => 'Lua memory uissage',
+	'scribunto-limitreport-profile' => 'Lua Profile',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
+);
+
 /** Sinhala (සිංහල)
  * @author පසිඳු කාවින්ද
  */
@@ -2486,6 +2499,13 @@ $messages['sv'] = array(
 	'scribunto-luastandalone-exited' => 'Luafel: Internt fel: Tolken avslutades med status $2.',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 sekunder',
 	'scribunto-limitreport-profile-ms' => '$1 ms',
+);
+
+/** Telugu (తెలుగు)
+ * @author Ravichandra
+ */
+$messages['te'] = array(
+	'scribunto-limitreport-profile-ms' => '$1 మి.సె',
 );
 
 /** Thai (ไทย)
