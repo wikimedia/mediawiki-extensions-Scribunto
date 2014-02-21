@@ -85,6 +85,7 @@ $1',
  * @author Anomie
  * @author Gomada
  * @author Mormegil
+ * @author Nemo bis
  * @author Raymond
  * @author Shirayuki
  * @author Siebrand
@@ -175,7 +176,7 @@ Parameters:
 	'scribunto-luastandalone-proc-error-msg' => 'Exception message. Parameters:
 * $1 - (Unused)
 * $2 - Warning/error text from PHP',
-	'scribunto-luastandalone-proc-error-proc-open' => "Exception message displayed when PHP's proc_open function is not available, which is needed by the LuaStandalone engine.
+	'scribunto-luastandalone-proc-error-proc-open' => "Exception message displayed when PHP's <tt>proc_open</tt> function is not available, which is needed by the LuaStandalone engine. <tt>proc_open</tt> is a PHP function name and <tt>disable_functions</tt> is the name of a PHP configuration. Both these names aren't localized, thus shouldn't be translated. 
 
 See also:
 * proc_open: http://www.php.net/manual/en/function.proc-open.php
@@ -1736,12 +1737,14 @@ $1',
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'scribunto-luastandalone-decode-error' => 'Fähler em LUA. Mer kunnte di Mäldong nit verschtonn.',
 	'scribunto-luastandalone-write-error' => 'Fähler em Lua.
 Ene entärne Fähler es opjetrodde beim Schriive en en <i lang="en" xml:lang="en">pipe</i>.',
 	'scribunto-luastandalone-read-error' => 'Fähler em Lua.
 Ene entärne Fähler es opjetrodde beim Lässe us ener <i lang="en" xml:lang="en">pipe</i>.',
 	'scribunto-limitreport-virtmemusage-value' => '$1 vun $2',
 	'scribunto-limitreport-memusage-value' => '$1 vun $2',
+	'scribunto-limitreport-profile-ms' => '$1&nbsp;ms',
 );
 
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
