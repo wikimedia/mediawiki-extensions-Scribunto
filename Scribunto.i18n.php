@@ -1253,6 +1253,8 @@ $1',
 	'scribunto-luastandalone-proc-error-proc-open' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: proc_open उपलब्ध नहीं है। PHP का "disable_functions" कन्फिगरेशन डायरेक्टिव जाँचें।',
 	'scribunto-luastandalone-proc-error-safe-mode' => 'लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी। ध्यान दें कि PHP का पुराना (डेप्रिकेटेड) "safe_mode" कन्फिगरेशन डायरेक्टिव सक्षम है।',
 	'scribunto-luastandalone-decode-error' => 'लुआ त्रुटि: आतंरिक त्रुटि: सन्देश डीकोड नहीं किया जा सका।',
+	'scribunto-luastandalone-write-error' => 'लुआ त्रुटि: आतंरिक त्रुटि: पाइप में लिखने में त्रुटि।',
+	'scribunto-luastandalone-read-error' => 'लुआ त्रुटि: आतंरिक त्रुटि: पाइप से पढ़ने में त्रुटि।',
 	'scribunto-luastandalone-gone' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर पहले ही बंद हो चुका है।',
 	'scribunto-luastandalone-signal' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर "$2" संकेत के साथ बंद हो चुका है।',
 	'scribunto-luastandalone-exited' => 'लुआ त्रुटि: आतंरिक त्रुटि: इंटरप्रेटर $2 स्थिति-संकेत के साथ बंद हुआ।',
@@ -1807,6 +1809,13 @@ $1',
 	'scribunto-lua-error' => 'Lua kļūda: $2.',
 	'scribunto-luastandalone-proc-error' => 'Lua kļūda: Nevar izveidot procesu.',
 	'scribunto-luastandalone-proc-error-msg' => 'Lua kļūda: Nevar izveidot procesu: $2',
+);
+
+/** Malagasy (Malagasy)
+ * @author Jagwar
+ */
+$messages['mg'] = array(
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Macedonian (македонски)
@@ -2711,6 +2720,13 @@ $1',
 	'scribunto-luastandalone-signal' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã kết thúc với tín hiệu “$2”.',
 	'scribunto-luastandalone-exited' => 'Lỗi Lua: Lỗi nội bộ: Bộ phân tích đã thoát với trạng thái $2.',
 	'scribunto-module-with-errors-category' => 'Mô đun Scribunto có lỗi',
+	'scribunto-limitreport-timeusage' => 'Thời gian sử dụng Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 giây',
+	'scribunto-limitreport-virtmemusage' => 'Kích thước ảo Lua',
+	'scribunto-limitreport-estmemusage' => 'Ước lượng sử dụng bộ nhớ Lua',
+	'scribunto-limitreport-memusage' => 'Sử dụng bộ nhớ Lua',
+	'scribunto-limitreport-profile' => 'Hồ sơ Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Yiddish (ייִדיש)
