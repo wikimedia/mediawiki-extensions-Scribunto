@@ -291,6 +291,11 @@ $namespaceNames['uk'] = array(
 	829 => 'Обговорення_модуля',
 );
 
+$namespaceNames['ur'] = array(
+	828 => 'ماڈیول',
+	829 => 'تبادلۂ_خیال_ماڈیول',
+);
+
 $namespaceNames['vi'] = array(
 	828 => 'Mô_đun',
 	829 => 'Thảo_luận_Mô_đun',
