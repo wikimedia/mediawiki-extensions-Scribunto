@@ -1587,6 +1587,7 @@ $1',
 	'scribunto-limitreport-estmemusage' => "Stima dell'utilizzo della memoria Lua",
 	'scribunto-limitreport-memusage' => 'Utilizzo della memoria Lua',
 	'scribunto-limitreport-profile' => 'Profilo Lua',
+	'scribunto-limitreport-profile-ms' => '$1&nbsp;ms',
 );
 
 /** Japanese (日本語)
