@@ -574,9 +574,15 @@ $1",
  */
 $messages['ce'] = array(
 	'scribunto-desc' => 'MediaWiki агӀонашкахь скриптийн мотт лато хӀума',
+	'scribunto-ignore-errors' => 'Мага де кодан гӀалаташца Ӏалашъян',
 	'scribunto-parser-error' => 'Скриптан гӀалат',
 	'scribunto-parser-dialog-title' => 'Скриптан гӀалат',
 	'scribunto-error-short' => 'Скриптан гӀалат: $1',
+	'scribunto-doc-page-does-not-exist' => "''ХӀокху модулах лаьцна хааман [[$1]] агӀо кхолла мега''",
+	'scribunto-console-intro' => '* ХӀокху модульс экспорт еш ерг, лело луш ю хийцалуш «p» сана, Ӏалаш бина боцу хийцамашца.
+* Хьалха йилла билгало «=», дош сана къаста ян я лела йе print().
+* Мудулан кодан юкъахь ела йе mw.log() хаам консуль чохь гучу балийта.',
+	'scribunto-console-title' => 'Лелоран консуль',
 	'scribunto-console-clear' => 'ЦӀанъян',
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
 	'scribunto-common-nosuchmodule' => 'Скриптан гӀалат: Ишта модуль яц.',
@@ -982,6 +988,9 @@ $1',
 	'scribunto-doc-page-name' => 'Module:$1/توضیحات',
 	'scribunto-doc-page-does-not-exist' => "''توضیحات این پودمان می‌تواند در [[$1]] قرار گیرد.''",
 	'scribunto-doc-page-header' => "'''این صفحهٔ توضیحات [[$1]] است'''",
+	'scribunto-console-intro' => '* صادرات ماژول ه عنوان متغیر "پی" در دسترس هستند، شامل تغییرات ذخیره نشده.
+* مقدم بودن خط با "=" برای ارزیابی آن به عنوان یک عبارت، یا استفاده از پرینت().
+ * استفاده از mw.log() در کد ماژول برای ارسال پیام‌ها به این کنسول.',
 	'scribunto-console-title' => 'میزفرمان اشکال‌زدایی',
 	'scribunto-console-too-large' => 'نشست میز فرمان خیلی بزرگ است. لطفاً تاریخچهٔ میز فرمان را پاک کنید یا حجم پودمان را کمتر کنید.',
 	'scribunto-console-current-src' => 'ورودی میزفرمان',
@@ -1004,6 +1013,8 @@ $1',
 	'scribunto-lua-notarrayreturn' => 'خطای اسکریپتی: پودمان چیزی غیر از یک جدول برگرداند. (باید یک جدول برون‌ریزی برگرداند)',
 	'scribunto-luastandalone-proc-error' => 'خطای لوآ: نمی‌تواند فرآیند را ایجاد کند.',
 	'scribunto-luastandalone-proc-error-msg' => 'خطای لوا: روند نتوانست ایجاد شود: $2',
+	'scribunto-luastandalone-proc-error-proc-open' => 'خطای لوآ: نتوانست روند را ایجاد کند: proc_open در دسترس نیست. دستور پیکربندی "disable_functions"پی‌اچ‌پی‌ را بررسی کنید.',
+	'scribunto-luastandalone-proc-error-safe-mode' => 'خطای لوآ: نتوانست روند را ایجاد کند. توجه داشته باشید که مخالفت‌ پی‌اچ‌پی "safe_mode" دستور پیکربندی غیرفعال است.',
 	'scribunto-luastandalone-decode-error' => 'خطای لوآ: خطای داخلی: نمی‌تواند پیغام را کدبرداری کند.',
 	'scribunto-luastandalone-write-error' => 'خطای لوآ: خطای داخلی: خطا در نوشتن لوله.',
 	'scribunto-luastandalone-read-error' => 'خطای لوآ: خطای داخلی: خطا در خواندن لوله.',
@@ -2138,6 +2149,7 @@ $1',
 /** Polish (polski)
  * @author Beau
  * @author Chrumps
+ * @author Jacenty359
  * @author Matma Rex
  */
 $messages['pl'] = array(
@@ -2164,6 +2176,9 @@ $1',
 	'scribunto-common-backtrace' => 'Backtrace:',
 	'scribunto-lua-in-function' => 'w funkcji „$1”',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 sekund',
+	'scribunto-limitreport-estmemusage' => 'Szacunkowe zużycie pamięci Lua',
+	'scribunto-limitreport-memusage' => 'Użycie pamięci Lua',
+	'scribunto-limitreport-profile' => 'Profil Lua',
 	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
@@ -2420,6 +2435,7 @@ $messages['sco'] = array(
 );
 
 /** Sinhala (සිංහල)
+ * @author Sahan.ssw
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
@@ -2448,6 +2464,7 @@ $1',
 	'scribunto-luastandalone-gone' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ දැනටමත් පවතී.',
 	'scribunto-luastandalone-signal' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" සංඥාව සමඟ අවසාන වුණි.',
 	'scribunto-luastandalone-exited' => 'Lua දෝෂය: අභ්‍යන්තර දෝෂය: ව්‍යාඛ්‍යා කර්තෘ "$2" තත්වය සමඟ ඉවත් වුණි.',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Slovak (slovenčina)
@@ -2525,9 +2542,11 @@ $messages['sv'] = array(
 );
 
 /** Telugu (తెలుగు)
+ * @author Chaduvari
  * @author Ravichandra
  */
 $messages['te'] = array(
+	'scribunto-limitreport-timeusage-value' => '$1/$2 సెకండ్లు',
 	'scribunto-limitreport-profile-ms' => '$1 మి.సె',
 );
 
@@ -2674,6 +2693,7 @@ $1',
 	'scribunto-limitreport-timeusage' => 'Час використання Lua',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 секунд',
 	'scribunto-limitreport-virtmemusage' => 'Віртуальний розмір Lua',
+	'scribunto-limitreport-estmemusage' => "Можливе використання пам'яті Lua",
 	'scribunto-limitreport-memusage' => "Використання пам'яті Lua",
 	'scribunto-limitreport-profile' => 'Профіль Lua',
 	'scribunto-limitreport-profile-ms' => '$1 мс',
