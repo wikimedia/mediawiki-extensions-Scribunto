@@ -581,7 +581,7 @@ $messages['ce'] = array(
 	'scribunto-doc-page-does-not-exist' => "''ХӀокху модулах лаьцна хааман [[$1]] агӀо кхолла мега''",
 	'scribunto-console-intro' => '* ХӀокху модульс экспорт еш ерг, лело луш ю хийцалуш «p» сана, Ӏалаш бина боцу хийцамашца.
 * Хьалха йилла билгало «=», дош сана къаста ян я лела йе print().
-* Мудулан кодан юкъахь ела йе mw.log() хаам консуль чохь гучу балийта.',
+* Модулан кодан юкъахь лела йе mw.log() хаам консуль чохь гучу балийта.',
 	'scribunto-console-title' => 'Лелоран консуль',
 	'scribunto-console-clear' => 'ЦӀанъян',
 	'scribunto-common-error-category' => 'Срипташан гӀалаташ долу агӀонаш',
@@ -2091,6 +2091,7 @@ $1',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
 	'scribunto-module-with-errors-category' => 'Scribuntomodules met fouten',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 seconden',
 	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
@@ -2263,11 +2264,19 @@ $1',
 	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
 	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador terminou com o sinal "$2".',
 	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador finalizou com o estado $2.',
+	'scribunto-module-with-errors-category' => 'Módulos Scribunto com erros',
+	'scribunto-limitreport-timeusage' => 'Uso de tempo em Lua',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 segundos',
+	'scribunto-limitreport-virtmemusage' => 'Tamanho virtual em Lua',
+	'scribunto-limitreport-estmemusage' => 'Estimativa do uso de memória em Lua',
+	'scribunto-limitreport-memusage' => 'Uso de memória em Lua',
+	'scribunto-limitreport-profile' => 'Perfil em Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Brazilian Portuguese (português do Brasil)
  * @author Cainamarques
+ * @author Helder.wiki
  * @author Jaideraf
  */
 $messages['pt-br'] = array(
@@ -2317,6 +2326,14 @@ $1',
 	'scribunto-luastandalone-gone' => 'Erro em Lua: erro interno: o interpretador já foi encerrado.',
 	'scribunto-luastandalone-signal' => 'Erro em Lua: erro interno: o interpretador foi finalizado com o sinal "$2"',
 	'scribunto-luastandalone-exited' => 'Erro em Lua: erro interno: o interpretador saiu com status $2',
+	'scribunto-module-with-errors-category' => 'Módulos Scribunto com erros',
+	'scribunto-limitreport-timeusage' => 'Uso de tempo em Lua',
+	'scribunto-limitreport-timeusage-value' => '$1/$2 segundos',
+	'scribunto-limitreport-virtmemusage' => 'Tamanho virtual em Lua',
+	'scribunto-limitreport-estmemusage' => 'Estimativa do uso de memória em Lua',
+	'scribunto-limitreport-memusage' => 'Uso de memória em Lua',
+	'scribunto-limitreport-profile' => 'Perfil em Lua',
+	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
 /** Romanian (română)

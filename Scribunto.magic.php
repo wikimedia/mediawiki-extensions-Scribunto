@@ -40,6 +40,11 @@ $magicWords['gl'] = array(
 	'invoke' => array( 0, 'chamar' ),
 );
 
+/** Hindi (हिन्दी) */
+$magicWords['hi'] = array(
+	'invoke' => array( 0, 'बुलाएँ', 'बुलायें' ),
+);
+
 /** Indonesian (Bahasa Indonesia) */
 $magicWords['id'] = array(
 	'invoke' => array( 0, 'pinta' ),
