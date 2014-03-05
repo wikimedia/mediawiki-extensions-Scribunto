@@ -60,7 +60,12 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
-		return array( Language::isSupportedLanguage( $code ) );
+		try {
+			// There's no good reason this should throw, but it does. Sigh.
+			return array( Language::isSupportedLanguage( $code ) );
+		} catch ( MWException $ex ) {
+			return array( false );
+		}
 	}
 
 	function isKnownLanguageTag( $code ) {
@@ -110,7 +115,11 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			if ( count( $this->langCache ) > self::MAX_LANG_CACHE_SIZE ) {
 				throw new Scribunto_LuaError( 'too many language codes requested' );
 			}
-			$this->langCache[$code] = Language::factory( $code );
+			try {
+				$this->langCache[$code] = Language::factory( $code );
+			} catch ( MWException $ex ) {
+				throw new Scribunto_LuaError( "language code '$code' is invalid" );
+			}
 		}
 		$lang = $this->langCache[$code];
 		switch ( $name ) {
@@ -170,7 +179,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	function gender( $lang, $args ) {
 		$this->checkType( 'gender', 1, $args[0], 'string' );
-		$username = trim( array_shift( $args[0] ) );
+		$username = trim( array_shift( $args ) );
 
 		if ( is_array( $args[0] ) ) {
 			$args = $args[0];
