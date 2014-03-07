@@ -2524,8 +2524,24 @@ $messages['sl'] = array(
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
+	'scribunto-desc' => 'Ramverk för att bädda in skriptspråk på MediaWiki-sidor',
+	'scribunto-ignore-errors' => 'Tillåt att kod med fel sparas',
+	'scribunto-line' => 'på rad $1',
+	'scribunto-module-line' => 'i $1 på rad $2',
+	'scribunto-parser-error' => 'Skriptfel',
+	'scribunto-parser-dialog-title' => 'Skriptfel',
+	'scribunto-error-short' => 'Skriptfel: $1',
+	'scribunto-error-long' => 'Skriptfel:
+
+$1',
 	'scribunto-doc-page-name' => 'Module:$1/dok',
 	'scribunto-doc-page-does-not-exist' => "''Dokumentationen för denna modul kan skapas på [[$1]]''",
+	'scribunto-doc-page-header' => "'''Detta är dokumentationssidan för [[$1]]'''",
+	'scribunto-console-intro' => '* Modulexporteringarna är tillgängliga som variabeln "p", inklusive osparade ändringar.
+* Börja en rad med "=" för att utvärdera den som ett uttryck, eller använd print().
+* Använd mw.log() i modulkoden för att skicka meddelande till denna konsol.',
+	'scribunto-console-title' => 'Felsökningskonsol',
+	'scribunto-console-too-large' => 'Denna konsolsessionen är för stor. Vänligen rensa konsolhistoriken eller minska storleken på modulen.',
 	'scribunto-console-current-src' => 'konsol-indata',
 	'scribunto-console-clear' => 'Rensa',
 	'scribunto-console-cleared' => 'Konsol-tillståndet tömdes eftersom modulen uppdaterades.',
@@ -2554,7 +2570,13 @@ $messages['sv'] = array(
 	'scribunto-luastandalone-gone' => 'Luafel: Internt fel: Tolken har redan avslutats.',
 	'scribunto-luastandalone-signal' => 'Luafel: Internt fel: Tolken har avslutats med signalen "$2".',
 	'scribunto-luastandalone-exited' => 'Luafel: Internt fel: Tolken avslutades med status $2.',
+	'scribunto-module-with-errors-category' => 'Scribunto-moduler med fel',
+	'scribunto-limitreport-timeusage' => 'Lua - tidsanvändning',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 sekunder',
+	'scribunto-limitreport-virtmemusage' => 'Lua - virtuell storlek',
+	'scribunto-limitreport-estmemusage' => 'Lua - uppskattad minnesanvändning',
+	'scribunto-limitreport-memusage' => 'Lua - minnesanvändning',
+	'scribunto-limitreport-profile' => 'Lua-profil',
 	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
