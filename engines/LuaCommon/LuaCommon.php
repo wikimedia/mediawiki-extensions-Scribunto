@@ -444,7 +444,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$frame = $this->getFrameById( $frameId );
 		$title = Title::newFromText( $titleText, NS_TEMPLATE );
 		if ( !$title ) {
-			throw new Scribunto_LuaError( 'expandTemplate: invalid title' );
+			throw new Scribunto_LuaError( "expandTemplate: invalid title \"$titleText\"" );
 		}
 
 		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
