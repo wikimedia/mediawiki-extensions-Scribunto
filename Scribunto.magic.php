@@ -85,6 +85,11 @@ $magicWords['pt-br'] = array(
 	'invoke' => array( 0, 'invocar' ),
 );
 
+/** Russian (русский) */
+$magicWords['ru'] = array(
+	'invoke' => array( 0, 'вызвать' ),
+);
+
 /** Vietnamese (Tiếng Việt) */
 $magicWords['vi'] = array(
 	'invoke' => array( 0, 'gọi' ),
