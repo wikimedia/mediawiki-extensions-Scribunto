@@ -29,14 +29,7 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		$msg->inLanguage( $data['lang'] )
 			->useDatabase( $data['useDB'] );
 		if ( $setParams ) {
-			if ( isset( $data['title'] ) ) {
-				$title = Title::newFromText( $data['title'] );
-			} else {
-				$title = $this->getTitle();
-			}
-
-			$msg->params( array_values( $data['params'] ) )
-				->title( $title );
+			$msg->params( array_values( $data['params'] ) );
 		}
 		return $msg;
 	}
