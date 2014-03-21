@@ -2,11 +2,9 @@
 
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	const MAX_LANG_CACHE_SIZE = 20;
-	const MAX_TIME_CHARS = 6000;
 
 	var $langCache = array();
 	var $timeCache = array();
-	var $timeChars = 0;
 
 	function register() {
 		// Pre-populate the language cache
@@ -261,11 +259,6 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 		if ( isset( $this->timeCache[$format][$cacheKey][$langcode][$local] ) ) {
 			return array( $this->timeCache[$format][$cacheKey][$langcode][$local] );
-		}
-
-		$this->timeChars += strlen( $format );
-		if ( $this->timeChars > self::MAX_TIME_CHARS ) {
-			throw new Scribunto_LuaError( "Too many calls to mw.language:formatDate()" );
 		}
 
 		# Default input timezone is UTC.
