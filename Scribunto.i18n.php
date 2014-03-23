@@ -2091,7 +2091,12 @@ $1',
 	'scribunto-luastandalone-signal' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met het signaal "$2".',
 	'scribunto-luastandalone-exited' => 'Luafout: interne fout: de verwerkingsmodule is gestopt met de status $2.',
 	'scribunto-module-with-errors-category' => 'Scribuntomodules met fouten',
+	'scribunto-limitreport-timeusage' => 'Tijdgebruik door Lua',
 	'scribunto-limitreport-timeusage-value' => '$1/$2 seconden',
+	'scribunto-limitreport-virtmemusage' => 'Virtuele grootte van Lua',
+	'scribunto-limitreport-estmemusage' => 'Geschat geheugengebruik door Lua',
+	'scribunto-limitreport-memusage' => 'Geheugengebruik door Lua',
+	'scribunto-limitreport-profile' => 'Luaprofiel',
 	'scribunto-limitreport-profile-ms' => '$1 ms',
 );
 
