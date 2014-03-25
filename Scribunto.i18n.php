@@ -1816,6 +1816,7 @@ $1',
 );
 
 /** Latvian (latviešu)
+ * @author Edgars2007
  * @author Papuass
  */
 $messages['lv'] = array(
@@ -1826,6 +1827,8 @@ $messages['lv'] = array(
 	'scribunto-error-long' => 'Skripta kļūdas:
 
 $1',
+	'scribunto-doc-page-does-not-exist' => "''Šī moduļa dokumentāciju var izveidot [[$1]] lapā''",
+	'scribunto-doc-page-header' => "'''Šī ir [[$1]] moduļa dokumentācijas lapa'''",
 	'scribunto-lua-in-function' => 'funkcijā "$1"',
 	'scribunto-lua-error-location' => 'Lua kļūda $1: $2.',
 	'scribunto-lua-error' => 'Lua kļūda: $2.',
