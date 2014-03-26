@@ -364,10 +364,17 @@ WIKI;
 	 * @param $parserOutput ParserOutput
 	 */
 	public static function parserOutputHook( $outputPage, $parserOutput ) {
+		// Only run the following if we're not on mobile as ext.scribunto doesn't work on mobile. Bug 59808
+		if ( $outputPage->getTarget() === 'mobile' ) {
+			return;
+		}
+
 		$outputPage->addModules( 'ext.scribunto' );
-		$outputPage->addInlineScript( 'mw.loader.using("ext.scribunto", function() {' . 
-			Xml::encodeJsCall( 'mw.scribunto.setErrors', array( $parserOutput->scribunto_errors ) )
-			. '});' );
+		$outputPage->addInlineScript(
+			'mw.loader.using("ext.scribunto", function() {' .
+				Xml::encodeJsCall( 'mw.scribunto.setErrors', array( $parserOutput->scribunto_errors ) )
+			. '});'
+		);
 	}
 
 	/**
