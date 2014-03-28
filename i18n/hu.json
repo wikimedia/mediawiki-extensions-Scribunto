@@ -1,0 +1,31 @@
+{
+    "@metadata": {
+        "authors": [
+            "Misibacsi",
+            "TK-999",
+            "Tgr"
+        ]
+    },
+    "scribunto-desc": "Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására",
+    "scribunto-ignore-errors": "Engedje a kód elmentését akkor is, ha hibás",
+    "scribunto-line": "a(z) $1. sorban",
+    "scribunto-module-line": "a(z) $1 modulban a(z) $2. sorban",
+    "scribunto-parser-error": "Parancsfájl-hiba",
+    "scribunto-parser-dialog-title": "Parancsfájl-hiba",
+    "scribunto-error-short": "Parancsfájl-hiba: $1",
+    "scribunto-error-long": "Parancsfájl-hibák:\n\n$1",
+    "scribunto-doc-page-name": "Module:$1/doc",
+    "scribunto-doc-page-does-not-exist": "''A modult a [[$1]] lapon tudod dokumentálni''",
+    "scribunto-doc-page-header": "'''Ez a [[$1]] dokumentációs lapja'''",
+    "scribunto-console-title": "Hibakereső konzol",
+    "scribunto-console-current-src": "konzol bemenet",
+    "scribunto-console-clear": "törlés",
+    "scribunto-common-nosuchmodule": "Parancsfájl-hiba: nincs ilyen modul.",
+    "scribunto-common-nofunction": "Parancsfájl-hiba: meg kell adnod a használandó függvényt.",
+    "scribunto-common-nosuchfunction": "Parancsfájl-hiba: a megadott függvény nem létezik.",
+    "scribunto-common-timeout": "A parancsfájlok futtatására lefoglalt idő lejárt.",
+    "scribunto-common-oom": "A parancsfájlok futtatásához engedélyezett memória mennyisége túl lett lépve.",
+    "scribunto-common-backtrace": "Backtrace:",
+    "scribunto-lua-in-function": "a(z) \"$1\" függvényben",
+    "scribunto-lua-error": "Lua-hiba:  $2."
+}

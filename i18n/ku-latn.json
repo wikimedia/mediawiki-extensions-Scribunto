@@ -1,0 +1,18 @@
+{
+    "@metadata": {
+        "authors": [
+            "Ghybu",
+            "Gomada"
+        ]
+    },
+    "scribunto-ignore-errors": "Destûra tomarkirina kodan a bi çewtiyan bide",
+    "scribunto-line": "li ser rêza $1",
+    "scribunto-module-line": "di $1 de, li ser rêza $2",
+    "scribunto-parser-error": "Çewtiya nivîsê",
+    "scribunto-parser-dialog-title": "Çewtiya nivîsê",
+    "scribunto-error-short": "Çewtiya nivîsê: $1",
+    "scribunto-error-long": "Çewtiyên nivîsê:\n\n$1",
+    "scribunto-doc-page-name": "Module:$1/belge",
+    "scribunto-doc-page-header": "'''Ev rûpela belgekirinê ya [[$1]] ye'''",
+    "scribunto-console-clear": "Jê bibe"
+}

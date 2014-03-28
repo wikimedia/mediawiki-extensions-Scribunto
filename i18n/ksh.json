@@ -1,0 +1,13 @@
+{
+    "@metadata": {
+        "authors": [
+            "Purodha"
+        ]
+    },
+    "scribunto-luastandalone-decode-error": "Fähler em LUA. Mer kunnte di Mäldong nit verschtonn.",
+    "scribunto-luastandalone-write-error": "Fähler em Lua.\nEne entärne Fähler es opjetrodde beim Schriive en en <i lang=\"en\" xml:lang=\"en\">pipe</i>.",
+    "scribunto-luastandalone-read-error": "Fähler em Lua.\nEne entärne Fähler es opjetrodde beim Lässe us ener <i lang=\"en\" xml:lang=\"en\">pipe</i>.",
+    "scribunto-limitreport-virtmemusage-value": "$1 vun $2",
+    "scribunto-limitreport-memusage-value": "$1 vun $2",
+    "scribunto-limitreport-profile-ms": "$1&nbsp;ms"
+}

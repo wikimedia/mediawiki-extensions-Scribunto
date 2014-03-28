@@ -1,0 +1,33 @@
+{
+    "@metadata": {
+        "authors": [
+            "Avjoska",
+            "Pikne"
+        ]
+    },
+    "scribunto-ignore-errors": "Luba salvestada kood tõrgetega",
+    "scribunto-line": "$1. real",
+    "scribunto-module-line": "kohal $1 $2. real",
+    "scribunto-parser-error": "Skriptitõrge",
+    "scribunto-parser-dialog-title": "Skriptitõrge",
+    "scribunto-error-short": "Skriptitõrge: $1",
+    "scribunto-error-long": "Skriptitõrked:\n\n$1",
+    "scribunto-doc-page-does-not-exist": "''Selle mooduli dokumentatsiooni saab kirjutada asukohta [[$1]]''.",
+    "scribunto-doc-page-header": "'''See on üksuse [[$1]] dokumentatsiooni lehekülg.'''",
+    "scribunto-console-title": "Veatõrje konsool",
+    "scribunto-console-current-src": "konsoolisisend",
+    "scribunto-console-clear": "Puhasta",
+    "scribunto-common-error-category": "Skriptitõrgetega leheküljed",
+    "scribunto-common-nosuchmodule": "Skriptitõrge: Sellist moodulit pole.",
+    "scribunto-common-nosuchfunction": "Skriptitõrge: Määratud funktsioon puudub.",
+    "scribunto-lua-in-function": "funktsioonis \"$1\"",
+    "scribunto-lua-error-location": "Lua tõrge $1: $2.",
+    "scribunto-lua-error": "Lua tõrge: $2.",
+    "scribunto-module-with-errors-category": "Tõrgetega Scribunto-moodulid",
+    "scribunto-limitreport-timeusage": "Lua ajakasutus",
+    "scribunto-limitreport-timeusage-value": "$1/$2 sekundit",
+    "scribunto-limitreport-virtmemusage": "Lua virtuaalne suurus",
+    "scribunto-limitreport-estmemusage": "Lua hinnanguline mälukasutus",
+    "scribunto-limitreport-memusage": "Lua mälukasutus",
+    "scribunto-limitreport-profile": "Lua profiil"
+}

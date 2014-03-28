@@ -1,0 +1,17 @@
+{
+    "@metadata": {
+        "authors": [
+            "Nullzero"
+        ]
+    },
+    "scribunto-line": "บรรทัดที่ $1",
+    "scribunto-parser-error": "สคริปต์ผิดพลาด",
+    "scribunto-parser-dialog-title": "สคริปต์ผิดพลาด",
+    "scribunto-error-short": "สคริปต์ผิดพลาด: $1",
+    "scribunto-error-long": "สคริปต์ผิดพลาด:\n\n$1",
+    "scribunto-doc-page-does-not-exist": "''เอกสารการใช้งานของมอดูลนี้อาจสร้างขึ้นที่ [[$1]]''",
+    "scribunto-console-clear": "ล้าง",
+    "scribunto-common-error-category": "หน้าที่มีสคริปต์ผิดพลาด",
+    "scribunto-lua-error-location": "สคริปต์ลูอาผิดพลาด $1: $2",
+    "scribunto-lua-error": "สคริปต์ลูอาผิดพลาด: $2"
+}

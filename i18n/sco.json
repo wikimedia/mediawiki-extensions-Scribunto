@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "John Reid"
+        ]
+    },
+    "scribunto-limitreport-timeusage": "Lua time uissage",
+    "scribunto-limitreport-timeusage-value": "$1/$2 seicons",
+    "scribunto-limitreport-virtmemusage": "Lua virtual size",
+    "scribunto-limitreport-estmemusage": "Lua estimated memory uissage",
+    "scribunto-limitreport-memusage": "Lua memory uissage",
+    "scribunto-limitreport-profile": "Lua Profile",
+    "scribunto-limitreport-profile-ms": "$1 ms"
+}

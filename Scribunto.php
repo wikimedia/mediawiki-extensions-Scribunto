@@ -31,7 +31,8 @@ $wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
 );
 
-$dir = dirname(__FILE__) . '/';
+$dir = __DIR__ . '/';
+$wgMessagesDirs['Scribunto'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['Scribunto'] = $dir . 'Scribunto.i18n.php';
 $wgExtensionMessagesFiles['ScribuntoMagic'] = $dir . 'Scribunto.magic.php';
 $wgExtensionMessagesFiles['ScribuntoNamespaces'] = $dir . 'Scribunto.namespaces.php';
@@ -137,9 +138,9 @@ $wgScribuntoEngineConf = array(
 		'profilerPeriod' => 0.02,
 
 		// Set this to true to allow setfenv() and getfenv() in user code.
-		// Note that these functions have been removed in Lua 5.2. Scribunto 
-		// does not yet support Lua 5.2, but we expect support will be 
-		// implemented in the future, and there is no guarantee that a 
+		// Note that these functions have been removed in Lua 5.2. Scribunto
+		// does not yet support Lua 5.2, but we expect support will be
+		// implemented in the future, and there is no guarantee that a
 		// simulation of setfenv() and getfenv() will be provided.
 		'allowEnvFuncs' => false,
 	),
@@ -147,7 +148,7 @@ $wgScribuntoEngineConf = array(
 		'class' => 'Scribunto_LuaStandaloneEngine',
 
 		// A filename to act as the destination for stderr from the Lua
-		// binary. This may provide useful error information if Lua fails to 
+		// binary. This may provide useful error information if Lua fails to
 		// run. Set this to null to discard stderr output.
 		'errorFile' => null,
 

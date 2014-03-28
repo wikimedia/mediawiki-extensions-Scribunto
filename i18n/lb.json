@@ -1,0 +1,24 @@
+{
+    "@metadata": {
+        "authors": [
+            "Robby"
+        ]
+    },
+    "scribunto-ignore-errors": "Späichere vu Code mat Feeler erlaben",
+    "scribunto-line": "an der Linn $1",
+    "scribunto-parser-error": "Script-Feeler",
+    "scribunto-parser-dialog-title": "Script-Feeler",
+    "scribunto-error-short": "Script-Feeler: $1",
+    "scribunto-error-long": "Script-Feeler:\n\n$1",
+    "scribunto-doc-page-name": "Modul:$1/doc",
+    "scribunto-doc-page-does-not-exist": "''D'Dokumentatioun fir dëse Modul kann op [[$1]] ugeluecht ginn''",
+    "scribunto-doc-page-header": "'''Dëst ass d'Dokumentationsäit fir [[$1]]'''",
+    "scribunto-console-clear": "Eidel maachen",
+    "scribunto-common-error-category": "Säite mat Scriptfeeler",
+    "scribunto-lua-in-function": "an der Funktioun \"$1\"",
+    "scribunto-lua-error-location": "Lua-Feeler $1: $2.",
+    "scribunto-lua-error": "Lua Feeler: $2",
+    "scribunto-limitreport-timeusage-value": "$1/$2 Sekonnen",
+    "scribunto-limitreport-profile": "Lua – Profil",
+    "scribunto-limitreport-profile-ms": "$1 ms"
+}

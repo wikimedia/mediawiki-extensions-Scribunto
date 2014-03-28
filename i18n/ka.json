@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "David1010"
+        ]
+    },
+    "scribunto-parser-error": "სკრიპტის შეცდომა",
+    "scribunto-parser-dialog-title": "სკრიპტის შეცდომა",
+    "scribunto-error-short": "სკრიპტის შეცდომა: $1",
+    "scribunto-error-long": "სკრიპტის შეცდომები:\n\n$1",
+    "scribunto-doc-page-name": "Module:$1/ინფო",
+    "scribunto-doc-page-header": "''ეს არის „[[$1]]“-ის დოკუმენტაციის გვერდი''",
+    "scribunto-console-clear": "გასუფთავება"
+}

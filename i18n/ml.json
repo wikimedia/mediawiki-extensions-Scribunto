@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Praveenp"
+        ]
+    },
+    "scribunto-desc": "മീഡിയവിക്കി താളുകളിൽ സ്ക്രിപ്റ്റിങ് ഭാഷകൾ ഉൾക്കൊള്ളിക്കാനുള്ള ചട്ടക്കൂട്",
+    "scribunto-ignore-errors": "കോഡ് പിഴവുകളോടെ സേവ് ചെയ്യാൻ അനുവദിക്കുക",
+    "scribunto-line": "$1 വരിയിൽ",
+    "scribunto-module-line": "$1-ൽ $2 വരിയിൽ",
+    "scribunto-parser-error": "സ്ക്രിപ്റ്റ് പിഴവ്",
+    "scribunto-parser-dialog-title": "സ്ക്രിപ്റ്റ് പിഴവ്",
+    "scribunto-error-short": "സ്ക്രിപ്റ്റ് പിഴവ്: $1",
+    "scribunto-error-long": "സ്ക്രിപ്റ്റ് പിഴവുകൾ:\n\n$1",
+    "scribunto-doc-page-name": "ഘടകം:$1/വിവരണം",
+    "scribunto-doc-page-does-not-exist": "''ഈ ഘടകത്തിന്റെ വിവരണം [[$1]] എന്ന താളിൽ നിർമ്മിക്കാവുന്നതാണ്''",
+    "scribunto-doc-page-header": "'''ഇത് [[$1]] എന്നതിന്റെ വിവരണതാൾ ആണ്'''",
+    "scribunto-console-clear": "ശൂന്യമാക്കുക",
+    "scribunto-lua-error-location": "ലുവ പിഴവ് $1 : $2",
+    "scribunto-lua-error": "ലുവ പിഴവ്: $2.",
+    "scribunto-luastandalone-decode-error": "ലുവ പിഴവ്: ആന്തരിക പിഴവ്: സന്ദേശം നിർഗൂഢീകരിക്കാൻ സാധിച്ചില്ല."
+}
