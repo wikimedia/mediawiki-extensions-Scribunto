@@ -32,7 +32,7 @@
     "scribunto-console-cleared": "Message displayed in the console when the module source has been changed.",
     "scribunto-console-cleared-session-lost": "Message displayed in the console when the session has expired.",
     "scribunto-common-error-category": "Tracking category for pages with errors from #invoke",
-    "scribunto-common-error-category-desc" => "Description on [[Special:TrackingCategories]] for the {{msg-mw|scribunto-common-error-category}} tracking category.",
+    "scribunto-common-error-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|scribunto-common-error-category}} tracking category.",
     "scribunto-common-nosuchmodule": "Error message displayed when referencing a non-existing module.",
     "scribunto-common-nofunction": "Error message displayed when not specifying a function to call.",
     "scribunto-common-nosuchfunction": "Error message displayed when referencing a non-existing function.",
