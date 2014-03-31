@@ -176,3 +176,6 @@ define( 'NS_MODULE_TALK', 829 );
 // Set subpages by default
 $wgNamespacesWithSubpages[NS_MODULE] = true;
 $wgNamespacesWithSubpages[NS_MODULE_TALK] = true;
+
+$wgTrackingCategories[] = 'scribunto-common-error-category';
+$wgTrackingCategories[] = 'scribunto-module-with-errors-category';
