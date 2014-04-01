@@ -362,4 +362,47 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			);
 		}
 	}
+
+	function testBug62291() {
+		$engine = $this->getEngine();
+		$frame = $engine->getParser()->getPreprocessor()->newFrame();
+
+		$this->extraModules['Module:Bug62291'] = '
+			local p = {}
+			function p.foo()
+				return table.concat( {
+					math.random(), math.random(), math.random(), math.random(), math.random()
+				}, ", " )
+			end
+			function p.bar()
+				local t = {}
+				t[1] = p.foo()
+				t[2] = mw.getCurrentFrame():preprocess( "{{#invoke:Bug62291|bar2}}" )
+				t[3] = p.foo()
+				return table.concat( t, "; " )
+			end
+			function p.bar2()
+				return "bar2 called"
+			end
+			return p
+		';
+
+		$title = Title::makeTitle( NS_MODULE, 'Bug62291' );
+		$module = $engine->fetchModuleFromParser( $title );
+
+		// Make sure multiple invokes return the same text
+		$r1 = $module->invoke( 'foo', $frame->newChild() );
+		$r2 = $module->invoke( 'foo', $frame->newChild() );
+		$this->assertSame( $r1, $r2, 'Multiple invokes returned different sets of random numbers' );
+
+		// Make sure a recursive invoke doesn't reset the PRNG
+		$r1 = $module->invoke( 'bar', $frame->newChild() );
+		$r = explode( '; ', $r1 );
+		$this->assertNotSame( $r[0], $r[2], 'Recursive invoke reset PRNG' );
+		$this->assertSame( 'bar2 called', $r[1], 'Sanity check failed' );
+
+		// But a second invoke does
+		$r2 = $module->invoke( 'bar', $frame->newChild() );
+		$this->assertSame( $r1, $r2, 'Multiple invokes with recursive invoke returned different sets of random numbers' );
+	}
 }

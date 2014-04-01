@@ -7,6 +7,7 @@ local allowEnvFuncs = false
 local logBuffer = ''
 local currentFrame
 local loadedData = {}
+local executeFunctionDepth = 0
 
 -- Extend pairs and ipairs to recognize __pairs and __ipairs, if they don't already
 ( function ()
@@ -554,6 +555,14 @@ function mw.executeFunction( chunk )
 	local frame = newFrame( 'current', 'parent' )
 	local oldFrame = currentFrame
 
+	if executeFunctionDepth == 0 then
+		-- math.random is defined as using C's rand(), and C's rand() uses 1 as
+		-- a seed if not explicitly seeded. So reseed with 1 for each top-level
+		-- #invoke to avoid people passing state via the RNG.
+		math.randomseed( 1 )
+	end
+	executeFunctionDepth = executeFunctionDepth + 1
+
 	currentFrame = frame
 	local results = { chunk( frame ) }
 	currentFrame = oldFrame
@@ -562,6 +571,9 @@ function mw.executeFunction( chunk )
 	for i, result in ipairs( results ) do
 		stringResults[i] = tostring( result )
 	end
+
+	executeFunctionDepth = executeFunctionDepth - 1
+
 	return table.concat( stringResults )
 end
 
