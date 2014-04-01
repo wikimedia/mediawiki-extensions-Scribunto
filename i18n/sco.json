@@ -4,6 +4,8 @@
             "John Reid"
         ]
     },
+    "scribunto-common-error-category-desc": "Thaur wis ae mistak while processin the modules incluidit oan the page.",
+    "scribunto-module-with-errors-category-desc": "The module haes ae mistak in it.",
     "scribunto-limitreport-timeusage": "Lua time uissage",
     "scribunto-limitreport-timeusage-value": "$1/$2 seicons",
     "scribunto-limitreport-virtmemusage": "Lua virtual size",
