@@ -4,7 +4,8 @@
             "Armando-Martin",
             "Jewbask",
             "Maor X",
-            "Peter Bowman"
+            "Peter Bowman",
+            "Fitoschido"
         ]
     },
     "scribunto-desc": "Marco para la incorporación de lenguajes de script en páginas de MediaWiki",
@@ -43,5 +44,9 @@
     "scribunto-luastandalone-read-error": "Error de Lua: Error interno: Error al leer desde la canalización (pipe).",
     "scribunto-luastandalone-gone": "Error de Lua: Error interno: El intérprete ya ha finalizado.",
     "scribunto-luastandalone-signal": "Error de Lua: Error interno: El intérprete ha finalizado con la señal \"$2\".",
-    "scribunto-luastandalone-exited": "Error de Lua: Error interno: El intérprete ha finalizado con el estado $2."
+    "scribunto-luastandalone-exited": "Error de Lua: Error interno: El intérprete ha finalizado con el estado $2.",
+    "scribunto-module-with-errors-category-desc": "El módulo tiene un error.",
+    "scribunto-limitreport-timeusage-value": "$1/$2 segundos",
+    "scribunto-limitreport-virtmemusage": "Tamaño virtual de Lua",
+    "scribunto-limitreport-profile-ms": "$1 ms"
 }

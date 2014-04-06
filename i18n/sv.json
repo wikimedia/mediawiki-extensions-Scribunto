@@ -6,7 +6,8 @@
             "Jopparn",
             "Lokal Profil",
             "Skalman",
-            "WikiPhoenix"
+            "WikiPhoenix",
+            "Ainali"
         ]
     },
     "scribunto-desc": "Ramverk för att bädda in skriptspråk på MediaWiki-sidor",
@@ -28,6 +29,7 @@
     "scribunto-console-cleared": "Konsol-tillståndet tömdes eftersom modulen uppdaterades.",
     "scribunto-console-cleared-session-lost": "Konsol-tillståndet tömdes eftersom sessionsdata uppdaterades.",
     "scribunto-common-error-category": "Sidor med skriptfel",
+    "scribunto-common-error-category-desc": "Ett fel uppstod vid bearbetning av de moduler som ingår på sidan.",
     "scribunto-common-nosuchmodule": "Skriptfel: Det finns ingen sådan modul.",
     "scribunto-common-nofunction": "Skriptfel: Du måste ange en funktion att kalla.",
     "scribunto-common-nosuchfunction": "Skriptfel: Funktionen du angav finns inte.",
@@ -52,6 +54,7 @@
     "scribunto-luastandalone-signal": "Luafel: Internt fel: Tolken har avslutats med signalen \"$2\".",
     "scribunto-luastandalone-exited": "Luafel: Internt fel: Tolken avslutades med status $2.",
     "scribunto-module-with-errors-category": "Scribunto-moduler med fel",
+    "scribunto-module-with-errors-category-desc": "Modulen har ett fel i den.",
     "scribunto-limitreport-timeusage": "Lua - tidsanvändning",
     "scribunto-limitreport-timeusage-value": "$1/$2 sekunder",
     "scribunto-limitreport-virtmemusage": "Lua - virtuell storlek",
