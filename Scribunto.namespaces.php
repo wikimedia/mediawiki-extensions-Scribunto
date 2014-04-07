@@ -43,6 +43,11 @@ $namespaceNames['be-tarask'] = array(
 	829 => 'Абмеркаваньне_модулю',
 );
 
+$namespaceNames['bg'] = array(
+	828 => 'Модул',
+	829 => 'Модул_беседа',
+);
+
 $namespaceNames['bn'] = array(
 	828 => 'মডিউল',
 	829 => 'মডিউল_আলাপ',
