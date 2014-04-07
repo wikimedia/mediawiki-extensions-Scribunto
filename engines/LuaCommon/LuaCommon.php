@@ -331,8 +331,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		 * apparently that's what lua.c does.
 		 */
 		$code = "return function (__init, exe)\n" .
-			"local _, p = exe(__init)\n" .
-			"_, __init, exe = nil, nil, nil\n" .
+			"if not exe then exe = function(...) return true, ... end end\n" .
+			"local p = select(2, exe(__init) )\n" .
+			"__init, exe = nil, nil\n" .
 			"local print = mw.log\n";
 		foreach ( $params['prevQuestions'] as $q ) {
 			if ( substr( $q, 0, 1 ) === '=' ) {
@@ -353,9 +354,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 		$code .= "end\n";
 
-		$contentModule = $this->newModule(
-			$params['content'], $params['title']->getPrefixedDBkey() );
-		$contentInit = $contentModule->getInitChunk();
+		if ( $params['title']->hasContentModel( 'Scribunto' ) ) {
+			$contentModule = $this->newModule(
+				$params['content'], $params['title']->getPrefixedDBkey() );
+			$contentInit = $contentModule->getInitChunk();
+			$contentExe = $this->mw['executeModule'];
+		} else {
+			$contentInit = $params['content'];
+			$contentExe = null;
+		}
 
 		$consoleModule = $this->newModule(
 			$code,
@@ -364,7 +371,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$consoleInit = $consoleModule->getInitChunk();
 		$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, false );
 		$func = $ret[1];
-		$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $this->mw['executeModule'] );
+		$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $contentExe );
 
 		return array(
 			'return' => isset( $ret[0] ) ? $ret[0] : null,
