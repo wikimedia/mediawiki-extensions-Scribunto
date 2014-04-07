@@ -440,7 +440,9 @@ local function newFrame( frameId, ... )
 			if type( k ) ~= 'string' and type( k ) ~= 'number' then
 				error( "frame:callParserFunction: arg keys must be strings or numbers", 2 )
 			end
-			if type( v ) ~= 'string' and type( v ) ~= 'number' then
+			if type( v ) == 'number' then
+				args[k] = tostring( v )
+			elseif type( v ) ~= 'string' then
 				error( "frame:callParserFunction: args must be strings or numbers", 2 )
 			end
 		end

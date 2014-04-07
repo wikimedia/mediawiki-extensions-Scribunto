@@ -498,6 +498,14 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			array_unshift( $args, trim( substr( $function, $colonPos + 1 ) ) );
 			$function = substr( $function, 0, $colonPos );
 		}
+		if ( !isset( $args[0] ) ) {
+			# It's impossible to call a parser function from wikitext without
+			# supplying an arg 0. Insist that one be provided via Lua, too.
+			throw new Scribunto_LuaError( 'callParserFunction: At least one unnamed parameter ' .
+				'(the parameter that comes after the colon in wikitext) ' .
+				'must be provided'
+			);
+		}
 
 		$result = $this->parser->callParserFunction( $frame, $function, $args );
 		if ( !$result['found'] ) {

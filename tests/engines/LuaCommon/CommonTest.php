@@ -350,7 +350,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		try {
 			$ret = $engine->runConsole( array(
 				'question' => '=mw.getCurrentFrame():callParserFunction{
-					name = "thisDoesNotExist", arg1 = ""
+					name = "thisDoesNotExist", args = { "" }
 				}',
 			) + $args );
 			$this->fail( "Expected LuaError not thrown for nonexistent parser function" );
