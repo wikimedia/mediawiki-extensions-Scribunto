@@ -398,7 +398,11 @@ local function newFrame( frameId, ... )
 		if opt.title == nil then
 			error( "frame:expandTemplate: a title is required" )
 		else
-			title = tostring( opt.title )
+			if type( opt.title ) == 'table' and opt.title.namespace == 0 then
+				title = ':' .. tostring( opt.title )
+			else
+				title = tostring( opt.title )
+			end
 		end
 		local args
 		if opt.args == nil then
