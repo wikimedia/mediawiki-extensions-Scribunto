@@ -49,7 +49,7 @@
     "scribunto-luastandalone-gone": "Lua错误：内部错误：解释器已退出。",
     "scribunto-luastandalone-signal": "Lua错误：内部错误：解释器因收到信号“$2”而终止。",
     "scribunto-luastandalone-exited": "Lua错误：内部错误：解释器已退出，状态为$2。",
-    "scribunto-module-with-errors-category": "Scribunto模块有错误",
+    "scribunto-module-with-errors-category": "有错误的Scribunto模块",
     "scribunto-module-with-errors-category-desc": "该模块有错误。",
     "scribunto-limitreport-timeusage": "Lua使用时间",
     "scribunto-limitreport-timeusage-value": "$1/$2秒",
