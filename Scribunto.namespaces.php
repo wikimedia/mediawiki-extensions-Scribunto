@@ -197,6 +197,11 @@ $namespaceNames['ko'] = array(
 	829 => '모듈토론',
 );
 
+$namespaceNames['lv'] = array(
+	828 => 'Modulis',
+	829 => 'Moduļa_diskusija',
+);
+
 $namespaceNames['min'] = array(
 	828 => 'Modul',
 	829 => 'Rundiang_Modul',
