@@ -94,11 +94,11 @@ class ScribuntoHooks {
 			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title || Scribunto::isDocPage( $title ) ) {
-				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule', array( 'args' => array( $moduleName ) ) );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
 			if ( !$module ) {
-				throw new ScribuntoException( 'scribunto-common-nosuchmodule' );
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule', array( 'args' => array( $moduleName ) ) );
 			}
 			$functionName = trim( $frame->expand( $args[1] ) );
 

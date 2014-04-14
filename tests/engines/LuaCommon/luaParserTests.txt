@@ -185,7 +185,7 @@ Scribunto: no such module
 !! input
 {{#invoke:foo|bar}}
 !! result
-<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: No such module.--></span></strong>
+<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: No such module &quot;foo&quot;.--></span></strong>
 </p>
 !! end
 
@@ -194,7 +194,7 @@ Scribunto: no such function
 !! input
 {{#invoke:test|blah}}
 !! result
-<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: The function you specified did not exist.--></span></strong>
+<p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error<!--Script error: The function &quot;blah&quot; does not exist.--></span></strong>
 </p>
 !! end
 
