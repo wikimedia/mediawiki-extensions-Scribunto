@@ -24,6 +24,7 @@
     "scribunto-console-cleared": "S'ha netejat l'estat de la consola perquè el mòdul s'ha actualitzat.",
     "scribunto-console-cleared-session-lost": "S'ha netejat l'estat de la consola perquè s'han perdut les dades de la sessió.",
     "scribunto-common-error-category": "Pàgines amb errors de script",
+    "scribunto-common-error-category-desc": "Hi ha hagut un error en processar els mòduls inclosos a la pàgina.",
     "scribunto-common-nosuchmodule": "Error de l'script: no existeix el mòdul.",
     "scribunto-common-nofunction": "Error de l'script: cal que especifiqueu una funció per cridar.",
     "scribunto-common-nosuchfunction": "Error de l'script: la funció que heu especificat no existeix.",
@@ -43,5 +44,8 @@
     "scribunto-luastandalone-read-error": "Error de Lua: error intern: s'ha produït un error en llegir del conducte.",
     "scribunto-luastandalone-gone": "Error de Lua: error intern: l'intèrpret ja ha sortit.",
     "scribunto-luastandalone-signal": "Error de Lua: error intern: l'intèrpret ha terminat amb el senyal «$2».",
-    "scribunto-luastandalone-exited": "Error de Lua: error intern: l'intèrpret ha sortit amb l'estat «$2»."
+    "scribunto-luastandalone-exited": "Error de Lua: error intern: l'intèrpret ha sortit amb l'estat «$2».",
+    "scribunto-module-with-errors-category": "Mòduls Scribunto amb errors",
+    "scribunto-module-with-errors-category-desc": "El mòdul conté un error.",
+    "scribunto-limitreport-timeusage-value": "$1/$2 segons"
 }
