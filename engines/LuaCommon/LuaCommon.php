@@ -666,7 +666,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	public function invoke( $name, $frame ) {
 		$exports = $this->execute();
 		if ( !isset( $exports[$name] ) ) {
-			throw $this->engine->newException( 'scribunto-common-nosuchfunction' );
+			throw $this->engine->newException( 'scribunto-common-nosuchfunction', array( 'args' => array( $name ) ) );
 		}
 
 		$result = $this->engine->executeFunctionChunk( $exports[$name], $frame );
