@@ -7,7 +7,8 @@
             "Erkethan",
             "Gomoko",
             "IAlex",
-            "Urhixidur"
+            "Urhixidur",
+            "Orlodrim"
         ]
     },
     "scribunto-desc": "Cadre pour l'intégration des langages de script dans des pages de MediaWiki",
@@ -30,9 +31,9 @@
     "scribunto-console-cleared-session-lost": "L’état de la console a été nettoyé car les données de sessions ont été perdues.",
     "scribunto-common-error-category": "Pages avec des erreurs de script",
     "scribunto-common-error-category-desc": "Il y a eu une erreur lors du traitement des modules contenus sur la page.",
-    "scribunto-common-nosuchmodule": "Erreur de script : Pas de tel module.",
+    "scribunto-common-nosuchmodule": "Erreur de script : le module « $2 » n’existe pas.",
     "scribunto-common-nofunction": "Erreur de script : vous devez spécifier une fonction à appeler.",
-    "scribunto-common-nosuchfunction": "Erreur de script : la fonction que vous avez spécifiée n’existe pas.",
+    "scribunto-common-nosuchfunction": "Erreur de script : la fonction « $2 » n’existe pas.",
     "scribunto-common-timeout": "Le temps alloué pour l’exécution des scripts a expiré.",
     "scribunto-common-oom": "La quantité de mémoire pour exécuter des scripts a été dépassée.",
     "scribunto-common-backtrace": "Trace arrière:",

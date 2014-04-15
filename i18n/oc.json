@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Cedric31"
+        ]
+    },
+    "scribunto-common-nosuchmodule": "Error d'escript : lo modul « $2 » existís pas.",
+    "scribunto-common-nosuchfunction": "Error d'escript : la foncion « $2 » existís pas."
+}

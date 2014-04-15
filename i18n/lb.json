@@ -15,6 +15,7 @@
     "scribunto-doc-page-header": "'''Dëst ass d'Dokumentationsäit fir [[$1]]'''",
     "scribunto-console-clear": "Eidel maachen",
     "scribunto-common-error-category": "Säite mat Scriptfeeler",
+    "scribunto-common-nosuchfunction": "Scriptfeeler: D'Funktioun \"$2\" gëtt et net.",
     "scribunto-lua-in-function": "an der Funktioun \"$1\"",
     "scribunto-lua-error-location": "Lua-Feeler $1: $2.",
     "scribunto-lua-error": "Lua Feeler: $2",
