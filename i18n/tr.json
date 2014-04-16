@@ -1,15 +1,15 @@
 {
-    "@metadata": {
-        "authors": [
-            "Sadrettin"
-        ]
-    },
-    "scribunto-parser-error": "Betik hatası",
-    "scribunto-parser-dialog-title": "Betik hatası",
-    "scribunto-error-short": "Betik hatası: $1",
-    "scribunto-error-long": "Betik hataları:\n$1",
-    "scribunto-doc-page-name": "Modül:$1/belge",
-    "scribunto-doc-page-does-not-exist": "Bu modül için bir belgeleme oluşturabilirsiniz: [[$1]]",
-    "scribunto-doc-page-header": "Bu belgeleme sayfası için [[$1]]",
-    "scribunto-console-clear": "Temizle"
+	"@metadata": {
+		"authors": [
+			"Sadrettin"
+		]
+	},
+	"scribunto-parser-error": "Betik hatası",
+	"scribunto-parser-dialog-title": "Betik hatası",
+	"scribunto-error-short": "Betik hatası: $1",
+	"scribunto-error-long": "Betik hataları:\n$1",
+	"scribunto-doc-page-name": "Modül:$1/belge",
+	"scribunto-doc-page-does-not-exist": "Bu modül için bir belgeleme oluşturabilirsiniz: [[$1]]",
+	"scribunto-doc-page-header": "Bu belgeleme sayfası için [[$1]]",
+	"scribunto-console-clear": "Temizle"
 }

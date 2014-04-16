@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chaduvari",
-            "Ravichandra"
-        ]
-    },
-    "scribunto-limitreport-timeusage-value": "$1/$2 సెకండ్లు",
-    "scribunto-limitreport-profile-ms": "$1 మి.సె"
+	"@metadata": {
+		"authors": [
+			"Chaduvari",
+			"Ravichandra"
+		]
+	},
+	"scribunto-limitreport-timeusage-value": "$1/$2 సెకండ్లు",
+	"scribunto-limitreport-profile-ms": "$1 మి.సె"
 }

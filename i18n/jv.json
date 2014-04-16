@@ -1,16 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "NoiX180"
-        ]
-    },
-    "scribunto-desc": "Rangka kerja kanggo nyisipaké basa skrip nèng kaca MediaWiki",
-    "scribunto-ignore-errors": "Bènaké kasalahan kodhé",
-    "scribunto-line": "nèng larik $1",
-    "scribunto-module-line": "nèng $1 larik $2",
-    "scribunto-parser-error": "Kasalahan skrip",
-    "scribunto-parser-dialog-title": "Kasalahan skrip",
-    "scribunto-error-short": "Kasalahan skrip: $1",
-    "scribunto-error-long": "Kasalahan skrip:\n\n$1",
-    "scribunto-console-title": "Debug konsol"
+	"@metadata": {
+		"authors": [
+			"NoiX180"
+		]
+	},
+	"scribunto-desc": "Rangka kerja kanggo nyisipaké basa skrip nèng kaca MediaWiki",
+	"scribunto-ignore-errors": "Bènaké kasalahan kodhé",
+	"scribunto-line": "nèng larik $1",
+	"scribunto-module-line": "nèng $1 larik $2",
+	"scribunto-parser-error": "Kasalahan skrip",
+	"scribunto-parser-dialog-title": "Kasalahan skrip",
+	"scribunto-error-short": "Kasalahan skrip: $1",
+	"scribunto-error-long": "Kasalahan skrip:\n\n$1",
+	"scribunto-console-title": "Debug konsol"
 }

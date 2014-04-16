@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "DzWiki"
-        ]
-    },
-    "scribunto-doc-page-name": "Module:$1/dok",
-    "scribunto-doc-page-header": "'''Ovo je stranica dokumentacije za [[$1]]'''",
-    "scribunto-console-clear": "Očisti"
+	"@metadata": {
+		"authors": [
+			"DzWiki"
+		]
+	},
+	"scribunto-doc-page-name": "Module:$1/dok",
+	"scribunto-doc-page-header": "'''Ovo je stranica dokumentacije za [[$1]]'''",
+	"scribunto-console-clear": "Očisti"
 }

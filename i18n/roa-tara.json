@@ -1,18 +1,18 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joetaras"
-        ]
-    },
-    "scribunto-ignore-errors": "Permette 'a reggistrazione d'u codece cu l'errore",
-    "scribunto-line": "a 'a linèe $1",
-    "scribunto-module-line": "jndr'à $1 a 'a linèe $2",
-    "scribunto-parser-error": "Errore d'u script",
-    "scribunto-parser-dialog-title": "Errore d'u script",
-    "scribunto-error-short": "Errore d'u script: $1",
-    "scribunto-error-long": "Errore d'u script:\n\n$1",
-    "scribunto-console-clear": "Pulizze",
-    "scribunto-lua-in-function": "jndr'à funzione \"$1\"",
-    "scribunto-lua-error-location": "Errore Lua: $1: $2.",
-    "scribunto-lua-error": "Errore Lua: $2."
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"scribunto-ignore-errors": "Permette 'a reggistrazione d'u codece cu l'errore",
+	"scribunto-line": "a 'a linèe $1",
+	"scribunto-module-line": "jndr'à $1 a 'a linèe $2",
+	"scribunto-parser-error": "Errore d'u script",
+	"scribunto-parser-dialog-title": "Errore d'u script",
+	"scribunto-error-short": "Errore d'u script: $1",
+	"scribunto-error-long": "Errore d'u script:\n\n$1",
+	"scribunto-console-clear": "Pulizze",
+	"scribunto-lua-in-function": "jndr'à funzione \"$1\"",
+	"scribunto-lua-error-location": "Errore Lua: $1: $2.",
+	"scribunto-lua-error": "Errore Lua: $2."
 }

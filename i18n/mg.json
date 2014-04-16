@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Jagwar"
-        ]
-    },
-    "scribunto-limitreport-profile-ms": "$1 ms"
+	"@metadata": {
+		"authors": [
+			"Jagwar"
+		]
+	},
+	"scribunto-limitreport-profile-ms": "$1 ms"
 }

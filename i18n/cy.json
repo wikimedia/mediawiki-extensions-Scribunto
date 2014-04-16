@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Lloffiwr"
-        ]
-    },
-    "scribunto-limitreport-timeusage-value": "$1/$2 eiliad"
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"scribunto-limitreport-timeusage-value": "$1/$2 eiliad"
 }
