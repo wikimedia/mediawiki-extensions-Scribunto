@@ -25,6 +25,11 @@ $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
 );
 
+/** Zazaki (Zazaki) */
+$magicWords['diq'] = array(
+	'invoke' => array( 0, 'veynden' ),
+);
+
 /** Persian (فارسی) */
 $magicWords['fa'] = array(
 	'invoke' => array( 0, 'درخواست' ),
