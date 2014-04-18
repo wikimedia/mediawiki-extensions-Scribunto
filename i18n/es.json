@@ -25,6 +25,7 @@
 	"scribunto-console-clear": "Limpiar",
 	"scribunto-console-cleared": "El estado de la consola se ha limpiado debido a que el módulo se ha actualizado.",
 	"scribunto-common-error-category": "Páginas con errores de secuencia de comandos (script)",
+	"scribunto-common-error-category-desc": "Se produjo un error al procesar los módulos incluidos en la página.",
 	"scribunto-common-nosuchmodule": "Error de secuencia de comandos (script): no existe ese módulo.",
 	"scribunto-common-nofunction": "Error de script: debe especificar una función a la que llamar.",
 	"scribunto-common-nosuchfunction": "Error de script: la función especificada no existe.",

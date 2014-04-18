@@ -4,7 +4,8 @@
 			"Beta16",
 			"Codicorumus",
 			"F. Cosoleto",
-			"Raoli"
+			"Raoli",
+			"Ontsed"
 		]
 	},
 	"scribunto-desc": "Framework per incorporare linguaggi di scripting in pagine MediaWiki",
@@ -27,9 +28,9 @@
 	"scribunto-console-cleared-session-lost": "Lo stato della console è stato azzerato perché i dati della sessione sono andati persi.",
 	"scribunto-common-error-category": "Pagine con errori di script",
 	"scribunto-common-error-category-desc": "Si è verificato un errore durante l'elaborazione dei moduli inclusi nella pagina.",
-	"scribunto-common-nosuchmodule": "Errore script: nessun modulo corrispondente trovato.",
+	"scribunto-common-nosuchmodule": "Errore script: nessun modulo \"$2\".",
 	"scribunto-common-nofunction": "Errore script: devi specificare una funzione da chiamare.",
-	"scribunto-common-nosuchfunction": "Errore script: la funzione specificata non esiste.",
+	"scribunto-common-nosuchfunction": "Errore script: la funzione \"$2\" non esiste.",
 	"scribunto-common-timeout": "Il tempo assegnato per l'esecuzione dello script è scaduto.",
 	"scribunto-common-oom": "La quantità di memoria consentita per l'esecuzione dello script è stata superata.",
 	"scribunto-common-backtrace": "Backtrace:",
