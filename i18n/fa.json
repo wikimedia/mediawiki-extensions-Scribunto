@@ -5,7 +5,8 @@
 			"Mjbmr",
 			"Reza1615",
 			"ZxxZxxZ",
-			"جواد"
+			"جواد",
+			"Ebraminio"
 		]
 	},
 	"scribunto-desc": "چارچوبی برای تعبیه‌کردن زبان‌های اسکریپتی در صفحه‌های مدیاویکی",
@@ -27,7 +28,7 @@
 	"scribunto-console-cleared": "وضعیت میز فرمان پاک‌سازی شد، چون پودمان تغییر کرد.",
 	"scribunto-console-cleared-session-lost": "وضعیت میزفرمان پاک‌سازی شد، چون اطلاعات نشست از دست رفت.",
 	"scribunto-common-error-category": "صفحه‌های دارای خطاهای اسکریپتی",
-	"scribunto-common-nosuchmodule": "خطای اسکریپتی: چنین ماژولی وجود ندارد.",
+	"scribunto-common-nosuchmodule": "خطای اسکریپتی: پودمان «$2» وجود ندارد.",
 	"scribunto-common-nofunction": "خطای اسکریپتی: باید تابعی را برای فراخوانی مشخص کنید.",
 	"scribunto-common-nosuchfunction": "خطای اسکریپتی: تابعی که مشخص کردید وجود ندارد.",
 	"scribunto-common-timeout": "زمان مجاز برای اجرای اسکریپت‌ها منقضی شده است.",
