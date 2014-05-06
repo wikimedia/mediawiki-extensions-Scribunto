@@ -26,6 +26,7 @@
 	"scribunto-console-cleared": "控制台状态已清除，因为模块已更新。",
 	"scribunto-console-cleared-session-lost": "控制台状态已清除，因为会话数据已丢失。",
 	"scribunto-common-error-category": "有脚本错误的页面",
+	"scribunto-common-error-category-desc": "处理页面包含的模块时出错。",
 	"scribunto-common-nosuchmodule": "脚本错误：没有此类模块“$2”。",
 	"scribunto-common-nofunction": "脚本错误：您必须指定要调用的函数。",
 	"scribunto-common-nosuchfunction": "脚本错误：函数“$2”不存在。",
