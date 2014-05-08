@@ -101,7 +101,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 			$engineSuite->setName( "$engineName: $className" );
 
 			foreach ( $class->getMethods() as $method ) {
-				if ( PHPUnit_Framework_TestSuite::isPublicTestMethod( $method ) ) {
+				if ( PHPUnit_Framework_TestSuite::isTestMethod( $method ) && $method->isPublic() ) {
 					$name = $method->getName();
 					$groups = PHPUnit_Util_Test::getGroups( $className, $name );
 					$groups[] = 'Lua';
