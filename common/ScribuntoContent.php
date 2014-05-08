@@ -42,12 +42,31 @@ class ScribuntoContent extends TextContent {
 				$doc->exists() ? 'scribunto-doc-page-show' : 'scribunto-doc-page-does-not-exist',
 				$doc->getPrefixedText()
 			)->inContentLanguage();
+
 			if ( !$msg->isDisabled() ) {
 				// We need the ParserOutput for categories and such, so we
 				// can't use $msg->parse().
 				$docViewLang = $doc->getPageViewLanguage();
-				$docWikitext = '<div lang="' . htmlspecialchars( $docViewLang->getHtmlCode() ) . '"'
-					. ' dir="' . $docViewLang->getDir() . "\">\n" . $msg->plain() . "\n</div>";
+				$dir = $docViewLang->getDir();
+
+				// Code is forced to be ltr, but the documentation can be rtl.
+				// Correct direction class is needed for correct formatting.
+				// The possible classes are
+				// mw-content-ltr or mw-content-rtl
+				$dirClass = "mw-content-$dir";
+
+				$docWikitext = Html::rawElement(
+					'div',
+					array(
+						'lang' => $docViewLang->getHtmlCode(),
+						'dir' => $dir,
+						'class' => $dirClass,
+					),
+					// Line breaks are needed so that wikitext would be
+					// appropriately isolated for correct parsing. See Bug 60664.
+					"\n" . $msg->plain() . "\n"
+				);
+
 				if ( !$options ) {
 					// NOTE: use canonical options per default to produce cacheable output
 					$options = ContentHandler::getForTitle( $doc )->makeParserOptions( 'canonical' );
@@ -56,6 +75,7 @@ class ScribuntoContent extends TextContent {
 						$options->setTargetLanguage( $doc->getPageLanguage() );
 					}
 				}
+
 				$output = $wgParser->parse( $docWikitext, $title, $options, true, true, $revId );
 			}
 
