@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Anakmalaysia"
+			"Anakmalaysia",
+			"Aurora"
 		]
 	},
 	"scribunto-desc": "Kerangka pembenaman bahasa skrip dalam halaman MediaWiki",
@@ -22,7 +23,7 @@
 	"scribunto-console-clear": "Padamkan",
 	"scribunto-console-cleared": "Keadaan konsol dipadamkan kerana modul dikemaskinikan.",
 	"scribunto-console-cleared-session-lost": "Keadaan konsol dipadamkan kerana kehilangan data sesi.",
-	"scribunto-common-error-category": "Halaman yang ada ralat skrip",
+	"scribunto-common-error-category": "Laman yang ada ralat skrip",
 	"scribunto-common-nosuchmodule": "Ralat skrip: Modul ini tidak wujud.",
 	"scribunto-common-nofunction": "Ralat skrip: Anda mesti menyatakan fungsi yang hendak diseru.",
 	"scribunto-common-nosuchfunction": "Ralat skrip: Fungsi yang anda nyatakan itu tidak wujud.",
@@ -45,5 +46,6 @@
 	"scribunto-luastandalone-read-error": "Ralat Lua: Ralat dalaman: Ralat ketika membaca dari paip.",
 	"scribunto-luastandalone-gone": "Ralat Lua: Ralat dalaman: Pentafsir sudah keluar.",
 	"scribunto-luastandalone-signal": "Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan isyarat \"$2\".",
-	"scribunto-luastandalone-exited": "Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status \"$2\"."
+	"scribunto-luastandalone-exited": "Ralat Lua: Ralat dalaman: Pentafsir sudah berhenti dengan status \"$2\".",
+	"scribunto-module-with-errors-category": "Modul Scribunto dengan ralat"
 }
