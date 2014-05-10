@@ -26,9 +26,10 @@ class ScribuntoContent extends TextContent {
 	 * @param $revId null|int The revision being rendered (optional)
 	 * @param $options null|ParserOptions Any parser options
 	 * @param $generateHtml boolean Whether to generate HTML (default: true).
+	 * @param &$output ParserOutput representing the HTML form of the text.
 	 * @return ParserOutput
 	 */
-	public function getParserOutput( Title $title, $revId = null, ParserOptions $options = null, $generateHtml = true ) {
+	protected function fillParserOutput( Title $title, $revId = null, ParserOptions $options = null, $generateHtml = true, ParserOutput &$output ) {
 		global $wgParser, $wgScribuntoUseGeSHi;
 
 		$text = $this->getNativeData();
