@@ -165,6 +165,7 @@ local function makeTitleObject( data )
 		subjectPageTitle = true,
 		fileExists = true,
 		protectionLevels = true,
+		cascadingProtection = true,
 	}
 	for k in pairs( data ) do
 		readOnlyFields[k] = true
@@ -235,6 +236,12 @@ local function makeTitleObject( data )
 					data.protectionLevels = php.protectionLevels( data.prefixedText )
 				end
 				return data.protectionLevels
+			end
+			if k == 'cascadingProtection' then
+				if data.cascadingProtection == nil then
+					data.cascadingProtection = php.cascadingProtection( data.prefixedText )
+				end
+				return data.cascadingProtection
 			end
 
 			return data[k]

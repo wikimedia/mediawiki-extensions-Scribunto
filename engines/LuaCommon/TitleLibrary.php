@@ -16,6 +16,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'getContent' => array( $this, 'getContent' ),
 			'fileExists' => array( $this, 'fileExists' ),
 			'protectionLevels' => array( $this, 'protectionLevels' ),
+			'cascadingProtection' => array( $this, 'cascadingProtection' ),
 		);
 		$this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
@@ -256,16 +257,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		return array( (bool)$file->exists() );
 	}
 
-	private function makeRestrictionsArraysOneBased( $restrictions ) {
-		$ret = array();
-		foreach ( $restrictions as $action => $requirements ) {
-			if ( empty( $requirements ) ) {
-				$ret[$action] = $requirements;
-			} else {
-				$ret[$action] = array_combine( range( 1, count( $requirements ) ), array_values( $requirements ) );
-			}
+	private static function makeArrayOneBased( $arr ) {
+		if ( empty( $arr ) ) {
+			return $arr;
 		}
-		return $ret;
+		return array_combine( range( 1, count( $arr ) ), array_values( $arr ) );
 	}
 
 	public function protectionLevels( $text ) {
@@ -275,19 +271,30 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			return array( null );
 		}
 
-		// @todo Once support for MediaWiki prior to 1.23 is dropped, remove this if block
-		// (and maybe inline makeRestrictionsArraysOneBased)
-		if ( !is_callable( array( $title, 'areRestrictionsLoaded' ) ) ) {
-			if ( !$title->mRestrictionsLoaded ) {
-				$this->incrementExpensiveFunctionCount();
-				$title->loadRestrictions();
-			}
-			return array( $this->makeRestrictionsArraysOneBased( $title->mRestrictions ) );
-		}
-
 		if ( !$title->areRestrictionsLoaded() ) {
 			$this->incrementExpensiveFunctionCount();
 		}
-		return array( $this->makeRestrictionsArraysOneBased( $title->getAllRestrictions() ) );
+		return array( array_map( 'Scribunto_LuaTitleLibrary::makeArrayOneBased', $title->getAllRestrictions() ) );
+	}
+
+	public function cascadingProtection( $text ) {
+		$this->checkType( 'cascadingProtection', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return array( null );
+		}
+
+		if ( !$title->areCascadeProtectionSourcesLoaded() ) {
+			$this->incrementExpensiveFunctionCount();
+		}
+		list( $sources, $restrictions ) = $title->getCascadeProtectionSources();
+		return array( array(
+			'sources' => Scribunto_LuaTitleLibrary::makeArrayOneBased( array_map(
+				function ( $t ) {
+					return $t->getPrefixedText();
+				},
+				$sources ) ),
+			'restrictions' => array_map( 'Scribunto_LuaTitleLibrary::makeArrayOneBased', $restrictions )
+		) );
 	}
 }

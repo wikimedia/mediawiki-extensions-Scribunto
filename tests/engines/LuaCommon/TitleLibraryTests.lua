@@ -252,6 +252,14 @@ local tests = {
 		  { edit = {}, move = { 'sysop' } }, { edit = {}, move = { 'sysop' } }
 	  }
 	},
+	{ name = '.cascadingProtection', func = prop_foreach,
+	  args = { 'cascadingProtection' },
+	  expect = {
+		  { restrictions = { edit = { 'sysop' } }, sources = { 'Lockbox', 'Lockbox2' } }, { restrictions = {}, sources = {} },
+		  { restrictions = {}, sources = {} }, { restrictions = {}, sources = {} }, { restrictions = {}, sources = {} },
+		  { restrictions = {}, sources = {} }, { restrictions = {}, sources = {} }
+	  }
+	},
 	{ name = '.inNamespace()', func = func_foreach,
 	  args = { 'inNamespace', 'Module' },
 	  expect = { false, true, false, false, false, false, false }

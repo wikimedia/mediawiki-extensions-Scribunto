@@ -49,26 +49,39 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 			'Summary'
 		);
 
-		// Set restrictions for protectionLevels test
+		// Set restrictions for protectionLevels and cascadingProtection tests
 		// Since mRestrictionsLoaded is true, they don't count as expensive
 		$title = Title::newFromText( 'Main Page' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'edit' => array(), 'move' => array() );
+		$title->mCascadeSources = array( Title::makeTitle( NS_MAIN, "Lockbox" ), Title::makeTitle( NS_MAIN, "Lockbox2" ) );
+		$title->mCascadingRestrictions = array( 'edit' => array( 'sysop' ) );
 		$title = Title::newFromText( 'Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'edit' => array( 'sysop', 'bogus' ), 'move' => array( 'sysop', 'bogus' ) );
+		$title->mCascadeSources = array();
+		$title->mCascadingRestrictions = array();
 		$title = Title::newFromText( 'scribuntotitletest:Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array();
+		$title->mCascadeSources = array();
+		$title->mCascadingRestrictions = array();
 		$title = Title::newFromText( 'Talk:Has/A/Subpage' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'create' => array( 'sysop' ) );
+		$title->mCascadeSources = array();
+		$title->mCascadingRestrictions = array();
 		$title = Title::newFromText( 'Not/A/Subpage' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'edit' => array( 'autoconfirmed' ), 'move' => array( 'sysop' ) );
+		$title->mCascadeSources = array();
+		$title->mCascadingRestrictions = array();
 		$title = Title::newFromText( 'Module talk:Test Framework' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'edit' => array(), 'move' => array( 'sysop' ) );
+		$title->mCascadeSources = array();
+		$title->mCascadingRestrictions = array();
+
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
