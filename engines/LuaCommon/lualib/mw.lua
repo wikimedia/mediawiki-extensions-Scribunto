@@ -10,7 +10,7 @@ local loadedData = {}
 local executeFunctionDepth = 0
 
 -- Extend pairs and ipairs to recognize __pairs and __ipairs, if they don't already
-( function ()
+do
 	local t = {}
 	setmetatable( t, { __pairs = function() return 1, 2, 3 end } )
 	local f = pairs( t )
@@ -28,7 +28,7 @@ local executeFunctionDepth = 0
 			return f, s, var
 		end
 	end
-end )()
+end
 
 --- Put an isolation-friendly package module into the specified environment 
 -- table. The package module will have an empty cache, because caching of 
