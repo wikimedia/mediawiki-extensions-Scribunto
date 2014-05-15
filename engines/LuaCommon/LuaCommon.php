@@ -90,6 +90,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				$lib[$name] = array( $this, $name );
 			}
 
+			$this->registerInterface( 'mwInit.lua', array() );
 			$this->mw = $this->registerInterface( 'mw.lua', $lib,
 				array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
 
