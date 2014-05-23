@@ -109,15 +109,17 @@ end
 -- {{#invoke}}.
 --
 -- @param chunk The module chunk
--- @param isConsole Whether this is the debug console
-function mw.executeModule( chunk, isConsole )
+-- @param name The name of the function to be returned. Nil or false causes the entire export table to be returned
+-- @return boolean Whether the requested value was able to be returned
+-- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
+function mw.executeModule( chunk, name )
 	local env = mw.clone( _G )
 	makePackageModule( env )
 
 	-- These are unsafe
 	env.mw.makeProtectedEnvFuncs = nil
 	env.mw.executeModule = nil
-	if not isConsole then
+	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
 		env.mw.getLogBuffer = nil
 		env.mw.clearLogBuffer = nil
 	end
@@ -130,7 +132,15 @@ function mw.executeModule( chunk, isConsole )
 	end
 
 	setfenv( chunk, env )
-	return chunk()
+
+	local res = chunk()
+	if not name then -- catch console whether it's evaluating its own code or a module's
+		return true, res
+	end
+	if type(res) ~= 'table' then
+		return false, type(res)
+	end
+	return true, res[name]
 end
 
 local function newFrame( frameId, ... )
@@ -701,7 +711,8 @@ function mw.loadData( module )
 		-- The point of this is to load big data, so don't save it in package.loaded
 		-- where it will have to be copied for all future modules.
 		local l = package.loaded[module]
-		data = mw.executeModule( function() return require( module ) end )
+		local _
+		_, data = mw.executeModule( function() return require( module ) end )
 		package.loaded[module] = l
 
 		-- Validate data

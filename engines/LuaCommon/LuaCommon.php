@@ -175,10 +175,17 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Execute a module chunk in a new isolated environment
+	 * Execute a module chunk in a new isolated environment, and return the specified function
 	 */
-	public function executeModule( $chunk ) {
-		return $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk );
+	public function executeModule( $chunk, $functionName ) {
+		$retval = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk, $functionName );
+		if ( !$retval[0] ) {
+			// If we get here, it means we asked for an element from the table the module returned,
+			// but it returned something other than a table. In this case, $retval[1] contains the type
+			// of what it did returned, instead of the value we asked for.
+			throw $this->newException( 'scribunto-lua-notarrayreturn', array( 'args' => array( $retval[1] ) ) );
+		}
+		return $retval[1];
 	}
 
 	/**
@@ -242,8 +249,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			 * apparently that's what lua.c does.
 			 */
 			$code = "return function (__init, exe)\n" .
-				"local p = exe(__init)\n" .
-				"__init, exe = nil, nil\n" .
+				"local _, p = exe(__init)\n" .
+				"_, __init, exe = nil, nil, nil\n" .
 				"local print = mw.log\n";
 			foreach ( $params['prevQuestions'] as $q ) {
 				if ( substr( $q, 0, 1 ) === '=' ) {
@@ -273,8 +280,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				wfMessage( 'scribunto-console-current-src' )->text()
 			);
 			$consoleInit = $consoleModule->getInitChunk();
-			$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, true );
-			$func = $ret[0];
+			$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, false );
+			$func = $ret[1];
 			$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $this->mw['executeModule'] );
 		} catch ( Exception $ex ) {
 			$this->currentFrames = $oldFrames;
@@ -642,21 +649,6 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	}
 
 	/**
-	 * Execute the module function and return the export table.
-	 */
-	public function execute() {
-		$init = $this->getInitChunk();
-		$ret = $this->engine->executeModule( $init );
-		if( !$ret ) {
-			throw $this->engine->newException( 'scribunto-lua-noreturn' );
-		}
-		if( !is_array( $ret[0] ) ) {
-			throw $this->engine->newException( 'scribunto-lua-notarrayreturn' );
-		}
-		return $ret[0];
-	}
-
-	/**
 	 * Get the chunk which, when called, will return the export table.
 	 */
 	public function getInitChunk() {
@@ -673,12 +665,16 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	 * Invoke a function within the module. Return the expanded wikitext result.
 	 */
 	public function invoke( $name, $frame ) {
-		$exports = $this->execute();
-		if ( !isset( $exports[$name] ) ) {
+		$ret = $this->engine->executeModule( $this->getInitChunk(), $name );
+
+		if ( !isset( $ret ) ) {
 			throw $this->engine->newException( 'scribunto-common-nosuchfunction', array( 'args' => array( $name ) ) );
 		}
+		if ( !$this->engine->getInterpreter()->isLuaFunction( $ret ) ) {
+			throw $this->engine->newException( 'scribunto-common-notafunction', array( 'args' => array( $name ) ) );
+		}
 
-		$result = $this->engine->executeFunctionChunk( $exports[$name], $frame );
+		$result = $this->engine->executeFunctionChunk( $ret, $frame );
 		if ( isset( $result[0] ) ) {
 			return $result[0];
 		} else {

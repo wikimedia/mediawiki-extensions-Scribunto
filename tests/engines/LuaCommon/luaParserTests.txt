@@ -169,6 +169,33 @@ Module:Parse error
 !! endarticle
 
 !! article
+Module:Metatables
+!! text
+local p, mt1, mt2 = {}, {}, {}
+
+mt1.__index = {}
+
+function p.zero(frame)
+	return 'You called the zero method from p'
+end
+
+function mt1.__index.one(frame)
+	return 'You called the one method from mt1'
+end
+
+function mt2.__index(t, k)
+	return function(frame)
+		return 'You called the ' .. k .. ' method from mt2'
+	end
+end
+
+setmetatable(mt1.__index, mt2)
+setmetatable(p, mt1)
+
+return p
+!! endarticle
+
+!! article
 Template:Scribunto_all_args
 !! text
 {{#invoke:test|getParentArgs}}
@@ -419,5 +446,18 @@ Scribunto: frame:getTitle
 {{#invoke:test|getFrameTitle}}
 !! result
 <p>Module:Test
+</p>
+!! end
+
+!! test
+Scribunto: Metatable on export table
+!! input
+{{#invoke:Metatables|zero}}
+{{#invoke:Metatables|one}}
+{{#invoke:Metatables|two}}
+!! result
+<p>You called the zero method from p
+You called the one method from mt1
+You called the two method from mt2
 </p>
 !! end

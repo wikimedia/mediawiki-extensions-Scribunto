@@ -101,8 +101,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend' )
 		);
-		$ext = $module->execute();
-		$ret = $interpreter->callFunction( $ext['test'] );
+		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test' ) );
 		$this->assertSame( array( 'ok' ), $ret, 'string extension can be used from module' );
 
 		$this->extraModules['Module:testModuleStringExtend2'] = '
@@ -116,8 +115,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend2' )
 		);
-		$ext = $module->execute();
-		$ret = $interpreter->callFunction( $ext['test'] );
+		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test' ) );
 		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from module' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring2' )
