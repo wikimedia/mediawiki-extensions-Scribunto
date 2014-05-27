@@ -35,7 +35,6 @@
 	"scribunto-lua-in-function-at": "i funksjonen ved $1:$2",
 	"scribunto-lua-error-location": "Lua-feil $1: $2.",
 	"scribunto-lua-error": "Lua-feil: $2.",
-	"scribunto-lua-noreturn": "Skriptfeil: modulen returnerte ikkje ein verdi. Han er meint å returnera ein eksporteringstabell.",
 	"scribunto-lua-notarrayreturn": "Skriptfeil: modulen returnerte noko anna enn ein tabell. Han er meint å returnera ein eksporteringstabell.",
 	"scribunto-luastandalone-proc-error": "Lua-feil: kan ikkje oppretta prosess.",
 	"scribunto-luastandalone-proc-error-msg": "Lua-feil: kan ikkje oppretta prosess: $2",

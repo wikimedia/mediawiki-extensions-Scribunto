@@ -46,7 +46,6 @@
 	"scribunto-lua-backtrace-line": "{{optional}}\nParameters:\n* $1 - src\n* $2 - any one of the following:\n** {{msg-mw|Scribunto-lua-in-function}}\n** {{msg-mw|Scribunto-lua-in-main}}\n** \"?\" (hard-coded)",
 	"scribunto-lua-error-location": "Error message when module and line are given. Parameters:\n* $1 - code line from {{msg-mw|Scribunto-line}} or {{msg-mw|Scribunto-module-line}}\n* $2 - error message, not localized. (e.g. \"too many language codes requested\")",
 	"scribunto-lua-error": "Error message. Parameters:\n* $1 - (Unused)\n* $2 - error message, not localized. (e.g. \"too many language codes requested\")",
-	"scribunto-lua-noreturn": "Error message.",
 	"scribunto-lua-notarrayreturn": "Error message. Parameters:\n* $1 - (Unused)\n* $2 - Type of value returned by the module",
 	"scribunto-luastandalone-proc-error": "Exception message.",
 	"scribunto-luastandalone-proc-error-msg": "Exception message. Parameters:\n* $1 - (Unused)\n* $2 - Warning/error text from PHP",
