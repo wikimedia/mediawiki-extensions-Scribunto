@@ -18,7 +18,7 @@
 	"scribunto-doc-page-header": "'''Dies ist die Dokumentationsseite für [[$1]]'''",
 	"scribunto-console-intro": "* Modulexporte sind über die Variable „p“ verfügbar. Sie enthalten auch nicht gespeicherte Änderungen.\n* Einer Zeile „=“ voranstellen, um sie als Ausdruck auszuwerten oder <code>print()</code> nutzen.\n* Innerhalb des Modulcodes <code>mw.log()</code> nutzen, um Nachrichten zu dieser Konsole zu senden.",
 	"scribunto-console-title": "Fehlerbereinigungskonsole",
-	"scribunto-console-too-large": "Dieser Konsolensitzung ist zu umfangreich. Bitte deaktiviere die Konsolenprotokollierung oder verringere die Größe des Moduls.",
+	"scribunto-console-too-large": "Diese Konsolensitzung ist zu umfangreich. Bitte deaktiviere die Konsolenprotokollierung oder verringere die Größe des Moduls.",
 	"scribunto-console-current-src": "Konsoleneingabe",
 	"scribunto-console-clear": "Leeren",
 	"scribunto-console-cleared": "Die Konsole wurde geleert, da das Modul aktualisiert wurde.",
