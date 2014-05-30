@@ -164,6 +164,7 @@ local function makeTitleObject( data )
 		talkPageTitle = true,
 		subjectPageTitle = true,
 		fileExists = true,
+		file = true,
 		protectionLevels = true,
 		cascadingProtection = true,
 	}
@@ -225,11 +226,14 @@ local function makeTitleObject( data )
 				end
 				return title.makeTitle( ns.id, data.text )
 			end
-			if k == 'fileExists' then
-				if data.fileExists == nil then
-					data.fileExists = php.fileExists( data.prefixedText )
+			if k == 'file' then
+				if data.file == nil then
+					data.file = php.getFileInfo( data.prefixedText )
 				end
-				return data.fileExists
+				return data.file or nil
+			end
+			if k == 'fileExists' then -- Kept for backward compatibility. Since 1.25, file.exists is preferred over this
+				return t.file and t.file.exists
 			end
 			if k == 'protectionLevels' then
 				if data.protectionLevels == nil then

@@ -14,7 +14,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'makeTitle' => array( $this, 'makeTitle' ),
 			'getUrl' => array( $this, 'getUrl' ),
 			'getContent' => array( $this, 'getContent' ),
-			'fileExists' => array( $this, 'fileExists' ),
+			'getFileInfo' => array( $this, 'getFileInfo' ),
 			'protectionLevels' => array( $this, 'protectionLevels' ),
 			'cascadingProtection' => array( $this, 'cascadingProtection' ),
 		);
@@ -91,7 +91,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$ret['exists'] = $title->exists();
 		}
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
-			$ret['fileExists'] = false;
+			$ret['file'] = false;
 		}
 		return $ret;
 	}
@@ -243,8 +243,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		return array( $content->serialize() );
 	}
 
-	function fileExists( $text ) {
-		$this->checkType( 'fileExists', 1, $text, 'string' );
+	function getFileInfo( $text ) {
+		$this->checkType( 'getFileInfo', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
 			return array( false );
@@ -257,12 +257,32 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->incrementExpensiveFunctionCount();
 		$file = wfFindFile( $title );
 		if ( !$file ) {
-			return array( false );
+			return array( array( 'exists' => false ) );
 		}
 		$this->getParser()->getOutput()->addImage(
 			$file->getName(), $file->getTimestamp(), $file->getSha1()
 		);
-		return array( (bool)$file->exists() );
+		if ( !$file->exists() ) {
+			return array( array( 'exists' => false ) );
+		}
+		$pageCount = $file->pageCount();
+		if ( $pageCount === false ) {
+			$pages = null;
+		} else {
+			$pages = array();
+			for ( $i = 1; $i <= $pageCount; ++$i ) {
+				$pages[$i] = array(
+					'width' => $file->getWidth( $i ),
+					'height' => $file->getHeight( $i )
+				);
+			}
+		}
+		return array( array(
+			'exists' => true,
+			'width' => $file->getWidth(),
+			'height' => $file->getHeight(),
+			'pages' => $pages
+		) );
 	}
 
 	private static function makeArrayOneBased( $arr ) {
