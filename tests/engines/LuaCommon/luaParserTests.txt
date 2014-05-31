@@ -155,6 +155,14 @@ function p.testStrippedCss( frame )
 	return mw.html.create( 'div' ):css( 'color', frame.args[1] )
 end
 
+function p.testFrameCaching( frame )
+	return string.format(
+		'Parent frame is the root: %s. Child frame is the root: %s.',
+		frame:getParent():preprocess('<includeonly>no</includeonly><noinclude>yes</noinclude>'),
+		frame:preprocess('<includeonly>no</includeonly><noinclude>yes</noinclude>')
+	)
+end
+
 return p
 !! endarticle
 
@@ -213,6 +221,12 @@ Template:Scribunto_all_args
 Template:Scribunto_template_with_headers
 !! text
 == bar ==
+!! endarticle
+
+!! article
+Template:Scribunto_frame_caching
+!! text
+{{#invoke:test|testFrameCaching}}
 !! endarticle
 
 !! test
@@ -486,4 +500,13 @@ Scribunto: Strip markers in CSS
 !! result
 <div style="color:#ff0000"></div>
 
+!! end
+
+!! test
+Scribunto: Parser output isn't incorrectly cached across frames
+!! input
+Root: {{#invoke:test|testFrameCaching}} Template: {{Scribunto frame caching}}
+!! result
+<p>Root: Parent frame is the root: yes. Child frame is the root: no. Template: Parent frame is the root: no. Child frame is the root: no.
+</p>
 !! end

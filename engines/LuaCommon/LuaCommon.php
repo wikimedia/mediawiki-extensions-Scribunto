@@ -209,16 +209,20 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 
 		$oldFrames = $this->currentFrames;
+		$oldExpandCache = $this->expandCache;
 		$this->currentFrames = array(
 			'current' => $frame,
 			'parent' => isset( $frame->parent ) ? $frame->parent : null,
 		);
+		$this->expandCache = array();
 
 		// @todo Once support for PHP 5.3 is dropped, lose $ref and just use
 		// $this->currentFrames directly in the callback.
 		$ref = &$this->currentFrames;
-		return new ScopedCallback( function () use ( &$ref, $oldFrames ) {
+		$ref2 = &$this->expandCache;
+		return new ScopedCallback( function () use ( &$ref, &$ref2, $oldFrames, $oldExpandCache ) {
 			$ref = $oldFrames;
+			$ref2 = $oldExpandCache;
 		} );
 	}
 
@@ -660,6 +664,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$newFrame = $frame->newChild( $fargs, $finalTitle );
 		$text = $this->doCachedExpansion( $newFrame, $dom,
 			array(
+				'frameId' => $frameId,
 				'template' => $finalTitle->getPrefixedDBkey(),
 				'args' => $args
 			) );
@@ -767,13 +772,13 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		// Don't count the time for expanding all the frame arguments against
 		// the Lua time limit.
 		$this->getInterpreter()->pauseUsageTimer();
-		$args = $frame->getArguments();
+		$frame->getArguments();
 		$this->getInterpreter()->unpauseUsageTimer();
 
 		$text = $this->doCachedExpansion( $frame, $text,
 			array(
-				'inputText' => $text,
-				'args' => $args,
+				'frameId' => $frameId,
+				'inputText' => $text
 			) );
 		return array( $text );
 	}
