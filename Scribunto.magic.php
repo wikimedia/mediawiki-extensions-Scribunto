@@ -95,6 +95,11 @@ $magicWords['ru'] = array(
 	'invoke' => array( 0, 'вызвать' ),
 );
 
+/** Ukrainian (українська) */
+$magicWords['uk'] = array(
+	'invoke' => array( 0, 'викликати' ),
+);
+
 /** Vietnamese (Tiếng Việt) */
 $magicWords['vi'] = array(
 	'invoke' => array( 0, 'gọi' ),
