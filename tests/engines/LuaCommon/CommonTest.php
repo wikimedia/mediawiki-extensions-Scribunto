@@ -403,4 +403,74 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$r2 = $module->invoke( 'bar', $frame->newChild() );
 		$this->assertSame( $r1, $r2, 'Multiple invokes with recursive invoke returned different sets of random numbers' );
 	}
+
+	function testOsDateTimeTTLs() {
+		$engine = $this->getEngine();
+		$pp = $engine->getParser()->getPreprocessor();
+
+		if ( !is_callable( array( $pp->newFrame(), 'getTTL' ) ) ) {
+			$this->markTestSkipped( "PPFrame::getTTL is not available" );
+		}
+
+		$this->extraModules['Module:DateTime'] = '
+		local p = {}
+		function p.day()
+			return os.date( "%d" )
+		end
+		function p.AMPM()
+			return os.date( "%p" )
+		end
+		function p.hour()
+			return os.date( "%H" )
+		end
+		function p.minute()
+			return os.date( "%M" )
+		end
+		function p.second()
+			return os.date( "%S" )
+		end
+		function p.time()
+			return os.time()
+		end
+		function p.specificDateAndTime()
+			return os.date("%S", os.time{year = 2013, month = 1, day = 1})
+		end
+		return p
+		';
+
+		$title = Title::makeTitle( NS_MODULE, 'DateTime' );
+		$module = $engine->fetchModuleFromParser( $title );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'day', $frame );
+		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when day is requested' );
+		$this->assertLessThanOrEqual( 86400, $frame->getTTL(), 'TTL must not exceed 1 day when day is requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'AMPM', $frame );
+		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when AM/PM is requested' );
+		$this->assertLessThanOrEqual( 43200, $frame->getTTL(), 'TTL must not exceed 12 hours when AM/PM is requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'hour', $frame );
+		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when hour is requested' );
+		$this->assertLessThanOrEqual( 3600, $frame->getTTL(), 'TTL must not exceed 1 hour when hours are requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'minute', $frame );
+		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when minutes are requested' );
+		$this->assertLessThanOrEqual( 60, $frame->getTTL(), 'TTL must not exceed 1 minute when minutes are requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'second', $frame );
+		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when seconds are requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'time', $frame );
+		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when os.time() is called' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'specificDateAndTime', $frame );
+		$this->assertNull( $frame->getTTL(), 'TTL must not be set when os.date() or os.time() are called with a specific time' );
+	}
 }

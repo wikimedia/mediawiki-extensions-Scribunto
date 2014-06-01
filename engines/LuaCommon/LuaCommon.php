@@ -98,6 +98,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'incrementExpensiveFunctionCount',
 				'isSubsting',
 				'getFrameTitle',
+				'setTTL',
 			);
 
 			$lib = array();
@@ -321,7 +322,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @throws Scribunto_LuaError
 	 */
 	public function checkType( $funcName, $args, $index0, $type, $msgType ) {
-		if ( !isset( $args[$index0] ) || gettype( $args[$index0] ) !== $type ) {
+		if ( !is_array( $type ) ) {
+			$type = array( $type );
+		}
+		if ( !isset( $args[$index0] ) || !in_array( gettype( $args[$index0] ), $type, true ) ) {
 			$index1 = $index0 + 1;
 			throw new Scribunto_LuaError( "bad argument #$index1 to '$funcName' ($msgType expected)" );
 		}
@@ -346,7 +350,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @param int $index0 The zero-based argument index
 	 */
 	public function checkNumber( $funcName, $args, $index0 ) {
-		$this->checkType( $funcName, $args, $index0, 'double', 'number' );
+		$this->checkType( $funcName, $args, $index0, array( 'integer', 'double' ), 'number' );
 	}
 
 	/**
@@ -445,6 +449,19 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	function getFrameTitle( $frameId ) {
 		$frame = $this->getFrameById( $frameId );
 		return array( $frame->getTitle()->getPrefixedText() );
+	}
+
+	/**
+	 * Handler for setTTL()
+	 */
+	function setTTL( $ttl ) {
+		$args = func_get_args();
+		$this->checkNumber( 'setTTL', $args, 0 );
+
+		$frame = $this->getFrameById( 'current' );
+		if ( is_callable( array( $frame, 'setTTL' ) ) ) {
+			$frame->setTTL( $ttl );
+		}
 	}
 
 	/**

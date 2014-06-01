@@ -248,6 +248,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			$cacheKey = $this->getParserOptions()->getTimestamp();
 			$timestamp = new MWTimestamp( $cacheKey );
 			$date = $timestamp->getTimestamp( TS_ISO_8601 );
+			$useTTL = true;
 		} else {
 			# Correct for DateTime interpreting 'XXXX' as XX:XX o'clock
 			if ( preg_match( '/^[0-9]{4}$/', $date ) ) {
@@ -255,10 +256,15 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			}
 
 			$cacheKey = $date;
+			$useTTL = false;
 		}
 
 		if ( isset( $this->timeCache[$format][$cacheKey][$langcode][$local] ) ) {
-			return array( $this->timeCache[$format][$cacheKey][$langcode][$local] );
+			$ttl = $this->timeCache[$format][$cacheKey][$langcode][$local][1];
+			if ( $useTTL && $ttl !== null ) {
+				$this->getEngine()->setTTL( $ttl );
+			}
+			return array( $this->timeCache[$format][$cacheKey][$langcode][$local][0] );
 		}
 
 		# Default input timezone is UTC.
@@ -290,8 +296,12 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years up to 9999" );
 		}
 
-		$ret = $lang->sprintfDate( $format, $ts, $tz );
-		$this->timeCache[$format][$cacheKey][$langcode][$local] = $ret;
+		$ttl = null;
+		$ret = $lang->sprintfDate( $format, $ts, $tz, $ttl );
+		$this->timeCache[$format][$cacheKey][$langcode][$local] = array( $ret, $ttl );
+		if ( $useTTL && $ttl !== null ) {
+			$this->getEngine()->setTTL( $ttl );
+		}
 		return array( $ret );
 	}
 

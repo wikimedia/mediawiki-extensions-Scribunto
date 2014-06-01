@@ -104,6 +104,37 @@ function mw.setupInterface( options )
 	packageCache = {}
 end
 
+
+--- Wrappers for os.date() and os.time() that set the TTL of the output, if necessary
+local function ttlDate( format, time )
+	if time == nil and ( format == nil or type( format ) == 'string' ) then
+		local now = os.date( format and format:sub( 1, 1 ) == '!' and '!*t' or '*t' )
+		local cleanedFormat = format and format:gsub( '%%%%', '' )
+		if not format or format == '*t' or format == '!*t' or cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
+			php.setTTL( 1 ) -- second
+		elseif cleanedFormat:find( '%%[EO]?[MR]' ) then
+			php.setTTL( 60 - now.sec ) -- minute
+		elseif cleanedFormat:find( '%%[EO]?[HIkl]' ) then
+			php.setTTL( 3600 - now.min * 60 - now.sec ) -- hour
+		elseif cleanedFormat:find( '%%[EO]?[pP]' ) then
+			php.setTTL( 43200 - ( now.hour % 12 ) * 3600 - now.min * 60 - now.sec ) -- am/pm
+		else
+			-- It's not worth the complexity to figure out the exact TTL of larger units than days.
+			-- If they haven't used anything shorter than days, then just set the TTL to expire at
+			-- the end of today.
+			php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec )
+		end
+	end
+	return os.date( format, time )
+end
+
+local function ttlTime( t )
+	if t == nil then
+		php.setTTL( 1 )
+	end
+	return os.time( t )
+end
+
 --- Set up a cloned environment for execution of a module chunk, then execute
 -- the module in that environment. This is called by the host to implement 
 -- {{#invoke}}.
@@ -130,6 +161,9 @@ function mw.executeModule( chunk, name )
 		env.setfenv = nil
 		env.getfenv = nil
 	end
+
+	env.os.date = ttlDate
+	env.os.time = ttlTime
 
 	setfenv( chunk, env )
 
