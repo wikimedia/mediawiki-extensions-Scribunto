@@ -1,14 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eleassar"
+			"Eleassar",
+			"Dbc334"
 		]
 	},
 	"scribunto-parser-error": "Skriptna napaka",
 	"scribunto-error-short": "Skriptna napaka: $1",
-	"scribunto-common-nosuchmodule": "Skriptna napaka: tak modul ne obstaja.",
+	"scribunto-common-nosuchmodule": "Skriptna napaka: Modul »$2« ne obstaja.",
 	"scribunto-common-nofunction": "Skriptna napaka: določiti morate funkcijo za klic.",
-	"scribunto-common-nosuchfunction": "Skriptna napaka: funkcija, ki ste jo določili, ne obstaja.",
-	"scribunto-lua-noreturn": "Skriptna napaka: modul ni vrnil vrednosti. Vrniti bi moral izvozno tabelo.",
-	"scribunto-lua-notarrayreturn": "Skriptna napaka: modul je vrnil nekaj drugega kot tabelo. Vrniti bi moral izvozno tabelo."
+	"scribunto-common-nosuchfunction": "Skriptna napaka: Funkcija »$2« ne obstaja.",
+	"scribunto-lua-notarrayreturn": "Skriptna napaka: Modul je vrnil vrednost $2. Vrnil bi naj izvozno tabelo."
 }
