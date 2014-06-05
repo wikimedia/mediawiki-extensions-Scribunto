@@ -55,6 +55,10 @@ local function testAttributeOverride()
 	return getEmptyTestDiv():attr( 'good', 'MediaWiki' ):attr( 'good', 'Wikibase' )
 end
 
+local function testAttributeRemoval()
+	return getEmptyTestDiv():attr( 'a', 'b' ):attr( 'a', nil )
+end
+
 local function testGetAttribute()
 	return getEmptyTestDiv():attr( 'town', 'Berlin' ):getAttr( 'town' )
 end
@@ -75,8 +79,12 @@ local function testWikitextAppendToSelfClosing()
 	return mw.html.create( 'hr' ):wikitext( 'foo' )
 end
 
-local function testEmptyCreate()
-	return mw.html.create( '' ):wikitext( 'foo' ):tag( 'div' ):attr( 'a', 'b' ):allDone()
+local function testCreateWithValue( val )
+	return mw.html.create( val ):wikitext( 'foo' ):tag( 'div' ):attr( 'a', 'b' ):allDone()
+end
+
+local function testCssRemoval()
+	return getEmptyTestDiv():css( 'color', 'red' ):css( 'color', nil )
 end
 
 local function testComplex()
@@ -116,9 +124,6 @@ local tests = {
 	  args = { {} },
 	  expect = 'Tag name must be a string'
 	},
-	{ name = 'mw.html.create (invalid tag 3)', func = mw.html.create, type='ToString',
-	  expect = 'Tag name must be a string'
-	},
 	{ name = 'mw.html.wikitext', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'wikitext', 'Plain text' },
 	  expect = { '<div>Plain text</div>' }
@@ -139,6 +144,10 @@ local tests = {
 	{ name = 'mw.html.attr', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', 'foo', 'bar' },
 	  expect = { '<div foo="bar"></div>' }
+	},
+	{ name = 'mw.html.attr (nil noop)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'attr', 'foo', nil },
+	  expect = { '<div></div>' }
 	},
 	{ name = 'mw.html.attr (table 1)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', { foo = 'bar' } },
@@ -196,6 +205,10 @@ local tests = {
 	  args = { getEmptyTestDiv(), 'css', 'foo', 'bar' },
 	  expect = { '<div style="foo:bar;"></div>' }
 	},
+	{ name = 'mw.html.css (nil noop)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'css', 'foo', nil },
+	  expect = { '<div></div>' }
+	},
 	{ name = 'mw.html.css (invalid name 1)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', function() end, 'bar' },
 	  expect = 'Invalid CSS given: The name must be either a string or a number'
@@ -244,6 +257,14 @@ local tests = {
 	  args = { getEmptyTestDiv(), 'cssText', 'mu"ha:-ha"ha' },
 	  expect = { '<div style="mu&quot;ha:-ha&quot;ha;"></div>' }
 	},
+	{ name = 'mw.html.addClass (nil)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'addClass' },
+	  expect = { '<div></div>' }
+	},
+	{ name = 'mw.html.cssText (nil)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'cssText' },
+	  expect = { '<div></div>' }
+	},
 
 	-- Tests defined above
 
@@ -274,14 +295,25 @@ local tests = {
 	{ name = 'mw.html.attr (overrides)', func = testAttributeOverride, type='ToString',
 	  expect = { '<div good="Wikibase"></div>' }
 	},
+	{ name = 'mw.html.attr (removal)', func = testAttributeRemoval, type='ToString',
+	  expect = { '<div></div>' }
+	},
 	{ name = 'mw.html.getAttr', func = testGetAttribute, type='ToString',
 	  expect = { 'Berlin' }
 	},
 	{ name = 'mw.html.getAttr (escaping)', func = testGetAttributeEscaping, type='ToString',
 	  expect = { '<ble"&rgh>' }
 	},
-	{ name = 'mw.html.create (empty)', func = testEmptyCreate, type='ToString',
+	{ name = 'mw.html.create (empty string)', func = testCreateWithValue, type='ToString',
+	  args = {''},
 	  expect = { 'foo<div a="b"></div>' }
+	},
+	{ name = 'mw.html.create (nil)', func = testCreateWithValue, type='ToString',
+	  args = {nil},
+	  expect = { 'foo<div a="b"></div>' }
+	},
+	{ name = 'mw.html.css (removal)', func = testCssRemoval, type='ToString',
+	  expect = { '<div></div>' }
 	},
 	{ name = 'mw.html complex test', func = testComplex, type='ToString',
 	  expect = {
