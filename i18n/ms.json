@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Anakmalaysia",
-			"Aurora"
+			"Aurora",
+			"Pizza1016"
 		]
 	},
 	"scribunto-desc": "Kerangka pembenaman bahasa skrip dalam halaman MediaWiki",
@@ -14,7 +15,7 @@
 	"scribunto-error-short": "Ralat skrip: $1",
 	"scribunto-error-long": "Ralat-ralat skrip:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/doc",
-	"scribunto-doc-page-does-not-exist": "''Dokumentasi untuk modul ini boleh diwujudkan di [[$1]]''",
+	"scribunto-doc-page-does-not-exist": "''Pendokumenan untuk modul ini boleh diciptakan di [[$1]]''",
 	"scribunto-doc-page-header": "'''Ini ialah halaman pendokumenan untuk [[$1]]'''",
 	"scribunto-console-intro": "* Eksport modul terdapat dalam bentuk pembolehubah \"p\", termasuk pengubahsuaian yang belum disimpan.\n* Dahului baris dengan tanda \"=\" untuk menilainya sebagai ungkapan, atau gunakan print().\n* Gunakan mw.log() dalam kod modul untuk menghantar mesej ke konsol ini.",
 	"scribunto-console-title": "Konsol penyahpepijatan",
@@ -35,7 +36,6 @@
 	"scribunto-lua-in-function-at": "dalam fungsi di $1:$2",
 	"scribunto-lua-error-location": "Ralat Lua $1: $2.",
 	"scribunto-lua-error": "Ralat Lua: $2.",
-	"scribunto-lua-noreturn": "Ralat skrip: Modul tidak memulangkan nilai. Ia sepatutnya memulangkan jadual eksport.",
 	"scribunto-lua-notarrayreturn": "Ralat skrip: Modul sepatutnya memulangkan jadual eksport, tetapi lain pula yang dipulangkannya.",
 	"scribunto-luastandalone-proc-error": "Ralat Lua: Proses tidak boleh diwujudkan.",
 	"scribunto-luastandalone-proc-error-msg": "Ralat Lua: Proses tidak boleh diwujudkan: $2",
