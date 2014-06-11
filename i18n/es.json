@@ -50,5 +50,7 @@
 	"scribunto-module-with-errors-category-desc": "El módulo tiene un error.",
 	"scribunto-limitreport-timeusage-value": "$1/$2 segundos",
 	"scribunto-limitreport-virtmemusage": "Tamaño virtual de Lua",
+	"scribunto-limitreport-memusage": "Uso de memoria de Lua",
+	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms"
 }
