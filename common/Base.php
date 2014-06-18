@@ -123,7 +123,7 @@ abstract class ScribuntoEngineBase {
 	 * text is garbage or has syntax error. Returns a module or null if it doesn't exist.
 	 *
 	 * @param $title string The title of the module
-	 * @return ScribuntoEngineModule
+	 * @return ScribuntoEngineModule|null
 	 */
 	function fetchModuleFromParser( Title $title ) {
 		$key = $title->getPrefixedDBkey();
