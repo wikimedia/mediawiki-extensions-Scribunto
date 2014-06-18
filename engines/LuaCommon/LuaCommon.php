@@ -28,7 +28,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	);
 
 	protected $loaded = false;
+
+	/**
+	 * @var Scribunto_LuaInterpreter
+	 */
 	protected $interpreter;
+
 	protected $mw;
 	protected $currentFrames = array();
 	protected $expandCache = array();
@@ -42,10 +47,20 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	abstract function newInterpreter();
 
+	/**
+	 * @param $text
+	 * @param $chunkName
+	 * @return Scribunto_LuaModule
+	 */
 	protected function newModule( $text, $chunkName ) {
 		return new Scribunto_LuaModule( $this, $text, $chunkName );
 	}
 
+	/**
+	 * @param $message
+	 * @param array $params
+	 * @return Scribunto_LuaError
+	 */
 	public function newLuaError( $message, $params = array() ) {
 		return new Scribunto_LuaError( $message, $this->getDefaultExceptionParams() + $params );
 	}
@@ -294,15 +309,16 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			'print' => isset( $ret[1] ) ? $ret[1] : '',
 		);
 	}
-		
+
 	/**
 	 * Workalike for luaL_checktype()
 	 *
-	 * @param $funcName The Lua function name, for use in error messages
-	 * @param $args The argument array
-	 * @param $index0 The zero-based argument index
-	 * @param $type The type name as given by gettype()
-	 * @param $msgType The type name used in the error message
+	 * @param string $funcName The Lua function name, for use in error messages
+	 * @param array $args The argument array
+	 * @param int $index0 The zero-based argument index
+	 * @param string $type The type name as given by gettype()
+	 * @param string $msgType The type name used in the error message
+	 * @throws Scribunto_LuaError
 	 */
 	public function checkType( $funcName, $args, $index0, $type, $msgType ) {
 		if ( !isset( $args[$index0] ) || gettype( $args[$index0] ) !== $type ) {
@@ -314,9 +330,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Workalike for luaL_checkstring()
 	 *
-	 * @param $funcName The Lua function name, for use in error messages
-	 * @param $args The argument array
-	 * @param $index0 The zero-based argument index
+	 * @param string $funcName The Lua function name, for use in error messages
+	 * @param array $args The argument array
+	 * @param int $index0 The zero-based argument index
 	 */
 	public function checkString( $funcName, $args, $index0 ) {
 		$this->checkType( $funcName, $args, $index0, 'string', 'string' );
@@ -325,9 +341,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Workalike for luaL_checknumber()
 	 *
-	 * @param $funcName The Lua function name, for use in error messages
-	 * @param $args The argument array
-	 * @param $index0 The zero-based argument index
+	 * @param string $funcName The Lua function name, for use in error messages
+	 * @param array $args The argument array
+	 * @param int $index0 The zero-based argument index
 	 */
 	public function checkNumber( $funcName, $args, $index0 ) {
 		$this->checkType( $funcName, $args, $index0, 'double', 'number' );
@@ -371,6 +387,11 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Helper function for the implementation of frame methods
+	 *
+	 * @param $frameId
+	 * @return PPFrame
+	 *
+	 * @throws Scribunto_LuaError
 	 */
 	protected function getFrameById( $frameId ) {
 		if ( isset( $this->currentFrames[$frameId] ) ) {
@@ -382,6 +403,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for frameExists()
+	 * @return array
 	 */
 	function frameExists( $frameId ) {
 		return array( isset( $this->currentFrames[$frameId] ) );
@@ -389,6 +411,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for newChildFrame()
+	 *
+	 * @throws Scribunto_LuaError
 	 */
 	function newChildFrame( $frameId, $title, $args ) {
 		if ( count( $this->currentFrames ) > 100 ) {
@@ -413,6 +437,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for getTitle()
+	 *
+	 * @param $frameId
+	 *
+	 * @return array
 	 */
 	function getFrameTitle( $frameId ) {
 		$frame = $this->getFrameById( $frameId );
@@ -482,6 +510,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for callParserFunction()
+	 * @param $frameId
+	 * @param $function
+	 * @param $args
+	 * @throws MWException
+	 * @throws Scribunto_LuaError
+	 * @return array
 	 */
 	function callParserFunction( $frameId, $function, $args ) {
 		$frame = $this->getFrameById( $frameId );
@@ -589,6 +623,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Increment the expensive function count, and throw if limit exceeded
 	 *
+	 * @throws Scribunto_LuaError
 	 * @return null
 	 */
 	public function incrementExpensiveFunctionCount() {

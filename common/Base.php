@@ -28,20 +28,25 @@
  */
 abstract class ScribuntoEngineBase {
 	protected
-		$parser,
 		$title,
 		$options,
 		$modules = array();
 
 	/**
+	 * @var Parser
+	 */
+	protected $parser;
+
+	/**
 	 * Creates a new module object within this engine
+	 * @return ScribuntoModuleBase
 	 */
 	abstract protected function newModule( $text, $chunkName );
 
 	/**
 	 * Run an interactive console request
 	 *
-	 * @param $params Associative array. Options are:
+	 * @param array $params Associative array. Options are:
 	 *    - title: The title object for the module being debugged
 	 *    - content: The text content of the module
 	 *    - prevQuestions: An array of previous "questions" used to establish the state
@@ -87,10 +92,16 @@ abstract class ScribuntoEngineBase {
 		$this->modules = null;
 	}
 
+	/**
+	 * @param Title $title
+	 */
 	public function setTitle( $title ) {
 		$this->title = $title;
 	}
 
+	/**
+	 * @return Title
+	 */
 	public function getTitle() {
 		return $this->title;
 	}
@@ -122,8 +133,8 @@ abstract class ScribuntoEngineBase {
 	 * Does not initialize the module, i.e. do not expect it to complain if the module
 	 * text is garbage or has syntax error. Returns a module or null if it doesn't exist.
 	 *
-	 * @param $title string The title of the module
-	 * @return ScribuntoEngineModule|null
+	 * @param Title $title The title of the module
+	 * @return ScribuntoEngineBase|null
 	 */
 	function fetchModuleFromParser( Title $title ) {
 		$key = $title->getPrefixedDBkey();
@@ -180,6 +191,9 @@ abstract class ScribuntoEngineBase {
 		return false;
 	}
 
+	/**
+	 * @return Parser
+	 */
 	public function getParser() {
 		return $this->parser;
 	}
@@ -249,7 +263,12 @@ abstract class ScribuntoEngineBase {
  * and maintaining the contents of the module.
  */
 abstract class ScribuntoModuleBase {
-	var $engine, $code, $chunkName;
+	/**
+	 * @var ScribuntoEngineBase
+	 */
+	var $engine;
+
+	var $code, $chunkName;
 
 	public function __construct( $engine, $code, $chunkName ) {
 		$this->engine = $engine;
