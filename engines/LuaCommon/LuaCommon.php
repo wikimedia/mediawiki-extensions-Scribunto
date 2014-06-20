@@ -794,7 +794,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		if ( is_scalar( $input ) ) {
 			$dom = $this->parser->getPreprocessor()->preprocessToObj(
-				$input, Parser::PTD_FOR_INCLUSION );
+				$input, $frame->depth ? Parser::PTD_FOR_INCLUSION : 0 );
 		} else {
 			$dom = $input;
 		}
