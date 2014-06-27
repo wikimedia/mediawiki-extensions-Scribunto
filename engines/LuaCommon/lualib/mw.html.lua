@@ -105,7 +105,7 @@ methodtable._build = function( t, ret )
 		if #t.styles > 0 then
 			table.insert( ret, ' style="' )
 			for i, prop in ipairs( t.styles ) do
-				if type( prop ) == 'string' then -- added with cssText()
+				if type( prop ) ~= 'table' then -- added with cssText()
 					table.insert( ret, htmlEncode( prop ) .. ';' )
 				else -- added with css()
 					table.insert(
@@ -216,8 +216,8 @@ methodtable.attr = function( t, name, val )
 		return t
 	end
 
-	if type( name ) ~= 'string' and type( name ) ~= 'number' then
-		error( 'Invalid name given: The name must be either a string or a number' )
+	if type( name ) ~= 'string' then
+		error( 'Invalid name given: The name must be a string' )
 	end
 	if val ~= nil and type( val ) ~= 'string' and type( val ) ~= 'number' then
 		error( 'Invalid value given: The value must be either a string or a number' )

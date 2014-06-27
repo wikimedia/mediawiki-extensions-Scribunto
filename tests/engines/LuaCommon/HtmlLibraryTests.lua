@@ -158,8 +158,8 @@ local tests = {
 	  expect = { '<div ab="cd" foo="bar"></div>' }
 	},
 	{ name = 'mw.html.attr (invalid name 1)', func = testHelper, type='ToString',
-	  args = { getEmptyTestDiv(), 'attr', true, 'bar' },
-	  expect = 'Invalid name given: The name must be either a string or a number'
+	  args = { getEmptyTestDiv(), 'attr', 123, 'bar' },
+	  expect = 'Invalid name given: The name must be a string'
 	},
 	{ name = 'mw.html.attr (invalid name 2)', func = testHelper,
 	  args = { getEmptyTestDiv(), 'attr', '§§§§', 'foo' },
@@ -197,6 +197,10 @@ local tests = {
 	  args = { getEmptyTestDiv(), 'addClass', 'foo' },
 	  expect = { '<div class="foo"></div>' }
 	},
+	{ name = 'mw.html.addClass (numeric argument)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'addClass', 123 },
+	  expect = { '<div class="123"></div>' }
+	},
 	{ name = 'mw.html.addClass (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'addClass', {} },
 	  expect = 'Invalid class given: The name must be either a string or a number'
@@ -204,6 +208,10 @@ local tests = {
 	{ name = 'mw.html.css', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', 'bar' },
 	  expect = { '<div style="foo:bar;"></div>' }
+	},
+	{ name = 'mw.html.css (numeric arguments)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'css', 123, 456 },
+	  expect = { '<div style="123:456;"></div>' }
 	},
 	{ name = 'mw.html.css (nil noop)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', nil },
@@ -232,6 +240,10 @@ local tests = {
 	{ name = 'mw.html.cssText', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', 'Unit tests, ftw' },
 	  expect = { '<div style="Unit tests, ftw;"></div>' }
+	},
+	{ name = 'mw.html.cssText (numeric argument)', func = testHelper, type='ToString',
+	  args = { getEmptyTestDiv(), 'cssText', 123 },
+	  expect = { '<div style="123;"></div>' }
 	},
 	{ name = 'mw.html.cssText (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', {} },
