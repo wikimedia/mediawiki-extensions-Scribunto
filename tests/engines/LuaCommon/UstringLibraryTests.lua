@@ -499,6 +499,18 @@ return testframework.getTestProvider( {
 	  args = { 'foo; fóó', '(%a+)', '%2' },
 	  expect = "invalid capture index %2 in replacement string"
 	},
+	{ name = 'gsub: passing numbers instead of strings (1)', func = mw.ustring.gsub,
+	  args = { 12345, '[3３]', '9' },
+	  expect = { '12945', 1 }
+	},
+	{ name = 'gsub: passing numbers instead of strings (2)', func = mw.ustring.gsub,
+	  args = { '12345', 3, '9' },
+	  expect = { '12945', 1 }
+	},
+	{ name = 'gsub: passing numbers instead of strings (3)', func = mw.ustring.gsub,
+	  args = { '12345', '[3３]', 9 },
+	  expect = { '12945', 1 }
+	},
 
 	{ name = 'gcodepoint: basic test', func = mw.ustring.gcodepoint,
 	  args = { str1 },
