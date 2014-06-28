@@ -134,7 +134,7 @@ class ScribuntoException extends MWException {
 			if ( isset( $params['title'] ) ) {
 				$moduleTitle = Title::newFromText( $params['module'] );
 				if ( $moduleTitle && $moduleTitle->equals( $params['title'] ) ) {
-					$codeLocation = wfMessage( 'scribunto-line', $params['line'] )->text();
+					$codeLocation = wfMessage( 'scribunto-line', $params['line'] )->inContentLanguage()->text();
 				}
 			}
 			if ( $codeLocation === false ) {
@@ -142,13 +142,13 @@ class ScribuntoException extends MWException {
 					'scribunto-module-line',
 					$params['module'],
 					$params['line']
-				)->text();
+				)->inContentLanguage()->text();
 			}
 		} else {
 			$codeLocation = '[UNKNOWN]';
 		}
 		array_unshift( $this->messageArgs, $codeLocation );
-		$msg = wfMessage( $messageName )->params( $this->messageArgs )->text();
+		$msg = wfMessage( $messageName )->params( $this->messageArgs )->inContentLanguage()->text();
 		parent::__construct( $msg );
 
 		$this->messageName = $messageName;
