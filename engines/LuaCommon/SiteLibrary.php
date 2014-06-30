@@ -63,7 +63,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 				}
 			}
 
-			$namespaces[NS_MAIN]['displayName'] = wfMessage( 'blanknamespace' )->text();
+			$namespaces[NS_MAIN]['displayName'] = wfMessage( 'blanknamespace' )->inContentLanguage()->text();
 
 			self::$namespacesCache = $namespaces;
 		}
