@@ -123,6 +123,11 @@ class ScribuntoHooks {
 					array(),
 					wfMessage( 'scribunto-common-backtrace' )->inContentLanguage()->text()
 				) . $trace;
+			} else {
+				$html .= Html::element( 'p',
+					array(),
+					wfMessage( 'scribunto-common-no-details' )->inContentLanguage()->text()
+				);
 			}
 			$out = $parser->getOutput();
 			if ( !isset( $out->scribunto_errors ) ) {
@@ -133,8 +138,7 @@ class ScribuntoHooks {
 
 			$out->scribunto_errors[] = $html;
 			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
-			$parserError = wfMessage( 'scribunto-parser-error' )->inContentLanguage()->text() .
-				$parser->insertStripItem( '<!--' . htmlspecialchars( $e->getMessage() ) . '-->' );
+			$parserError = htmlspecialchars( $e->getMessage() );
 			wfProfileOut( __METHOD__ );
 
 			// #iferror-compatible error element

@@ -41,6 +41,7 @@
 	"scribunto-common-timeout": "Error message displayed when script execution has passed a threshold.",
 	"scribunto-common-oom": "Error message displayed when the script requires more memory than the threshold.",
 	"scribunto-common-backtrace": "A backtrace is a list of the function calls that are currently active in a thread. This message is followed by a backtrace.",
+	"scribunto-common-no-details": "Displayed in the error dialog when there are no details available other than the error message itself.",
 	"scribunto-lua-in-function": "Reference to a function name.\n\nUsed as <code>$2</code> in {{msg-mw|Scribunto-lua-backtrace-line}} (Optional message).\n\nParameters:\n* $1 - a function name",
 	"scribunto-lua-in-main": "Part of the backtrace creation routines. Refers to the main part of the code.\n\nUsed as <code>$2</code> in {{msg-mw|Scribunto-lua-backtrace-line}} (Optional message).",
 	"scribunto-lua-in-function-at": "Unused at this time.\n\nPart of the backtrace creation routines.\n\nParameters:\n* $1 - a function name\n* $2 - a line number",
