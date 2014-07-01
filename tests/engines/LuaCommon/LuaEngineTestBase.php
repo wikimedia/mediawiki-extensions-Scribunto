@@ -48,6 +48,12 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	 */
 	protected static $dataProviderClass = 'Scribunto_LuaDataProvider';
 
+	/**
+	 * Tests to skip. Associative array mapping test name to skip reason.
+	 * @var array
+	 */
+	protected $skipTests = array();
+
 	function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
 		if ( $engineName === null ) {
 			$engineName = self::$staticEngineName;
@@ -231,8 +237,20 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	/** @dataProvider provideLuaData */
 	function testLua( $key, $testName, $expected ) {
 		$this->luaTestName = static::$moduleName."[$key]: $testName";
-		$actual = $this->provideLuaData()->run( $key );
-		$this->assertSame( $expected, $actual );
+		if ( isset( $this->skipTests[$testName] ) ) {
+			$this->markTestSkipped( $this->skipTests[$testName] );
+		} else {
+			try {
+				$actual = $this->provideLuaData()->run( $key );
+			} catch ( Scribunto_LuaError $ex ) {
+				if ( substr( $ex->getLuaMessage(), 0, 6 ) === 'SKIP: ' ) {
+					$this->markTestSkipped( substr( $ex->getLuaMessage(), 6 ) );
+				} else {
+					throw $ex;
+				}
+			}
+			$this->assertSame( $expected, $actual );
+		}
 		$this->luaTestName = null;
 	}
 }

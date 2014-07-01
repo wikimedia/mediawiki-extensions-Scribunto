@@ -3,6 +3,22 @@
 class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
+	function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
+		parent::__construct( $name, $data, $dataName, $engineName );
+
+		// Skip certain tests if something isn't providing translated language names
+		// (bug 67343)
+		if ( Language::fetchLanguageName( 'en', 'fr' ) === 'English' ) {
+			$msg = 'Language name translations are unavailable; ' .
+				'install Extension:CLDR or something similar';
+			$this->skipTests += array(
+				'fetchLanguageName (en,ru)' => $msg,
+				'fetchLanguageName (ru,en)' => $msg,
+				'fetchLanguageNames (de)' => $msg,
+			);
+		}
+	}
+
 	function getTestModules() {
 		return parent::getTestModules() + array(
 			'LanguageLibraryTests' => __DIR__ . '/LanguageLibraryTests.lua',
