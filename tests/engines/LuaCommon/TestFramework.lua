@@ -122,6 +122,11 @@ local function deepEquals( a, b, keypath, done )
 end
 testframework.deepEquals = deepEquals
 
+-- Skip a test (throws an error)
+function testframework.markTestSkipped( message )
+	error( 'SKIP: ' .. message, 0 )
+end
+
 ---- Test types available ---
 -- Each type has a formatter and an executor:
 --  Formatters take 1 arg: expected return value from the function.
@@ -144,6 +149,9 @@ testframework.types.Normal = {
 		if table.remove( got, 1 ) then
 			return deepToString( got )
 		else
+			if string.sub( got[1], 1, 6 ) == 'SKIP: ' then
+				error( got[1], 0 )
+			end
 			got = string.gsub( got[1], '^%S+:%d+: ', '' )
 			return 'ERROR: ' .. got
 		end
@@ -198,6 +206,9 @@ testframework.types.ToString = {
 			end
 			return deepToString( got )
 		else
+			if string.sub( got[1], 1, 6 ) == 'SKIP: ' then
+				error( got[1], 0 )
+			end
 			got = string.gsub( got[1], '^%S+:%d+: ', '' )
 			return 'ERROR: ' .. got
 		end
