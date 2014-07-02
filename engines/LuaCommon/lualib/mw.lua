@@ -90,13 +90,34 @@ function mw.setupInterface( options )
 	packageCache = {}
 end
 
+--- Create a table like the one os.date() returns, but with a metatable that sets TTLs as the values are looked at.
+local function wrapDateTable( now )
+	return setmetatable( {}, {
+		__index = function( t, k )
+			if k == 'sec' then
+				php.setTTL( 1 )
+			elseif k == 'min' then
+				php.setTTL( 60 - now.sec )
+			elseif k == 'hour' then
+				php.setTTL( 3600 - now.min * 60 - now.sec )
+			elseif now[k] ~= nil then
+				php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec )
+			end
+			t[k] = now[k]
+			return now[k]
+		end
+	} )
+end
 
 --- Wrappers for os.date() and os.time() that set the TTL of the output, if necessary
 local function ttlDate( format, time )
 	if time == nil and ( format == nil or type( format ) == 'string' ) then
 		local now = os.date( format and format:sub( 1, 1 ) == '!' and '!*t' or '*t' )
+		if format == '!*t' or format == '*t' then
+			return wrapDateTable( now )
+		end
 		local cleanedFormat = format and format:gsub( '%%%%', '' )
-		if not format or format == '*t' or format == '!*t' or cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
+		if not format or cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
 			php.setTTL( 1 ) -- second
 		elseif cleanedFormat:find( '%%[EO]?[MR]' ) then
 			php.setTTL( 60 - now.sec ) -- minute

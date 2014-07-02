@@ -539,6 +539,12 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		function p.second()
 			return os.date( "%S" )
 		end
+		function p.table()
+			return os.date( "*t" )
+		end
+		function p.tablesec()
+			return os.date( "*t" ).sec
+		end
 		function p.time()
 			return os.time()
 		end
@@ -574,6 +580,14 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$frame = $pp->newFrame();
 		$module->invoke( 'second', $frame );
 		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when seconds are requested' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'table', $frame );
+		$this->assertNull( $frame->getTTL(), 'TTL must not be set when os.date( "*t" ) is called but no values are looked at' );
+
+		$frame = $pp->newFrame();
+		$module->invoke( 'tablesec', $frame );
+		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when seconds are requested from a table' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'time', $frame );
