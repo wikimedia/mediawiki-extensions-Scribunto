@@ -73,7 +73,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 			$this->fail( "Expected exception because function #1 should have been freed" );
 		} catch ( Scribunto_LuaError $e ) {
 			$this->assertEquals(
-				"Lua error: function id $id does not exist.", $e->getMessage(),
+				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #1'
 			);
 		}
@@ -98,7 +98,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 			$this->fail( "Expected exception because function #2 should have been freed" );
 		} catch ( Scribunto_LuaError $e ) {
 			$this->assertEquals(
-				"Lua error: function id $id does not exist.", $e->getMessage(),
+				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #2'
 			);
 		}
@@ -123,7 +123,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 			$this->fail( "Expected exception because function #3 should have been freed" );
 		} catch ( Scribunto_LuaError $e ) {
 			$this->assertEquals(
-				"Lua error: function id $id does not exist.", $e->getMessage(),
+				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #3'
 			);
 		}
