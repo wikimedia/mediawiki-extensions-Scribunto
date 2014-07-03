@@ -30,7 +30,7 @@ class ScribuntoContent extends TextContent {
 	 * @return ParserOutput
 	 */
 	protected function fillParserOutput( Title $title, $revId = null, ParserOptions $options = null, $generateHtml = true, ParserOutput &$output ) {
-		global $wgParser, $wgScribuntoUseGeSHi;
+		global $wgParser, $wgScribuntoUseGeSHi, $wgUseSiteCss;
 
 		$text = $this->getNativeData();
 		$output = null;
@@ -125,7 +125,19 @@ class ScribuntoContent extends TextContent {
 			if( $geshi instanceof GeSHi && !$geshi->error() ) {
 				$code = $geshi->parse_code();
 				if( $code ) {
-					$output->addHeadItem( SyntaxHighlight_GeSHi::buildHeadItem( $geshi ), "source-{$language}" );
+					// @todo Once we drop support for old versions of
+					// Extension:SyntaxHighlight_GeSHi, drop the ugly test and
+					// the BC case.
+					global $wgAutoloadClasses;
+					if ( isset( $wgAutoloadClasses['ResourceLoaderGeSHiModule'] ) ) {
+						$output->addModuleStyles( "ext.geshi.language.$language" );
+					} else {
+						// Backwards compatibility
+						$output->addHeadItem( SyntaxHighlight_GeSHi::buildHeadItem( $geshi ), "source-{$language}" );
+					}
+					if ( $wgUseSiteCss ) {
+						$output->addModuleStyles( 'ext.geshi.local' );
+					}
 					$output->setText( $output->getText() . $code );
 					return $output;
 				}
