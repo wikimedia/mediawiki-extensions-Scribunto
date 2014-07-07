@@ -135,48 +135,6 @@ local function ttlTime( t )
 	return os.time( t )
 end
 
---- Set up a cloned environment for execution of a module chunk, then execute
--- the module in that environment. This is called by the host to implement 
--- {{#invoke}}.
---
--- @param chunk The module chunk
--- @param name The name of the function to be returned. Nil or false causes the entire export table to be returned
--- @return boolean Whether the requested value was able to be returned
--- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
-function mw.executeModule( chunk, name )
-	local env = mw.clone( _G )
-	makePackageModule( env )
-
-	-- These are unsafe
-	env.mw.makeProtectedEnvFuncs = nil
-	env.mw.executeModule = nil
-	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
-		env.mw.getLogBuffer = nil
-		env.mw.clearLogBuffer = nil
-	end
-
-	if allowEnvFuncs then
-		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
-	else
-		env.setfenv = nil
-		env.getfenv = nil
-	end
-
-	env.os.date = ttlDate
-	env.os.time = ttlTime
-
-	setfenv( chunk, env )
-
-	local res = chunk()
-	if not name then -- catch console whether it's evaluating its own code or a module's
-		return true, res
-	end
-	if type(res) ~= 'table' then
-		return false, type(res)
-	end
-	return true, res[name]
-end
-
 local function newFrame( frameId, ... )
 	if not php.frameExists( frameId ) then
 		return nil
@@ -496,6 +454,54 @@ local function newFrame( frameId, ... )
 	return frame
 end
 
+--- Set up a cloned environment for execution of a module chunk, then execute
+-- the module in that environment. This is called by the host to implement
+-- {{#invoke}}.
+--
+-- @param chunk The module chunk
+-- @param name The name of the function to be returned. Nil or false causes the entire export table to be returned
+-- @return boolean Whether the requested value was able to be returned
+-- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
+function mw.executeModule( chunk, name )
+	local env = mw.clone( _G )
+	makePackageModule( env )
+
+	-- These are unsafe
+	env.mw.makeProtectedEnvFuncs = nil
+	env.mw.executeModule = nil
+	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
+		env.mw.getLogBuffer = nil
+		env.mw.clearLogBuffer = nil
+	end
+
+	if allowEnvFuncs then
+		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
+	else
+		env.setfenv = nil
+		env.getfenv = nil
+	end
+
+	env.os.date = ttlDate
+	env.os.time = ttlTime
+
+	setfenv( chunk, env )
+
+	local oldFrame = currentFrame
+	if not currentFrame then
+		currentFrame = newFrame( 'current', 'parent' )
+	end
+	local res = chunk()
+	currentFrame = oldFrame
+
+	if not name then -- catch console whether it's evaluating its own code or a module's
+		return true, res
+	end
+	if type(res) ~= 'table' then
+		return false, type(res)
+	end
+	return true, res[name]
+end
+
 function mw.executeFunction( chunk )
 	local frame = newFrame( 'current', 'parent' )
 	local oldFrame = currentFrame
@@ -742,12 +748,19 @@ function mw.loadData( module )
 		error( data, 2 )
 	end
 	if not data then
+		-- Don't allow accessing the current frame's info (bug 65687)
+		local oldFrame = currentFrame
+		currentFrame = newFrame( 'empty' )
+
 		-- The point of this is to load big data, so don't save it in package.loaded
 		-- where it will have to be copied for all future modules.
 		local l = package.loaded[module]
 		local _
+
 		_, data = mw.executeModule( function() return require( module ) end )
+
 		package.loaded[module] = l
+		currentFrame = oldFrame
 
 		-- Validate data
 		local err
