@@ -1,5 +1,5 @@
 The Lua standalone engine has a message-based protocol for communicating between
-PHP and Lua. 
+PHP and Lua.
 
 Messages start with a 16 byte header. The first 8 bytes are the body length in
 hexadecimal. The second 8 bytes are (length * 2 - 1) also in hexadecimal.
@@ -17,11 +17,11 @@ index in the chunk table.
 The expressions encoded into the message bodies are associative arrays. The "op"
 member of the array gives the operation to be performed by the message.
 
-Every request message demands exactly one response message in reply. When a 
-request message is sent, the responder does not need to send the corresponding 
-response message as its next message. It may instead send its own request 
-message. In this way, a stack of pending requests can be accumulated. This 
-mechanism allows re-entrant and recursive calls. 
+Every request message demands exactly one response message in reply. When a
+request message is sent, the responder does not need to send the corresponding
+response message as its next message. It may instead send its own request
+message. In this way, a stack of pending requests can be accumulated. This
+mechanism allows re-entrant and recursive calls.
 
 All numerically-indexed arrays should start from index 1 unless otherwise
 specified. Note that the number of values in an array may not match what Lua's
@@ -69,14 +69,14 @@ On failure, the response message is:
 
 * op: "error"
 * value: The value given to error(), usually an error message
-* trace: A table giving a backtrace of the stack as it was when error() was 
+* trace: A table giving a backtrace of the stack as it was when error() was
   called, in a similar format to the one used by debug.getinfo(). Element 1 of
-  the table is the function that called error(), element 2 is the function that 
+  the table is the function that called error(), element 2 is the function that
   called that, and so on.
 
 === registerLibrary ===
 
-Register a set of functions in the sandbox environment. 
+Register a set of functions in the sandbox environment.
 
 Message parameters:
 * op: "registerLibrary"
@@ -109,7 +109,7 @@ On success, the response message is:
 * values: An array with a single element, which is an associative array mapping
   status key to value. The status keys are:
 ** pid: The process identifier
-** time: The amount of user and system time spent by the process, measured in clock ticks 
+** time: The amount of user and system time spent by the process, measured in clock ticks
 ** vsize: The virtual memory size in bytes
 ** rss: The resident set size in bytes
 

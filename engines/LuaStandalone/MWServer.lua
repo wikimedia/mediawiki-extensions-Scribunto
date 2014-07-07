@@ -130,7 +130,7 @@ function MWServer:attachTrace( err )
 	}
 end
 
---- Handle a "loadString" message from PHP. 
+--- Handle a "loadString" message from PHP.
 -- Load the function and return a chunk ID.
 --
 -- @param message The message from PHP
@@ -276,13 +276,13 @@ end
 
 --- The main request/response loop
 --
--- Send a request message and return its matching reply message. Handle any 
+-- Send a request message and return its matching reply message. Handle any
 -- intervening requests (i.e. re-entrant calls) by dispatching them to the
 -- relevant handler function.
 --
 -- The request message may optionally be omitted, to listen for request messages
--- without first sending a request of its own. Such a dispatch() call will 
--- continue running until termination is requested by PHP. Typically, PHP does 
+-- without first sending a request of its own. Such a dispatch() call will
+-- continue running until termination is requested by PHP. Typically, PHP does
 -- this with a SIGTERM signal.
 --
 -- @param msgToPhp The message to send to PHP. Optional.
@@ -339,12 +339,12 @@ function MWServer:debug( s )
 end
 
 --- Raise an internal error
--- Write a message to stderr and then exit with a failure status. This should 
--- be called for errors which cannot be allowed to be caught with pcall(). 
+-- Write a message to stderr and then exit with a failure status. This should
+-- be called for errors which cannot be allowed to be caught with pcall().
 --
--- This must be used for protocol errors, or indeed any error from a context 
+-- This must be used for protocol errors, or indeed any error from a context
 -- where a dispatch() call lies between the error source and a possible pcall()
--- handler. If dispatch() were terminated by a regular error() call, the 
+-- handler. If dispatch() were terminated by a regular error() call, the
 -- resulting protocol violation could lead to a deadlock.
 --
 -- @param msg The error message
@@ -442,8 +442,8 @@ function MWServer:serialize( var )
 
 	local function isInteger( var )
 		return type(var) == 'number'
-			and math.floor( var ) == var 
-			and var >= int_min 
+			and math.floor( var ) == var
+			and var >= int_min
 			and var <= int_max
 	end
 
@@ -516,7 +516,7 @@ function MWServer:serialize( var )
 	return recursiveEncode( var, 0 ):gsub( '[\r\n\\]', serialize_replacements )
 end
 
---- Convert a Lua expression string to its corresponding value. 
+--- Convert a Lua expression string to its corresponding value.
 -- Convert any references of the form chunk[id] to the corresponding function
 -- values.
 function MWServer:unserialize( text )
@@ -578,7 +578,7 @@ function MWServer:getStructuredTrace( level )
 	return trace
 end
 
---- Create a table to be used as a restricted environment, based on the current 
+--- Create a table to be used as a restricted environment, based on the current
 -- global environment.
 --
 -- @return The environment table

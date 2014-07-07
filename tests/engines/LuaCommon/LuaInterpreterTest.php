@@ -2,7 +2,7 @@
 
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	abstract function newInterpreter( $opts = array() );
-	
+
 	function setUp() {
 		parent::setUp();
 		try {
@@ -20,7 +20,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			local n = args[1]
 			for i = 1, n do
 				x = x or string.find(s, "y", 1, true)
-			end', 
+			end',
 			'busy' );
 		return $chunk;
 	}
@@ -50,7 +50,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$interpreter = $this->newInterpreter();
 		$interpreter->registerLibrary( 'test',
 			array( 'passthru' => array( $this, 'passthru' ) ) );
-		$doublePassthru = $interpreter->loadString( 
+		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 
 		$finalArgs = $args;
@@ -115,7 +115,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		);
 	}
 
-	/** 
+	/**
 	 * @expectedException ScribuntoException
 	 * @expectedExceptionMessage The time allocated for running scripts has expired.
 	 */

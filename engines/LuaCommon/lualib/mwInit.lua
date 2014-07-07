@@ -39,13 +39,13 @@ end
 --
 -- @param protectedEnvironments A table where the keys are protected environment
 --    tables. These environments cannot be accessed with getfenv(), and
---    functions with these environments cannot be modified or accessed using 
---    integer indexes to setfenv(). However, functions with these environments 
---    can have their environment set with setfenv() with a function value 
+--    functions with these environments cannot be modified or accessed using
+--    integer indexes to setfenv(). However, functions with these environments
+--    can have their environment set with setfenv() with a function value
 --    argument.
 --
--- @param protectedFunctions A table where the keys are protected functions, 
---    which cannot have their environments set by setfenv() with a function 
+-- @param protectedFunctions A table where the keys are protected functions,
+--    which cannot have their environments set by setfenv() with a function
 --    value argument.
 --
 -- @return setfenv

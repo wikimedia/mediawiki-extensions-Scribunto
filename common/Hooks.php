@@ -48,7 +48,7 @@ class ScribuntoHooks {
 
 	/**
 	 * Called when the interpreter is to be reset.
-	 * 
+	 *
 	 * @param $parser Parser
 	 * @return bool
 	 */
@@ -80,7 +80,7 @@ class ScribuntoHooks {
 	 */
 	public static function invokeHook( &$parser, $frame, $args ) {
 		if ( !@constant( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
-			throw new MWException( 
+			throw new MWException(
 				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
 		}
 
@@ -133,7 +133,7 @@ class ScribuntoHooks {
 			wfProfileOut( __METHOD__ );
 
 			// #iferror-compatible error element
-			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" . 
+			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" .
 				$parserError. "</span></strong>";
 		}
 	}
@@ -154,7 +154,7 @@ class ScribuntoHooks {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -231,7 +231,7 @@ class ScribuntoHooks {
 		return true;
 	}
 
-	/** 
+	/**
 	 * EditPageBeforeEditChecks hook
 	 * @param $editor EditPage
 	 * @param $checkboxes Checkbox array

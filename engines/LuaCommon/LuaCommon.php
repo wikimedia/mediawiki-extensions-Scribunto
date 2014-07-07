@@ -223,6 +223,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$resetFrames = null;
 		if ( !$this->currentFrames || !isset( $this->currentFrames['current'] ) ) {
 			// Only reset frames if there isn't already current frame
+			// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 			$resetFrames = $this->setupCurrentFrames( $frame );
 		}
 
@@ -240,6 +241,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Execute a module function chunk
 	 */
 	public function executeFunctionChunk( $chunk, $frame ) {
+		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 		$resetFrames = $this->setupCurrentFrames( $frame );
 
 		return $this->getInterpreter()->callFunction(
@@ -272,6 +274,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	public function runConsole( $params ) {
+		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 		$resetFrames = $this->setupCurrentFrames();
 
 		/**
@@ -279,7 +282,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		 * in console input, and for producing an informative error message
 		 * if there is an error in prevQuestions.
 		 *
-		 * Maybe each console line could be evaluated as a different chunk, 
+		 * Maybe each console line could be evaluated as a different chunk,
 		 * apparently that's what lua.c does.
 		 */
 		$code = "return function (__init, exe)\n" .
@@ -305,7 +308,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 		$code .= "end\n";
 
-		$contentModule = $this->newModule( 
+		$contentModule = $this->newModule(
 			$params['content'], $params['title']->getPrefixedDBkey() );
 		$contentInit = $contentModule->getInitChunk();
 
@@ -532,7 +535,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
 		$newFrame = $frame->newChild( $fargs, $finalTitle );
-		$text = $this->doCachedExpansion( $newFrame, $dom, 
+		$text = $this->doCachedExpansion( $newFrame, $dom,
 			array(
 				'template' => $finalTitle->getPrefixedDBkey(),
 				'args' => $args
@@ -718,7 +721,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	public function getInitChunk() {
 		if ( !$this->initChunk ) {
 			$this->initChunk = $this->engine->getInterpreter()->loadString(
-				$this->code, 
+				$this->code,
 				// Prepending an "=" to the chunk name avoids truncation or a "[string" prefix
 				'=' . $this->chunkName );
 		}
@@ -797,7 +800,7 @@ class Scribunto_LuaError extends ScribuntoException {
 				$title = Title::newFromText( $short_src );
 				if ( $title && $title->getNamespace() === NS_MODULE ) {
 					$title->setFragment( '#mw-ce-l' . $currentline );
-					$src = Html::rawElement( 'a', 
+					$src = Html::rawElement( 'a',
 						array( 'href' => $title->getFullURL( 'action=edit' ) ),
 						$src );
 				}

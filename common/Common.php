@@ -113,7 +113,7 @@ class Scribunto {
 }
 
 /**
- * An exception class which represents an error in the script. This does not 
+ * An exception class which represents an error in the script. This does not
  * normally abort the request, instead it is caught and shown to the user.
  */
 class ScribuntoException extends MWException {

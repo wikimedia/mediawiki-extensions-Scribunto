@@ -30,10 +30,10 @@ do
 	end
 end
 
---- Put an isolation-friendly package module into the specified environment 
--- table. The package module will have an empty cache, because caching of 
+--- Put an isolation-friendly package module into the specified environment
+-- table. The package module will have an empty cache, because caching of
 -- module functions from other cloned environments would break module isolation.
--- 
+--
 -- @param env The cloned environment
 local function makePackageModule( env )
 	-- Remove loaders from env, we don't want it inheriting our loadPackage.
@@ -67,7 +67,7 @@ local function makePackageModule( env )
 	table.insert( env.package.loaders, loadPackage )
 end
 
---- Set up the base environment. The PHP host calls this function after any 
+--- Set up the base environment. The PHP host calls this function after any
 -- necessary host-side initialisation has been done.
 function mw.setupInterface( options )
 	-- Don't allow any more calls
@@ -92,7 +92,7 @@ function mw.setupInterface( options )
 	--
 	-- mw_interface.loadPackage() returns function values with their environment
 	-- set to the base environment, which would violate module isolation if they
-	-- were run from a cloned environment. We can only allow access to 
+	-- were run from a cloned environment. We can only allow access to
 	-- mw_interface.loadPackage via our environment-setting wrapper.
 	--
 	php = mw_interface
@@ -232,8 +232,8 @@ local function newFrame( frameId, ... )
 			name = opt
 		end
 
-		return newCallbackParserValue( 
-			function () 
+		return newCallbackParserValue(
+			function ()
 				return getExpandedArgument( nil, name )
 			end
 			)
@@ -418,7 +418,7 @@ local function newFrame( frameId, ... )
 		end
 
 		return newCallbackParserValue(
-			function () 
+			function ()
 				return self:preprocess( text )
 			end
 			)
@@ -433,7 +433,7 @@ local function newFrame( frameId, ... )
 		if opt.title == nil then
 			error( "frame:newTemplateParserValue: a title is required" )
 		end
-		return newCallbackParserValue( 
+		return newCallbackParserValue(
 			function ()
 				return self:expandTemplate( opt )
 			end

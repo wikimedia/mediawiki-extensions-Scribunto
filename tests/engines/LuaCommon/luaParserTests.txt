@@ -73,7 +73,7 @@ function p.getArgType( frame )
 	return type( frame.args[name] )
 end
 
-function p.hello() 
+function p.hello()
   return 'hello'
 end
 
@@ -120,7 +120,7 @@ function p.testExpandTemplateWithHeaders( frame )
 end
 
 function p.testNewTemplateParserValue( frame )
-	return 
+	return
 		frame:newTemplateParserValue{
 			title = 'Scribunto_all_args',
 			args = { x = 1, y = 2, z = 'blah' }

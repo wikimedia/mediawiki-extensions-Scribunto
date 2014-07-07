@@ -202,14 +202,14 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 
 	function __construct( $engine, $options ) {
 		if ( !extension_loaded( 'luasandbox' ) ) {
-			throw new Scribunto_LuaInterpreterNotFoundError( 
+			throw new Scribunto_LuaInterpreterNotFoundError(
 				'The luasandbox extension is not present, this engine cannot be used.' );
 		}
 		$this->engine = $engine;
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $options['memoryLimit'] );
 		$this->sandbox->setCPULimit( $options['cpuLimit'] );
-		if ( is_callable( array( $this->sandbox, 'enableProfiler' ) ) ) 
+		if ( is_callable( array( $this->sandbox, 'enableProfiler' ) ) )
 		{
 			if ( !isset( $options['profilerPeriod'] ) ) {
 				$options['profilerPeriod'] = 0.02;
@@ -242,7 +242,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 			throw $this->convertSandboxError( $e );
 		}
 	}
-	
+
 	public function registerLibrary( $name, $functions ) {
 		$realLibrary = array();
 		foreach ( $functions as $funcName => $callback ) {
@@ -335,7 +335,7 @@ class Scribunto_LuaSandboxCallback {
 	}
 
 	/**
-	 * We use __call with a variable function name so that LuaSandbox will be 
+	 * We use __call with a variable function name so that LuaSandbox will be
 	 * able to return a meaningful function name in profiling data.
 	 */
 	function __call( $funcName, $args ) {

@@ -35,7 +35,7 @@ class ApiScribuntoConsole extends ApiBase {
 			$sessionIsNew = true;
 		}
 
-		// Create a variable holding the session which will be stored if there 
+		// Create a variable holding the session which will be stored if there
 		// are no errors. If there are errors, we don't want to store the current
 		// question to the state builder array, since that will cause subsequent
 		// requests to fail.
@@ -100,7 +100,7 @@ class ApiScribuntoConsole extends ApiBase {
 					$this->msg( 'scribunto-common-backtrace' )->inContentLanguage()->text()
 				) . $trace;
 			}
-			
+
 			return array(
 				'type' => 'error',
 				'html' => $html,

@@ -41,8 +41,8 @@ abstract class Scribunto_LuaInterpreter {
 	 * @param $name string The global variable name to be created or added to.
 	 * @param $functions array An associative array mapping the function name to the
 	 *    callback. The callback may throw a Scribunto_LuaError, which will be
-	 *    caught and raised in the Lua code as a Lua error, catchable with 
-	 *    pcall(). 
+	 *    caught and raised in the Lua code as a Lua error, catchable with
+	 *    pcall().
 	 */
 	abstract public function registerLibrary( $name, $functions );
 
