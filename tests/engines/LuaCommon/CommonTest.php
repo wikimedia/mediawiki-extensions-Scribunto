@@ -101,7 +101,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend' )
 		);
-		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test' ) );
+		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test', null ) );
 		$this->assertSame( array( 'ok' ), $ret, 'string extension can be used from module' );
 
 		$this->extraModules['Module:testModuleStringExtend2'] = '
@@ -115,7 +115,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend2' )
 		);
-		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test' ) );
+		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test', null ) );
 		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from module' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring2' )
@@ -522,5 +522,73 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			array( 'extensionTag' ),
 			array( 'expandTemplate' ),
 		);
+	}
+
+	function testGetCurrentFrameAndMWLoadData() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:Bug65687'] = '
+			return {
+				test = function ( frame )
+					return mw.loadData( "Module:Bug65687-LD" )[1]
+				end
+			}
+		';
+		$this->extraModules['Module:Bug65687-LD'] = 'return { mw.getCurrentFrame().args[1] or "ok" }';
+
+		$frame = $pp->newFrame();
+		$text = $frame->expand( $pp->preprocessToObj( "{{#invoke:Bug65687|test|foo}}" ) );
+		$text = $parser->mStripState->unstripBoth( $text );
+		$this->assertEquals( 'ok', $text, 'mw.loadData allowed access to frame args' );
+	}
+
+	function testGetCurrentFrameAtModuleScope() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:Bug67498-directly'] = '
+			local f = mw.getCurrentFrame()
+			local f2 = f and f.args[1] or "<none>"
+
+			return {
+				test = function ( frame )
+					return ( f and f.args[1] or "<none>" ) .. " " .. f2
+				end
+			}
+		';
+		$this->extraModules['Module:Bug67498-statically'] = '
+			local M = require( "Module:Bug67498-directly" )
+			return {
+				test = function ( frame )
+					return M.test( frame )
+				end
+			}
+		';
+		$this->extraModules['Module:Bug67498-dynamically'] = '
+			return {
+				test = function ( frame )
+					local M = require( "Module:Bug67498-directly" )
+					return M.test( frame )
+				end
+			}
+		';
+
+		foreach ( array( 'directly', 'statically', 'dynamically' ) as $how ) {
+			$frame = $pp->newFrame();
+			$text = $frame->expand( $pp->preprocessToObj(
+				"{{#invoke:Bug67498-$how|test|foo}} -- {{#invoke:Bug67498-$how|test|bar}}"
+			) );
+			$text = $parser->mStripState->unstripBoth( $text );
+			$text = explode( ' -- ', $text );
+			$this->assertEquals( 'foo foo', $text[0],
+				"mw.getCurrentFrame() failed from a module loaded $how"
+			);
+			$this->assertEquals( 'bar bar', $text[1],
+				"mw.getCurrentFrame() cached the frame from a module loaded $how"
+			);
+		}
 	}
 }

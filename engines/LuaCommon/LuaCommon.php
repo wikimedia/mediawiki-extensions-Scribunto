@@ -191,9 +191,41 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
+	 * Replaces the list of current frames, and return a ScopedCallback that
+	 * will reset them when it goes out of scope.
+	 *
+	 * @param PPFrame|null $frame If null, an empty frame with no parent will be used
+	 * @return ScopedCallback
+	 */
+	private function setupCurrentFrames( PPFrame $frame = null ) {
+		if ( !$frame ) {
+			$frame = $this->getParser()->getPreprocessor()->newFrame();
+		}
+
+		$oldFrames = $this->currentFrames;
+		$this->currentFrames = array(
+			'current' => $frame,
+			'parent' => isset( $frame->parent ) ? $frame->parent : null,
+		);
+
+		// @todo Once support for PHP 5.3 is dropped, lose $ref and just use
+		// $this->currentFrames directly in the callback.
+		$ref = &$this->currentFrames;
+		return new ScopedCallback( function () use ( &$ref, $oldFrames ) {
+			$ref = $oldFrames;
+		} );
+	}
+
+	/**
 	 * Execute a module chunk in a new isolated environment, and return the specified function
 	 */
-	public function executeModule( $chunk, $functionName ) {
+	public function executeModule( $chunk, $functionName, $frame ) {
+		$resetFrames = null;
+		if ( !$this->currentFrames || !isset( $this->currentFrames['current'] ) ) {
+			// Only reset frames if there isn't already current frame
+			$resetFrames = $this->setupCurrentFrames( $frame );
+		}
+
 		$retval = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk, $functionName );
 		if ( !$retval[0] ) {
 			// If we get here, it means we asked for an element from the table the module returned,
@@ -208,21 +240,11 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Execute a module function chunk
 	 */
 	public function executeFunctionChunk( $chunk, $frame ) {
-		$oldFrames = $this->currentFrames;
-		$this->currentFrames = array(
-			'current' => $frame,
-			'parent' => isset( $frame->parent ) ? $frame->parent : null,
-		);
-		try {
-			$result = $this->getInterpreter()->callFunction(
-				$this->mw['executeFunction'],
-				$chunk );
-		} catch ( Exception $ex ) {
-			$this->currentFrames = $oldFrames;
-			throw $ex;
-		}
-		$this->currentFrames = $oldFrames;
-		return $result;
+		$resetFrames = $this->setupCurrentFrames( $frame );
+
+		return $this->getInterpreter()->callFunction(
+			$this->mw['executeFunction'],
+			$chunk );
 	}
 
 	/**
@@ -250,61 +272,52 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	public function runConsole( $params ) {
-		$oldFrames = $this->currentFrames;
-		$this->currentFrames = array(
-			'current' => $this->getParser()->getPreprocessor()->newFrame(),
-		);
+		$resetFrames = $this->setupCurrentFrames();
 
-		try {
-			/**
-			 * TODO: provide some means for giving correct line numbers for errors
-			 * in console input, and for producing an informative error message
-			 * if there is an error in prevQuestions.
-			 *
-			 * Maybe each console line could be evaluated as a different chunk, 
-			 * apparently that's what lua.c does.
-			 */
-			$code = "return function (__init, exe)\n" .
-				"local _, p = exe(__init)\n" .
-				"_, __init, exe = nil, nil, nil\n" .
-				"local print = mw.log\n";
-			foreach ( $params['prevQuestions'] as $q ) {
-				if ( substr( $q, 0, 1 ) === '=' ) {
-					$code .= "print(" . substr( $q, 1 ) . ")";
-				} else {
-					$code .= $q;
-				}
-				$code .= "\n";
-			}
-			$code .= "mw.clearLogBuffer()\n";
-			if ( substr( $params['question'], 0, 1 ) === '=' ) {
-				// Treat a statement starting with "=" as a return statement, like in lua.c
-				$code .= "local ret = mw.allToString(" . substr( $params['question'], 1 ) . ")\n" .
-					"return ret, mw.getLogBuffer()\n";
+		/**
+		 * TODO: provide some means for giving correct line numbers for errors
+		 * in console input, and for producing an informative error message
+		 * if there is an error in prevQuestions.
+		 *
+		 * Maybe each console line could be evaluated as a different chunk, 
+		 * apparently that's what lua.c does.
+		 */
+		$code = "return function (__init, exe)\n" .
+			"local _, p = exe(__init)\n" .
+			"_, __init, exe = nil, nil, nil\n" .
+			"local print = mw.log\n";
+		foreach ( $params['prevQuestions'] as $q ) {
+			if ( substr( $q, 0, 1 ) === '=' ) {
+				$code .= "print(" . substr( $q, 1 ) . ")";
 			} else {
-				$code .= $params['question'] . "\n" .
-					"return nil, mw.getLogBuffer()\n";
+				$code .= $q;
 			}
-			$code .= "end\n";
-
-			$contentModule = $this->newModule( 
-				$params['content'], $params['title']->getPrefixedDBkey() );
-			$contentInit = $contentModule->getInitChunk();
-
-			$consoleModule = $this->newModule(
-				$code,
-				wfMessage( 'scribunto-console-current-src' )->text()
-			);
-			$consoleInit = $consoleModule->getInitChunk();
-			$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, false );
-			$func = $ret[1];
-			$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $this->mw['executeModule'] );
-		} catch ( Exception $ex ) {
-			$this->currentFrames = $oldFrames;
-			throw $ex;
+			$code .= "\n";
 		}
+		$code .= "mw.clearLogBuffer()\n";
+		if ( substr( $params['question'], 0, 1 ) === '=' ) {
+			// Treat a statement starting with "=" as a return statement, like in lua.c
+			$code .= "local ret = mw.allToString(" . substr( $params['question'], 1 ) . ")\n" .
+				"return ret, mw.getLogBuffer()\n";
+		} else {
+			$code .= $params['question'] . "\n" .
+				"return nil, mw.getLogBuffer()\n";
+		}
+		$code .= "end\n";
 
-		$this->currentFrames = $oldFrames;
+		$contentModule = $this->newModule( 
+			$params['content'], $params['title']->getPrefixedDBkey() );
+		$contentInit = $contentModule->getInitChunk();
+
+		$consoleModule = $this->newModule(
+			$code,
+			wfMessage( 'scribunto-console-current-src' )->text()
+		);
+		$consoleInit = $consoleModule->getInitChunk();
+		$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $consoleInit, false );
+		$func = $ret[1];
+		$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $this->mw['executeModule'] );
+
 		return array(
 			'return' => isset( $ret[0] ) ? $ret[0] : null,
 			'print' => isset( $ret[1] ) ? $ret[1] : '',
@@ -398,7 +411,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @throws Scribunto_LuaError
 	 */
 	protected function getFrameById( $frameId ) {
-		if ( isset( $this->currentFrames[$frameId] ) ) {
+		if ( $frameId === 'empty' ) {
+			return  $this->getParser()->getPreprocessor()->newFrame();
+		} elseif ( isset( $this->currentFrames[$frameId] ) ) {
 			return $this->currentFrames[$frameId];
 		} else {
 			throw new Scribunto_LuaError( 'invalid frame ID' );
@@ -410,7 +425,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @return array
 	 */
 	function frameExists( $frameId ) {
-		return array( isset( $this->currentFrames[$frameId] ) );
+		return array( $frameId === 'empty' || isset( $this->currentFrames[$frameId] ) );
 	}
 
 	/**
@@ -714,7 +729,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	 * Invoke a function within the module. Return the expanded wikitext result.
 	 */
 	public function invoke( $name, $frame ) {
-		$ret = $this->engine->executeModule( $this->getInitChunk(), $name );
+		$ret = $this->engine->executeModule( $this->getInitChunk(), $name, $frame );
 
 		if ( !isset( $ret ) ) {
 			throw $this->engine->newException( 'scribunto-common-nosuchfunction', array( 'args' => array( $name ) ) );
