@@ -540,7 +540,7 @@ function mw.log( ... )
 	logBuffer = logBuffer .. mw.allToString( ... ) .. '\n'
 end
 
-function mw.logObject( object, prefix )
+function mw.dumpObject( object )
 	local doneTable = {}
 	local doneObj = {}
 	local ct = {}
@@ -557,7 +557,7 @@ function mw.logObject( object, prefix )
 		end
 		return false -- Incomparable
 	end
-	local function _logObject( object, indent, expandTable )
+	local function _dumpObject( object, indent, expandTable )
 		local tp = type( object )
 		if tp == 'number' or tp == 'nil' or tp == 'boolean' then
 			return tostring( object )
@@ -584,7 +584,7 @@ function mw.logObject( object, prefix )
 			if mt then
 				ret[#ret + 1] = string.rep( " ", indent + 2 )
 				ret[#ret + 1] = 'metatable = '
-				ret[#ret + 1] = _logObject( mt, indent + 2, false )
+				ret[#ret + 1] = _dumpObject( mt, indent + 2, false )
 				ret[#ret + 1] = "\n"
 			end
 
@@ -592,7 +592,7 @@ function mw.logObject( object, prefix )
 			for key, value in ipairs( object ) do
 				doneKeys[key] = true
 				ret[#ret + 1] = string.rep( " ", indent + 2 )
-				ret[#ret + 1] = _logObject( value, indent + 2, true )
+				ret[#ret + 1] = _dumpObject( value, indent + 2, true )
 				ret[#ret + 1] = ',\n'
 			end
 			local keys = {}
@@ -606,9 +606,9 @@ function mw.logObject( object, prefix )
 				local key = keys[i]
 				ret[#ret + 1] = string.rep( " ", indent + 2 )
 				ret[#ret + 1] = '['
-				ret[#ret + 1] = _logObject( key, indent + 3, false )
+				ret[#ret + 1] = _dumpObject( key, indent + 3, false )
 				ret[#ret + 1] = '] = '
-				ret[#ret + 1] = _logObject( object[key], indent + 2, true )
+				ret[#ret + 1] = _dumpObject( object[key], indent + 2, true )
 				ret[#ret + 1] = ",\n"
 			end
 			ret[#ret + 1] = string.rep( " ", indent )
@@ -622,10 +622,14 @@ function mw.logObject( object, prefix )
 			return doneObj[object]
 		end
 	end
+	return _dumpObject( object, 0, true )
+end
+
+function mw.logObject( object, prefix )
 	if prefix and prefix ~= '' then
 		logBuffer = logBuffer .. prefix .. ' = '
 	end
-	logBuffer = logBuffer .. _logObject( object, 0, true ) .. '\n'
+	logBuffer = logBuffer .. mw.dumpObject( object ) .. '\n'
 end
 
 function mw.clearLogBuffer()
