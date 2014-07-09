@@ -4,7 +4,8 @@
 			"Base",
 			"Ignatus",
 			"Kalan",
-			"Okras"
+			"Okras",
+			"HarpyWar"
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
@@ -58,5 +59,6 @@
 	"scribunto-limitreport-estmemusage": "Предположительное использование памяти Lua",
 	"scribunto-limitreport-memusage": "Использование памяти Lua",
 	"scribunto-limitreport-profile": "Профиль Lua",
-	"scribunto-limitreport-profile-ms": "$1 мс"
+	"scribunto-limitreport-profile-ms": "$1 мс",
+	"scribunto-limitreport-logs": "Журналы Lua"
 }

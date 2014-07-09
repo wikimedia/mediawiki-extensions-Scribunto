@@ -57,5 +57,6 @@
 	"scribunto-limitreport-memusage": "Využití paměti Lua",
 	"scribunto-limitreport-profile": "Profil Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-profile-percent": "$1 %"
+	"scribunto-limitreport-profile-percent": "$1 %",
+	"scribunto-limitreport-logs": "Protokoly Lua"
 }

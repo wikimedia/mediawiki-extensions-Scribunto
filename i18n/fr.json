@@ -64,5 +64,6 @@
 	"scribunto-limitreport-estmemusage": "Utilisation mémoire estimée de Lua",
 	"scribunto-limitreport-memusage": "Utilisation mémoire de Lua",
 	"scribunto-limitreport-profile": "Profil Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Journaux de Lua"
 }

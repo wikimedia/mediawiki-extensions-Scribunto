@@ -56,5 +56,6 @@
 	"scribunto-limitreport-estmemusage": "שימוש מוערך של לואה בזיכרון",
 	"scribunto-limitreport-memusage": "שימוש של לואה בזיכרון",
 	"scribunto-limitreport-profile": "פרופיל לואה",
-	"scribunto-limitreport-profile-ms": "$1 מ\"ש"
+	"scribunto-limitreport-profile-ms": "$1 מ\"ש",
+	"scribunto-limitreport-logs": "יומני לואה"
 }
