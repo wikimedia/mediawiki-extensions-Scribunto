@@ -69,5 +69,6 @@
 	"scribunto-limitreport-memusage-value": "{{optional}}\nFormat for the \"Lua memory usage\" value in the limit report table. Parameters:\n* $1 - the usage\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-memusage}}",
 	"scribunto-limitreport-profile": "Label for the \"Lua Profile\" row in the limit report table.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-ms}} and {{msg-mw|Scribunto-limitreport-profile-percent}}.",
 	"scribunto-limitreport-profile-ms": "Text to format the milliseconds in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}}.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-percent}}.\n\nParameters:\n* $1 - the time in milliseconds",
-	"scribunto-limitreport-profile-percent": "Text to format the time percentage in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}} and {{msg-mw|Scribunto-limitreport-profile-ms}}.\n\nParameters:\n* $1 - the percentage"
+	"scribunto-limitreport-profile-percent": "Text to format the time percentage in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}} and {{msg-mw|Scribunto-limitreport-profile-ms}}.\n\nParameters:\n* $1 - the percentage",
+	"scribunto-limitreport-logs": "Label for the \"Lua logs\" row in the limit report table"
 }

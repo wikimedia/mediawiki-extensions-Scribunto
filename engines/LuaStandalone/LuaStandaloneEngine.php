@@ -67,12 +67,22 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		$output->setLimitReportData( 'scribunto-limitreport-estmemusage',
 			$status['vsize'] - $this->initialStatus['vsize']
 		);
+		$logs = $this->getLogBuffer();
+		if ( $logs !== '' ) {
+			$output->addModules( 'ext.scribunto' );
+			$output->setLimitReportData( 'scribunto-limitreport-logs', $logs );
+		}
 	}
 
 	function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
 		switch ( $key ) {
+			case 'scribunto-limitreport-logs':
+				if ( $isHTML ) {
+					$report .= $this->formatHtmlLogs( $value, $localize );
+				}
+				return false;
 			case 'scribunto-limitreport-virtmemusage':
 				$value = array_map( array( $lang, 'formatSize' ), $value );
 				break;

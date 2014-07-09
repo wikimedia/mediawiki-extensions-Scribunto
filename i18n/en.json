@@ -61,5 +61,6 @@
 	"scribunto-limitreport-memusage-value": "$1/$2",
 	"scribunto-limitreport-profile": "Lua Profile",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-profile-percent": "$1%"
+	"scribunto-limitreport-profile-percent": "$1%",
+	"scribunto-limitreport-logs": "Lua logs"
 }
