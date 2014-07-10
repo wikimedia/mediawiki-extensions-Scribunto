@@ -345,6 +345,7 @@ WIKI;
 			'engines/LuaCommon/HtmlLibraryTest.php',
 			'engines/LuaCommon/LanguageLibraryTest.php',
 			'engines/LuaCommon/UstringLibraryPureLuaTest.php',
+			'engines/LuaCommon/LibraryUtilTest.php',
 		);
 		foreach ( $tests as $test ) {
 			$files[] = __DIR__ . '/../tests/' . $test;

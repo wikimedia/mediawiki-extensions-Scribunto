@@ -12,6 +12,29 @@ function libraryUtil.checkType( name, argIdx, arg, expectType, nilOk )
 	end
 end
 
+function libraryUtil.checkTypeMulti( name, argIdx, arg, expectTypes )
+	local argType = type( arg )
+	for _, expectType in ipairs( expectTypes ) do
+		if argType == expectType then
+			return
+		end
+	end
+	local n = #expectTypes
+	local typeList
+	if n > 1 then
+		typeList = table.concat( expectTypes, ', ', 1, n - 1 ) .. ' or ' .. expectTypes[n]
+	else
+		typeList = expectTypes[1]
+	end
+	local msg = string.format( "bad argument #%d to '%s' (%s expected, got %s)",
+		argIdx,
+		name,
+		typeList,
+		type( arg )
+	)
+	error( msg, 3 )
+end
+
 function libraryUtil.checkTypeForIndex( index, value, expectType )
 	if type( value ) ~= expectType then
 		local msg = string.format( "value for index '%s' must be %s, %s given",

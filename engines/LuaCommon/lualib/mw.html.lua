@@ -15,6 +15,10 @@
 
 local HtmlBuilder = {}
 
+local util = require 'libraryUtil'
+local checkType = util.checkType
+local checkTypeMulti = util.checkTypeMulti
+
 local metatable = {}
 local methodtable = {}
 
@@ -86,12 +90,54 @@ local function htmlEncode( s )
 	return ( string.gsub( s, '[<>&"]', htmlencodeMap ) )
 end
 
- local function cssEncode( s )
+local function cssEncode( s )
 	-- XXX: I'm not sure this character set is complete.
 	-- bug #68011: allow delete character (\127)
 	return mw.ustring.gsub( s, '[^\32-\57\60-\127]', function ( m )
 		return string.format( '\\%X ', mw.ustring.codepoint( m ) )
 	end )
+end
+
+-- Create a builder object. This is a separate function so that we can show the
+-- correct error levels in both HtmlBuilder.create and metatable.tag.
+--
+-- @param tagName
+-- @param args
+local function createBuilder( tagName, args )
+	if tagName ~= nil and tagName ~= '' and not isValidTag( tagName ) then
+		error( string.format( "invalid tag name '%s'", tagName ), 3 )
+	end
+
+	args = args or {}
+	local builder = {}
+	setmetatable( builder, metatable )
+	builder.nodes = {}
+	builder.attributes = {}
+	builder.styles = {}
+
+	if tagName ~= '' then
+		builder.tagName = tagName
+	end
+
+	builder.parent = args.parent
+	builder.selfClosing = selfClosingTags[tagName] or args.selfClosing or false
+	return builder
+end
+
+-- Append a builder to the current node. This is separate from methodtable.node
+-- so that we can show the correct error level in both methodtable.node and
+-- methodtable.wikitext.
+--
+-- @param builder
+local function appendBuilder( t, builder )
+	if t.selfClosing then
+		error( "self-closing tags can't have child nodes", 3 )
+	end
+
+	if builder then
+		table.insert( t.nodes, builder )
+	end
+	return t
 end
 
 methodtable._build = function( t, ret )
@@ -144,25 +190,15 @@ end
 --
 -- @param builder
 methodtable.node = function( t, builder )
-	if t.selfClosing then
-		error( "Self-closing tags can't have child nodes" )
-	end
-
-	if builder then
-		table.insert( t.nodes, builder )
-	end
-	return t
+	return appendBuilder( t, builder )
 end
 
 -- Appends some markup to the node. This will be treated as wikitext.
 methodtable.wikitext = function( t, ... )
 	local vals = {...}
 	for i = 1, #vals do
-		if type( vals[i] ) ~= 'string' and type( vals[i] ) ~= 'number' then
-			error( 'Invalid wikitext given: Must be either a string or a number' )
-		end
-
-		t:node( vals[i] )
+		checkTypeMulti( 'wikitext', i, vals[i], { 'string', 'number' } )
+		appendBuilder( t, vals[i] )
 	end
 	return t
 end
@@ -179,9 +215,12 @@ end
 -- @param tagName
 -- @param args
 methodtable.tag = function( t, tagName, args )
+	checkType( 'tag', 1, tagName, 'string' )
+	checkType( 'tag', 2, args, 'table', true )
 	args = args or {}
+
 	args.parent = t
-	local builder = HtmlBuilder.create( tagName, args )
+	local builder = createBuilder( tagName, args )
 	t:node( builder )
 	return builder
 end
@@ -190,6 +229,8 @@ end
 --
 -- @param name
 methodtable.getAttr = function( t, name )
+	checkType( 'getAttr', 1, name, 'string' )
+
 	local attr = getAttr( t, name )
 	if attr then
 		return attr.val
@@ -204,7 +245,11 @@ end
 methodtable.attr = function( t, name, val )
 	if type( name ) == 'table' then
 		if val ~= nil then
-			error( 'If a key->value table is given as first parameter, value must be left empty' )
+			error(
+				"bad argument #2 to 'attr' " ..
+				'(if argument #1 is a table, argument #2 must be left empty)',
+				2
+			)
 		end
 
 		local callForTable = function()
@@ -214,18 +259,18 @@ methodtable.attr = function( t, name, val )
 		end
 
 		if not pcall( callForTable ) then
-			error( 'Invalid table given: Must be name (string) value (string|number) pairs' )
+			error(
+				"bad argument #1 to 'attr' " ..
+				'(table keys must be strings, and values must be strings or numbers)',
+				2
+			)
 		end
 
 		return t
 	end
 
-	if type( name ) ~= 'string' then
-		error( 'Invalid name given: The name must be a string' )
-	end
-	if val ~= nil and type( val ) ~= 'string' and type( val ) ~= 'number' then
-		error( 'Invalid value given: The value must be either a string or a number' )
-	end
+	checkType( 'attr', 1, name, 'string' )
+	checkTypeMulti( 'attr', 2, val, { 'string', 'number', 'nil' } )
 
 	-- if caller sets the style attribute explicitly, then replace all styles
 	-- previously added with css() and cssText()
@@ -235,7 +280,10 @@ methodtable.attr = function( t, name, val )
 	end
 
 	if not isValidAttributeName( name ) then
-		error( "Invalid attribute name: " .. name )
+		error( string.format(
+			"bad argument #1 to 'attr' (invalid attribute name '%s')",
+			name
+		), 2 )
 	end
 
 	local attr, i = getAttr( t, name )
@@ -257,12 +305,10 @@ end
 --
 -- @param class
 methodtable.addClass = function( t, class )
+	checkTypeMulti( 'addClass', 1, class, { 'string', 'number', 'nil' } )
+
 	if class == nil then
 		return t
-	end
-
-	if type( class ) ~= 'string' and type( class ) ~= 'number' then
-		error( 'Invalid class given: The name must be either a string or a number' )
 	end
 
 	local attr = getAttr( t, 'class' )
@@ -282,7 +328,11 @@ end
 methodtable.css = function( t, name, val )
 	if type( name ) == 'table' then
 		if val ~= nil then
-			error( 'If a key->value table is given as first parameter, value must be left empty' )
+			error(
+				"bad argument #2 to 'css' " ..
+				'(if argument #1 is a table, argument #2 must be left empty)',
+				2
+			)
 		end
 
 		local callForTable = function()
@@ -292,18 +342,18 @@ methodtable.css = function( t, name, val )
 		end
 
 		if not pcall( callForTable ) then
-			error( 'Invalid table given: Must be name (string|number) value (string|number) pairs' )
+			error(
+				"bad argument #1 to 'css' " ..
+				'(table keys and values must be strings or numbers)',
+				2
+			)
 		end
 
 		return t
 	end
 
-	if type( name ) ~= 'string' and type( name ) ~= 'number' then
-		error( 'Invalid CSS given: The name must be either a string or a number' )
-	end
-	if val ~= nil and type( val ) ~= 'string' and type( val ) ~= 'number' then
-		error( 'Invalid CSS given: The value must be either a string or a number' )
-	end
+	checkTypeMulti( 'css', 1, name, { 'string', 'number' } )
+	checkTypeMulti( 'css', 2, val, { 'string', 'number', 'nil' } )
 
 	for i, prop in ipairs( t.styles ) do
 		if prop.name == name then
@@ -328,11 +378,8 @@ end
 --
 -- @param css
 methodtable.cssText = function( t, css )
+	checkTypeMulti( 'cssText', 1, css, { 'string', 'number', 'nil' } )
 	if css ~= nil then
-		if type( css ) ~= 'string' and type( css ) ~= 'number' then
-			error( 'Invalid CSS given: Must be either a string or a number' )
-		end
-
 		table.insert( t.styles, css )
 	end
 	return t
@@ -359,30 +406,9 @@ end
 -- @param tagName
 -- @param args
 function HtmlBuilder.create( tagName, args )
-	if tagName ~= nil then
-		if type( tagName ) ~= 'string' then
-			error( "Tag name must be a string" )
-		end
-
-		if tagName ~= '' and not isValidTag( tagName ) then
-			error( "Invalid tag name: " .. tagName )
-		end
-	end
-
-	args = args or {}
-	local builder = {}
-	setmetatable( builder, metatable )
-	builder.nodes = {}
-	builder.attributes = {}
-	builder.styles = {}
-
-	if tagName ~= '' then
-		builder.tagName = tagName
-	end
-
-	builder.parent = args.parent
-	builder.selfClosing = selfClosingTags[tagName] or args.selfClosing or false
-	return builder
+	checkType( 'mw.html.create', 1, tagName, 'string', true )
+	checkType( 'mw.html.create', 2, args, 'table', true )
+	return createBuilder( tagName, args )
 end
 
 mw_interface = nil

@@ -118,11 +118,11 @@ local tests = {
 	},
 	{ name = 'mw.html.create (invalid tag 1)', func = mw.html.create, type='ToString',
 	  args = { '$$$$' },
-	  expect = 'Invalid tag name: $$$$'
+	  expect = "invalid tag name '$$$$'"
 	},
 	{ name = 'mw.html.create (invalid tag 2)', func = mw.html.create, type='ToString',
 	  args = { {} },
-	  expect = 'Tag name must be a string'
+	  expect = "bad argument #1 to 'mw.html.create' (string expected, got table)"
 	},
 	{ name = 'mw.html.wikitext', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'wikitext', 'Plain text' },
@@ -130,7 +130,7 @@ local tests = {
 	},
 	{ name = 'mw.html.wikitext (invalid input)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'wikitext', 'Plain text', {} },
-	  expect = 'Invalid wikitext given: Must be either a string or a number'
+	  expect = "bad argument #2 to 'wikitext' (string or number expected, got table)"
 	},
 	{ name = 'mw.html.newline', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'newline' },
@@ -159,39 +159,47 @@ local tests = {
 	},
 	{ name = 'mw.html.attr (invalid name 1)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', 123, 'bar' },
-	  expect = 'Invalid name given: The name must be a string'
+	  expect = "bad argument #1 to 'attr' (string expected, got number)"
 	},
 	{ name = 'mw.html.attr (invalid name 2)', func = testHelper,
 	  args = { getEmptyTestDiv(), 'attr', '§§§§', 'foo' },
-	  expect = 'Invalid attribute name: §§§§'
+	  expect = "bad argument #1 to 'attr' (invalid attribute name '§§§§')"
 	},
 	{ name = 'mw.html.attr (table no value)', func = testHelper,
 	  args = { getEmptyTestDiv(), 'attr', { foo = 'bar' }, 'foo' },
-	  expect = 'If a key->value table is given as first parameter, value must be left empty'
+	  expect = "bad argument #2 to 'attr' (if argument #1 is a table, argument #2 must be left empty)"
 	},
 	{ name = 'mw.html.attr (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', 'foo', true },
-	  expect = 'Invalid value given: The value must be either a string or a number'
+	  expect = "bad argument #2 to 'attr' (string, number or nil expected, got boolean)"
 	},
 	{ name = 'mw.html.attr (invalid table 1)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', { foo = {} } },
-	  expect = 'Invalid table given: Must be name (string) value (string|number) pairs'
+	  expect = "bad argument #1 to 'attr' " ..
+	  '(table keys must be strings, and values must be strings or numbers)'
 	},
 	{ name = 'mw.html.attr (invalid table 2)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', { 1, 2 ,3 } },
-	  expect = 'Invalid table given: Must be name (string) value (string|number) pairs'
+	  expect = "bad argument #1 to 'attr' " ..
+	  '(table keys must be strings, and values must be strings or numbers)'
 	},
 	{ name = 'mw.html.attr (invalid table 3)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', { foo = 'bar', blah = true } },
-	  expect = 'Invalid table given: Must be name (string) value (string|number) pairs'
+	  expect = "bad argument #1 to 'attr' " ..
+	  '(table keys must be strings, and values must be strings or numbers)'
 	},
 	{ name = 'mw.html.attr (invalid table 4)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', { [{}] = 'foo' } },
-	  expect = 'Invalid table given: Must be name (string) value (string|number) pairs'
+	  expect = "bad argument #1 to 'attr' " ..
+	  '(table keys must be strings, and values must be strings or numbers)'
 	},
 	{ name = 'mw.html.getAttr (nil)', func = testHelper,
 	  args = { getEmptyTestDiv(), 'getAttr', 'foo' },
 	  expect = { nil }
+	},
+	{ name = 'mw.html.getAttr (invalid name)', func = testHelper,
+	  args = { getEmptyTestDiv(), 'getAttr', 123 },
+	  expect = "bad argument #1 to 'getAttr' (string expected, got number)"
 	},
 	{ name = 'mw.html.addClass', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'addClass', 'foo' },
@@ -203,7 +211,7 @@ local tests = {
 	},
 	{ name = 'mw.html.addClass (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'addClass', {} },
-	  expect = 'Invalid class given: The name must be either a string or a number'
+	  expect = "bad argument #1 to 'addClass' (string, number or nil expected, got table)"
 	},
 	{ name = 'mw.html.css', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', 'bar' },
@@ -219,15 +227,15 @@ local tests = {
 	},
 	{ name = 'mw.html.css (invalid name 1)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', function() end, 'bar' },
-	  expect = 'Invalid CSS given: The name must be either a string or a number'
+	  expect = "bad argument #1 to 'css' (string or number expected, got function)"
 	},
 	{ name = 'mw.html.css (table no value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', {}, 'bar' },
-	  expect = 'If a key->value table is given as first parameter, value must be left empty'
+	  expect = "bad argument #2 to 'css' (if argument #1 is a table, argument #2 must be left empty)"
 	},
 	{ name = 'mw.html.css (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', {} },
-	  expect = 'Invalid CSS given: The value must be either a string or a number'
+	  expect = "bad argument #2 to 'css' (string, number or nil expected, got table)"
 	},
 	{ name = 'mw.html.css (table)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', testAttrs },
@@ -235,7 +243,8 @@ local tests = {
 	},
 	{ name = 'mw.html.css (invalid table)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', { foo = 'bar', ab = true } },
-	  expect = 'Invalid table given: Must be name (string|number) value (string|number) pairs'
+	  expect = "bad argument #1 to 'css' " ..
+	  '(table keys and values must be strings or numbers)'
 	},
 	{ name = 'mw.html.cssText', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', 'Unit tests, ftw' },
@@ -247,7 +256,7 @@ local tests = {
 	},
 	{ name = 'mw.html.cssText (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', {} },
-	  expect = 'Invalid CSS given: Must be either a string or a number'
+	  expect = "bad argument #1 to 'cssText' (string, number or nil expected, got table)"
 	},
 	{ name = 'mw.html attribute escaping (value with double quotes)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'attr', 'foo', 'ble"rgh' },
@@ -296,10 +305,10 @@ local tests = {
 	  expect = { '<div><br /></div>' }
 	},
 	{ name = 'mw.html.node (append to self closing)', func = testNodeAppendToSelfClosing, type='ToString',
-	  expect = "Self-closing tags can't have child nodes"
+	  expect = "self-closing tags can't have child nodes"
 	},
 	{ name = 'mw.html.wikitext (append to self closing)', func = testWikitextAppendToSelfClosing, type='ToString',
-	  expect = "Self-closing tags can't have child nodes"
+	  expect = "self-closing tags can't have child nodes"
 	},
 	{ name = 'mw.html.tag.node (using allDone)', func = testTagNodeAllDone, type='ToString',
 	  expect = { '<div><p><div></div></p></div>' }
