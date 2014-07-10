@@ -425,6 +425,10 @@ return testframework.getTestProvider( {
 	  args = { "foo foofóó foófoó bar", '(f%a+)%1' },
 	  expect = { 12, 17, 'foó' }
 	},
+	{ name = 'find: deceptively-simple pattern', func = mw.ustring.find,
+	  args = { "fóó", '([^a-z])' },
+	  expect = { 2, 2, 'ó' }
+	},
 
 	{ name = 'match: (1)', func = mw.ustring.match,
 	  args = { "bar fóo bar", 'f%a+' },

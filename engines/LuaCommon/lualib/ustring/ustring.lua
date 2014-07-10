@@ -735,6 +735,7 @@ end
 --  * If it contains any bytes over 0x7f. We could skip these if they're not
 --    inside brackets and aren't followed by quantifiers and aren't part of a
 --    '%b', but that's too complicated to check.
+--  * If it contains a negated character set.
 --  * If it contains "%a" or any of the other %-prefixed character sets except
 --    %z or %Z.
 --  * If it contains a '.' not followed by '*', '+', or '-'. A bare '.' or '.?'
@@ -747,6 +748,7 @@ end
 local function patternIsSimple( pattern )
 	return not (
 		S.find( pattern, '[\128-\255]' ) or
+		S.find( pattern, '%[%^' ) or
 		S.find( pattern, '%%[acdlpsuwxACDLPSUWX]' ) or
 		S.find( pattern, '%.[^*+-]' ) or
 		S.find( pattern, '()', 1, true )
