@@ -87,7 +87,7 @@ end
 
  local function cssEncode( s )
 	-- XXX: I'm not sure this character set is complete.
-	return mw.ustring.gsub( s, '[;:%z\1-\31\127-\244\143\191\191]', function ( m )
+	return mw.ustring.gsub( s, '[^\32-\57\60-\126]', function ( m )
 		return string.format( '\\%X ', mw.ustring.codepoint( m ) )
 	end )
 end
