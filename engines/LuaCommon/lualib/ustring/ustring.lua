@@ -558,7 +558,7 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 	-- Returns the position after the set and a table holding the matching characters
 	parse_charset = function ( pp )
 		local _, ep
-		local epp = pattern.bytepos[pos]
+		local epp = pattern.bytepos[pp]
 		repeat
 			_, ep = S.find( rawpat, ']', epp, true )
 			if not ep then
