@@ -24,5 +24,6 @@
 	"scribunto-limitreport-virtmemusage": "Виртуалан барам Lua",
 	"scribunto-limitreport-memusage": "Lua меттиг лелор",
 	"scribunto-limitreport-profile": "Профиль Lua",
-	"scribunto-limitreport-profile-ms": "$1 мс"
+	"scribunto-limitreport-profile-ms": "$1 мс",
+	"scribunto-limitreport-logs": "Lua тептарш"
 }
