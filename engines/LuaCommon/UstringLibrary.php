@@ -21,6 +21,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	private $manualCheckForU110000AndUp = false;
 
+	/**
+	 * A cache of patterns and the regexes they generate.
+	 * @var array
+	 */
+	private $patternRegexCache = null;
+
 	function __construct( $engine ) {
 		if ( $this->stringLengthLimit === null ) {
 			global $wgMaxArticleSize;
@@ -28,6 +34,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		$this->manualCheckForU110000AndUp = mb_check_encoding( "\xf4\x90\x80\x80", "UTF-8" );
+		$this->patternRegexCache = new MapCacheLRU( 100 );
 
 		parent::__construct( $engine );
 	}
@@ -83,15 +90,16 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	private function checkString( $name, $s, $checkEncoding = true ) {
 		if ( $this->getLuaType( $s ) == 'number' ) {
 			$s = (string)$s;
-		}
-		$this->checkType( $name, 1, $s, 'string' );
-		if ( $checkEncoding && !$this->checkEncoding( $s ) ) {
-			throw new Scribunto_LuaError( "bad argument #1 to '$name' (string is not UTF-8)" );
-		}
-		if ( strlen( $s ) > $this->stringLengthLimit ) {
-			throw new Scribunto_LuaError(
-				"bad argument #1 to '$name' (string is longer than $this->stringLengthLimit bytes)"
-			);
+		} else {
+			$this->checkType( $name, 1, $s, 'string' );
+			if ( $checkEncoding && !$this->checkEncoding( $s ) ) {
+				throw new Scribunto_LuaError( "bad argument #1 to '$name' (string is not UTF-8)" );
+			}
+			if ( strlen( $s ) > $this->stringLengthLimit ) {
+				throw new Scribunto_LuaError(
+					"bad argument #1 to '$name' (string is longer than $this->stringLengthLimit bytes)"
+				);
+			}
 		}
 	}
 
@@ -244,183 +252,189 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/* Convert a Lua pattern into a PCRE regex */
-	private function patternToRegex( $pattern, $anchor ) {
-		$pat = preg_split( '//us', $pattern, null, PREG_SPLIT_NO_EMPTY );
+	private function patternToRegex( $pattern, $anchor, $name ) {
+		$cacheKey = serialize( array( $pattern, $anchor ) );
+		if ( !$this->patternRegexCache->has( $cacheKey ) ) {
+			$this->checkPattern( $name, $pattern );
+			$pat = preg_split( '//us', $pattern, null, PREG_SPLIT_NO_EMPTY );
 
-		static $charsets = null, $brcharsets = null;
-		if ( $charsets === null ) {
-			$charsets = array(
-				// If you change these, also change lualib/ustring/make-tables.php
-				// (and run it to regenerate charsets.lua)
-				'a' => '\p{L}',
-				'c' => '\p{Cc}',
-				'd' => '\p{Nd}',
-				'l' => '\p{Ll}',
-				'p' => '\p{P}',
-				's' => '\p{Xps}',
-				'u' => '\p{Lu}',
-				'w' => '[\p{L}\p{Nd}]',
-				'x' => '[0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
-				'z' => '\0',
+			static $charsets = null, $brcharsets = null;
+			if ( $charsets === null ) {
+				$charsets = array(
+					// If you change these, also change lualib/ustring/make-tables.php
+					// (and run it to regenerate charsets.lua)
+					'a' => '\p{L}',
+					'c' => '\p{Cc}',
+					'd' => '\p{Nd}',
+					'l' => '\p{Ll}',
+					'p' => '\p{P}',
+					's' => '\p{Xps}',
+					'u' => '\p{Lu}',
+					'w' => '[\p{L}\p{Nd}]',
+					'x' => '[0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
+					'z' => '\0',
 
-				// These *must* be the inverse of the above
-				'A' => '\P{L}',
-				'C' => '\P{Cc}',
-				'D' => '\P{Nd}',
-				'L' => '\P{Ll}',
-				'P' => '\P{P}',
-				'S' => '\P{Xps}',
-				'U' => '\P{Lu}',
-				'W' => '[^\p{L}\p{Nd}]',
-				'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
-				'Z' => '[^\0]',
-			);
-			$brcharsets = array(
-				'w' => '\p{L}\p{Nd}',
-				'x' => '0-9A-Fa-f０-９Ａ-Ｆａ-ｆ',
+					// These *must* be the inverse of the above
+					'A' => '\P{L}',
+					'C' => '\P{Cc}',
+					'D' => '\P{Nd}',
+					'L' => '\P{Ll}',
+					'P' => '\P{P}',
+					'S' => '\P{Xps}',
+					'U' => '\P{Lu}',
+					'W' => '[^\p{L}\p{Nd}]',
+					'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
+					'Z' => '[^\0]',
+				);
+				$brcharsets = array(
+					'w' => '\p{L}\p{Nd}',
+					'x' => '0-9A-Fa-f０-９Ａ-Ｆａ-ｆ',
 
-				// Negated sets that are not expressable as a simple \P{} are
-				// unfortunately complicated.
+					// Negated sets that are not expressable as a simple \P{} are
+					// unfortunately complicated.
 
-				// Xan is L plus N, so ^Xan plus Nl plus No is anything that's not L or Nd
-				'W' => '\P{Xan}\p{Nl}\p{No}',
+					// Xan is L plus N, so ^Xan plus Nl plus No is anything that's not L or Nd
+					'W' => '\P{Xan}\p{Nl}\p{No}',
 
-				// Manually constructed. Fun.
-				'X' => '\x00-\x2f\x3a-\x40\x47-\x60\x67-\x{ff0f}'
-					. '\x{ff1a}-\x{ff20}\x{ff27}-\x{ff40}\x{ff47}-\x{10ffff}',
+					// Manually constructed. Fun.
+					'X' => '\x00-\x2f\x3a-\x40\x47-\x60\x67-\x{ff0f}'
+						. '\x{ff1a}-\x{ff20}\x{ff27}-\x{ff40}\x{ff47}-\x{10ffff}',
 
-				// Ha!
-				'Z' => '\x01-\x{10ffff}',
-			) + $charsets;
-		}
+					// Ha!
+					'Z' => '\x01-\x{10ffff}',
+				) + $charsets;
+			}
 
-		$re = '/';
-		$len = count( $pat );
-		$capt = array();
-		$anypos = false;
-		$captparen = array();
-		$opencapt = array();
-		$bct = 0;
-		for ( $i = 0; $i < $len; $i++ ) {
-			$ii = $i + 1;
-			$q = false;
-			switch ( $pat[$i] ) {
-			case '^':
-				$q = $i;
-				$re .= ( $anchor === false || $q ) ? '\\^' : $anchor;
-				break;
+			$re = '/';
+			$len = count( $pat );
+			$capt = array();
+			$anypos = false;
+			$captparen = array();
+			$opencapt = array();
+			$bct = 0;
+			for ( $i = 0; $i < $len; $i++ ) {
+				$ii = $i + 1;
+				$q = false;
+				switch ( $pat[$i] ) {
+				case '^':
+					$q = $i;
+					$re .= ( $anchor === false || $q ) ? '\\^' : $anchor;
+					break;
 
-			case '$':
-				$q = ( $i < $len - 1 );
-				$re .= $q ? '\\$' : '$';
-				break;
+				case '$':
+					$q = ( $i < $len - 1 );
+					$re .= $q ? '\\$' : '$';
+					break;
 
-			case '(':
-				if ( $i + 1 >= $len ) {
-					throw new Scribunto_LuaError( "Unmatched open-paren at pattern character $ii" );
-				}
-				$n = count( $capt ) + 1;
-				$capt[$n] = ( $pat[$i + 1] === ')' );
-				if ( $capt[$n] ) {
-					$anypos = true;
-				}
-				$re .= "(?<m$n>";
-				$opencapt[] = $n;
-				$captparen[$n] = $ii;
-				break;
-
-			case ')':
-				if ( count( $opencapt ) <= 0 ) {
-					throw new Scribunto_LuaError( "Unmatched close-paren at pattern character $ii" );
-				}
-				array_pop( $opencapt );
-				$re .= $pat[$i];
-				break;
-
-			case '%':
-				$i++;
-				if ( $i >= $len ) {
-					throw new Scribunto_LuaError( "malformed pattern (ends with '%')" );
-				}
-				if ( isset( $charsets[$pat[$i]] ) ) {
-					$re .= $charsets[$pat[$i]];
-					$q = true;
-				} elseif ( $pat[$i] === 'b' ) {
-					if ( $i + 2 >= $len ) {
-						throw new Scribunto_LuaError( "malformed pattern (missing arguments to \'%b\')" );
+				case '(':
+					if ( $i + 1 >= $len ) {
+						throw new Scribunto_LuaError( "Unmatched open-paren at pattern character $ii" );
 					}
-					$d1 = preg_quote( $pat[++$i], '/' );
-					$d2 = preg_quote( $pat[++$i], '/' );
-					if ( $d1 === $d2 ) {
-						$re .= "{$d1}[^$d1]*$d1";
+					$n = count( $capt ) + 1;
+					$capt[$n] = ( $pat[$i + 1] === ')' );
+					if ( $capt[$n] ) {
+						$anypos = true;
+					}
+					$re .= "(?<m$n>";
+					$opencapt[] = $n;
+					$captparen[$n] = $ii;
+					break;
+
+				case ')':
+					if ( count( $opencapt ) <= 0 ) {
+						throw new Scribunto_LuaError( "Unmatched close-paren at pattern character $ii" );
+					}
+					array_pop( $opencapt );
+					$re .= $pat[$i];
+					break;
+
+				case '%':
+					$i++;
+					if ( $i >= $len ) {
+						throw new Scribunto_LuaError( "malformed pattern (ends with '%')" );
+					}
+					if ( isset( $charsets[$pat[$i]] ) ) {
+						$re .= $charsets[$pat[$i]];
+						$q = true;
+					} elseif ( $pat[$i] === 'b' ) {
+						if ( $i + 2 >= $len ) {
+							throw new Scribunto_LuaError( "malformed pattern (missing arguments to \'%b\')" );
+						}
+						$d1 = preg_quote( $pat[++$i], '/' );
+						$d2 = preg_quote( $pat[++$i], '/' );
+						if ( $d1 === $d2 ) {
+							$re .= "{$d1}[^$d1]*$d1";
+						} else {
+							$bct++;
+							$re .= "(?<b$bct>$d1(?:(?>[^$d1$d2]+)|(?P>b$bct))*$d2)";
+						}
+					} elseif ( $pat[$i] === 'f' ) {
+						if ( $i + 1 >= $len || $pat[++$i] !== '[' ) {
+							throw new Scribunto_LuaError( "missing '[' after %f in pattern at pattern character $ii" );
+						}
+						list( $i, $re2 ) = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
+						// Because %f considers the beginning and end of the string
+						// to be \0, determine if $re2 matches that and take it
+						// into account with "^" and "$".
+						if ( preg_match( "/$re2/us", "\0" ) ) {
+							$re .= "(?<!^)(?<!$re2)(?=$re2|$)";
+						} else {
+							$re .= "(?<!$re2)(?=$re2)";
+						}
+					} elseif ( $pat[$i] >= '0' && $pat[$i] <= '9' ) {
+						$n = ord( $pat[$i] ) - 0x30;
+						if ( $n === 0 || $n > count( $capt ) || in_array( $n, $opencapt ) ) {
+							throw new Scribunto_LuaError( "invalid capture index %$n at pattern character $ii" );
+						}
+						$re .= "\\g{m$n}";
 					} else {
-						$bct++;
-						$re .= "(?<b$bct>$d1(?:(?>[^$d1$d2]+)|(?P>b$bct))*$d2)";
+						$re .= preg_quote( $pat[$i], '/' );
+						$q = true;
 					}
-				} elseif ( $pat[$i] === 'f' ) {
-					if ( $i + 1 >= $len || $pat[++$i] !== '[' ) {
-						throw new Scribunto_LuaError( "missing '[' after %f in pattern at pattern character $ii" );
-					}
+					break;
+
+				case '[':
 					list( $i, $re2 ) = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
-					// Because %f considers the beginning and end of the string
-					// to be \0, determine if $re2 matches that and take it
-					// into account with "^" and "$".
-					if ( preg_match( "/$re2/us", "\0" ) ) {
-						$re .= "(?<!^)(?<!$re2)(?=$re2|$)";
-					} else {
-						$re .= "(?<!$re2)(?=$re2)";
-					}
-				} elseif ( $pat[$i] >= '0' && $pat[$i] <= '9' ) {
-					$n = ord( $pat[$i] ) - 0x30;
-					if ( $n === 0 || $n > count( $capt ) || in_array( $n, $opencapt ) ) {
-						throw new Scribunto_LuaError( "invalid capture index %$n at pattern character $ii" );
-					}
-					$re .= "\\g{m$n}";
-				} else {
+					$re .= $re2;
+					$q = true;
+					break;
+
+				case ']':
+					throw new Scribunto_LuaError( "Unmatched close-bracket at pattern character $ii" );
+
+				case '.':
+					$re .= $pat[$i];
+					$q = true;
+					break;
+
+				default:
 					$re .= preg_quote( $pat[$i], '/' );
 					$q = true;
-				}
-				break;
-
-			case '[':
-				list( $i, $re2 ) = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
-				$re .= $re2;
-				$q = true;
-				break;
-
-			case ']':
-				throw new Scribunto_LuaError( "Unmatched close-bracket at pattern character $ii" );
-
-			case '.':
-				$re .= $pat[$i];
-				$q = true;
-				break;
-
-			default:
-				$re .= preg_quote( $pat[$i], '/' );
-				$q = true;
-				break;
-			}
-			if ( $q && $i + 1 < $len ) {
-				switch ( $pat[$i + 1] ) {
-				case '*':
-				case '+':
-				case '?':
-					$re .= $pat[++$i];
-					break;
-				case '-':
-					$re .= '*?';
-					$i++;
 					break;
 				}
+				if ( $q && $i + 1 < $len ) {
+					switch ( $pat[$i + 1] ) {
+					case '*':
+					case '+':
+					case '?':
+						$re .= $pat[++$i];
+						break;
+					case '-':
+						$re .= '*?';
+						$i++;
+						break;
+					}
+				}
 			}
+			if ( count( $opencapt ) ) {
+				$ii = $captparen[$opencapt[0]];
+				throw new Scribunto_LuaError( "Unclosed capture beginning at pattern character $ii" );
+			}
+			$re .= '/us';
+
+			$this->patternRegexCache->set( $cacheKey, array( $re, $capt, $anypos ) );
 		}
-		if ( count( $opencapt ) ) {
-			$ii = $captparen[$opencapt[0]];
-			throw new Scribunto_LuaError( "Unclosed capture beginning at pattern character $ii" );
-		}
-		$re .= '/us';
-		return array( $re, $capt, $anypos );
+		return $this->patternRegexCache->get( $cacheKey );
 	}
 
 	private function bracketedCharSetToRegex( $pat, $i, $len, $brcharsets ){
@@ -474,7 +488,6 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringFind( $s, $pattern, $init = 1, $plain = false ) {
 		$this->checkString( 'find', $s );
-		$this->checkPattern( 'find', $pattern );
 		$this->checkTypeOptional( 'find', 3, $init, 'number', 1 );
 		$this->checkTypeOptional( 'find', 4, $plain, 'boolean', false );
 
@@ -493,6 +506,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		if ( $plain ) {
+			$this->checkPattern( 'find', $pattern );
 			if ( $pattern !== '' ) {
 				$ret = mb_strpos( $s, $pattern, $init - 1, 'UTF-8' );
 			} else {
@@ -503,20 +517,19 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			} else {
 				return array( $ret + 1, $ret + mb_strlen( $pattern ) );
 			}
+		} else {
+			list( $re, $capt ) = $this->patternToRegex( $pattern, '\G', 'find' );
+			if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $offset ) ) {
+				return array( null );
+			}
+			$o = mb_strlen( substr( $s, 0, $m[0][1] ), 'UTF-8' );
+			$ret = array( $o + 1, $o + mb_strlen( $m[0][0], 'UTF-8' ) );
+			return $this->addCapturesFromMatch( $ret, $s, $m, $capt, false );
 		}
-
-		list( $re, $capt ) = $this->patternToRegex( $pattern, '\G' );
-		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $offset ) ) {
-			return array( null );
-		}
-		$o = mb_strlen( substr( $s, 0, $m[0][1] ), 'UTF-8' );
-		$ret = array( $o + 1, $o + mb_strlen( $m[0][0], 'UTF-8' ) );
-		return $this->addCapturesFromMatch( $ret, $s, $m, $capt, false );
 	}
 
 	public function ustringMatch( $s, $pattern, $init = 1 ) {
 		$this->checkString( 'match', $s );
-		$this->checkPattern( 'match', $pattern );
 		$this->checkTypeOptional( 'match', 3, $init, 'number', 1 );
 
 		$len = mb_strlen( $s, 'UTF-8' );
@@ -531,7 +544,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$offset = 0;
 		}
 
-		list( $re, $capt ) = $this->patternToRegex( $pattern, '\G' );
+		list( $re, $capt ) = $this->patternToRegex( $pattern, '\G', 'match' );
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $offset ) ) {
 			return array( null );
 		}
@@ -540,9 +553,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringGmatchInit( $s, $pattern ) {
 		$this->checkString( 'gmatch', $s );
-		$this->checkPattern( 'gmatch', $pattern );
 
-		list( $re, $capt ) = $this->patternToRegex( $pattern, false );
+		list( $re, $capt ) = $this->patternToRegex( $pattern, false, 'gmatch' );
 		return array( $re, $capt );
 	}
 
@@ -556,7 +568,6 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringGsub( $s, $pattern, $repl, $n = null ) {
 		$this->checkString( 'gsub', $s );
-		$this->checkPattern( 'gsub', $pattern );
 		$this->checkTypeOptional( 'gsub', 4, $n, 'number', null );
 
 		if ( $n === null ) {
@@ -565,7 +576,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$n = 0;
 		}
 
-		list( $re, $capt, $anypos ) = $this->patternToRegex( $pattern, '^' );
+		list( $re, $capt, $anypos ) = $this->patternToRegex( $pattern, '^', 'gsub' );
 		$captures = array();
 
 		if ( $anypos ) {
