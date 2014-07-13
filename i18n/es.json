@@ -52,5 +52,6 @@
 	"scribunto-limitreport-virtmemusage": "Tamaño virtual de Lua",
 	"scribunto-limitreport-memusage": "Uso de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Registros de Lua"
 }
