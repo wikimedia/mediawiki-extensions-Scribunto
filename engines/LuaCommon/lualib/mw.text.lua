@@ -240,10 +240,7 @@ function mwtext.listToText( list, separator, conjunction )
 
 	local ret
 	if n > 1 then
-		local tmp = list[n-1]
-		list[n-1] = list[n-1] .. conjunction .. list[n]
-		ret = table.concat( list, separator, 1, n - 1 )
-		list[n-1] = tmp
+		ret = table.concat( list, separator, 1, n - 1 ) .. conjunction .. list[n]
 	else
 		ret = tostring( list[1] or '' )
 	end
