@@ -56,5 +56,6 @@
 	"scribunto-limitreport-estmemusage": "Ước lượng sử dụng bộ nhớ Lua",
 	"scribunto-limitreport-memusage": "Sử dụng bộ nhớ Lua",
 	"scribunto-limitreport-profile": "Hồ sơ Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Lời ghi Lua"
 }
