@@ -59,5 +59,6 @@
 	"scribunto-limitreport-memusage": "Lua内存使用情况",
 	"scribunto-limitreport-profile": "Lua属性",
 	"scribunto-limitreport-profile-ms": "$1毫秒",
-	"scribunto-limitreport-profile-percent": "$1%"
+	"scribunto-limitreport-profile-percent": "$1%",
+	"scribunto-limitreport-logs": "Lua日志"
 }
