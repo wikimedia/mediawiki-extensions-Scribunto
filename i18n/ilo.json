@@ -55,5 +55,6 @@
 	"scribunto-limitreport-estmemusage": "Nakarkulo a panag-usar ti memoria ti Lua",
 	"scribunto-limitreport-memusage": "Panag-usar ti memoria ti Lua",
 	"scribunto-limitreport-profile": "Bariweswes ti Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Dagiti listaan ti Lua"
 }
