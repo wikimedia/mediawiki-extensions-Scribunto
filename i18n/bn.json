@@ -19,7 +19,10 @@
 	"scribunto-console-current-src": "কনসোল ইনপুট",
 	"scribunto-console-clear": "পরিস্কার",
 	"scribunto-common-error-category": "স্ক্রিপ্ট ত্রুটিসহ পাতা",
-	"scribunto-common-nosuchmodule": "স্ক্রিপ্ট ত্রুটি: এমন মডিউল নেই।",
+	"scribunto-common-nosuchmodule": "স্ক্রিপ্ট ত্রুটি: \"$2\" নামক কোন মডিউল নেই।",
+	"scribunto-common-nofunction": "স্ক্রিপ্ট ত্রুটি: কল করতে আপনাকে একটি ফাংশন অবশ্যই উল্লেখ করতে হবে।",
+	"scribunto-common-nosuchfunction": "স্ক্রিপ্ট ত্রুটি: ফাংশন \"$2\" নেই।",
+	"scribunto-common-notafunction": "স্ক্রিপ্ট ত্রুটি: \"$2\" কোন ফাংশন নয়।",
 	"scribunto-lua-in-function": "\"$1\" ফাংশনে",
 	"scribunto-lua-error-location": "লুয়া ত্রুটি $1: $2।",
 	"scribunto-lua-error": "লুয়া ত্রুটি: $2।",
@@ -31,5 +34,6 @@
 	"scribunto-limitreport-estmemusage": "লুয়া আনুমানিক স্মৃতি ব্যবহার",
 	"scribunto-limitreport-memusage": "লুয়া স্মৃতি ব্যবহার",
 	"scribunto-limitreport-profile": "লুয়া বৃত্তান্ত",
-	"scribunto-limitreport-profile-ms": "$1 মি.সে."
+	"scribunto-limitreport-profile-ms": "$1 মি.সে.",
+	"scribunto-limitreport-logs": "লুয়া লোগোগুলি"
 }
