@@ -3,7 +3,8 @@
 		"authors": [
 			"Misibacsi",
 			"TK-999",
-			"Tgr"
+			"Tgr",
+			"Tacsipacsi"
 		]
 	},
 	"scribunto-desc": "Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására",
@@ -20,9 +21,9 @@
 	"scribunto-console-title": "Hibakereső konzol",
 	"scribunto-console-current-src": "konzol bemenet",
 	"scribunto-console-clear": "törlés",
-	"scribunto-common-nosuchmodule": "Parancsfájl-hiba: nincs ilyen modul.",
+	"scribunto-common-nosuchmodule": "Parancsfájl-hiba: nincs „$2” modul.",
 	"scribunto-common-nofunction": "Parancsfájl-hiba: meg kell adnod a használandó függvényt.",
-	"scribunto-common-nosuchfunction": "Parancsfájl-hiba: a megadott függvény nem létezik.",
+	"scribunto-common-nosuchfunction": "Parancsfájl-hiba: a(z) „$2” függvény nem létezik.",
 	"scribunto-common-timeout": "A parancsfájlok futtatására lefoglalt idő lejárt.",
 	"scribunto-common-oom": "A parancsfájlok futtatásához engedélyezett memória mennyisége túl lett lépve.",
 	"scribunto-common-backtrace": "Backtrace:",
