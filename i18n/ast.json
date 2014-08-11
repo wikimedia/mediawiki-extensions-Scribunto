@@ -27,6 +27,7 @@
 	"scribunto-common-nosuchmodule": "Error de script: Nun esiste'l módulu «$2».",
 	"scribunto-common-nofunction": "Error de script: Tien d'especificar una función a la que llamar.",
 	"scribunto-common-nosuchfunction": "Error de script: Nun esiste la función «$2».",
+	"scribunto-common-notafunction": "Error de script: «$2» nun ye una función.",
 	"scribunto-common-timeout": "Acabó'l tiempu acutáu pa executar scripts.",
 	"scribunto-common-oom": "Superóse la cantidá de memoria permitida pa executar scripts.",
 	"scribunto-common-backtrace": "Trazáu inversu (backtrace):",
@@ -54,5 +55,6 @@
 	"scribunto-limitreport-estmemusage": "Usu de memoria estimáu de Lua",
 	"scribunto-limitreport-memusage": "Usu de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Rexistros de Lua"
 }
