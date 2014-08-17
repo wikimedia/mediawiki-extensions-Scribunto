@@ -3,8 +3,8 @@
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	const MAX_LANG_CACHE_SIZE = 20;
 
-	var $langCache = array();
-	var $timeCache = array();
+	public $langCache = array();
+	public $timeCache = array();
 
 	function register() {
 		// Pre-populate the language cache

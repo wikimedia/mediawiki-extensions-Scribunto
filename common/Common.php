@@ -117,7 +117,7 @@ class Scribunto {
  * normally abort the request, instead it is caught and shown to the user.
  */
 class ScribuntoException extends MWException {
-	var $messageName, $messageArgs, $params;
+	public $messageName, $messageArgs, $params;
 
 	/**
 	 * @param $messageName string

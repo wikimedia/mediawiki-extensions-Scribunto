@@ -6,12 +6,12 @@
  * @group LuaStandalone
  */
 class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
-	var $sandboxOpts = array(
+	public $sandboxOpts = array(
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 		'allowEnvFuncs' => true,
 	);
-	var $standaloneOpts = array(
+	public $standaloneOpts = array(
 		'errorFile' => null,
 		'luaPath' => null,
 		'memoryLimit' => 50000000,
