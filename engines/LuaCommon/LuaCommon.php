@@ -791,7 +791,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 }
 
 class Scribunto_LuaError extends ScribuntoException {
-	var $luaMessage, $lineMap = array();
+	public $luaMessage, $lineMap = array();
 
 	function __construct( $message, $options = array() ) {
 		$this->luaMessage = $message;

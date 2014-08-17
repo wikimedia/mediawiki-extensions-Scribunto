@@ -8,7 +8,7 @@ require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaInterpreterTest.php' );
  * @group LuaSandbox
  */
 class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
-	var $stdOpts = array(
+	public $stdOpts = array(
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 	);

@@ -209,7 +209,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 }
 
 class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
-	var $engine, $sandbox, $libraries, $profilerEnabled;
+	public $engine, $sandbox, $libraries, $profilerEnabled;
 
 	const SAMPLES = 0;
 	const SECONDS = 1;

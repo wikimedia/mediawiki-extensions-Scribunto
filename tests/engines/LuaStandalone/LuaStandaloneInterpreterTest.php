@@ -8,7 +8,7 @@ require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaInterpreterTest.php' );
  * @group LuaStandalone
  */
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
-	var $stdOpts = array(
+	public $stdOpts = array(
 		'errorFile' => null,
 		'luaPath' => null,
 		'memoryLimit' => 50000000,

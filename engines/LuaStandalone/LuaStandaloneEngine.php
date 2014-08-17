@@ -2,7 +2,7 @@
 
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	static $clockTick;
-	var $initialStatus;
+	public $initialStatus;
 
 	public function load() {
 		parent::load();
@@ -128,7 +128,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	static $nextInterpreterId = 0;
-	var $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError, $id;
+	public $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError, $id;
 
 	function __construct( $engine, $options ) {
 		$this->id = self::$nextInterpreterId++;

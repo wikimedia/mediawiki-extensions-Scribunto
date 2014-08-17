@@ -266,9 +266,9 @@ abstract class ScribuntoModuleBase {
 	/**
 	 * @var ScribuntoEngineBase
 	 */
-	var $engine;
+	public $engine;
 
-	var $code, $chunkName;
+	public $code, $chunkName;
 
 	public function __construct( $engine, $code, $chunkName ) {
 		$this->engine = $engine;
