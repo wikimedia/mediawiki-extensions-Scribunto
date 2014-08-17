@@ -30,6 +30,11 @@ $magicWords['diq'] = array(
 	'invoke' => array( 0, 'veynden' ),
 );
 
+/** Spanish (español) */
+$magicWords['es'] = array(
+	'invoke' => array( 0, 'invocar' ),
+);
+
 /** Persian (فارسی) */
 $magicWords['fa'] = array(
 	'invoke' => array( 0, 'درخواست' ),
