@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"زكريا"
+		]
+	},
+	"scribunto-limitreport-timeusage": "زمن لوا المستغرق",
+	"scribunto-limitreport-memusage": "ذاكرة لوا المستخدمة"
+}
