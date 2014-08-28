@@ -5,6 +5,27 @@
 
 mw = mw or {}
 
+-- Extend pairs and ipairs to recognize __pairs and __ipairs, if they don't already
+do
+	local t = {}
+	setmetatable( t, { __pairs = function() return 1, 2, 3 end } )
+	local f = pairs( t )
+	if f ~= 1 then
+		local old_pairs = pairs
+		pairs = function ( t )
+			local mt = getmetatable( t )
+			local f, s, var = ( mt and mt.__pairs or old_pairs )( t )
+			return f, s, var
+		end
+		local old_ipairs = ipairs
+		ipairs = function ( t )
+			local mt = getmetatable( t )
+			local f, s, var = ( mt and mt.__ipairs or old_ipairs )( t )
+			return f, s, var
+		end
+	end
+end
+
 --- Do a "deep copy" of a table or other value.
 function mw.clone( val )
 	local tableRefs = {}
