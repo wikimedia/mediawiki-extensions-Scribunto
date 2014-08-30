@@ -58,5 +58,6 @@
 	"scribunto-limitreport-estmemusage": "کاربرد حافظهٔ تخمین زدهٔ لوآ",
 	"scribunto-limitreport-memusage": "کاربرد حافظهٔ‌ لوآ",
 	"scribunto-limitreport-profile": "مشخصات لوآ",
-	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه"
+	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه",
+	"scribunto-limitreport-profile-percent": "$1٪"
 }
