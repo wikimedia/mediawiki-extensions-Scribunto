@@ -9,7 +9,8 @@
 			"Raymond",
 			"Shirayuki",
 			"Siebrand",
-			"Snævar"
+			"Snævar",
+			"Liuxinyu970226"
 		]
 	},
 	"scribunto-desc": "{{desc|name=Scribunto|url=http://www.mediawiki.org/wiki/Extension:Scribunto}}",
@@ -60,7 +61,7 @@
 	"scribunto-module-with-errors-category": "Name of [[mw:Help:Tracking categories|tracking category]] where modules saved with errors are listed.\n\nSee also:\n* {{msg-mw|scribunto-ignore-errors}}\n* {{msg-mw|scribunto-module-with-errors-category-desc}}",
 	"scribunto-module-with-errors-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|scribunto-module-with-errors-category}} tracking category.",
 	"scribunto-limitreport-timeusage": "Label for the \"Lua time usage\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-timeusage-value}}",
-	"scribunto-limitreport-timeusage-value": "Format for the \"Lua time usage\" value in the limit report table. Parameters:\n* $1 - the usage in seconds\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-timeusage}}",
+	"scribunto-limitreport-timeusage-value": "Format for the \"Lua time usage\" value in the limit report table. Parameters:\n* $1 - the usage in seconds\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-timeusage}}\n{{Identical|Second}}",
 	"scribunto-limitreport-virtmemusage": "Label for the \"Lua virtual size\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-virtmemusage-value}}",
 	"scribunto-limitreport-virtmemusage-value": "{{optional}}\nFormat for the \"Lua virtual size\" value in the limit report table. Parameters:\n* $1 - the usage\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-virtmemusage}}",
 	"scribunto-limitreport-estmemusage": "Label for the \"Lua estimated memory usage\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-estmemusage-value}}",

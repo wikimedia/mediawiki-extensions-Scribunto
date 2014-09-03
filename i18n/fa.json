@@ -7,7 +7,8 @@
 			"ZxxZxxZ",
 			"جواد",
 			"Ebraminio",
-			"Calak"
+			"Calak",
+			"Dalba"
 		]
 	},
 	"scribunto-desc": "چارچوبی برای تعبیه‌کردن زبان‌های اسکریپتی در صفحه‌های مدیاویکی",
@@ -52,11 +53,11 @@
 	"scribunto-luastandalone-signal": "خطای لوآ: خطای داخلی: مفسر با سیگنال «$2» خاتمه یافته است.",
 	"scribunto-luastandalone-exited": "خطای لوآ: خطای داخلی: مفسر با وضعیت $2 خارج شده است.",
 	"scribunto-module-with-errors-category": "ماژول‌های اسکرایبونتو با خطاها",
-	"scribunto-limitreport-timeusage": "کاربرد زمان لوآ",
+	"scribunto-limitreport-timeusage": "مصرف زمان لوآ",
 	"scribunto-limitreport-timeusage-value": "$1/ $2  ثانیه",
-	"scribunto-limitreport-virtmemusage": "اندازهٔ تقریبی لوآ",
-	"scribunto-limitreport-estmemusage": "کاربرد حافظهٔ تخمین زدهٔ لوآ",
-	"scribunto-limitreport-memusage": "کاربرد حافظهٔ‌ لوآ",
+	"scribunto-limitreport-virtmemusage": "اندازهٔ مجازی لوآ",
+	"scribunto-limitreport-estmemusage": "حافظهٔ مصرفی لوآ تخمین‌زده‌شده",
+	"scribunto-limitreport-memusage": "مصرف حافظهٔ‌ لوآ",
 	"scribunto-limitreport-profile": "مشخصات لوآ",
 	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه",
 	"scribunto-limitreport-profile-percent": "$1٪"
