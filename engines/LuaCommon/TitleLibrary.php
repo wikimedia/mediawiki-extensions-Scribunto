@@ -223,6 +223,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->getParser()->getOutput()->addTemplate(
 			$title, $title->getArticleID(), $title->getLatestRevID()
 		);
+		if ( $title->equals( $this->getTitle() ) ) {
+			$this->getParser()->getOutput()->setFlag( 'vary-revision' );
+		}
 
 		$rev = Revision::newFromTitle( $title );
 		if ( !$rev ) {
