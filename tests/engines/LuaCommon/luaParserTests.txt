@@ -147,6 +147,10 @@ function p.getFrameTitle( frame )
 	return frame:getTitle()
 end
 
+p['test=InFunctionName'] = function( frame )
+	return frame.args[1]
+end
+
 return p
 !! endarticle
 
@@ -459,5 +463,14 @@ Scribunto: Metatable on export table
 <p>You called the zero method from p
 You called the one method from mt1
 You called the two method from mt2
+</p>
+!! end
+
+!! test
+Scribunto: Correct argument numbering with equals sign in function name
+!! input
+{{#invoke:test|test=InFunctionName|good|bad}}
+!! result
+<p>good
 </p>
 !! end
