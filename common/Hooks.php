@@ -102,9 +102,14 @@ class ScribuntoHooks {
 			}
 			$functionName = trim( $frame->expand( $args[1] ) );
 
+			$bits = $args[1]->splitArg();
 			unset( $args[0] );
 			unset( $args[1] );
-			$childFrame = $frame->newChild( $args, $title, 1 );
+
+			// If $bits['index'] is empty, then the function name was parsed as a
+			// key=value pair (because of an equals sign in it), and since it didn't
+			// have an index, we don't need the index offset.
+			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
 			$result = $module->invoke( $functionName, $childFrame );
 			$result = UtfNormal::cleanUp( strval( $result ) );
 
