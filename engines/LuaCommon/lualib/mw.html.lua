@@ -82,7 +82,8 @@ end
 --
 -- @param s
 local function htmlEncode( s )
-	return string.gsub( s, '[<>&"]', htmlencodeMap )
+	-- The parentheses ensure that there is only one return value
+	return ( string.gsub( s, '[<>&"]', htmlencodeMap ) )
 end
 
  local function cssEncode( s )
@@ -104,16 +105,18 @@ methodtable._build = function( t, ret )
 		end
 		if #t.styles > 0 then
 			table.insert( ret, ' style="' )
+			local css = {}
 			for i, prop in ipairs( t.styles ) do
 				if type( prop ) ~= 'table' then -- added with cssText()
-					table.insert( ret, htmlEncode( prop ) .. ';' )
+					table.insert( css, htmlEncode( prop ) )
 				else -- added with css()
 					table.insert(
-						ret,
-						htmlEncode( cssEncode( prop.name ) .. ':' .. cssEncode( prop.val ) ) .. ';'
+						css,
+						htmlEncode( cssEncode( prop.name ) .. ':' .. cssEncode( prop.val ) )
 					)
 				end
 			end
+			table.insert( ret, table.concat( css, ';' ) )
 			table.insert( ret, '"' )
 		end
 		if t.selfClosing then

@@ -207,11 +207,11 @@ local tests = {
 	},
 	{ name = 'mw.html.css', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', 'bar' },
-	  expect = { '<div style="foo:bar;"></div>' }
+	  expect = { '<div style="foo:bar"></div>' }
 	},
 	{ name = 'mw.html.css (numeric arguments)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 123, 456 },
-	  expect = { '<div style="123:456;"></div>' }
+	  expect = { '<div style="123:456"></div>' }
 	},
 	{ name = 'mw.html.css (nil noop)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'foo', nil },
@@ -231,7 +231,7 @@ local tests = {
 	},
 	{ name = 'mw.html.css (table)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', testAttrs },
-	  expect = { '<div style="ab:cd;foo:bar;"></div>' }
+	  expect = { '<div style="ab:cd;foo:bar"></div>' }
 	},
 	{ name = 'mw.html.css (invalid table)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', { foo = 'bar', ab = true } },
@@ -239,11 +239,11 @@ local tests = {
 	},
 	{ name = 'mw.html.cssText', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', 'Unit tests, ftw' },
-	  expect = { '<div style="Unit tests, ftw;"></div>' }
+	  expect = { '<div style="Unit tests, ftw"></div>' }
 	},
 	{ name = 'mw.html.cssText (numeric argument)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', 123 },
-	  expect = { '<div style="123;"></div>' }
+	  expect = { '<div style="123"></div>' }
 	},
 	{ name = 'mw.html.cssText (invalid value)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', {} },
@@ -263,11 +263,11 @@ local tests = {
 	},
 	{ name = 'mw.html attribute escaping (CSS)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'css', 'mu"ha', 'ha"ha' },
-	  expect = { '<div style="mu&quot;ha:ha&quot;ha;"></div>' }
+	  expect = { '<div style="mu&quot;ha:ha&quot;ha"></div>' }
 	},
 	{ name = 'mw.html attribute escaping (CSS raw)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'cssText', 'mu"ha:-ha"ha' },
-	  expect = { '<div style="mu&quot;ha:-ha&quot;ha;"></div>' }
+	  expect = { '<div style="mu&quot;ha:-ha&quot;ha"></div>' }
 	},
 	{ name = 'mw.html.addClass (nil)', func = testHelper, type='ToString',
 	  args = { getEmptyTestDiv(), 'addClass' },
@@ -284,7 +284,7 @@ local tests = {
 	  expect = { '<div class="foo bar"></div>' }
 	},
 	{ name = 'mw.html.css.cssText.css', func = testCssAndCssText, type='ToString',
-	  expect = { '<div style="foo:bar;abc:def;g:h;"></div>' }
+	  expect = { '<div style="foo:bar;abc:def;g:h"></div>' }
 	},
 	{ name = 'mw.html.tag (using done)', func = testTagDone, type='ToString',
 	  expect = { '<div><span></span></div>' }
@@ -330,7 +330,7 @@ local tests = {
 	{ name = 'mw.html complex test', func = testComplex, type='ToString',
 	  expect = {
 		'<div class="firstClass" what="ever"><meh whynot="Русский"><hr a="b" /></meh>' ..
-		'<hr /><div abc="def" style="width:-1px;"></div></div>'
+		'<hr /><div abc="def" style="width:-1px"></div></div>'
 	  }
 	},
 }
