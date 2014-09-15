@@ -58,7 +58,7 @@
 	"scribunto-luastandalone-gone": "Exception message.",
 	"scribunto-luastandalone-signal": "Exception message. Parameters:\n* $1 - (Unused)\n* $2 - an exit status (may also be a signal name)",
 	"scribunto-luastandalone-exited": "Exception message. Parameters:\n* $1 - (Unused)\n* $2 - an exit status",
-	"scribunto-module-with-errors-category": "Name of [[mw:Help:Tracking categories|tracking category]] where modules saved with errors are listed.\n\nSee also:\n* {{msg-mw|scribunto-ignore-errors}}\n* {{msg-mw|scribunto-module-with-errors-category-desc}}",
+	"scribunto-module-with-errors-category": "Name of [[mw:Help:Tracking categories|tracking category]] where modules saved with errors are listed.\n\nSee also:\n* {{msg-mw|scribunto-module-with-errors-category-desc}}",
 	"scribunto-module-with-errors-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|scribunto-module-with-errors-category}} tracking category.",
 	"scribunto-limitreport-timeusage": "Label for the \"Lua time usage\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-timeusage-value}}",
 	"scribunto-limitreport-timeusage-value": "Format for the \"Lua time usage\" value in the limit report table. Parameters:\n* $1 - the usage in seconds\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-timeusage}}\n{{Identical|Second}}",

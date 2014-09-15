@@ -255,19 +255,6 @@ class ScribuntoHooks {
 			return true;
 		}
 
-		$req = RequestContext::getMain()->getRequest();
-		$name = 'scribunto_ignore_errors';
-
-		$attribs = array(
-			'tabindex' => ++$tabindex,
-			'id' => "mw-$name",
-		);
-		$checkboxes['scribunto'] =
-			Xml::check( $name, $req->getCheck( $name ), $attribs ) .
-			'&#160;' .
-			Xml::label( wfMessage( 'scribunto-ignore-errors' )->text(), "mw-$name" );
-
-		// While we're here, lets set up the edit module
 		global $wgOut;
 		$wgOut->addModules( 'ext.scribunto.edit' );
 		$editor->editFormTextAfterTools = '<div id="mw-scribunto-console"></div>';
@@ -309,11 +296,6 @@ class ScribuntoHooks {
 		}
 
 		if ( Scribunto::isDocPage( $title ) ) {
-			return true;
-		}
-
-		$req = RequestContext::getMain()->getRequest();
-		if ( $req->getBool( 'scribunto_ignore_errors' ) ) {
 			return true;
 		}
 

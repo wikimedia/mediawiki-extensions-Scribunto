@@ -5,7 +5,6 @@
 		]
 	},
 	"scribunto-desc": "Framework for embedding scripting languages into MediaWiki pages",
-	"scribunto-ignore-errors": "Allow saving code with errors",
 	"scribunto-line": "at line $1",
 	"scribunto-module-line": "in $1 at line $2",
 	"scribunto-parser-dialog-title": "Script error",
