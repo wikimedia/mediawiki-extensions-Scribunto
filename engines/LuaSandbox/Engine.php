@@ -162,7 +162,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				if ( preg_match( '/^(.*?) *<([^<>]+):(\d+)>$/', $name, $m ) ) {
 					$name = $m[1];
 					$title = Title::newFromText( $m[2] );
-					if ( $title && $title->getNamespace() === NS_MODULE ) {
+					if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 						$location = '&lt;' . Linker::link( $title ) . ":{$m[3]}&gt;";
 					} else {
 						$location = htmlspecialchars( "<{$m[2]}:{$m[3]}>" );

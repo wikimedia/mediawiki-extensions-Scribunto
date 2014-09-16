@@ -31,6 +31,8 @@ $wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
 );
 
+define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
+
 $dir = __DIR__ . '/';
 $wgMessagesDirs['Scribunto'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['Scribunto'] = $dir . 'Scribunto.i18n.php';
@@ -73,7 +75,7 @@ $wgHooks['ContentHandlerDefaultModelFor'][] = 'ScribuntoHooks::contentHandlerDef
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
 $wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
 
-$wgContentHandlers['Scribunto'] = 'ScribuntoContentHandler';
+$wgContentHandlers[CONTENT_MODEL_SCRIBUNTO] = 'ScribuntoContentHandler';
 
 $sbtpl = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',

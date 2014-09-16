@@ -357,7 +357,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 		$code .= "end\n";
 
-		if ( $params['title']->hasContentModel( 'Scribunto' ) ) {
+		if ( $params['title']->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$contentModule = $this->newModule(
 				$params['content'], $params['title']->getPrefixedDBkey() );
 			$contentInit = $contentModule->getInitChunk();
@@ -502,7 +502,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 
 		$title = Title::newFromText( $name );
-		if ( !$title || $title->getNamespace() != NS_MODULE ) {
+		if ( !$title || !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			return array();
 		}
 
@@ -927,7 +927,7 @@ class Scribunto_LuaError extends ScribuntoException {
 				$src .= ':' . htmlspecialchars( $currentline );
 
 				$title = Title::newFromText( $short_src );
-				if ( $title && $title->getNamespace() === NS_MODULE ) {
+				if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 					$title->setFragment( '#mw-ce-l' . $currentline );
 					$src = Html::rawElement( 'a',
 						array( 'href' => $title->getFullURL( 'action=edit' ) ),

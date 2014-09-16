@@ -92,8 +92,9 @@ class ScribuntoHooks {
 			}
 			$moduleName = trim( $frame->expand( $args[0] ) );
 			$engine = Scribunto::getParserEngine( $parser );
+
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
-			if ( !$title || Scribunto::isDocPage( $title ) ) {
+			if ( !$title || !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule',
 					array( 'args' => array( $moduleName ) ) );
 			}
@@ -155,8 +156,7 @@ class ScribuntoHooks {
 	 */
 	public static function getCodeLanguage( Title $title, &$languageCode ) {
 		global $wgScribuntoUseCodeEditor;
-		if ( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
-			!Scribunto::isDocPage( $title )
+		if ( $wgScribuntoUseCodeEditor && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO )
 		) {
 			$engine = Scribunto::newDefaultEngine();
 			if ( $engine->getCodeEditorLanguage() ) {
@@ -177,7 +177,7 @@ class ScribuntoHooks {
 	 */
 	public static function contentHandlerDefaultModelFor( Title $title, &$model ) {
 		if ( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
-			$model = 'Scribunto';
+			$model = CONTENT_MODEL_SCRIBUNTO;
 			return false;
 		}
 		return true;
@@ -254,17 +254,11 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function beforeEditChecks( EditPage &$editor, &$checkboxes, &$tabindex ) {
-		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
-			return true;
+		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+			global $wgOut;
+			$wgOut->addModules( 'ext.scribunto.edit' );
+			$editor->editFormTextAfterTools = '<div id="mw-scribunto-console"></div>';
 		}
-
-		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
-			return true;
-		}
-
-		global $wgOut;
-		$wgOut->addModules( 'ext.scribunto.edit' );
-		$editor->editFormTextAfterTools = '<div id="mw-scribunto-console"></div>';
 		return true;
 	}
 
@@ -275,15 +269,9 @@ class ScribuntoHooks {
 	 * @param OutputPage $output
 	 */
 	public static function showReadOnlyFormInitial( EditPage $editor, OutputPage $output ) {
-		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
-			return true;
+		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+			$output->addModules( 'ext.scribunto.edit' );
 		}
-
-		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
-			return true;
-		}
-
-		$output->addModules( 'ext.scribunto.edit' );
 		return true;
 	}
 
@@ -296,15 +284,9 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function beforeEditButtons( EditPage &$editor, array &$buttons, &$tabindex ) {
-		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
-			return true;
+		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+			unset( $buttons['preview'] );
 		}
-
-		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
-			return true;
-		}
-
-		unset( $buttons['preview'] );
 		return true;
 	}
 
@@ -319,11 +301,7 @@ class ScribuntoHooks {
 		global $wgOut;
 		$title = $editor->getTitle();
 
-		if ( $title->getNamespace() != NS_MODULE ) {
-			return true;
-		}
-
-		if ( Scribunto::isDocPage( $title ) ) {
+		if ( !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			return true;
 		}
 
