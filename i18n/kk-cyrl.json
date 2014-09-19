@@ -7,7 +7,6 @@
 	"scribunto-desc": "MediaWiki беттеріндегі скрипттік тілдерді қосу құрылғысы",
 	"scribunto-line": "$1 жолында",
 	"scribunto-module-line": "$1 ішіндегі $2 жолында",
-	"scribunto-parser-error": "Скрипт қатесі",
 	"scribunto-parser-dialog-title": "Скрипт қатесі",
 	"scribunto-error-short": "Скрипт қатесі: $1",
 	"scribunto-error-long": "Скрипт қатесі:\n\n$1",

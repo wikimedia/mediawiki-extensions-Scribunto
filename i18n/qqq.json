@@ -17,7 +17,6 @@
 	"scribunto-ignore-errors": "Label for a checkbox on the edit page. When clicked, parse errors are ignored on save.",
 	"scribunto-line": "Used as reference to a code location. Parameters:\n* $1 - a line number\nSee also:\n* {{msg-mw|Scribunto-module-line}}",
 	"scribunto-module-line": "Used as reference to a code location. Parameters:\n* $1 - a module (may also be {{msg-mw|Scribunto-console-current-src}})\n* $2 - a line number\nSee also:\n* {{msg-mw|Scribunto-line}}",
-	"scribunto-parser-error": "Error message.",
 	"scribunto-parser-dialog-title": "Error message.",
 	"scribunto-error-short": "Error message. Parameters:\n* $1 - the error details\nSee also:\n* {{msg-mw|Scribunto-error-long}}",
 	"scribunto-error-long": "Error message. Parameters:\n* $1 - the error details\nSee also:\n* {{msg-mw|Scribunto-error-short}}",
