@@ -88,7 +88,8 @@ end
 
  local function cssEncode( s )
 	-- XXX: I'm not sure this character set is complete.
-	return mw.ustring.gsub( s, '[^\32-\57\60-\126]', function ( m )
+	-- bug #68011: allow delete character (\127)
+	return mw.ustring.gsub( s, '[^\32-\57\60-\127]', function ( m )
 		return string.format( '\\%X ', mw.ustring.codepoint( m ) )
 	end )
 end

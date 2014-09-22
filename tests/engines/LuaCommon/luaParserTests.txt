@@ -151,6 +151,10 @@ p['test=InFunctionName'] = function( frame )
 	return frame.args[1]
 end
 
+function p.testStrippedCss( frame )
+	return mw.html.create( 'div' ):css( 'color', frame.args[1] )
+end
+
 return p
 !! endarticle
 
@@ -473,4 +477,13 @@ Scribunto: Correct argument numbering with equals sign in function name
 !! result
 <p>good
 </p>
+!! end
+
+!! test
+Scribunto: Strip markers in CSS
+!! input
+{{#invoke:test|testStrippedCss|<nowiki>#ff0000</nowiki>}}
+!! result
+<div style="color:#ff0000"></div>
+
 !! end
