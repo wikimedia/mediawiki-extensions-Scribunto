@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Iwan Novirion"
+			"Iwan Novirion",
+			"Ahdan"
 		]
 	},
 	"scribunto-doc-page-name": "Module:$1/doc",
@@ -12,5 +13,6 @@
 	"scribunto-console-cleared-session-lost": "Pernyataan konsol dibersihkan karena data sesi hilang.",
 	"scribunto-common-error-category": "Halaman dengan galat skrip",
 	"scribunto-common-nosuchmodule": "Galat skrip: tidak ada modul tersebut.",
+	"scribunto-common-no-details": "Rincian lebih lanjut tidak tersedia",
 	"scribunto-lua-backtrace-line": "$1: $2"
 }

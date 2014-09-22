@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Calak"
+		]
+	},
+	"scribunto-doc-page-does-not-exist": "\"بەڵگەدارکردنی ئەم مۆدیوولە دەکرێ لە [[$1]]دا دروست بکرێ\"",
+	"scribunto-doc-page-header": "'''ئەمە پەڕەیەکی بەڵگەدارکردنە بۆ [[$1]]'''"
+}

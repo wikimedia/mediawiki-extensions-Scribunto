@@ -2,14 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Toniher",
-			"Vriullop"
+			"Vriullop",
+			"Fitoschido"
 		]
 	},
 	"scribunto-desc": "Un entorn de treball per a incrustar llenguatges d'script a les pàgines de MediaWiki",
 	"scribunto-ignore-errors": "Permet desar codi amb errors",
 	"scribunto-line": "a la línia $1",
 	"scribunto-module-line": "a $1 a la línia $2",
-	"scribunto-parser-error": "Error de l'script",
 	"scribunto-parser-dialog-title": "Error de l'script",
 	"scribunto-error-short": "Error de l'script: $1",
 	"scribunto-error-long": "Errors de l'script:\n\n$1",
@@ -31,12 +31,12 @@
 	"scribunto-common-timeout": "S'ha exhaurit el temps assignat per a l'execució d'scripts.",
 	"scribunto-common-oom": "S'ha exhaurit la quantitat de memòria permesa per a l'execució d'scripts.",
 	"scribunto-common-backtrace": "Traça inversa:",
+	"scribunto-common-no-details": "No hi ha més detalls disponibles.",
 	"scribunto-lua-in-function": "a la funció «$1»",
 	"scribunto-lua-in-main": "en el fragment principal",
 	"scribunto-lua-in-function-at": "a la funció a $1:$2",
 	"scribunto-lua-error-location": "Error de Lua $1: $2.",
 	"scribunto-lua-error": "Error de Lua: $2.",
-	"scribunto-lua-noreturn": "Error de l'script: el mòdul no ha retornat cap valor. Se suposa que havia de retornar una taula d'exportació.",
 	"scribunto-lua-notarrayreturn": "Error de l'script: el mòdul ha retornat quelcom que no és una taula. Se suposa que havia de retornar una taula d'exportació.",
 	"scribunto-luastandalone-proc-error": "Error de Lua: no es pot crear el procés.",
 	"scribunto-luastandalone-decode-error": "Error de Lua: error intern: no es pot descodificar el missatge.",
