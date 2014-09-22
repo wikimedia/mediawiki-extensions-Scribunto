@@ -146,7 +146,7 @@ class ScribuntoContent extends TextContent {
 
 		// No GeSHi, or GeSHi can't parse it, use plain <pre>
 		$output->setText( $output->getText() .
-			"<pre class=\"mw-code mw-script\" dir=\"ltr\">\n" .
+			"<pre class='mw-code mw-script' dir='ltr'>\n" .
 			htmlspecialchars( $text ) .
 			"\n</pre>\n"
 		);
