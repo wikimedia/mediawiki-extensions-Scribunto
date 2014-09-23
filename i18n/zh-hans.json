@@ -4,7 +4,8 @@
 			"Liangent",
 			"Liuxinyu970226",
 			"Xiaomingyan",
-			"Yfdyh000"
+			"Yfdyh000",
+			"Duolaimi"
 		]
 	},
 	"scribunto-desc": "嵌入脚本语言到MediaWiki页面中的框架",
@@ -25,7 +26,7 @@
 	"scribunto-console-cleared": "控制台状态已清除，因为模块已更新。",
 	"scribunto-console-cleared-session-lost": "控制台状态已清除，因为会话数据已丢失。",
 	"scribunto-common-error-category": "有脚本错误的页面",
-	"scribunto-common-error-category-desc": "处理页面包含的模块时出错。",
+	"scribunto-common-error-category-desc": "处理页面嵌入的模块时出错。",
 	"scribunto-common-nosuchmodule": "脚本错误：没有此类模块“$2”。",
 	"scribunto-common-nofunction": "脚本错误：您必须指定要调用的函数。",
 	"scribunto-common-nosuchfunction": "脚本错误：函数“$2”不存在。",
@@ -51,7 +52,7 @@
 	"scribunto-luastandalone-signal": "Lua错误：内部错误：解释器因收到信号“$2”而终止。",
 	"scribunto-luastandalone-exited": "Lua错误：内部错误：解释器已退出，状态为$2。",
 	"scribunto-module-with-errors-category": "有错误的Scribunto模块",
-	"scribunto-module-with-errors-category-desc": "该模块有错误。",
+	"scribunto-module-with-errors-category-desc": "模块有错误。",
 	"scribunto-limitreport-timeusage": "Lua使用时间",
 	"scribunto-limitreport-timeusage-value": "$1/$2秒",
 	"scribunto-limitreport-virtmemusage": "Lua虚拟尺寸",
