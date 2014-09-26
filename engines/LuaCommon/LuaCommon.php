@@ -3,7 +3,7 @@
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
-	 * @var array Maps module names to PHP classes
+	 * @var array Maps module names to PHP classes or definition arrays
 	 */
 	protected static $libraryClasses = array(
 		'mw.site' => 'Scribunto_LuaSiteLibrary',
@@ -37,6 +37,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $mw;
 	protected $currentFrames = array();
 	protected $expandCache = array();
+	protected $availableLibraries = array();
 	protected $loadedLibraries = array();
 
 	const MAX_EXPAND_CACHE_SIZE = 100;
@@ -88,6 +89,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 			$funcs = array(
 				'loadPackage',
+				'loadPHPLibrary',
 				'frameExists',
 				'newChildFrame',
 				'getExpandedArgument',
@@ -110,10 +112,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$this->mw = $this->registerInterface( 'mw.lua', $lib,
 				array( 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ) );
 
-			$libraries = $this->getLibraries( 'lua', self::$libraryClasses );
-			foreach ( $libraries as $name => $class ) {
-				$this->loadedLibraries[$name] = new $class( $this );
-				$this->loadedLibraries[$name]->register();
+			$this->availableLibraries = $this->getLibraries( 'lua', self::$libraryClasses );
+			foreach ( $this->availableLibraries as $name => $def ) {
+				$this->instantiatePHPLibrary( $name, $def, false );
 			}
 		} catch ( Exception $ex ) {
 			$this->loaded = false;
@@ -407,6 +408,59 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	public function checkNumber( $funcName, $args, $index0 ) {
 		$this->checkType( $funcName, $args, $index0, array( 'integer', 'double' ), 'number' );
+	}
+
+	/**
+	 * Instantiate and register a library.
+	 * @param string $name
+	 * @param array|string $def
+	 * @param bool $loadDeferred
+	 * @return array|null
+	 */
+	private function instantiatePHPLibrary( $name, $def, $loadDeferred ) {
+		$def = $this->availableLibraries[$name];
+		if ( is_string( $def ) ) {
+			$class = new $def( $this );
+		} else {
+			if ( !$loadDeferred && !empty( $def['deferLoad'] ) ) {
+				return null;
+			}
+			if ( isset( $def['class'] ) ) {
+				$class = new $def['class']( $this );
+			} else {
+				throw new MWException( "No class for library \"$name\"" );
+			}
+		}
+		$this->loadedLibraries[$name] = $class;
+		$ret = $this->loadedLibraries[$name]->register();
+
+		// @todo $this->loadedLibraries[$name] should always be unset when $ret
+		// is null, but we can't do that in the non-deferred case yet, since we
+		// need to maintain BC with extensions that don't yet return the output
+		// of registerInterface.
+		if ( $ret === null && $loadDeferred ) {
+			unset( $this->loadedLibraries[$name] );
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * Handler for the loadPHPLibrary() callback. Register the specified
+	 * library and return its function table. It's not necessary to cache the
+	 * function table in the object instance, since there is caching in a
+	 * wrapper on the Lua side.
+	 */
+	function loadPHPLibrary( $name ) {
+		$args = func_get_args();
+		$this->checkString( 'loadPHPLibrary', $args, 0 );
+
+		$ret = null;
+		if ( isset( $this->availableLibraries[$name] ) ) {
+			$ret = $this->instantiatePHPLibrary( $name, $this->availableLibraries[$name], true );
+		}
+
+		return array( $ret );
 	}
 
 	/**

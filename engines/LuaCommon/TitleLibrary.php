@@ -18,7 +18,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'protectionLevels' => array( $this, 'protectionLevels' ),
 			'cascadingProtection' => array( $this, 'cascadingProtection' ),
 		);
-		$this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
 			'NS_MEDIA' => NS_MEDIA,
 		) );

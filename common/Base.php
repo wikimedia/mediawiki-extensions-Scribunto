@@ -201,6 +201,13 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Load a list of all libraries supported by this engine
 	 *
+	 * The return value is an array with keys being the library name seen by
+	 * the module and values being either a PHP class name or an array with the
+	 * following elements:
+	 *  - class: (string) Class to load (required)
+	 *  - deferLoad: (bool) Library should not be loaded at startup; modules
+	 *      needing the library must request it (e.g. via 'require' in Lua)
+	 *
 	 * @param $engine String script engine we're using (eg: lua)
 	 * @param $coreLibraries Array of core libraries we support
 	 * @return array

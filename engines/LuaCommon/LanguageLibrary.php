@@ -48,7 +48,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				return $ths->languageMethod( $name, $args );
 			};
 		}
-		$this->getEngine()->registerInterface( 'mw.language.lua', $lib );
+		return $this->getEngine()->registerInterface( 'mw.language.lua', $lib );
 	}
 
 	function getContLangCode() {
