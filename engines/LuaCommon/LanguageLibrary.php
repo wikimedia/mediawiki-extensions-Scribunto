@@ -94,7 +94,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	function getFallbacksFor( $code ) {
-		$this->checkType( 'fetchLanguageNames', 1, $code , 'string' );
+		$this->checkType( 'getFallbacksFor', 1, $code , 'string' );
 		$ret = Language::getFallbacksFor( $code );
 		// Make 1-based
 		if ( count( $ret ) ) {
