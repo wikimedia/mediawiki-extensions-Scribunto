@@ -3,14 +3,14 @@
 		"authors": [
 			"Cainamarques",
 			"Helder.wiki",
-			"Jaideraf"
+			"Jaideraf",
+			"Jefersonmoraes"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguagens de script em páginas do MediaWiki",
 	"scribunto-ignore-errors": "Permitir salvar o código com erros",
 	"scribunto-line": "na linha $1",
 	"scribunto-module-line": "em $1 na linha $2",
-	"scribunto-parser-error": "Erro de script",
 	"scribunto-parser-dialog-title": "Erro de script",
 	"scribunto-error-short": "Erro de script: $1",
 	"scribunto-error-long": "Erros de script:\n\n$1",
@@ -31,12 +31,12 @@
 	"scribunto-common-timeout": "O tempo alocado para a execução de scripts expirou.",
 	"scribunto-common-oom": "A quantidade de memória permitida para a execução de scripts foi excedida.",
 	"scribunto-common-backtrace": "Backtrace:",
+	"scribunto-common-no-details": "Não há mais detalhes disponíveis.",
 	"scribunto-lua-in-function": "na função \"$1\"",
 	"scribunto-lua-in-main": "na parte principal",
 	"scribunto-lua-in-function-at": "na função em $1:$2",
 	"scribunto-lua-error-location": "Erro em Lua $1: $2",
 	"scribunto-lua-error": "Erro em lua: $2",
-	"scribunto-lua-noreturn": "Erro de script: o módulo não retornou um valor, ele deveria retornar uma tabela de exportação.",
 	"scribunto-lua-notarrayreturn": "Erro de script: o módulo retornou algo diferente de uma tabela, ele deveria retornar uma tabela de exportação.",
 	"scribunto-luastandalone-proc-error": "Erro em Lua: impossível criar o processo",
 	"scribunto-luastandalone-proc-error-msg": "Erro em Lua: Não é possível criar o processo: $2",
