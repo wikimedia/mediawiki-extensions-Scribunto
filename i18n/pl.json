@@ -6,14 +6,14 @@
 			"Jacenty359",
 			"Matma Rex",
 			"WTM",
-			"Pio387"
+			"Pio387",
+			"Darellur"
 		]
 	},
 	"scribunto-desc": "Framework pozwalający na osadzanie języków skryptowych na stronach MediaWiki",
 	"scribunto-ignore-errors": "Pozwól na zapisywanie kodu z błędami",
 	"scribunto-line": "w linii $1",
 	"scribunto-module-line": "w module „$1”, w linii $2",
-	"scribunto-parser-error": "Błąd skryptu",
 	"scribunto-parser-dialog-title": "Błąd skryptu",
 	"scribunto-error-short": "Błąd skryptu: $1",
 	"scribunto-error-long": "Błędy skryptu:\n\n$1",
@@ -35,6 +35,7 @@
 	"scribunto-common-timeout": "Upłynął czas przewidziany do wykonywania skryptów.",
 	"scribunto-common-oom": "Przekroczona wielkość pamięci przewidziana do wykonywania skryptów.",
 	"scribunto-common-backtrace": "Backtrace:",
+	"scribunto-common-no-details": "Żadne dalsze szczegóły nie są dostępne.",
 	"scribunto-lua-in-function": "w funkcji „$1”",
 	"scribunto-lua-in-main": "w głównym bloku",
 	"scribunto-lua-in-function-at": "w funkcji na $1: $2",
