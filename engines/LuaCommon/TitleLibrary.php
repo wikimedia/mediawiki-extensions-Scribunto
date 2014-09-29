@@ -87,7 +87,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( $ns === NS_SPECIAL ) {
 			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
 		} else {
-			$ret['exists'] = $ret['id'] > 0;
+			// bug 70495: don't just check whether the ID != 0
+			$ret['exists'] = $title->exists();
 		}
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
 			$ret['fileExists'] = false;
@@ -227,7 +228,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$this->getParser()->getOutput()->setFlag( 'vary-revision' );
 		}
 
-		$rev = Revision::newFromTitle( $title );
+		if ( is_callable( array( $this->getParser(), 'fetchCurrentRevisionOfTitle' ) ) ) {
+			$rev = $this->getParser()->fetchCurrentRevisionOfTitle( $title );
+		} else {
+			$rev = Revision::newFromTitle( $title );
+		}
 		if ( !$rev ) {
 			return array( null );
 		}
