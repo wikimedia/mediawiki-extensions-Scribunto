@@ -276,7 +276,15 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$args = func_get_args();
 		$func = array_shift( $args );
 		try {
-			return call_user_func_array( array( $func, 'call' ), $args );
+			$ret = call_user_func_array( array( $func, 'call' ), $args );
+			if ( $ret === false ) {
+				// Per the documentation on LuaSandboxFunction::call, a return value
+				// of false means that something went wrong and it's PHP's fault,
+				// so throw a "real" exception.
+				throw new MWException(
+					__METHOD__ . ': LuaSandboxFunction::call returned false' );
+			}
+			return $ret;
 		} catch ( LuaSandboxTimeoutError $e ) {
 			throw $this->engine->newException( 'scribunto-common-timeout' );
 		} catch ( LuaSandboxError $e ) {
