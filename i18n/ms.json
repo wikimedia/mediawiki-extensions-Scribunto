@@ -7,7 +7,6 @@
 		]
 	},
 	"scribunto-desc": "Kerangka pembenaman bahasa skrip dalam halaman MediaWiki",
-	"scribunto-ignore-errors": "Benarkan penyimpanan kod dengan ralat",
 	"scribunto-line": "pada baris $1",
 	"scribunto-module-line": "pada baris $2 di $1",
 	"scribunto-parser-dialog-title": "Ralat skrip",

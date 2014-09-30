@@ -9,7 +9,6 @@
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
-	"scribunto-ignore-errors": "Разрешить сохранение кода с ошибками",
 	"scribunto-line": "на строке $1",
 	"scribunto-module-line": "в $1 на строке $2",
 	"scribunto-parser-dialog-title": "Ошибка скрипта",

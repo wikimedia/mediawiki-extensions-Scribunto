@@ -11,7 +11,6 @@
 		]
 	},
 	"scribunto-desc": "Framework pozwalający na osadzanie języków skryptowych na stronach MediaWiki",
-	"scribunto-ignore-errors": "Pozwól na zapisywanie kodu z błędami",
 	"scribunto-line": "w linii $1",
 	"scribunto-module-line": "w module „$1”, w linii $2",
 	"scribunto-parser-dialog-title": "Błąd skryptu",

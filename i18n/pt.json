@@ -8,7 +8,6 @@
 		]
 	},
 	"scribunto-desc": "''Framework'' para incluir linguagens de scripts em páginas do MediaWiki",
-	"scribunto-ignore-errors": "Permitir que o código seja gravado com erros",
 	"scribunto-line": "na linha $1",
 	"scribunto-module-line": "em $1 na linha $2",
 	"scribunto-parser-dialog-title": "Erro no script",
