@@ -29,10 +29,17 @@ local function makePackageModule( env )
 		if packageCache[modName] == 'missing' then
 			return nil
 		elseif packageCache[modName] == nil then
-			init = php.loadPackage( modName )
-			if init == nil then
-				packageCache[modName] = 'missing'
-				return nil
+			local lib = php.loadPHPLibrary( modName )
+			if lib ~= nil then
+				init = function ()
+					return mw.clone( lib )
+				end
+			else
+				init = php.loadPackage( modName )
+				if init == nil then
+					packageCache[modName] = 'missing'
+					return nil
+				end
 			end
 			packageCache[modName] = init
 		else

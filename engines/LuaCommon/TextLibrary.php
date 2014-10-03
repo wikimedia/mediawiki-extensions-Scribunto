@@ -32,7 +32,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 			}
 		}
 
-		$this->getEngine()->registerInterface( 'mw.text.lua', $lib, $opts );
+		return $this->getEngine()->registerInterface( 'mw.text.lua', $lib, $opts );
 	}
 
 	function textUnstrip( $s ) {

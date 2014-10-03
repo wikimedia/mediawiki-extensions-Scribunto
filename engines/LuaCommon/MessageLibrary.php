@@ -15,7 +15,7 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 			$lang = $wgContLang;
 		}
 
-		$this->getEngine()->registerInterface( 'mw.message.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.message.lua', $lib, array(
 			'lang' => $lang->getCode(),
 		) );
 	}

@@ -80,7 +80,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'admins' => (int)SiteStats::numberingroup( 'sysop' ),
 		);
 
-		$this->getEngine()->registerInterface( 'mw.site.lua', $lib, $info );
+		return $this->getEngine()->registerInterface( 'mw.site.lua', $lib, $info );
 	}
 
 	public function pagesInCategory( $category = null, $which = null ) {

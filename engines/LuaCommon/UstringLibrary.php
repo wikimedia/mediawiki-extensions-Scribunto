@@ -71,7 +71,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				'gsub' => array( $this, 'ustringGsub' ),
 			);
 		}
-		$this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, array(
 			'stringLengthLimit' => $this->stringLengthLimit,
 			'patternLengthLimit' => $this->patternLengthLimit,
 		) );

@@ -40,9 +40,11 @@ abstract class Scribunto_LuaLibraryBase {
 	/**
 	 * Called to register the library.
 	 *
-	 * This should do any necessary setup and then call $this->getEngine()->registerInterface()
+	 * This should do any necessary setup and then call $this->getEngine()->registerInterface().
+	 * The value returned by that call should be returned from this function,
+	 * and must be for 'deferLoad' libraries to work right.
 	 *
-	 * @return void
+	 * @return Lua package
 	 */
 	abstract function register();
 

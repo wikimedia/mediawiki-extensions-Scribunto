@@ -43,6 +43,24 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	function setUp() {
 		parent::setUp();
 
+		// Register libraries for self::testPHPLibrary()
+		$this->mergeMwGlobalArrayValue( 'wgHooks', array(
+			'ScribuntoExternalLibraries' => array(
+				function ( $engine, &$libs ) {
+					$libs += array(
+						'CommonTestsLib' => array(
+							'class' => 'Scribunto_LuaCommonTestsLibrary',
+							'deferLoad' => true,
+						),
+						'CommonTestsFailLib' => array(
+							'class' => 'Scribunto_LuaCommonTestsFailLibrary',
+							'deferLoad' => true,
+						),
+					);
+				}
+			)
+		) );
+
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 
@@ -79,6 +97,98 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertEquals( 0, count( $leakedGlobals ),
 			'The following globals are leaked: ' . join( ' ', $leakedGlobals )
 		);
+	}
+
+	function testPHPLibrary() {
+		$engine = $this->getEngine();
+		$frame = $engine->getParser()->getPreprocessor()->newFrame();
+
+		$title = Title::makeTitle( NS_MODULE, 'TestInfoPassViaPHPLibrary' );
+		$this->extraModules[$title->getFullText()] = '
+			local p = {}
+
+			function p.test()
+				local lib = require( "CommonTestsLib" )
+				return table.concat( { lib.test() }, "; " )
+			end
+
+			function p.setVal( frame )
+				local lib = require( "CommonTestsLib" )
+				lib.val = frame.args[1]
+				lib.foobar.val = frame.args[1]
+			end
+
+			function p.getVal()
+				local lib = require( "CommonTestsLib" )
+				return tostring( lib.val ), tostring( lib.foobar.val )
+			end
+
+			function p.getSetVal( frame )
+				p.setVal( frame )
+				return p.getVal()
+			end
+
+			function p.checkPackage()
+				local ret = {}
+				ret[1] = package.loaded["CommonTestsLib"] == nil
+				require( "CommonTestsLib" )
+				ret[2] = package.loaded["CommonTestsLib"] ~= nil
+				return ret[1], ret[2]
+			end
+
+			function p.libSetVal( frame )
+				local lib = require( "CommonTestsLib" )
+				return lib.setVal( frame )
+			end
+
+			function p.libGetVal()
+				local lib = require( "CommonTestsLib" )
+				return lib.getVal()
+			end
+
+			return p
+		';
+
+		# Test loading
+		$module = $engine->fetchModuleFromParser( $title );
+		$ret = $module->invoke( 'test', $frame->newChild() );
+		$this->assertSame( 'Test option; Test function', $ret,
+			'Library can be loaded and called' );
+
+		# Test package.loaded
+		$module = $engine->fetchModuleFromParser( $title );
+		$ret = $module->invoke( 'checkPackage', $frame->newChild() );
+		$this->assertSame( 'truetrue', $ret,
+			'package.loaded is right on the first call' );
+		$ret = $module->invoke( 'checkPackage', $frame->newChild() );
+		$this->assertSame( 'truetrue', $ret,
+			'package.loaded is right on the second call' );
+
+		# Test caching for require
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'cached' ) );
+		$ret = $module->invoke( 'getSetVal', $frame->newChild( $args ) );
+		$this->assertSame( 'cachedcached', $ret,
+			'same loaded table is returned by multiple require calls' );
+
+		# Test no data communication between invokes
+		$module = $engine->fetchModuleFromParser( $title );
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'fail' ) );
+		$module->invoke( 'setVal', $frame->newChild( $args ) );
+		$ret = $module->invoke( 'getVal', $frame->newChild() );
+		$this->assertSame( 'nilnope', $ret,
+			'same loaded table is not shared between invokes' );
+
+		# Test that the library isn't being recreated between invokes
+		$module = $engine->fetchModuleFromParser( $title );
+		$ret = $module->invoke( 'libGetVal', $frame->newChild() );
+		$this->assertSame( 'nil', $ret, 'sanity check' );
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'ok' ) );
+		$module->invoke( 'libSetVal', $frame->newChild( $args ) );
+
+		$module = $engine->fetchModuleFromParser( $title );
+		$ret = $module->invoke( 'libGetVal', $frame->newChild() );
+		$this->assertSame( 'ok', $ret,
+			'library is not recreated between invokes' );
 	}
 
 	function testModuleStringExtend() {
@@ -590,5 +700,31 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 				"mw.getCurrentFrame() cached the frame from a module loaded $how"
 			);
 		}
+	}
+}
+
+class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
+	public function register() {
+		$lib = array(
+			'test' => array( $this, 'test' ),
+		);
+		$opts = array(
+			'test' => 'Test option',
+		);
+
+		return $this->getEngine()->registerInterface( __DIR__ . '/CommonTests-lib.lua', $lib, $opts );
+	}
+
+	public function test() {
+		return array( 'Test function' );
+	}
+}
+
+class Scribunto_LuaCommonTestsFailLibrary extends Scribunto_LuaLibraryBase {
+	public function __construct() {
+		throw new MWException( 'deferLoad library that is never required was loaded anyway' );
+	}
+
+	public function register() {
 	}
 }

@@ -9,7 +9,7 @@ class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 			'canonicalUrl' => array( $this, 'canonicalUrl' ),
 		);
 
-		$this->getEngine()->registerInterface( 'mw.uri.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.uri.lua', $lib, array(
 			'defaultUrl' => $this->getTitle()->getFullUrl(),
 		) );
 	}
