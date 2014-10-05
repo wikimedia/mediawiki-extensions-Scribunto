@@ -45,7 +45,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $currentFrames = array();
 	protected $expandCache = array();
 	protected $availableLibraries = array();
-	protected $loadedLibraries = array();
 
 	const MAX_EXPAND_CACHE_SIZE = 100;
 
@@ -78,7 +77,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->interpreter = null;
 		$this->mw = null;
 		$this->expandCache = null;
-		$this->loadedLibraries = null;
 		parent::destroy();
 	}
 
@@ -471,18 +469,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				throw new MWException( "No class for library \"$name\"" );
 			}
 		}
-		$this->loadedLibraries[$name] = $class;
-		$ret = $this->loadedLibraries[$name]->register();
-
-		// @todo $this->loadedLibraries[$name] should always be unset when $ret
-		// is null, but we can't do that in the non-deferred case yet, since we
-		// need to maintain BC with extensions that don't yet return the output
-		// of registerInterface.
-		if ( $ret === null && $loadDeferred ) {
-			unset( $this->loadedLibraries[$name] );
-		}
-
-		return $ret;
+		return $class->register();
 	}
 
 	/**
