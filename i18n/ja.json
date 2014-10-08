@@ -6,10 +6,8 @@
 		]
 	},
 	"scribunto-desc": "MediaWiki ページにスクリプト言語を埋め込むフレームワーク",
-	"scribunto-ignore-errors": "エラーがあるコードを保存できるようにする",
 	"scribunto-line": "$1 行目",
 	"scribunto-module-line": "$1 内、$2 行目",
-	"scribunto-parser-error": "スクリプトエラー",
 	"scribunto-parser-dialog-title": "スクリプトエラー",
 	"scribunto-error-short": "スクリプトエラー: $1",
 	"scribunto-error-long": "スクリプトエラー:\n\n$1",
@@ -31,6 +29,7 @@
 	"scribunto-common-timeout": "スクリプトに割り当てた時間が終了しました。",
 	"scribunto-common-oom": "スクリプトの実行で使用を許可されているメモリ量を超過しました。",
 	"scribunto-common-backtrace": "バックトレース:",
+	"scribunto-common-no-details": "詳細情報はありません。",
 	"scribunto-lua-in-function": "関数「$1」内",
 	"scribunto-lua-in-main": "メインチャンク内",
 	"scribunto-lua-in-function-at": "関数内、$1:$2",
