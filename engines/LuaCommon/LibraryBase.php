@@ -25,6 +25,9 @@
  * This class provides some basic services that Lua libraries will probably need
  */
 abstract class Scribunto_LuaLibraryBase {
+	/**
+	 * @var Scribunto_LuaEngine
+	 */
 	private $engine;
 
 	/**

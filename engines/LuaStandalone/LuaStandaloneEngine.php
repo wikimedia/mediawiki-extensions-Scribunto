@@ -114,7 +114,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options );
 	}
 
-	public function getSoftwareInfo( &$software ) {
+	public function getSoftwareInfo( array &$software ) {
 		$ver = Scribunto_LuaStandaloneInterpreter::getLuaVersion( $this->options );
 		if ( $ver !== null ) {
 			if ( substr( $ver, 0, 6 ) === 'LuaJIT' ) {

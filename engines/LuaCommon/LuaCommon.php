@@ -35,6 +35,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $interpreter;
 
 	protected $mw;
+
+	/**
+	 * @var array
+	 */
 	protected $currentFrames = array();
 	protected $expandCache = array();
 	protected $availableLibraries = array();
@@ -314,7 +318,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return 'lua';
 	}
 
-	public function runConsole( $params ) {
+	public function runConsole( array $params ) {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 		$resetFrames = $this->setupCurrentFrames();
 
@@ -415,6 +419,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @param string $name
 	 * @param array|string $def
 	 * @param bool $loadDeferred
+	 * @throws MWException
 	 * @return array|null
 	 */
 	private function instantiatePHPLibrary( $name, $def, $loadDeferred ) {
@@ -502,7 +507,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Helper function for the implementation of frame methods
 	 *
-	 * @param $frameId
+	 * @param string $frameId
 	 * @return PPFrame
 	 *
 	 * @throws Scribunto_LuaError
@@ -519,6 +524,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for frameExists()
+	 *
+	 * @param string $frameId
 	 * @return array
 	 */
 	function frameExists( $frameId ) {
@@ -798,7 +805,24 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 }
 
 class Scribunto_LuaModule extends ScribuntoModuleBase {
+	/**
+	 * @var Scribunto_LuaEngine
+	 */
+	protected $engine;
+
+	/**
+	 * @var string
+	 */
 	protected $initChunk;
+
+	/**
+	 * @param Scribunto_LuaEngine $engine
+	 * @param string $code
+	 * @param string $chunkName
+	 */
+	public function __construct( Scribunto_LuaEngine $engine, $code, $chunkName ) {
+		parent::__construct( $engine, $code, $chunkName );
+	}
 
 	public function validate() {
 		try {
@@ -824,6 +848,11 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 
 	/**
 	 * Invoke a function within the module. Return the expanded wikitext result.
+	 *
+	 * @param string $name
+	 * @param PPFrame $frame
+	 * @throws ScribuntoException
+	 * @return string|null
 	 */
 	public function invoke( $name, $frame ) {
 		$ret = $this->engine->executeModule( $this->getInitChunk(), $name, $frame );

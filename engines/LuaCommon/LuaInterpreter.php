@@ -5,8 +5,8 @@ abstract class Scribunto_LuaInterpreter {
 	 * Load a string. Return an object which can later be passed to callFunction.
 	 * If there is a pass error, a Scribunto_LuaError will be thrown.
 	 *
-	 * @param $text The Lua source code
-	 * @param $chunkName The chunk name
+	 * @param string $text The Lua source code
+	 * @param string $chunkName The chunk name
 	 */
 	abstract public function loadString( $text, $chunkName );
 
@@ -14,7 +14,7 @@ abstract class Scribunto_LuaInterpreter {
 	 * Call a Lua function. Return an array of results, with indices starting
 	 * at zero. If an error occurs, a Scribunto_LuaError will be thrown.
 	 *
-	 * @param $func The function object
+	 * @param mixed $func The function object
 	 */
 	abstract public function callFunction( $func /*...*/ );
 
@@ -22,7 +22,7 @@ abstract class Scribunto_LuaInterpreter {
 	 * Wrap a PHP callable as a Lua function, which can be passed back into
 	 * Lua. If an error occurs, a Scribunto_LuaError will be thrown.
 	 *
-	 * @param $callable The PHP callable
+	 * @param callable $callable The PHP callable
 	 * @return a Lua function
 	 */
 	abstract public function wrapPhpFunction( $callable );

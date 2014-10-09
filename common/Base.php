@@ -27,10 +27,17 @@
  * modules or loading module texts.
  */
 abstract class ScribuntoEngineBase {
-	protected
-		$title,
-		$options,
-		$modules = array();
+	protected $title;
+
+	/**
+	 * @var array
+	 */
+	protected $options;
+
+	/**
+	 * @var ScribuntoModuleBase[]
+	 */
+	protected $modules = array();
 
 	/**
 	 * @var Parser
@@ -39,6 +46,9 @@ abstract class ScribuntoEngineBase {
 
 	/**
 	 * Creates a new module object within this engine
+	 *
+	 * @param string $text
+	 * @param string $chunkName
 	 * @return ScribuntoModuleBase
 	 */
 	abstract protected function newModule( $text, $chunkName );
@@ -56,14 +66,14 @@ abstract class ScribuntoEngineBase {
 	 *    - print: The resulting print buffer
 	 *    - return: The resulting return value
 	 */
-	abstract function runConsole( $params );
+	abstract function runConsole( array $params );
 
 	/**
 	 * Get software information for Special:Version
 	 * @param &$software array
 	 * @return bool
 	 */
-	abstract public function getSoftwareInfo( &$software );
+	abstract public function getSoftwareInfo( array &$software );
 
 	/**
 	 * Constructor.
@@ -71,7 +81,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $options array Associative array of options:
 	 *    - parser:            A Parser object
 	 */
-	public function __construct( $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
 		if ( isset( $options['parser'] ) ) {
 			$this->parser = $options['parser'];
@@ -107,11 +117,11 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
-	 * @param $message
+	 * @param string $message
 	 * @param $params array
 	 * @return ScribuntoException
 	 */
-	public function newException( $message, $params = array() ) {
+	public function newException( $message, array $params = array() ) {
 		return new ScribuntoException( $message, $this->getDefaultExceptionParams() + $params );
 	}
 
@@ -212,7 +222,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $coreLibraries Array of core libraries we support
 	 * @return array
 	 */
-	protected function getLibraries( $engine, $coreLibraries = array() ) {
+	protected function getLibraries( $engine, array $coreLibraries = array() ) {
 		$extraLibraries = array();
 		wfRunHooks( 'ScribuntoExternalLibraries', array( $engine, &$extraLibraries ) );
 		return $coreLibraries + $extraLibraries;
@@ -225,7 +235,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $coreLibraryPaths Array of library paths to use by default
 	 * @return array
 	 */
-	protected function getLibraryPaths( $engine, $coreLibraryPaths = array() ) {
+	protected function getLibraryPaths( $engine, array $coreLibraryPaths = array() ) {
 		$extraLibraryPaths = array();
 		wfRunHooks( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
@@ -273,17 +283,29 @@ abstract class ScribuntoModuleBase {
 	/**
 	 * @var ScribuntoEngineBase
 	 */
-	public $engine;
+	protected $engine;
 
-	public $code, $chunkName;
+	/**
+	 * @var string
+	 */
+	protected $code;
 
-	public function __construct( $engine, $code, $chunkName ) {
+	/**
+	 * @var string
+	 */
+	protected $chunkName;
+
+	/**
+	 * @param ScribuntoEngineBase $engine
+	 * @param string $code
+	 * @param string $chunkName
+	 */
+	public function __construct( ScribuntoEngineBase $engine, $code, $chunkName ) {
 		$this->engine = $engine;
 		$this->code = $code;
 		$this->chunkName = $chunkName;
 	}
 
-	/** Accessors **/
 	public function getEngine()     { return $this->engine; }
 	public function getCode()       { return $this->code; }
 	public function getChunkName()  { return $this->chunkName; }
@@ -299,8 +321,9 @@ abstract class ScribuntoModuleBase {
 	/**
 	 * Invoke the function with the specified name.
 	 *
+	 * @param string $name
+	 * @param PPFrame $frame
 	 * @return string
 	 */
 	abstract public function invoke( $name, $frame );
 }
-

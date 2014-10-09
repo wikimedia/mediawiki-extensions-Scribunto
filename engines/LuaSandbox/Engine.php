@@ -10,7 +10,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		);
 	}
 
-	public function getSoftwareInfo( &$software ) {
+	public function getSoftwareInfo( array &$software ) {
 		if ( is_callable( 'LuaSandbox::getVersionInfo' ) ) {
 			$versions = LuaSandbox::getVersionInfo();
 		} else {
