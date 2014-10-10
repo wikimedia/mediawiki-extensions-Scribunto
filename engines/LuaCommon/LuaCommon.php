@@ -806,11 +806,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
-	 * @var Scribunto_LuaEngine
-	 */
-	protected $engine;
-
-	/**
 	 * @var string
 	 */
 	protected $initChunk;
