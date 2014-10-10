@@ -128,9 +128,50 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	static $nextInterpreterId = 0;
-	public $engine, $enableDebug, $proc, $writePipe, $readPipe, $exitError, $id;
 
-	function __construct( $engine, $options ) {
+	/**
+	 * @var Scribunto_LuaStandaloneEngine
+	 */
+	public $engine;
+
+	/**
+	 * @var bool
+	 */
+	public $enableDebug;
+
+	/**
+	 * @var resource
+	 */
+	public $proc;
+
+	/**
+	 * @var resource
+	 */
+	public $writePipe;
+
+	/**
+	 * @var resource
+	 */
+	public $readPipe;
+
+	/**
+	 * @var ScribuntoException
+	 */
+	public $exitError;
+
+	/**
+	 * @var int
+	 */
+	public $id;
+
+	/**
+	 * @param Scribunto_LuaStandaloneEngine $engine
+	 * @param array $options
+	 * @throws MWException
+	 * @throws Scribunto_LuaInterpreterNotFoundError
+	 * @throws ScribuntoException
+	 */
+	function __construct( $engine, array $options ) {
 		$this->id = self::$nextInterpreterId++;
 
 		if ( $options['errorFile'] === null ) {
@@ -238,7 +279,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$this->terminate();
 	}
 
-	public static function getLuaVersion( $options ) {
+	public static function getLuaVersion( array $options ) {
 		if ( $options['luaPath'] === null ) {
 			// We know which versions are distributed, no need to run them.
 			if ( PHP_OS == 'Linux' ) {
@@ -285,6 +326,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		proc_close( $this->proc );
 	}
 
+	/**
+	 * @param string $text
+	 * @param string $chunkName
+	 * @return Scribunto_LuaStandaloneInterpreterFunction
+	 */
 	public function loadString( $text, $chunkName ) {
 		$this->cleanupLuaChunks();
 
@@ -342,7 +388,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $object instanceof Scribunto_LuaStandaloneInterpreterFunction;
 	}
 
-	public function registerLibrary( $name, $functions ) {
+	public function registerLibrary( $name, array $functions ) {
 		$functionIds = array();
 		foreach ( $functions as $funcName => $callback ) {
 			$id = "$name-$funcName";
@@ -406,7 +452,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		);
 	}
 
-	protected function callback( $id, $args ) {
+	protected function callback( $id, array $args ) {
 		return call_user_func_array( $this->callbacks[$id], $args );
 	}
 
@@ -575,6 +621,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $length;
 	}
 
+	/**
+	 * @throws ScribuntoException
+	 */
 	protected function checkValid() {
 		if ( !$this->proc ) {
 			wfDebug( __METHOD__ . ": process already terminated\n" );
@@ -586,6 +635,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * @throws ScribuntoException
+	 */
 	protected function checkStatus() {
 		$this->checkValid();
 		$status = proc_get_status( $this->proc );
@@ -617,8 +669,20 @@ class Scribunto_LuaStandaloneInterpreterFunction {
 	public static $anyChunksDestroyed = array();
 	public static $activeChunkIds = array();
 
-	public $interpreterId, $id;
+	/**
+	 * @var int
+	 */
+	public $interpreterId;
 
+	/**
+	 * @var int
+	 */
+	public $id;
+
+	/**
+	 * @param int $interpreterId
+	 * @param int $id
+	 */
 	function __construct( $interpreterId, $id ) {
 		$this->interpreterId = $interpreterId;
 		$this->id = $id;

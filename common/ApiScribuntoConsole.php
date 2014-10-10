@@ -83,7 +83,7 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 	}
 
-	protected function runConsole( $params ) {
+	protected function runConsole( array $params ) {
 		global $wgParser;
 		$options = new ParserOptions;
 		$wgParser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
@@ -114,6 +114,9 @@ class ApiScribuntoConsole extends ApiBase {
 		);
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function newSession() {
 		return array(
 			'content' => '',

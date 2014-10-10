@@ -26,10 +26,11 @@
 class ScribuntoHooks {
 	/**
 	 * Get software information for Special:Version
-	 * @param &$software array
+	 *
+	 * @param array &$software
 	 * @return bool
 	 */
-	public static function getSoftwareInfo( &$software ) {
+	public static function getSoftwareInfo( array &$software ) {
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( Title::makeTitle( NS_SPECIAL, 'Version' ) );
 		$engine->getSoftwareInfo( $software );
@@ -38,10 +39,11 @@ class ScribuntoHooks {
 
 	/**
 	 * Register parser hooks.
-	 * @param $parser Parser
+	 *
+	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function setupParserHook( &$parser ) {
+	public static function setupParserHook( Parser &$parser ) {
 		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', Parser::SFH_OBJECT_ARGS );
 		return true;
 	}
@@ -49,10 +51,10 @@ class ScribuntoHooks {
 	/**
 	 * Called when the interpreter is to be reset.
 	 *
-	 * @param $parser Parser
+	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function clearState( &$parser ) {
+	public static function clearState( Parser &$parser ) {
 		Scribunto::resetParserEngine( $parser );
 		return true;
 	}
@@ -60,10 +62,10 @@ class ScribuntoHooks {
 	/**
 	 * Called when the parser is cloned
 	 *
-	 * @param $parser Parser
+	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function parserCloned( $parser ) {
+	public static function parserCloned( Parser $parser ) {
 		$parser->scribunto_engine = null;
 		return true;
 	}
@@ -71,14 +73,14 @@ class ScribuntoHooks {
 	/**
 	 * Hook function for {{#invoke:module|func}}
 	 *
-	 * @param $parser Parser
-	 * @param $frame PPFrame
-	 * @param $args array
+	 * @param Parser $parser
+	 * @param PPFrame $frame
+	 * @param array $args
 	 * @throws MWException
 	 * @throws ScribuntoException
 	 * @return string
 	 */
-	public static function invokeHook( &$parser, $frame, $args ) {
+	public static function invokeHook( Parser &$parser, PPFrame $frame, array $args ) {
 		if ( !@constant( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
 			throw new MWException(
 				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
@@ -148,18 +150,18 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * @param $title Title
-	 * @param $lang string
+	 * @param Title $title
+	 * @param string &$languageCode
 	 * @return bool
 	 */
-	public static function getCodeLanguage( $title, &$lang ) {
+	public static function getCodeLanguage( Title $title, &$languageCode ) {
 		global $wgScribuntoUseCodeEditor;
 		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
 			!Scribunto::isDocPage( $title )
 		) {
 			$engine = Scribunto::newDefaultEngine();
 			if( $engine->getCodeEditorLanguage() ) {
-				$lang = $engine->getCodeEditorLanguage();
+				$languageCode = $engine->getCodeEditorLanguage();
 				return false;
 			}
 		}
@@ -169,11 +171,12 @@ class ScribuntoHooks {
 
 	/**
 	 * Set the Scribunto content handler for modules
-	 * @param $title Title
-	 * @param &$model string
+	 *
+	 * @param Title $title
+	 * @param string &$model
 	 * @return bool
 	 */
-	public static function contentHandlerDefaultModelFor( $title, &$model ) {
+	public static function contentHandlerDefaultModelFor( Title $title, &$model ) {
 		if( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
 			$model = 'Scribunto';
 			return false;
@@ -185,11 +188,11 @@ class ScribuntoHooks {
 	 * Adds report of number of evaluations by the single wikitext page.
 	 *
 	 * @deprecated
-	 * @param $parser Parser
-	 * @param $report
+	 * @param Parser $parser
+	 * @param string $report
 	 * @return bool
 	 */
-	public static function reportLimits( $parser, &$report ) {
+	public static function reportLimits( Parser $parser, &$report ) {
 		if ( Scribunto::isParserEnginePresent( $parser ) ) {
 			$engine = Scribunto::getParserEngine( $parser );
 			$report .= $engine->getLimitReport();
@@ -200,11 +203,11 @@ class ScribuntoHooks {
 	/**
 	 * Adds report of number of evaluations by the single wikitext page.
 	 *
-	 * @param $parser Parser
-	 * @param $output ParserOutput
+	 * @param Parser $parser
+	 * @param ParserOutput $output
 	 * @return bool
 	 */
-	public static function reportLimitData( $parser, $output ) {
+	public static function reportLimitData( Parser $parser, ParserOutput $output ) {
 		// Unhook the deprecated hook, since the new one exists.
 		global $wgHooks;
 		unset( $wgHooks['ParserLimitReport']['scribunto'] );
@@ -219,11 +222,11 @@ class ScribuntoHooks {
 	/**
 	 * Formats the limit report data
 	 *
-	 * @param $key string
-	 * @param &$value string
-	 * @param &$report string
-	 * @param $isHTML bool
-	 * @param $localize bool
+	 * @param string $key
+	 * @param string &$value
+	 * @param string &$report
+	 * @param bool $isHTML
+	 * @param bool $localize
 	 * @return bool
 	 */
 	public static function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
@@ -233,8 +236,11 @@ class ScribuntoHooks {
 
 	/**
 	 * Adds the module namespaces.
+	 *
+	 * @param string[] $list
+	 * @return bool
 	 */
-	public static function addCanonicalNamespaces( &$list ) {
+	public static function addCanonicalNamespaces( array &$list ) {
 		$list[NS_MODULE] = 'Module';
 		$list[NS_MODULE_TALK] = 'Module_talk';
 		return true;
@@ -242,11 +248,13 @@ class ScribuntoHooks {
 
 	/**
 	 * EditPageBeforeEditChecks hook
-	 * @param $editor EditPage
-	 * @param $checkboxes Checkbox array
-	 * @param $tabindex Current tabindex
+	 *
+	 * @param EditPage $editor
+	 * @param array $checkboxes Checkbox array
+	 * @param int $tabindex Current tabindex
+	 * @return bool
 	 */
-	public static function beforeEditChecks( &$editor, &$checkboxes, &$tabindex ) {
+	public static function beforeEditChecks( EditPage &$editor, &$checkboxes, &$tabindex ) {
 		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
 			return true;
 		}
@@ -263,11 +271,13 @@ class ScribuntoHooks {
 
 	/**
 	 * EditPageBeforeEditButtons hook
-	 * @param $editor EditPage
-	 * @param $buttons Button array
-	 * @param $tabindex Current tabindex
+	 *
+	 * @param EditPage $editor
+	 * @param array $buttons Button array
+	 * @param int $tabindex Current tabindex
+	 * @return bool
 	 */
-	public static function beforeEditButtons( &$editor, &$buttons, &$tabindex ) {
+	public static function beforeEditButtons( EditPage &$editor, array &$buttons, &$tabindex ) {
 		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
 			return true;
 		}
@@ -281,13 +291,13 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * @param $editor EditPage
-	 * @param $text string
-	 * @param $error
-	 * @param $summary
+	 * @param EditPage $editor
+	 * @param string $text
+	 * @param string $error
+	 * @param string $summary
 	 * @return bool
 	 */
-	public static function validateScript( $editor, $text, &$error, $summary ) {
+	public static function validateScript( EditPage $editor, $text, &$error, $summary ) {
 		global $wgOut;
 		$title = $editor->getTitle();
 
@@ -325,10 +335,10 @@ WIKI;
 	}
 
 	/**
-	 * @param $files array
+	 * @param array $files
 	 * @return bool
 	 */
-	public static function unitTestsList( &$files ) {
+	public static function unitTestsList( array &$files ) {
 		$tests = array(
 			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
 			'engines/LuaStandalone/StandaloneTest.php',
@@ -354,10 +364,10 @@ WIKI;
 	}
 
 	/**
-	 * @param $outputPage OutputPage
-	 * @param $parserOutput ParserOutput
+	 * @param OutputPage $outputPage
+	 * @param ParserOutput $parserOutput
 	 */
-	public static function parserOutputHook( $outputPage, $parserOutput ) {
+	public static function parserOutputHook( OutputPage $outputPage, ParserOutput $parserOutput ) {
 		// Only run the following if we're not on mobile as ext.scribunto doesn't work on mobile. Bug 59808
 		if ( $outputPage->getTarget() === 'mobile' ) {
 			return;
@@ -372,12 +382,12 @@ WIKI;
 	}
 
 	/**
-	 * @param &$article Article
-	 * @param &$outputDone boolean
-	 * @param &$pcache boolean
-	 * @return boolean
+	 * @param Article &$article
+	 * @param bool &$outputDone
+	 * @param bool &$pcache
+	 * @return bool
 	 */
-	public static function showDocPageHeader( &$article, &$outputDone, &$pcache ) {
+	public static function showDocPageHeader( Article &$article, &$outputDone, &$pcache ) {
 		global $wgOut;
 
 		$title = $article->getTitle();

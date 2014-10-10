@@ -209,13 +209,26 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 }
 
 class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
-	public $engine, $sandbox, $profilerEnabled;
+	/**
+	 * @var Scribunto_LuaEngine
+	 */
+	public $engine;
+
+	/**
+	 * @var LuaSandbox
+	 */
+	public $sandbox;
+
+	/**
+	 * @var bool
+	 */
+	public $profilerEnabled;
 
 	const SAMPLES = 0;
 	const SECONDS = 1;
 	const PERCENT = 2;
 
-	function __construct( $engine, $options ) {
+	function __construct( $engine, array $options ) {
 		if ( !extension_loaded( 'luasandbox' ) ) {
 			throw new Scribunto_LuaInterpreterNotFoundError(
 				'The luasandbox extension is not present, this engine cannot be used.' );
@@ -236,7 +249,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
-	protected function convertSandboxError( $e ) {
+	protected function convertSandboxError( LuaSandboxError $e ) {
 		$opts = array();
 		if ( isset( $e->luaTrace ) ) {
 			$opts['trace'] = $e->luaTrace;
@@ -250,6 +263,11 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		return $this->engine->newLuaError( $message, $opts );
 	}
 
+	/**
+	 * @param string $text
+	 * @param string $chunkName
+	 * @throws Scribunto_LuaError
+	 */
 	public function loadString( $text, $chunkName ) {
 		try {
 			return $this->sandbox->loadString( $text, $chunkName );
@@ -258,7 +276,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
-	public function registerLibrary( $name, $functions ) {
+	public function registerLibrary( $name, array $functions ) {
 		$realLibrary = array();
 		foreach ( $functions as $funcName => $callback ) {
 			$realLibrary[$funcName] = array(

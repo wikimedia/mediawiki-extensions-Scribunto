@@ -44,7 +44,7 @@ abstract class Scribunto_LuaInterpreter {
 	 *    caught and raised in the Lua code as a Lua error, catchable with
 	 *    pcall().
 	 */
-	abstract public function registerLibrary( $name, $functions );
+	abstract public function registerLibrary( $name, array $functions );
 
 	/**
 	 * Pause CPU usage and limits

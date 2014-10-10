@@ -31,8 +31,6 @@ abstract class Scribunto_LuaLibraryBase {
 	private $engine;
 
 	/**
-	 * Constructor.
-	 *
 	 * @param $engine Scribunto_LuaEngine
 	 * @return Scribunto_LuaLibraryBase $this
 	 */

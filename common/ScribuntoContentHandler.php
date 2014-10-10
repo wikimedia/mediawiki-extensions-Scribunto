@@ -11,10 +11,18 @@
 
 class ScribuntoContentHandler extends TextContentHandler {
 
-	public function __construct( $modelId = 'Scribunto', $formats = array( CONTENT_FORMAT_TEXT ) ) {
+	/**
+	 * @param string $modelId
+	 * @param string[] $formats
+	 */
+	public function __construct( $modelId = 'Scribunto', array $formats = array( CONTENT_FORMAT_TEXT ) ) {
 		parent::__construct( $modelId, $formats );
 	}
 
+	/**
+	 * @param string $format
+	 * @return bool
+	 */
 	public function isSupportedFormat( $format ) {
 		// An error in an earlier version of Scribunto means we might see this.
 		if ( $format === 'CONTENT_FORMAT_TEXT' ) {
@@ -47,6 +55,8 @@ class ScribuntoContentHandler extends TextContentHandler {
 	/**
 	 * Scripts themselves should be in English.
 	 *
+	 * @param Title $title
+	 * @param Content $content
 	 * @return Language wfGetLangObj( 'en' )
 	 */
 	public function getPageLanguage( Title $title, Content $content = null ) {
@@ -56,6 +66,8 @@ class ScribuntoContentHandler extends TextContentHandler {
 	/**
 	 * Scripts themselves should be in English.
 	 *
+	 * @param Title $title
+	 * @param Content $content
 	 * @return Language wfGetLangObj( 'en' )
 	 */
 	public function getPageViewLanguage( Title $title, Content $content = null ) {

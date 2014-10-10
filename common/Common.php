@@ -8,7 +8,8 @@ class Scribunto {
 
 	/**
 	 * Create a new engine object with specified parameters.
-	 * @param $options array
+	 *
+	 * @param array $options
 	 * @return ScribuntoEngineBase
 	 */
 	public static function newEngine( $options ) {
@@ -18,6 +19,7 @@ class Scribunto {
 
 	/**
 	 * Create a new engine object with default parameters
+	 *
 	 * @param $extraOptions array Extra options to pass to the constructor, in addition to the configured options
 	 * @throws MWException
 	 * @return ScribuntoEngineBase
@@ -41,8 +43,9 @@ class Scribunto {
 	 * the same engine.
 	 *
 	 * @param Parser $parser
+	 * @return ScribuntoEngineBase
 	 */
-	public static function getParserEngine( $parser ) {
+	public static function getParserEngine( Parser $parser ) {
 		if( empty( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
 			$parser->scribunto_engine->setTitle( $parser->getTitle() );
@@ -52,15 +55,18 @@ class Scribunto {
 
 	/**
 	 * Check if an engine instance is present in the given parser
+	 *
+	 * @param Parser $parser
+	 * @return bool
 	 */
-	public static function isParserEnginePresent( $parser ) {
+	public static function isParserEnginePresent( Parser $parser ) {
 		return !empty( $parser->scribunto_engine );
 	}
 
 	/**
 	 * Remove the current engine instance from the parser
 	 */
-	public static function resetParserEngine( $parser ) {
+	public static function resetParserEngine( Parser $parser ) {
 		if ( !empty( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine->destroy();
 			$parser->scribunto_engine = null;
@@ -69,11 +75,12 @@ class Scribunto {
 
 	/**
 	 * Test whether the page should be considered a documentation page
-	 * @param $title Title
-	 * @param &$forModule Title Module for which this is a doc page
+	 *
+	 * @param Title $title
+	 * @param Title &$forModule Module for which this is a doc page
 	 * @return boolean
 	 */
-	public static function isDocPage( $title, &$forModule = null ) {
+	public static function isDocPage( Title $title, Title &$forModule = null ) {
 		$docPage = wfMessage( 'scribunto-doc-page-name' )->inContentLanguage();
 		if ( $docPage->isDisabled() ) {
 			return false;
@@ -99,10 +106,11 @@ class Scribunto {
 
 	/**
 	 * Return the Title for the documentation page
-	 * @param $title Title
+	 *
+	 * @param Title $title
 	 * @return Title|null
 	 */
-	public static function getDocPage( $title ) {
+	public static function getDocPage( Title $title ) {
 		$docPage = wfMessage( 'scribunto-doc-page-name', $title->getText() )->inContentLanguage();
 		if ( $docPage->isDisabled() ) {
 			return null;
@@ -117,11 +125,24 @@ class Scribunto {
  * normally abort the request, instead it is caught and shown to the user.
  */
 class ScribuntoException extends MWException {
-	public $messageName, $messageArgs, $params;
+	/**
+	 * @var string
+	 */
+	public $messageName;
 
 	/**
-	 * @param $messageName string
-	 * @param $params array
+	 * @var array
+	 */
+	public $messageArgs;
+
+	/**
+	 * @var array
+	 */
+	public $params;
+
+	/**
+	 * @param string $messageName
+	 * @param array $params
 	 */
 	function __construct( $messageName, $params = array() ) {
 		if ( isset( $params['args'] ) ) {

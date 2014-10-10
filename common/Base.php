@@ -27,6 +27,9 @@
  * modules or loading module texts.
  */
 abstract class ScribuntoEngineBase {
+	/**
+	 * @var Title
+	 */
 	protected $title;
 
 	/**
@@ -48,7 +51,7 @@ abstract class ScribuntoEngineBase {
 	 * Creates a new module object within this engine
 	 *
 	 * @param string $text
-	 * @param string $chunkName
+	 * @param string|bool $chunkName
 	 * @return ScribuntoModuleBase
 	 */
 	abstract protected function newModule( $text, $chunkName );
@@ -76,8 +79,6 @@ abstract class ScribuntoEngineBase {
 	abstract public function getSoftwareInfo( array &$software );
 
 	/**
-	 * Constructor.
-	 *
 	 * @param $options array Associative array of options:
 	 *    - parser:            A Parser object
 	 */
@@ -170,7 +171,7 @@ abstract class ScribuntoEngineBase {
 	 * errors for the given code.
 	 *
 	 * @param $text string
-	 * @param $chunkName
+	 * @param string|bool $chunkName
 	 * @return Status
 	 */
 	function validate( $text, $chunkName = false ) {
@@ -291,14 +292,14 @@ abstract class ScribuntoModuleBase {
 	protected $code;
 
 	/**
-	 * @var string
+	 * @var string|bool
 	 */
 	protected $chunkName;
 
 	/**
 	 * @param ScribuntoEngineBase $engine
 	 * @param string $code
-	 * @param string $chunkName
+	 * @param string|bool $chunkName
 	 */
 	public function __construct( ScribuntoEngineBase $engine, $code, $chunkName ) {
 		$this->engine = $engine;
@@ -306,9 +307,26 @@ abstract class ScribuntoModuleBase {
 		$this->chunkName = $chunkName;
 	}
 
-	public function getEngine()     { return $this->engine; }
-	public function getCode()       { return $this->code; }
-	public function getChunkName()  { return $this->chunkName; }
+	/**
+	 * @return ScribuntoEngineBase
+	 */
+	public function getEngine() {
+		return $this->engine;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCode() {
+		return $this->code;
+	}
+
+	/**
+	 * @return string|bool
+	 */
+	public function getChunkName() {
+		return $this->chunkName;
+	}
 
 	/**
 	 * Validates the script and returns a Status object containing the syntax

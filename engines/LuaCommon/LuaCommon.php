@@ -34,6 +34,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	protected $interpreter;
 
+	/**
+	 * @var array
+	 */
 	protected $mw;
 
 	/**
@@ -53,8 +56,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	abstract function newInterpreter();
 
 	/**
-	 * @param $text
-	 * @param $chunkName
+	 * @param string $text
+	 * @param string|bool $chunkName
 	 * @return Scribunto_LuaModule
 	 */
 	protected function newModule( $text, $chunkName ) {
@@ -62,7 +65,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * @param $message
+	 * @param string $message
 	 * @param array $params
 	 * @return Scribunto_LuaError
 	 */
@@ -544,7 +547,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 *
 	 * @throws Scribunto_LuaError
 	 */
-	function newChildFrame( $frameId, $title, $args ) {
+	function newChildFrame( $frameId, $title, array $args ) {
 		if ( count( $this->currentFrames ) > 100 ) {
 			throw new Scribunto_LuaError( 'newChild: too many frames' );
 		}
@@ -820,7 +823,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @param Scribunto_LuaEngine $engine
 	 * @param string $code
-	 * @param string $chunkName
+	 * @param string|bool $chunkName
 	 */
 	public function __construct( Scribunto_LuaEngine $engine, $code, $chunkName ) {
 		parent::__construct( $engine, $code, $chunkName );
