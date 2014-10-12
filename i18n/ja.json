@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Shirayuki",
-			"Whym"
+			"Whym",
+			"Fryed-peach"
 		]
 	},
 	"scribunto-desc": "MediaWiki ページにスクリプト言語を埋め込むフレームワーク",
@@ -22,6 +23,7 @@
 	"scribunto-console-cleared": "モジュールが更新されたため、コンソールの状態を消去しました。",
 	"scribunto-console-cleared-session-lost": "セッションデータが失われたため、コンソールの状態を消去しました。",
 	"scribunto-common-error-category": "スクリプトエラーがあるページ",
+	"scribunto-common-error-category-desc": "このページに含まれているモジュールを処理している際にエラーが発生しました。",
 	"scribunto-common-nosuchmodule": "スクリプトエラー: モジュール「$2」はありません。",
 	"scribunto-common-nofunction": "スクリプトエラー: 呼び出す関数を指定してください。",
 	"scribunto-common-nosuchfunction": "スクリプトエラー: 関数「$2」は存在しません。",
@@ -47,11 +49,16 @@
 	"scribunto-luastandalone-signal": "Lua エラー: 内部エラー: インタープリターはシグナル「$2」により終了しました。",
 	"scribunto-luastandalone-exited": "Lua エラー: 内部エラー: インタープリターは終了コード $2 で終了しました。",
 	"scribunto-module-with-errors-category": "エラーがあるScribuntoモジュール",
+	"scribunto-module-with-errors-category-desc": "このモジュールにはエラーがあります。",
+	"scribunto-limitreport-timeusage": "Lua 実行時間",
 	"scribunto-limitreport-timeusage-value": "$1/$2 秒",
+	"scribunto-limitreport-virtmemusage": "Lua 仮想サイズ",
 	"scribunto-limitreport-virtmemusage-value": "$1/$2",
+	"scribunto-limitreport-estmemusage": "Lua 推定メモリ使用量",
 	"scribunto-limitreport-memusage": "Lua のメモリ使用量",
 	"scribunto-limitreport-memusage-value": "$1/$2",
 	"scribunto-limitreport-profile": "Lua プロファイル",
 	"scribunto-limitreport-profile-ms": "$1 ミリ秒",
-	"scribunto-limitreport-profile-percent": "$1%"
+	"scribunto-limitreport-profile-percent": "$1%",
+	"scribunto-limitreport-logs": "Lua のログ"
 }
