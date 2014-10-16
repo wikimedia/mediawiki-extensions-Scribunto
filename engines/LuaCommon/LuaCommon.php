@@ -140,7 +140,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 *         (absolute, or relative to $this->getLuaLibDir())
 	 * @param $interfaceFuncs array Populates mw_interface
 	 * @param $setupOptions array Passed to the modules setupInterface() method.
-	 * @return Lua package
+	 * @return array Lua package
 	 */
 	public function registerInterface( $moduleFileName, $interfaceFuncs, $setupOptions = array() ) {
 		$this->interpreter->registerLibrary( 'mw_interface', $interfaceFuncs );
