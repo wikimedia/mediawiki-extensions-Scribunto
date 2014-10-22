@@ -202,6 +202,11 @@ $namespaceNames['lv'] = array(
 	829 => 'Moduļa_diskusija',
 );
 
+$namespaceNames['mai'] = array(
+	828 => 'मोड्युल',
+	829 => 'मोड्युल_वार्ता',
+);
+
 $namespaceNames['min'] = array(
 	828 => 'Modul',
 	829 => 'Rundiang_Modul',
