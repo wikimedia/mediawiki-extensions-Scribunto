@@ -48,6 +48,19 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 			new WikitextContent( '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' ),
 			'Summary'
 		);
+		$testPageId = $page->getId();
+
+		// Pages for redirectTarget tests
+		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestRedirect' ) );
+		$page->doEditContent(
+			new WikitextContent( '#REDIRECT [[ScribuntoTestTarget]]' ),
+			'Summary'
+		);
+		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestNonRedirect' ) );
+		$page->doEditContent(
+			new WikitextContent( 'Not a redirect.' ),
+			'Summary'
+		);
 
 		// Set restrictions for protectionLevels and cascadingProtection tests
 		// Since mRestrictionsLoaded is true, they don't count as expensive
@@ -88,7 +101,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Indicate to the tests that it's safe to create the title objects
 		$interpreter = $this->getEngine()->getInterpreter();
 		$interpreter->callFunction(
-			$interpreter->loadString( "mw.title.testPageId = {$page->getId()}", 'fortest' )
+			$interpreter->loadString( "mw.title.testPageId = $testPageId", 'fortest' )
 		);
 
 		$this->setMwGlobals( array(

@@ -18,6 +18,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'getFileInfo' => array( $this, 'getFileInfo' ),
 			'protectionLevels' => array( $this, 'protectionLevels' ),
 			'cascadingProtection' => array( $this, 'cascadingProtection' ),
+			'redirectTarget' => array( $this, 'redirectTarget' ),
 		);
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
 			'thisTitle' => $this->getInexpensiveTitleData( $this->getTitle() ),
@@ -241,11 +242,18 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		return array( call_user_func_array( array( $title, $func ), $args ) );
 	}
 
-	function getContent( $text ) {
-		$this->checkType( 'getContent', 1, $text, 'string' );
+	/**
+	 * Utility to get a Content object from a title
+	 *
+	 * The title is counted as a transclusion.
+	 *
+	 * @param $text string Title text
+	 * @return Content|null The Content object of the title, null if missing
+	 */
+	private function getContentInternal( $text ) {
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( null );
+			return null;
 		}
 
 		// Record in templatelinks, so edits cause the page to be refreshed
@@ -261,14 +269,13 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		} else {
 			$rev = Revision::newFromTitle( $title );
 		}
-		if ( !$rev ) {
-			return array( null );
-		}
-		$content = $rev->getContent();
-		if ( !$content ) {
-			return array( null );
-		}
-		return array( $content->serialize() );
+		return $rev ? $rev->getContent() : null;
+	}
+
+	function getContent( $text ) {
+		$this->checkType( 'getContent', 1, $text, 'string' );
+		$content = $this->getContentInternal( $text );
+		return array( $content ? $content->serialize() : null );
 	}
 
 	function getFileInfo( $text ) {
@@ -354,5 +361,12 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				$sources ) ),
 			'restrictions' => array_map( 'Scribunto_LuaTitleLibrary::makeArrayOneBased', $restrictions )
 		) );
+	}
+
+	public function redirectTarget( $text ) {
+		$this->checkType( 'redirectTarget', 1, $text, 'string' );
+		$content = $this->getContentInternal( $text );
+		$redirTitle = $content ? $content->getRedirectTarget() : null;
+		return array( $redirTitle ? $this->getInexpensiveTitleData( $redirTitle ) : null );
 	}
 }
