@@ -5,10 +5,8 @@
 			"Bellayet"
 		]
 	},
-	"scribunto-ignore-errors": "ত্রুটিসহ কোড সংরক্ষণের অনুমতি দিন",
 	"scribunto-line": "$1নং লাইনে",
 	"scribunto-module-line": "$1 এর $2নং লাইনে",
-	"scribunto-parser-error": "স্ক্রিপ্ট ত্রুটি",
 	"scribunto-parser-dialog-title": "স্ক্রিপ্ট ত্রুটি",
 	"scribunto-error-short": "স্ক্রিপ্ট ত্রুটি: $1",
 	"scribunto-error-long": "স্ক্রিপ্ট ত্রুটি:\n\n$1",

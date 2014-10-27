@@ -4,10 +4,8 @@
 			"Snævar"
 		]
 	},
-	"scribunto-ignore-errors": "Leyfa vistun kóða með villum",
 	"scribunto-line": "í línu $1",
 	"scribunto-module-line": "í $1, línu $2",
-	"scribunto-parser-error": "Villa í skriftu",
 	"scribunto-parser-dialog-title": "Villa í skriftu",
 	"scribunto-error-short": "Villa í skriftu: $1",
 	"scribunto-error-long": "Villur í skriftu: \n\n$1",

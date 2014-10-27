@@ -5,10 +5,8 @@
 			"Pikne"
 		]
 	},
-	"scribunto-ignore-errors": "Luba salvestada kood tõrgetega",
 	"scribunto-line": "$1. real",
 	"scribunto-module-line": "kohal $1 $2. real",
-	"scribunto-parser-error": "Skriptitõrge",
 	"scribunto-parser-dialog-title": "Skriptitõrge",
 	"scribunto-error-short": "Skriptitõrge: $1",
 	"scribunto-error-long": "Skriptitõrked:\n\n$1",

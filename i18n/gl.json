@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki",
-	"scribunto-ignore-errors": "Permitir o gardado de código con erros",
 	"scribunto-line": "na liña $1",
 	"scribunto-module-line": "en $1 na liña $2",
-	"scribunto-parser-error": "Erro de script",
 	"scribunto-parser-dialog-title": "Erro de script",
 	"scribunto-error-short": "Erro de script: $1",
 	"scribunto-error-long": "Erros de script:\n\n$1",
@@ -35,7 +33,6 @@
 	"scribunto-lua-in-function-at": "na función en $1:$2",
 	"scribunto-lua-error-location": "Erro de Lua $1: $2.",
 	"scribunto-lua-error": "Erro de Lua: $2.",
-	"scribunto-lua-noreturn": "Erro de script: O módulo non devolveu ningún valor; debería devolver unha táboa de exportación.",
 	"scribunto-lua-notarrayreturn": "Erro de script: O módulo devolveu algo que non era unha táboa; debería devolver unha táboa de exportación.",
 	"scribunto-luastandalone-proc-error": "Erro de Lua: Non se pode crear o proceso.",
 	"scribunto-luastandalone-proc-error-msg": "Erro de Lua: Non se pode crear o proceso: $2",

@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Фрэймворк для выкарыстання скрыптавых моў на старонках MediaWiki",
-	"scribunto-ignore-errors": "Дазволіць захаванне кода з памылкамі",
 	"scribunto-line": "на радку $1",
 	"scribunto-module-line": "у $1 на радку $2",
-	"scribunto-parser-error": "Памылка скрыпта",
 	"scribunto-parser-dialog-title": "Памылка скрыпта",
 	"scribunto-error-short": "Памылка скрыпта: $1",
 	"scribunto-error-long": "Памылкі скрыпта:\n\n$1",

@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Gør det muligt at indlejre skriptsprog i MediaWiki-sider",
-	"scribunto-ignore-errors": "Tillad at gemme kode med fejl",
 	"scribunto-line": "i linje $1",
 	"scribunto-module-line": "i $1 på linje $2",
-	"scribunto-parser-error": "Skriptfejl",
 	"scribunto-parser-dialog-title": "Skriptfejl",
 	"scribunto-error-short": "Skriptfejl: $1",
 	"scribunto-error-long": "Skriptfejl:\n\n$1",

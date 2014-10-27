@@ -9,7 +9,6 @@
 		]
 	},
 	"scribunto-desc": "Framework voor het inbedden van scripttalen in pagina's",
-	"scribunto-ignore-errors": "Opslaan van code met fouten toestaan",
 	"scribunto-line": "op regel $1",
 	"scribunto-module-line": "in $1 op regel $2",
 	"scribunto-parser-dialog-title": "Scriptfout",

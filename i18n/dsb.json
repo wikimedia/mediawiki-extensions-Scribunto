@@ -6,10 +6,8 @@
 		]
 	},
 	"scribunto-desc": "Wobcerk za zasajźenje skriptowych rěcow do bokow MediaWiki",
-	"scribunto-ignore-errors": "Składowanje koda ze zmólkami dowóliś",
 	"scribunto-line": "w smužce $1",
 	"scribunto-module-line": "w $1, w smužce $2",
-	"scribunto-parser-error": "Skriptowa zmólka",
 	"scribunto-parser-dialog-title": "Skriptowa zmólka",
 	"scribunto-error-short": "Skriptowa zmólka: $1",
 	"scribunto-error-long": "Skriptowe zmólki:\n\n$1",
@@ -35,7 +33,6 @@
 	"scribunto-lua-in-function-at": "we funkciji pśi $1:$2",
 	"scribunto-lua-error-location": "Lua-zmólka $1:  $2.",
 	"scribunto-lua-error": "Lua-zmólka:  $2.",
-	"scribunto-lua-noreturn": "Skriptowa zmólka: Modul njejo gódnotu wrośił, lěcrownož by měł eksportowu tabelu wrośiś.",
 	"scribunto-lua-notarrayreturn": "Skriptowa zmólka: Modul jo něco druge ako tabelu wrośił, wón by měł eksportowu tabelu wrośiś.",
 	"scribunto-luastandalone-proc-error": "Lua-zmólka: Proces njedajo se napóraś.",
 	"scribunto-luastandalone-decode-error": "Lua-zmólka: Nutśkowna zmólka: Powěźeńka njedajo se dekoděrowaś.",

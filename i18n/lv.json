@@ -5,8 +5,6 @@
 			"Papuass"
 		]
 	},
-	"scribunto-ignore-errors": "Atļaut saglabāt kļūdainu kodu",
-	"scribunto-parser-error": "Skripta kļūda",
 	"scribunto-parser-dialog-title": "Skripta kļūda",
 	"scribunto-error-short": "Skripta kļūda: $1",
 	"scribunto-error-long": "Skripta kļūdas:\n\n$1",

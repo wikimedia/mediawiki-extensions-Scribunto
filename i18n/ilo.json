@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Obra a batayan para iti panagikabil ti pagsasao a panagisurat kadagiti panid ti MediaWiki",
-	"scribunto-ignore-errors": "Agpalubos nga agidulin ti kodigo nga adda dagiti biddutna",
 	"scribunto-line": "iti linia $1",
 	"scribunto-module-line": "iti $1 iti linia $2",
-	"scribunto-parser-error": "Biddut nga eskritu",
 	"scribunto-parser-dialog-title": "Biddut nga eskritu",
 	"scribunto-error-short": "Biddut nga eskritu: $1",
 	"scribunto-error-long": "Dagiti biddut nga eskritu:\n\n$1",

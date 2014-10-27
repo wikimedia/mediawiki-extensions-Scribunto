@@ -6,10 +6,8 @@
 		]
 	},
 	"scribunto-desc": "Framo por enkorpigi skriptlingvojn en paĝojn de MediaWiki",
-	"scribunto-ignore-errors": "Permesi konservadon de kodo kun eraroj",
 	"scribunto-line": "en linio $1",
 	"scribunto-module-line": "en $1, linio $2",
-	"scribunto-parser-error": "Skripteraro",
 	"scribunto-parser-dialog-title": "Skripteraro",
 	"scribunto-error-short": "Skripteraro: $1",
 	"scribunto-error-long": "Skripteraroj:\n\n$1",
@@ -35,7 +33,6 @@
 	"scribunto-lua-in-function-at": "en la funkcio ĉe $1: $2",
 	"scribunto-lua-error-location": "Lua-eraro $1: $2.",
 	"scribunto-lua-error": "Lua-eraro: $2.",
-	"scribunto-lua-noreturn": "Skripteraro: La modulo  ne liveris valoron. Ĝi liveru eksportotabelon.",
 	"scribunto-lua-notarrayreturn": "Skripteraro: La modulo liveris ion alian ol tabelon. Ĝi liveru eksportotabelon.",
 	"scribunto-luastandalone-proc-error": "Lua-eraro: Ne povas krei proceson.",
 	"scribunto-luastandalone-decode-error": "Lua-eraro: Interna eraro: Ne eblas dekodi mesaĝon.",

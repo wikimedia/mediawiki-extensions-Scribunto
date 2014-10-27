@@ -6,7 +6,6 @@
 		]
 	},
 	"scribunto-line": "$1 පේලියේදී",
-	"scribunto-parser-error": "අක්ෂර දෝෂය",
 	"scribunto-parser-dialog-title": "අක්ෂර දෝෂය",
 	"scribunto-error-short": "අක්ෂර දෝෂය: $1",
 	"scribunto-error-long": "අක්ෂර දෝෂ:\n\n$1",

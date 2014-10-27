@@ -7,10 +7,8 @@
 		]
 	},
 	"scribunto-desc": "Quàder për l'antëgrassion dij langagi ëd copin an dle pàgine ëd MediaWiki",
-	"scribunto-ignore-errors": "Përmëtte ëd salvé ëd còdes con dj'eror",
 	"scribunto-line": "a la linia $1",
 	"scribunto-module-line": "an $1 a la linia $2",
-	"scribunto-parser-error": "Eror ëd copion",
 	"scribunto-parser-dialog-title": "Eror ëd copion",
 	"scribunto-error-short": "Eror ëd copion: $1",
 	"scribunto-error-long": "Eror ëd copion:\n\n$1",
@@ -32,7 +30,6 @@
 	"scribunto-lua-in-function-at": "ant la funsion a $1:$2",
 	"scribunto-lua-error-location": "Eror Lua $1: $2.",
 	"scribunto-lua-error": "Eror Lua: $2.",
-	"scribunto-lua-noreturn": "Eror ëd copion. Ël mòdul a l'ha dàit gnun valor. A dovrìa dé na tàula d'esportassion.",
 	"scribunto-lua-notarrayreturn": "Eror ëd copion: Ël mòdul a l'ha dàit quaicòs d'àutr nopà che na tàula. A dovrìa dé na tàula d'esportassion.",
 	"scribunto-luastandalone-proc-error": "Eror Lua: As peul pa creesse un process.",
 	"scribunto-luastandalone-decode-error": "Eror Lua: Eror intern: A peul pa decodifichesse ël mëssagi.",

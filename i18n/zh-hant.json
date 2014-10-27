@@ -9,10 +9,8 @@
 		]
 	},
 	"scribunto-desc": "用來內嵌腳本語言到 MediaWiki 頁面的框架",
-	"scribunto-ignore-errors": "允許儲存有錯誤的程式碼",
 	"scribunto-line": "在第 $1 行",
 	"scribunto-module-line": "於 $1 中的第 $2 行",
-	"scribunto-parser-error": "腳本錯誤",
 	"scribunto-parser-dialog-title": "腳本錯誤",
 	"scribunto-error-short": "腳本錯誤：$1",
 	"scribunto-error-long": "腳本錯誤：\n\n$1",

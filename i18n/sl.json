@@ -5,7 +5,6 @@
 			"Dbc334"
 		]
 	},
-	"scribunto-parser-error": "Skriptna napaka",
 	"scribunto-error-short": "Skriptna napaka: $1",
 	"scribunto-common-nosuchmodule": "Skriptna napaka: Modul »$2« ne obstaja.",
 	"scribunto-common-nofunction": "Skriptna napaka: določiti morate funkcijo za klic.",

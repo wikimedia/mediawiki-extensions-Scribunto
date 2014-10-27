@@ -5,7 +5,6 @@
 		]
 	},
 	"scribunto-desc": "Khuôn khổ đế nhúng ngôn ngữ kịch bản vào các trang MediaWiki",
-	"scribunto-ignore-errors": "Cho phép lưu mã nguồn có lỗi",
 	"scribunto-line": "tại dòng $1",
 	"scribunto-module-line": "trong $1 tại dòng $2",
 	"scribunto-parser-dialog-title": "Lỗi kịch bản",

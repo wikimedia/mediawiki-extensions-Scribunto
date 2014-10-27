@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Rammeverk for å byggja inn skriptspråk i MediaWiki-sider",
-	"scribunto-ignore-errors": "Tillat lagring av kode med feil",
 	"scribunto-line": "på line $1",
 	"scribunto-module-line": "i $1, line $2",
-	"scribunto-parser-error": "Skriptfeil",
 	"scribunto-parser-dialog-title": "Skriptfeil",
 	"scribunto-error-short": "Skriptfeil: $1",
 	"scribunto-error-long": "Skriptfeil:\n\n$1",

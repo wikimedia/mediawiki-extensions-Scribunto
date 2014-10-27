@@ -8,7 +8,6 @@
 			"VezonThunder"
 		]
 	},
-	"scribunto-ignore-errors": "Salli virheitä sisältävän koodin tallentaminen",
 	"scribunto-line": "rivillä $1",
 	"scribunto-doc-page-name": "Module:$1/ohje",
 	"scribunto-doc-page-does-not-exist": "''Tämän moduulin ohjeistuksen voi tehdä sivulle [[$1]]''",

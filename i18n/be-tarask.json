@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Фрэймворк для выкарыстаньня скрыптавых моваў на старонках MediaWiki",
-	"scribunto-ignore-errors": "Дазволіць захаваньне коду з хібамі",
 	"scribunto-line": "на радку $1",
 	"scribunto-module-line": "у $1 на радку $2",
-	"scribunto-parser-error": "Памылка скрыпту",
 	"scribunto-parser-dialog-title": "Памылка скрыпту",
 	"scribunto-error-short": "Памылка скрыпту: $1",
 	"scribunto-error-long": "Памылкі скрыпту:\n\n$1",
@@ -34,7 +32,6 @@
 	"scribunto-lua-in-function-at": "у функцыі $1:$2",
 	"scribunto-lua-error-location": "Памылка Lua $1: $2.",
 	"scribunto-lua-error": "Памылка Lua: $2.",
-	"scribunto-lua-noreturn": "Памылка скрыпта: модуль не вярнуў значэньне. Модуль мусіў вярнуць табліцу экспарту.",
 	"scribunto-lua-notarrayreturn": "Памылка скрыпта: модуль вярнуў значэньне, якое ня ёсьць табліцай экспарту. Модуль мусіў вярнуць табліцу экспарту.",
 	"scribunto-luastandalone-proc-error": "Памылка Lua: немагчыма стварыць працэс.",
 	"scribunto-luastandalone-proc-error-msg": "Памылка Lua: немагчыма стварыць працэс — $2",

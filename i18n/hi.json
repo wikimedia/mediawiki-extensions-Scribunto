@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "मीडियाविकि पृष्ठों में स्क्रिप्टिंग भाषाएँ डालने का ढाँचा",
-	"scribunto-ignore-errors": "त्रुटियों वाला कोड सहेजना संभव करें",
 	"scribunto-line": "पंक्ति $1 पर",
 	"scribunto-module-line": "$1 में पंक्ति $2 पर",
-	"scribunto-parser-error": "स्क्रिप्ट त्रुटि",
 	"scribunto-parser-dialog-title": "स्क्रिप्ट त्रुटि",
 	"scribunto-error-short": "स्क्रिप्ट त्रुटि: $1",
 	"scribunto-error-long": "स्क्रिप्ट त्रुटियाँ:\n\n$1",
@@ -34,7 +32,6 @@
 	"scribunto-lua-in-function-at": "फंक्शन में $1:$2 पर",
 	"scribunto-lua-error-location": "लुआ त्रुटि $1: $2।",
 	"scribunto-lua-error": "लुआ त्रुटि: $2।",
-	"scribunto-lua-noreturn": "स्क्रिप्ट त्रुटि: मॉड्यूल ने कुछ भी उत्तर नहीं दिया। मॉड्यूल को उत्तर में एक निर्यात सारणी देनी चाहिए।",
 	"scribunto-lua-notarrayreturn": "स्क्रिप्ट त्रुटि: मॉड्यूल ने उत्तर में सारणी के अलावा कुछ और दिया। मॉड्यूल को उत्तर में एक निर्यात सारणी देनी चाहिए।",
 	"scribunto-luastandalone-proc-error": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकती।",
 	"scribunto-luastandalone-proc-error-msg": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: $2",

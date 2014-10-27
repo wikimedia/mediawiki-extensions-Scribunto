@@ -10,10 +10,8 @@
 		]
 	},
 	"scribunto-desc": "Фреймворк для включення скриптових мов на сторінки MediaWiki",
-	"scribunto-ignore-errors": "Дозволити збереження коду з помилками",
 	"scribunto-line": "у рядку $1",
 	"scribunto-module-line": "у $1 у рядку $2",
-	"scribunto-parser-error": "Помилка скрипту",
 	"scribunto-parser-dialog-title": "Помилка скрипту",
 	"scribunto-error-short": "Помилка скрипту: $1",
 	"scribunto-error-long": "Помилки скрипту:\n\n$1",

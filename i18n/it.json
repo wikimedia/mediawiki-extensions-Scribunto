@@ -9,7 +9,6 @@
 		]
 	},
 	"scribunto-desc": "Framework per incorporare linguaggi di scripting in pagine MediaWiki",
-	"scribunto-ignore-errors": "Consenti di salvare codice con errori",
 	"scribunto-line": "alla linea $1",
 	"scribunto-module-line": "in $1 alla linea $2",
 	"scribunto-parser-dialog-title": "Errore script",

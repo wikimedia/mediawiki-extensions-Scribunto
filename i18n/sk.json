@@ -5,9 +5,7 @@
 		]
 	},
 	"scribunto-desc": "Umožňuje vkladať do stránok MediaWiki skriptovacie jazyky",
-	"scribunto-ignore-errors": "Povoliť uloženie kódu s chybami",
 	"scribunto-line": "na riadku $1",
-	"scribunto-parser-error": "Chyba skriptu",
 	"scribunto-parser-dialog-title": "Chyba skriptu",
 	"scribunto-error-short": "Chyba skriptu: $1",
 	"scribunto-error-long": "Chyby skriptu:\n\n$1",

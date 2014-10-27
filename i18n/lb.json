@@ -4,9 +4,7 @@
 			"Robby"
 		]
 	},
-	"scribunto-ignore-errors": "Späichere vu Code mat Feeler erlaben",
 	"scribunto-line": "an der Linn $1",
-	"scribunto-parser-error": "Script-Feeler",
 	"scribunto-parser-dialog-title": "Script-Feeler",
 	"scribunto-error-short": "Script-Feeler: $1",
 	"scribunto-error-long": "Script-Feeler:\n\n$1",

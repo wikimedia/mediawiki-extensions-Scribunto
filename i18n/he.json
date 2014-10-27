@@ -6,7 +6,6 @@
 		]
 	},
 	"scribunto-desc": "מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי",
-	"scribunto-ignore-errors": "לאפשר שמירת קוד עם שגיאות",
 	"scribunto-line": "בשורה $1",
 	"scribunto-module-line": "ביחידה $1 בשורה $2",
 	"scribunto-parser-dialog-title": "שגיאה בתסריט",

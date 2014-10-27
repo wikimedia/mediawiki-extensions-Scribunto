@@ -7,7 +7,6 @@
 		]
 	},
 	"scribunto-desc": "Un entorn de treball per a incrustar llenguatges d'script a les pàgines de MediaWiki",
-	"scribunto-ignore-errors": "Permet desar codi amb errors",
 	"scribunto-line": "a la línia $1",
 	"scribunto-module-line": "a $1 a la línia $2",
 	"scribunto-parser-dialog-title": "Error de l'script",

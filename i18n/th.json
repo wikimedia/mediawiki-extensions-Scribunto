@@ -5,7 +5,6 @@
 		]
 	},
 	"scribunto-line": "บรรทัดที่ $1",
-	"scribunto-parser-error": "สคริปต์ผิดพลาด",
 	"scribunto-parser-dialog-title": "สคริปต์ผิดพลาด",
 	"scribunto-error-short": "สคริปต์ผิดพลาด: $1",
 	"scribunto-error-long": "สคริปต์ผิดพลาด:\n\n$1",

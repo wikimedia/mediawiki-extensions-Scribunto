@@ -5,10 +5,8 @@
 			"Stelistcristi"
 		]
 	},
-	"scribunto-ignore-errors": "Permite salvarea codului cu erori",
 	"scribunto-line": "la linia $1",
 	"scribunto-module-line": "în $1 la linia $2",
-	"scribunto-parser-error": "Eroare în script",
 	"scribunto-parser-dialog-title": "Eroare în script",
 	"scribunto-error-short": "Eroare în script: $1",
 	"scribunto-error-long": "Erori în script:\n\n$1",

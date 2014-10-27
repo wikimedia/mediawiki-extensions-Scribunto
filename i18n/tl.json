@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Baskagan para sa pagbabaon ng mga wikang pampagpapanitik papaloob sa mga pahina ng MediaWiki",
-	"scribunto-ignore-errors": "Pahintulutan ang pagsagip ng mga kodigong may mga kamalian",
 	"scribunto-line": "sa guhit na $1",
 	"scribunto-module-line": "sa loob ng $1 na nasa guhit na $2",
-	"scribunto-parser-error": "Kamalian sa panitik",
 	"scribunto-parser-dialog-title": "Kamalian sa panitik",
 	"scribunto-error-short": "Kamalian sa panitik: $1",
 	"scribunto-error-long": "Mga kamalian sa panitik:\n\n$1",
@@ -30,7 +28,6 @@
 	"scribunto-lua-backtrace-line": "$1: $2",
 	"scribunto-lua-error-location": "Kamalian ng lua na $1: $2",
 	"scribunto-lua-error": "Kamalian ng lua: $2",
-	"scribunto-lua-noreturn": "Kamalian sa panitik: Ang modyul ay hindi nagbalik ng isang halaga, dapat itong magbalik ng isang talahanayan ng pag-aangkat.",
 	"scribunto-lua-notarrayreturn": "Kamalian sa panitik: Ang modulo ay nagbalik ng isang bagay na bukod sa isang talahanayan, dapat itong magbalik ng isang talahanayan ng pag-aangkat.",
 	"scribunto-luastandalone-proc-error": "Kamalian ng lua: hindi malikha ang proseso",
 	"scribunto-luastandalone-decode-error": "Kamalian ng lua: panloob na kamalian: hindi nagawang alamin ang kodigo ng mensahe",

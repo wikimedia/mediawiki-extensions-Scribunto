@@ -8,10 +8,8 @@
 		]
 	},
 	"scribunto-desc": "Keretrendszer a parancsnyelvek MediaWiki-lapokba történő beágyazására",
-	"scribunto-ignore-errors": "Engedje a kód elmentését akkor is, ha hibás",
 	"scribunto-line": "a(z) $1. sorban",
 	"scribunto-module-line": "a(z) $1 modulban a(z) $2. sorban",
-	"scribunto-parser-error": "Parancsfájl-hiba",
 	"scribunto-parser-dialog-title": "Parancsfájl-hiba",
 	"scribunto-error-short": "Parancsfájl-hiba: $1",
 	"scribunto-error-long": "Parancsfájl-hibák:\n\n$1",

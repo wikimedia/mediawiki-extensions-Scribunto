@@ -5,10 +5,8 @@
 		]
 	},
 	"scribunto-desc": "Infraestructura pa incrustar llinguaxes de script nes páxines de MediaWiki",
-	"scribunto-ignore-errors": "Permite guardar códigu con errores",
 	"scribunto-line": "na llinia $1",
 	"scribunto-module-line": "en $1 na llinia $2",
-	"scribunto-parser-error": "Error de script",
 	"scribunto-parser-dialog-title": "Error de script",
 	"scribunto-error-short": "Error de script: $1",
 	"scribunto-error-long": "Errores de script:\n\n$1",

@@ -7,7 +7,6 @@
 		]
 	},
 	"scribunto-desc": "Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten",
-	"scribunto-ignore-errors": "Speicherung von fehlerhaftem Code zulassen",
 	"scribunto-line": "in Zeile $1",
 	"scribunto-module-line": "in $1, Zeile $2",
 	"scribunto-parser-dialog-title": "Skriptfehler",

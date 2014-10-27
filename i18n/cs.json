@@ -6,7 +6,6 @@
 		]
 	},
 	"scribunto-desc": "Framework pro vkládání skriptovacích jazyků do stránek MediaWiki",
-	"scribunto-ignore-errors": "Povolit uložení kódu s chybami",
 	"scribunto-line": "na řádku $1",
 	"scribunto-module-line": "v modulu $1 na řádku $2",
 	"scribunto-parser-dialog-title": "Chyba skriptu",

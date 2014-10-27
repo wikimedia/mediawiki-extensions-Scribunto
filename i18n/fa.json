@@ -12,10 +12,8 @@
 		]
 	},
 	"scribunto-desc": "چارچوبی برای تعبیه‌کردن زبان‌های اسکریپتی در صفحه‌های مدیاویکی",
-	"scribunto-ignore-errors": "اجازهٔ ذخیره‌سازی کدهای خطادار را بده",
 	"scribunto-line": "در خط $1",
 	"scribunto-module-line": "در $1 در خط $2",
-	"scribunto-parser-error": "خطای اسکریپتی",
 	"scribunto-parser-dialog-title": "خطای اسکریپتی",
 	"scribunto-error-short": "خطای اسکریپتی: $1",
 	"scribunto-error-long": "خطاهای اسکریپتی:\n\n$1",
