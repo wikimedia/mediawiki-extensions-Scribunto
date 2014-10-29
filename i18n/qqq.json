@@ -70,5 +70,11 @@
 	"scribunto-limitreport-profile": "Label for the \"Lua Profile\" row in the limit report table.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-ms}} and {{msg-mw|Scribunto-limitreport-profile-percent}}.",
 	"scribunto-limitreport-profile-ms": "Text to format the milliseconds in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}}.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-percent}}.\n\nParameters:\n* $1 - the time in milliseconds",
 	"scribunto-limitreport-profile-percent": "Text to format the time percentage in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}} and {{msg-mw|Scribunto-limitreport-profile-ms}}.\n\nParameters:\n* $1 - the percentage",
-	"scribunto-limitreport-logs": "Label for the \"Lua logs\" row in the limit report table"
+	"scribunto-limitreport-logs": "Label for the \"Lua logs\" row in the limit report table",
+	"apihelp-scribunto-console-description": "{{doc-apihelp-description|scribunto-console}}",
+	"apihelp-scribunto-console-param-title": "{{doc-apihelp-param|scribunto-console|title}}",
+	"apihelp-scribunto-console-param-content": "{{doc-apihelp-param|scribunto-console|content}}",
+	"apihelp-scribunto-console-param-session": "{{doc-apihelp-param|scribunto-console|session}}",
+	"apihelp-scribunto-console-param-question": "{{doc-apihelp-param|scribunto-console|question}}",
+	"apihelp-scribunto-console-param-clear": "{{doc-apihelp-param|scribunto-console|clear}}"
 }
