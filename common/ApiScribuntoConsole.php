@@ -123,6 +123,10 @@ class ApiScribuntoConsole extends ApiBase {
 		);
 	}
 
+	public function isInternal() {
+		return true;
+	}
+
 	public function getAllowedParams() {
 		return array(
 			'title' => array(
@@ -144,6 +148,9 @@ class ApiScribuntoConsole extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array(
 			'title' => 'The module title to test',
@@ -153,11 +160,10 @@ class ApiScribuntoConsole extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Internal module for servicing XHR requests from the Scribunto console';
-	}
-
-	public function getVersion() {
-		return __CLASS__.': 1';
 	}
 }
