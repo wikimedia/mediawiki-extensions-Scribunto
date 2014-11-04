@@ -105,6 +105,11 @@ $magicWords['uk'] = array(
 	'invoke' => array( 0, 'викликати' ),
 );
 
+/** Urdu (اردو) */
+$magicWords['ur'] = array(
+	'invoke' => array( 0, 'استدعا' ),
+);
+
 /** Vietnamese (Tiếng Việt) */
 $magicWords['vi'] = array(
 	'invoke' => array( 0, 'gọi' ),
