@@ -3,7 +3,7 @@
 class Scribunto_LuaUriLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UriLibraryTests';
 
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
@@ -17,7 +17,7 @@ class Scribunto_LuaUriLibraryTests extends Scribunto_LuaEngineTestBase {
 		) );
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'UriLibraryTests' => __DIR__ . '/UriLibraryTests.lua',
 		);

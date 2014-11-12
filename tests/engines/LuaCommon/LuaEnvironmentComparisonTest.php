@@ -33,7 +33,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 		return $engine;
 	}
 
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		try {
@@ -55,7 +55,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 		}
 	}
 
-	function tearDown() {
+	protected function tearDown() {
 		foreach ( $this->engines as $engine ) {
 			$engine->destroy();
 		}

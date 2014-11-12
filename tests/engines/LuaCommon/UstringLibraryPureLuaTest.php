@@ -3,7 +3,7 @@
 require_once( __DIR__ . '/UstringLibraryTest.php' );
 
 class Scribunto_LuaUstringLibraryPureLuaTests extends Scribunto_LuaUstringLibraryTests {
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		// Override mw.ustring with the pure-Lua version

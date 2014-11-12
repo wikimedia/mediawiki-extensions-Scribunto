@@ -148,7 +148,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		return $suite;
 	}
 
-	function tearDown() {
+	protected function tearDown() {
 		if ( $this->luaDataProvider ) {
 			$this->luaDataProvider->destroy();
 			$this->luaDataProvider = null;
@@ -172,7 +172,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	/**
 	 * @return ScribuntoEngineBase
 	 */
-	function getEngine() {
+	protected function getEngine() {
 		if ( !$this->engine ) {
 			$parser = new Parser;
 			$options = new ParserOptions;
@@ -188,7 +188,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		return $this->engine;
 	}
 
-	function templateCallback( $title, $parser ) {
+	public function templateCallback( $title, $parser ) {
 		if ( isset($this->extraModules[$title->getFullText()]) ) {
 			return array(
 				'text' => $this->extraModules[$title->getFullText()],
@@ -211,7 +211,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		return Parser::statelessFetchTemplate( $title, $parser );
 	}
 
-	function toString() {
+	public function toString() {
 		// When running tests written in Lua, return a nicer representation in
 		// the failure message.
 		if ( $this->luaTestName ) {
@@ -220,13 +220,13 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 		return $this->engineName . ': ' . parent::toString();
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return array(
 			'TestFramework' => __DIR__ . '/TestFramework.lua',
 		);
 	}
 
-	function provideLuaData() {
+	public function provideLuaData() {
 		if ( !$this->luaDataProvider ) {
 			$class = static::$dataProviderClass;
 			$this->luaDataProvider = new $class ( $this->getEngine(), static::$moduleName );
@@ -235,7 +235,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	}
 
 	/** @dataProvider provideLuaData */
-	function testLua( $key, $testName, $expected ) {
+	public function testLua( $key, $testName, $expected ) {
 		$this->luaTestName = static::$moduleName."[$key]: $testName";
 		if ( isset( $this->skipTests[$testName] ) ) {
 			$this->markTestSkipped( $this->skipTests[$testName] );

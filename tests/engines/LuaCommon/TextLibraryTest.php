@@ -3,7 +3,7 @@
 class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TextLibraryTests';
 
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		// For unstrip test
@@ -14,8 +14,7 @@ class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'TextLibraryTests' => __DIR__ . '/TextLibraryTests.lua',
 		);

@@ -40,7 +40,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		'_VERSION',
 	);
 
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		// Register libraries for self::testPHPLibrary()

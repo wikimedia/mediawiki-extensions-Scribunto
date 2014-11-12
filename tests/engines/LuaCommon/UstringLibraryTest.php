@@ -5,7 +5,7 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 
 	private $normalizationDataProvider = null;
 
-	function tearDown() {
+	protected function tearDown() {
 		if ( $this->normalizationDataProvider ) {
 			$this->normalizationDataProvider->destroy();
 			$this->normalizationDataProvider = null;
@@ -13,7 +13,7 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 		parent::tearDown();
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'UstringLibraryTests' => __DIR__ . '/UstringLibraryTests.lua',
 			'UstringLibraryNormalizationTests' => __DIR__ . '/UstringLibraryNormalizationTests.lua',

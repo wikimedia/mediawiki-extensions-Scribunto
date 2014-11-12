@@ -7,7 +7,7 @@ class Scribunto_LuaStandaloneTests extends Scribunto_LuaEngineTestBase {
 		return self::makeSuite( $className, 'LuaStandalone' );
 	}
 
-	public function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		$interpreter = $this->getEngine()->getInterpreter();
@@ -19,7 +19,7 @@ class Scribunto_LuaStandaloneTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'StandaloneTests' => __DIR__ . '/StandaloneTests.lua',
 		);
