@@ -20,7 +20,7 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testUstringLibraryNormalizationTestsAvailable() {
+	public function testUstringLibraryNormalizationTestsAvailable() {
 		if ( UstringLibraryNormalizationTestProvider::available( $err ) ) {
 			$this->assertTrue( true );
 		} else {
@@ -28,7 +28,7 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 		}
 	}
 
-	function provideUstringLibraryNormalizationTests() {
+	public function provideUstringLibraryNormalizationTests() {
 		if ( !$this->normalizationDataProvider ) {
 			$this->normalizationDataProvider = new UstringLibraryNormalizationTestProvider( $this->getEngine() );
 		}
@@ -38,7 +38,7 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	/**
 	 * @dataProvider provideUstringLibraryNormalizationTests
 	 */
-	function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
+	public function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
 		$this->luaTestName = "UstringLibraryNormalization: $name";
 		$dataProvider = $this->provideUstringLibraryNormalizationTests();
 		$expected = array( $c2, $c2, $c2, $c4, $c4, $c3, $c3, $c3, $c5, $c5 );

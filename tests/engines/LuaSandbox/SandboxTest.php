@@ -7,13 +7,13 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 		return self::makeSuite( $className, 'LuaSandbox' );
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'SandboxTests' => __DIR__ . '/SandboxTests.lua',
 		);
 	}
 
-	function testArgumentParsingTime() {
+	public function testArgumentParsingTime() {
 		$engine = $this->getEngine();
 		if ( !is_callable( array( $engine->getInterpreter()->sandbox, 'pauseUsageTimer' ) ) ) {
 			$this->markTestSkipped( "LuaSandbox::pauseUsageTimer is not available" );

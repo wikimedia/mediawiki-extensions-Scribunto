@@ -1,7 +1,7 @@
 <?php
 
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
-	abstract function newInterpreter( $opts = array() );
+	protected abstract function newInterpreter( $opts = array() );
 
 	protected function setUp() {
 		parent::setUp();
@@ -12,7 +12,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		}
 	}
 
-	function getBusyLoop( $interpreter ) {
+	protected function getBusyLoop( $interpreter ) {
 		$chunk = $interpreter->loadString( '
 			local args = {...}
 			local x, i
@@ -25,12 +25,8 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		return $chunk;
 	}
 
-	function getPassthru( $interpreter ) {
-		return $interpreter->loadString( 'return ...', 'passthru' );
-	}
-
 	/** @dataProvider provideRoundtrip */
-	function testRoundtrip( /*...*/ ) {
+	public function testRoundtrip( /*...*/ ) {
 		$args = func_get_args();
 		$args = $this->normalizeOrder( $args );
 		$interpreter = $this->newInterpreter();
@@ -43,7 +39,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	}
 
 	/** @dataProvider provideRoundtrip */
-	function testDoubleRoundtrip( /* ... */ ) {
+	public function testDoubleRoundtrip( /* ... */ ) {
 		$args = func_get_args();
 		$args = $this->normalizeOrder( $args );
 
@@ -64,7 +60,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	 * This cannot be done in testRoundtrip and testDoubleRoundtrip, because
 	 * assertSame( NAN, NAN ) returns false.
 	 */
-	function testRoundtripNAN() {
+	public function testRoundtripNAN() {
 		$interpreter = $this->newInterpreter();
 
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
@@ -79,7 +75,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not double passed through' );
 	}
 
-	function normalizeOrder( $a ) {
+	private function normalizeOrder( $a ) {
 		ksort( $a );
 		foreach ( $a as &$value ) {
 			if ( is_array( $value ) ) {
@@ -89,12 +85,12 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		return $a;
 	}
 
-	function passthru( /* ... */ ) {
+	public function passthru( /* ... */ ) {
 		$args = func_get_args();
 		return $args;
 	}
 
-	function provideRoundtrip() {
+	public function provideRoundtrip() {
 		return array(
 			array( 1 ),
 			array( true ),
@@ -119,7 +115,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	 * @expectedException ScribuntoException
 	 * @expectedExceptionMessage The time allocated for running scripts has expired.
 	 */
-	function testTimeLimit() {
+	public function testTimeLimit() {
 		if( php_uname( 's' ) === 'Darwin' ) {
 			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
 		}
@@ -133,7 +129,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	 * @expectedException ScribuntoException
 	 * @expectedExceptionMessage Lua error: not enough memory
 	 */
-	function testTestMemoryLimit() {
+	public function testTestMemoryLimit() {
 		$interpreter = $this->newInterpreter( array( 'memoryLimit' => 20 * 1e6 ) );
 		$chunk = $interpreter->loadString( '
 			t = {}
@@ -145,7 +141,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$interpreter->callFunction( $chunk );
 	}
 
-	function testWrapPHPFunction() {
+	public function testWrapPHPFunction() {
 		$interpreter = $this->newInterpreter();
 		$func = $interpreter->wrapPhpFunction( function ( $n ) {
 			return array( 42, $n );
@@ -162,4 +158,3 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$this->assertEquals( array( 42, 'From Lua' ), $res );
 	}
 }
-

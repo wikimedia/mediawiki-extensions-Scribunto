@@ -115,7 +115,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testAddsLinks() {
+	public function testAddsLinks() {
 		$engine = $this->getEngine();
 		$interpreter = $engine->getInterpreter();
 

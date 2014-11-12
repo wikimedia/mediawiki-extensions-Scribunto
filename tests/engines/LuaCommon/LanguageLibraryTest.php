@@ -3,7 +3,7 @@
 class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
-	function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
+	public function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
 		parent::__construct( $name, $data, $dataName, $engineName );
 
 		// Skip certain tests if something isn't providing translated language names
@@ -19,13 +19,13 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 		}
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'LanguageLibraryTests' => __DIR__ . '/LanguageLibraryTests.lua',
 		);
 	}
 
-	function testFormatDateTTLs() {
+	public function testFormatDateTTLs() {
 		global $wgContLang;
 
 		$engine = $this->getEngine();

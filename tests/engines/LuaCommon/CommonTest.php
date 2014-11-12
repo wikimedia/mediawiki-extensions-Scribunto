@@ -71,7 +71,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function getTestModules() {
+	protected function getTestModules() {
 		return parent::getTestModules() + array(
 			'CommonTests' => __DIR__ . '/CommonTests.lua',
 			'CommonTests-data' => __DIR__ . '/CommonTests-data.lua',
@@ -83,7 +83,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testNoLeakedGlobals() {
+	public function testNoLeakedGlobals() {
 		$interpreter = $this->getEngine()->getInterpreter();
 
 		list( $actualGlobals ) = $interpreter->callFunction(
@@ -99,7 +99,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testPHPLibrary() {
+	public function testPHPLibrary() {
 		$engine = $this->getEngine();
 		$frame = $engine->getParser()->getPreprocessor()->newFrame();
 
@@ -191,7 +191,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			'library is not recreated between invokes' );
 	}
 
-	function testModuleStringExtend() {
+	public function testModuleStringExtend() {
 		$engine = $this->getEngine();
 		$interpreter = $engine->getInterpreter();
 
@@ -265,7 +265,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testLoadDataLoadedOnce() {
+	public function testLoadDataLoadedOnce() {
 		$engine = $this->getEngine();
 		$interpreter = $engine->getInterpreter();
 		$frame = $engine->getParser()->getPreprocessor()->newFrame();
@@ -311,7 +311,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testFrames() {
+	public function testFrames() {
 		$engine = $this->getEngine();
 
 		$ret = $engine->runConsole( array(
@@ -342,7 +342,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertSame( "ok\ttable", $ret['return'], 'child frames have correct parents' );
 	}
 
-	function testCallParserFunction() {
+	public function testCallParserFunction() {
 		global $wgContLang;
 
 		$engine = $this->getEngine();
@@ -471,7 +471,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		}
 	}
 
-	function testBug62291() {
+	public function testBug62291() {
 		$engine = $this->getEngine();
 		$frame = $engine->getParser()->getPreprocessor()->newFrame();
 
@@ -514,7 +514,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertSame( $r1, $r2, 'Multiple invokes with recursive invoke returned different sets of random numbers' );
 	}
 
-	function testOsDateTimeTTLs() {
+	public function testOsDateTimeTTLs() {
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
 
@@ -587,7 +587,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	/**
 	 * @dataProvider provideVolatileCaching
 	 */
-	function testVolatileCaching( $func ) {
+	public function testVolatileCaching( $func ) {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 		$pp = $parser->getPreprocessor();
@@ -626,7 +626,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertEquals( '1 2', $text, "Volatile wikitext was not cached" );
 	}
 
-	function provideVolatileCaching() {
+	public function provideVolatileCaching() {
 		return array(
 			array( 'preprocess' ),
 			array( 'extensionTag' ),
@@ -634,7 +634,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 	}
 
-	function testGetCurrentFrameAndMWLoadData() {
+	public function testGetCurrentFrameAndMWLoadData() {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 		$pp = $parser->getPreprocessor();
@@ -654,7 +654,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertEquals( 'ok', $text, 'mw.loadData allowed access to frame args' );
 	}
 
-	function testGetCurrentFrameAtModuleScope() {
+	public function testGetCurrentFrameAtModuleScope() {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 		$pp = $parser->getPreprocessor();

@@ -15,18 +15,18 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		'cpuLimit' => 30,
 	);
 
-	function getVsize( $pid ) {
+	private function getVsize( $pid ) {
 		$size = wfShellExec( wfEscapeShellArg( 'ps', '-p', $pid, '-o', 'vsz', '--no-headers' ) );
 		return $size * 1024;
 	}
 
-	function newInterpreter( $opts = array() ) {
+	protected function newInterpreter( $opts = array() ) {
 		$opts = $opts + $this->stdOpts;
 		$engine = new Scribunto_LuaStandaloneEngine( $this->stdOpts );
 		return new Scribunto_LuaStandaloneInterpreter( $engine, $opts );
 	}
 
-	function testGetStatus() {
+	public function testGetStatus() {
 		$startTime = microtime( true );
 		if ( php_uname( 's' ) !== 'Linux' ) {
 			$this->markTestSkipped( "getStatus() not supported on platforms other than Linux" );
@@ -52,7 +52,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$this->assertEquals( $vsize, $status['vsize'], 'vsize', $vsize * 0.1 );
 	}
 
-	function testFreeFunctions() {
+	public function testFreeFunctions() {
 		$interpreter = $this->newInterpreter();
 
 		// Test #1: Make sure freeing actually works

@@ -54,7 +54,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	 */
 	protected $skipTests = array();
 
-	function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
+	public function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
 		if ( $engineName === null ) {
 			$engineName = self::$staticEngineName;
 		}

@@ -13,13 +13,13 @@ class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 		'cpuLimit' => 30,
 	);
 
-	function newInterpreter( $opts = array() ) {
+	protected function newInterpreter( $opts = array() ) {
 		$opts = $opts + $this->stdOpts;
 		$engine = new Scribunto_LuaSandboxEngine( $this->stdOpts );
 		return new Scribunto_LuaSandboxInterpreter( $engine, $opts );
 	}
 
-	function testGetMemoryUsage() {
+	public function testGetMemoryUsage() {
 		$interpreter = $this->newInterpreter();
 		$chunk = $interpreter->loadString( 's = string.rep("x", 1000000)', 'mem' );
 		$interpreter->callFunction( $chunk );

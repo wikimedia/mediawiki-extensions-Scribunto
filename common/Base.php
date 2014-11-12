@@ -91,7 +91,7 @@ abstract class ScribuntoEngineBase {
 		}
 	}
 
-	function __destruct() {
+	public function __destruct() {
 		$this->destroy();
 	}
 

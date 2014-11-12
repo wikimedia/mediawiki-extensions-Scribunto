@@ -21,7 +21,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 
 	protected $engines = array();
 
-	function makeEngine( $class, $opts ) {
+	private function makeEngine( $class, $opts ) {
 		$parser = new Parser;
 		$options = new ParserOptions;
 		$options->setTemplateCallback( array( $this, 'templateCallback' ) );
@@ -95,7 +95,7 @@ LUA;
 		return $engine->getInterpreter()->callFunction( $func );
 	}
 
-	function testGlobalEnvironment() {
+	public function testGlobalEnvironment() {
 		// Grab the first engine as the "standard"
 		reset( $this->engines );
 		list( $firstName, $firstEngine ) = each( $this->engines );
