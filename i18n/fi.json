@@ -6,14 +6,15 @@
 			"Silvonen",
 			"Stryn",
 			"VezonThunder",
-			"Pxos"
+			"Pxos",
+			"Nike"
 		]
 	},
 	"scribunto-line": "rivillä $1",
 	"scribunto-doc-page-name": "Module:$1/ohje",
 	"scribunto-doc-page-does-not-exist": "''Tämän moduulin ohjeistuksen voi tehdä sivulle [[$1]]''",
 	"scribunto-console-clear": "Tyhjennä",
-	"scribunto-common-error-category": "Sivut, joissa on script error",
+	"scribunto-common-error-category": "Sivut, joissa on komentosarjavirhe",
 	"scribunto-lua-error-location": "Lua-virhe $1: $2.",
 	"scribunto-lua-error": "Lua-virhe: $2."
 }
