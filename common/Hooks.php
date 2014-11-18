@@ -42,7 +42,7 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function setupParserHook( &$parser ) {
-		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', Parser::SFH_OBJECT_ARGS );
 		return true;
 	}
 
