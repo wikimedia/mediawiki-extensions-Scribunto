@@ -59,5 +59,6 @@
 	"scribunto-limitreport-profile": "Lua 設定檔",
 	"scribunto-limitreport-profile-ms": "$1 毫秒",
 	"scribunto-limitreport-profile-percent": "$1%",
-	"scribunto-limitreport-logs": "Lua 日誌"
+	"scribunto-limitreport-logs": "Lua 日誌",
+	"apihelp-scribunto-console-param-title": "要進行測試的模組標題。"
 }
