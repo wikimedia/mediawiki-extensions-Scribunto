@@ -231,6 +231,25 @@ local function newFrame( frameId, ... )
 		return newFrame( unpack( parentFrameIds ) )
 	end
 
+	local function checkArgs( name, args )
+		local ret = {}
+		for k, v in pairs( args ) do
+			local tp = type( k )
+			if tp ~= 'string' and tp ~= 'number' then
+				error( name .. ": arg keys must be strings or numbers, " .. tp .. " given", 3 )
+			end
+			tp = type( v )
+			if tp == 'boolean' then
+				ret[k] = v and '1' or ''
+			elseif tp == 'string' or tp == 'number' then
+				ret[k] = tostring( v )
+			else
+				error( name .. ": invalid type " .. tp .. " for arg '" .. k .. "'", 3 )
+			end
+		end
+		return ret
+	end
+
 	function frame:newChild( opt )
 		checkSelf( self, 'newChild' )
 
@@ -249,21 +268,7 @@ local function newFrame( frameId, ... )
 		elseif type( opt.args ) ~= 'table' then
 			error( "frame:newChild: args must be a table", 2 )
 		else
-			args = {}
-			for k, v in pairs( opt.args ) do
-				local tp = type( k )
-				if tp ~= 'string' and tp ~= 'number' then
-					error( "frame:newChild: arg keys must be strings or numbers, " .. tp .. " given", 2 )
-				end
-				local tp = type( v )
-				if tp == 'boolean' then
-					args[k] = v and '1' or ''
-				elseif tp == 'string' or tp == 'number' then
-					args[k] = tostring( v )
-				else
-					error( "frame:newChild: invalid type " .. tp .. " for arg '" .. k .. "'", 2 )
-				end
-			end
+			args = checkArgs( 'frame:newChild', opt.args )
 		end
 
 		local newFrameId = php.newChildFrame( frameId, title, args )
@@ -293,7 +298,7 @@ local function newFrame( frameId, ... )
 		elseif type( opt.args ) ~= 'table' then
 			error( "frame:expandTemplate: args must be a table" )
 		else
-			args = opt.args
+			args = checkArgs( 'frame:expandTemplate', opt.args )
 		end
 
 		return php.expandTemplate( frameId, title, args )
@@ -319,16 +324,7 @@ local function newFrame( frameId, ... )
 			error( "frame:callParserFunction: function name must be a string or number", 2 )
 		end
 
-		for k, v in pairs( args ) do
-			if type( k ) ~= 'string' and type( k ) ~= 'number' then
-				error( "frame:callParserFunction: arg keys must be strings or numbers", 2 )
-			end
-			if type( v ) == 'number' then
-				args[k] = tostring( v )
-			elseif type( v ) ~= 'string' then
-				error( "frame:callParserFunction: args must be strings or numbers", 2 )
-			end
-		end
+		args = checkArgs( 'frame:callParserFunction', args )
 
 		return php.callParserFunction( frameId, name, args )
 	end
@@ -361,17 +357,7 @@ local function newFrame( frameId, ... )
 		elseif type( args ) == 'string' or type( args ) == 'number' then
 			args = { content, args }
 		elseif type( args ) == 'table' then
-			local tmp = args
-			args = {}
-			for k, v in pairs( tmp ) do
-				if type( k ) ~= 'string' and type( k ) ~= 'number' then
-					error( "frame:extensionTag: arg keys must be strings or numbers", 2 )
-				end
-				if type( v ) ~= 'string' and type( v ) ~= 'number' then
-					error( "frame:extensionTag: arg values must be strings or numbers", 2 )
-				end
-				args[k] = v
-			end
+			args = checkArgs( 'frame:extensionTag', args )
 			table.insert( args, 1, content )
 		else
 			error( "frame:extensionTag: args must be a string, number, or table", 2 )
@@ -423,7 +409,7 @@ local function newFrame( frameId, ... )
 			function ()
 				return self:expandTemplate( opt )
 			end
-			)
+		)
 	end
 
 	function frame:getTitle()
