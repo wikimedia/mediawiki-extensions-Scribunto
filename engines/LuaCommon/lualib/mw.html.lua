@@ -195,18 +195,16 @@ end
 
 -- Appends some markup to the node. This will be treated as wikitext.
 methodtable.wikitext = function( t, ... )
-	local vals = {...}
-	for i = 1, #vals do
-		checkTypeMulti( 'wikitext', i, vals[i], { 'string', 'number' } )
-		appendBuilder( t, vals[i] )
+	for k,v in ipairs{...} do
+		checkTypeMulti( 'wikitext', k, v, { 'string', 'number' } )
+		appendBuilder( t, v )
 	end
 	return t
 end
 
 -- Appends a newline character to the node.
 methodtable.newline = function( t )
-	t:wikitext( '\n' )
-	return t
+	return t:wikitext( '\n' )
 end
 
 -- Appends a new child node to the builder, and returns an HtmlBuilder instance
@@ -232,10 +230,7 @@ methodtable.getAttr = function( t, name )
 	checkType( 'getAttr', 1, name, 'string' )
 
 	local attr = getAttr( t, name )
-	if attr then
-		return attr.val
-	end
-	return nil
+	return attr and attr.val
 end
 
 -- Set an HTML attribute on the node.
@@ -307,17 +302,14 @@ end
 methodtable.addClass = function( t, class )
 	checkTypeMulti( 'addClass', 1, class, { 'string', 'number', 'nil' } )
 
-	if class == nil then
-		return t
+	if class ~= nil then
+		local attr = getAttr( t, 'class' )
+		if attr then
+			attr.val = attr.val .. ' ' .. class
+		else
+			t:attr( 'class', class )
+		end
 	end
-
-	local attr = getAttr( t, 'class' )
-	if attr then
-		attr.val = attr.val .. ' ' .. class
-	else
-		t:attr( 'class', class )
-	end
-
 	return t
 end
 
@@ -379,9 +371,7 @@ end
 -- @param css
 methodtable.cssText = function( t, css )
 	checkTypeMulti( 'cssText', 1, css, { 'string', 'number', 'nil' } )
-	if css ~= nil then
-		table.insert( t.styles, css )
-	end
+	table.insert( t.styles, css )
 	return t
 end
 
