@@ -155,7 +155,9 @@ local function makeTitleObject( data )
 	end
 
 	-- Known fields, both those defined above and any dynamically handled in
-	-- __index, mapped to whether they are read-only.
+	-- __index. Truthy values represent read-only, and falsey values represent
+	-- read-write. If the value is the string 'e', expensive data will be loaded
+	-- if the field is read.
 	local readOnlyFields = {
 		fragment = false,
 		fullText = true,
@@ -167,6 +169,10 @@ local function makeTitleObject( data )
 		file = true,
 		protectionLevels = true,
 		cascadingProtection = true,
+		exists = 'e',
+		isRedirect = 'e',
+		contentModel = 'e',
+		id = 'e',
 	}
 	for k in pairs( data ) do
 		readOnlyFields[k] = true
@@ -193,6 +199,12 @@ local function makeTitleObject( data )
 		__index = function ( t, k )
 			if k == 'exists' and data.namespace == NS_MEDIA then
 				k = 'fileExists'
+			end
+
+			if readOnlyFields[k] == 'e' and data[k] == nil then
+				for k,v in pairs( php.getExpensiveData( data.prefixedText ) ) do
+					data[k] = v
+				end
 			end
 
 			if k == 'fullText' then

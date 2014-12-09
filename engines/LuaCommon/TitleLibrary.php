@@ -12,6 +12,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$lib = array(
 			'newTitle' => array( $this, 'newTitle' ),
 			'makeTitle' => array( $this, 'makeTitle' ),
+			'getExpensiveData' => array( $this, 'getExpensiveData' ),
 			'getUrl' => array( $this, 'getUrl' ),
 			'getContent' => array( $this, 'getContent' ),
 			'getFileInfo' => array( $this, 'getFileInfo' ),
@@ -19,7 +20,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'cascadingProtection' => array( $this, 'cascadingProtection' ),
 		);
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
-			'thisTitle' => $this->returnTitleToLua( $this->getTitle() ),
+			'thisTitle' => $this->getInexpensiveTitleData( $this->getTitle() ),
 			'NS_MEDIA' => NS_MEDIA,
 		) );
 	}
@@ -50,45 +51,28 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Extract information from a Title object for return to Lua
-	 *
-	 * This also records a link to this title in the current ParserOutput
-	 * and caches the title for repeated lookups. The caller should call
-	 * incrementExpensiveFunctionCount() if necessary.
+	 * Extract inexpensive information from a Title object for return to Lua
 	 *
 	 * @param $title Title Title to return
 	 * @return array Lua data
 	 */
-	private function returnTitleToLua( Title $title ) {
-		// Cache it
-		$this->titleCache[$title->getPrefixedDBkey()] = $title;
-		if ( $title->getArticleID() > 0 ) {
-			$this->idCache[$title->getArticleID()] = $title;
-		}
-
-		// Record a link
-		if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
-			$this->getParser()->getOutput()->addLink( $title );
-		}
-
+	private function getInexpensiveTitleData( Title $title ) {
 		$ns = $title->getNamespace();
 		$ret = array(
 			'isLocal' => (bool)$title->isLocal(),
-			'isRedirect' => (bool)$title->isRedirect(),
 			'interwiki' => $title->getInterwiki(),
 			'namespace' => $ns,
 			'nsText' => $title->getNsText(),
 			'text' => $title->getText(),
-			'id' => $title->getArticleID(),
 			'fragment' => $title->getFragment(),
-			'contentModel' => $title->getContentModel(),
 			'thePartialUrl' => $title->getPartialURL(),
 		);
 		if ( $ns === NS_SPECIAL ) {
+			// Core doesn't currently record special page links, but it may in the future.
+			if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
+				$this->getParser()->getOutput()->addLink( $title );
+			}
 			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
-		} else {
-			// bug 70495: don't just check whether the ID != 0
-			$ret['exists'] = $title->exists();
 		}
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
 			$ret['file'] = false;
@@ -97,11 +81,61 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
+	 * Extract expensive information from a Title object for return to Lua
+	 *
+	 * This records a link to this title in the current ParserOutput and caches the
+	 * title for repeated lookups. It may call incrementExpensiveFunctionCount() if
+	 * the title is not already cached.
+	 *
+	 * @param string $text Title text
+	 * @return array Lua data
+	 */
+	public function getExpensiveData( $text ) {
+		$this->checkType( 'getExpensiveData', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return array( null );
+		}
+		$dbKey = $title->getPrefixedDBkey();
+		if ( isset( $this->titleCache[$dbKey] ) ) {
+			// It was already cached, so we already did the expensive work and added a link
+			$title = $this->titleCache[$dbKey];
+		} else {
+			if ( !$title->equals( $this->getTitle() ) ) {
+				$this->incrementExpensiveFunctionCount();
+
+				// Record a link
+				if ( $this->getParser() ) {
+					$this->getParser()->getOutput()->addLink( $title );
+				}
+			}
+
+			// Cache it
+			$this->titleCache[$dbKey] = $title;
+			if ( $title->getArticleID() > 0 ) {
+				$this->idCache[$title->getArticleID()] = $title;
+			}
+		}
+
+		$ret = array(
+			'isRedirect' => (bool)$title->isRedirect(),
+			'id' => $title->getArticleID(),
+			'contentModel' => $title->getContentModel(),
+		);
+		if ( $title->getNamespace() === NS_SPECIAL ) {
+			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
+		} else {
+			// bug 70495: don't just check whether the ID != 0
+			$ret['exists'] = $title->exists();
+		}
+		return array( $ret );
+	}
+
+	/**
 	 * Handler for title.new
 	 *
 	 * Calls Title::newFromID or Title::newFromTitle as appropriate for the
-	 * arguments, and may call incrementExpensiveFunctionCount() if the title
-	 * is not already cached.
+	 * arguments.
 	 *
 	 * @param $text_or_id string|int Title or page_id to fetch
 	 * @param $defaultNamespace string|int Namespace name or number to use if $text_or_id doesn't override
@@ -117,7 +151,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				$title = Title::newFromID( $text_or_id );
 				$this->idCache[$text_or_id] = $title;
 			}
-			if ( !$title ) {
+			if ( $title ) {
+				$this->titleCache[$title->getPrefixedDBkey()] = $title;
+			} else {
 				return array( null );
 			}
 		} elseif ( $type === 'string' ) {
@@ -129,25 +165,18 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			if ( !$title ) {
 				return array( null );
 			}
-			if ( isset( $this->titleCache[$title->getPrefixedDBkey()] ) ) {
-				// Use the cached version, because that has already been loaded from the database
-				$title = $this->titleCache[$title->getPrefixedDBkey()];
-			} else {
-				$this->incrementExpensiveFunctionCount();
-			}
 		} else {
 			// This will always fail
 			$this->checkType( 'title.new', 1, $text_or_id, 'number or string' );
 		}
 
-		return array( $this->returnTitleToLua( $title ) );
+		return array( $this->getInexpensiveTitleData( $title ) );
 	}
 
 	/**
 	 * Handler for title.makeTitle
 	 *
-	 * Calls Title::makeTitleSafe, and may call
-	 * incrementExpensiveFunctionCount() if the title is not already cached.
+	 * Calls Title::makeTitleSafe.
 	 *
 	 * @param $ns string|int Namespace
 	 * @param $text string Title text
@@ -167,14 +196,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( !$title ) {
 			return array( null );
 		}
-		if ( isset( $this->titleCache[$title->getPrefixedDBkey()] ) ) {
-			// Use the cached version, because that has already been loaded from the database
-			$title = $this->titleCache[$title->getPrefixedDBkey()];
-		} else {
-			$this->incrementExpensiveFunctionCount();
-		}
 
-		return array( $this->returnTitleToLua( $title ) );
+		return array( $this->getInexpensiveTitleData( $title ) );
 	}
 
 	// May call the following Title methods:

@@ -42,16 +42,30 @@ local function test_space_normalization( s )
 	return tostring( title ), tostring( title.fragment )
 end
 
-local function test_expensive()
+local function test_expensive_10()
 	for i = 1, 10 do
-		mw.title.new( tostring( i ) )
+		local _ = mw.title.new( tostring( i ) ).id
+	end
+	return 'did not error'
+end
+
+local function test_expensive_11()
+	for i = 1, 11 do
+		local _ = mw.title.new( tostring( i ) ).id
 	end
 	return 'did not error'
 end
 
 local function test_expensive_cached()
 	for i = 1, 100 do
-		mw.title.new( 'Title' )
+		local _ = mw.title.new( 'Title' ).id
+	end
+	return 'did not error'
+end
+
+local function test_inexpensive()
+	for i = 1, 100 do
+		local _ = mw.title.new( 'Title' ).prefixedText
 	end
 	return 'did not error'
 end
@@ -356,10 +370,16 @@ local tests = {
 	  expect = { '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' }
 	},
 
-	{ name = 'expensive functions', func = test_expensive,
+	{ name = 'not quite too many expensive functions', func = test_expensive_10,
+	  expect = { 'did not error' }
+	},
+	{ name = 'too many expensive functions', func = test_expensive_11,
 	  expect = 'too many expensive function calls'
 	},
-	{ name = 'expensive cached', func = test_expensive_cached,
+	{ name = "previously cached titles shouldn't count as expensive", func = test_expensive_cached,
+	  expect = { 'did not error' }
+	},
+	{ name = "inexpensive actions shouldn't count as expensive", func = test_inexpensive,
 	  expect = { 'did not error' }
 	},
 }

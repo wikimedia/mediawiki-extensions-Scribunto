@@ -124,7 +124,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$this->assertFalse( isset( $links[NS_PROJECT]['Referenced_from_Lua'] ) );
 
 		$interpreter->callFunction(
-			$interpreter->loadString( 'mw.title.new( "Project:Referenced from Lua" )', 'reference title' )
+			$interpreter->loadString( 'local _ = mw.title.new( "Project:Referenced from Lua" ).id', 'reference title' )
 		);
 
 		$links = $engine->getParser()->getOutput()->getLinks();
