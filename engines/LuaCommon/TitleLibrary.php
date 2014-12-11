@@ -150,6 +150,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				$this->incrementExpensiveFunctionCount();
 				$title = Title::newFromID( $text_or_id );
 				$this->idCache[$text_or_id] = $title;
+
+				// Record a link
+				if ( $this->getParser() && $title && !$title->equals( $this->getTitle() ) ) {
+					$this->getParser()->getOutput()->addLink( $title );
+				}
 			}
 			if ( $title ) {
 				$this->titleCache[$title->getPrefixedDBkey()] = $title;
