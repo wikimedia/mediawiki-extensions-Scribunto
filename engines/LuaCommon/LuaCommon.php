@@ -796,6 +796,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		}
 
 		if ( is_scalar( $input ) ) {
+			$input = str_replace( array( "\r\n", "\r" ), "\n", $input );
 			$dom = $this->parser->getPreprocessor()->preprocessToObj(
 				$input, $frame->depth ? Parser::PTD_FOR_INCLUSION : 0 );
 		} else {
