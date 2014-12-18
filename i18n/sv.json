@@ -63,6 +63,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-loggar",
 	"apihelp-scribunto-console-description": "Intern modul för att betjäna XHR-förfrågningar från Scribunto-konsolen.",
+	"apihelp-scribunto-console-param-title": "Modultiteln som ska testas.",
 	"apihelp-scribunto-console-param-content": "Modulens nya innehåll.",
 	"apihelp-scribunto-console-param-session": "Sessionsnyckel."
 }
