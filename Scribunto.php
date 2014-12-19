@@ -45,6 +45,12 @@ $wgAutoloadClasses['Scribunto'] = $dir.'common/Common.php';
 $wgAutoloadClasses['ApiScribuntoConsole'] = $dir.'common/ApiScribuntoConsole.php';
 $wgAutoloadClasses['ScribuntoContentHandler'] = $dir.'common/ScribuntoContentHandler.php';
 $wgAutoloadClasses['ScribuntoContent'] = $dir.'common/ScribuntoContent.php';
+$wgAutoloadClasses['Scribunto_LuaError'] = $dir.'engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaInterpreterNotFoundError'] = $dir.'engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxInterpreter'] = $dir.'engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxCallback'] = $dir.'engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreterFunction'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaEngineTestSkip'] = $dir.'tests/engines/LuaCommon/LuaEngineTestBase.php';
 
 $wgHooks['SoftwareInfo'][] = 'ScribuntoHooks::getSoftwareInfo';
 
