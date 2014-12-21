@@ -15,6 +15,7 @@ function site.setupInterface( info )
 	site.stats.pagesInCategory = php.pagesInCategory
 	site.stats.pagesInNamespace = php.pagesInNamespace
 	site.stats.usersInGroup = php.usersInGroup
+	site.interwikiMap = php.interwikiMap
 
 	-- Process namespace list into more useful tables
 	site.namespaces = {}

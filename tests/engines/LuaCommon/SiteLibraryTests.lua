@@ -14,6 +14,43 @@ local function nsTest( ... )
 	return t
 end
 
+local function isNonEmptyString( val )
+	return type( val ) == 'string' and val ~= ''
+end
+
+local function isValidInterwikiMap( map )
+	assert( type( map ) == 'table', "mw.site.interwikiMap did not return a table" )
+	local stringKeys = { 'prefix', 'url' }
+	local boolKeys = {
+		'isProtocolRelative',
+		'isLocal',
+		'isTranscludable',
+		'isCurrentWiki',
+		'isExtraLanguageLink'
+	}
+	local maybeStringKeys = { 'displayText', 'tooltip' }
+	for prefix, data in pairs( map ) do
+		for _, key in ipairs( stringKeys ) do
+			assert( isNonEmptyString( data[key] ),
+				key .. " is not a string or is the empty string"
+			)
+		end
+		assert( prefix == data.prefix, string.format(
+			"table key '%s' and prefix '%s' do not match",
+			tostring( prefix ), tostring( data.prefix )
+		) )
+		for _, key in ipairs( boolKeys ) do
+			assert( type( data[key] ) == 'boolean', key .. " is not a boolean" )
+		end
+		for _, key in ipairs( maybeStringKeys ) do
+			assert( data[key] == nil or isNonEmptyString( data[key] ),
+				key .. " is not a string or is the empty string, and is not nil"
+			)
+		end
+	end
+	return true
+end
+
 return testframework.getTestProvider( {
 	{ name = 'parameter: siteName',
 	  func = type, args = { mw.site.siteName },
@@ -106,5 +143,40 @@ return testframework.getTestProvider( {
 	{ name = 'Project talk namespace by name (extraneous spaces and underscores)',
 	  func = nsTest, args = { '_ _ _Project_ _talk_ _ _', 'id' },
 	  expect = { 5 }
+	},
+
+	{ name = 'interwikiMap (all prefixes)',
+	  func = isValidInterwikiMap, args = { mw.site.interwikiMap() },
+	  expect = { true }
+	},
+
+	{ name = 'interwikiMap (local prefixes)',
+	  func = isValidInterwikiMap, args = { mw.site.interwikiMap( 'local' ) },
+	  expect = { true }
+	},
+
+	{ name = 'interwikiMap (non-local prefixes)',
+	  func = isValidInterwikiMap, args = { mw.site.interwikiMap( '!local' ) },
+	  expect = { true }
+	},
+
+	{ name = 'interwikiMap (type error 1)',
+	  func = mw.site.interwikiMap, args = { 123 },
+	  expect = "bad argument #1 to 'interwikiMap' (string expected, got number)"
+	},
+
+	{ name = 'interwikiMap (type error 2)',
+	  func = mw.site.interwikiMap, args = { false },
+	  expect = "bad argument #1 to 'interwikiMap' (string expected, got boolean)"
+	},
+
+	{ name = 'interwikiMap (unknown filter 1)',
+	  func = mw.site.interwikiMap, args = { '' },
+	  expect = "bad argument #1 to 'interwikiMap' (unknown filter '')"
+	},
+
+	{ name = 'interwikiMap (unknown filter 2)',
+	  func = mw.site.interwikiMap, args = { 'foo' },
+	  expect = "bad argument #1 to 'interwikiMap' (unknown filter 'foo')"
 	},
 } )

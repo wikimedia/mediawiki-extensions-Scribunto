@@ -2,6 +2,7 @@
 
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	private static $namespacesCache = null;
+	private static $interwikiMapCache = array();
 	private $pagesInCategoryCache = array();
 
 	function register() {
@@ -12,6 +13,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'pagesInCategory' => array( $this, 'pagesInCategory' ),
 			'pagesInNamespace' => array( $this, 'pagesInNamespace' ),
 			'usersInGroup' => array( $this, 'usersInGroup' ),
+			'interwikiMap' => array( $this, 'interwikiMap' ),
 		);
 		$info = array(
 			'siteName' => $GLOBALS['wgSitename'],
@@ -129,5 +131,52 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		// PHP call is case-insensitive but chokes on non-standard spaces/underscores.
 		$name = trim( preg_replace( '/[\s_]+/', '_', $name ), '_' );
 		return array( $wgContLang->getNsIndex( $name ) );
+	}
+
+	public function interwikiMap( $filter = null ) {
+		global $wgLocalInterwikis, $wgExtraInterlanguageLinkPrefixes;
+		$this->checkTypeOptional( 'interwikiMap', 1, $filter, 'string', null );
+		$local = null;
+		if ( $filter === 'local' ) {
+			$local = 1;
+		} elseif ( $filter === '!local' ) {
+			$local = 0;
+		} elseif ( $filter !== null ) {
+			throw new Scribunto_LuaError(
+				"bad argument #1 to 'interwikiMap' (unknown filter '$filter')"
+			);
+		}
+		$cacheKey = $filter === null ? 'null' : $filter;
+		if ( !isset( self::$interwikiMapCache[$cacheKey] ) ) {
+			// Not expensive because we can have a max of three cache misses in the
+			// entire page parse.
+			$interwikiMap = array();
+			$prefixes = Interwiki::getAllPrefixes( $local );
+			foreach ( $prefixes as $row ) {
+				$prefix = $row['iw_prefix'];
+				$val = array(
+					'prefix' => $prefix,
+					'url' => wfExpandUrl( $row['iw_url'], PROTO_CURRENT ),
+					'isProtocolRelative' => substr( $row['iw_url'], 0, 2 ) === '//',
+					'isLocal' => isset( $row['iw_local'] ) && $row['iw_local'] == '1',
+					'isTranscludable' => isset( $row['iw_trans'] ) && $row['iw_trans'] == '1',
+					'isCurrentWiki' => in_array( $prefix, $wgLocalInterwikis ),
+					'isExtraLanguageLink' => in_array( $prefix, $wgExtraInterlanguageLinkPrefixes ),
+				);
+				if ( $val['isExtraLanguageLink'] ) {
+					$displayText = wfMessage( "interlanguage-link-$prefix" );
+					if ( !$displayText->isDisabled() ) {
+						$val['displayText'] = $displayText->text();
+					}
+					$tooltip = wfMessage( "interlanguage-link-sitename-$prefix" );
+					if ( !$tooltip->isDisabled() ) {
+						$val['tooltip'] = $tooltip->text();
+					}
+				}
+				$interwikiMap[$prefix] = $val;
+			}
+			self::$interwikiMapCache[$cacheKey] = $interwikiMap;
+		}
+		return array( self::$interwikiMapCache[$cacheKey] );
 	}
 }
