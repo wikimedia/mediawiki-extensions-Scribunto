@@ -936,25 +936,27 @@ class Scribunto_LuaError extends ScribuntoException {
 			}
 
 			if ( strval( $info['namewhat'] ) !== '' ) {
-				$function = wfMessage( 'scribunto-lua-in-function', $info['name'] );
+				$function = wfMessage( 'scribunto-lua-in-function', wfEscapeWikiText( $info['name'] ) );
 				in_array( 'content', $msgOptions ) ?
-					$function = $function->inContentLanguage()->text() :
-					$function = $function->text();
+					$function = $function->inContentLanguage()->plain() :
+					$function = $function->plain();
 			} elseif ( $info['what'] == 'main' ) {
 				$function = wfMessage( 'scribunto-lua-in-main' );
 				in_array( 'content', $msgOptions ) ?
-					$function = $function->inContentLanguage()->text() :
-					$function = $function->text();
+					$function = $function->inContentLanguage()->plain() :
+					$function = $function->plain();
 			} else {
 				// C function, tail call, or a Lua function where Lua can't
 				// guess the name
 				$function = '?';
 			}
 
-			$backtraceLine = wfMessage( 'scribunto-lua-backtrace-line', "<strong>$src</strong>", $function );
+			$backtraceLine = wfMessage( 'scribunto-lua-backtrace-line' )
+				->rawParams( "<strong>$src</strong>" )
+				->params( $function );
 			in_array( 'content', $msgOptions ) ?
-				$backtraceLine = $backtraceLine->inContentLanguage()->text() :
-				$backtraceLine = $backtraceLine->text();
+				$backtraceLine = $backtraceLine->inContentLanguage()->parse() :
+				$backtraceLine = $backtraceLine->parse();
 
 			$s .= "<li>\n\t" . $backtraceLine  . "\n</li>\n";
 		}
