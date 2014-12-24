@@ -156,7 +156,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 				$prefix = $row['iw_prefix'];
 				$val = array(
 					'prefix' => $prefix,
-					'url' => wfExpandUrl( $row['iw_url'], PROTO_CURRENT ),
+					'url' => wfExpandUrl( $row['iw_url'], PROTO_RELATIVE ),
 					'isProtocolRelative' => substr( $row['iw_url'], 0, 2 ) === '//',
 					'isLocal' => isset( $row['iw_local'] ) && $row['iw_local'] == '1',
 					'isTranscludable' => isset( $row['iw_trans'] ) && $row['iw_trans'] == '1',
