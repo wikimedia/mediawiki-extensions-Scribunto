@@ -15,6 +15,7 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 				'fetchLanguageName (en,ru)' => $msg,
 				'fetchLanguageName (ru,en)' => $msg,
 				'fetchLanguageNames (de)' => $msg,
+				'fetchLanguageNames ([[bogus]])' => $msg,
 			);
 		}
 	}

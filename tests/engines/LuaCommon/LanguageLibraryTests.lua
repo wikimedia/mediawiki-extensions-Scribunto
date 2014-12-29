@@ -126,7 +126,7 @@ return testframework.getTestProvider( {
 	},
 	{ name = 'fetchLanguageNames ([[bogus]])', func = test_fetchLanguageNames,
 	  args = { '[[bogus]]' },
-	  expect = { { en = 'English', ru = 'русский' } }
+	  expect = { { en = 'English', ru = 'Russian' } }
 	},
 
 	{ name = 'getFallbacksFor', func = test_multi,
@@ -263,7 +263,7 @@ return testframework.getTestProvider( {
 	  args = { 'formatDuration', 86461 },
 	  expect = {
 		  { "1 day, 1 minute and 1 second" },
-		  { "1 күн, 1 минут ha'm 1 секунт" },
+		  { "1 күн, 1 минут ha&#039;m 1 секунт" },
 		  { "۱ روز، ۱ دقیقه و ۱ ثانیه" },
 		  "language code '[[bogus]]' is invalid",
 	  }
@@ -272,7 +272,7 @@ return testframework.getTestProvider( {
 	  args = { 'formatDuration', 86461, { 'hours', 'minutes' } },
 	  expect = {
 		  { "24 hours and 1 minute" },
-		  { "24 сағат ha'm 1 минут" },
+		  { "24 сағат ha&#039;m 1 минут" },
 		  { "۲۴ ساعت و ۱ دقیقه" },
 		  "language code '[[bogus]]' is invalid",
 	  }
