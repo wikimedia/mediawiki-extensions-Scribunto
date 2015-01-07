@@ -13,8 +13,8 @@ if ( count( $argv ) > 1 ) {
 	}
 } else {
 	foreach( array(
-		__DIR__ . '/../../../../../core/includes/normal/UtfNormalData.inc',
-		__DIR__ . '/../../../../../includes/normal/UtfNormalData.inc',
+		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
+		__DIR__ . '/../../../../../includes/libs/normal/UtfNormalData.inc',
 	) as $tryfile ) {
 		$tryfile = realpath( $tryfile );
 		if ( file_exists( $tryfile ) ) {

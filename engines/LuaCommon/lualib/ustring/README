@@ -20,7 +20,7 @@ Contents:
   string library, and charsets.lua using PCRE.
 * normalization-data.lua - Data tables for toNFC and toNFD.
 * make-normalization-table.php - Regenerate normalization-data.lua based on the
-  file includes/normal/UtfNormalData.inc from MediaWiki core.
+  file includes/libs/normal/UtfNormalData.inc from MediaWiki core.
 
 
 This library (consisting of the files described above) is released under the MIT
