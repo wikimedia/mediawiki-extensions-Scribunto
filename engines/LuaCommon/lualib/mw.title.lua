@@ -202,7 +202,7 @@ local function makeTitleObject( data )
 			end
 
 			if readOnlyFields[k] == 'e' and data[k] == nil then
-				for k,v in pairs( php.getExpensiveData( data.prefixedText ) ) do
+				for k,v in pairs( php.getExpensiveData( t.fullText ) ) do
 					data[k] = v
 				end
 			end
