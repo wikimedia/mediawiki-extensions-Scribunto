@@ -127,14 +127,17 @@ class ScribuntoHooks {
 				);
 			}
 			$out = $parser->getOutput();
-			if ( !isset( $out->scribunto_errors ) ) {
-				$out->addOutputHook( 'ScribuntoError' );
-				$out->scribunto_errors = array();
+			$errors = $out->getExtensionData( 'ScribuntoErrors' );
+			if ( $errors === null ) {
+				// On first hook use, set up error array and output
+				$errors = array();
 				$parser->addTrackingCategory( 'scribunto-common-error-category' );
+				$out->addModules( 'ext.scribunto.errors' );
 			}
-
-			$out->scribunto_errors[] = $html;
-			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
+			$errors[] = $html;
+			$out->setExtensionData( 'ScribuntoErrors', $errors );
+			$out->addJsConfigVars( 'ScribuntoErrors', $errors );
+			$id = 'mw-scribunto-error-' . ( count( $errors ) - 1 );
 			$parserError = htmlspecialchars( $e->getMessage() );
 
 			// #iferror-compatible error element
@@ -355,24 +358,6 @@ WIKI;
 			$files[] = __DIR__ . '/../tests/' . $test;
 		}
 		return true;
-	}
-
-	/**
-	 * @param OutputPage $outputPage
-	 * @param ParserOutput $parserOutput
-	 */
-	public static function parserOutputHook( OutputPage $outputPage, ParserOutput $parserOutput ) {
-		// Only run the following if we're not on mobile as ext.scribunto doesn't work on mobile. Bug 59808
-		if ( $outputPage->getTarget() === 'mobile' ) {
-			return;
-		}
-
-		$outputPage->addModules( 'ext.scribunto' );
-		$outputPage->addInlineScript(
-			'mw.loader.using("ext.scribunto", function() {' .
-				Xml::encodeJsCall( 'mw.scribunto.setErrors', array( $parserOutput->scribunto_errors ) )
-			. '});'
-		);
 	}
 
 	/**

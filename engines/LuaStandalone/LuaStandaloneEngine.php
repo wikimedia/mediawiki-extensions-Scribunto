@@ -68,7 +68,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 		$logs = $this->getLogBuffer();
 		if ( $logs !== '' ) {
-			$output->addModules( 'ext.scribunto' );
+			$output->addModules( 'ext.scribunto.logs' );
 			$output->setLimitReportData( 'scribunto-limitreport-logs', $logs );
 		}
 	}
