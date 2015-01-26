@@ -284,4 +284,47 @@ function mwtext.truncate( text, length, ellipsis, adjustLength )
 	end
 end
 
+-- Check for stuff that can't even be passed to PHP properly and other stuff
+-- that gives different error messages in different versions of PHP
+local function checkForJsonEncode( t, seen, lvl )
+	local tp = type( t )
+	if tp == 'table' then
+		if seen[t] then
+			error( "mw.text.jsonEncode: Cannot use recursive tables", lvl )
+		end
+		seen[t] = 1
+		for k, v in pairs( t ) do
+			if type( k ) == 'number' then
+				if k >= math.huge or k <= -math.huge then
+					error( string.format( "mw.text.jsonEncode: Cannot use 'inf' as a table key", type( k ) ), lvl )
+				end
+			elseif type( k ) ~= 'string' then
+				error( string.format( "mw.text.jsonEncode: Cannot use type '%s' as a table key", type( k ) ), lvl )
+			end
+			checkForJsonEncode( v, seen, lvl + 1 )
+		end
+		seen[t] = nil
+	elseif tp == 'number' then
+		if t ~= t or t >= math.huge or t <= -math.huge then
+			error( "mw.text.jsonEncode: Cannot encode non-finite numbers", lvl )
+		end
+	elseif tp ~= 'boolean' and tp ~= 'string' then
+		error( string.format( "mw.text.jsonEncode: Cannot encode type '%s'", tp ), lvl )
+	end
+end
+
+function mwtext.jsonEncode( value, flags )
+	checkForJsonEncode( value, {}, 3 )
+	return php.jsonEncode( value, flags )
+end
+
+function mwtext.jsonDecode( json, flags )
+	return php.jsonDecode( json, flags )
+end
+
+-- Matches PHP Scribunto_LuaTextLibrary constants
+mwtext.JSON_PRESERVE_KEYS = 1
+mwtext.JSON_TRY_FIXING = 2
+mwtext.JSON_PRETTY = 4
+
 return mwtext
