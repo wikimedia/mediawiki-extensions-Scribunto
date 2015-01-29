@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Subi"
 		]
 	},
-	"scribunto-console-clear": "Garbitu"
+	"scribunto-console-clear": "Garbitu",
+	"scribunto-limitreport-profile-ms": "$1 ms"
 }
