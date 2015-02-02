@@ -56,12 +56,12 @@ local _PRELOAD = package.preload
 --
 local function loader_preload (name)
 	assert (type(name) == "string", format (
-		"bad argument #1 to `require' (string expected, got %s)", type(name)))
-	assert (type(_PRELOAD) == "table", "`package.preload' must be a table")
+		"bad argument #1 to 'require' (string expected, got %s)", type(name)))
+	assert (type(_PRELOAD) == "table", "'package.preload' must be a table")
 	return _PRELOAD[name]
 end
 
--- create `loaders' table
+-- create 'loaders' table
 package.loaders = package.loaders or { loader_preload }
 local _LOADERS = package.loaders
 
@@ -70,14 +70,14 @@ local _LOADERS = package.loaders
 --
 local function load (name, loaders)
 	-- iterate over available loaders
-	assert (type (loaders) == "table", "`package.loaders' must be a table")
+	assert (type (loaders) == "table", "'package.loaders' must be a table")
 	for i, loader in ipairs (loaders) do
 		local f = loader (name)
 		if f then
 			return f
 		end
 	end
-	error (format ("module `%s' not found", name))
+	error (format ("module '%s' not found", name))
 end
 
 -- sentinel
@@ -88,7 +88,7 @@ local sentinel = function () end
 --
 function _G.require (modname)
 	assert (type(modname) == "string", format (
-		"bad argument #1 to `require' (string expected, got %s)", type(modname)))
+		"bad argument #1 to 'require' (string expected, got %s)", type(modname)))
 	local p = _LOADED[modname]
 	if p then -- is it there?
 		if p == sentinel then
