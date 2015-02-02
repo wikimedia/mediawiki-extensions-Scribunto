@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Elisardojm"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki",
@@ -22,7 +23,7 @@
 	"scribunto-console-cleared-session-lost": "Limpouse o estado da consola debido á perda dos datos da sesión.",
 	"scribunto-common-error-category": "Páxinas con erros de script",
 	"scribunto-common-error-category-desc": "Produciuse un erro ao procesar os módulos incluídos na páxina.",
-	"scribunto-common-nosuchmodule": "Erro de script: Non existe ese módulo.",
+	"scribunto-common-nosuchmodule": "Erro de script: Non existe o módulo \"$2\".",
 	"scribunto-common-nofunction": "Erro de script: Cómpre especificar a función que se quere chamar.",
 	"scribunto-common-nosuchfunction": "Erro de script: A función especificada non existe.",
 	"scribunto-common-timeout": "O tempo reservado para executar os scripts rematou.",
@@ -33,7 +34,7 @@
 	"scribunto-lua-in-function-at": "na función en $1:$2",
 	"scribunto-lua-error-location": "Erro de Lua $1: $2.",
 	"scribunto-lua-error": "Erro de Lua: $2.",
-	"scribunto-lua-notarrayreturn": "Erro de script: O módulo devolveu algo que non era unha táboa; debería devolver unha táboa de exportación.",
+	"scribunto-lua-notarrayreturn": "Erro de script: O módulo devolveu o valor $2. Debería devolver unha táboa de exportación.",
 	"scribunto-luastandalone-proc-error": "Erro de Lua: Non se pode crear o proceso.",
 	"scribunto-luastandalone-proc-error-msg": "Erro de Lua: Non se pode crear o proceso: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Erro de Lua: Non se pode crear o proceso: proc_open non está dispoñible. Comprobe a directiva de configuración \"disable_functions\" do PHP.",
