@@ -25,7 +25,7 @@
 	"scribunto-common-error-category-desc": "Produciuse un erro ao procesar os módulos incluídos na páxina.",
 	"scribunto-common-nosuchmodule": "Erro de script: Non existe o módulo \"$2\".",
 	"scribunto-common-nofunction": "Erro de script: Cómpre especificar a función que se quere chamar.",
-	"scribunto-common-nosuchfunction": "Erro de script: A función especificada non existe.",
+	"scribunto-common-nosuchfunction": "Erro de script: A función \"$2\" non existe.",
 	"scribunto-common-timeout": "O tempo reservado para executar os scripts rematou.",
 	"scribunto-common-oom": "Superouse a cantidade de memoria permitida para executar os scripts.",
 	"scribunto-common-backtrace": "Rastro inverso (backtrace):",
