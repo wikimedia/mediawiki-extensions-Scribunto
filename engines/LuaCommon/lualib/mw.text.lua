@@ -308,7 +308,7 @@ local function checkForJsonEncode( t, seen, lvl )
 		if t ~= t or t >= math.huge or t <= -math.huge then
 			error( "mw.text.jsonEncode: Cannot encode non-finite numbers", lvl )
 		end
-	elseif tp ~= 'boolean' and tp ~= 'string' then
+	elseif tp ~= 'boolean' and tp ~= 'string' and tp ~= 'nil' then
 		error( string.format( "mw.text.jsonEncode: Cannot encode type '%s'", tp ), lvl )
 	end
 end

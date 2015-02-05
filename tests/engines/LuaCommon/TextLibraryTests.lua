@@ -430,6 +430,33 @@ local tests = {
 	  args = { '"foo"' },
 	  expect = { 'foo' }
 	},
+	{ name = 'json encode, sneaky nil injection (object)',
+	  func = mw.text.jsonEncode,
+	  args = { setmetatable( {}, {
+		  __pairs = function ( t )
+			  return function ( t, k )
+				  if k ~= "foo" then
+					  return "foo", nil
+				  end
+			  end, t, nil
+		  end,
+	  } ) },
+	  expect = { '{"foo":null}' }
+	},
+	{ name = 'json encode, sneaky nil injection (array)',
+	  func = mw.text.jsonEncode,
+	  args = { setmetatable( { "one", "two", nil, "four" }, {
+		  __pairs = function ( t )
+			  return function ( t, k )
+				  k = k and k + 1 or 1
+				  if k <= 4 then
+					  return k, t[k]
+				  end
+			  end, t, nil
+		  end,
+	  } ) },
+	  expect = { '["one","two",null,"four"]' }
+	},
 
 	{ name = 'json encode, invalid values (inf)',
 	  func = mw.text.jsonEncode,
