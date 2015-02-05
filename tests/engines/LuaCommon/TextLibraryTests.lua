@@ -26,6 +26,15 @@ local function stripTest( func, marker )
 	return result
 end
 
+-- Round-trip test for json encode/decode, mainly because we can't rely on
+-- order when encoding multi-element objects.
+function jsonRoundTripTest( tree )
+	return mw.text.jsonDecode( mw.text.jsonEncode( tree ) )
+end
+
+local recursiveTable = {}
+recursiveTable.recursiveTable = recursiveTable
+
 -- Tests
 local tests = {
 	{ name = 'trim',
@@ -269,6 +278,204 @@ local tests = {
 	{ name = 'truncate, ridiculously short (2)',
 	  func = mw.text.truncate, args = { 'foobarbaz', -1, nil, true },
 	  expect = { '...' }
+	},
+
+	{ name = 'json encode-decode round trip, simple object',
+	  func = jsonRoundTripTest,
+	  args = { {
+		  int = 2,
+		  string = "foo",
+		  ['true'] = true,
+		  ['false'] = false,
+	  } },
+	  expect = { {
+		  int = 2,
+		  string = "foo",
+		  ['true'] = true,
+		  ['false'] = false,
+	  } },
+	},
+	{ name = 'json decode, simple object',
+	  func = mw.text.jsonDecode,
+	  args = { '{"int":2,"string":"foo","true":true,"false":false}' },
+	  expect = { {
+		  int = 2,
+		  string = "foo",
+		  ['true'] = true,
+		  ['false'] = false,
+	  } },
+	},
+	{ name = 'json encode, simple array',
+	  func = mw.text.jsonEncode,
+	  args = { { 1, "foo", true, false } },
+	  expect = { '[1,"foo",true,false]' }
+	},
+	{ name = 'json decode, simple array',
+	  func = mw.text.jsonDecode,
+	  args = { '[1,"foo",true,false]' },
+	  expect = { { 1, "foo", true, false } }
+	},
+	{ name = 'json encode-decode round trip, object with numeric keys',
+	  func = jsonRoundTripTest,
+	  args = { { x = "x", [1] = 1, [2] = 2 } },
+	  expect = { { x = "x", [1] = 1, [2] = 2 } }
+	},
+	{ name = 'json decode, object with numeric keys',
+	  func = mw.text.jsonDecode,
+	  args = { '{"x":"x","1":1,"2":2}' },
+	  expect = { { x = "x", [1] = 1, [2] = 2 } }
+	},
+	{ name = 'json encode, simple array, preserve keys',
+	  func = mw.text.jsonEncode,
+	  args = { { 1, "foo", true, false }, mw.text.JSON_PRESERVE_KEYS },
+	  expect = { '{"1":1,"2":"foo","3":true,"4":false}' }
+	},
+	{ name = 'json decode, simple array, preserve keys',
+	  func = mw.text.jsonDecode,
+	  args = { '[1,"foo",true,false]', mw.text.JSON_PRESERVE_KEYS },
+	  expect = { { [0] = 1, "foo", true, false } }
+	},
+	{ name = 'json encode, nested arrays',
+	  func = mw.text.jsonEncode,
+	  args = { { 1, 2, 3, { 4, 5, { 6, 7, 8 } } } },
+	  expect = { '[1,2,3,[4,5,[6,7,8]]]' }
+	},
+	{ name = 'json decode, nested arrays',
+	  func = mw.text.jsonDecode,
+	  args = { '[1,2,3,[4,5,[6,7,8]]]' },
+	  expect = { { 1, 2, 3, { 4, 5, { 6, 7, 8 } } } }
+	},
+	{ name = 'json encode, array in object',
+	  func = mw.text.jsonEncode,
+	  args = { { x = { 1, 2, { y = { 3, 4 } } } } },
+	  expect = { '{"x":[1,2,{"y":[3,4]}]}' }
+	},
+	{ name = 'json decode, array in object',
+	  func = mw.text.jsonDecode,
+	  args = { '{"x":[1,2,{"y":[3,4]}],"z":[5,6]}' },
+	  expect = { { x = { 1, 2, { y = { 3, 4 } } }, z = { 5, 6 } } }
+	},
+	{ name = 'json decode, empty array',
+	  func = mw.text.jsonDecode,
+	  args = { '[]' },
+	  expect = { {} }
+	},
+	{ name = 'json decode, empty object',
+	  func = mw.text.jsonDecode,
+	  args = { '{}' },
+	  expect = { {} }
+	},
+	{ name = 'json encode, object with one large numeric index',
+	  func = mw.text.jsonEncode,
+	  args = { { [1000] = 1 } },
+	  expect = { '{"1000":1}' }
+	},
+	{ name = 'json decode, object with one large numeric index',
+	  func = mw.text.jsonDecode,
+	  args = { '{"1000":1}' },
+	  expect = { { [1000] = 1 } }
+	},
+	{ name = 'json encode, array with holes (ideally would be "[1,2,nil,4]", but probably not worth worrying about)',
+	  func = mw.text.jsonEncode,
+	  args = { { 1, 2, nil, 4 } },
+	  expect = { '{"1":1,"2":2,"4":4}' }
+	},
+	{ name = 'json decode, array with null (ideally would somehow insist on having a [3] = nil element, but that\'s not easily possible)',
+	  func = mw.text.jsonDecode,
+	  args = { '[1,2,null,4]' },
+	  expect = { { 1, 2, [4] = 4 } }
+	},
+	{ name = 'json encode, empty table (could be either [] or {}, but change should be announced)',
+	  func = mw.text.jsonEncode,
+	  args = { {} },
+	  expect = { '[]' }
+	},
+	{ name = 'json encode, table with index 0 (technically wrong, but probably not worth working around)',
+	  func = mw.text.jsonEncode,
+	  args = { { [0] = "zero" } },
+	  expect = { '["zero"]' }
+	},
+	{ name = 'json decode, object with index 1 (technically wrong, but probably not worth working around)',
+	  func = mw.text.jsonDecode,
+	  args = { '{"1":"one"}' },
+	  expect = { { 'one' } }
+	},
+	{ name = 'json encode, pretty',
+	  func = mw.text.jsonEncode,
+	  args = { { 1, 2, 3, { 4, 5, { 6, 7, { x = 8 } } } }, mw.text.JSON_PRETTY },
+	  expect = { [=[[
+    1,
+    2,
+    3,
+    [
+        4,
+        5,
+        [
+            6,
+            7,
+            {
+                "x": 8
+            }
+        ]
+    ]
+]]=] }
+	},
+	{ name = 'json encode, raw value (technically not allowed, but a common extension)',
+	  func = mw.text.jsonEncode,
+	  args = { "foo" },
+	  expect = { '"foo"' }
+	},
+	{ name = 'json decode, raw value (technically not allowed, but a common extension)',
+	  func = mw.text.jsonDecode,
+	  args = { '"foo"' },
+	  expect = { 'foo' }
+	},
+
+	{ name = 'json encode, invalid values (inf)',
+	  func = mw.text.jsonEncode,
+	  args = { { 1/0 } },
+	  expect = 'mw.text.jsonEncode: Cannot encode non-finite numbers'
+	},
+	{ name = 'json encode, invalid values (nan)',
+	  func = mw.text.jsonEncode,
+	  args = { { 0/0 } },
+	  expect = 'mw.text.jsonEncode: Cannot encode non-finite numbers'
+	},
+	{ name = 'json encode, invalid values (function)',
+	  func = mw.text.jsonEncode,
+	  args = { { function () end } },
+	  expect = 'mw.text.jsonEncode: Cannot encode type \'function\''
+	},
+	{ name = 'json encode, invalid values (recursive table)',
+	  func = mw.text.jsonEncode,
+	  args = { { recursiveTable } },
+	  expect = 'mw.text.jsonEncode: Cannot use recursive tables'
+	},
+	{ name = 'json encode, invalid values (table with bool key)',
+	  func = mw.text.jsonEncode,
+	  args = { { [true] = 1 } },
+	  expect = 'mw.text.jsonEncode: Cannot use type \'boolean\' as a table key'
+	},
+	{ name = 'json encode, invalid values (table with function key)',
+	  func = mw.text.jsonEncode,
+	  args = { { [function() end] = 1 } },
+	  expect = 'mw.text.jsonEncode: Cannot use type \'function\' as a table key'
+	},
+	{ name = 'json encode, invalid values (table with inf key)',
+	  func = mw.text.jsonEncode,
+	  args = { { [1/0] = 1 } },
+	  expect = 'mw.text.jsonEncode: Cannot use \'inf\' as a table key'
+	},
+
+	{ name = 'json decode, invalid values (trailing comma)',
+	  func = mw.text.jsonDecode,
+	  args = { '{"x":1,}' },
+	  expect = 'mw.text.jsonDecode: Syntax error'
+	},
+	{ name = 'json decode, trailing comma with JSON_TRY_FIXING',
+	  func = mw.text.jsonDecode,
+	  args = { '{"x":1,}', mw.text.JSON_TRY_FIXING },
+	  expect = { { x = 1 } }
 	},
 }
 
