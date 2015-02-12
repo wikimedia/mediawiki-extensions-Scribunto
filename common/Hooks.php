@@ -86,8 +86,6 @@ class ScribuntoHooks {
 				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
 		}
 
-		wfProfileIn( __METHOD__ );
-
 		try {
 			if ( count( $args ) < 2 ) {
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
@@ -113,10 +111,7 @@ class ScribuntoHooks {
 			// have an index, we don't need the index offset.
 			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
 			$result = $module->invoke( $functionName, $childFrame );
-			$result = UtfNormal::cleanUp( strval( $result ) );
-
-			wfProfileOut( __METHOD__ );
-			return $result;
+			return UtfNormal::cleanUp( strval( $result ) );
 		} catch( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
 			$html = Html::element( 'p', array(), $e->getMessage() );
@@ -141,7 +136,6 @@ class ScribuntoHooks {
 			$out->scribunto_errors[] = $html;
 			$id = 'mw-scribunto-error-' . ( count( $out->scribunto_errors ) - 1 );
 			$parserError = htmlspecialchars( $e->getMessage() );
-			wfProfileOut( __METHOD__ );
 
 			// #iferror-compatible error element
 			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" .
