@@ -4,6 +4,7 @@
 			"Purodha"
 		]
 	},
+	"scribunto-lua-error": "Fähler em Lua: $2.",
 	"scribunto-luastandalone-decode-error": "Fähler em LUA. Mer kunnte di Mäldong nit verschtonn.",
 	"scribunto-luastandalone-write-error": "Fähler em Lua.\nEne entärne Fähler es opjetrodde beim Schriive en en <i lang=\"en\" xml:lang=\"en\">pipe</i>.",
 	"scribunto-luastandalone-read-error": "Fähler em Lua.\nEne entärne Fähler es opjetrodde beim Lässe us ener <i lang=\"en\" xml:lang=\"en\">pipe</i>.",
