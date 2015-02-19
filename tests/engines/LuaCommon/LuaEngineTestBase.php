@@ -9,7 +9,7 @@
  * - getTestModules(): Add a mapping from $moduleName to the file containing
  *   the code.
  */
-abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
+abstract class Scribunto_LuaEngineTestBase extends MediaWikiTestCase {
 	private static $engineConfigurations = array(
 		'LuaSandbox' => array(
 			'memoryLimit' => 50000000,
