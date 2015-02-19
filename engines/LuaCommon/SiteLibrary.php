@@ -1,6 +1,7 @@
 <?php
 
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
+	private static $namespacesCacheLang = null;
 	private static $namespacesCache = null;
 	private static $interwikiMapCache = array();
 	private $pagesInCategoryCache = array();
@@ -23,7 +24,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'currentVersion' => SpecialVersion::getVersion(),
 		);
 
-		if ( !self::$namespacesCache ) {
+		if ( !self::$namespacesCache || self::$namespacesCacheLang !== $wgContLang->getCode() ) {
 			$namespaces = array();
 			$namespacesByName = array();
 			foreach ( $wgContLang->getFormattedNamespaces() as $ns => $title ) {
@@ -68,6 +69,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			$namespaces[NS_MAIN]['displayName'] = wfMessage( 'blanknamespace' )->inContentLanguage()->text();
 
 			self::$namespacesCache = $namespaces;
+			self::$namespacesCacheLang = $wgContLang->getCode();
 		}
 		$info['namespaces'] = self::$namespacesCache;
 

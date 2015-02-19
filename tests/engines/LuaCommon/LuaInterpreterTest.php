@@ -111,10 +111,6 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * @expectedException ScribuntoException
-	 * @expectedExceptionMessage The time allocated for running scripts has expired.
-	 */
 	public function testTimeLimit() {
 		if( php_uname( 's' ) === 'Darwin' ) {
 			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
@@ -122,13 +118,14 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 
 		$interpreter = $this->newInterpreter( array( 'cpuLimit' => 1 ) );
 		$chunk = $this->getBusyLoop( $interpreter );
-		$interpreter->callFunction( $chunk, 1e9 );
+		try {
+			$interpreter->callFunction( $chunk, 1e9 );
+			$this->fail( "Expected ScribuntoException was not thrown" );
+		} catch ( ScribuntoException $ex ) {
+			$this->assertSame( 'scribunto-common-timeout', $ex->messageName );
+		}
 	}
 
-	/**
-	 * @expectedException ScribuntoException
-	 * @expectedExceptionMessage Lua error: not enough memory
-	 */
 	public function testTestMemoryLimit() {
 		$interpreter = $this->newInterpreter( array( 'memoryLimit' => 20 * 1e6 ) );
 		$chunk = $interpreter->loadString( '
@@ -138,7 +135,13 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			end
 			',
 			'memoryLimit' );
-		$interpreter->callFunction( $chunk );
+		try {
+			$interpreter->callFunction( $chunk );
+			$this->fail( "Expected ScribuntoException was not thrown" );
+		} catch ( ScribuntoException $ex ) {
+			$this->assertSame( 'scribunto-lua-error', $ex->messageName );
+			$this->assertSame( 'not enough memory', $ex->messageArgs[1] );
+		}
 	}
 
 	public function testWrapPHPFunction() {
