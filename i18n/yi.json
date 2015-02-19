@@ -7,5 +7,6 @@
 	},
 	"scribunto-console-clear": "רייניקן",
 	"scribunto-common-nosuchmodule": "סקריפט־פעלער: נישט פאראן אזא מאדול \"$2\" .",
+	"scribunto-lua-error": "לוא־פעלער: $2.",
 	"scribunto-limitreport-profile": "לוא פראפֿיל"
 }

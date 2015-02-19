@@ -4,5 +4,6 @@
 			"Milicevic01"
 		]
 	},
-	"scribunto-common-error-category": "Stranice sa greškama u skripti"
+	"scribunto-common-error-category": "Stranice sa greškama u skripti",
+	"scribunto-lua-error": "Lua greška: $2."
 }

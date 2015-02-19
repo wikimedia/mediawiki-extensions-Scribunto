@@ -4,5 +4,6 @@
 			"Milicevic01"
 		]
 	},
-	"scribunto-common-error-category": "Странице са грешкама у скрипти"
+	"scribunto-common-error-category": "Странице са грешкама у скрипти",
+	"scribunto-lua-error": "Lua грешка: $2."
 }
