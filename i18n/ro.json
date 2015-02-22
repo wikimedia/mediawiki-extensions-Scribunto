@@ -15,5 +15,6 @@
 	"scribunto-console-title": "Consolă de depanare",
 	"scribunto-common-nosuchmodule": "Eroare în script: Niciun astfel de modul.",
 	"scribunto-common-nofunction": "Eroare în script: Trebuie să specificați o funcție pentru apelare.",
-	"scribunto-common-nosuchfunction": "Eroare în script: Funcția specificată nu există."
+	"scribunto-common-nosuchfunction": "Eroare în script: Funcția specificată nu există.",
+	"scribunto-lua-error": "Eroare Lua: $2."
 }
