@@ -4,5 +4,6 @@
 			"Robin0van0der0vliet"
 		]
 	},
+	"scribunto-lua-error": "Luaflater: $2",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekonden"
 }
