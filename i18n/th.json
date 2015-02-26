@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nullzero",
-			"Octahedron80"
+			"Octahedron80",
+			"Horus"
 		]
 	},
 	"scribunto-desc": "กรอบงานสำหรับฝังภาษาสคริปต์ลงในหน้าของมีเดียวิกิ",
@@ -35,7 +36,7 @@
 	"scribunto-lua-in-main": "ในส่วนหลัก",
 	"scribunto-lua-in-function-at": "ในฟังก์ชัน $1:$2",
 	"scribunto-lua-error-location": "สคริปต์ลูอาผิดพลาด $1: $2",
-	"scribunto-lua-error": "สคริปต์ลูอาผิดพลาด: $2",
+	"scribunto-lua-error": "ข้อผิดพลาดลูอา: $2",
 	"scribunto-lua-notarrayreturn": "สคริปต์ผิดพลาด: มอดูลคืนค่าเป็น $2 มันควรจะคืนค่าเป็นตารางส่งออก",
 	"scribunto-luastandalone-proc-error": "สคริปต์ลูอาผิดพลาด: ไม่สามารถสร้างกระบวนการ",
 	"scribunto-luastandalone-proc-error-msg": "สคริปต์ลูอาผิดพลาด: ไม่สามารถสร้างกระบวนการ: $2",
