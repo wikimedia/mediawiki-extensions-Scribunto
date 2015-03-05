@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pippinu"
+			"Pippinu",
+			"Gmelfi"
 		]
 	},
 	"scribunto-desc": "Piattaforma pi' ncurpurari linguaggi script ntê pàggini MediaWiki",
@@ -18,7 +19,7 @@
 	"scribunto-console-too-large": "Sta sissioni dâ console è troppu granni. Pi' favuri svacanta la crunuluggìa dâ console o scala la grannizza dû mòdulu.",
 	"scribunto-console-current-src": "input â console",
 	"scribunto-console-clear": "Svacanta",
-	"scribunto-console-cleared": "Lu statu dâ console fu' azziratu picchì fu' aggiurnatu lu mòdulu.",
+	"scribunto-console-cleared": "Lu statu dâ console fu azziratu picchì fu aggiurnatu lu mòdulu.",
 	"scribunto-console-cleared-session-lost": "Lu statu dâ console fu' azziratu picchì si pirderu li dati dâ sissioni.",
 	"scribunto-common-error-category": "Pàggini cu' erruri ntê script",
 	"scribunto-common-error-category-desc": "Mmattìu n'erruri nta l'elabburazzioni dî mòduli nclusi ntâ pàggina.",
