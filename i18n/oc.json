@@ -5,5 +5,6 @@
 		]
 	},
 	"scribunto-common-nosuchmodule": "Error d'escript : lo modul « $2 » existís pas.",
-	"scribunto-common-nosuchfunction": "Error d'escript : la foncion « $2 » existís pas."
+	"scribunto-common-nosuchfunction": "Error d'escript : la foncion « $2 » existís pas.",
+	"scribunto-lua-error": "Error de Lua : $2."
 }
