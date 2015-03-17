@@ -72,7 +72,6 @@ $wgHooks['ContentHandlerDefaultModelFor'][] = 'ScribuntoHooks::contentHandlerDef
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
 $wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
 
-$wgParserOutputHooks['ScribuntoError'] = 'ScribuntoHooks::parserOutputHook';
 $wgContentHandlers['Scribunto'] = 'ScribuntoContentHandler';
 
 $sbtpl = array(
@@ -80,18 +79,22 @@ $sbtpl = array(
 	'remoteExtPath' => 'Scribunto/modules',
 );
 
-$wgResourceModules['ext.scribunto'] = $sbtpl + array(
-	'scripts' => 'ext.scribunto.js',
-	'styles' => 'ext.scribunto.css',
+$wgResourceModules['ext.scribunto.errors'] = $sbtpl + array(
+	'scripts' => 'ext.scribunto.errors.js',
+	'styles' => 'ext.scribunto.errors.css',
 	'dependencies' => array( 'jquery.ui.dialog' ),
 	'messages' => array(
 		'scribunto-parser-dialog-title'
 	),
 );
+$wgResourceModules['ext.scribunto.logs'] = $sbtpl + array(
+	'styles' => 'ext.scribunto.logs.css',
+	'position' => 'top',
+);
 $wgResourceModules['ext.scribunto.edit'] = $sbtpl + array(
 	'scripts' => 'ext.scribunto.edit.js',
 	'styles' => 'ext.scribunto.edit.css',
-	'dependencies' => array( 'ext.scribunto', 'mediawiki.api', 'jquery.spinner' ),
+	'dependencies' => array( 'mediawiki.api', 'jquery.spinner' ),
 	'messages' => array(
 		'scribunto-console-title',
 		'scribunto-console-intro',

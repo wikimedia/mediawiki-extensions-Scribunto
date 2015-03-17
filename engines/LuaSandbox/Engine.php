@@ -112,7 +112,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			$output->setLimitReportData( $k, $v );
 		}
 		if ( isset( $data['scribunto-limitreport-logs'] ) ) {
-			$output->addModules( 'ext.scribunto' );
+			$output->addModules( 'ext.scribunto.logs' );
 		}
 	}
 
