@@ -1,5 +1,5 @@
 #!/usr/bin/php
-<?
+<?php
 
 if ( PHP_SAPI !== 'cli' ) {
 	die( "This script may only be executed from the command line.\n" );
