@@ -341,58 +341,52 @@
 		refocus();
 	}
 
-	mw.scribunto.edit = {
-		init: function () {
-			var action = mw.config.get( 'wgAction' );
-			if ( action === 'edit' || action === 'submit' || action === 'editredlink' ) {
-				this.initEditPage();
-			}
-		},
-
-		initEditPage: function () {
-			var console = document.getElementById( 'mw-scribunto-console' );
-			if ( !console ) {
-				return;
-			}
-
-			$( '<fieldset>' )
-				.attr( 'class', 'mw-scribunto-console-fieldset' )
-				.append( $( '<legend>' ).text( mw.msg( 'scribunto-console-title' ) ) )
-				.append( $( '<div id="mw-scribunto-output"></div>' ) )
-				.append(
-					$( '<div>' ).append(
-						$( '<textarea>' )
-							.attr( {
-								id: 'mw-scribunto-input',
-								'class': 'mw-scribunto-input',
-								wrap: 'off',
-								rows: 1,
-								dir: 'ltr',
-								lang: 'en'
-							} )
-							.bind( 'keydown', inputKeydown )
-							.bind( 'focus', inputFocus )
-					)
-				)
-				.append(
-					$( '<div>' ).append(
-						$( '<input>' )
-							.attr( {
-								type: 'button',
-								value: mw.msg( 'scribunto-console-clear' )
-							} )
-							.bind( 'click', onClearClick )
-					)
-				)
-				.wrap( '<form>' )
-				.appendTo( console );
-
-			initConsole();
+	function initEditPage() {
+		var console = document.getElementById( 'mw-scribunto-console' );
+		if ( !console ) {
+			return;
 		}
-	};
+
+		$( '<fieldset>' )
+			.attr( 'class', 'mw-scribunto-console-fieldset' )
+			.append( $( '<legend>' ).text( mw.msg( 'scribunto-console-title' ) ) )
+			.append( $( '<div id="mw-scribunto-output"></div>' ) )
+			.append(
+				$( '<div>' ).append(
+					$( '<textarea>' )
+						.attr( {
+							id: 'mw-scribunto-input',
+							'class': 'mw-scribunto-input',
+							wrap: 'off',
+							rows: 1,
+							dir: 'ltr',
+							lang: 'en'
+						} )
+						.bind( 'keydown', inputKeydown )
+						.bind( 'focus', inputFocus )
+				)
+			)
+			.append(
+				$( '<div>' ).append(
+					$( '<input>' )
+						.attr( {
+							type: 'button',
+							value: mw.msg( 'scribunto-console-clear' )
+						} )
+						.bind( 'click', onClearClick )
+				)
+			)
+			.wrap( '<form>' )
+			.appendTo( console );
+
+		initConsole();
+	}
 
 	$( function () {
-		mw.scribunto.edit.init();
+		var action = mw.config.get( 'wgAction' );
+		if ( action === 'edit' || action === 'submit' || action === 'editredlink' ) {
+			initEditPage();
+		}
 	} );
 
 } )( jQuery, mediaWiki );
