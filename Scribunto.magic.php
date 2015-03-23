@@ -119,3 +119,8 @@ $magicWords['vi'] = array(
 $magicWords['zh-hans'] = array(
 	'invoke' => array( 0, '调用' ),
 );
+
+/** Traditional Chinese (中文（繁體）‎) */
+$magicWords['zh-hant'] = array(
+	'invoke' => array( 0, '調動' ),
+);
