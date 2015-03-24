@@ -5,7 +5,8 @@
 			"Codicorumus",
 			"F. Cosoleto",
 			"Raoli",
-			"Ontsed"
+			"Ontsed",
+			"Giuseppe Forte"
 		]
 	},
 	"scribunto-desc": "Framework per incorporare linguaggi di scripting in pagine MediaWiki",
@@ -59,5 +60,6 @@
 	"scribunto-limitreport-memusage": "Utilizzo della memoria Lua",
 	"scribunto-limitreport-profile": "Profilo Lua",
 	"scribunto-limitreport-profile-ms": "$1&nbsp;ms",
-	"scribunto-limitreport-logs": "Registri Lua"
+	"scribunto-limitreport-logs": "Registri Lua",
+	"apihelp-scribunto-console-param-title": "Titolo del modulo su cui effettuare test."
 }

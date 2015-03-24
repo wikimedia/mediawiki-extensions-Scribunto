@@ -10,10 +10,11 @@
 			"Shirayuki",
 			"Siebrand",
 			"Snævar",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Umherirrender"
 		]
 	},
-	"scribunto-desc": "{{desc|name=Scribunto|url=http://www.mediawiki.org/wiki/Extension:Scribunto}}",
+	"scribunto-desc": "{{desc|name=Scribunto|url=https://www.mediawiki.org/wiki/Extension:Scribunto}}",
 	"scribunto-line": "Used as reference to a code location. Parameters:\n* $1 - a line number\nSee also:\n* {{msg-mw|Scribunto-module-line}}",
 	"scribunto-module-line": "Used as reference to a code location. Parameters:\n* $1 - a module (may also be {{msg-mw|Scribunto-console-current-src}})\n* $2 - a line number\nSee also:\n* {{msg-mw|Scribunto-line}}",
 	"scribunto-parser-dialog-title": "Error message.",
