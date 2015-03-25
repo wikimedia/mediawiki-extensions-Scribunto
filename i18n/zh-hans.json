@@ -62,7 +62,7 @@
 	"scribunto-limitreport-profile-percent": "$1%",
 	"scribunto-limitreport-logs": "Lua日志",
 	"apihelp-scribunto-console-description": "从Scribunto控制台提供XHR请求的内部模块。",
-	"apihelp-scribunto-console-param-title": "要测试的模块标题。",
+	"apihelp-scribunto-console-param-title": "要测试的模块的标题。",
 	"apihelp-scribunto-console-param-content": "模块的新内容。",
 	"apihelp-scribunto-console-param-session": "会话令牌。",
 	"apihelp-scribunto-console-param-question": "要作为脚本评估的下一行。",
