@@ -267,6 +267,25 @@ class ScribuntoHooks {
 	}
 
 	/**
+	 * EditPage::showReadOnlyForm:initial hook
+	 *
+	 * @param EditPage $editor
+	 * @param OutputPage $output
+	 */
+	public static function showReadOnlyFormInitial( EditPage $editor, OutputPage $output ) {
+		if ( $editor->getTitle()->getNamespace() !== NS_MODULE ) {
+			return true;
+		}
+
+		if ( Scribunto::isDocPage( $editor->getTitle() ) ) {
+			return true;
+		}
+
+		$output->addModules( 'ext.scribunto.edit' );
+		return true;
+	}
+
+	/**
 	 * EditPageBeforeEditButtons hook
 	 *
 	 * @param EditPage $editor
