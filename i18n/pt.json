@@ -59,5 +59,6 @@
 	"scribunto-limitreport-memusage": "Uso de memória em Lua",
 	"scribunto-limitreport-profile": "Perfil em Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Registos Lua"
+	"scribunto-limitreport-logs": "Registos Lua",
+	"apihelp-scribunto-console-param-title": "O título do módulo para teste."
 }

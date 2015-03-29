@@ -6,7 +6,8 @@
 			"Maor X",
 			"Peter Bowman",
 			"Fitoschido",
-			"Vfrico"
+			"Vfrico",
+			"Macofe"
 		]
 	},
 	"scribunto-desc": "Marco para la incorporación de lenguajes de script en páginas de MediaWiki",
@@ -52,5 +53,6 @@
 	"scribunto-limitreport-memusage": "Uso de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Registros de Lua"
+	"scribunto-limitreport-logs": "Registros de Lua",
+	"apihelp-scribunto-console-param-title": "El título del módulo que probar."
 }
