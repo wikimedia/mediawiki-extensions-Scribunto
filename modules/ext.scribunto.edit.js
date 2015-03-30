@@ -342,9 +342,18 @@
 	}
 
 	function initEditPage() {
-		var console = document.getElementById( 'mw-scribunto-console' );
-		if ( !console ) {
-			return;
+		var $console = $( '#mw-scribunto-console' );
+		if ( !$console.length ) {
+			// There is no console in the DOM; on read-only (protected) pages,
+			// we need to add it here, because the hook does not insert
+			// it server-side.
+			var $wpTextbox1 = $( '#wpTextbox1' );
+			if ( !$wpTextbox1.length || !$wpTextbox1.prop( 'readonly' ) ) {
+				return;
+			}
+
+			$console = $( '<div>' ).attr({ id: 'mw-scribunto-console' } );
+			$wpTextbox1.after( $console );
 		}
 
 		$( '<fieldset>' )
@@ -377,7 +386,7 @@
 				)
 			)
 			.wrap( '<form>' )
-			.appendTo( console );
+			.appendTo( $console );
 
 		initConsole();
 	}
@@ -390,4 +399,3 @@
 	} );
 
 } )( jQuery, mediaWiki );
-
