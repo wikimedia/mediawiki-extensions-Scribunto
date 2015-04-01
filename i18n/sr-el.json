@@ -4,6 +4,13 @@
 			"Milicevic01"
 		]
 	},
+	"scribunto-line": "na liniji $1",
+	"scribunto-parser-dialog-title": "Greška u skripti",
+	"scribunto-error-short": "Greška u skripti: $1",
+	"scribunto-doc-page-does-not-exist": "''Dokumentacija za ovaj modul se može napraviti na [[$1]]''",
+	"scribunto-doc-page-header": "'''Ovo je dokumentaciona podstranica za [[$1]]'''",
+	"scribunto-console-clear": "Očisti",
 	"scribunto-common-error-category": "Stranice sa greškama u skripti",
+	"scribunto-lua-error-location": "Lua greška $1: $2.",
 	"scribunto-lua-error": "Lua greška: $2."
 }
