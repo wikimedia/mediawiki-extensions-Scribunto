@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nepaboy"
+			"Nepaboy",
+			"Ganesh"
 		]
 	},
+	"scribunto-lua-error": "लुआ त्रुटि:$2",
 	"apihelp-scribunto-console-param-title": "मॉड्यूल के शीर्षक के परीक्षण खातिर।"
 }
