@@ -429,6 +429,14 @@ return testframework.getTestProvider( {
 	  args = { "fóó", '([^a-z])' },
 	  expect = { 2, 2, 'ó' }
 	},
+	{ name = 'find: empty character set', func = mw.ustring.find,
+	  args = { "fóó", '[]' },
+	  expect = "malformed pattern (missing ']')"
+	},
+	{ name = 'find: empty negated character set', func = mw.ustring.find,
+	  args = { "fóó", '[^]' },
+	  expect = "malformed pattern (missing ']')"
+	},
 
 	{ name = 'match: (1)', func = mw.ustring.match,
 	  args = { "bar fóo bar", 'f%a+' },

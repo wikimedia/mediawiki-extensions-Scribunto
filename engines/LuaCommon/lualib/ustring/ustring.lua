@@ -567,6 +567,10 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 			epp = ep + 1
 		until S.byte( rawpat, ep - 1 ) ~= 0x25 or S.byte( rawpat, ep - 2 ) == 0x25
 		local key = S.sub( rawpat, pattern.bytepos[pp], ep )
+		if key == '[]' or key == '[^]' then
+			-- This is the error Lua string functions throws in this situation
+			error( "malformed pattern (missing ']')" )
+		end
 		if charset_cache[key] then
 			local pl, cs = unpack( charset_cache[key] )
 			return pp + pl, cs
