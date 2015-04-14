@@ -48,6 +48,11 @@ $namespaceNames['bg'] = array(
 	829 => 'Модул_беседа',
 );
 
+$namespaceNames['bgn'] = array(
+	828 => 'ماژول',
+	829 => 'ماژول_ئی_گپ',
+);
+
 $namespaceNames['bn'] = array(
 	828 => 'মডিউল',
 	829 => 'মডিউল_আলাপ',
