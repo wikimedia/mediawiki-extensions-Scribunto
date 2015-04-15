@@ -202,6 +202,11 @@ $namespaceNames['ko'] = array(
 	829 => '모듈토론',
 );
 
+$namespaceNames['lrc'] = array(
+	828 => 'ماجول',
+	829 => 'چک_چنه_ماجول',
+);
+
 $namespaceNames['lv'] = array(
 	828 => 'Modulis',
 	829 => 'Moduļa_diskusija',
