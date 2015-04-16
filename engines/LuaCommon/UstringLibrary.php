@@ -463,6 +463,10 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				$re .= preg_quote( $pat[$i], '/' );
 			}
 		}
+		if ( $re === '[' || $re === '[^' ) {
+			// This is the error Lua string functions throws in this situation
+			throw new Scribunto_LuaError( "malformed pattern (missing ']')" );
+		}
 		if ( $i >= $len ) {
 			throw new Scribunto_LuaError( "Missing close-bracket for character set beginning at pattern character $ii" );
 		}
