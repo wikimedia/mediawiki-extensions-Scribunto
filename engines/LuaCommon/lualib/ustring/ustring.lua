@@ -558,7 +558,14 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 	-- Returns the position after the set and a table holding the matching characters
 	parse_charset = function ( pp )
 		local _, ep
-		local epp = pattern.bytepos[pp]
+		local epp = pattern.bytepos[pp] + 1
+		if S.sub( rawpat, epp, epp ) == '^' then
+			epp = epp + 1
+		end
+		if S.sub( rawpat, epp, epp ) == ']' then
+			-- Lua's string module effectively does this
+			epp = epp + 1
+		end
 		repeat
 			_, ep = S.find( rawpat, ']', epp, true )
 			if not ep then
@@ -567,10 +574,6 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 			epp = ep + 1
 		until S.byte( rawpat, ep - 1 ) ~= 0x25 or S.byte( rawpat, ep - 2 ) == 0x25
 		local key = S.sub( rawpat, pattern.bytepos[pp], ep )
-		if key == '[]' or key == '[^]' then
-			-- This is the error Lua string functions throws in this situation
-			error( "malformed pattern (missing ']')" )
-		end
 		if charset_cache[key] then
 			local pl, cs = unpack( charset_cache[key] )
 			return pp + pl, cs
@@ -585,9 +588,13 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 			invert = true
 			pp = pp + 1
 		end
+		local first = true
 		while true do
 			local c = pattern.codepoints[pp]
-			if c == 0x25 then -- '%'
+			if not first and c == 0x5d then -- closing ']'
+				pp = pp + 1
+				break
+			elseif c == 0x25 then -- '%'
 				c = pattern.codepoints[pp + 1]
 				if charsets[c] then
 					csrefs[#csrefs + 1] = charsets[c]
@@ -600,15 +607,13 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 					cs[i] = 1
 				end
 				pp = pp + 3
-			elseif c == 0x5d then -- closing ']'
-				pp = pp + 1
-				break
 			elseif not c then -- Should never get here, but Just In Case...
 				error( 'Missing close-bracket', 3 )
 			else
 				cs[c] = 1
 				pp = pp + 1
 			end
+			first = false
 		end
 
 		local ret
@@ -799,12 +804,19 @@ function ustring.find( s, pattern, init, plain )
 		if init and init > cps.len + 1 then
 			init = cps.len + 1
 		end
-		local m = { S.find( s, pattern, cps.bytepos[init], plain ) }
-		if m[1] then
-			m[1] = cpoffset( cps, m[1] )
-			m[2] = cpoffset( cps, m[2] )
+		local m
+		if plain then
+			m = { true, S.find( s, pattern, cps.bytepos[init], plain ) }
+		else
+			m = { pcall( S.find, s, pattern, cps.bytepos[init], plain ) }
 		end
-		return unpack( m )
+		if m[1] then
+			if m[2] then
+				m[2] = cpoffset( cps, m[2] )
+				m[3] = cpoffset( cps, m[3] )
+			end
+			return unpack( m, 2 )
+		end
 	end
 
 	return find( s, cps, pattern, pat, init )
@@ -832,7 +844,10 @@ function ustring.match( s, pattern, init )
 	end
 
 	if patternIsSimple( pattern ) then
-		return S.match( s, pattern, cps.bytepos[init] )
+		local ret = { pcall( S.match, s, pattern, cps.bytepos[init] ) }
+		if ret[1] then
+			return unpack( ret, 2 )
+		end
 	end
 
 	local m = { find( s, cps, pattern, pat, init ) }
@@ -858,7 +873,10 @@ function ustring.gmatch( s, pattern )
 	checkString( 'gmatch', s )
 	checkPattern( 'gmatch', pattern )
 	if patternIsSimple( pattern ) then
-		return S.gmatch( s, pattern )
+		local ret = { pcall( S.gmatch, s, pattern ) }
+		if ret[1] then
+			return unpack( ret, 2 )
+		end
 	end
 
 	local cps = utf8_explode( s )
@@ -899,7 +917,10 @@ function ustring.gsub( s, pattern, repl, n )
 	checkPattern( 'gsub', pattern )
 	checkType( 'gsub', 4, n, 'number', true )
 	if patternIsSimple( pattern ) then
-		return S.gsub( s, pattern, repl, n )
+		local ret = { pcall( S.gsub, s, pattern, repl, n ) }
+		if ret[1] then
+			return unpack( ret, 2 )
+		end
 	end
 
 	local cps = utf8_explode( s )

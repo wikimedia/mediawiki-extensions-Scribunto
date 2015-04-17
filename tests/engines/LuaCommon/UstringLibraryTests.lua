@@ -429,13 +429,53 @@ return testframework.getTestProvider( {
 	  args = { "fóó", '([^a-z])' },
 	  expect = { 2, 2, 'ó' }
 	},
-	{ name = 'find: empty character set', func = mw.ustring.find,
-	  args = { "fóó", '[]' },
-	  expect = "malformed pattern (missing ']')"
+	{ name = 'find: Bracket at start of a character set doesn\'t close', func = mw.ustring.find,
+	  args = { "fóó", '()[]' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 3"
 	},
-	{ name = 'find: empty negated character set', func = mw.ustring.find,
-	  args = { "fóó", '[^]' },
-	  expect = "malformed pattern (missing ']')"
+	{ name = 'find: Bracket at start of a negated character set doesn\'t close', func = mw.ustring.find,
+	  args = { "fóó", '()[^]' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 3"
+	},
+	{ name = 'find: Bracket at start of a character set is literal', func = mw.ustring.find,
+	  args = { "foo]bar¿", '()([]])' },
+	  expect = { 4, 4, 4, ']' }
+	},
+	{ name = 'find: Bracket at start of a negated character set is literal', func = mw.ustring.find,
+	  args = { "]bar¿", '()([^]])' },
+	  expect = { 2, 2, 2, 'b' }
+	},
+	{ name = 'find: Bracket at start of a character set can be a range endpoint', func = mw.ustring.find,
+	  args = { "foo]bar¿", '()([]-z]+)' },
+	  expect = { 1, 7, 1, 'foo]bar' }
+	},
+	{ name = 'find: Bracket at start of a negated character can be a range endpoint', func = mw.ustring.find,
+	  args = { "fOO]bar¿", '()([^]-z]+)' },
+	  expect = { 2, 3, 2, 'OO' }
+	},
+	{ name = 'find: Weird edge-case that was failing (1)', func = mw.ustring.find,
+	  args = { "foo]ba-]r¿", '()([a]-%]+)' },
+	  expect = { 4, 4, 4, ']' }
+	},
+	{ name = 'find: Weird edge-case that was failing (2)', func = mw.ustring.find,
+	  args = { "foo¿", '()[!-%]' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 3"
+	},
+	{ name = 'find: Inverted range (1)', func = mw.ustring.find,
+	  args = { "foo¿", '()([z-a]+)' },
+	  expect = { nil }
+	},
+	{ name = 'find: Inverted range (2)', func = mw.ustring.find,
+	  args = { "foo¿", '()([^z-a]+)' },
+	  expect = { 1, 4, 1, 'foo¿' }
+	},
+	{ name = 'find: Inverted range (3)', func = mw.ustring.find,
+	  args = { "foo¿", '()(f[z-a]o)' },
+	  expect = { nil }
+	},
+	{ name = 'find: Inverted range (4)', func = mw.ustring.find,
+	  args = { "foo¿", '()(f[z-a]*o)' },
+	  expect = { 1, 2, 1, 'fo' }
 	},
 
 	{ name = 'match: (1)', func = mw.ustring.match,
@@ -609,6 +649,19 @@ return testframework.getTestProvider( {
 	  args = { "fóó1 ^fóó2 fóó3 ^fóó4", '^fóó%d+' },
 	  expect = { { "^fóó2" }, { "^fóó4" } },
 	  type = 'Iterator'
+	},
+
+	{ name = 'find: Pure-lua version, non-native error message', func = mw.ustring.find,
+	  args = { "fóó", '[]' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 1"
+	},
+	{ name = 'match: Pure-lua version, non-native error message', func = mw.ustring.match,
+	  args = { "fóó", '[]' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 1"
+	},
+	{ name = 'gsub: Pure-lua version, non-native error message', func = mw.ustring.gsub,
+	  args = { "fóó", '[]', '' },
+	  expect = "Missing close-bracket for character set beginning at pattern character 1"
 	},
 
 	{ name = 'string length limit',
