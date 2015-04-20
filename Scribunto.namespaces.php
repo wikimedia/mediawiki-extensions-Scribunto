@@ -236,6 +236,11 @@ $namespaceNames['ms'] = array(
 	828 => 'Modul',
 );
 
+$namespaceNames['mzn'] = array(
+	828 => 'ماژول',
+	829 => 'ماژول_گپ',
+);
+
 $namespaceNames['nb'] = array(
 	828 => 'Modul',
 	829 => 'Moduldiskusjon',
