@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Toliño",
-			"Elisardojm"
+			"Elisardojm",
+			"Banjo"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki",
@@ -53,5 +54,6 @@
 	"scribunto-limitreport-estmemusage": "Uso estimado de memoria de Lua",
 	"scribunto-limitreport-memusage": "Uso de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Rexistros de Lua"
 }
