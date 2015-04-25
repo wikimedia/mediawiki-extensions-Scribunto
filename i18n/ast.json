@@ -29,6 +29,7 @@
 	"scribunto-common-timeout": "Acabó'l tiempu acutáu pa executar scripts.",
 	"scribunto-common-oom": "Superóse la cantidá de memoria permitida pa executar scripts.",
 	"scribunto-common-backtrace": "Trazáu inversu (backtrace):",
+	"scribunto-common-no-details": "Nun hai disponibles más detalles.",
 	"scribunto-lua-in-function": "na función \"$1\"",
 	"scribunto-lua-in-main": "nel fragmentu principal",
 	"scribunto-lua-in-function-at": "na función en $1:$2",
@@ -54,5 +55,11 @@
 	"scribunto-limitreport-memusage": "Usu de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Rexistros de Lua"
+	"scribunto-limitreport-logs": "Rexistros de Lua",
+	"apihelp-scribunto-console-description": "Módulu internu pa dar serviciu a les solicitúes XHR de la consola de Scribunto.",
+	"apihelp-scribunto-console-param-title": "El títulu del módulu a probar.",
+	"apihelp-scribunto-console-param-content": "El conteníu nuevu del módulu.",
+	"apihelp-scribunto-console-param-session": "Pase de sesión.",
+	"apihelp-scribunto-console-param-question": "La siguiente llinia a evaluar como script.",
+	"apihelp-scribunto-console-param-clear": "Marcar pa llimpiar l'estáu de la sesión actual."
 }
