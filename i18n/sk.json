@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"KuboF"
+			"KuboF",
+			"Wizzard"
 		]
 	},
 	"scribunto-desc": "Umožňuje vkladať do stránok MediaWiki skriptovacie jazyky",
@@ -11,5 +12,6 @@
 	"scribunto-error-long": "Chyby skriptu:\n\n$1",
 	"scribunto-doc-page-name": "Dokumentácia",
 	"scribunto-doc-page-does-not-exist": "''Dokumentácia pre tento modul môže byť vytvorená na [[$1]]''",
-	"scribunto-doc-page-header": "'''Toto je podstránka dokumentácie pre [[$1]]'''"
+	"scribunto-doc-page-header": "'''Toto je podstránka dokumentácie pre [[$1]]'''",
+	"scribunto-lua-error": "Chyba Lua: $2."
 }
