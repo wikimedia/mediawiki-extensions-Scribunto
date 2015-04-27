@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Wizardist"
+			"Wizardist",
+			"Чаховіч Уладзіслаў"
 		]
 	},
 	"scribunto-desc": "Фрэймворк для выкарыстання скрыптавых моў на старонках MediaWiki",
@@ -22,5 +23,6 @@
 	"scribunto-lua-in-function": "у функцыі «$1»",
 	"scribunto-lua-in-main": "у асноўнай частцы коду",
 	"scribunto-lua-in-function-at": "у функцыі $1:$2",
-	"scribunto-lua-error-location": "Памылка Lua $1: $2."
+	"scribunto-lua-error-location": "Памылка Lua $1: $2.",
+	"scribunto-lua-error": "Памылка Lua: $2."
 }
