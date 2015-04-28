@@ -27,9 +27,11 @@
 	"scribunto-common-nosuchmodule": "Erro de script: Non existe o módulo \"$2\".",
 	"scribunto-common-nofunction": "Erro de script: Cómpre especificar a función que se quere chamar.",
 	"scribunto-common-nosuchfunction": "Erro de script: A función \"$2\" non existe.",
+	"scribunto-common-notafunction": "Erro de script: «$2» non é unha función.",
 	"scribunto-common-timeout": "O tempo reservado para executar os scripts rematou.",
 	"scribunto-common-oom": "Superouse a cantidade de memoria permitida para executar os scripts.",
 	"scribunto-common-backtrace": "Rastro inverso (backtrace):",
+	"scribunto-common-no-details": "No hai máis detalles dispoñibles.",
 	"scribunto-lua-in-function": "na función \"$1\"",
 	"scribunto-lua-in-main": "no bloque principal",
 	"scribunto-lua-in-function-at": "na función en $1:$2",
@@ -55,5 +57,9 @@
 	"scribunto-limitreport-memusage": "Uso de memoria de Lua",
 	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Rexistros de Lua"
+	"scribunto-limitreport-logs": "Rexistros de Lua",
+	"apihelp-scribunto-console-param-title": "Título do módulo a probar.",
+	"apihelp-scribunto-console-param-content": "Novo contido do módulo.",
+	"apihelp-scribunto-console-param-session": "Identificador de sesión.",
+	"apihelp-scribunto-console-param-question": "Liña seguinte a evaluar como script."
 }

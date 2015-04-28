@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Sadrettin",
-			"Violetanka"
+			"Violetanka",
+			"Incelemeelemani"
 		]
 	},
 	"scribunto-parser-dialog-title": "Betik hatası",
@@ -12,5 +13,6 @@
 	"scribunto-doc-page-does-not-exist": "Bu modül için bir belgeleme oluşturabilirsiniz: [[$1]]",
 	"scribunto-doc-page-header": "Bu belgeleme sayfası için [[$1]]",
 	"scribunto-console-clear": "Temizle",
-	"scribunto-common-no-details": "Daha fazla bilgi mevcut değildir."
+	"scribunto-common-no-details": "Daha fazla bilgi mevcut değildir.",
+	"scribunto-lua-error": "Lua hatası: $2"
 }
