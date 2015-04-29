@@ -153,6 +153,11 @@ $namespaceNames['gl'] = array(
 	829 => 'Conversa_módulo',
 );
 
+$namespaceNames['gom-deva'] = array(
+	828 => 'मापदंड',
+	829 => 'मापदंड_चर्चा',
+);
+
 $namespaceNames['he'] = array(
 	828 => 'יחידה',
 	829 => 'שיחת_יחידה',
