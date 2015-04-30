@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shubha"
+			"Shubha",
+			"NehalDaveND"
 		]
 	},
-	"scribunto-lua-error": "लुअ दोषः: $2."
+	"scribunto-lua-error": "लुअ दोषः : $2."
 }
