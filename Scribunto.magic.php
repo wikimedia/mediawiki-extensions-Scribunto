@@ -20,6 +20,11 @@ $magicWords['arz'] = array(
 	'invoke' => array( 0, 'استدعا' ),
 );
 
+/** Chuvash (Чӑвашла) */
+$magicWords['cv'] = array(
+	'invoke' => array( 0, 'invoke' ),
+);
+
 /** German (Deutsch) */
 $magicWords['de'] = array(
 	'invoke' => array( 0, 'aufrufen' ),
