@@ -15,7 +15,7 @@ $magicWords['ar'] = array(
 	'invoke' => array( 0, 'استدعاء' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Arabic (مصرى) */
 $magicWords['arz'] = array(
 	'invoke' => array( 0, 'استدعا' ),
 );
