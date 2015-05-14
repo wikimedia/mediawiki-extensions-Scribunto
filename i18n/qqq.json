@@ -77,5 +77,5 @@
 	"apihelp-scribunto-console-param-content": "{{doc-apihelp-param|scribunto-console|content}}",
 	"apihelp-scribunto-console-param-session": "{{doc-apihelp-param|scribunto-console|session}}",
 	"apihelp-scribunto-console-param-question": "{{doc-apihelp-param|scribunto-console|question}}",
-	"apihelp-scribunto-console-param-clear": "{{doc-apihelp-param|scribunto-console|clear}}"
+	"apihelp-scribunto-console-param-clear": "Probably a way to delete the history, variables etc. of the Scribunto debug console, i.e. an environment where Lua modules can be tested (not currently documented).\n----\n{{doc-apihelp-param|scribunto-console|clear}}"
 }
