@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Wizardist"
+			"Wizardist",
+			"Red Winged Duck"
 		]
 	},
 	"scribunto-desc": "Фрэймворк для выкарыстаньня скрыптавых моваў на старонках MediaWiki",
@@ -21,7 +22,7 @@
 	"scribunto-console-cleared": "Стан кансолі ачышчаны праз абнаўленьне модуля.",
 	"scribunto-console-cleared-session-lost": "Стан кансолі ачышчаны праз страту зьвестак сэсіі.",
 	"scribunto-common-error-category": "Старонкі з памылкамі ў скрыптах",
-	"scribunto-common-nosuchmodule": "Памылка скрыпта: модуль не існуе.",
+	"scribunto-common-nosuchmodule": "Памылка скрыпту: модуль «$2» не існуе.",
 	"scribunto-common-nofunction": "Памылка скрыпта: вы мусіце пазначыць функцыю, якую выклікаеце.",
 	"scribunto-common-nosuchfunction": "Памылка скрыпта: пазначаная вамі функцыя не існуе.",
 	"scribunto-common-timeout": "Час, адведзены пад выкананьне скрыптаў, выйшаў.",
