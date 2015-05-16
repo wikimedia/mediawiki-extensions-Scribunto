@@ -24,7 +24,7 @@
 	"scribunto-common-error-category": "Старонкі з памылкамі ў скрыптах",
 	"scribunto-common-nosuchmodule": "Памылка скрыпту: модуль «$2» не існуе.",
 	"scribunto-common-nofunction": "Памылка скрыпта: вы мусіце пазначыць функцыю, якую выклікаеце.",
-	"scribunto-common-nosuchfunction": "Памылка скрыпта: пазначаная вамі функцыя не існуе.",
+	"scribunto-common-nosuchfunction": "Памылка скрыпту: функцыя «$2» не існуе.",
 	"scribunto-common-timeout": "Час, адведзены пад выкананьне скрыптаў, выйшаў.",
 	"scribunto-common-oom": "Перавышаная вобласьць памяці, адведзенай пад выкананьне скрыптаў.",
 	"scribunto-common-backtrace": "Шлях выклікаў:",
