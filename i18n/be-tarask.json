@@ -33,7 +33,7 @@
 	"scribunto-lua-in-function-at": "у функцыі $1:$2",
 	"scribunto-lua-error-location": "Памылка Lua $1: $2.",
 	"scribunto-lua-error": "Памылка Lua: $2.",
-	"scribunto-lua-notarrayreturn": "Памылка скрыпта: модуль вярнуў значэньне, якое ня ёсьць табліцай экспарту. Модуль мусіў вярнуць табліцу экспарту.",
+	"scribunto-lua-notarrayreturn": "Памылка скрыпту: модуль вярнуў значэньне $2. Модуль мусіў вярнуць табліцу экспарту.",
 	"scribunto-luastandalone-proc-error": "Памылка Lua: немагчыма стварыць працэс.",
 	"scribunto-luastandalone-proc-error-msg": "Памылка Lua: немагчыма стварыць працэс — $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Памылка Lua: немагчыма стварыць працэс — proc_open недаступны. Праверце значэньне дырэктывы «disable_functions» у наладах PHP.",
