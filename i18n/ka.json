@@ -11,5 +11,12 @@
 	"scribunto-doc-page-name": "Module:$1/ინფო",
 	"scribunto-doc-page-header": "''ეს არის „[[$1]]“-ის დოკუმენტაციის გვერდი''",
 	"scribunto-console-clear": "გასუფთავება",
-	"scribunto-lua-error": "შეცდომა Lua: $2"
+	"scribunto-lua-error-location": "Lua-ს შეცდომა $1: $2.",
+	"scribunto-lua-error": "შეცდომა Lua: $2",
+	"scribunto-limitreport-timeusage-value": "$1/$2 წამი",
+	"scribunto-limitreport-virtmemusage": "Lua-ს ვირტუალური ზომა",
+	"scribunto-limitreport-memusage": "Lua-ს მეხსიერების გამოყენება",
+	"scribunto-limitreport-profile": "Lua-ს პროფილი",
+	"scribunto-limitreport-profile-ms": "$1 მლ/წმ",
+	"scribunto-limitreport-logs": "Lua-ს ჟურნალი"
 }
