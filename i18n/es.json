@@ -7,7 +7,8 @@
 			"Peter Bowman",
 			"Fitoschido",
 			"Vfrico",
-			"Macofe"
+			"Macofe",
+			"Ryo567"
 		]
 	},
 	"scribunto-desc": "Marco para la incorporación de lenguajes de script en páginas de MediaWiki",
@@ -16,6 +17,7 @@
 	"scribunto-parser-dialog-title": "Error de script",
 	"scribunto-error-short": "Error de secuencia de órdenes: $1",
 	"scribunto-error-long": "Errores en la secuencia de órdenes:\n\n$1",
+	"scribunto-doc-page-name": "Módulo:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''La documentación para este módulo puede ser creada en [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta es la página de documentación de [[$1]]'''",
 	"scribunto-console-intro": "* Las exportaciones del módulo están disponibles como la variable \"p\", incluídas las modificaciones sin guardar.\n* Inicie una línea con el carácter \"=\" para evaluarla como una expresión; o use print().\n* Use mw.log() en el código del módulo para enviar mensajes a esta consola.",
@@ -24,6 +26,7 @@
 	"scribunto-console-current-src": "entrada de la consola",
 	"scribunto-console-clear": "Limpiar",
 	"scribunto-console-cleared": "El estado de la consola se ha limpiado debido a que el módulo se ha actualizado.",
+	"scribunto-console-cleared-session-lost": "El estado de la consola se ha limpiado debido a que la sesión de datos se ha perdido.",
 	"scribunto-common-error-category": "Páginas con errores en secuencias de órdenes",
 	"scribunto-common-error-category-desc": "Se produjo un error al procesar los módulos incluidos en la página.",
 	"scribunto-common-nosuchmodule": "Error en la secuencia de órdenes: no existe el módulo «$2».",
@@ -41,6 +44,7 @@
 	"scribunto-lua-error": "Error de Lua: $2.",
 	"scribunto-lua-notarrayreturn": "\nError de secuencia de comandos: El módulo devolvió el valor $2. Debería devolver una tabla de exportación",
 	"scribunto-luastandalone-proc-error": "Error de Lua: No se puede crear el proceso.",
+	"scribunto-luastandalone-proc-error-msg": "Error de Lua: No se puede crear el procesoː $2",
 	"scribunto-luastandalone-decode-error": "Error de Lua: Error interno: No se pudo decodificar el mensaje.",
 	"scribunto-luastandalone-write-error": "Error de Lua: Error interno: Error al escribir en la canalización (pipe).",
 	"scribunto-luastandalone-read-error": "Error de Lua: Error interno: Error al leer desde la canalización (pipe).",
@@ -54,5 +58,6 @@
 	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Registros de Lua",
-	"apihelp-scribunto-console-param-title": "El título del módulo que probar."
+	"apihelp-scribunto-console-param-title": "El título del módulo que probar.",
+	"apihelp-scribunto-console-param-content": "El nuevo contenido del módulo."
 }

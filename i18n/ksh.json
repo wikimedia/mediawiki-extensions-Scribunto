@@ -20,6 +20,7 @@
 	"scribunto-common-notafunction": "Ene Fähler mem Skrepp: „$2“ es kein Fonxjuhn.",
 	"scribunto-common-timeout": "Di Zigg för Skrepte, fähdesch ze wähde, es eröm.",
 	"scribunto-common-oom": "Der Scheijscher, dä för Skreppte parraht jeschtalld es, es övverjeloufe.",
+	"scribunto-common-backtrace": "Zerökverfolljong:",
 	"scribunto-common-no-details": "Mer han söns kein Einzelheite.",
 	"scribunto-lua-in-function": "en dä Fongxjuhn „$1“",
 	"scribunto-lua-in-function-at": "en dä Fongxjuhn aan dä Schtäll $1:$2",
@@ -52,5 +53,6 @@
 	"scribunto-limitreport-logs": "Dem Lua sing Loglöhscher",
 	"apihelp-scribunto-console-param-title": "De Övverschreff vun däm {{ns:module}} zom Ußprobehre.",
 	"apihelp-scribunto-console-param-content": "Däm Moduhl singe neue Enhalld",
-	"apihelp-scribunto-console-param-question": "Dä nähkßte Reih, di als e Skrepp ußjeföhrt wähde sull."
+	"apihelp-scribunto-console-param-question": "Dä nähkßte Reih, di als e Skrepp ußjeföhrt wähde sull.",
+	"apihelp-scribunto-console-param-clear": "Nemm dat, öm de aktoälle Varreahble un esu vum LUA loßß ze krijje."
 }
