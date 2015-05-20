@@ -44,7 +44,7 @@
 	"scribunto-lua-error": "Error de Lua: $2.",
 	"scribunto-lua-notarrayreturn": "\nError de secuencia de comandos: El módulo devolvió el valor $2. Debería devolver una tabla de exportación",
 	"scribunto-luastandalone-proc-error": "Error de Lua: No se puede crear el proceso.",
-	"scribunto-luastandalone-proc-error-msg": "Error de Lua: No se puede crear el procesoː $2",
+	"scribunto-luastandalone-proc-error-msg": "Error de Lua: no se puede crear el proceso: $2",
 	"scribunto-luastandalone-decode-error": "Error de Lua: Error interno: No se pudo decodificar el mensaje.",
 	"scribunto-luastandalone-write-error": "Error de Lua: Error interno: Error al escribir en la canalización (pipe).",
 	"scribunto-luastandalone-read-error": "Error de Lua: Error interno: Error al leer desde la canalización (pipe).",
