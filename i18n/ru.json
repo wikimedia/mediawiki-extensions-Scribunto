@@ -59,5 +59,6 @@
 	"scribunto-limitreport-memusage": "Использование памяти Lua",
 	"scribunto-limitreport-profile": "Профиль Lua",
 	"scribunto-limitreport-profile-ms": "$1 мс",
-	"scribunto-limitreport-logs": "Журналы Lua"
+	"scribunto-limitreport-logs": "Журналы Lua",
+	"apihelp-scribunto-console-param-session": "Токен сессии."
 }
