@@ -5,7 +5,8 @@
 			"SPQRobin",
 			"Saruman",
 			"Siebrand",
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"Robin0van0der0vliet"
 		]
 	},
 	"scribunto-desc": "Framework voor het inbedden van scripttalen in pagina's",
@@ -55,5 +56,6 @@
 	"scribunto-limitreport-estmemusage": "Geschat geheugengebruik door Lua",
 	"scribunto-limitreport-memusage": "Geheugengebruik door Lua",
 	"scribunto-limitreport-profile": "Luaprofiel",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"apihelp-scribunto-console-param-session": "Sessiesleutel."
 }
