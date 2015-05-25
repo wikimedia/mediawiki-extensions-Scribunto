@@ -498,8 +498,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$encMsg = $this->encodeMessage( $msg );
 		if ( !fwrite( $this->writePipe, $encMsg ) ) {
 			// Write error, probably the process has terminated
-			// If it has, checkStatus() will throw. If not, throw an exception ourselves.
-			$this->checkStatus();
+			// If it has, handleIOError() will throw. If not, throw an exception ourselves.
+			$this->handleIOError();
 			throw $this->engine->newException( 'scribunto-luastandalone-write-error' );
 		}
 	}
@@ -509,7 +509,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		// Read the header
 		$header = fread( $this->readPipe, 16 );
 		if ( strlen( $header ) !== 16 ) {
-			$this->checkStatus();
+			$this->handleIOError();
 			throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
 		}
 		$length = $this->decodeHeader( $header );
@@ -520,7 +520,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		while ( $lengthRemaining ) {
 			$buffer = fread( $this->readPipe, $lengthRemaining );
 			if ( $buffer === false || feof( $this->readPipe ) ) {
-				$this->checkStatus();
+				$this->handleIOError();
 				throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
 			}
 			$body .= $buffer;
@@ -638,24 +638,26 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @throws ScribuntoException
 	 */
-	protected function checkStatus() {
+	protected function handleIOError() {
 		$this->checkValid();
-		$status = proc_get_status( $this->proc );
-		if ( !$status['running'] ) {
-			wfDebug( __METHOD__.": not running\n" );
-			proc_close( $this->proc );
-			$this->proc = false;
-			if ( $status['signaled'] ) {
-				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
-					array( 'args' => array( $status['termsig'] ) ) );
-			} elseif ( defined( 'SIGXCPU' ) && $status['exitcode'] == 128 + SIGXCPU ) {
+		proc_terminate( $this->proc );
+		$wstatus = proc_close( $this->proc );
+		$signaled = pcntl_wifsignaled( $wstatus );
+		$termsig = pcntl_wtermsig( $wstatus );
+		$exitcode = pcntl_wexitstatus( $wstatus );
+		$this->proc = false;
+		if ( $signaled ) {
+			if ( defined( 'SIGXCPU' ) && $termsig == SIGXCPU ) {
 				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
-				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-exited',
-					array( 'args' => array( $status['exitcode'] ) ) );
+				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
+					array( 'args' => array( $termsig ) ) );
 			}
-			throw $this->exitError;
+		} else {
+			$this->exitError = $this->engine->newException( 'scribunto-luastandalone-exited',
+				array( 'args' => array( $exitcode ) ) );
 		}
+		throw $this->exitError;
 	}
 
 	protected function debug( $msg ) {
