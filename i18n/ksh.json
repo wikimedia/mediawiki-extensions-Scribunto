@@ -11,7 +11,7 @@
 	"scribunto-error-short": "Fähler em Skrepp: $1",
 	"scribunto-error-long": "Fähler em Skrepp:\n\n$1",
 	"scribunto-doc-page-does-not-exist": "Heh dat {{ns:module}} kam_mer beschrieve op dä Sigg [[$1]]",
-	"scribunto-doc-page-header": "'''Heh die Sigg beschriev dat {{ns:module}} [[$1]]'''",
+	"scribunto-doc-page-header": "'''Heh di Sigg beschriev dat {{ns:module}} [[$1]]'''",
 	"scribunto-console-clear": "Läddesch maache",
 	"scribunto-common-error-category": "Sigge met Fähler em Skrepte",
 	"scribunto-common-nosuchmodule": "Ene Fähler mem Skrepp: Et jitt kei {{ns:module}} „$2“",
