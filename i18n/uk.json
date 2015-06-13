@@ -34,6 +34,7 @@
 	"scribunto-common-timeout": "Закінчився час, виділений для виконання скриптів.",
 	"scribunto-common-oom": "Перевищено розмір пам'яті, дозволений для виконання скриптів.",
 	"scribunto-common-backtrace": "Зворотне трасування:",
+	"scribunto-common-no-details": "Немає жодних деталей.",
 	"scribunto-lua-in-function": "у функції «$1»",
 	"scribunto-lua-in-main": "в головній частині коду",
 	"scribunto-lua-in-function-at": "у функції в $1:$2",
@@ -59,5 +60,11 @@
 	"scribunto-limitreport-memusage": "Використання пам'яті Lua",
 	"scribunto-limitreport-profile": "Профіль Lua",
 	"scribunto-limitreport-profile-ms": "$1 мс",
-	"scribunto-limitreport-logs": "Журнали Lua"
+	"scribunto-limitreport-logs": "Журнали Lua",
+	"apihelp-scribunto-console-description": "Внутрішній модуль обробки XHR-запитів з консолі Scribunto.",
+	"apihelp-scribunto-console-param-title": "Назва модуля для тесту.",
+	"apihelp-scribunto-console-param-content": "Новий вміст модуля.",
+	"apihelp-scribunto-console-param-session": "Токен сесії.",
+	"apihelp-scribunto-console-param-question": "Наступний рядок для оцінки як скрипта.",
+	"apihelp-scribunto-console-param-clear": "Встановіть для очистки поточного стану сесії."
 }
