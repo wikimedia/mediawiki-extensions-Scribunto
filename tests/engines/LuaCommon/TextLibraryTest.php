@@ -9,8 +9,8 @@ class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 		// For unstrip test
 		$parser = $this->getEngine()->getParser();
 		$markers = array(
-			'nowiki' => $parser->uniqPrefix() . '-test-nowiki-' . Parser::MARKER_SUFFIX,
-			'general' => $parser->uniqPrefix() . '-test-general-' . Parser::MARKER_SUFFIX,
+			'nowiki' => Parser::MARKER_PREFIX . '-test-nowiki-' . Parser::MARKER_SUFFIX,
+			'general' => Parser::MARKER_PREFIX . '-test-general-' . Parser::MARKER_SUFFIX,
 		);
 		$parser->mStripState->addNoWiki( $markers['nowiki'], 'NoWiki' );
 		$parser->mStripState->addGeneral( $markers['general'], 'General' );
