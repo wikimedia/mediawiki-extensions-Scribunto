@@ -86,7 +86,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * Initialise the interpreter and the base environment
 	 */
 	public function load() {
-		if( $this->loaded ) {
+		if ( $this->loaded ) {
 			return;
 		}
 		$this->loaded = true;

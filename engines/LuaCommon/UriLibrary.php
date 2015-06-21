@@ -22,15 +22,15 @@ class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 
 	private function getUrl( $func, $page, $query ) {
 		$title = Title::newFromText( $page );
-		if( !$title ) {
+		if ( !$title ) {
 			$title = Title::newFromURL( urldecode( $page ) );
 		}
-		if( $title ) {
+		if ( $title ) {
 			# Convert NS_MEDIA -> NS_FILE
-			if( $title->getNamespace() == NS_MEDIA ) {
+			if ( $title->getNamespace() == NS_MEDIA ) {
 				$title = Title::makeTitle( NS_FILE, $title->getDBkey() );
 			}
-			if( $query !== null ) {
+			if ( $query !== null ) {
 				$text = $title->$func( $query );
 			} else {
 				$text = $title->$func();

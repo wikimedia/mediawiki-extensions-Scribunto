@@ -112,7 +112,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	}
 
 	public function testTimeLimit() {
-		if( php_uname( 's' ) === 'Darwin' ) {
+		if ( php_uname( 's' ) === 'Darwin' ) {
 			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
 		}
 

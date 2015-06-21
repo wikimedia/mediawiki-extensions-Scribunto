@@ -204,7 +204,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			}
 			$options['luaPath'] = dirname( __FILE__ ) . "/binaries/$path";
 
-			if( !is_executable( $options['luaPath'] ) ) {
+			if ( !is_executable( $options['luaPath'] ) ) {
 				throw new MWException( sprintf( 'The lua binary (%s) is not executable.', $options['luaPath'] ) );
 			}
 		}
@@ -302,7 +302,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( $handle ) {
 			$ret = fgets( $handle, 80 );
 			pclose( $handle );
-			if( $ret && preg_match( '/^Lua(?:JIT)? \S+/', $ret, $m ) ) {
+			if ( $ret && preg_match( '/^Lua(?:JIT)? \S+/', $ret, $m ) ) {
 				return $m[0];
 			}
 		}

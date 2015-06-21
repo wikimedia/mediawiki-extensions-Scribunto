@@ -26,11 +26,11 @@ class Scribunto {
 	 */
 	public static function newDefaultEngine( $extraOptions = array() ) {
 		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
-		if( !$wgScribuntoDefaultEngine ) {
+		if ( !$wgScribuntoDefaultEngine ) {
 			throw new MWException( 'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set' );
 		}
 
-		if( !isset( $wgScribuntoEngineConf[$wgScribuntoDefaultEngine] ) ) {
+		if ( !isset( $wgScribuntoEngineConf[$wgScribuntoDefaultEngine] ) ) {
 			throw new MWException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
 		}
 		$options = $extraOptions + $wgScribuntoEngineConf[$wgScribuntoDefaultEngine];
@@ -46,7 +46,7 @@ class Scribunto {
 	 * @return ScribuntoEngineBase
 	 */
 	public static function getParserEngine( Parser $parser ) {
-		if( empty( $parser->scribunto_engine ) ) {
+		if ( empty( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
 			$parser->scribunto_engine->setTitle( $parser->getTitle() );
 		}

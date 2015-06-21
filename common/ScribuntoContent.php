@@ -90,7 +90,7 @@ class ScribuntoContent extends TextContent {
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( $title );
 		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			$output->setText( $output->getText() .
 				Html::rawElement( 'div', array( 'class' => 'errorbox' ),
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
@@ -119,12 +119,12 @@ class ScribuntoContent extends TextContent {
 
 		// Add HTML for the actual script
 		$language = $engine->getGeSHiLanguage();
-		if( $wgScribuntoUseGeSHi && $language ) {
+		if ( $wgScribuntoUseGeSHi && $language ) {
 			$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
 			$geshi->set_language( $language );
-			if( $geshi instanceof GeSHi && !$geshi->error() ) {
+			if ( $geshi instanceof GeSHi && !$geshi->error() ) {
 				$code = $geshi->parse_code();
-				if( $code ) {
+				if ( $code ) {
 					// @todo Once we drop support for old versions of
 					// Extension:SyntaxHighlight_GeSHi, drop the ugly test and
 					// the BC case.

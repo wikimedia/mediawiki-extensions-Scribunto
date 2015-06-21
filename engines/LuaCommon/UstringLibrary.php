@@ -456,7 +456,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				} else {
 					$re .= preg_quote( $pat[$i], '/' );
 				}
-			} elseif( $i + 2 < $len && $pat[$i + 1] === '-' && $pat[$i + 2] !== ']' ) {
+			} elseif ( $i + 2 < $len && $pat[$i + 1] === '-' && $pat[$i + 2] !== ']' ) {
 				$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i+2], '/' );
 				$i += 2;
 			} else {

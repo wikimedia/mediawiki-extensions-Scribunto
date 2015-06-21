@@ -20,7 +20,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-if( !defined( 'MEDIAWIKI' ) )
+if ( !defined( 'MEDIAWIKI' ) )
 	die();
 
 $wgExtensionCredits['parserhook']['Scribunto'] = array(

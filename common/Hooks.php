@@ -153,11 +153,11 @@ class ScribuntoHooks {
 	 */
 	public static function getCodeLanguage( Title $title, &$languageCode ) {
 		global $wgScribuntoUseCodeEditor;
-		if( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
+		if ( $wgScribuntoUseCodeEditor && $title->getNamespace() == NS_MODULE &&
 			!Scribunto::isDocPage( $title )
 		) {
 			$engine = Scribunto::newDefaultEngine();
-			if( $engine->getCodeEditorLanguage() ) {
+			if ( $engine->getCodeEditorLanguage() ) {
 				$languageCode = $engine->getCodeEditorLanguage();
 				return false;
 			}
@@ -174,7 +174,7 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function contentHandlerDefaultModelFor( Title $title, &$model ) {
-		if( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
+		if ( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
 			$model = 'Scribunto';
 			return false;
 		}
@@ -317,7 +317,7 @@ class ScribuntoHooks {
 		global $wgOut;
 		$title = $editor->getTitle();
 
-		if( $title->getNamespace() != NS_MODULE ) {
+		if ( $title->getNamespace() != NS_MODULE ) {
 			return true;
 		}
 
@@ -328,7 +328,7 @@ class ScribuntoHooks {
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( $title );
 		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
-		if( $status->isOK() ) {
+		if ( $status->isOK() ) {
 			return true;
 		}
 
