@@ -225,7 +225,7 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraries( $engine, array $coreLibraries = array() ) {
 		$extraLibraries = array();
-		wfRunHooks( 'ScribuntoExternalLibraries', array( $engine, &$extraLibraries ) );
+		Hooks::run( 'ScribuntoExternalLibraries', array( $engine, &$extraLibraries ) );
 		return $coreLibraries + $extraLibraries;
 	}
 
@@ -238,7 +238,7 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraryPaths( $engine, array $coreLibraryPaths = array() ) {
 		$extraLibraryPaths = array();
-		wfRunHooks( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
+		Hooks::run( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
 	}
 
