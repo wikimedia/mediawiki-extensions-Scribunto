@@ -202,6 +202,11 @@ $namespaceNames['ka'] = array(
 	828 => 'მოდული',
 );
 
+$namespaceNames['kn'] = array(
+	828 => 'ಮಾಡ್ಯೂಲ್',
+	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆ',
+);
+
 $namespaceNames['ko'] = array(
 	828 => '모듈',
 	829 => '모듈토론',
@@ -314,6 +319,11 @@ $namespaceNames['sr-el'] = array(
 $namespaceNames['sv'] = array(
 	828 => 'Modul',
 	829 => 'Moduldiskussion',
+);
+
+$namespaceNames['te'] = array(
+	828 => 'మాడ్యూల్',
+	829 => 'మాడ్యూల్_సంభాషణ',
 );
 
 $namespaceNames['tr'] = array(
