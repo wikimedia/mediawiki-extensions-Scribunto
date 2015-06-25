@@ -958,7 +958,7 @@ class Scribunto_LuaError extends ScribuntoException {
 				$backtraceLine = $backtraceLine->inContentLanguage()->parse() :
 				$backtraceLine = $backtraceLine->parse();
 
-			$s .= "<li>\n\t" . $backtraceLine  . "\n</li>\n";
+			$s .= "<li>$backtraceLine</li>";
 		}
 		$s .= '</ol>';
 		return $s;
