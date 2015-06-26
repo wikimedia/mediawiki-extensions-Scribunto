@@ -92,7 +92,7 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 
 	public function rewind() {
 		if ( $this->file ) {
-			rewind($this->file);
+			rewind( $this->file );
 		}
 		$this->key = 0;
 		$this->next();
@@ -100,9 +100,9 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 
 	public function valid() {
 		if ( $this->file ) {
-			$v=!feof($this->file);
+			$v = !feof( $this->file );
 		} else {
-			$v=$this->key < count( self::$static );
+			$v = $this->key < count( self::$static );
 		}
 		return $v;
 	}
@@ -113,7 +113,7 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 
 	public function next() {
 		$this->current = array( null, null, null, null, null, null );
-		while( $this->valid() ) {
+		while ( $this->valid() ) {
 			if ( $this->file ) {
 				$line = fgets( $this->file );
 			} else {

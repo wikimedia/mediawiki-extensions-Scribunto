@@ -20,7 +20,8 @@ class Scribunto {
 	/**
 	 * Create a new engine object with default parameters
 	 *
-	 * @param $extraOptions array Extra options to pass to the constructor, in addition to the configured options
+	 * @param $extraOptions array Extra options to pass to the constructor,
+	 *  in addition to the configured options
 	 * @throws MWException
 	 * @return ScribuntoEngineBase
 	 */

@@ -273,7 +273,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$loadcount = 0;
 		$interpreter->callFunction(
 			$interpreter->loadString( 'mw.markLoaded = ...', 'fortest' ),
-			$interpreter->wrapPHPFunction( function () use (&$loadcount) {
+			$interpreter->wrapPHPFunction( function () use ( &$loadcount ) {
 				$loadcount++;
 			} )
 		);
@@ -343,8 +343,6 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	public function testCallParserFunction() {
-		global $wgContLang;
-
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 

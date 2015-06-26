@@ -1,7 +1,7 @@
 <?php
 
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
-	protected abstract function newInterpreter( $opts = array() );
+	abstract protected function newInterpreter( $opts = array() );
 
 	protected function setUp() {
 		parent::setUp();

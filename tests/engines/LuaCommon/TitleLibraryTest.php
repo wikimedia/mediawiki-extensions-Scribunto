@@ -82,7 +82,6 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$title->mCascadeSources = array();
 		$title->mCascadingRestrictions = array();
 
-
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 

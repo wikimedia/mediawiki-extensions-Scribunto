@@ -437,7 +437,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return $this->patternRegexCache->get( $cacheKey );
 	}
 
-	private function bracketedCharSetToRegex( $pat, $i, $len, $brcharsets ){
+	private function bracketedCharSetToRegex( $pat, $i, $len, $brcharsets ) {
 		$ii = $i + 1;
 		$re = '[';
 		$i++;
@@ -445,7 +445,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$re .= '^';
 			$i++;
 		}
-		for ( ; $i < $len && $pat[$i] !== ']'; $i++ ) {
+		for (; $i < $len && $pat[$i] !== ']'; $i++ ) {
 			if ( $pat[$i] === '%' ) {
 				$i++;
 				if ( $i >= $len ) {

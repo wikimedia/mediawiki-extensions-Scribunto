@@ -343,7 +343,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function callFunction( $func /* ... */ ) {
-		if ( !($func instanceof Scribunto_LuaStandaloneInterpreterFunction) ) {
+		if ( !( $func instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
 			throw new MWException( __METHOD__.': invalid function type' );
 		}
 		if ( $func->interpreterId !== $this->id ) {
