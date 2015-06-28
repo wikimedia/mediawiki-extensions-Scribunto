@@ -676,6 +676,7 @@ local function dataWrapper( data, seen )
 	end
 
 	local mt = {
+		mw_loadData = true,
 		__index = function ( tt, k )
 			assert( t == tt )
 			local v = data[k]
