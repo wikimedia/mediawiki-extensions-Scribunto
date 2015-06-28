@@ -242,6 +242,11 @@ $namespaceNames['ml'] = array(
 	829 => 'ഘടകത്തിന്റെ_സംവാദം',
 );
 
+$namespaceNames['mr'] = array(
+	828 => 'विभाग',
+	829 => 'विभाग_चर्चा',
+);
+
 $namespaceNames['ms'] = array(
 	828 => 'Modul',
 );
