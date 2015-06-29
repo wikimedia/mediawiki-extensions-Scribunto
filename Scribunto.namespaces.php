@@ -158,6 +158,11 @@ $namespaceNames['gom-deva'] = array(
 	829 => 'मापदंड_चर्चा',
 );
 
+$namespaceNames['gu'] = array(
+	828 => 'વિભાગ',
+	829 => 'વિભાગ_ચર્ચા',
+);
+
 $namespaceNames['he'] = array(
 	828 => 'יחידה',
 	829 => 'שיחת_יחידה',
