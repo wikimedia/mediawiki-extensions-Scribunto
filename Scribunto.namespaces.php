@@ -271,6 +271,11 @@ $namespaceNames['nn'] = array(
 	829 => 'Moduldiskusjon',
 );
 
+$namespaceNames['or'] = array(
+	828 => 'ମଡ୍ୟୁଲ',
+	829 => 'ମଡ୍ୟୁଲ_ଆଲୋଚନା',
+);
+
 $namespaceNames['pl'] = array(
 	828 => 'Moduł',
 	829 => 'Dyskusja_modułu',
