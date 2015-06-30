@@ -38,7 +38,7 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		try {
 			$msg = $this->makeMessage( $data, true );
 			return array( $msg->plain() );
-		} catch( MWException $ex ) {
+		} catch ( MWException $ex ) {
 			throw new Scribunto_LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
 		}
 	}
@@ -51,7 +51,7 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		try {
 			$msg = $this->makeMessage( $data, false );
 			return array( call_user_func( array( $msg, $what ) ) );
-		} catch( MWException $ex ) {
+		} catch ( MWException $ex ) {
 			throw new Scribunto_LuaError( "msg:$what() failed (" . $ex->getMessage() . ")" );
 		}
 	}

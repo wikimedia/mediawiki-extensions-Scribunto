@@ -187,7 +187,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 *
 	 * @return array
 	 */
-	public abstract function getPerformanceCharacteristics();
+	abstract public function getPerformanceCharacteristics();
 
 	/**
 	 * Get the current interpreter object
@@ -524,7 +524,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	protected function getFrameById( $frameId ) {
 		if ( $frameId === 'empty' ) {
-			return  $this->getParser()->getPreprocessor()->newFrame();
+			return $this->getParser()->getPreprocessor()->newFrame();
 		} elseif ( isset( $this->currentFrames[$frameId] ) ) {
 			return $this->currentFrames[$frameId];
 		} else {

@@ -94,11 +94,13 @@ class ScribuntoHooks {
 			$engine = Scribunto::getParserEngine( $parser );
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title || Scribunto::isDocPage( $title ) ) {
-				throw new ScribuntoException( 'scribunto-common-nosuchmodule', array( 'args' => array( $moduleName ) ) );
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule',
+					array( 'args' => array( $moduleName ) ) );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
 			if ( !$module ) {
-				throw new ScribuntoException( 'scribunto-common-nosuchmodule', array( 'args' => array( $moduleName ) ) );
+				throw new ScribuntoException( 'scribunto-common-nosuchmodule',
+					array( 'args' => array( $moduleName ) ) );
 			}
 			$functionName = trim( $frame->expand( $args[1] ) );
 
@@ -112,7 +114,7 @@ class ScribuntoHooks {
 			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
 			$result = $module->invoke( $functionName, $childFrame );
 			return UtfNormal::cleanUp( strval( $result ) );
-		} catch( ScribuntoException $e ) {
+		} catch ( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
 			$html = Html::element( 'p', array(), $e->getMessage() );
 			if ( $trace !== false ) {

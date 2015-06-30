@@ -248,7 +248,7 @@ abstract class ScribuntoEngineBase {
 	 * @deprecated
 	 * @return string
 	 */
-	public function getLimitReport(){
+	public function getLimitReport() {
 		return '';
 	}
 
@@ -258,7 +258,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $output ParserOutput ParserOutput object in which to add limit data
 	 * @return null
 	 */
-	public function reportLimitData( ParserOutput $output ){
+	public function reportLimitData( ParserOutput $output ) {
 	}
 
 	/**
@@ -271,7 +271,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $localize bool
 	 * @return bool
 	 */
-	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ){
+	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		return true;
 	}
 }

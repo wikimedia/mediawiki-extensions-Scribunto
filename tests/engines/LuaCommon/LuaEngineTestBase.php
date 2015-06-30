@@ -189,7 +189,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	}
 
 	public function templateCallback( $title, $parser ) {
-		if ( isset($this->extraModules[$title->getFullText()]) ) {
+		if ( isset( $this->extraModules[$title->getFullText()] ) ) {
 			return array(
 				'text' => $this->extraModules[$title->getFullText()],
 				'finalTitle' => $title,
