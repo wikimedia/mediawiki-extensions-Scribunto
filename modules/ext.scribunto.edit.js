@@ -295,7 +295,7 @@
 				sessionKey = result.session;
 				sessionContent = content;
 				if ( result.type === 'error' ) {
-					printError( result.message );
+					$( '<div>' ).addClass( 'mw-scribunto-error' ).html( result.html ).appendTo( output );
 				} else {
 					if ( result.print !== '' ) {
 						println( result.print, 'mw-scribunto-print' );
