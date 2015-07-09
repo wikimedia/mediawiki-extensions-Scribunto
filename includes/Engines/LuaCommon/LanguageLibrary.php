@@ -373,7 +373,7 @@ class LanguageLibrary extends LibraryBase {
 			$utc = new DateTimeZone( 'UTC' );
 			$dateObject = new DateTime( $date, $utc );
 		} catch ( Exception $ex ) {
-			throw new LuaError( "bad argument #2 to 'formatDate' (not a valid timestamp)" );
+			throw new LuaError( "bad argument #2 to 'formatDate': invalid timestamp '$date'" );
 		}
 
 		# Set output timezone.
