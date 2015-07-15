@@ -289,7 +289,7 @@ function uri.parseQueryString( s, i, j )
 			v = rawdecode( string.sub( s, eq + 1, amp - 1 ) )
 		end
 		if qs[k] then
-			if type( qs[k] ) ~= table then
+			if type( qs[k] ) ~= 'table' then
 				qs[k] = { qs[k], v }
 			else
 				table.insert( qs[k], v )
