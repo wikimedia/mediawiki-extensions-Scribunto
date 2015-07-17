@@ -28,6 +28,11 @@ $namespaceNames['ast'] = array(
 	829 => 'Alderique_módulu',
 );
 
+$namespaceNames['azb'] = array(
+	828 => 'ماژول',
+	829 => 'ماژول_دانیشیغی',
+);
+
 $namespaceNames['ba'] = array(
 	828 => 'Модуль',
 	829 => 'Модуль_буйынса_фекерләшеү',
