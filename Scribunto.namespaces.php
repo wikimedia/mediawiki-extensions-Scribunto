@@ -326,6 +326,11 @@ $namespaceNames['sl'] = array(
 	829 => 'Pogovor_o_modulu',
 );
 
+$namespaceNames['sq'] = array(
+	828 => 'Moduli',
+	829 => 'Moduli_diskutim',
+);
+
 $namespaceNames['sr-ec'] = array(
 	828 => 'Модул',
 	829 => 'Разговор_о_модулу',
