@@ -73,4 +73,17 @@ class ScribuntoContentHandler extends TextContentHandler {
 	public function getPageViewLanguage( Title $title, Content $content = null ) {
 		return wfGetLangObj( 'en' );
 	}
+
+	/**
+	 * Only allow this content handler to be used in the Module namespace
+	 * @param Title $title
+	 * @return bool
+	 */
+	public function canBeUsedOn( Title $title ) {
+		if ( $title->getNamespace() !== NS_MODULE ) {
+			return false;
+		}
+
+		return parent::canBeUsedOn( $title );
+	}
 }
