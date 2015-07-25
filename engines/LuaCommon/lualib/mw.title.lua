@@ -290,7 +290,7 @@ function title.setupInterface( options )
 
 	-- Set current title
 	title.getCurrentTitle = function ()
-		return makeTitleObject( options.thisTitle )
+		return makeTitleObject( mw.clone( options.thisTitle ) )
 	end
 
 	-- Register this library in the "mw" global

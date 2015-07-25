@@ -74,6 +74,11 @@ local function test_getContent()
 	return mw.title.new( 'ScribuntoTestPage' ):getContent()
 end
 
+local function test_getCurrentTitle_fragment()
+	mw.title.getCurrentTitle().fragment = 'bad'
+	return mw.title.getCurrentTitle().fragment
+end
+
 -- Tests
 local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
@@ -381,6 +386,9 @@ local tests = {
 	},
 	{ name = "inexpensive actions shouldn't count as expensive", func = test_inexpensive,
 	  expect = { 'did not error' }
+	},
+	{ name = "fragments don't leak via getCurrentTitle()", func = test_getCurrentTitle_fragment,
+	  expect = { '' }
 	},
 }
 
