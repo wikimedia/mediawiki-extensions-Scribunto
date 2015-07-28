@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"DzWiki",
-			"Palapa"
+			"Palapa",
+			"Srdjan m"
 		]
 	},
 	"scribunto-doc-page-name": "Module:$1/dok",
+	"scribunto-doc-page-does-not-exist": "''Dokumentaciju za ovaj modul možete napraviti na stranici [[$1]]''",
 	"scribunto-doc-page-header": "'''Ovo je stranica dokumentacije za [[$1]]'''",
 	"scribunto-console-clear": "Očisti",
 	"scribunto-lua-error": "Lua greška: $2."
