@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"John Reid"
+			"John Reid",
+			"AmaryllisGardener"
 		]
 	},
+	"scribunto-common-error-category": "Pages wi script errors",
 	"scribunto-common-error-category-desc": "Thaur wis ae mistak while processin the modules incluidit oan the page.",
 	"scribunto-module-with-errors-category-desc": "The module haes ae mistak in it.",
 	"scribunto-limitreport-timeusage": "Lua time uissage",
