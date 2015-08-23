@@ -4,5 +4,6 @@
 			"V.narsikar"
 		]
 	},
+	"scribunto-lua-error": "लुआ त्रुटि: $2।",
 	"scribunto-limitreport-timeusage-value": "$1/$2 सेकंद"
 }
