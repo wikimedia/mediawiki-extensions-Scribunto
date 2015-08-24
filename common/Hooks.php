@@ -257,7 +257,7 @@ class ScribuntoHooks {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			global $wgOut;
 			$wgOut->addModules( 'ext.scribunto.edit' );
-			$editor->editFormTextAfterTools = '<div id="mw-scribunto-console"></div>';
+			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
 		}
 		return true;
 	}
