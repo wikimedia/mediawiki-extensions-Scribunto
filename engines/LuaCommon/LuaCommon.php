@@ -303,10 +303,31 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @return mixed the export list, or null if there isn't one.
 	 */
 	protected function loadLibraryFromFile( $fileName ) {
+		static $cache = null;
+
+		if ( !$cache ) {
+			$cache = ObjectCache::newAccelerator( array(), 'hash' );
+		}
+
+		$mtime = filemtime( $fileName );
+		if ( $mtime === false ) {
+			throw new MWException( 'Lua file does not exist: ' . $fileName );
+		}
+
+		$cacheKey = wfGlobalCacheKey( __CLASS__, $fileName );
+		$fileData = $cache->get( $cacheKey );
+		if ( $fileData ) {
+			list( $code, $cachedMtime ) = $fileData;
+			if ( $cachedMtime >= $mtime ) {
+				return $content;
+			}
+		}
 		$code = file_get_contents( $fileName );
 		if ( $code === false ) {
 			throw new MWException( 'Lua file does not exist: ' . $fileName );
 		}
+		$cache->set( $cacheKey, array( $code, $mtime ), 60 * 5 );
+
 		# Prepending an "@" to the chunk name makes Lua think it is a filename
 		$module = $this->getInterpreter()->loadString( $code, '@' . basename( $fileName ) );
 		$ret = $this->getInterpreter()->callFunction( $module );
