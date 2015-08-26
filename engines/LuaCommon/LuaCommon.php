@@ -316,17 +316,21 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$cacheKey = wfGlobalCacheKey( __CLASS__, $fileName );
 		$fileData = $cache->get( $cacheKey );
+
+		$code = false;
 		if ( $fileData ) {
 			list( $code, $cachedMtime ) = $fileData;
-			if ( $cachedMtime >= $mtime ) {
-				return $content;
+			if ( $cachedMtime < $mtime ) {
+				$code = false;
 			}
 		}
-		$code = file_get_contents( $fileName );
-		if ( $code === false ) {
-			throw new MWException( 'Lua file does not exist: ' . $fileName );
+		if ( !$code ) {
+			$code = file_get_contents( $fileName );
+			if ( $code === false ) {
+				throw new MWException( 'Lua file does not exist: ' . $fileName );
+			}
+			$cache->set( $cacheKey, array( $code, $mtime ), 60 * 5 );
 		}
-		$cache->set( $cacheKey, array( $code, $mtime ), 60 * 5 );
 
 		# Prepending an "@" to the chunk name makes Lua think it is a filename
 		$module = $this->getInterpreter()->loadString( $code, '@' . basename( $fileName ) );
