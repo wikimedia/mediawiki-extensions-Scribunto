@@ -159,8 +159,8 @@ $namespaceNames['gl'] = array(
 );
 
 $namespaceNames['gom-deva'] = array(
-	828 => 'मापदंड',
-	829 => 'मापदंड_चर्चा',
+	828 => 'एकक',
+	829 => 'एकक_चर्चा',
 );
 
 $namespaceNames['gu'] = array(
