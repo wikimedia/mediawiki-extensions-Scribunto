@@ -271,6 +271,7 @@ class ScribuntoHooks {
 	public static function showReadOnlyFormInitial( EditPage $editor, OutputPage $output ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$output->addModules( 'ext.scribunto.edit' );
+			$editor->editFormTextAfterContent .= '<div id="mw-scribunto-console"></div>';
 		}
 		return true;
 	}
