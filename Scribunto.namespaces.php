@@ -188,6 +188,11 @@ $namespaceNames['hu'] = array(
 	829 => 'Modulvita',
 );
 
+$namespaceNames['hy'] = array(
+	828 => 'Մոդուլ',
+	829 => 'Մոդուլի_քննարկում',
+);
+
 $namespaceNames['id'] = array(
 	828 => 'Modul',
 	829 => 'Pembicaraan_Modul',
