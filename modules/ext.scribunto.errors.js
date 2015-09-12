@@ -22,11 +22,11 @@
 				mw.log( 'mw.scribunto.errors: regex mismatch!' );
 				return;
 			}
-			errorId = parseInt( matches[1], 10 );
+			errorId = parseInt( matches[ 1 ], 10 );
 			$( span ).on( 'click', function ( e ) {
 				var error = errors[ errorId ];
 				if ( typeof error !== 'string' ) {
-					mw.log( 'mw.scribunto.errors: error ' + matches[1] + ' not found.' );
+					mw.log( 'mw.scribunto.errors: error ' + matches[ 1 ] + ' not found.' );
 					return;
 				}
 				$dialog
@@ -38,4 +38,4 @@
 		} );
 	} );
 
-} ) ( jQuery, mediaWiki );
+} )( jQuery, mediaWiki );

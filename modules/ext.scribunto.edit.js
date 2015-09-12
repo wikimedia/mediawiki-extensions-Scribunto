@@ -12,7 +12,7 @@
 	 */
 
 	var
-		histList = [''],
+		histList = [ '' ],
 		histPos = 0,
 		question,
 		input,
@@ -91,23 +91,27 @@
 	}
 
 	function caretInFirstLine( textbox ) {
+		var firstLineBreak;
+
 		// IE doesn't support selectionStart/selectionEnd
 		if ( textbox.selectionStart === undefined ) {
 			return true;
 		}
 
-		var firstLineBreak = textbox.value.indexOf( '\n' );
+		firstLineBreak = textbox.value.indexOf( '\n' );
 
-		return ((firstLineBreak === -1) || (textbox.selectionStart <= firstLineBreak));
+		return ( ( firstLineBreak === -1 ) || ( textbox.selectionStart <= firstLineBreak ) );
 	}
 
 	function caretInLastLine( textbox ) {
+		var lastLineBreak;
+
 		// IE doesn't support selectionStart/selectionEnd
 		if ( textbox.selectionEnd === undefined ) {
 			return true;
 		}
 
-		var lastLineBreak = textbox.value.lastIndexOf( '\n' );
+		lastLineBreak = textbox.value.lastIndexOf( '\n' );
 
 		return ( textbox.selectionEnd > lastLineBreak );
 	}
@@ -126,8 +130,9 @@
 	}
 
 	function println( s, type ) {
+		var newdiv;
 		if ( ( s = String( s ) ) ) {
-			var newdiv = document.createElement( 'div' );
+			newdiv = document.createElement( 'div' );
 			newdiv.appendChild( document.createTextNode( s ) );
 			newdiv.className = type;
 			output.appendChild( newdiv );
@@ -157,7 +162,7 @@
 		if ( direction === 'up' ) {
 			if ( histPos === L - 1 ) {
 				// Save this entry in case the user hits the down key.
-				histList[histPos] = input.value;
+				histList[ histPos ] = input.value;
 			}
 
 			if ( histPos > 0 ) {
@@ -166,9 +171,10 @@
 				// Set to nothing first for the same reason
 				setTimeout(
 					function () {
+						var caretPos;
 						input.value = '';
-						input.value = histList[histPos];
-						var caretPos = input.value.length;
+						input.value = histList[ histPos ];
+						caretPos = input.value.length;
 						if ( input.setSelectionRange ) {
 							input.setSelectionRange( caretPos, caretPos );
 						}
@@ -180,12 +186,11 @@
 			// direction down
 			if ( histPos < L - 1 ) {
 				histPos++;
-				input.value = histList[histPos];
-			}
-			else if ( histPos === L - 1 ) {
+				input.value = histList[ histPos ];
+			} else if ( histPos === L - 1 ) {
 				// Already on the current entry: clear but save
 				if ( input.value ) {
-					histList[histPos] = input.value;
+					histList[ histPos ] = input.value;
 					++histPos;
 					input.value = '';
 				}
@@ -204,7 +209,7 @@
 		lastError = er;
 		if ( er.name ) {
 			// lineNumberString should not be '', to avoid a very wacky bug in IE 6.
-			lineNumberString = (er.lineNumber !== undefined) ? (' on line ' + er.lineNumber + ': ') : ': ';
+			lineNumberString = ( er.lineNumber !== undefined ) ? ( ' on line ' + er.lineNumber + ': ' ) : ': ';
 			// Because IE doesn't have error.toString.
 			println( er.name + lineNumberString + er.message, 'mw-scribunto-error' );
 		} else {
@@ -241,8 +246,8 @@
 			return;
 		}
 
-		histList[histList.length - 1] = question;
-		histList[histList.length] = '';
+		histList[ histList.length - 1 ] = question;
+		histList[ histList.length ] = '';
 		histPos = histList.length - 1;
 
 		// Unfortunately, this has to happen *before* the script is run, so that
@@ -300,8 +305,8 @@
 					if ( result.print !== '' ) {
 						println( result.print, 'mw-scribunto-print' );
 					}
-					if ( result['return'] !== '' ) {
-						println( result['return'], 'mw-scribunto-normalOutput' );
+					if ( result[ 'return' ] !== '' ) {
+						println( result[ 'return' ], 'mw-scribunto-normalOutput' );
 					}
 				}
 				clearPending();
@@ -342,17 +347,18 @@
 	}
 
 	function initEditPage() {
-		var $console = $( '#mw-scribunto-console' );
+		var $wpTextbox1,
+			$console = $( '#mw-scribunto-console' );
 		if ( !$console.length ) {
 			// There is no console in the DOM; on read-only (protected) pages,
 			// we need to add it here, because the hook does not insert
 			// it server-side.
-			var $wpTextbox1 = $( '#wpTextbox1' );
+			$wpTextbox1 = $( '#wpTextbox1' );
 			if ( !$wpTextbox1.length || !$wpTextbox1.prop( 'readonly' ) ) {
 				return;
 			}
 
-			$console = $( '<div>' ).attr({ id: 'mw-scribunto-console' } );
+			$console = $( '<div>' ).attr( { id: 'mw-scribunto-console' } );
 			$wpTextbox1.after( $console );
 		}
 
