@@ -515,6 +515,22 @@ return testframework.getTestProvider( {
 	  args = { 'á', 'á', 'X' },
 	  expect = { 'X', 1 }
 	},
+	{ name = 'gsub: (one char string, empty pattern)', func = mw.ustring.gsub,
+	  args = { 'á', '', 'X' },
+	  expect = { 'XáX', 2 }
+	},
+	{ name = 'gsub: (empty pattern with position captures)', func = mw.ustring.gsub,
+	  args = { 'ábć', '()', '%1' },
+	  expect = { '1á2b3ć4', 4 }
+	},
+	{ name = 'gsub: (limited to 1 replacement)', func = mw.ustring.gsub,
+	  args = { 'áá', 'á', 'X', 1 },
+	  expect = { 'Xá', 1 }
+	},
+	{ name = 'gsub: (limited to 0 replacements)', func = mw.ustring.gsub,
+	  args = { 'áá', 'á', 'X', 0 },
+	  expect = { 'áá', 0 }
+	},
 	{ name = 'gsub: (string 1)', func = mw.ustring.gsub,
 	  args = { str2, 'f%a+', 'X' },
 	  expect = { 'X bar X X baz X X X', 6 }

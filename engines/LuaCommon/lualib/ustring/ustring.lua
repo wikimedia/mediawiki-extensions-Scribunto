@@ -750,16 +750,23 @@ end
 --    matches a partial UTF-8 character, but the others will happily enough
 --    match a whole UTF-8 character thinking it's 2, 3 or 4.
 --  * If it contains position-captures.
+--  * If it matches the empty string
 --
 -- @param string pattern
 -- @return boolean
 local function patternIsSimple( pattern )
+	local findWithPcall = function ( ... )
+		local ok, ret = pcall( S.find, ... )
+		return ok and ret
+	end
+
 	return not (
 		S.find( pattern, '[\128-\255]' ) or
 		S.find( pattern, '%[%^' ) or
 		S.find( pattern, '%%[acdlpsuwxACDLPSUWXZ]' ) or
 		S.find( pattern, '%.[^*+-]' ) or S.find( pattern, '%.$' ) or
-		S.find( pattern, '()', 1, true )
+		S.find( pattern, '()', 1, true ) or
+		pattern == '' or findWithPcall( '', pattern )
 	)
 end
 
@@ -923,6 +930,14 @@ function ustring.gsub( s, pattern, repl, n )
 		end
 	end
 
+	if n == nil then
+		n = 1e100
+	end
+	if n < 1 then
+		-- No replacement
+		return s, 0
+	end
+
 	local cps = utf8_explode( s )
 	if cps == nil then
 		error( "bad argument #1 for 'gsub' (string is not UTF-8)", 2 )
@@ -930,9 +945,6 @@ function ustring.gsub( s, pattern, repl, n )
 	local pat = utf8_explode( pattern )
 	if pat == nil then
 		error( "bad argument #2 for 'gsub' (string is not UTF-8)", 2 )
-	end
-	if n == nil then
-		n = 1e100
 	end
 
 	if pat.codepoints[1] == 0x5e then -- '^': Pattern is anchored
@@ -957,8 +969,9 @@ function ustring.gsub( s, pattern, repl, n )
 	local init = 1
 	local ct = 0
 	local ret = {}
-	while init < cps.len + 1 and ct < n do
-		local m = { find( s, cps, pattern, pat, init ) }
+	local zeroAdjustment = 0
+	repeat
+		local m = { find( s, cps, pattern, pat, init + zeroAdjustment ) }
 		if not m[1] then
 			break
 		end
@@ -1001,7 +1014,8 @@ function ustring.gsub( s, pattern, repl, n )
 		ret[#ret + 1] = val or mm
 		init = m[2] + 1
 		ct = ct + 1
-	end
+		zeroAdjustment = m[2] < m[1] and 1 or 0
+	until init > cps.len or ct >= n
 	if init <= cps.len then
 		ret[#ret + 1] = sub( s, cps, init, cps.len )
 	end

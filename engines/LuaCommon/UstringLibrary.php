@@ -23,6 +23,13 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	private $manualCheckForU110000AndUp = false;
 
 	/**
+	 * PHP until 5.6.9 are buggy when the regex in preg_replace an
+	 * preg_match_all matches the empty string.
+	 * @var boolean
+	 */
+	private $phpBug53823 = false;
+
+	/**
 	 * A cache of patterns and the regexes they generate.
 	 * @var array
 	 */
@@ -35,6 +42,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		$this->manualCheckForU110000AndUp = mb_check_encoding( "\xf4\x90\x80\x80", "UTF-8" );
+		$this->phpBug53823 = preg_replace( '//us', 'x', "\xc3\xa1" ) === "x\xc3x\xa1x";
 		$this->patternRegexCache = new MapCacheLRU( 100 );
 
 		parent::__construct( $engine );
@@ -331,6 +339,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$captparen = array();
 			$opencapt = array();
 			$bct = 0;
+
 			for ( $i = 0; $i < $len; $i++ ) {
 				$ii = $i + 1;
 				$q = false;
@@ -608,12 +617,21 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 		if ( $n === null ) {
 			$n = -1;
-		} elseif ( $n < 0 ) {
-			$n = 0;
+		} elseif ( $n < 1 ) {
+			return array( $s, 0 );
 		}
 
 		list( $re, $capt, $anypos ) = $this->patternToRegex( $pattern, '^', 'gsub' );
 		$captures = array();
+
+		if ( $this->phpBug53823 ) {
+			// PHP bug 53823 means that a zero-length match before a UTF-8
+			// character will match again before every byte of that character.
+			// The workaround is to capture the first "character" of/after the
+			// match and verify that its first byte is legal to start a UTF-8
+			// character.
+			$re = '/(?=(?<phpBug53823>.|$))' . substr( $re, 1 );
+		}
 
 		if ( $anypos ) {
 			// preg_replace_callback doesn't take a "flags" argument, so we
@@ -621,17 +639,23 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			// position captures. So instead we have to do a preg_match_all and
 			// handle the captures ourself.
 			$ct = preg_match_all( $re, $s, $mm, PREG_OFFSET_CAPTURE | PREG_SET_ORDER );
-			if ( $n >= 0 ) {
-				$ct = min( $ct, $n );
-			}
 			for ( $i = 0; $i < $ct; $i++ ) {
 				$m = $mm[$i];
+				if ( $this->phpBug53823 ) {
+					$c = ord( $m['phpBug53823'][0] );
+					if ( $c >= 0x80 && $c <= 0xbf ) {
+						continue;
+					}
+				}
 				$c = array( $m[0][0] );
 				foreach ( $this->addCapturesFromMatch( array(), $s, $m, $capt, false ) as $k => $v ) {
 					$k++;
 					$c["m$k"] = $v;
 				}
 				$captures[] = $c;
+				if ( $n >= 0 && count( $captures ) >= $n ) {
+					break;
+				}
 			}
 		}
 
@@ -693,12 +717,31 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$this->checkType( 'gsub', 3, $repl, 'function or table or string' );
 		}
 
+		$skippedMatches = 0;
+		if ( $this->phpBug53823 ) {
+			// Since we're having bogus matches, we need to keep track of the
+			// necessary adjustment and stop manually once we hit the limit.
+			$maxMatches = $n < 0 ? INF : $n;
+			$n = -1;
+			$realCallback = $cb;
+			$cb = function ( $m ) use ( $realCallback, &$skippedMatches, &$maxMatches ) {
+				$c = ord( $m['phpBug53823'] );
+				if ( $c >= 0x80 && $c <= 0xbf || $maxMatches <= 0 ) {
+					$skippedMatches++;
+					return $m[0];
+				} else {
+					$maxMatches--;
+					return $realCallback( $m );
+				}
+			};
+		}
+
 		$count = 0;
 		$s2 = preg_replace_callback( $re, $cb, $s, $n, $count );
 		if ( $s2 === null ) {
 			self::handlePCREError( preg_last_error(), $pattern );
 		}
-		return array( $s2, $count );
+		return array( $s2, $count - $skippedMatches );
 	}
 
 	/**
