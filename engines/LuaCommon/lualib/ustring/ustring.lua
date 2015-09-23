@@ -937,7 +937,7 @@ function ustring.gsub( s, pattern, repl, n )
 	local init = 1
 	local ct = 0
 	local ret = {}
-	while init < cps.len and ct < n do
+	while init < cps.len + 1 and ct < n do
 		local m = { find( s, cps, pattern, pat, init ) }
 		if not m[1] then
 			break

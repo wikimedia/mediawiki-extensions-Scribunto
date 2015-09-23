@@ -463,6 +463,18 @@ return testframework.getTestProvider( {
 	  expect = { 1 }
 	},
 
+	{ name = 'gsub: (emtpy string, empty pattern)', func = mw.ustring.gsub,
+	  args = { '', '', 'X' },
+	  expect = { 'X', 1 }
+	},
+	{ name = 'gsub: (emtpy string, one char pattern)', func = mw.ustring.gsub,
+	  args = { '', 'á', 'X' },
+	  expect = { '', 0 }
+	},
+	{ name = 'gsub: (one char string, one char pattern)', func = mw.ustring.gsub,
+	  args = { 'á', 'á', 'X' },
+	  expect = { 'X', 1 }
+	},
 	{ name = 'gsub: (string 1)', func = mw.ustring.gsub,
 	  args = { str2, 'f%a+', 'X' },
 	  expect = { 'X bar X X baz X X X', 6 }
