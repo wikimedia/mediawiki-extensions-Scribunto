@@ -5,7 +5,8 @@
 			"Ignatus",
 			"Kalan",
 			"Okras",
-			"HarpyWar"
+			"HarpyWar",
+			"Kaganer"
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
@@ -29,7 +30,7 @@
 	"scribunto-common-nosuchmodule": "Ошибка скрипта: Нет такого модуля, как «$2».",
 	"scribunto-common-nofunction": "Ошибка скрипта: Вы должны указать вызываемую функцию.",
 	"scribunto-common-nosuchfunction": "Ошибка скрипта: Функции «$2» не существует.",
-	"scribunto-common-notafunction": "Ошибка сценария: «$2» не является функцией.",
+	"scribunto-common-notafunction": "Ошибка сценария: «$2» — не функция.",
 	"scribunto-common-timeout": "Время, выделенное для выполнения скриптов, истекло.",
 	"scribunto-common-oom": "Количество памяти, выделенное для выполнения скриптов, превышено.",
 	"scribunto-common-backtrace": "Трассировка вызовов:",
