@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jnanaranjan Sahu"
+			"Jnanaranjan Sahu",
+			"Psubhashish"
 		]
 	},
-	"scribunto-lua-error": "ଲୂଆ ତ୍ରୁଟି: $2"
+	"scribunto-lua-error": "ଲୁଆ ତ୍ରୁଟି: $2 ।"
 }
