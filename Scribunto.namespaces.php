@@ -25,7 +25,7 @@ $namespaceNames['ar'] = array(
 
 $namespaceNames['ast'] = array(
 	828 => 'Módulu',
-	829 => 'Alderique_módulu',
+	829 => 'Módulu_alderique',
 );
 
 $namespaceNames['azb'] = array(
@@ -116,6 +116,11 @@ $namespaceNames['dsb'] = array(
 $namespaceNames['dv'] = array(
 	828 => 'މޮޑިއުލް',
 	829 => 'މޮޑިއުލް_ޚިޔާލު',
+);
+
+$namespaceNames['eml'] = array(
+	828 => 'Mòdul',
+	829 => 'Discusiòun_dal_Mòdul',
 );
 
 $namespaceNames['eo'] = array(
@@ -215,6 +220,7 @@ $namespaceNames['ja'] = array(
 
 $namespaceNames['ka'] = array(
 	828 => 'მოდული',
+	829 => 'მოდულის_განხილვა',
 );
 
 $namespaceNames['kn'] = array(
@@ -225,6 +231,11 @@ $namespaceNames['kn'] = array(
 $namespaceNames['ko'] = array(
 	828 => '모듈',
 	829 => '모듈토론',
+);
+
+$namespaceNames['lb'] = array(
+	828 => 'Modul',
+	829 => 'Modul_Diskussioun',
 );
 
 $namespaceNames['lrc'] = array(
@@ -336,6 +347,11 @@ $namespaceNames['sq'] = array(
 	829 => 'Moduli_diskutim',
 );
 
+$namespaceNames['sr'] = array(
+	828 => 'Модул',
+	829 => 'Разговор о модулу',
+);
+
 $namespaceNames['sr-ec'] = array(
 	828 => 'Модул',
 	829 => 'Разговор_о_модулу',
@@ -354,6 +370,11 @@ $namespaceNames['sv'] = array(
 $namespaceNames['te'] = array(
 	828 => 'మాడ్యూల్',
 	829 => 'మాడ్యూల్_సంభాషణ',
+);
+
+$namespaceNames['th'] = array(
+	828 => 'เกณฑ์สำหรับวัด',
+	829 => 'โมดูลของการพูดคุย',
 );
 
 $namespaceNames['tr'] = array(
@@ -379,6 +400,11 @@ $namespaceNames['vi'] = array(
 $namespaceNames['yue'] = array(
 	828 => '模組',
 	829 => '模組討論',
+);
+
+$namespaceNames['zh'] = array(
+	828 => '模块',
+	829 => '模块讨论',
 );
 
 $namespaceNames['zh-hans'] = array(
