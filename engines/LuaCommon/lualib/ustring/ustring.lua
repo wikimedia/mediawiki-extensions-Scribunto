@@ -740,11 +740,10 @@ end
 --    inside brackets and aren't followed by quantifiers and aren't part of a
 --    '%b', but that's too complicated to check.
 --  * If it contains a negated character set.
---  * If it contains "%a" or any of the other %-prefixed character sets except
---    %z or %Z.
---  * If it contains a '.' not followed by '*', '+', or '-'. A bare '.' or '.?'
---    would try to match a partial UTF-8 character, but the others will happily
---    enough match a whole character thinking it's 2 or 4.
+--  * If it contains "%a" or any of the other %-prefixed character sets except %z.
+--  * If it contains a '.' not followed by '*', '+', '-'. A bare '.' or '.?'
+--    matches a partial UTF-8 character, but the others will happily enough
+--    match a whole UTF-8 character thinking it's 2, 3 or 4.
 --  * If it contains position-captures.
 --
 -- @param string pattern
@@ -753,8 +752,8 @@ local function patternIsSimple( pattern )
 	return not (
 		S.find( pattern, '[\128-\255]' ) or
 		S.find( pattern, '%[%^' ) or
-		S.find( pattern, '%%[acdlpsuwxACDLPSUWX]' ) or
-		S.find( pattern, '%.[^*+-]' ) or
+		S.find( pattern, '%%[acdlpsuwxACDLPSUWXZ]' ) or
+		S.find( pattern, '%.[^*+-]' ) or S.find( pattern, '%.$' ) or
 		S.find( pattern, '()', 1, true )
 	)
 end

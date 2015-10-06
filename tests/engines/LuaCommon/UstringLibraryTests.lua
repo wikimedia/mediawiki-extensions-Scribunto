@@ -511,6 +511,34 @@ return testframework.getTestProvider( {
 	  args = { str2, 'f%a+', { ['főó'] = 'Y', ['foó'] = 'Z' }, 1 },
 	  expect = { str2, 1 }
 	},
+	{ name = 'gsub: (inverted zero character class)', func = mw.ustring.gsub,
+	  args = { "ó", '%Z', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (single dot pattern at end)', func = mw.ustring.gsub,
+	  args = { "ó", '.', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (single dot pattern at end + leading)', func = mw.ustring.gsub,
+	  args = { 'fó', 'f.', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (dot pattern)', func = mw.ustring.gsub,
+	  args = { 'f ó b', 'f . b', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (dot pattern with +)', func = mw.ustring.gsub,
+	  args = { 'f óóó b', 'f .+ b', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (dot pattern with -)', func = mw.ustring.gsub,
+	  args = { 'f óóó b', 'f .- b', 'repl' },
+	  expect = { 'repl', 1 }
+	},
+	{ name = 'gsub: (dot pattern with *)', func = mw.ustring.gsub,
+	  args = { 'f óóó b', 'f .* b', 'repl' },
+	  expect = { 'repl', 1 }
+	},
 	{ name = 'gsub: (function 1)', func = mw.ustring.gsub,
 	  args = { str2, 'f%a+', function(m) if m == 'fo' then return nil end return '-' .. mw.ustring.upper(m) .. '-' end },
 	  expect = { '-FOO- bar -FŐÓ- -FOÓ- baz -FOOOO- -FOOFOO- fo', 6 }
