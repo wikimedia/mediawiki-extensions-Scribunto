@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Danmichaelo"
+			"Danmichaelo",
+			"Cocu"
 		]
 	},
 	"scribunto-desc": "Rammeverk for å bygge inn scriptspråk i MediaWiki-sider",
@@ -24,7 +25,11 @@
 	"scribunto-common-nosuchmodule": "Skriptfeil: Ingen slik modul",
 	"scribunto-common-nofunction": "Skriptfeil: Du må angi en funksjon som skal kalles.",
 	"scribunto-common-nosuchfunction": "Skriptfeil: Funksjonen du anga eksisterer ikke.",
+	"scribunto-common-notafunction": "Skriptfeil: «$2» er ikke en funksjon.",
+	"scribunto-common-timeout": "Tiden som er avstatt til å kjøre skript har løpt ut.",
+	"scribunto-common-oom": "Mengden minne tillatt for å kjøre skript er overskredet.",
 	"scribunto-common-backtrace": "Tilbakesporing:",
+	"scribunto-common-no-details": "Ingen flere detaljer er tilgjengelig.",
 	"scribunto-lua-in-function": "i funksjon \"$1\"",
 	"scribunto-lua-in-function-at": "i funksjonen ved $1:$2",
 	"scribunto-lua-error-location": "Lua-feil $1: $2.",
