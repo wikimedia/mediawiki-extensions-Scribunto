@@ -5,7 +5,8 @@
 			"Kwj2772",
 			"Priviet",
 			"아라",
-			"SeoJeongHo"
+			"SeoJeongHo",
+			"Hwangjy9"
 		]
 	},
 	"scribunto-desc": "미디어위키 문서에 스크립트 언어를 넣기 위한 프레임워크",
@@ -37,7 +38,7 @@
 	"scribunto-lua-in-function-at": "함수 $1, $2번째 줄에서",
 	"scribunto-lua-error-location": "$1 Lua 오류: $2.",
 	"scribunto-lua-error": "Lua 오류: $2.",
-	"scribunto-lua-notarrayreturn": "스크립트 오류: 모듈이 테이블이 아닌 다른 무언가를 반환했습니다. 내보내기 테이블을 반환해야 합니다.",
+	"scribunto-lua-notarrayreturn": "스크립트 오류: 모듈이 $2 값을 반환했습니다. 내보내기 테이블을 반환해야 합니다.",
 	"scribunto-luastandalone-proc-error": "Lua 오류: 프로세스를 생성할 수 없습니다.",
 	"scribunto-luastandalone-proc-error-msg": "Lua 오류: 프로세스를 생성할 수 없습니다: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua 오류: 프로세스를 생성할 수 없습니다: proc_open은 사용할 수 없습니다. PHP의 \"disable_functions\" 설정을 확인하십시오.",
