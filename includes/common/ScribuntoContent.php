@@ -47,7 +47,7 @@ class ScribuntoContent extends TextContent {
 	protected function fillParserOutput(
 		Title $title, $revId, ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
-		global $wgParser, $wgScribuntoUseGeSHi, $wgUseSiteCss;
+		global $wgParser;
 
 		$text = $this->getNativeData();
 
@@ -121,32 +121,8 @@ class ScribuntoContent extends TextContent {
 
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( $title );
-
-		// Add HTML for the actual script
-		$language = $engine->getGeSHiLanguage();
-		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight_GeSHi::class ) && $language ) {
-			$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
-			$geshi->set_language( $language );
-			if ( $geshi instanceof GeSHi && !$geshi->error() ) {
-				$code = $geshi->parse_code();
-				if ( $code ) {
-					// @todo Once we drop support for old versions of
-					// Extension:SyntaxHighlight_GeSHi, drop the ugly test and
-					// the BC case.
-					global $wgAutoloadClasses;
-					if ( isset( $wgAutoloadClasses['ResourceLoaderGeSHiModule'] ) ) {
-						$output->addModuleStyles( "ext.geshi.language.$language" );
-					} else {
-						// Backwards compatibility
-						$output->addHeadItem( SyntaxHighlight_GeSHi::buildHeadItem( $geshi ), "source-{$language}" );
-					}
-					if ( $wgUseSiteCss ) {
-						$output->addModuleStyles( 'ext.geshi.local' );
-					}
-					$output->setText( $output->getRawText() . $code );
-					return $output;
-				}
-			}
+		if ( $this->highlight( $text, $output, $engine ) ) {
+			return $output;
 		}
 
 		// No GeSHi, or GeSHi can't parse it, use plain <pre>
@@ -157,5 +133,28 @@ class ScribuntoContent extends TextContent {
 		);
 
 		return $output;
+	}
+
+	/**
+	 * Adds syntax highlighting to the output (or do not touch it and return false).
+	 * @param string $text
+	 * @param ParserOutput $output
+	 * @param ScribuntoEngineBase $engine
+	 * @return bool Success status
+	 */
+	protected function highlight( $text, ParserOutput $output, ScribuntoEngineBase $engine ) {
+		global $wgScribuntoUseGeSHi;
+		$language = $engine->getGeSHiLanguage();
+		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight::class ) && $language ) {
+			$status = SyntaxHighlight::highlight( $text, $language );
+			if ( $status->isGood() ) {
+				// @todo replace addModuleStyles line with the appropriate call on
+				// SyntaxHighlight once one is created
+				$output->addModuleStyles( 'ext.pygments' );
+				$output->setText( $output->getRawText() . $status->getValue() );
+				return true;
+			}
+		}
+		return false;
 	}
 }
