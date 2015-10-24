@@ -182,6 +182,12 @@ $wgScribuntoUseGeSHi = false;
  */
 $wgScribuntoUseCodeEditor = false;
 
+/**
+ * Set to true to enable gathering and reporting of performance data
+ * for slow function invocations.
+ */
+$wgScribuntoGatherFunctionStats = false;
+
 define( 'NS_MODULE', 828 );
 define( 'NS_MODULE_TALK', 829 );
 

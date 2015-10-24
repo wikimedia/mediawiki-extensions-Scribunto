@@ -81,6 +81,8 @@ class ScribuntoHooks {
 	 * @return string
 	 */
 	public static function invokeHook( Parser &$parser, PPFrame $frame, array $args ) {
+		global $wgScribuntoGatherFunctionStats;
+
 		if ( !@constant( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
 			throw new MWException(
 				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
@@ -113,7 +115,24 @@ class ScribuntoHooks {
 			// key=value pair (because of an equals sign in it), and since it didn't
 			// have an index, we don't need the index offset.
 			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
-			$result = $module->invoke( $functionName, $childFrame );
+
+			if ( $wgScribuntoGatherFunctionStats ) {
+				$u0 = $engine->getResourceUsage( $engine::CPU_SECONDS );
+				$result = $module->invoke( $functionName, $childFrame );
+				$u1 = $engine->getResourceUsage( $engine::CPU_SECONDS );
+
+				if ( $u1 > $u0 ) {
+					$timingMs = (int) ( 1000 * ( $u1 - $u0 ) );
+					// Since the overhead of stats is worst when when #invoke
+					// calls are very short, don't process measurements <= 20ms.
+					if ( $timingMs > 20 ) {
+						self::reportTiming( $moduleName, $functionName, $timingMs );
+					}
+				}
+			} else {
+				$result = $module->invoke( $functionName, $childFrame );
+			}
+
 			return UtfNormal::cleanUp( strval( $result ) );
 		} catch ( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
@@ -147,6 +166,56 @@ class ScribuntoHooks {
 			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" .
 				$parserError. "</span></strong>";
 		}
+	}
+
+	/**
+	 * Record stats on slow function calls.
+	 *
+	 * @param string $moduleName
+	 * @param string $functionName
+	 * @param int $timing Function execution time in milliseconds.
+	 */
+	public static function reportTiming( $moduleName, $functionName, $timing ) {
+		global $wgScribuntoGatherFunctionStats;
+
+		if ( !$wgScribuntoGatherFunctionStats ) {
+			return;
+		}
+
+		static $cache;
+
+		if ( !$cache ) {
+			$cache = ObjectCache::newAccelerator( CACHE_NONE );
+		}
+
+		// To control the sampling rate, we keep a compact histogram of
+		// observations in APC, and extract the 99th percentile. We need
+		// APC and \RunningStat\PSquare to do that.
+		if ( !class_exists( '\RunningStat\PSquare' ) || $cache instanceof EmptyBagOStuff ) {
+			return;
+		}
+
+		$key = $cache->makeGlobalKey( __METHOD__ );
+
+		// This is a classic "read-update-write" critical section with no
+		// mutual exclusion, but the only consequence is that some samples
+		// will be dropped. We only need enough samples to estimate the
+		// the shape of the data, so that's fine.
+		$ps = $cache->get( $key ) ?: new \RunningStat\PSquare( 0.99 );
+		$ps->addObservation( $timing );
+		$cache->set( $key, $ps, 60 );
+
+		if ( $ps->getCount() < 1000 || $timing < $ps->getValue() ) {
+			return;
+		}
+
+		static $stats;
+
+		if ( !$stats ) {
+			$stats = RequestContext::getMain()->getStats();
+		}
+
+		$stats->timing( "scribunto.traces.{$moduleName}__{$functionName}", $timing );
 	}
 
 	/**
