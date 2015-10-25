@@ -59,5 +59,6 @@
 	"scribunto-limitreport-profile": "Lua – Profil",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-Logbücher",
+	"apihelp-scribunto-console-param-content": "Der neue Inhalt des Moduls.",
 	"apihelp-scribunto-console-param-session": "Sitzungs-Token."
 }
