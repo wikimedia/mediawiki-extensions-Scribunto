@@ -22,6 +22,7 @@
 	"scribunto-console-cleared": "Стан кансолі ачышчаны праз абнаўленьне модуля.",
 	"scribunto-console-cleared-session-lost": "Стан кансолі ачышчаны праз страту зьвестак сэсіі.",
 	"scribunto-common-error-category": "Старонкі з памылкамі ў скрыптах",
+	"scribunto-common-error-category-desc": "Адбылася памылка пры апрацоўцы модуляў, уключаных у старонку.",
 	"scribunto-common-nosuchmodule": "Памылка скрыпту: модуль «$2» не існуе.",
 	"scribunto-common-nofunction": "Памылка скрыпта: вы мусіце пазначыць функцыю, якую выклікаеце.",
 	"scribunto-common-nosuchfunction": "Памылка скрыпту: функцыя «$2» не існуе.",
