@@ -27,6 +27,11 @@
  * modules or loading module texts.
  */
 abstract class ScribuntoEngineBase {
+
+	// Flags for ScribuntoEngineBase::getResourceUsage()
+	const CPU_SECONDS = 1;
+	const MEM_PEAK_BYTES = 2;
+
 	/**
 	 * @var Title
 	 */
@@ -186,6 +191,22 @@ abstract class ScribuntoEngineBase {
 	public function getLimitsReport() {
 		/* No-op by default */
 		return '';
+	}
+
+	/**
+	 * Get CPU and memory usage information, if the script engine
+	 * provides it.
+	 *
+	 * If the script engine is capable of reporting CPU and memory usage
+	 * data, it should override this implementation.
+	 *
+	 * @param int $resource One of ScribuntoEngineBase::CPU_SECONDS
+	 *  or ScribuntoEngineBase::MEM_PEAK_BYTES.
+	 * @return float|false Resource usage for the specified resource
+	 *  or false if not available.
+	 */
+	public function getResourceUsage( $resource ) {
+		return false;
 	}
 
 	/**

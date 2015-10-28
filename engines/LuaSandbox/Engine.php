@@ -342,6 +342,17 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		return $this->sandbox->getCPUUsage();
 	}
 
+	public function getResourceUsage( $resource ) {
+		switch ( $resource ) {
+		case self::MEMORY_PEAK_BYTES:
+			return $this->getPeakMemoryUsage();
+		case self::CPU_SECONDS:
+			return $this->getCPUUsage();
+		default:
+			return false;
+		}
+	}
+
 	public function getProfilerFunctionReport( $units ) {
 		if ( $this->profilerEnabled ) {
 			static $unitsMap;
