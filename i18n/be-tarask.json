@@ -44,5 +44,6 @@
 	"scribunto-luastandalone-read-error": "Памылка Lua: Унутраная памылка: памылка чытаньня з канвэеру.",
 	"scribunto-luastandalone-gone": "Памылка Lua: Унутраная памылка: інтэрпрэтатар ужо скончыў працу.",
 	"scribunto-luastandalone-signal": "Памылка Lua: Унутраная памылка: інтэрпрэтатар быў спынены з сыгналам «$2».",
-	"scribunto-luastandalone-exited": "Памылка Lua: Унутраная памылка: інтэрпрэтатар завяршыў працу з станам $2."
+	"scribunto-luastandalone-exited": "Памылка Lua: Унутраная памылка: інтэрпрэтатар завяршыў працу з станам $2.",
+	"scribunto-module-with-errors-category-desc": "Модуль утрымлівае памылку."
 }
