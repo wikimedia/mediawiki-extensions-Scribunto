@@ -188,6 +188,13 @@ $wgScribuntoUseCodeEditor = false;
  */
 $wgScribuntoGatherFunctionStats = false;
 
+/**
+ * If $wgScribuntoGatherFunctionStats is true, this variable specifies
+ * the percentile threshold for slow function invocations. Should be
+ * a value between 0 and 1 (exclusive).
+ */
+$wgScribuntoSlowFunctionThreshold = 0.90;
+
 define( 'NS_MODULE', 828 );
 define( 'NS_MODULE_TALK', 829 );
 

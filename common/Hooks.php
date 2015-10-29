@@ -176,9 +176,14 @@ class ScribuntoHooks {
 	 * @param int $timing Function execution time in milliseconds.
 	 */
 	public static function reportTiming( $moduleName, $functionName, $timing ) {
-		global $wgScribuntoGatherFunctionStats;
+		global $wgScribuntoGatherFunctionStats, $wgScribuntoSlowFunctionThreshold;
 
 		if ( !$wgScribuntoGatherFunctionStats ) {
+			return;
+		}
+
+		$threshold = $wgScribuntoSlowFunctionThreshold;
+		if ( !( is_float( $threshold ) && $threshold > 0 && $threshold < 1 ) ) {
 			return;
 		}
 
@@ -189,19 +194,20 @@ class ScribuntoHooks {
 		}
 
 		// To control the sampling rate, we keep a compact histogram of
-		// observations in APC, and extract the 99th percentile. We need
-		// APC and \RunningStat\PSquare to do that.
+		// observations in APC, and extract the Nth percentile (specified
+		// via $wgScribuntoSlowFunctionThreshold; defaults to 0.90).
+		// We need APC and \RunningStat\PSquare to do that.
 		if ( !class_exists( '\RunningStat\PSquare' ) || $cache instanceof EmptyBagOStuff ) {
 			return;
 		}
 
-		$key = $cache->makeGlobalKey( __METHOD__ );
+		$key = $cache->makeGlobalKey( __METHOD__, $threshold );
 
 		// This is a classic "read-update-write" critical section with no
 		// mutual exclusion, but the only consequence is that some samples
 		// will be dropped. We only need enough samples to estimate the
 		// the shape of the data, so that's fine.
-		$ps = $cache->get( $key ) ?: new \RunningStat\PSquare( 0.99 );
+		$ps = $cache->get( $key ) ?: new \RunningStat\PSquare( $threshold );
 		$ps->addObservation( $timing );
 		$cache->set( $key, $ps, 60 );
 
