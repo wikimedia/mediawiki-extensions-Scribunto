@@ -29,6 +29,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 
 	public function getResourceUsage( $resource ) {
+		$this->load();
 		switch ( $resource ) {
 		case self::MEM_PEAK_BYTES:
 			return $this->interpreter->getPeakMemoryUsage();
