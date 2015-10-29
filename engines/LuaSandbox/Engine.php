@@ -28,6 +28,17 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	public function getResourceUsage( $resource ) {
+		switch ( $resource ) {
+		case self::MEM_PEAK_BYTES:
+			return $this->interpreter->getPeakMemoryUsage();
+		case self::CPU_SECONDS:
+			return $this->interpreter->getCPUUsage();
+		default:
+			return false;
+		}
+	}
+
 	private function getLimitReportData() {
 		$ret = array();
 		$this->load();
@@ -340,17 +351,6 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 
 	public function getCPUUsage() {
 		return $this->sandbox->getCPUUsage();
-	}
-
-	public function getResourceUsage( $resource ) {
-		switch ( $resource ) {
-		case self::MEMORY_PEAK_BYTES:
-			return $this->getPeakMemoryUsage();
-		case self::CPU_SECONDS:
-			return $this->getCPUUsage();
-		default:
-			return false;
-		}
 	}
 
 	public function getProfilerFunctionReport( $units ) {
