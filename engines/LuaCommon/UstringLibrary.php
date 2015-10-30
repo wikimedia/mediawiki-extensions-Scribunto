@@ -445,7 +445,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$re .= '^';
 			$i++;
 		}
-		for (; $i < $len && $pat[$i] !== ']'; $i++ ) {
+		for ( $j = $i; $i < $len && ( $j == $i || $pat[$i] !== ']' ); $i++ ) {
 			if ( $pat[$i] === '%' ) {
 				$i++;
 				if ( $i >= $len ) {
@@ -456,21 +456,30 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				} else {
 					$re .= preg_quote( $pat[$i], '/' );
 				}
-			} elseif ( $i + 2 < $len && $pat[$i + 1] === '-' && $pat[$i + 2] !== ']' ) {
-				$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i+2], '/' );
+			} elseif ( $i + 2 < $len && $pat[$i + 1] === '-' && $pat[$i + 2] !== ']' && $pat[$i + 2] !== '%' ) {
+				if ( $pat[$i] <= $pat[$i+2] ) {
+					$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i+2], '/' );
+				}
 				$i += 2;
 			} else {
 				$re .= preg_quote( $pat[$i], '/' );
 			}
 		}
-		if ( $re === '[' || $re === '[^' ) {
-			// This is the error Lua string functions throws in this situation
-			throw new Scribunto_LuaError( "malformed pattern (missing ']')" );
-		}
 		if ( $i >= $len ) {
 			throw new Scribunto_LuaError( "Missing close-bracket for character set beginning at pattern character $ii" );
 		}
 		$re .= ']';
+
+		// Lua just ignores invalid ranges, while pcre throws an error.
+		// We filter them out above, but then we need to special-case empty sets
+		if ( $re === '[]' ) {
+			// Can't directly quantify (*FAIL), so wrap it.
+			// "(?!)" would be simpler and could be quantified if not for a bug in PCRE 8.13 to 8.33
+			$re = '(?:(*FAIL))';
+		} elseif ( $re === '[^]' ) {
+			$re = '.'; // 's' modifier is always used, so this works
+		}
+
 		return array( $i, $re );
 	}
 
