@@ -221,7 +221,8 @@ class ScribuntoHooks {
 			$stats = RequestContext::getMain()->getStats();
 		}
 
-		$stats->timing( "scribunto.traces.{$moduleName}__{$functionName}", $timing );
+		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', wfWikiId(), $moduleName, $functionName );
+		$stats->timing( $metricKey, $timing );
 	}
 
 	/**
