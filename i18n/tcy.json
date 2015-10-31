@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"VASANTH S.N.",
-			"Vishwanatha Badikana"
+			"Vishwanatha Badikana",
+			"రహ్మానుద్దీన్"
 		]
 	},
-	"scribunto-lua-error": "ಲ್ವಾ ದೋಸೊ: $2."
+	"scribunto-lua-error": "ಲುವಾ ದೋಸೊ: $2."
 }
