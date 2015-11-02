@@ -59,7 +59,7 @@
 	"scribunto-limitreport-profile-ms": "$1 มิลลิวินาที",
 	"scribunto-limitreport-logs": "ปูมของสคริปต์ลูอา",
 	"apihelp-scribunto-console-description": "มอดูลภายในสำหรับให้บริการการร้องขอ XHR จากคอนโซลสกรีบุนโท",
-	"apihelp-scribunto-console-param-title": "ชื่อเรื่องมอดูลเพื่อทดสอบ",
+	"apihelp-scribunto-console-param-title": "ชื่อเรื่องของมอดูลเพื่อทดสอบ",
 	"apihelp-scribunto-console-param-content": "เนื้อหาใหม่ของมอดูล",
 	"apihelp-scribunto-console-param-session": "โทเค็นช่วงเวลาสื่อสาร",
 	"apihelp-scribunto-console-param-question": "บรรทัดถัดไปที่จะประเมินเป็นสคริปต์",
