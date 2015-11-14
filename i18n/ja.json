@@ -3,7 +3,8 @@
 		"authors": [
 			"Shirayuki",
 			"Whym",
-			"Fryed-peach"
+			"Fryed-peach",
+			"Frozen-mikan"
 		]
 	},
 	"scribunto-desc": "MediaWiki ページにスクリプト言語を埋め込むフレームワーク",
@@ -14,7 +15,7 @@
 	"scribunto-error-long": "スクリプトエラー:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''このモジュールについての説明文ページを [[$1]] に作成できます''",
-	"scribunto-doc-page-header": "'''このページは、[[[$1]]]の説明文を記述するページです。'''",
+	"scribunto-doc-page-header": "'''このページは、[[$1]]の説明文を記述するページです。'''",
 	"scribunto-console-intro": "* モジュールのエクスポートは、保存していない変更も含めて、「p」という変数として利用できます。\n* 式として評価するには、行頭に「=」をつけるか print() を使ってください。\n* モジュールのコードからこのコンソールにメッセージを送信するには mw.log() を使ってください。",
 	"scribunto-console-title": "デバッグコンソール",
 	"scribunto-console-too-large": "このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。",

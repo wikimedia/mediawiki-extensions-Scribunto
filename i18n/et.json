@@ -5,6 +5,7 @@
 			"Pikne"
 		]
 	},
+	"scribunto-desc": "Raamistik, mis võimaldab põimida MediaWiki lehekülgedesse skriptikeeli.",
 	"scribunto-line": "$1. real",
 	"scribunto-module-line": "kohal $1 $2. real",
 	"scribunto-parser-dialog-title": "Skriptitõrge",
