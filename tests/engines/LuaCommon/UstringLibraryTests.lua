@@ -3,6 +3,23 @@ local testframework = require 'Module:TestFramework'
 local str1 = "\0\127\194\128\223\191\224\160\128\239\191\191\240\144\128\128\244\143\191\191"
 local str2 = "foo bar főó foó baz foooo foofoo fo"
 local str3 = "??? foo bar főó foó baz foooo foofoo fo ok?"
+local str4 = {}
+for i = 1, 10000/4 do
+	str4[i] = "főó "
+end
+str4 = table.concat( str4 )
+
+local function testLongGcodepoint()
+	local ret = {}
+	local i = 1
+	for cp in mw.ustring.gcodepoint( str4 ) do
+		if i <= 4 or i > 9996 then
+			ret[i] = cp
+		end
+		i = i + 1
+	end
+	return ret
+end
 
 return testframework.getTestProvider( {
 	{ name = 'isutf8: valid string', func = mw.ustring.isutf8,
@@ -106,6 +123,10 @@ return testframework.getTestProvider( {
 	{ name = 'codepoint: (9,9)', func = mw.ustring.codepoint,
 	  args = { str1, 9, 9 },
 	  expect = {}
+	},
+	{ name = 'codepoint: end of a really long string', func = mw.ustring.codepoint,
+	  args = { str4, 9000, 9004 },
+	  expect = { 0x20, 0x66, 0x151, 0xf3, 0x20 }
 	},
 
 	{ name = 'char: basic test', func = mw.ustring.char,
@@ -633,6 +654,13 @@ return testframework.getTestProvider( {
 	  args = { str1, 9, 9 },
 	  expect = {},
 	  type = 'Iterator'
+	},
+	{ name = 'gcodepoint: really long string', func = testLongGcodepoint,
+	  args = {},
+	  expect = { {
+		  [1] = 0x66, [2] = 0x151, [3] = 0xf3, [4] = 0x20,
+		  [9997] = 0x66, [9998] = 0x151, [9999] = 0xf3, [10000] = 0x20,
+	  } },
 	},
 
 	{ name = 'gmatch: test string 1', func = mw.ustring.gmatch,

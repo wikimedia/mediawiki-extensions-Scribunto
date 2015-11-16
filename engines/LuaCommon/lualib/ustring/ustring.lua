@@ -268,9 +268,32 @@ function ustring.gcodepoint( s, i, j )
 	checkString( 'gcodepoint', s )
 	checkType( 'gcodepoint', 2, i, 'number', true )
 	checkType( 'gcodepoint', 3, j, 'number', true )
-	local cp = { ustring.codepoint( s, i or 1, j or -1 ) }
+	local cps = utf8_explode( s )
+	if cps == nil then
+		error( "bad argument #1 for 'gcodepoint' (string is not UTF-8)", 2 )
+	end
+	i = i or 1
+	if i < 0 then
+		i = cps.len + i + 1
+	end
+	j = j or -1
+	if j < 0 then
+		j = cps.len + j + 1
+	end
+	if j < i then
+		return function ()
+			return nil
+		end
+	end
+	i = math.max( 1, math.min( i, cps.len + 1 ) )
+	j = math.max( 1, math.min( j, cps.len + 1 ) )
 	return function ()
-		return table.remove( cp, 1 )
+		if i <= j then
+			local ret = cps.codepoints[i]
+			i = i + 1
+			return ret
+		end
+		return nil
 	end
 end
 
