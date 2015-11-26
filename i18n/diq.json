@@ -2,11 +2,17 @@
 	"@metadata": {
 		"authors": [
 			"Erdemaslancan",
-			"Mirzali"
+			"Mirzali",
+			"Gorizon"
 		]
 	},
 	"scribunto-parser-dialog-title": "Xırabiya scripti",
 	"scribunto-error-long": "Xırabiya scripti:\n$1",
 	"scribunto-console-clear": "Bestere",
-	"scribunto-lua-error": "Xetaya lua: $2."
+	"scribunto-lua-error": "Xetaya lua: $2.",
+	"scribunto-luastandalone-proc-error": "Lua xeta:nişeni proje vırazi",
+	"scribunto-limitreport-timeusage-value": "$1/$2 Saniye",
+	"scribunto-limitreport-profile": "Lua Profile",
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Qeydi lua"
 }
