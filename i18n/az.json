@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Wertuose"
+			"Wertuose",
+			"Serkanland"
 		]
 	},
+	"scribunto-common-error-category": "Skript xətası olan səhifələr",
 	"scribunto-lua-error": "Lua səhvi: $2."
 }
