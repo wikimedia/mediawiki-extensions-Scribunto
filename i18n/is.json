@@ -47,7 +47,7 @@
 	"scribunto-module-with-errors-category": "Scribunto skriftur með villum",
 	"scribunto-module-with-errors-category-desc": "Skriftan hefur villu í sér.",
 	"scribunto-limitreport-timeusage": "Lua tímanotkun",
-	"scribunto-limitreport-timeusage-value": "$1/%2 sekóndur",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekóndur",
 	"scribunto-limitreport-estmemusage": "Áætluð minnisnotkun Lua",
 	"scribunto-limitreport-memusage": "Minnisnotkun Lua"
 }
