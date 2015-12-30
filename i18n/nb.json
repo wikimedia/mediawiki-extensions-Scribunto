@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Danmichaelo",
-			"Cocu"
+			"Cocu",
+			"Jeblad"
 		]
 	},
 	"scribunto-desc": "Rammeverk for å bygge inn scriptspråk i MediaWiki-sider",
@@ -42,5 +43,20 @@
 	"scribunto-luastandalone-read-error": "Lua-feil: Intern feil: Feil ved lesing fra rør.",
 	"scribunto-luastandalone-gone": "Lua-feil: Intern feil: Fortolkeren har allerede avsluttet.",
 	"scribunto-luastandalone-signal": "Lua-feil: Intern feil: Fortolkeren har avsluttet med signal «$2».",
-	"scribunto-luastandalone-exited": "Lua-feil: Intern feil: Fortolkeren har avsluttet med status $2."
+	"scribunto-luastandalone-exited": "Lua-feil: Intern feil: Fortolkeren har avsluttet med status $2.",
+	"scribunto-module-with-errors-category": "Scribunto moduler med feil",
+	"scribunto-module-with-errors-category-desc": "Modulen inneholder en feil",
+	"scribunto-limitreport-timeusage": "Lua tidsbruk",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekunder",
+	"scribunto-limitreport-virtmemusage": "Lua virtuell størrelse",
+	"scribunto-limitreport-estmemusage": "Lua beregnet minnebruk",
+	"scribunto-limitreport-memusage": "Lua minnebruk",
+	"scribunto-limitreport-profile": "Lua Profil",
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Lua logger",
+	"apihelp-scribunto-console-param-title": "Tittelen til modulen som testes",
+	"apihelp-scribunto-console-param-content": "Det nye innholdet til modulen",
+	"apihelp-scribunto-console-param-session": "Sessjonens token.",
+	"apihelp-scribunto-console-param-question": "Den neste linjen som skal kjøres som et script.",
+	"apihelp-scribunto-console-param-clear": "Sett for å slette den nåværende sesjonstilstanden."
 }
