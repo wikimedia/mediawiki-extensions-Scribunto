@@ -20,7 +20,7 @@
 	"scribunto-doc-page-name": "Módulo:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''La documentación para este módulo puede ser creada en [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta es la página de documentación de [[$1]]'''",
-	"scribunto-console-intro": "* Las exportaciones del módulo están disponibles como la variable \"p\", incluídas las modificaciones sin guardar.\n* Inicie una línea con el carácter \"=\" para evaluarla como una expresión; o use print().\n* Use mw.log() en el código del módulo para enviar mensajes a esta consola.",
+	"scribunto-console-intro": "* Las exportaciones del módulo están disponibles como la variable \"p\", incluidas las modificaciones sin guardar.\n* Inicia una línea con el carácter \"=\" para evaluarla como una expresión; o usa print().\n* Usa mw.log() en el código del módulo para enviar mensajes a esta consola.",
 	"scribunto-console-title": "Consola de depuración de errores",
 	"scribunto-console-too-large": "La sesión de esta consola es demasiado grande. Limpia el historial de la consola o reduce el tamaño del módulo.",
 	"scribunto-console-current-src": "entrada de la consola",
