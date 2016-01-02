@@ -730,7 +730,7 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 		local ep = match( sp, pp )
 		if ep then
 			for i = 1, ncapt do
-				captures[i] = getcapt( i, 'Unclosed capture beginning at pattern character ' .. captparen[pp], 2 )
+				captures[i] = getcapt( i, 'Unclosed capture beginning at pattern character ' .. captparen[i], 2 )
 			end
 			return sp, ep - 1, unpack( captures )
 		end
