@@ -12,6 +12,7 @@
 	"scribunto-error-short": "Eroare în script: $1",
 	"scribunto-error-long": "Erori în script:\n\n$1",
 	"scribunto-doc-page-does-not-exist": "''Documentația acestui modul poate fi creată la [[$1]]''",
+	"scribunto-doc-page-header": "'''Aceasta este pagina de documentație pentru [[$1]]'''",
 	"scribunto-console-title": "Consolă de depanare",
 	"scribunto-common-nosuchmodule": "Eroare în script: Niciun astfel de modul.",
 	"scribunto-common-nofunction": "Eroare în script: Trebuie să specificați o funcție pentru apelare.",
