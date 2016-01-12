@@ -27,7 +27,7 @@
 	"scribunto-console-cleared-session-lost": "Стан консолі очищено, оскільки втрачені дані сесії.",
 	"scribunto-common-error-category": "Сторінки з помилками скриптів",
 	"scribunto-common-error-category-desc": "Сталася помилка при обробці модулів, включених на сторінці.",
-	"scribunto-common-nosuchmodule": "Помилка скрипту: Нема існує модуля «$2».",
+	"scribunto-common-nosuchmodule": "Помилка скрипту: Не існує модуля «$2».",
 	"scribunto-common-nofunction": "Помилка скрипту: Ви повинні вказати функцію для виклику.",
 	"scribunto-common-nosuchfunction": "Помилка скрипту: Функції «$2» не існує.",
 	"scribunto-common-notafunction": "Помилка скрипту: «$2» не є функцією.",
