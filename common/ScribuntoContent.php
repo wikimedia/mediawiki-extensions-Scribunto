@@ -91,7 +91,7 @@ class ScribuntoContent extends TextContent {
 		$engine->setTitle( $title );
 		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
 		if ( !$status->isOK() ) {
-			$output->setText( $output->getText() .
+			$output->setText( self::getPOText( $output ) .
 				Html::rawElement( 'div', array( 'class' => 'errorbox' ),
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
@@ -138,20 +138,33 @@ class ScribuntoContent extends TextContent {
 					if ( $wgUseSiteCss ) {
 						$output->addModuleStyles( 'ext.geshi.local' );
 					}
-					$output->setText( $output->getText() . $code );
+					$output->setText( self::getPOText( $output ) . $code );
 					return $output;
 				}
 			}
 		}
 
 		// No GeSHi, or GeSHi can't parse it, use plain <pre>
-		$output->setText( $output->getText() .
+		$output->setText( self::getPOText( $output ) .
 			"<pre class='mw-code mw-script' dir='ltr'>\n" .
 			htmlspecialchars( $text ) .
 			"\n</pre>\n"
 		);
 
 		return $output;
+	}
+
+	/**
+	 * Fetch the text from a ParserOutput
+	 * @todo Once support for MW without ParserOutput::getRawText() is dropped,
+	 *  inline this.
+	 * @param ParserOutput $po
+	 * @return string
+	 */
+	private static function getPOText( ParserOutput $po ) {
+		return is_callable( array( $po, 'getRawText' ) )
+			? $po->getRawText()
+			: $po->getText();
 	}
 
 	/**
