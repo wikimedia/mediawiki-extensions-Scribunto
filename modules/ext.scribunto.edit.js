@@ -41,6 +41,7 @@
 
 	/**
 	 * Use onkeydown because IE doesn't support onkeypress for arrow keys
+	 *
 	 * @param {jQuery.Event} e
 	 */
 	function inputKeydown( e ) {
@@ -70,9 +71,6 @@
 		setTimeout( recalculateInputHeight, 0 );
 	}
 
-	/**
-	 * @param {jQuery.Event} e
-	 */
 	function inputFocus() {
 		if ( sessionContent === null ) {
 			// No previous state to clear
@@ -337,9 +335,6 @@
 		}
 	}
 
-	/**
-	 * @param {jQuery.Event} e
-	 */
 	function onClearClick() {
 		$( '#mw-scribunto-output' ).empty();
 		clearNextRequest = true;
@@ -404,4 +399,4 @@
 		}
 	} );
 
-} )( jQuery, mediaWiki );
+}( jQuery, mediaWiki ) );

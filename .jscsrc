@@ -3,7 +3,6 @@
 	"disallowEmptyBlocks": {
 		"allExcept": [ "comments" ]
 	},
-	"jsDoc": false,
 	"requireDotNotation": {
 		"allExcept": [ "keywords" ]
 	}
