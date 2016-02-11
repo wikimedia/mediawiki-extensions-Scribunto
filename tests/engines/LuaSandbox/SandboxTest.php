@@ -14,6 +14,10 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	public function testArgumentParsingTime() {
+		if ( !wfGetRusage() ) {
+			$this->markTestSkipped( "getrusage is not available" );
+		}
+
 		$engine = $this->getEngine();
 		if ( !is_callable( array( $engine->getInterpreter()->sandbox, 'pauseUsageTimer' ) ) ) {
 			$this->markTestSkipped( "LuaSandbox::pauseUsageTimer is not available" );
@@ -24,10 +28,15 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 		$frame = $pp->newFrame();
 
 		$parser->setHook( 'scribuntodelay', function () {
-			$t = microtime( 1 ) + 0.5;
-			while ( microtime( 1 ) < $t ) {
-				# Waste CPU cycles
-			}
+			$ru = wfGetRusage();
+			$endTime = $ru['ru_utime.tv_sec'] + $ru['ru_utime.tv_usec'] / 1e6 + 0.5;
+
+			// Waste CPU cycles
+			do {
+				$ru = wfGetRusage();
+				$t = $ru['ru_utime.tv_sec'] + $ru['ru_utime.tv_usec'] / 1e6;
+			} while ( $t < $endTime );
+
 			return "ok";
 		} );
 		$this->extraModules['Module:TestArgumentParsingTime'] = '
