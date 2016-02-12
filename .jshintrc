@@ -2,7 +2,6 @@
 	/* Common */
 
 	// Enforcing
-	"camelcase": true,
 	"curly": true,
 	"eqeqeq": true,
 	"immed": true,
@@ -11,7 +10,6 @@
 	"noarg": true,
 	"noempty": true,
 	"nonew": true,
-	"quotmark": "single",
 	"trailing": true,
 	"undef": true,
 	"unused": true,
@@ -22,11 +20,12 @@
 
 	// Environment
 	"browser": true,
+	"jquery": true,
+
 	// Legacy
 	"nomen": true,
 
-	"predef": [
-		"jQuery",
-		"mediaWiki"
-	]
+	"globals": {
+		"mediaWiki": false
+	}
 }
