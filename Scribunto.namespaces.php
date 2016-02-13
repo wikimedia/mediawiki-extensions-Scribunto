@@ -389,7 +389,7 @@ $namespaceNames['uk'] = array(
 
 $namespaceNames['ur'] = array(
 	828 => 'ماڈیول',
-	829 => 'تبادلۂ_خیال_ماڈیول',
+	829 => 'تبادلۂ_خیال_ماڈیول',
 );
 
 $namespaceNames['vi'] = array(
