@@ -190,9 +190,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				}
 			} elseif ( PHP_OS == 'Windows' || PHP_OS == 'WINNT' || PHP_OS == 'Win32' ) {
 				if ( PHP_INT_SIZE == 4 ) {
-					$path = 'lua5_1_4_Win32_bin/lua5.1.exe';
+					$path = 'lua5_1_5_Win32_bin/lua5.1.exe';
 				} elseif ( PHP_INT_SIZE == 8 ) {
-					$path = 'lua5_1_4_Win64_bin/lua5.1.exe';
+					$path = 'lua5_1_5_Win64_bin/lua5.1.exe';
 				}
 			} elseif ( PHP_OS == 'Darwin' ) {
 				$path = 'lua5_1_5_mac_lion_fat_generic/lua';

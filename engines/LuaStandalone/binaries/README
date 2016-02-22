@@ -1,10 +1,9 @@
-The Windows binaries are from http://luabinaries.sourceforge.net/ . The C
-runtime libraries for Visual C++ 8 are required, and are not bundled. If an
-error is seen reporting that "msvcr80.dll" is not present, it can be downloaded
-from Microsoft:
+The lua binaries were compiled from a manually patched 5.1.5 source tree, in order
+to address security vulnerabilities reported in CVE-2014-5461.
 
-* 32-bit: http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=5638
-* 64-bit: http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=21254
+The Windows binaries were compiled statically and do not link against the Visual C++
+runtime libraries. They should function on Windows 7 and higher, and Windows Server
+2008 and higher.
 
 The Linux binaries were compiled using "make generic". Lua does not use
 autoconf, rather it encourages users to edit the makefile. The makefile patch
@@ -13,6 +12,9 @@ used to create the Linux binaries is in generic.patch.
 Compiling with "make generic" avoids introducing dynamic library dependencies
 other than libc. This makes the binaries work on a far greater variety of Linux
 distributions.
+
+More information on the patch process may be found in the corresponding Phabricator
+issue: https://phabricator.wikimedia.org/T72541
 
 The following copyright and license restrictions apply to these Lua binaries:
 
