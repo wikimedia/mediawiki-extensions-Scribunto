@@ -16,12 +16,15 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'usersInGroup' => array( $this, 'usersInGroup' ),
 			'interwikiMap' => array( $this, 'interwikiMap' ),
 		);
+		$parser = $this->getParser();
 		$info = array(
 			'siteName' => $GLOBALS['wgSitename'],
 			'server' => $GLOBALS['wgServer'],
 			'scriptPath' => $GLOBALS['wgScriptPath'],
 			'stylePath' => $GLOBALS['wgStylePath'],
-			'currentVersion' => SpecialVersion::getVersion(),
+			'currentVersion' => SpecialVersion::getVersion(
+				'', $parser ? $parser->getTargetLanguage() : $wgContLang
+			),
 		);
 
 		if ( !self::$namespacesCache || self::$namespacesCacheLang !== $wgContLang->getCode() ) {
