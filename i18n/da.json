@@ -17,8 +17,9 @@
 	"scribunto-console-current-src": "konsolinput",
 	"scribunto-console-clear": "Ryd",
 	"scribunto-common-error-category": "Sider med skriptfejl",
-	"scribunto-common-nosuchmodule": "Skriptfejl: Intet modul med det navn.",
-	"scribunto-common-nosuchfunction": "Skriptfejl: Den angivne funktion findes ikke.",
+	"scribunto-common-nosuchmodule": "Skriptfejl: Intet modul med navnet \"$2\".",
+	"scribunto-common-nosuchfunction": "Skriptfejl: Funktionen \"$2\" findes ikke.",
+	"scribunto-common-notafunction": "Skriptfejl: \"$2\" er ikke en funktion.",
 	"scribunto-common-oom": "Mængden af hukommelse, der er tilladt for kørsel af skripts, er overskredet.",
 	"scribunto-common-backtrace": "Tilbagesporing:",
 	"scribunto-lua-in-function": "i funktionen \"$1\"",
@@ -26,5 +27,13 @@
 	"scribunto-lua-in-function-at": "i funktionen ved $1:$2",
 	"scribunto-lua-error-location": "Lua-fejl $1: $2.",
 	"scribunto-lua-error": "Lua-fejl: $2.",
-	"scribunto-luastandalone-proc-error": "Lua-fejl: Kan ikke oprette proces."
+	"scribunto-luastandalone-proc-error": "Lua-fejl: Kan ikke oprette proces.",
+	"scribunto-module-with-errors-category": "Scribunto-moduler med fejl",
+	"scribunto-module-with-errors-category-desc": "Modulet indeholder en fejl.",
+	"scribunto-limitreport-timeusage": "Lua tidsforbrug",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekunder",
+	"scribunto-limitreport-virtmemusage": "Lua virtuel størrelse",
+	"scribunto-limitreport-estmemusage": "Lua anslået brug af hukommelse",
+	"scribunto-limitreport-memusage": "Lua brug af hukommelse",
+	"scribunto-limitreport-profile-ms": "$1 ms"
 }
