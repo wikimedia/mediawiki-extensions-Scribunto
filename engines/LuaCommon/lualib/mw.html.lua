@@ -14,6 +14,7 @@
 ]]
 
 local HtmlBuilder = {}
+local options
 
 local util = require 'libraryUtil'
 local checkType = util.checkType
@@ -87,7 +88,11 @@ end
 -- @param s
 local function htmlEncode( s )
 	-- The parentheses ensure that there is only one return value
-	return ( string.gsub( s, '[<>&"]', htmlencodeMap ) )
+	local tmp = string.gsub( s, '[<>&"]', htmlencodeMap );
+	-- Don't encode strip markers here (T110143)
+	tmp = string.gsub( tmp, options.encodedUniqPrefixPat, options.uniqPrefixRepl )
+	tmp = string.gsub( tmp, options.encodedUniqSuffixPat, options.uniqSuffixRepl )
+	return tmp
 end
 
 local function cssEncode( s )
@@ -401,12 +406,25 @@ function HtmlBuilder.create( tagName, args )
 	return createBuilder( tagName, args )
 end
 
-mw_interface = nil
+function HtmlBuilder.setupInterface( opts )
+	-- Boilerplate
+	HtmlBuilder.setupInterface = nil
+	mw_interface = nil
+	options = opts
 
--- Register this library in the "mw" global
-mw = mw or {}
-mw.html = HtmlBuilder
+	-- Prepare patterns for unencoding strip markers
+	options.encodedUniqPrefixPat = string.gsub( options.uniqPrefix, '[<>&"]', htmlencodeMap );
+	options.encodedUniqPrefixPat = string.gsub( options.encodedUniqPrefixPat, '%p', '%%%0' );
+	options.uniqPrefixRepl = string.gsub( options.uniqPrefix, '%%', '%%%0' );
+	options.encodedUniqSuffixPat = string.gsub( options.uniqSuffix, '[<>&"]', htmlencodeMap );
+	options.encodedUniqSuffixPat = string.gsub( options.encodedUniqSuffixPat, '%p', '%%%0' );
+	options.uniqSuffixRepl = string.gsub( options.uniqSuffix, '%%', '%%%0' );
 
-package.loaded['mw.html'] = HtmlBuilder
+	-- Register this library in the "mw" global
+	mw = mw or {}
+	mw.html = HtmlBuilder
+
+	package.loaded['mw.html'] = HtmlBuilder
+end
 
 return HtmlBuilder
