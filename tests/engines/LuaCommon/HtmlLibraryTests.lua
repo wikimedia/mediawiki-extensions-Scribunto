@@ -101,6 +101,15 @@ local function testComplex()
 	return builder
 end
 
+local function testStripMarker()
+	local expect = '<div foo="' .. mw.html.stripMarkers.nowiki .. '"></div>'
+	local actual = tostring( getEmptyTestDiv():attr( 'foo', mw.html.stripMarkers.nowiki ) )
+	if actual ~= expect then
+		error( actual .. ' ~= ' .. expect )
+	end
+	return 'ok'
+end
+
 -- Tests
 local tests = {
 	-- Simple (inline) tests
@@ -341,6 +350,9 @@ local tests = {
 		'<div class="firstClass" what="ever"><meh whynot="Русский"><hr a="b" /></meh>' ..
 		'<hr /><div abc="def" style="width:-1px"></div></div>'
 	  }
+	},
+	{ name = 'mw.html strip marker test', func = testStripMarker, type='ToString',
+	  expect = { 'ok' }
 	},
 }
 
