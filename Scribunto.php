@@ -30,6 +30,7 @@ $wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'author'         => array( 'Victor Vasiliev', 'Tim Starling', 'Brad Jorsch' ),
 	'descriptionmsg' => 'scribunto-desc',
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
+	'license-name'   => 'GPL-2.0+ AND MIT',
 );
 
 define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
