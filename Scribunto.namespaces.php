@@ -327,6 +327,11 @@ $namespaceNames['ru'] = array(
 	829 => 'Обсуждение_модуля',
 );
 
+$namespaceNames['sa'] = array(
+	828 => 'पटलम्', // T101634
+	829 => 'पटलसम्भाषणम्',
+);
+
 $namespaceNames['sh'] = array(
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
