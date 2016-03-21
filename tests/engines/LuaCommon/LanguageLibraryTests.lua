@@ -263,7 +263,7 @@ return testframework.getTestProvider( {
 	  args = { 'formatDuration', 86461 },
 	  expect = {
 		  { "1 day, 1 minute and 1 second" },
-		  { "1 күн, 1 минут ha&#039;m 1 секунт" },
+		  { "1 күн, 1 минут ha&#039;m 1 секунд" },
 		  { "۱ روز، ۱ دقیقه و ۱ ثانیه" },
 		  "language code '[[bogus]]' is invalid",
 	  }
