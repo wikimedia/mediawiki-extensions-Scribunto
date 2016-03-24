@@ -18,4 +18,18 @@ class Scribunto_LuaUstringLibraryPureLuaTests extends Scribunto_LuaUstringLibrar
 			', 'fortest' )
 		);
 	}
+
+	/**
+	 * @dataProvider providePCREErrors
+	 */
+	public function testPCREErrors( $ini, $args, $error ) {
+		// Not applicable
+		$this->assertTrue( true );
+	}
+
+	public static function providePCREErrors() {
+		return array(
+			array( array(), array(), null ),
+		);
+	}
 }

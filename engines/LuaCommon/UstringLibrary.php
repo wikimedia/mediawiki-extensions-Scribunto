@@ -695,6 +695,52 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 		$count = 0;
 		$s2 = preg_replace_callback( $re, $cb, $s, $n, $count );
+		if ( $s2 === null ) {
+			self::handlePCREError( preg_last_error(), $pattern );
+		}
 		return array( $s2, $count );
+	}
+
+	/**
+	 * Handle a PCRE error
+	 * @param int $error From preg_last_error()
+	 * @param string $pattern Pattern being matched
+	 * @throws Scribunto_LuaError
+	 */
+	private function handlePCREError( $error, $pattern ) {
+		$PREG_JIT_STACKLIMIT_ERROR = defined( 'PREG_JIT_STACKLIMIT_ERROR' )
+			? PREG_JIT_STACKLIMIT_ERROR
+			: 'PREG_JIT_STACKLIMIT_ERROR';
+
+		$error = preg_last_error();
+		switch ( $error ) {
+			case PREG_NO_ERROR:
+				// Huh?
+				break;
+			case PREG_INTERNAL_ERROR:
+				throw new Scribunto_LuaError( "PCRE internal error" );
+			case PREG_BACKTRACK_LIMIT_ERROR:
+				throw new Scribunto_LuaError(
+					"PCRE backtrack limit reached while matching pattern '$pattern'"
+				);
+			case PREG_RECURSION_LIMIT_ERROR:
+				throw new Scribunto_LuaError(
+					"PCRE recursion limit reached while matching pattern '$pattern'"
+				);
+			case PREG_BAD_UTF8_ERROR:
+				// Should have alreay been caught, but just in case
+				throw new Scribunto_LuaError( "PCRE bad UTF-8 error" );
+			case PREG_BAD_UTF8_OFFSET_ERROR:
+				// Shouldn't happen, but just in case
+				throw new Scribunto_LuaError( "PCRE bad UTF-8 offset error" );
+			case $PREG_JIT_STACKLIMIT_ERROR:
+				throw new Scribunto_LuaError(
+					"PCRE JIT stack limit reached while matching pattern '$pattern'"
+				);
+			default:
+				throw new Scribunto_LuaError(
+					"PCRE error code $error while matching pattern '$pattern'"
+				);
+		}
 	}
 }
