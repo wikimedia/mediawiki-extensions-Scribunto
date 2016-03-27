@@ -5,7 +5,8 @@
 			"Imperadeiro98",
 			"SandroHc",
 			"Vitorvicentevalente",
-			"He7d3r"
+			"He7d3r",
+			"Luan"
 		]
 	},
 	"scribunto-desc": "''Framework'' para incluir linguagens de scripts em páginas do MediaWiki",
@@ -24,7 +25,7 @@
 	"scribunto-console-clear": "Limpar",
 	"scribunto-console-cleared": "O estado da consola foi reiniciado porque o módulo foi actualizado.",
 	"scribunto-console-cleared-session-lost": "O estado da consola foi reiniciado porque os dados são sessão foram perdidos.",
-	"scribunto-common-error-category": "Páginas com erros de scripts",
+	"scribunto-common-error-category": "Páginas com erros de sequência de comandos",
 	"scribunto-common-error-category-desc": "Ocorreu um erro ao processar os módulos incluídos na página.",
 	"scribunto-common-nosuchmodule": "Erro de script: Não existe nenhum módulo \"$2\".",
 	"scribunto-common-nofunction": "Erro de script: Deve especificar uma função para chamar.",

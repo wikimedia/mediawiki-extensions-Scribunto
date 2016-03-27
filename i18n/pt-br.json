@@ -5,7 +5,8 @@
 			"Helder.wiki",
 			"Jaideraf",
 			"Jefersonmoraes",
-			"He7d3r"
+			"He7d3r",
+			"Luan"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguagens de script em páginas do MediaWiki",
@@ -24,7 +25,7 @@
 	"scribunto-console-clear": "Limpar",
 	"scribunto-console-cleared": "O estado do interpretador foi esvaziado porque o módulo foi atualizado.",
 	"scribunto-console-cleared-session-lost": "O estado do interpretador foi esvaziado porque os dados de sessão foram perdidos.",
-	"scribunto-common-error-category": "Páginas com erros de script",
+	"scribunto-common-error-category": "Páginas com erros de sequência de comandos",
 	"scribunto-common-nosuchmodule": "Erro de script: módulo não encontrado",
 	"scribunto-common-nofunction": "Erro de script: você deve especificar uma função para chamar.",
 	"scribunto-common-nosuchfunction": "Erro de script: a função especificada não existe.",
