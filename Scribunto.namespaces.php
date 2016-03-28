@@ -14,8 +14,8 @@ $namespaceNames['en'] = array(
 );
 
 $namespaceNames['an'] = array(
-	828 => 'Modulo',
-	829 => 'Descusión_modulo',
+	828 => 'Módulo',
+	829 => 'Descusión_módulo',
 );
 
 $namespaceNames['ar'] = array(
