@@ -13,6 +13,8 @@ if ( count( $argv ) > 1 ) {
 	}
 } else {
 	foreach( array(
+		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
+		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
 		__DIR__ . '/../../../../../includes/libs/normal/UtfNormalData.inc',
 	) as $tryfile ) {
@@ -27,14 +29,45 @@ if ( count( $argv ) > 1 ) {
 	}
 }
 
-echo "Loading data file $datafile...\n";
+$datafileK = null;
+if ( count( $argv ) > 2 ) {
+	$datafileK = $argv[2];
+	if ( !file_exists( $datafileK ) ) {
+		die( "The specified file '$datafileK' does not exist\n" );
+	}
+} else {
+	foreach( array(
+		dirname( $datafile ) . '/UtfNormalDataK.inc',
+		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
+		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
+		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
+		__DIR__ . '/../../../../../includes/libs/normal/UtfNormalData.inc',
+	) as $tryfile ) {
+		$tryfile = realpath( $tryfile );
+		if ( file_exists( $tryfile ) ) {
+			$datafileK = $tryfile;
+			break;
+		}
+	}
+	if ( !$datafileK ) {
+		die( "Cannot find UtfNormalDataK.inc. Please specify the path explicitly.\n" );
+	}
+}
+
 class UtfNormal {
 	static $utfCheckNFC = null;
 	static $utfCombiningClass = null;
 	static $utfCanonicalDecomp = null;
 	static $utfCanonicalComp = null;
+	static $utfCompatibilityDecomp = null;
 }
+class_alias( 'UtfNormal', 'UtfNormal\\Validator' );
+
+echo "Loading data file $datafile...\n";
 require_once( $datafile );
+
+echo "Loading data file $datafileK...\n";
+require_once( $datafileK );
 
 if ( !UtfNormal::$utfCheckNFC ||
 	!UtfNormal::$utfCombiningClass ||
@@ -42,6 +75,9 @@ if ( !UtfNormal::$utfCheckNFC ||
 	!UtfNormal::$utfCanonicalComp
 ) {
 	die( "Data file $datafile did not contain needed data.\n" );
+}
+if ( !UtfNormal::$utfCompatibilityDecomp ) {
+	die( "Data file $datafileK did not contain needed data.\n" );
 }
 
 function uord( $c, $firstOnly ) {
@@ -80,6 +116,22 @@ fprintf( $X, "\t-- Characters mapped to what they decompose to\n" );
 fprintf( $X, "\t-- Note Hangul to Jamo is done separately below\n" );
 fprintf( $X, "\tdecomp = {\n" );
 foreach ( UtfNormal::$utfCanonicalDecomp as $k => $v ) {
+	fprintf( $X, "\t\t[0x%06x] = { ", uord( $k, true ) );
+	$fmt = "0x%06x";
+	foreach ( uord( $v, false ) as $c ) {
+		fprintf( $X, $fmt, $c );
+		$fmt = ", 0x%06x";
+	}
+	fprintf( $X, " },\n" );
+}
+fprintf( $X, "\t},\n\n" );
+
+fprintf( $X, "\tdecompK = {\n" );
+foreach ( UtfNormal::$utfCompatibilityDecomp as $k => $v ) {
+	if ( isset( UtfNormal::$utfCanonicalDecomp[$k] ) && UtfNormal::$utfCanonicalDecomp[$k] === $v ) {
+		// Skip duplicates
+		continue;
+	}
 	fprintf( $X, "\t\t[0x%06x] = { ", uord( $k, true ) );
 	$fmt = "0x%06x";
 	foreach ( uord( $v, false ) as $c ) {
@@ -177,6 +229,9 @@ setmetatable( normal.comp, { __index = function ( t, k )
 	end
 	return nil
 end } )
+
+-- Compatibility decomposition falls back to the normal decomposition
+setmetatable( normal.decompK, { __index = normal.decomp } )
 
 return normal
 LUA

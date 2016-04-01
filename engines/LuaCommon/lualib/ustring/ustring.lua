@@ -1011,14 +1011,14 @@ end
 ---- Unicode Normalization ----
 -- These functions load a conversion table when called
 
-local function internalToNFD( cps )
+local function internalDecompose( cps, decomp )
 	local cp = {}
 	local normal = require 'ustring/normalization-data'
 
 	-- Decompose into cp, using the lookup table and logic for hangul
 	for i = 1, cps.len do
 		local c = cps.codepoints[i]
-		local m = normal.decomp[c]
+		local m = decomp[c]
 		if m then
 			for j = 0, #m do
 				cp[#cp + 1] = m[j]
@@ -1046,6 +1046,49 @@ local function internalToNFD( cps )
 	end
 
 	return cp, 1, l
+end
+
+local function internalCompose( cp, _, l )
+	local normal = require 'ustring/normalization-data'
+
+	-- Since NFD->NFC can never expand a character sequence, we can do this
+	-- in-place.
+	local comp = normal.comp[cp[1]]
+	local sc = 1
+	local j = 1
+	local lastclass = 0
+	for i = 2, l do
+		local c = cp[i]
+		local ccc = normal.combclass[c]
+		if ccc then
+			-- Trying a combiner with the starter
+			if comp and lastclass < ccc and comp[c] then
+				-- Yes!
+				c = comp[c]
+				cp[sc] = c
+				comp = normal.comp[c]
+			else
+				-- No, copy it to the right place for output
+				j = j + 1
+				cp[j] = c
+				lastclass = ccc
+			end
+		elseif comp and lastclass == 0 and comp[c] then
+			-- Combining two adjacent starters
+			c = comp[c]
+			cp[sc] = c
+			comp = normal.comp[c]
+		else
+			-- New starter, doesn't combine
+			j = j + 1
+			cp[j] = c
+			comp = normal.comp[c]
+			sc = j
+			lastclass = 0
+		end
+	end
+
+	return cp, 1, j
 end
 
 -- Normalize a string to NFC
@@ -1082,47 +1125,8 @@ function ustring.toNFC( s )
 		return s
 	end
 
-	-- Next, expand to NFD
-	local cp, _, l = internalToNFD( cps )
-
-	-- Then combine to NFC. Since NFD->NFC can never expand a character
-	-- sequence, we can do this in-place.
-	local comp = normal.comp[cp[1]]
-	local sc = 1
-	local j = 1
-	local lastclass = 0
-	for i = 2, l do
-		local c = cp[i]
-		local ccc = normal.combclass[c]
-		if ccc then
-			-- Trying a combiner with the starter
-			if comp and lastclass < ccc and comp[c] then
-				-- Yes!
-				c = comp[c]
-				cp[sc] = c
-				comp = normal.comp[c]
-			else
-				-- No, copy it to the right place for output
-				j = j + 1
-				cp[j] = c
-				lastclass = ccc
-			end
-		elseif comp and lastclass == 0 and comp[c] then
-			-- Combining two adjacent starters
-			c = comp[c]
-			cp[sc] = c
-			comp = normal.comp[c]
-		else
-			-- New starter, doesn't combine
-			j = j + 1
-			cp[j] = c
-			comp = normal.comp[c]
-			sc = j
-			lastclass = 0
-		end
-	end
-
-	return internalChar( cp, 1, j )
+	-- Next, expand to NFD then recompose
+	return internalChar( internalCompose( internalDecompose( cps, normal.decomp ) ) )
 end
 
 -- Normalize a string to NFD
@@ -1135,7 +1139,7 @@ end
 function ustring.toNFD( s )
 	checkString( 'toNFD', s )
 
-	-- ASCII is always NFC
+	-- ASCII is always NFD
 	if not S.find( s, '[\128-\255]' ) then
 		return s
 	end
@@ -1145,7 +1149,57 @@ function ustring.toNFD( s )
 		return nil
 	end
 
-	return internalChar( internalToNFD( cps ) )
+	local normal = require 'ustring/normalization-data'
+	return internalChar( internalDecompose( cps, normal.decomp ) )
+end
+
+-- Normalize a string to NFKC
+--
+-- Based on MediaWiki's UtfNormal class. Returns nil if the string is not valid
+-- UTF-8.
+--
+-- @param s string
+-- @return string|nil
+function ustring.toNFKC( s )
+	checkString( 'toNFKC', s )
+
+	-- ASCII is always NFKC
+	if not S.find( s, '[\128-\255]' ) then
+		return s
+	end
+
+	local cps = utf8_explode( s )
+	if cps == nil then
+		return nil
+	end
+	local normal = require 'ustring/normalization-data'
+
+	-- Next, expand to NFKD then recompose
+	return internalChar( internalCompose( internalDecompose( cps, normal.decompK ) ) )
+end
+
+-- Normalize a string to NFKD
+--
+-- Based on MediaWiki's UtfNormal class. Returns nil if the string is not valid
+-- UTF-8.
+--
+-- @param s string
+-- @return string|nil
+function ustring.toNFKD( s )
+	checkString( 'toNFKD', s )
+
+	-- ASCII is always NFKD
+	if not S.find( s, '[\128-\255]' ) then
+		return s
+	end
+
+	local cps = utf8_explode( s )
+	if cps == nil then
+		return nil
+	end
+
+	local normal = require 'ustring/normalization-data'
+	return internalChar( internalDecompose( cps, normal.decompK ) )
 end
 
 return ustring

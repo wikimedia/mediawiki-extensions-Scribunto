@@ -59,6 +59,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				'codepoint' => array( $this, 'ustringCodepoint' ),
 				'toNFC' => array( $this, 'ustringToNFC' ),
 				'toNFD' => array( $this, 'ustringToNFD' ),
+				'toNFKC' => array( $this, 'ustringToNFKC' ),
+				'toNFKD' => array( $this, 'ustringToNFKD' ),
 				'char' => array( $this, 'ustringChar' ),
 				'len' => array( $this, 'ustringLen' ),
 				'sub' => array( $this, 'ustringSub' ),
@@ -171,6 +173,22 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			return array( null );
 		}
 		return array( UtfNormal::toNFD( $s ) );
+	}
+
+	public function ustringToNFKC( $s ) {
+		$this->checkString( 'toNFKC', $s, false );
+		if ( !$this->checkEncoding( $s ) ) {
+			return array( null );
+		}
+		return array( UtfNormal::toNFKC( $s ) );
+	}
+
+	public function ustringToNFKD( $s ) {
+		$this->checkString( 'toNFKD', $s, false );
+		if ( !$this->checkEncoding( $s ) ) {
+			return array( null );
+		}
+		return array( UtfNormal::toNFKD( $s ) );
 	}
 
 	public function ustringChar() {

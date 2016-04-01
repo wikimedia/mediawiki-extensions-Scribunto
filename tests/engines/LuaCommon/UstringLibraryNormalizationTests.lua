@@ -18,6 +18,16 @@ return {
 			tohex( mw.ustring.toNFD( c2 ) ),
 			tohex( mw.ustring.toNFD( c3 ) ),
 			tohex( mw.ustring.toNFD( c4 ) ),
-			tohex( mw.ustring.toNFD( c5 ) )
+			tohex( mw.ustring.toNFD( c5 ) ),
+			tohex( mw.ustring.toNFKC( c1 ) ),
+			tohex( mw.ustring.toNFKC( c2 ) ),
+			tohex( mw.ustring.toNFKC( c3 ) ),
+			tohex( mw.ustring.toNFKC( c4 ) ),
+			tohex( mw.ustring.toNFKC( c5 ) ),
+			tohex( mw.ustring.toNFKD( c1 ) ),
+			tohex( mw.ustring.toNFKD( c2 ) ),
+			tohex( mw.ustring.toNFKD( c3 ) ),
+			tohex( mw.ustring.toNFKD( c4 ) ),
+			tohex( mw.ustring.toNFKD( c5 ) )
 	end
 }

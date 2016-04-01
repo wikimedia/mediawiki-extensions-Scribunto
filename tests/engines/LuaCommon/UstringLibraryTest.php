@@ -41,7 +41,12 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	public function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
 		$this->luaTestName = "UstringLibraryNormalization: $name";
 		$dataProvider = $this->provideUstringLibraryNormalizationTests();
-		$expected = array( $c2, $c2, $c2, $c4, $c4, $c3, $c3, $c3, $c5, $c5 );
+		$expected = array(
+			$c2, $c2, $c2, $c4, $c4, // NFC
+			$c3, $c3, $c3, $c5, $c5, // NFD
+			$c4, $c4, $c4, $c4, $c4, // NFKC
+			$c5, $c5, $c5, $c5, $c5, // NFKD
+		);
 		foreach ( $expected as &$e ) {
 			$chars = array_values( unpack( 'N*', mb_convert_encoding( $e, 'UTF-32BE', 'UTF-8' ) ) );
 			foreach ( $chars as &$c ) {
