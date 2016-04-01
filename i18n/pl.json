@@ -7,7 +7,8 @@
 			"Matma Rex",
 			"WTM",
 			"Pio387",
-			"Darellur"
+			"Darellur",
+			"Woytecr"
 		]
 	},
 	"scribunto-desc": "Framework pozwalający na osadzanie języków skryptowych na stronach MediaWiki",
@@ -60,5 +61,10 @@
 	"scribunto-limitreport-memusage": "Użycie pamięci Lua",
 	"scribunto-limitreport-profile": "Profil Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Rejestry Lua"
+	"scribunto-limitreport-logs": "Rejestry Lua",
+	"apihelp-scribunto-console-description": "Wewnętrzny moduł obsługi żądań XHR z konsoli Scribunto.",
+	"apihelp-scribunto-console-param-title": "Tytuł modułu do przetestowania.",
+	"apihelp-scribunto-console-param-content": "Nowa zawartość modułu.",
+	"apihelp-scribunto-console-param-session": "Token sesji.",
+	"apihelp-scribunto-console-param-question": "Następny wiersz do wykonania jako skrypt."
 }
