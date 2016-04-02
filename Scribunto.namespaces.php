@@ -378,8 +378,8 @@ $namespaceNames['te'] = array(
 );
 
 $namespaceNames['th'] = array(
-	828 => 'เกณฑ์สำหรับวัด',
-	829 => 'โมดูลของการพูดคุย',
+	828 => 'มอดูล',
+	829 => 'คุยเรื่องมอดูล',
 );
 
 $namespaceNames['tr'] = array(
