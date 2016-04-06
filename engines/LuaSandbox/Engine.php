@@ -11,6 +11,13 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 
 	public function getSoftwareInfo( array &$software ) {
+		if ( !extension_loaded( 'luasandbox' ) ) {
+			// They shouldn't be using this engine if the extension isn't
+			// loaded. But in case they do for some reason, let's not have
+			// Special:Version fatal.
+			return;
+		}
+
 		if ( is_callable( 'LuaSandbox::getVersionInfo' ) ) {
 			$versions = LuaSandbox::getVersionInfo();
 		} else {
