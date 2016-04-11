@@ -12,5 +12,5 @@
 	"scribunto-error-short": "Kasalahan skrip: $1",
 	"scribunto-error-long": "Kasalahan skrip:\n\n$1",
 	"scribunto-console-title": "Debug konsol",
-	"scribunto-lua-error": "Galat Lua: $2."
+	"scribunto-lua-error": "Cacad Lua: $2."
 }
