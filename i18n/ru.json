@@ -6,7 +6,8 @@
 			"Kalan",
 			"Okras",
 			"HarpyWar",
-			"Kaganer"
+			"Kaganer",
+			"Lemondoge"
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
@@ -61,5 +62,6 @@
 	"scribunto-limitreport-profile": "Профиль Lua",
 	"scribunto-limitreport-profile-ms": "$1 мс",
 	"scribunto-limitreport-logs": "Журналы Lua",
+	"apihelp-scribunto-console-param-content": "Новое содержание модуля.",
 	"apihelp-scribunto-console-param-session": "Токен сессии."
 }
