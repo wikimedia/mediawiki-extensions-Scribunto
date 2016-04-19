@@ -7,14 +7,32 @@
 			"Stryn",
 			"VezonThunder",
 			"Pxos",
-			"Nike"
+			"Nike",
+			"01miki10"
 		]
 	},
 	"scribunto-line": "rivillä $1",
+	"scribunto-parser-dialog-title": "Komentosarjavirhe",
+	"scribunto-error-short": "Komentosarjavirhe: $1",
+	"scribunto-error-long": "Komentosarjavirheet:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/ohje",
 	"scribunto-doc-page-does-not-exist": "''Tämän moduulin ohjeistuksen voi tehdä sivulle [[$1]]''",
+	"scribunto-doc-page-header": "'''Tämä on ohjesivu moduulille [[$1]]'''",
 	"scribunto-console-clear": "Tyhjennä",
 	"scribunto-common-error-category": "Sivut, joissa on komentosarjavirhe",
+	"scribunto-common-nosuchmodule": "Komentosarjavirhe: Moduulia \"$2\" ei ole.",
+	"scribunto-common-nofunction": "Komentosarjavirhe: Sinun on määritettävä kutsuttava funktio.",
+	"scribunto-common-nosuchfunction": "Komentosarjavirhe: Funktiota \"$2\" ei ole.",
+	"scribunto-common-notafunction": "Komentosarjavirhe: \"$2\" ei ole funktio.",
+	"scribunto-lua-in-function": "funktiossa \"$1\"",
+	"scribunto-lua-in-function-at": "funktiossa kohdassa $1:$2",
 	"scribunto-lua-error-location": "Lua-virhe $1: $2.",
-	"scribunto-lua-error": "Lua-virhe: $2."
+	"scribunto-lua-error": "Lua-virhe: $2.",
+	"scribunto-luastandalone-proc-error": "Lua-virhe: Ei voida luoda prosessia.",
+	"scribunto-luastandalone-proc-error-msg": "Lua-virhe: Ei voida luoda prosessia: $2",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekuntia",
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Lua-lokit",
+	"apihelp-scribunto-console-param-title": "Testattavan moduulin nimi.",
+	"apihelp-scribunto-console-param-content": "Moduulin uusi sisältö."
 }
