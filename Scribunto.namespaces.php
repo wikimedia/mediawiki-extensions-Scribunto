@@ -108,6 +108,11 @@ $namespaceNames['de'] = array(
 	829 => 'Modul_Diskussion',
 );
 
+$namespaceNames['diq'] = array(
+	828 => 'Modul',
+	829 => 'Modul_vaten',
+);
+
 $namespaceNames['dsb'] = array(
 	828 => 'Modul',
 	829 => 'Modul_diskusija',
