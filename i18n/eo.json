@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Michawiki",
-			"Tlustulimu"
+			"Tlustulimu",
+			"Lucas"
 		]
 	},
 	"scribunto-desc": "Framo por enkorpigi skriptlingvojn en paĝojn de MediaWiki",
@@ -32,7 +33,7 @@
 	"scribunto-lua-in-main": "en la ĉefsegmento",
 	"scribunto-lua-in-function-at": "en la funkcio ĉe $1: $2",
 	"scribunto-lua-error-location": "Lua-eraro $1: $2.",
-	"scribunto-lua-error": "Lua-eraro: $2.",
+	"scribunto-lua-error": "Lua‑eraro: $2.",
 	"scribunto-lua-notarrayreturn": "Skripteraro: La modulo liveris ion alian ol tabelon. Ĝi liveru eksportotabelon.",
 	"scribunto-luastandalone-proc-error": "Lua-eraro: Ne povas krei proceson.",
 	"scribunto-luastandalone-decode-error": "Lua-eraro: Interna eraro: Ne eblas dekodi mesaĝon.",
