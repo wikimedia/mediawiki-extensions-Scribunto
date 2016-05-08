@@ -20,6 +20,11 @@ $magicWords['arz'] = array(
 	'invoke' => array( 0, 'استدعا' ),
 );
 
+/** Breton (Brezhoneg) */
+$magicWords['br'] = array(
+	'invoke' => array( 0, 'galv' ),
+);
+
 /** Chuvash (Чӑвашла) */
 $magicWords['cv'] = array(
 	'invoke' => array( 0, 'invoke' ),

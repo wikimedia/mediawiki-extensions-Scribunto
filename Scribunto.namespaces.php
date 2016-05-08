@@ -63,6 +63,11 @@ $namespaceNames['bn'] = array(
 	829 => 'মডিউল_আলাপ',
 );
 
+$namespaceNames['br'] = array(
+	828 => 'Modulenn',
+	829 => 'Kaozeadenn_modulenn',
+);
+
 $namespaceNames['bs'] = array(
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
