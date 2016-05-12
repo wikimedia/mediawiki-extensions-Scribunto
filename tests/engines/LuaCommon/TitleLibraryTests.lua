@@ -71,7 +71,25 @@ local function test_inexpensive()
 end
 
 local function test_getContent()
-	return mw.title.new( 'ScribuntoTestPage' ):getContent()
+	return mw.title.new( 'ScribuntoTestPage' ):getContent(),
+		mw.title.new( 'ScribuntoTestNonExistingPage' ):getContent()
+end
+
+local function test_redirectTarget()
+	local targets = {}
+	local titles = {
+		'ScribuntoTestRedirect',
+		'ScribuntoTestNonRedirect',
+		'ScribuntoTestNonExistingPage'
+	}
+	for _, title in ipairs( titles ) do
+		local target = mw.title.new( title ).redirectTarget
+		if title.prefixedText ~= nil then
+			target = title.prefixedText
+		end
+		table.insert( targets, target )
+	end
+	return unpack( targets )
 end
 
 local function test_getCurrentTitle_fragment()
@@ -372,7 +390,14 @@ local tests = {
 	},
 
 	{ name = '.getContent()', func = test_getContent,
-	  expect = { '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' }
+	  expect = {
+		  '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>',
+		  nil,
+	  }
+	},
+
+	{ name = '.redirectTarget', func = test_redirectTarget, type = 'ToString',
+	  expect = { 'ScribuntoTestTarget', false, false }
 	},
 
 	{ name = 'not quite too many expensive functions', func = test_expensive_10,

@@ -173,6 +173,7 @@ local function makeTitleObject( data )
 		isRedirect = 'e',
 		contentModel = 'e',
 		id = 'e',
+		redirectTarget = true,
 	}
 	for k in pairs( data ) do
 		readOnlyFields[k] = true
@@ -258,6 +259,12 @@ local function makeTitleObject( data )
 					data.cascadingProtection = php.cascadingProtection( data.prefixedText )
 				end
 				return data.cascadingProtection
+			end
+			if k == 'redirectTarget' then
+				if data.redirectTarget == nil then
+					data.redirectTarget = makeTitleObject( php.redirectTarget( data.prefixedText ) ) or false
+				end
+				return data.redirectTarget
 			end
 
 			return data[k]
