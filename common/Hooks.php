@@ -83,7 +83,7 @@ class ScribuntoHooks {
 	public static function invokeHook( Parser &$parser, PPFrame $frame, array $args ) {
 		global $wgScribuntoGatherFunctionStats;
 
-		if ( !@constant( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
+		if ( !defined( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
 			throw new MWException(
 				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
 		}

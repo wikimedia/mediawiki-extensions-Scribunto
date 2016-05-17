@@ -1,10 +1,13 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TextLibraryTests';
 
-	public function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
-		parent::__construct( $name, $data, $dataName, $engineName);
+	public function __construct(
+		$name = null, array $data = array(), $dataName = '', $engineName = null
+	) {
+		parent::__construct( $name, $data, $dataName, $engineName );
 		if ( defined( 'HHVM_VERSION' ) ) {
 			// HHVM bug https://github.com/facebook/hhvm/issues/5813
 			$this->skipTests['json decode, invalid values (trailing comma)'] =

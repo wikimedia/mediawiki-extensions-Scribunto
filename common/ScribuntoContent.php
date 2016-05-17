@@ -9,7 +9,6 @@
  * @author Brad Jorsch <bjorsch@wikimedia.org>
  */
 
-
 /**
  * Represents the content of a Scribunto script page
  */
@@ -29,11 +28,12 @@ class ScribuntoContent extends TextContent {
 	 * @param &$output ParserOutput representing the HTML form of the text.
 	 * @return ParserOutput
 	 */
-	protected function fillParserOutput( Title $title, $revId = null, ParserOptions $options = null, $generateHtml = true, ParserOutput &$output ) {
+	protected function fillParserOutput(
+		Title $title, $revId, ParserOptions $options, $generateHtml, ParserOutput &$output
+	) {
 		global $wgParser, $wgScribuntoUseGeSHi, $wgUseSiteCss;
 
 		$text = $this->getNativeData();
-		$output = null;
 
 		// Get documentation, if any
 		$output = new ParserOutput();

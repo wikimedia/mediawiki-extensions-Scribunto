@@ -1,12 +1,16 @@
 <?php
 
-if ( PHP_SAPI !== 'cli' ) exit;
-require_once( dirname( __FILE__ ) .'/../LuaCommon/LuaInterpreterTest.php' );
+if ( PHP_SAPI !== 'cli' ) {
+	exit;
+}
+
+require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
 
 /**
  * @group Lua
  * @group LuaStandalone
  */
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 	public $stdOpts = array(
 		'errorFile' => null,

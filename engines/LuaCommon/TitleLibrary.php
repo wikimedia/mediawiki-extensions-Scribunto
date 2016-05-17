@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// Note these caches are naturally limited to
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
@@ -139,7 +140,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 * arguments.
 	 *
 	 * @param $text_or_id string|int Title or page_id to fetch
-	 * @param $defaultNamespace string|int Namespace name or number to use if $text_or_id doesn't override
+	 * @param $defaultNamespace string|int Namespace name or number to use if
+	 *  $text_or_id doesn't override
 	 * @return array Lua data
 	 */
 	function newTitle( $text_or_id, $defaultNamespace = null ) {
@@ -339,7 +341,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( !$title->areRestrictionsLoaded() ) {
 			$this->incrementExpensiveFunctionCount();
 		}
-		return array( array_map( 'Scribunto_LuaTitleLibrary::makeArrayOneBased', $title->getAllRestrictions() ) );
+		return array( array_map(
+			'Scribunto_LuaTitleLibrary::makeArrayOneBased', $title->getAllRestrictions()
+		) );
 	}
 
 	public function cascadingProtection( $text ) {

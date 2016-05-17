@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	abstract protected function newInterpreter( $opts = array() );
 

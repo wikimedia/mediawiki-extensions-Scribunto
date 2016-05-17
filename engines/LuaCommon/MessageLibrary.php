@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
 		$lib = array(

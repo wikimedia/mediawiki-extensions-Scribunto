@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Limit on pattern lengths, in bytes not characters
@@ -474,7 +475,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				} else {
 					$re .= preg_quote( $pat[$i], '/' );
 				}
-			} elseif ( $i + 2 < $len && $pat[$i + 1] === '-' && $pat[$i + 2] !== ']' && $pat[$i + 2] !== '%' ) {
+			} elseif ( $i + 2 < $len &&
+				$pat[$i + 1] === '-' && $pat[$i + 2] !== ']' && $pat[$i + 2] !== '%'
+			) {
 				if ( $pat[$i] <= $pat[$i+2] ) {
 					$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i+2], '/' );
 				}
@@ -484,7 +487,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			}
 		}
 		if ( $i >= $len ) {
-			throw new Scribunto_LuaError( "Missing close-bracket for character set beginning at pattern character $ii" );
+			throw new Scribunto_LuaError(
+				"Missing close-bracket for character set beginning at pattern character $ii"
+			);
 		}
 		$re .= ']';
 

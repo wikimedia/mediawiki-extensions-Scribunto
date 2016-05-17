@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	const MAX_LANG_CACHE_SIZE = 20;
 

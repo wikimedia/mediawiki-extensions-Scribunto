@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'CommonTests';
 
@@ -66,9 +67,9 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		// Some of the tests need this
 		$interpreter = $this->getEngine()->getInterpreter();
-		$interpreter->callFunction(
-			$interpreter->loadString( 'mw.makeProtectedEnvFuncsForTest = mw.makeProtectedEnvFuncs', 'fortest' )
-		);
+		$interpreter->callFunction( $interpreter->loadString(
+			'mw.makeProtectedEnvFuncsForTest = mw.makeProtectedEnvFuncs', 'fortest'
+		) );
 	}
 
 	protected function getTestModules() {
@@ -211,7 +212,9 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend' )
 		);
-		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test', null ) );
+		$ret = $interpreter->callFunction(
+			$engine->executeModule( $module->getInitChunk(), 'test', null )
+		);
 		$this->assertSame( array( 'ok' ), $ret, 'string extension can be used from module' );
 
 		$this->extraModules['Module:testModuleStringExtend2'] = '
@@ -225,7 +228,9 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend2' )
 		);
-		$ret = $interpreter->callFunction( $engine->executeModule( $module->getInitChunk(), 'test', null ) );
+		$ret = $interpreter->callFunction(
+			$engine->executeModule( $module->getInitChunk(), 'test', null )
+		);
 		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from module' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring2' )
@@ -509,7 +514,8 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		// But a second invoke does
 		$r2 = $module->invoke( 'bar', $frame->newChild() );
-		$this->assertSame( $r1, $r2, 'Multiple invokes with recursive invoke returned different sets of random numbers' );
+		$this->assertSame( $r1, $r2,
+			'Multiple invokes with recursive invoke returned different sets of random numbers' );
 	}
 
 	public function testOsDateTimeTTLs() {
@@ -558,42 +564,51 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$frame = $pp->newFrame();
 		$module->invoke( 'day', $frame );
 		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when day is requested' );
-		$this->assertLessThanOrEqual( 86400, $frame->getTTL(), 'TTL must not exceed 1 day when day is requested' );
+		$this->assertLessThanOrEqual( 86400, $frame->getTTL(),
+			'TTL must not exceed 1 day when day is requested' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'AMPM', $frame );
 		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when AM/PM is requested' );
-		$this->assertLessThanOrEqual( 43200, $frame->getTTL(), 'TTL must not exceed 12 hours when AM/PM is requested' );
+		$this->assertLessThanOrEqual( 43200, $frame->getTTL(),
+			'TTL must not exceed 12 hours when AM/PM is requested' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'hour', $frame );
 		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when hour is requested' );
-		$this->assertLessThanOrEqual( 3600, $frame->getTTL(), 'TTL must not exceed 1 hour when hours are requested' );
+		$this->assertLessThanOrEqual( 3600, $frame->getTTL(),
+			'TTL must not exceed 1 hour when hours are requested' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'minute', $frame );
 		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when minutes are requested' );
-		$this->assertLessThanOrEqual( 60, $frame->getTTL(), 'TTL must not exceed 1 minute when minutes are requested' );
+		$this->assertLessThanOrEqual( 60, $frame->getTTL(),
+			'TTL must not exceed 1 minute when minutes are requested' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'second', $frame );
-		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when seconds are requested' );
+		$this->assertEquals( 1, $frame->getTTL(),
+			'TTL must be equal to 1 second when seconds are requested' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'table', $frame );
-		$this->assertNull( $frame->getTTL(), 'TTL must not be set when os.date( "*t" ) is called but no values are looked at' );
+		$this->assertNull( $frame->getTTL(),
+			'TTL must not be set when os.date( "*t" ) is called but no values are looked at' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'tablesec', $frame );
-		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when seconds are requested from a table' );
+		$this->assertEquals( 1, $frame->getTTL(),
+			'TTL must be equal to 1 second when seconds are requested from a table' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'time', $frame );
-		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when os.time() is called' );
+		$this->assertEquals( 1, $frame->getTTL(),
+			'TTL must be equal to 1 second when os.time() is called' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'specificDateAndTime', $frame );
-		$this->assertNull( $frame->getTTL(), 'TTL must not be set when os.date() or os.time() are called with a specific time' );
+		$this->assertNull( $frame->getTTL(),
+			'TTL must not be set when os.date() or os.time() are called with a specific time' );
 	}
 
 	/**
@@ -715,6 +730,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$lib = array(
@@ -732,6 +748,7 @@ class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTestsFailLibrary extends Scribunto_LuaLibraryBase {
 	public function __construct() {
 		throw new MWException( 'deferLoad library that is never required was loaded anyway' );

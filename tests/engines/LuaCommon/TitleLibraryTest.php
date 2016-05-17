@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
 
@@ -45,7 +46,9 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Page for getContent test
 		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestPage' ) );
 		$page->doEditContent(
-			new WikitextContent( '{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>' ),
+			new WikitextContent(
+				'{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>'
+			),
 			'Summary'
 		);
 		$testPageId = $page->getId();
@@ -67,11 +70,17 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$title = Title::newFromText( 'Main Page' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array( 'edit' => array(), 'move' => array() );
-		$title->mCascadeSources = array( Title::makeTitle( NS_MAIN, "Lockbox" ), Title::makeTitle( NS_MAIN, "Lockbox2" ) );
+		$title->mCascadeSources = array(
+			Title::makeTitle( NS_MAIN, "Lockbox" ),
+			Title::makeTitle( NS_MAIN, "Lockbox2" ),
+		);
 		$title->mCascadingRestrictions = array( 'edit' => array( 'sysop' ) );
 		$title = Title::newFromText( 'Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array( 'edit' => array( 'sysop', 'bogus' ), 'move' => array( 'sysop', 'bogus' ) );
+		$title->mRestrictions = array(
+			'edit' => array( 'sysop', 'bogus' ),
+			'move' => array( 'sysop', 'bogus' ),
+		);
 		$title->mCascadeSources = array();
 		$title->mCascadingRestrictions = array();
 		$title = Title::newFromText( 'scribuntotitletest:Module:TestFramework' );
@@ -135,9 +144,9 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$links = $engine->getParser()->getOutput()->getLinks();
 		$this->assertFalse( isset( $links[NS_PROJECT]['Referenced_from_Lua'] ) );
 
-		$interpreter->callFunction(
-			$interpreter->loadString( 'local _ = mw.title.new( "Project:Referenced from Lua" ).id', 'reference title' )
-		);
+		$interpreter->callFunction( $interpreter->loadString(
+			'local _ = mw.title.new( "Project:Referenced from Lua" ).id', 'reference title'
+		) );
 
 		$links = $engine->getParser()->getOutput()->getLinks();
 		$this->assertArrayHasKey( NS_PROJECT, $links );
@@ -147,9 +156,9 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		$templates = $engine->getParser()->getOutput()->getTemplates();
 		$this->assertFalse( isset( $links[NS_PROJECT]['Loaded_from_Lua'] ) );
 
-		$interpreter->callFunction(
-			$interpreter->loadString( 'mw.title.new( "Project:Loaded from Lua" ):getContent()', 'load title' )
-		);
+		$interpreter->callFunction( $interpreter->loadString(
+			'mw.title.new( "Project:Loaded from Lua" ):getContent()', 'load title'
+		) );
 
 		$templates = $engine->getParser()->getOutput()->getTemplates();
 		$this->assertArrayHasKey( NS_PROJECT, $templates );

@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	private static $namespacesCacheLang = null;
 	private static $namespacesCache = null;
@@ -115,7 +116,9 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			return array( $this->pagesInCategoryCache[$cacheKey] );
 		}
 		if ( !isset( $this->pagesInCategoryCache[$cacheKey][$which] ) ) {
-			$this->checkType( 'pagesInCategory', 2, $which, "one of '*', 'all', 'pages', 'subcats', or 'files'" );
+			$this->checkType(
+				'pagesInCategory', 2, $which, "one of '*', 'all', 'pages', 'subcats', or 'files'"
+			);
 		}
 		return array( $this->pagesInCategoryCache[$cacheKey][$which] );
 	}

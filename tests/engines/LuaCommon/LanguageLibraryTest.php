@@ -1,9 +1,12 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
-	public function __construct( $name = null, array $data = array(), $dataName = '', $engineName = null ) {
+	public function __construct(
+		$name = null, array $data = array(), $dataName = '', $engineName = null
+	) {
 		parent::__construct( $name, $data, $dataName, $engineName );
 
 		// Skip certain tests if something isn't providing translated language names
@@ -60,10 +63,12 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'formatCurrentDate', $frame );
-		$this->assertEquals( 1, $frame->getTTL(), 'TTL must be equal to 1 second when lang:formatDate( \'s\' ) is called' );
+		$this->assertEquals( 1, $frame->getTTL(),
+			'TTL must be equal to 1 second when lang:formatDate( \'s\' ) is called' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'formatSpecificDate', $frame );
-		$this->assertNull( $frame->getTTL(), 'TTL must not be set when lang:formatDate is called with a specific date' );
+		$this->assertNull( $frame->getTTL(),
+			'TTL must not be set when lang:formatDate is called with a specific date' );
 	}
 }

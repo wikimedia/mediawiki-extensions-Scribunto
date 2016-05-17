@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	// Matches Lua mw.text constants
 	const JSON_PRESERVE_KEYS = 1;

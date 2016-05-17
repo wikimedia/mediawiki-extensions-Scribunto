@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = array();
@@ -28,7 +29,8 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				'Lua' => $luaver,
 			);
 		}
-		$software['[https://www.mediawiki.org/wiki/Extension:Scribunto#LuaSandbox LuaSandbox]'] = $versions['LuaSandbox'];
+		$software['[https://www.mediawiki.org/wiki/Extension:Scribunto#LuaSandbox LuaSandbox]'] =
+			$versions['LuaSandbox'];
 		$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
 		if ( isset( $versions['LuaJIT'] ) ) {
 			$software['[http://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
@@ -227,6 +229,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @var Scribunto_LuaEngine
@@ -305,8 +308,8 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$this->sandbox->registerLibrary( $name, $realLibrary );
 
 		# TODO: replace this with
-		#$this->sandbox->registerVirtualLibrary(
-		#	$name, array( $this, 'callback' ), $functions );
+		# $this->sandbox->registerVirtualLibrary(
+		# 	$name, array( $this, 'callback' ), $functions );
 	}
 
 	public function callFunction( $func /*, ... */ ) {
@@ -389,6 +392,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxCallback {
 	function __construct( $callback ) {
 		$this->callback = $callback;

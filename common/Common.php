@@ -28,7 +28,9 @@ class Scribunto {
 	public static function newDefaultEngine( $extraOptions = array() ) {
 		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
 		if ( !$wgScribuntoDefaultEngine ) {
-			throw new MWException( 'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set' );
+			throw new MWException(
+				'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set'
+			);
 		}
 
 		if ( !isset( $wgScribuntoEngineConf[$wgScribuntoDefaultEngine] ) ) {

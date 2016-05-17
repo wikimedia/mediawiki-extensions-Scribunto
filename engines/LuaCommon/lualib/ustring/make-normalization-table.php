@@ -12,7 +12,7 @@ if ( count( $argv ) > 1 ) {
 		die( "The specified file '$datafile' does not exist\n" );
 	}
 } else {
-	foreach( array(
+	foreach ( array(
 		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
@@ -36,7 +36,7 @@ if ( count( $argv ) > 2 ) {
 		die( "The specified file '$datafileK' does not exist\n" );
 	}
 } else {
-	foreach( array(
+	foreach ( array(
 		dirname( $datafile ) . '/UtfNormalDataK.inc',
 		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
@@ -55,19 +55,19 @@ if ( count( $argv ) > 2 ) {
 }
 
 class UtfNormal {
-	static $utfCheckNFC = null;
-	static $utfCombiningClass = null;
-	static $utfCanonicalDecomp = null;
-	static $utfCanonicalComp = null;
-	static $utfCompatibilityDecomp = null;
+	public static $utfCheckNFC = null;
+	public static $utfCombiningClass = null;
+	public static $utfCanonicalDecomp = null;
+	public static $utfCanonicalComp = null;
+	public static $utfCompatibilityDecomp = null;
 }
 class_alias( 'UtfNormal', 'UtfNormal\\Validator' );
 
 echo "Loading data file $datafile...\n";
-require_once( $datafile );
+require_once $datafile;
 
 echo "Loading data file $datafileK...\n";
-require_once( $datafileK );
+require_once $datafileK;
 
 if ( !UtfNormal::$utfCheckNFC ||
 	!UtfNormal::$utfCombiningClass ||
@@ -80,6 +80,7 @@ if ( !UtfNormal::$utfCompatibilityDecomp ) {
 	die( "Data file $datafileK did not contain needed data.\n" );
 }
 
+// @codingStandardsIgnoreLine MediaWiki.NamingConventions.PrefixedGlobalFunctions
 function uord( $c, $firstOnly ) {
 	$ret = unpack( 'N*', mb_convert_encoding( $c, 'UTF-32BE', 'UTF-8' ) );
 	return $firstOnly ? $ret[1] : $ret;

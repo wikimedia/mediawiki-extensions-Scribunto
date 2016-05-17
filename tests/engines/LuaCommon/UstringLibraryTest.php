@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UstringLibraryTests';
 
@@ -30,7 +31,8 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 
 	public function provideUstringLibraryNormalizationTests() {
 		if ( !$this->normalizationDataProvider ) {
-			$this->normalizationDataProvider = new UstringLibraryNormalizationTestProvider( $this->getEngine() );
+			$this->normalizationDataProvider =
+				new UstringLibraryNormalizationTestProvider( $this->getEngine() );
 		}
 		return $this->normalizationDataProvider;
 	}

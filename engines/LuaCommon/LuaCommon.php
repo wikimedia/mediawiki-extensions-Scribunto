@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
@@ -237,12 +238,16 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$resetFrames = $this->setupCurrentFrames( $frame );
 		}
 
-		$retval = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk, $functionName );
+		$retval = $this->getInterpreter()->callFunction(
+			$this->mw['executeModule'], $chunk, $functionName
+		);
 		if ( !$retval[0] ) {
 			// If we get here, it means we asked for an element from the table the module returned,
 			// but it returned something other than a table. In this case, $retval[1] contains the type
 			// of what it did returned, instead of the value we asked for.
-			throw $this->newException( 'scribunto-lua-notarrayreturn', array( 'args' => array( $retval[1] ) ) );
+			throw $this->newException(
+				'scribunto-lua-notarrayreturn', array( 'args' => array( $retval[1] ) )
+			);
 		}
 		return $retval[1];
 	}
@@ -832,6 +837,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var string
@@ -881,10 +887,14 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 		$ret = $this->engine->executeModule( $this->getInitChunk(), $name, $frame );
 
 		if ( !isset( $ret ) ) {
-			throw $this->engine->newException( 'scribunto-common-nosuchfunction', array( 'args' => array( $name ) ) );
+			throw $this->engine->newException(
+				'scribunto-common-nosuchfunction', array( 'args' => array( $name ) )
+			);
 		}
 		if ( !$this->engine->getInterpreter()->isLuaFunction( $ret ) ) {
-			throw $this->engine->newException( 'scribunto-common-notafunction', array( 'args' => array( $name ) ) );
+			throw $this->engine->newException(
+				'scribunto-common-notafunction', array( 'args' => array( $name ) )
+			);
 		}
 
 		$result = $this->engine->executeFunctionChunk( $ret, $frame );
@@ -896,6 +906,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	}
 }
 
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaError extends ScribuntoException {
 	public $luaMessage, $lineMap = array();
 

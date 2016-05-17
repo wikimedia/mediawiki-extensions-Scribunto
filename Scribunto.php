@@ -20,8 +20,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-if ( !defined( 'MEDIAWIKI' ) )
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
+}
 
 $wgExtensionCredits['parserhook']['Scribunto'] = array(
 	'path'           => __FILE__,
@@ -33,26 +34,28 @@ $wgExtensionCredits['parserhook']['Scribunto'] = array(
 
 define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
 
-$dir = __DIR__ . '/';
 $wgMessagesDirs['Scribunto'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['Scribunto'] = $dir . 'Scribunto.i18n.php';
-$wgExtensionMessagesFiles['ScribuntoMagic'] = $dir . 'Scribunto.magic.php';
-$wgExtensionMessagesFiles['ScribuntoNamespaces'] = $dir . 'Scribunto.namespaces.php';
+$wgExtensionMessagesFiles['Scribunto'] = __DIR__ . '/Scribunto.i18n.php';
+$wgExtensionMessagesFiles['ScribuntoMagic'] = __DIR__ . '/Scribunto.magic.php';
+$wgExtensionMessagesFiles['ScribuntoNamespaces'] = __DIR__ . '/Scribunto.namespaces.php';
 
-$wgAutoloadClasses['ScribuntoEngineBase'] = $dir.'common/Base.php';
-$wgAutoloadClasses['ScribuntoModuleBase'] = $dir.'common/Base.php';
-$wgAutoloadClasses['ScribuntoHooks'] = $dir.'common/Hooks.php';
-$wgAutoloadClasses['ScribuntoException'] = $dir.'common/Common.php';
-$wgAutoloadClasses['Scribunto'] = $dir.'common/Common.php';
-$wgAutoloadClasses['ApiScribuntoConsole'] = $dir.'common/ApiScribuntoConsole.php';
-$wgAutoloadClasses['ScribuntoContentHandler'] = $dir.'common/ScribuntoContentHandler.php';
-$wgAutoloadClasses['ScribuntoContent'] = $dir.'common/ScribuntoContent.php';
-$wgAutoloadClasses['Scribunto_LuaError'] = $dir.'engines/LuaCommon/LuaCommon.php';
-$wgAutoloadClasses['Scribunto_LuaInterpreterNotFoundError'] = $dir.'engines/LuaCommon/LuaInterpreter.php';
-$wgAutoloadClasses['Scribunto_LuaSandboxInterpreter'] = $dir.'engines/LuaSandbox/Engine.php';
-$wgAutoloadClasses['Scribunto_LuaSandboxCallback'] = $dir.'engines/LuaSandbox/Engine.php';
-$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreterFunction'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
-$wgAutoloadClasses['Scribunto_LuaEngineTestSkip'] = $dir.'tests/engines/LuaCommon/LuaEngineTestBase.php';
+$wgAutoloadClasses['ScribuntoEngineBase'] = __DIR__ . '/common/Base.php';
+$wgAutoloadClasses['ScribuntoModuleBase'] = __DIR__ . '/common/Base.php';
+$wgAutoloadClasses['ScribuntoHooks'] = __DIR__ . '/common/Hooks.php';
+$wgAutoloadClasses['ScribuntoException'] = __DIR__ . '/common/Common.php';
+$wgAutoloadClasses['Scribunto'] = __DIR__ . '/common/Common.php';
+$wgAutoloadClasses['ApiScribuntoConsole'] = __DIR__ . '/common/ApiScribuntoConsole.php';
+$wgAutoloadClasses['ScribuntoContentHandler'] = __DIR__ . '/common/ScribuntoContentHandler.php';
+$wgAutoloadClasses['ScribuntoContent'] = __DIR__ . '/common/ScribuntoContent.php';
+$wgAutoloadClasses['Scribunto_LuaError'] = __DIR__ . '/engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaInterpreterNotFoundError'] =
+	__DIR__ . '/engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxInterpreter'] = __DIR__ . '/engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxCallback'] = __DIR__ . '/engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreterFunction'] =
+	__DIR__ . '/engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaEngineTestSkip'] =
+	__DIR__ . '/tests/engines/LuaCommon/LuaEngineTestBase.php';
 
 $wgHooks['SoftwareInfo'][] = 'ScribuntoHooks::getSoftwareInfo';
 
@@ -73,12 +76,12 @@ $wgHooks['ArticleViewHeader'][] = 'ScribuntoHooks::showDocPageHeader';
 $wgHooks['ContentHandlerDefaultModelFor'][] = 'ScribuntoHooks::contentHandlerDefaultModelFor';
 
 $wgHooks['UnitTestsList'][] = 'ScribuntoHooks::unitTestsList';
-$wgParserTestFiles[] = $dir . 'tests/engines/LuaCommon/luaParserTests.txt';
+$wgParserTestFiles[] = __DIR__ . '/tests/engines/LuaCommon/luaParserTests.txt';
 
 $wgContentHandlers[CONTENT_MODEL_SCRIBUNTO] = 'ScribuntoContentHandler';
 
 $sbtpl = array(
-	'localBasePath' => dirname( __FILE__ ) . '/modules',
+	'localBasePath' => __DIR__ . '/modules',
 	'remoteExtPath' => 'Scribunto/modules',
 );
 
@@ -110,25 +113,32 @@ $wgAPIModules['scribunto-console'] = 'ApiScribuntoConsole';
 
 /***** Individual engines and their configurations *****/
 
-$wgAutoloadClasses['Scribunto_LuaEngine'] = $dir.'engines/LuaCommon/LuaCommon.php';
-$wgAutoloadClasses['Scribunto_LuaModule'] = $dir.'engines/LuaCommon/LuaCommon.php';
-$wgAutoloadClasses['Scribunto_LuaInterpreter'] = $dir.'engines/LuaCommon/LuaInterpreter.php';
-$wgAutoloadClasses['Scribunto_LuaSandboxEngine'] = $dir.'engines/LuaSandbox/Engine.php';
-$wgAutoloadClasses['Scribunto_LuaStandaloneEngine'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
-$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreter'] = $dir.'engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaEngine'] = __DIR__ . '/engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaModule'] = __DIR__ . '/engines/LuaCommon/LuaCommon.php';
+$wgAutoloadClasses['Scribunto_LuaInterpreter'] = __DIR__ . '/engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaSandboxEngine'] = __DIR__ . '/engines/LuaSandbox/Engine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneEngine'] =
+	__DIR__ . '/engines/LuaStandalone/LuaStandaloneEngine.php';
+$wgAutoloadClasses['Scribunto_LuaStandaloneInterpreter'] =
+	__DIR__ . '/engines/LuaStandalone/LuaStandaloneEngine.php';
 
 /***** Individual libraries and their configurations *****/
-$wgAutoloadClasses['Scribunto_LuaLibraryBase'] = $dir.'engines/LuaCommon/LibraryBase.php';
-$wgAutoloadClasses['Scribunto_LuaEngineTestBase'] = $dir.'tests/engines/LuaCommon/LuaEngineTestBase.php';
-$wgAutoloadClasses['Scribunto_LuaDataProvider'] = $dir.'tests/engines/LuaCommon/LuaDataProvider.php';
-$wgAutoloadClasses['Scribunto_LuaSiteLibrary'] = $dir.'engines/LuaCommon/SiteLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaUriLibrary'] = $dir.'engines/LuaCommon/UriLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaUstringLibrary'] = $dir.'engines/LuaCommon/UstringLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaLanguageLibrary'] = $dir.'engines/LuaCommon/LanguageLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaMessageLibrary'] = $dir.'engines/LuaCommon/MessageLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaTitleLibrary'] = $dir.'engines/LuaCommon/TitleLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaTextLibrary'] = $dir.'engines/LuaCommon/TextLibrary.php';
-$wgAutoloadClasses['Scribunto_LuaHtmlLibrary'] = $dir.'engines/LuaCommon/HtmlLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaLibraryBase'] = __DIR__ . '/engines/LuaCommon/LibraryBase.php';
+$wgAutoloadClasses['Scribunto_LuaEngineTestBase'] =
+	__DIR__ . '/tests/engines/LuaCommon/LuaEngineTestBase.php';
+$wgAutoloadClasses['Scribunto_LuaDataProvider'] =
+	__DIR__ . '/tests/engines/LuaCommon/LuaDataProvider.php';
+$wgAutoloadClasses['Scribunto_LuaSiteLibrary'] = __DIR__ . '/engines/LuaCommon/SiteLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaUriLibrary'] = __DIR__ . '/engines/LuaCommon/UriLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaUstringLibrary'] =
+	__DIR__ . '/engines/LuaCommon/UstringLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaLanguageLibrary'] =
+	__DIR__ . '/engines/LuaCommon/LanguageLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaMessageLibrary'] =
+	__DIR__ . '/engines/LuaCommon/MessageLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaTitleLibrary'] = __DIR__ . '/engines/LuaCommon/TitleLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaTextLibrary'] = __DIR__ . '/engines/LuaCommon/TextLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaHtmlLibrary'] = __DIR__ . '/engines/LuaCommon/HtmlLibrary.php';
 
 /***** Configuration *****/
 
