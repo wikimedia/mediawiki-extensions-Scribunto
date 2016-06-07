@@ -397,6 +397,11 @@ $namespaceNames['te'] = array(
 	829 => 'మాడ్యూల్_సంభాషణ',
 );
 
+$namespaceNames['tg'] = array(
+	828 => 'Модул',
+	829 => 'Баҳси_Модул',
+);
+
 $namespaceNames['th'] = array(
 	828 => 'มอดูล',
 	829 => 'คุยเรื่องมอดูล',
