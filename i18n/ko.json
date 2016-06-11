@@ -6,7 +6,8 @@
 			"Priviet",
 			"아라",
 			"SeoJeongHo",
-			"Hwangjy9"
+			"Hwangjy9",
+			"Ykhwong"
 		]
 	},
 	"scribunto-desc": "미디어위키 문서에 스크립트 언어를 넣기 위한 프레임워크",
@@ -57,5 +58,5 @@
 	"scribunto-limitreport-memusage": "루아 메모리 사용",
 	"scribunto-limitreport-profile": "루아 프로필",
 	"scribunto-limitreport-profile-ms": "$1ms",
-	"apihelp-scribunto-console-param-title": "모듈의 제목을 테스트 합니다."
+	"apihelp-scribunto-console-param-title": "테스트할 모듈의 제목입니다."
 }
