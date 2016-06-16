@@ -107,6 +107,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 				'isSubsting',
 				'getFrameTitle',
 				'setTTL',
+				'addWarning',
 			);
 
 			$lib = array();
@@ -799,6 +800,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			throw new Scribunto_LuaError( "too many expensive function calls" );
 		}
 		return null;
+	}
+
+	/**
+	 * Adds a warning to be displayed upon preview
+	 *
+	 * @param string $text wikitext
+	 */
+	public function addWarning( $text ) {
+		$this->getParser()->getOutput()->addWarning( $text );
 	}
 
 	/**

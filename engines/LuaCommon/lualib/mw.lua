@@ -648,6 +648,10 @@ function mw.incrementExpensiveFunctionCount()
 	php.incrementExpensiveFunctionCount()
 end
 
+function mw.addWarning( text )
+	php.addWarning( text )
+end
+
 ---
 -- Wrapper for mw.loadData. This creates the read-only dummy table for
 -- accessing the real data.
