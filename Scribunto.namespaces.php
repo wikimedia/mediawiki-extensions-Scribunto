@@ -168,6 +168,11 @@ $namespaceNames['fr'] = array(
 	829 => 'Discussion_module',
 );
 
+$namespaceNames['gd'] = array(
+	828 => 'Mòideal',
+	829 => 'Deasbaireachd_mòideil',
+);
+
 $namespaceNames['gl'] = array(
 	828 => 'Módulo',
 	829 => 'Conversa_módulo',
