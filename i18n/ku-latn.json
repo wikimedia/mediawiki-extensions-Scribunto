@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ghybu",
-			"Gomada"
+			"Gomada",
+			"George Animal"
 		]
 	},
 	"scribunto-line": "li ser rêza $1",
@@ -12,5 +13,6 @@
 	"scribunto-error-long": "Çewtiyên nivîsê:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/belge",
 	"scribunto-doc-page-header": "'''Ev rûpela belgekirinê ya [[$1]] ye'''",
-	"scribunto-console-clear": "Jê bibe"
+	"scribunto-console-clear": "Jê bibe",
+	"scribunto-common-nosuchmodule": "Çewtiya nivîsê: Moduleke bi vî rengî \"$2\" tune ye."
 }
