@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"David1010",
-			"SHOTHA"
+			"SHOTHA",
+			"BRUTE"
 		]
 	},
 	"scribunto-parser-dialog-title": "სკრიპტის შეცდომა",
 	"scribunto-error-short": "სკრიპტის შეცდომა: $1",
 	"scribunto-error-long": "სკრიპტის შეცდომები:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/ინფო",
+	"scribunto-doc-page-does-not-exist": "''შეგიძლიათ შექმნათ დოკუმენტაცია ამ მოდულისათვის: [[$1]]''",
 	"scribunto-doc-page-header": "''ეს არის „[[$1]]“-ის დოკუმენტაციის გვერდი''",
 	"scribunto-console-clear": "გასუფთავება",
 	"scribunto-lua-error-location": "Lua-ს შეცდომა $1: $2.",
