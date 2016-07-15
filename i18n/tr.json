@@ -14,5 +14,6 @@
 	"scribunto-doc-page-header": "Bu belgeleme sayfası için [[$1]]",
 	"scribunto-console-clear": "Temizle",
 	"scribunto-common-no-details": "Daha fazla bilgi mevcut değildir.",
-	"scribunto-lua-error": "Lua hatası: $2"
+	"scribunto-lua-error": "Lua hatası: $2",
+	"scribunto-module-with-errors-category-desc": "Modülde bir hata bulunuyor."
 }
