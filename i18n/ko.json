@@ -51,6 +51,7 @@
 	"scribunto-luastandalone-signal": "Lua 오류: 내부 오류: 인터프리터가 \"$2\" 신호로 종료했습니다.",
 	"scribunto-luastandalone-exited": "Lua 오류: 내부 오류: 인터프리터가 $2 상태로 종료했습니다.",
 	"scribunto-module-with-errors-category": "오류가 있는 Scribunto 모듈",
+	"scribunto-module-with-errors-category-desc": "모듈 안에 오류가 있습니다.",
 	"scribunto-limitreport-timeusage": "루아 시간 사용",
 	"scribunto-limitreport-timeusage-value": "$1/$2초",
 	"scribunto-limitreport-virtmemusage": "루아 가상 크기",
