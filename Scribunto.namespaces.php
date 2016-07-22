@@ -387,6 +387,11 @@ $namespaceNames['sv'] = array(
 	829 => 'Moduldiskussion',
 );
 
+$namespaceNames['tcy'] = array(
+	828 => 'ಮೋಡ್ಯೂಲ್',
+	829 => 'ಮೋಡ್ಯೂಲ್_ಪಾತೆರ',
+);
+
 $namespaceNames['te'] = array(
 	828 => 'మాడ్యూల్',
 	829 => 'మాడ్యూల్_సంభాషణ',
