@@ -14,5 +14,7 @@
 	"scribunto-doc-page-name": "Module:$1/belge",
 	"scribunto-doc-page-header": "'''Ev rûpela belgekirinê ya [[$1]] ye'''",
 	"scribunto-console-clear": "Jê bibe",
-	"scribunto-common-nosuchmodule": "Çewtiya nivîsê: Moduleke bi vî rengî \"$2\" tune ye."
+	"scribunto-common-error-category": "Rûpelên bi çewtiyên kodê",
+	"scribunto-common-nosuchmodule": "Çewtiya nivîsê: Moduleke bi vî rengî \"$2\" tune ye.",
+	"scribunto-lua-error": "Çewtiya Lua'yê:$2"
 }
