@@ -13,7 +13,7 @@
 	"scribunto-doc-page-name": "Module:$1/dok",
 	"scribunto-doc-page-does-not-exist": "''Dokumentasjon for modulen kan opprettast på [[$1]]''",
 	"scribunto-doc-page-header": "'''Dette er dokumentasjonssida for [[$1]]'''",
-	"scribunto-console-intro": "* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.\n* Byrja ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().\n* Bruk mw.log() i modulkode for å senda meldingar til denne konsollen.",
+	"scribunto-console-intro": "* Moduleksporteringar er tilgjengelege som variabelen «p», inkludert ulagra endringar.\n* Byrj ei line med «=» for å evaluera henne som eit uttrykk, eller bruk print().\n* Bruk mw.log() i modulkoden for å senda meldingar til denne konsollen.",
 	"scribunto-console-title": "Feilsøkingskonsoll",
 	"scribunto-console-too-large": "Konsolløkta er for stor. Tøm konsollhistorikken eller minsk storleiken på modulen.",
 	"scribunto-console-current-src": "konsollinndata",
