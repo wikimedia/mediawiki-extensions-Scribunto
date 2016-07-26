@@ -52,5 +52,6 @@
 	"scribunto-limitreport-estmemusage": "Estimert minnebruk av Lua",
 	"scribunto-limitreport-memusage": "Minnebruk av Lua",
 	"scribunto-limitreport-profile": "Lua-profil",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Lua-loggar"
 }

@@ -4,5 +4,5 @@
 			"Albinus"
 		]
 	},
-	"scribunto-lua-error": "Lua bhul"
+	"scribunto-lua-error": "Lua bhul: $2"
 }

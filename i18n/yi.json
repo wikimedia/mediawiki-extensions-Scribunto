@@ -5,6 +5,8 @@
 			"පසිඳු කාවින්ද"
 		]
 	},
+	"scribunto-doc-page-name": "Module:$1/דאק",
+	"scribunto-doc-page-does-not-exist": "מען קען שאפן דאקומענטאציע פאר דעם מאדול ביי [[$1]]",
 	"scribunto-console-clear": "רייניקן",
 	"scribunto-common-nosuchmodule": "סקריפט־פעלער: נישט פאראן אזא מאדול \"$2\" .",
 	"scribunto-lua-error": "לוא־פעלער: $2.",
