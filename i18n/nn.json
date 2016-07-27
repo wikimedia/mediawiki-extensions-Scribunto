@@ -28,6 +28,7 @@
 	"scribunto-common-timeout": "Tida tildelt skriptkøyring har gått ut.",
 	"scribunto-common-oom": "Mengda minne tildelt skriptkøyring er overstigen.",
 	"scribunto-common-backtrace": "Attendesporing:",
+	"scribunto-common-no-details": "Fleire detaljar er ikkje tilgjengelege.",
 	"scribunto-lua-in-function": "i funksjonen «$1»",
 	"scribunto-lua-in-main": "i hovuddelen",
 	"scribunto-lua-in-function-at": "i funksjonen ved $1:$2",
