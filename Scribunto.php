@@ -139,6 +139,7 @@ $wgAutoloadClasses['Scribunto_LuaMessageLibrary'] =
 $wgAutoloadClasses['Scribunto_LuaTitleLibrary'] = __DIR__ . '/engines/LuaCommon/TitleLibrary.php';
 $wgAutoloadClasses['Scribunto_LuaTextLibrary'] = __DIR__ . '/engines/LuaCommon/TextLibrary.php';
 $wgAutoloadClasses['Scribunto_LuaHtmlLibrary'] = __DIR__ . '/engines/LuaCommon/HtmlLibrary.php';
+$wgAutoloadClasses['Scribunto_LuaHashLibrary'] = __DIR__ . '/engines/LuaCommon/HashLibrary.php';
 
 /***** Configuration *****/
 
