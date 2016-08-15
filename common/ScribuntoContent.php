@@ -166,17 +166,4 @@ class ScribuntoContent extends TextContent {
 			? $po->getRawText()
 			: $po->getText();
 	}
-
-	/**
-	 * Returns a Content object with pre-save transformations applied (or this
-	 * object if no transformations apply).
-	 *
-	 * @param $title Title
-	 * @param $user User
-	 * @param $parserOptions null|ParserOptions
-	 * @return Content
-	 */
-	public function preSaveTransform( Title $title, User $user, ParserOptions $parserOptions ) {
-		return $this;
-	}
 }
