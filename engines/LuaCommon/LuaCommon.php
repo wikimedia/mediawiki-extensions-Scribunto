@@ -15,6 +15,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		'mw.title' => 'Scribunto_LuaTitleLibrary',
 		'mw.text' => 'Scribunto_LuaTextLibrary',
 		'mw.html' => 'Scribunto_LuaHtmlLibrary',
+		'mw.hash' => 'Scribunto_LuaHashLibrary',
 	);
 
 	/**

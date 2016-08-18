@@ -426,6 +426,7 @@ WIKI;
 			'engines/LuaCommon/TitleLibraryTest.php',
 			'engines/LuaCommon/TextLibraryTest.php',
 			'engines/LuaCommon/HtmlLibraryTest.php',
+			'engines/LuaCommon/HashLibraryTest.php',
 			'engines/LuaCommon/LanguageLibraryTest.php',
 			'engines/LuaCommon/UstringLibraryPureLuaTest.php',
 			'engines/LuaCommon/LibraryUtilTest.php',
