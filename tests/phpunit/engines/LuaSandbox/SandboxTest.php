@@ -25,13 +25,11 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 		$frame = $pp->newFrame();
 
 		$parser->setHook( 'scribuntodelay', function () {
-			$ru = wfGetRusage();
-			$endTime = $ru['ru_utime.tv_sec'] + $ru['ru_utime.tv_usec'] / 1e6 + 0.5;
+			$endTime = $this->getRuTime() + 0.5;
 
 			// Waste CPU cycles
 			do {
-				$ru = wfGetRusage();
-				$t = $ru['ru_utime.tv_sec'] + $ru['ru_utime.tv_usec'] / 1e6;
+				$t = $this->getRuTime();
 			} while ( $t < $endTime );
 
 			return "ok";
@@ -50,34 +48,54 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 			}
 		';
 
+		// Below we assert that the CPU time counted by LuaSandbox is $delta less than
+		// the CPU time actually spent.
+		// That way we can make sure that the time spent in the parser hook (which
+		// must be more than delta) is not taken into account.
+		$delta = 0.25;
+
 		$u0 = $engine->getInterpreter()->getCPUUsage();
+		$uTimeBefore = $this->getRuTime();
 		$frame->expand(
 			$pp->preprocessToObj(
 				'{{#invoke:TestArgumentParsingTime|f|<scribuntodelay/>}}'
 			)
 		);
-		$this->assertLessThan( 0.25, $engine->getInterpreter()->getCPUUsage() - $u0,
+		$threshold = $this->getRuTime() - $uTimeBefore - $delta;
+		$this->assertLessThan( $threshold, $engine->getInterpreter()->getCPUUsage() - $u0,
 			'Argument access time was not counted'
 		);
 
+		$uTimeBefore = $this->getRuTime();
 		$u0 = $engine->getInterpreter()->getCPUUsage();
 		$frame->expand(
 			$pp->preprocessToObj(
 				'{{#invoke:TestArgumentParsingTime|f2|<scribuntodelay/>}}'
 			)
 		);
-		$this->assertLessThan( 0.25, $engine->getInterpreter()->getCPUUsage() - $u0,
+		$threshold = $this->getRuTime() - $uTimeBefore - $delta;
+		$this->assertLessThan( $threshold, $engine->getInterpreter()->getCPUUsage() - $u0,
 			'Unused arguments not counted in preprocess'
 		);
 
+		$uTimeBefore = $this->getRuTime();
 		$u0 = $engine->getInterpreter()->getCPUUsage();
 		$frame->expand(
 			$pp->preprocessToObj(
 				'{{#invoke:TestArgumentParsingTime|f3}}'
 			)
 		);
-		$this->assertGreaterThan( 0.25, $engine->getInterpreter()->getCPUUsage() - $u0,
+		$threshold = $this->getRuTime() - $uTimeBefore - $delta;
+		// If the underlying node is extremely slow, this test might produce false positives
+		$this->assertGreaterThan( $threshold, $engine->getInterpreter()->getCPUUsage() - $u0,
 			'Recursive argument access time was counted'
 		);
 	}
+
+	private function getRuTime() {
+		$ru = wfGetRusage();
+		return $ru['ru_utime.tv_sec'] + $ru['ru_utime.tv_usec'] / 1e6 +
+			$ru['ru_stime.tv_sec'] + $ru['ru_stime.tv_usec'] / 1e6;
+	}
+
 }
