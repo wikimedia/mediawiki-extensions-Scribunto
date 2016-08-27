@@ -2,10 +2,44 @@
 	"@metadata": {
 		"authors": [
 			"زكريا",
-			"Yahya Sakhnini"
+			"Yahya Sakhnini",
+			"Mr. Ibrahem"
 		]
 	},
+	"scribunto-line": "في السطر $1",
+	"scribunto-module-line": "في $1 على السطر $2",
+	"scribunto-parser-dialog-title": "خطأ في البرنامج النصي",
+	"scribunto-error-short": "خطأ في البرنامج النصي: $1",
+	"scribunto-error-long": "أخطاء البرنامج النصي:\n\n$1",
+	"scribunto-doc-page-name": "وحدة:$1/شرح",
+	"scribunto-doc-page-does-not-exist": "''يمكن إنشاء صفحة توثيق الوحدة في [[$1]]''",
+	"scribunto-doc-page-header": "'''هذه صفحة توثيق ل[[$1]]'''",
+	"scribunto-console-clear": "إفراغ",
+	"scribunto-common-error-category": "صفحات بها أخطاء في البرنامج النصي",
+	"scribunto-common-error-category-desc": "حدث خطأ عند معالجة الوحدات المدرجة في الصفحة.",
+	"scribunto-common-nosuchmodule": "خطأ: لا توجد وحدة بهذا الاسم \"$2\".",
+	"scribunto-common-nofunction": "خطأ: يجب أن تحدد وظيفة للاتصال بها.",
+	"scribunto-common-nosuchfunction": "خطأ: الوظيفة \"$2\" غير موجودة.",
+	"scribunto-common-notafunction": "خطأ: \"$2\" ليس وظيفة.",
+	"scribunto-common-timeout": "الوقت المتاح لتشغيل البرامج النصية قد إنتهى.",
+	"scribunto-common-oom": "تم تجاوز مقدار الذاكرة المسموح به لتشغيل البرامج النصية.",
+	"scribunto-common-no-details": "لا توجد تفاصيل أخرى متوفرة.",
+	"scribunto-lua-in-function": "في الوظيفة \"$1\"",
+	"scribunto-lua-in-main": "في الجزء الرئيسي",
+	"scribunto-lua-in-function-at": "في الوظيفة عند $1:$2",
+	"scribunto-lua-error-location": "خطأ لوا $1: $2.",
 	"scribunto-lua-error": "خطأ أخذ:$2",
+	"scribunto-lua-notarrayreturn": "خطأ:أنتجت الوحدة $2 كقيمة، ومن المفترض أن تنتج جدول.",
+	"scribunto-luastandalone-proc-error": "خطأ لوا: لا يمكن إنشاء العملية.",
+	"scribunto-luastandalone-proc-error-msg": "خطأ لوا: لا يمكن إنشاء العملية: $2",
+	"scribunto-luastandalone-decode-error": "خطأ لوا: خطأ داخلي: غير قادر على فك شفرة الرسالة.",
+	"scribunto-module-with-errors-category": "وحدات بها أخطاء",
+	"scribunto-module-with-errors-category-desc": "الوحدة بها أخطاء.",
 	"scribunto-limitreport-timeusage": "زمن لوا المستغرق",
-	"scribunto-limitreport-memusage": "ذاكرة لوا المستخدمة"
+	"scribunto-limitreport-timeusage-value": "$1/$2 ثواني",
+	"scribunto-limitreport-virtmemusage": "حجم لوا الافتراضي",
+	"scribunto-limitreport-memusage": "ذاكرة لوا المستخدمة",
+	"scribunto-limitreport-profile": "ملف تعريف لوا",
+	"scribunto-limitreport-profile-ms": "$1 مللي ثانية",
+	"scribunto-limitreport-logs": "سجل لوا"
 }
