@@ -8,9 +8,15 @@
 	"scribunto-desc": "Rangka kerja kanggo nyisipaké basa skrip nèng kaca MediaWiki",
 	"scribunto-line": "nèng larik $1",
 	"scribunto-module-line": "nèng $1 larik $2",
-	"scribunto-parser-dialog-title": "Kasalahan skrip",
-	"scribunto-error-short": "Kasalahan skrip: $1",
+	"scribunto-parser-dialog-title": "Cacad skrip",
+	"scribunto-error-short": "Cacad skrip: $1",
 	"scribunto-error-long": "Kasalahan skrip:\n\n$1",
 	"scribunto-console-title": "Debug konsol",
-	"scribunto-lua-error": "Cacad Lua: $2."
+	"scribunto-common-error-category": "Kaca mawa cacad skrip",
+	"scribunto-common-nosuchmodule": "Cacad skrip: Modul \"$2\" ora ana.",
+	"scribunto-common-nofunction": "Cacad skrip: Sampéyan kudu nemtokaké fungsi sing arep dianggo.",
+	"scribunto-common-nosuchfunction": "Cacad skrip: Fungsi \"$2\" ora ana.",
+	"scribunto-common-notafunction": "Cacad skrip: \"$2\" dudu fungsi.",
+	"scribunto-lua-error": "Cacad Lua: $2.",
+	"scribunto-lua-notarrayreturn": "Cacad skrip: Modul mbalèkaké gandra $2. Kanthi mangkono tabèl èkspor kuduné pulih."
 }
