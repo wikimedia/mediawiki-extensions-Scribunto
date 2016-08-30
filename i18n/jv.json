@@ -11,6 +11,7 @@
 	"scribunto-parser-dialog-title": "Cacad skrip",
 	"scribunto-error-short": "Cacad skrip: $1",
 	"scribunto-error-long": "Kasalahan skrip:\n\n$1",
+	"scribunto-doc-page-does-not-exist": "''Dhokumèntasi modul iki bisa digawé ing [[$1]]''",
 	"scribunto-console-title": "Debug konsol",
 	"scribunto-common-error-category": "Kaca mawa cacad skrip",
 	"scribunto-common-nosuchmodule": "Cacad skrip: Modul \"$2\" ora ana.",
