@@ -331,8 +331,7 @@ class ScribuntoHooks {
 	 */
 	public static function beforeEditChecks( EditPage &$editor, &$checkboxes, &$tabindex ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			global $wgOut;
-			$wgOut->addModules( 'ext.scribunto.edit' );
+			$editor->getArticle()->getContext()->getOutput()->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
 		}
 		return true;
@@ -375,7 +374,6 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function validateScript( EditPage $editor, $text, &$error, $summary ) {
-		global $wgOut;
 		$title = $editor->getTitle();
 
 		if ( !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
@@ -400,7 +398,8 @@ WIKI;
 			$module = $status->scribunto_error->params['module'];
 			$line = $status->scribunto_error->params['line'];
 			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
-				$wgOut->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
+				$out = $editor->getArticle()->getContext()->getOutput();
+				$out->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
 			}
 		}
 
@@ -444,11 +443,9 @@ WIKI;
 	 * @return bool
 	 */
 	public static function showDocPageHeader( Article &$article, &$outputDone, &$pcache ) {
-		global $wgOut;
-
 		$title = $article->getTitle();
 		if ( Scribunto::isDocPage( $title, $forModule ) ) {
-			$wgOut->addHTML(
+			$article->getContext()->getOutput()->addHTML(
 				wfMessage( 'scribunto-doc-page-header', $forModule->getPrefixedText() )->parseAsBlock()
 			);
 		}
