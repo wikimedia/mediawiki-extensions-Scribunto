@@ -19,6 +19,22 @@ class ScribuntoContent extends TextContent {
 	}
 
 	/**
+	 * Checks whether the script is valid
+	 *
+	 * @param Title $title
+	 * @return Status
+	 */
+	public function validate( Title $title ) {
+		$engine = Scribunto::newDefaultEngine();
+		$engine->setTitle( $title );
+		return $engine->validate( $this->getNativeData(), $title->getPrefixedDBkey() );
+	}
+
+	public function prepareSave( WikiPage $page, $flags, $parentRevId, User $user ) {
+		return $this->validate( $page->getTitle() );
+	}
+
+	/**
 	 * Parse the Content object and generate a ParserOutput from the result.
 	 *
 	 * @param $title Title The page title to use as a context for rendering
@@ -87,9 +103,7 @@ class ScribuntoContent extends TextContent {
 
 		// Validate the script, and include an error message and tracking
 		// category if it's invalid
-		$engine = Scribunto::newDefaultEngine();
-		$engine->setTitle( $title );
-		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
+		$status = $this->validate( $title );
 		if ( !$status->isOK() ) {
 			$output->setText( self::getPOText( $output ) .
 				Html::rawElement( 'div', array( 'class' => 'errorbox' ),
@@ -116,6 +130,9 @@ class ScribuntoContent extends TextContent {
 			$output->setText( '' );
 			return $output;
 		}
+
+		$engine = Scribunto::newDefaultEngine();
+		$engine->setTitle( $title );
 
 		// Add HTML for the actual script
 		$language = $engine->getGeSHiLanguage();

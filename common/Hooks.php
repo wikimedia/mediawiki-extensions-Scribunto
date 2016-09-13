@@ -367,6 +367,8 @@ class ScribuntoHooks {
 	}
 
 	/**
+	 * @todo this should use the EditFilterMergedContent hook instead
+	 *       so it can use ScribuntoContent::validate()
 	 * @param EditPage $editor
 	 * @param string $text
 	 * @param string $error
