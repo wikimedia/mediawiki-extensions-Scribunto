@@ -110,19 +110,7 @@ class ScribuntoContent extends TextContent {
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
 			);
-			$catmsg = wfMessage( 'scribunto-module-with-errors-category' )
-				->title( $title )->inContentLanguage();
-			if ( !$catmsg->isDisabled() ) {
-				$cat = Title::makeTitleSafe( NS_CATEGORY, $catmsg->text() );
-				if ( $cat ) {
-					$sort = (string)$output->getProperty( 'defaultsort' );
-					$output->addCategory( $cat->getDBkey(), $sort );
-				} else {
-					wfDebug( __METHOD__ . ": [[MediaWiki:scribunto-module-with-errors-category]] " .
-						"is not a valid title!\n"
-					);
-				}
-			}
+			$output->addTrackingCategory( 'scribunto-module-with-errors-category', $title );
 		}
 
 		if ( !$generateHtml ) {
