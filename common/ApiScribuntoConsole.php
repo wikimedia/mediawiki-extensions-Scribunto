@@ -22,8 +22,7 @@ class ApiScribuntoConsole extends ApiBase {
 			$sessionId = mt_rand( 0, 0x7fffffff );
 		}
 
-		global $wgUser;
-		$sessionKey = wfMemcKey( 'scribunto-console', $wgUser->getId(), $sessionId );
+		$sessionKey = wfMemcKey( 'scribunto-console', $this->getUser()->getId(), $sessionId );
 		$cache = ObjectCache::getInstance( CACHE_ANYTHING );
 		$session = null;
 		$sessionIsNew = false;
