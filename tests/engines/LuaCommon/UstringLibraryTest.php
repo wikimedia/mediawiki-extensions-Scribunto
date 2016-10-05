@@ -60,6 +60,43 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 		$this->assertSame( $expected, $actual );
 		$this->luaTestName = null;
 	}
+
+	/**
+	 * @dataProvider providePCREErrors
+	 */
+	public function testPCREErrors( $ini, $args, $error ) {
+		$reset = array();
+		foreach ( $ini as $key => $value ) {
+			$old = ini_set( $key, $value );
+			if ( $old === false ) {
+				$this->markTestSkipped( "Failed to set ini setting $key = $value" );
+			}
+			$reset[] = new ScopedCallback( 'ini_set', array( $key, $old ) );
+		}
+
+		$interpreter = $this->getEngine()->getInterpreter();
+		$func = $interpreter->loadString( 'return mw.ustring.gsub( ... )', 'fortest' );
+		try {
+			call_user_func_array(
+				array( $interpreter, 'callFunction' ),
+				array_merge( array( $func ), $args )
+			);
+			$this->fail( 'Expected exception not thrown' );
+		} catch ( Scribunto_LuaError $e ) {
+			$this->assertSame( $error, $e->getMessage() );
+		}
+	}
+
+	public static function providePCREErrors() {
+		return array(
+			array(
+				array( 'pcre.backtrack_limit' => 10 ),
+				array( 'zzzzzzzzzzzzzzzzzzzz', '^(.-)[abc]*$', '%1' ),
+				'Lua error: PCRE backtrack limit reached while matching pattern \'^(.-)[abc]*$\'.'
+			),
+			// @TODO: Figure out patterns that hit other PCRE limits
+		);
+	}
 }
 
 class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider {
