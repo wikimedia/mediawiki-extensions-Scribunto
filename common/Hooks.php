@@ -190,7 +190,7 @@ class ScribuntoHooks {
 		static $cache;
 
 		if ( !$cache ) {
-			$cache = ObjectCache::newAccelerator( CACHE_NONE );
+			$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
 		}
 
 		// To control the sampling rate, we keep a compact histogram of
