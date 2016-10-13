@@ -149,23 +149,4 @@ class ApiScribuntoConsole extends ApiBase {
 			),
 		);
 	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array(
-			'title' => 'The module title to test',
-			'content' => 'The new content of the module',
-			'question' => 'The next line to evaluate as a script',
-			'clear' => 'Set this to true to clear the current session state',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Internal module for servicing XHR requests from the Scribunto console';
-	}
 }

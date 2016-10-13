@@ -161,8 +161,7 @@ class ScribuntoContent extends TextContent {
 
 	/**
 	 * Fetch the text from a ParserOutput
-	 * @todo Once support for MW without ParserOutput::getRawText() is dropped,
-	 *  inline this.
+	 * @todo Once support for MW < 1.27 is dropped, inline this.
 	 * @param ParserOutput $po
 	 * @return string
 	 */

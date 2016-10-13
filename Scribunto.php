@@ -51,6 +51,8 @@ $wgAutoloadClasses['ScribuntoContent'] = __DIR__ . '/common/ScribuntoContent.php
 $wgAutoloadClasses['Scribunto_LuaError'] = __DIR__ . '/engines/LuaCommon/LuaCommon.php';
 $wgAutoloadClasses['Scribunto_LuaInterpreterNotFoundError'] =
 	__DIR__ . '/engines/LuaCommon/LuaInterpreter.php';
+$wgAutoloadClasses['Scribunto_LuaInterpreterBadVersionError'] =
+	__DIR__ . '/engines/LuaCommon/LuaInterpreter.php';
 $wgAutoloadClasses['Scribunto_LuaSandboxInterpreter'] = __DIR__ . '/engines/LuaSandbox/Engine.php';
 $wgAutoloadClasses['Scribunto_LuaSandboxCallback'] = __DIR__ . '/engines/LuaSandbox/Engine.php';
 $wgAutoloadClasses['Scribunto_LuaStandaloneInterpreterFunction'] =

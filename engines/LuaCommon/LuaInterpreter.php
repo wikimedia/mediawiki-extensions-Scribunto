@@ -62,3 +62,6 @@ abstract class Scribunto_LuaInterpreter {
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaInterpreterNotFoundError extends MWException {}
+
+// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
+class Scribunto_LuaInterpreterBadVersionError extends MWException {}

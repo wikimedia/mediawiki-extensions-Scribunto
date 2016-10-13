@@ -219,7 +219,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		);
 		$this->expandCache = array();
 
-		// @todo Once support for PHP 5.3 is dropped, lose $ref and just use
+		// @todo Once support for PHP 5.3 (MW < 1.27) is dropped, lose $ref and just use
 		// $this->currentFrames directly in the callback.
 		$ref = &$this->currentFrames;
 		$ref2 = &$this->expandCache;
@@ -315,7 +315,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		static $cache = null;
 
 		if ( !$cache ) {
-			$cache = ObjectCache::getLocalServerInstance( 'hash' );
+			/// @todo: Clean up when support for MW < 1.27 is dropped
+			if ( is_callable( 'ObjectCache::getLocalServerInstance' ) ) {
+				$cache = ObjectCache::getLocalServerInstance( 'hash' );
+			} else {
+				$cache = ObjectCache::newAccelerator( 'hash' );
+			}
 		}
 
 		$mtime = filemtime( $fileName );
@@ -611,9 +616,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$this->checkNumber( 'setTTL', $args, 0 );
 
 		$frame = $this->getFrameById( 'current' );
-		if ( is_callable( array( $frame, 'setTTL' ) ) ) {
-			$frame->setTTL( $ttl );
-		}
+		$frame->setTTL( $ttl );
 	}
 
 	/**
@@ -836,7 +839,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$dom = $input;
 		}
 		$ret = $frame->expand( $dom );
-		if ( !is_callable( array( $frame, 'isVolatile' ) ) || !$frame->isVolatile() ) {
+		if ( !$frame->isVolatile() ) {
 			if ( count( $this->expandCache ) > self::MAX_EXPAND_CACHE_SIZE ) {
 				reset( $this->expandCache );
 				$oldHash = key( $this->expandCache );

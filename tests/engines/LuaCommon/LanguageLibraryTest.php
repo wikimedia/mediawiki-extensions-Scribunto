@@ -35,10 +35,6 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
 
-		if ( !is_callable( array( $pp->newFrame(), 'getTTL' ) ) ) {
-			$this->markTestSkipped( "PPFrame::getTTL is not available" );
-		}
-
 		$ttl = null;
 		$wgContLang->sprintfDate( 's', '20130101000000', null, $ttl );
 		if ( $ttl === null ) {

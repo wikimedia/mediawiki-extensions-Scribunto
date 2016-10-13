@@ -522,10 +522,6 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
 
-		if ( !is_callable( array( $pp->newFrame(), 'getTTL' ) ) ) {
-			$this->markTestSkipped( "PPFrame::getTTL is not available" );
-		}
-
 		$this->extraModules['Module:DateTime'] = '
 		local p = {}
 		function p.day()
@@ -618,10 +614,6 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 		$pp = $parser->getPreprocessor();
-
-		if ( !is_callable( array( $pp->newFrame(), 'isVolatile' ) ) ) {
-			$this->markTestSkipped( "PPFrame::isVolatile is not available" );
-		}
 
 		$count = 0;
 		$parser->setHook( 'scribuntocount', function ( $str, $argv, $parser, $frame ) use ( &$count ) {

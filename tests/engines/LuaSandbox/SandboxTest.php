@@ -20,10 +20,6 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 		}
 
 		$engine = $this->getEngine();
-		if ( !is_callable( array( $engine->getInterpreter()->sandbox, 'pauseUsageTimer' ) ) ) {
-			$this->markTestSkipped( "LuaSandbox::pauseUsageTimer is not available" );
-		}
-
 		$parser = $engine->getParser();
 		$pp = $parser->getPreprocessor();
 		$frame = $pp->newFrame();

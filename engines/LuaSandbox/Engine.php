@@ -12,23 +12,19 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 
 	public function getSoftwareInfo( array &$software ) {
-		if ( !extension_loaded( 'luasandbox' ) ) {
+		try {
+			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
+		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			// They shouldn't be using this engine if the extension isn't
 			// loaded. But in case they do for some reason, let's not have
 			// Special:Version fatal.
 			return;
+		} catch ( Scribunto_LuaInterpreterBadVersionError $e ) {
+			// Same for if the extension is too old.
+			return;
 		}
 
-		if ( is_callable( 'LuaSandbox::getVersionInfo' ) ) {
-			$versions = LuaSandbox::getVersionInfo();
-		} else {
-			$sandbox = new LuaSandbox;
-			list( $luaver ) = $sandbox->loadString( 'return _VERSION' )->call();
-			$versions = array(
-				'LuaSandbox' => phpversion( "LuaSandbox" ),
-				'Lua' => $luaver,
-			);
-		}
+		$versions = LuaSandbox::getVersionInfo();
 		$software['[https://www.mediawiki.org/wiki/Extension:Scribunto#LuaSandbox LuaSandbox]'] =
 			$versions['LuaSandbox'];
 		$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
@@ -250,24 +246,38 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	const SECONDS = 1;
 	const PERCENT = 2;
 
-	function __construct( $engine, array $options ) {
+	/**
+	 * Check that php-luasandbox is available and of a recent-enough version
+	 * @throws Scribunto_LuaInterpreterNotFoundError
+	 * @throws Scribunto_LuaInterpreterBadVersionError
+	 */
+	public static function checkLuaSandboxVersion() {
 		if ( !extension_loaded( 'luasandbox' ) ) {
 			throw new Scribunto_LuaInterpreterNotFoundError(
 				'The luasandbox extension is not present, this engine cannot be used.' );
 		}
+
+		if ( !is_callable( 'LuaSandbox::getVersionInfo' ) ) {
+			throw new Scribunto_LuaInterpreterBadVersionError(
+				'The luasandbox extension is too old (version 1.6+ is required), ' .
+					'this engine cannot be used.'
+			);
+		}
+	}
+
+	function __construct( $engine, array $options ) {
+		self::checkLuaSandboxVersion();
+
 		$this->engine = $engine;
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $options['memoryLimit'] );
 		$this->sandbox->setCPULimit( $options['cpuLimit'] );
-		if ( is_callable( array( $this->sandbox, 'enableProfiler' ) ) )
-		{
-			if ( !isset( $options['profilerPeriod'] ) ) {
-				$options['profilerPeriod'] = 0.02;
-			}
-			if ( $options['profilerPeriod'] ) {
-				$this->profilerEnabled = true;
-				$this->sandbox->enableProfiler( $options['profilerPeriod'] );
-			}
+		if ( !isset( $options['profilerPeriod'] ) ) {
+			$options['profilerPeriod'] = 0.02;
+		}
+		if ( $options['profilerPeriod'] ) {
+			$this->profilerEnabled = true;
+			$this->sandbox->enableProfiler( $options['profilerPeriod'] );
 		}
 	}
 
@@ -333,23 +343,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function wrapPhpFunction( $callable ) {
-		if ( is_callable( array( $this->sandbox, 'wrapPhpFunction' ) ) ) {
-			return $this->sandbox->wrapPhpFunction( $callable );
-		}
-
-		// We have to hack around the lack of the wrapper function by loading a
-		// dummy library with $callable, then extracting the function, and then
-		// for good measure nilling out the library table.
-		list( $name ) = $this->sandbox->loadString( '
-			for i = 0, math.huge do
-				if not _G["*LuaSandbox* temp" .. i] then return "*LuaSandbox* temp" .. i end
-			end
-			' )->call();
-		$this->sandbox->registerLibrary( $name, array( 'func' => $callable ) );
-		list( $func ) = $this->sandbox->loadString(
-			"local ret = _G['$name'].func _G['$name'] = nil return ret"
-		)->call();
-		return $func;
+		return $this->sandbox->wrapPhpFunction( $callable );
 	}
 
 	public function isLuaFunction( $object ) {
@@ -380,15 +374,11 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function pauseUsageTimer() {
-		if ( is_callable( array( $this->sandbox, 'pauseUsageTimer' ) ) ) {
-			$this->sandbox->pauseUsageTimer();
-		}
+		$this->sandbox->pauseUsageTimer();
 	}
 
 	public function unpauseUsageTimer() {
-		if ( is_callable( array( $this->sandbox, 'unpauseUsageTimer' ) ) ) {
-			$this->sandbox->unpauseUsageTimer();
-		}
+		$this->sandbox->unpauseUsageTimer();
 	}
 }
 

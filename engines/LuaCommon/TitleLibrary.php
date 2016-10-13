@@ -266,11 +266,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$this->getParser()->getOutput()->setFlag( 'vary-revision' );
 		}
 
-		if ( is_callable( array( $this->getParser(), 'fetchCurrentRevisionOfTitle' ) ) ) {
-			$rev = $this->getParser()->fetchCurrentRevisionOfTitle( $title );
-		} else {
-			$rev = Revision::newFromTitle( $title );
-		}
+		$rev = $this->getParser()->fetchCurrentRevisionOfTitle( $title );
 		return $rev ? $rev->getContent() : null;
 	}
 

@@ -83,11 +83,6 @@ class ScribuntoHooks {
 	public static function invokeHook( Parser &$parser, PPFrame $frame, array $args ) {
 		global $wgScribuntoGatherFunctionStats;
 
-		if ( !defined( get_class( $frame ) . '::SUPPORTS_INDEX_OFFSET' ) ) {
-			throw new MWException(
-				'Scribunto needs MediaWiki 1.20 or later (Preprocessor::SUPPORTS_INDEX_OFFSET)' );
-		}
-
 		try {
 			if ( count( $args ) < 2 ) {
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
@@ -190,7 +185,12 @@ class ScribuntoHooks {
 		static $cache;
 
 		if ( !$cache ) {
-			$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
+			/// @todo: Clean up when support for MW < 1.27 is dropped
+			if ( is_callable( 'ObjectCache::getLocalServerInstance' ) ) {
+				$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
+			} else {
+				$cache = ObjectCache::newAccelerator( CACHE_NONE );
+			}
 		}
 
 		// To control the sampling rate, we keep a compact histogram of
