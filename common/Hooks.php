@@ -367,40 +367,32 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * @todo this should use the EditFilterMergedContent hook instead
-	 *       so it can use ScribuntoContent::validate()
-	 * @param EditPage $editor
-	 * @param string $text
-	 * @param string $error
-	 * @param string $summary
+	 * @param IContextSource $context
+	 * @param Content $content
+	 * @param Status $status
 	 * @return bool
 	 */
-	public static function validateScript( EditPage $editor, $text, &$error, $summary ) {
-		$title = $editor->getTitle();
+	public static function validateScript( IContextSource $context, Content $content,
+		Status $status
+	) {
+		$title = $context->getTitle();
 
-		if ( !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+		if ( !$content instanceof ScribuntoContent ) {
 			return true;
 		}
 
-		$engine = Scribunto::newDefaultEngine();
-		$engine->setTitle( $title );
-		$status = $engine->validate( $text, $title->getPrefixedDBkey() );
-		if ( $status->isOK() ) {
+		$validateStatus = $content->validate( $title );
+		if ( $validateStatus->isOK() ) {
 			return true;
 		}
 
-		$errmsg = $status->getWikiText( 'scribunto-error-short', 'scribunto-error-long' );
-		$error = <<<WIKI
-<div class="errorbox">
-{$errmsg}
-</div>
-<br clear="all" />
-WIKI;
-		if ( isset( $status->scribunto_error->params['module'] ) ) {
-			$module = $status->scribunto_error->params['module'];
-			$line = $status->scribunto_error->params['line'];
+		$status->merge( $validateStatus );
+
+		if ( isset( $validateStatus->scribunto_error->params['module'] ) ) {
+			$module = $validateStatus->scribunto_error->params['module'];
+			$line = $validateStatus->scribunto_error->params['line'];
 			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
-				$out = $editor->getArticle()->getContext()->getOutput();
+				$out = $context->getOutput();
 				$out->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
 			}
 		}
