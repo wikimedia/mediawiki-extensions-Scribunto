@@ -13,7 +13,11 @@ class ApiScribuntoConsole extends ApiBase {
 
 		$title = Title::newFromText( $params['title'] );
 		if ( !$title ) {
-			$this->dieUsageMsg( array( 'invalidtitle', $params['title'] ) );
+			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				$this->dieWithError( array( 'apierror-invalidtitle', wfEscapeWikiText( $params['title'] ) ) );
+			} else {
+				$this->dieUsageMsg( array( 'invalidtitle', $params['title'] ) );
+			}
 		}
 
 		if ( $params['session'] ) {
@@ -55,10 +59,14 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 
 		if ( $newSession['size'] > self::SC_MAX_SIZE ) {
-			$this->dieUsage(
-				$this->msg( 'scribunto-console-too-large' )->text(),
-				'scribunto-console-too-large'
-			);
+			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				$this->dieWithError( 'scribunto-console-too-large' );
+			} else {
+				$this->dieUsage(
+					$this->msg( 'scribunto-console-too-large' )->text(),
+					'scribunto-console-too-large'
+				);
+			}
 		}
 		$result = $this->runConsole( array(
 			'title' => $title,
