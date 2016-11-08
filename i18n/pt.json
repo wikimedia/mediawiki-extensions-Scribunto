@@ -44,7 +44,7 @@
 	"scribunto-lua-notarrayreturn": "Erro de script: O módulo devolveu um valor $2. É suposto que devolva uma tabela de exportação.",
 	"scribunto-luastandalone-proc-error": "Erro em Lua: não é possível criar o processo.",
 	"scribunto-luastandalone-proc-error-msg": "Erro Lua: Não é possível criar o seguinte processo: $2",
-	"scribunto-luastandalone-proc-error-proc-open": "Erro Lua: Não foi possível criar o processo: proc_open não está disponível. Verifique as configurações directivas da função PHP \"disable_functions\".",
+	"scribunto-luastandalone-proc-error-proc-open": "Erro Lua: Não foi possível criar o processo: proc_open não está disponível. Verifique a diretiva de configuração \"disable_functions\" do PHP.",
 	"scribunto-luastandalone-proc-error-safe-mode": "Erro Lua: Não foi possível criar o processo. Note que a diretiva obsoleta de configuração da função PHP \"safe_mode\" está ativa.",
 	"scribunto-luastandalone-decode-error": "Erro em Lua: erro interno: não é possível decodificar a mensagem.",
 	"scribunto-luastandalone-write-error": "Erro em Lua: erro interno: erro ao escrever na canalização.",
