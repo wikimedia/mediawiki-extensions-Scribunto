@@ -112,7 +112,7 @@ $magicWords['ru'] = array(
 
 /** Ukrainian (українська) */
 $magicWords['uk'] = array(
-	'invoke' => array( 0, 'викликати' ),
+	'invoke' => array( 0, 'викликати', 'вызвать' ),
 );
 
 /** Urdu (اردو) */
