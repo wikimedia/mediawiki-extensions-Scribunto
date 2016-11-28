@@ -3,10 +3,11 @@
 		"authors": [
 			"Chaduvari",
 			"Ravichandra",
-			"రహ్మానుద్దీన్"
+			"రహ్మానుద్దీన్",
+			"Veeven"
 		]
 	},
-	"scribunto-lua-error": "లువా సమస్య : $2",
+	"scribunto-lua-error": "లువా తప్పిదం: $2",
 	"scribunto-limitreport-timeusage-value": "$1/$2 సెకండ్లు",
 	"scribunto-limitreport-profile-ms": "$1 మి.సె"
 }
