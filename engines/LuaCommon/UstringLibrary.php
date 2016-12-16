@@ -66,6 +66,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				'isutf8' => array( $this, 'ustringIsUtf8' ),
 				'byteoffset' => array( $this, 'ustringByteoffset' ),
 				'codepoint' => array( $this, 'ustringCodepoint' ),
+				'gcodepoint_init' => array( $this, 'ustringGcodepointInit' ),
 				'toNFC' => array( $this, 'ustringToNFC' ),
 				'toNFD' => array( $this, 'ustringToNFD' ),
 				'toNFKC' => array( $this, 'ustringToNFKC' ),
@@ -166,6 +167,10 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		$j = max( 1, min( $j, $l + 1 ) );
 		$s = mb_substr( $s, $i - 1, $j - $i + 1, 'UTF-8' );
 		return unpack( 'N*', mb_convert_encoding( $s, 'UTF-32BE', 'UTF-8' ) );
+	}
+
+	public function ustringGcodepointInit( $s, $i = 1, $j = null ) {
+		return array( $this->ustringCodepoint( $s, $i, $j ) );
 	}
 
 	public function ustringToNFC( $s ) {

@@ -23,6 +23,17 @@ local function php_gmatch( s, pattern )
 	end, nil, nil
 end
 
+local gcodepoint_init = nil
+local function php_gcodepoint( s, i, j )
+	checkType( 'gcodepoint', 1, s, 'string' )
+	checkType( 'gcodepoint', 2, i, 'number', true )
+	checkType( 'gcodepoint', 3, j, 'number', true )
+	local cp = gcodepoint_init( s, i, j or -1 )
+	return function ()
+		return table.remove( cp, 1 )
+	end
+end
+
 function ustring.setupInterface( opt )
 	-- Boilerplate
 	ustring.setupInterface = nil
@@ -39,6 +50,13 @@ function ustring.setupInterface( opt )
 	end
 	mw_interface.gmatch_init = nil
 	mw_interface.gmatch_callback = nil
+
+	-- codepoint and gcodepoint
+	if mw_interface.gcodepoint_init then
+		gcodepoint_init = mw_interface.gcodepoint_init
+		ustring.gcodepoint = php_gcodepoint
+	end
+	mw_interface.gcodepoint_init = nil
 
 	-- Replace pure-lua implementation with php callbacks
 	local nargs = {
