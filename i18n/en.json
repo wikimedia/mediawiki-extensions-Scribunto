@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Victor Vasiliev"
+			"Victor Vasiliev",
+			"Base"
 		]
 	},
 	"scribunto-desc": "Framework for embedding scripting languages into MediaWiki pages",
@@ -67,5 +68,7 @@
 	"apihelp-scribunto-console-param-content": "The new content of the module.",
 	"apihelp-scribunto-console-param-session": "Session token.",
 	"apihelp-scribunto-console-param-question": "The next line to evaluate as a script.",
-	"apihelp-scribunto-console-param-clear": "Set to clear the current session state."
+	"apihelp-scribunto-console-param-clear": "Set to clear the current session state.",
+	"nstab-module": "Module",
+	"tooltip-ca-nstab-module": "View the module page"
 }
