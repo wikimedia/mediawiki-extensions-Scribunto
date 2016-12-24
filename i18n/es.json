@@ -9,7 +9,8 @@
 			"Vfrico",
 			"Macofe",
 			"Ryo567",
-			"Lemondoge"
+			"Lemondoge",
+			"Dgstranz"
 		]
 	},
 	"scribunto-desc": "Marco para la incorporación de lenguajes de script en páginas de MediaWiki",
@@ -66,5 +67,7 @@
 	"apihelp-scribunto-console-param-title": "El título del módulo que probar.",
 	"apihelp-scribunto-console-param-content": "El nuevo contenido del módulo.",
 	"apihelp-scribunto-console-param-session": "Token de sesión.",
-	"apihelp-scribunto-console-param-question": "La siguiente línea para evaluar como una secuencia de comandos."
+	"apihelp-scribunto-console-param-question": "La siguiente línea para evaluar como una secuencia de comandos.",
+	"nstab-module": "Módulo",
+	"tooltip-ca-nstab-module": "Ver la página del módulo"
 }

@@ -4,6 +4,7 @@
 			"V.narsikar"
 		]
 	},
+	"scribunto-doc-page-does-not-exist": "''[[$1]] येथे या विभागाचे दस्तावेजीकरण तयार करु शकता''",
 	"scribunto-lua-error": "लुआ(Lua) त्रुटी: $2.",
 	"scribunto-limitreport-timeusage-value": "$1/$2 सेकंद"
 }

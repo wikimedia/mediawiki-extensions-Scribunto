@@ -6,7 +6,8 @@
 			"DixonD",
 			"Steve.rusyn",
 			"SteveR",
-			"Ата"
+			"Ата",
+			"Piramidion"
 		]
 	},
 	"scribunto-desc": "Фреймворк для включення скриптових мов на сторінки MediaWiki",
@@ -66,5 +67,7 @@
 	"apihelp-scribunto-console-param-content": "Новий вміст модуля.",
 	"apihelp-scribunto-console-param-session": "Токен сесії.",
 	"apihelp-scribunto-console-param-question": "Наступний рядок для оцінки як скрипта.",
-	"apihelp-scribunto-console-param-clear": "Встановіть для очистки поточного стану сесії."
+	"apihelp-scribunto-console-param-clear": "Встановіть для очистки поточного стану сесії.",
+	"nstab-module": "Модуль",
+	"tooltip-ca-nstab-module": "Переглянути сторінку модуля"
 }
