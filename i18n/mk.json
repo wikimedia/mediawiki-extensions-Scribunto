@@ -61,5 +61,7 @@
 	"apihelp-scribunto-console-param-content": "Новата содржина на модулот.",
 	"apihelp-scribunto-console-param-session": "Шифра на седницата.",
 	"apihelp-scribunto-console-param-question": "Следниот ред за проверка како скрипта.",
-	"apihelp-scribunto-console-param-clear": "Задајте го за да ја исчистите тековната состојба на седницата."
+	"apihelp-scribunto-console-param-clear": "Задајте го за да ја исчистите тековната состојба на седницата.",
+	"nstab-module": "Модул",
+	"tooltip-ca-nstab-module": "Преглед на модулната страница"
 }

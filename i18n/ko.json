@@ -59,5 +59,7 @@
 	"scribunto-limitreport-memusage": "루아 메모리 사용",
 	"scribunto-limitreport-profile": "루아 프로필",
 	"scribunto-limitreport-profile-ms": "$1ms",
-	"apihelp-scribunto-console-param-title": "테스트할 모듈의 제목입니다."
+	"apihelp-scribunto-console-param-title": "테스트할 모듈의 제목입니다.",
+	"nstab-module": "모듈",
+	"tooltip-ca-nstab-module": "모듈 문서 보기"
 }

@@ -68,5 +68,7 @@
 	"apihelp-scribunto-console-param-content": "Nowa zawartość modułu.",
 	"apihelp-scribunto-console-param-session": "Token sesji.",
 	"apihelp-scribunto-console-param-question": "Następny wiersz do wykonania jako skrypt.",
-	"apihelp-scribunto-console-param-clear": "Ustaw, aby wyczyścić stan bieżącej sesji"
+	"apihelp-scribunto-console-param-clear": "Ustaw, aby wyczyścić stan bieżącej sesji",
+	"nstab-module": "Moduł",
+	"tooltip-ca-nstab-module": "Zobacz stronę modułu"
 }

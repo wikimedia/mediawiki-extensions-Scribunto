@@ -66,5 +66,7 @@
 	"apihelp-scribunto-console-param-content": "模块的新内容。",
 	"apihelp-scribunto-console-param-session": "会话令牌。",
 	"apihelp-scribunto-console-param-question": "要作为脚本评估的下一行。",
-	"apihelp-scribunto-console-param-clear": "设置以清除当前的会话状态。"
+	"apihelp-scribunto-console-param-clear": "设置以清除当前的会话状态。",
+	"nstab-module": "模块",
+	"tooltip-ca-nstab-module": "查看模块页面"
 }

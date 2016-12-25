@@ -71,5 +71,7 @@
 	"apihelp-scribunto-console-param-content": "Le nouveau contenu du module.",
 	"apihelp-scribunto-console-param-session": "Jeton de session.",
 	"apihelp-scribunto-console-param-question": "La ligne suivante à évaluer comme un script.",
-	"apihelp-scribunto-console-param-clear": "Positionner pour effacer l'état de la session courante."
+	"apihelp-scribunto-console-param-clear": "Positionner pour effacer l'état de la session courante.",
+	"nstab-module": "Module",
+	"tooltip-ca-nstab-module": "Afficher la page du module"
 }

@@ -3,7 +3,8 @@
 		"authors": [
 			"Michawiki",
 			"Tlustulimu",
-			"Lucas"
+			"Lucas",
+			"Rafaneta"
 		]
 	},
 	"scribunto-desc": "Framo por enkorpigi skriptlingvojn en paĝojn de MediaWiki",
@@ -41,5 +42,7 @@
 	"scribunto-luastandalone-read-error": "Lua-eraro: Interna eraro: Eraro legante el dukto.",
 	"scribunto-luastandalone-gone": "Lua-eraro: Interna eraro: La interpretilo estas jam eligita.",
 	"scribunto-luastandalone-signal": "Lua-eraro: Interna eraro: La interpretilo finiĝis kun signalo \"$2\".",
-	"scribunto-luastandalone-exited": "Lua-eraro: Interna eraro: La interpretilo finiĝis kun statuso \"$2\"."
+	"scribunto-luastandalone-exited": "Lua-eraro: Interna eraro: La interpretilo finiĝis kun statuso \"$2\".",
+	"nstab-module": "Modulo",
+	"tooltip-ca-nstab-module": "Rigardi la modul-paĝon"
 }

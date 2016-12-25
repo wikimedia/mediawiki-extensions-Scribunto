@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Wizardist",
-			"Чаховіч Уладзіслаў"
+			"Чаховіч Уладзіслаў",
+			"Mechanizatar"
 		]
 	},
 	"scribunto-desc": "Фрэймворк для выкарыстання скрыптавых моў на старонках MediaWiki",
@@ -18,7 +19,10 @@
 	"scribunto-console-title": "Кансоль адладкі",
 	"scribunto-console-clear": "Ачысціць",
 	"scribunto-common-error-category": "Старонкі з памылкамі ў скрыптах",
-	"scribunto-common-nosuchmodule": "Памылка скрыпта: модуль не існуе.",
+	"scribunto-common-nosuchmodule": "Памылка скрыпта: модуль \"$2\" не існуе.",
+	"scribunto-common-nofunction": "Памылка скрыпта: Вы павінны пазначыць функцыю для выкліку.",
+	"scribunto-common-nosuchfunction": "Памылка скрыпта: функцыя \"$2\" не існуе.",
+	"scribunto-common-notafunction": "Памылка скрыпта: \"$2\" гэта не функцыя.",
 	"scribunto-common-backtrace": "Шлях выклікаў:",
 	"scribunto-lua-in-function": "у функцыі «$1»",
 	"scribunto-lua-in-main": "у асноўнай частцы коду",
