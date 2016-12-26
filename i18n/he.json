@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"ערן"
+			"ערן",
+			"Guycn2"
 		]
 	},
 	"scribunto-desc": "מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי",
@@ -62,5 +63,7 @@
 	"apihelp-scribunto-console-param-content": "התוכן החדש ליחידה.",
 	"apihelp-scribunto-console-param-session": "אסימון שיחה.",
 	"apihelp-scribunto-console-param-question": "השורה הבאה להערכה בתור תסריט.",
-	"apihelp-scribunto-console-param-clear": "להגדיר כדי לנקות את מצב השיחה הנוכחי."
+	"apihelp-scribunto-console-param-clear": "להגדיר כדי לנקות את מצב השיחה הנוכחי.",
+	"nstab-module": "יחידה",
+	"tooltip-ca-nstab-module": "צפייה בדף היחידה"
 }

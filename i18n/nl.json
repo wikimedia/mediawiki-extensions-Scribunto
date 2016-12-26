@@ -8,7 +8,8 @@
 			"Sjoerddebruin",
 			"Robin0van0der0vliet",
 			"HanV",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Mainframe98"
 		]
 	},
 	"scribunto-desc": "Framework voor het inbedden van scripttalen in pagina's",
@@ -59,5 +60,6 @@
 	"scribunto-limitreport-memusage": "Geheugengebruik door Lua",
 	"scribunto-limitreport-profile": "Luaprofiel",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"apihelp-scribunto-console-param-session": "Sessiesleutel."
+	"apihelp-scribunto-console-param-session": "Sessiesleutel.",
+	"nstab-module": "Module"
 }
