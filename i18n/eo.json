@@ -4,7 +4,8 @@
 			"Michawiki",
 			"Tlustulimu",
 			"Lucas",
-			"Rafaneta"
+			"Rafaneta",
+			"Robin van der Vliet"
 		]
 	},
 	"scribunto-desc": "Framo por enkorpigi skriptlingvojn en paĝojn de MediaWiki",
@@ -14,7 +15,7 @@
 	"scribunto-error-short": "Skripteraro: $1",
 	"scribunto-error-long": "Skripteraroj:\n\n$1",
 	"scribunto-doc-page-name": "Modulo:$1/dokumentado",
-	"scribunto-doc-page-does-not-exist": "''Dokumentado por ĉi tiu modulo povas esti kreatata en [[$1]]''",
+	"scribunto-doc-page-does-not-exist": "''Dokumentado por ĉi tiu modulo povas esti kreata ĉe [[$1]]''",
 	"scribunto-doc-page-header": "'''Tio estas la paĝo de la dokumentado por [[$1]]'''",
 	"scribunto-console-intro": "* La modulaj eksportoj estas disponeblaj kiel variablo \"p\" , inkluzive de la nekonservitaj ŝanĝoj.\n* Prefiksu linion per \"=\" por taksi ĝin kiel esprimon aŭ uzu print().\n* Uzu mw.log() en la modulkodo por sendi mesaĝojn al ĉi tiu konzolo.",
 	"scribunto-console-title": "Sencimiga konzolo",
