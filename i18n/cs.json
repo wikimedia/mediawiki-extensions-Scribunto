@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Danny B.",
-			"Mormegil"
+			"Mormegil",
+			"Matěj Suchánek"
 		]
 	},
 	"scribunto-desc": "Framework pro vkládání skriptovacích jazyků do stránek MediaWiki",
@@ -57,5 +58,7 @@
 	"scribunto-limitreport-profile": "Profil Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-profile-percent": "$1 %",
-	"scribunto-limitreport-logs": "Protokoly Lua"
+	"scribunto-limitreport-logs": "Protokoly Lua",
+	"nstab-module": "Modul",
+	"tooltip-ca-nstab-module": "Zobrazit stránku modulu"
 }
