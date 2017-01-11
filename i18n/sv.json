@@ -7,7 +7,8 @@
 			"Lokal Profil",
 			"Skalman",
 			"WikiPhoenix",
-			"Ainali"
+			"Ainali",
+			"Rotsee"
 		]
 	},
 	"scribunto-desc": "Ramverk för att bädda in skriptspråk på MediaWiki-sidor",
@@ -66,5 +67,7 @@
 	"apihelp-scribunto-console-param-title": "Titeln på modulen som ska testas.",
 	"apihelp-scribunto-console-param-content": "Modulens nya innehåll.",
 	"apihelp-scribunto-console-param-session": "Sessionsnyckel.",
-	"apihelp-scribunto-console-param-question": "Nästa rad att utvärdera som ett skript."
+	"apihelp-scribunto-console-param-question": "Nästa rad att utvärdera som ett skript.",
+	"nstab-module": "Modul",
+	"tooltip-ca-nstab-module": "Visa modulsidan"
 }

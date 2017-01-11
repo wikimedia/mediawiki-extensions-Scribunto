@@ -61,5 +61,7 @@
 	"apihelp-scribunto-console-param-content": "El conteníu nuevu del módulu.",
 	"apihelp-scribunto-console-param-session": "Pase de sesión.",
 	"apihelp-scribunto-console-param-question": "La siguiente llinia a evaluar como script.",
-	"apihelp-scribunto-console-param-clear": "Marcar pa llimpiar l'estáu de la sesión actual."
+	"apihelp-scribunto-console-param-clear": "Marcar pa llimpiar l'estáu de la sesión actual.",
+	"nstab-module": "Módulu",
+	"tooltip-ca-nstab-module": "Ver la páxina del módulu"
 }

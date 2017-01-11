@@ -27,6 +27,7 @@
 	"scribunto-common-no-details": "আর কোনও বিবরণ উপলব্ধ নেই।",
 	"scribunto-lua-in-function": "\"$1\" ফাংশনে",
 	"scribunto-lua-in-main": "প্রধান খণ্ডে",
+	"scribunto-lua-in-function-at": "$1 ফাংশনে: $2 নং লাইনে",
 	"scribunto-lua-error-location": "লুয়া ত্রুটি $1: $2।",
 	"scribunto-lua-error": "লুয়া ত্রুটি: $2।",
 	"scribunto-luastandalone-proc-error": "লুয়া ত্রুটি: প্রক্রিয়া তৈরি করা যাবে না।",
@@ -41,5 +42,7 @@
 	"scribunto-limitreport-memusage": "লুয়া স্মৃতি ব্যবহার",
 	"scribunto-limitreport-profile": "লুয়া বৃত্তান্ত",
 	"scribunto-limitreport-profile-ms": "$1 মি.সে.",
-	"scribunto-limitreport-logs": "লুয়া লোগোগুলি"
+	"scribunto-limitreport-logs": "লুয়া লোগোগুলি",
+	"nstab-module": "মডিউল",
+	"tooltip-ca-nstab-module": "মডিউল পাতাটি দেখুন"
 }
