@@ -36,7 +36,6 @@ $wgExtensionCredits['parserhook']['Scribunto'] = array(
 define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
 
 $wgMessagesDirs['Scribunto'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['Scribunto'] = __DIR__ . '/Scribunto.i18n.php';
 $wgExtensionMessagesFiles['ScribuntoMagic'] = __DIR__ . '/Scribunto.magic.php';
 $wgExtensionMessagesFiles['ScribuntoNamespaces'] = __DIR__ . '/Scribunto.namespaces.php';
 
