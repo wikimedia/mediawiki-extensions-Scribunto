@@ -11,7 +11,7 @@
 	"scribunto-error-long": "Xırabiya scripti:\n$1",
 	"scribunto-console-clear": "Bestere",
 	"scribunto-lua-error": "Xetay lua: $2.",
-	"scribunto-luastandalone-proc-error": "Xetaya lua: Proses nêşeno bıvıraziyo.",
+	"scribunto-luastandalone-proc-error": "Xetay lua: Proses nêşeno bıvıraziyo.",
 	"scribunto-limitreport-timeusage-value": "$1/$2 saniyeyi",
 	"scribunto-limitreport-profile": "Profilê lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Avjoska",
-			"Pikne"
+			"Pikne",
+			"Cumbril"
 		]
 	},
 	"scribunto-desc": "Raamistik, mis võimaldab põimida MediaWiki lehekülgedesse skriptikeeli.",
@@ -32,5 +33,6 @@
 	"scribunto-limitreport-virtmemusage": "Lua virtuaalne suurus",
 	"scribunto-limitreport-estmemusage": "Lua hinnanguline mälukasutus",
 	"scribunto-limitreport-memusage": "Lua mälukasutus",
-	"scribunto-limitreport-profile": "Lua profiil"
+	"scribunto-limitreport-profile": "Lua profiil",
+	"nstab-module": "Moodul"
 }
