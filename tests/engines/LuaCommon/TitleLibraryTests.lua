@@ -5,7 +5,7 @@ if mw.title.testPageId then
 	title = mw.title.getCurrentTitle()
 	title_copy = mw.title.getCurrentTitle()
 	title2 = mw.title.new( 'Module:TestFramework' )
-	title3 = mw.title.new( 'scribuntotitletest:Module:TestFramework' )
+	title3 = mw.title.new( 'interwikiprefix:Module:TestFramework' )
 	title4 = mw.title.new( 'Talk:Has/A/Subpage' )
 	title5 = mw.title.new( 'Not/A/Subpage' )
 	title4.fragment = 'frag'
@@ -102,7 +102,7 @@ local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
 	  args = { title, title2, title3, title4, title5, title6u, title6s },
 	  expect = {
-		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Main Page', 'Module:TestFramework', 'interwikiprefix:Module:TestFramework',
 		  'Talk:Has/A/Subpage', 'Not/A/Subpage',
 		  'Module talk:Test Framework', 'Module talk:Test Framework'
 	  }
@@ -229,7 +229,7 @@ local tests = {
 	{ name = '.prefixedText', func = prop_foreach,
 	  args = { 'prefixedText' },
 	  expect = {
-		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Main Page', 'Module:TestFramework', 'interwikiprefix:Module:TestFramework',
 		  'Talk:Has/A/Subpage', 'Not/A/Subpage', 'Module talk:Test Framework', 'Module talk:Test Framework',
 	  }
 	},
@@ -257,7 +257,7 @@ local tests = {
 	{ name = '.fullText', func = prop_foreach,
 	  args = { 'fullText' },
 	  expect = {
-		  'Main Page', 'Module:TestFramework', 'scribuntotitletest:Module:TestFramework',
+		  'Main Page', 'Module:TestFramework', 'interwikiprefix:Module:TestFramework',
 		  'Talk:Has/A/Subpage#frag', 'Not/A/Subpage',
 		  'Module talk:Test Framework# frag frag', 'Module talk:Test Framework# frag frag'
 	  }
@@ -272,7 +272,7 @@ local tests = {
 	},
 	{ name = '.interwiki', func = prop_foreach,
 	  args = { 'interwiki' },
-	  expect = { '', '', 'scribuntotitletest', '', '', '', '' }
+	  expect = { '', '', 'interwikiprefix', '', '', '', '' }
 	},
 	{ name = '.namespace', func = prop_foreach,
 	  args = { 'namespace' },

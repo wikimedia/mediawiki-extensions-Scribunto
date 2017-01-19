@@ -28,12 +28,12 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Hook to inject our interwiki prefix
 		$this->hooks = $wgHooks;
 		$wgHooks['InterwikiLoadPrefix'][] = function ( $prefix, &$data ) {
-			if ( $prefix !== 'scribuntotitletest' ) {
+			if ( $prefix !== 'interwikiprefix' ) {
 				return true;
 			}
 
 			$data = array(
-				'iw_prefix' => 'scribuntotitletest',
+				'iw_prefix' => 'interwikiprefix',
 				'iw_url'    => '//test.wikipedia.org/wiki/$1',
 				'iw_api'    => 1,
 				'iw_wikiid' => 0,
@@ -83,7 +83,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		);
 		$title->mCascadeSources = array();
 		$title->mCascadingRestrictions = array();
-		$title = Title::newFromText( 'scribuntotitletest:Module:TestFramework' );
+		$title = Title::newFromText( 'interwikiprefix:Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
 		$title->mRestrictions = array();
 		$title->mCascadeSources = array();
