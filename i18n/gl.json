@@ -64,5 +64,6 @@
 	"apihelp-scribunto-console-param-session": "Identificador de sesión.",
 	"apihelp-scribunto-console-param-question": "Liña seguinte a evaluar como script.",
 	"apihelp-scribunto-console-param-clear": "Baleirar o estado de sesión actual.",
-	"nstab-module": "Módulo"
+	"nstab-module": "Módulo",
+	"tooltip-ca-nstab-module": "Ver a páxina do módulo"
 }
