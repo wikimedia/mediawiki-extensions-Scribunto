@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Algentem"
+			"Algentem",
+			"Joao Xavier"
 		]
 	},
-	"scribunto-doc-page-does-not-exist": "''Dokumentizo por ica modulo povas kreesar ye [[$1]]''"
+	"scribunto-doc-page-does-not-exist": "''Dokumentizo por ica modulo povas kreesar ye [[$1]]''",
+	"scribunto-lua-error": "Lua eroro: $2"
 }
