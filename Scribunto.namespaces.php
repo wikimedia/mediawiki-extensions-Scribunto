@@ -248,6 +248,11 @@ $namespaceNames['ko'] = array(
 	829 => '모듈토론',
 );
 
+$namespaceNames['ku'] = array(
+	828 => 'Modul',
+	829 => 'Gotûbêja_modulê',
+);
+
 $namespaceNames['lb'] = array(
 	828 => 'Modul',
 	829 => 'Modul_Diskussioun',
