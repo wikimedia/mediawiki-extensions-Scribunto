@@ -34,5 +34,6 @@
 	"scribunto-limitreport-estmemusage": "Lua hinnanguline mälukasutus",
 	"scribunto-limitreport-memusage": "Lua mälukasutus",
 	"scribunto-limitreport-profile": "Lua profiil",
-	"nstab-module": "Moodul"
+	"nstab-module": "Moodul",
+	"tooltip-ca-nstab-module": "Vaata mooduli lehekülge"
 }
