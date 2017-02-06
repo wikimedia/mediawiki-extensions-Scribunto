@@ -142,6 +142,15 @@ Message parameters:
 
 No return message will be sent.
 
+=== testquit ===
+
+Request non-graceful shutdown, for testing.
+
+Message parameters:
+* op: "testquit"
+
+No return message will be sent.
+
 == Request messages sent from Lua to PHP ==
 
 === call ===
