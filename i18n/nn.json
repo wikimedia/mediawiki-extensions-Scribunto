@@ -47,7 +47,7 @@
 	"scribunto-luastandalone-exited": "Lua-feil: Intern feil: tolkaren avslutta med stoda $2.",
 	"scribunto-module-with-errors-category": "Skribunto-modular med feil",
 	"scribunto-module-with-errors-category-desc": "Modulen inneheld ein feil.",
-	"scribunto-limitreport-timeusage": "Lua-tidsbruk",
+	"scribunto-limitreport-timeusage": "Tidsbruk av Lua",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekund",
 	"scribunto-limitreport-virtmemusage": "Virtuell storleik for Lua",
 	"scribunto-limitreport-estmemusage": "Estimert minnebruk av Lua",
