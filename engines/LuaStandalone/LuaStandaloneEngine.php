@@ -98,9 +98,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	 */
 	function getClockTick() {
 		if ( self::$clockTick === null ) {
-			wfSuppressWarnings();
+			MediaWiki\suppressWarnings();
 			self::$clockTick = intval( shell_exec( 'getconf CLK_TCK' ) );
-			wfRestoreWarnings();
+			MediaWiki\restoreWarnings();
 			if ( !self::$clockTick ) {
 				self::$clockTick = 100;
 			}
