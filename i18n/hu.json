@@ -34,9 +34,11 @@
 	"scribunto-common-backtrace": "Backtrace:",
 	"scribunto-common-no-details": "Nem érhetők el további részletek.",
 	"scribunto-lua-in-function": "a(z) \"$1\" függvényben",
+	"scribunto-lua-in-main": "a fő részben",
 	"scribunto-lua-in-function-at": "a(z) $1 függvényben, $2. sorban",
 	"scribunto-lua-error-location": "Lua-hiba $1: $2",
 	"scribunto-lua-error": "Lua-hiba:  $2.",
+	"scribunto-lua-notarrayreturn": "Parancsfájl-hiba: A modul egy $2 értékkel tért vissza, pedig egy tömböt kellene exportálnia.",
 	"scribunto-luastandalone-proc-error": "Lua-hiba: Folyamat létrehozása sikertelen.",
 	"scribunto-luastandalone-proc-error-msg": "Lua-hiba: Folyamat létrehozása sikertelen: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua-hiba: Folyamat létrehozása sikertelen: a proc_open függvény nem elérhető. Ellenőrizd a PHP „disable_functions” konfigurációs direktíváját.",
@@ -56,6 +58,12 @@
 	"scribunto-limitreport-profile": "Lua-profil",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-naplók",
+	"apihelp-scribunto-console-description": "Belső modul a Scribunto konzolról érkező XHR-kérések kiszolgálására.",
 	"apihelp-scribunto-console-param-title": "A tesztelendő modul címe.",
-	"apihelp-scribunto-console-param-content": "A modul új tartalma."
+	"apihelp-scribunto-console-param-content": "A modul új tartalma.",
+	"apihelp-scribunto-console-param-session": "Munkamenettoken.",
+	"apihelp-scribunto-console-param-question": "A következő parancsfájlként kiértékelendő sor.",
+	"apihelp-scribunto-console-param-clear": "Add meg az aktuális munkamenet-állapot törléséhez.",
+	"nstab-module": "Modul",
+	"tooltip-ca-nstab-module": "Modullap megtekintése"
 }
