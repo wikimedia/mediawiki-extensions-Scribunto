@@ -4,7 +4,8 @@
 			"Kghbln",
 			"Metalhead64",
 			"Hoo",
-			"PerfektesChaos"
+			"PerfektesChaos",
+			"Umherirrender"
 		]
 	},
 	"scribunto-desc": "Ermöglicht eine Umgebung zum Einbetten von Skriptsprachen in Wikiseiten",
@@ -35,8 +36,8 @@
 	"scribunto-common-no-details": "Es sind keine weiteren Einzelheiten verfügbar.",
 	"scribunto-lua-in-function": "in der Funktion „$1“",
 	"scribunto-lua-in-main": "im Hauptsegment",
-	"scribunto-lua-in-function-at": "in der Funktion bei  $1:$2",
-	"scribunto-lua-error-location": "Lua-Fehler  $1: $2",
+	"scribunto-lua-in-function-at": "in der Funktion bei $1:$2",
+	"scribunto-lua-error-location": "Lua-Fehler $1: $2",
 	"scribunto-lua-error": "Lua-Fehler: $2",
 	"scribunto-lua-notarrayreturn": "Skriptfehler: Das Modul gab einen $2-Wert zurück. Es wird angenommen, dass eine Tabelle zum Export zurückgegeben wird.",
 	"scribunto-luastandalone-proc-error": "Lua-Fehler: Der Vorgang kann nicht erstellt werden.",
