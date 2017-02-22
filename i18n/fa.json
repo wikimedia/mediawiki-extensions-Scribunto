@@ -58,5 +58,6 @@
 	"scribunto-limitreport-memusage": "مصرف حافظهٔ‌ لوآ",
 	"scribunto-limitreport-profile": "مشخصات لوآ",
 	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه",
-	"scribunto-limitreport-profile-percent": "$1٪"
+	"scribunto-limitreport-profile-percent": "$1٪",
+	"nstab-module": "پودمان"
 }
