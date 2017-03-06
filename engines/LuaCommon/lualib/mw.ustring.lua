@@ -29,8 +29,13 @@ local function php_gcodepoint( s, i, j )
 	checkType( 'gcodepoint', 2, i, 'number', true )
 	checkType( 'gcodepoint', 3, j, 'number', true )
 	local cp = gcodepoint_init( s, i, j or -1 )
+	local pos, len = 1, #cp
 	return function ()
-		return table.remove( cp, 1 )
+		if pos <= len then
+			local tmp = cp[pos]
+			pos = pos + 1
+			return tmp
+		end
 	end
 end
 
