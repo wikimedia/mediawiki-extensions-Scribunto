@@ -327,6 +327,11 @@ $namespaceNames['pl'] = array(
 	829 => 'Dyskusja_modułu',
 );
 
+$namespaceNames['pnb'] = array(
+	828 => 'ماڈیول',
+	829 => 'ماڈیول_گل_بات',
+);
+
 $namespaceNames['pt'] = array(
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
