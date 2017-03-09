@@ -30,6 +30,30 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		return new Scribunto_LuaStandaloneInterpreter( $engine, $opts );
 	}
 
+	public function testIOErrorExit() {
+		$interpreter = $this->newInterpreter();
+		try {
+			$interpreter->testquit();
+			$this->fail( 'Expected exception not thrown' );
+		} catch ( ScribuntoException $ex ) {
+			$this->assertSame( 'scribunto-luastandalone-exited', $ex->getMessageName() );
+			$this->assertSame( [ '[UNKNOWN]', 42 ], $ex->messageArgs );
+		}
+	}
+
+	public function testIOErrorSignal() {
+		$interpreter = $this->newInterpreter();
+		try {
+			proc_terminate( $interpreter->proc, 15 );
+			// Some dummy protocol interaction to make it see the interpreter went away
+			$interpreter->loadString( 'return ...', 'test' );
+			$this->fail( 'Expected exception not thrown' );
+		} catch ( ScribuntoException $ex ) {
+			$this->assertSame( 'scribunto-luastandalone-signal', $ex->getMessageName() );
+			$this->assertSame( [ '[UNKNOWN]', 15 ], $ex->messageArgs );
+		}
+	}
+
 	public function testGetStatus() {
 		$startTime = microtime( true );
 		if ( php_uname( 's' ) !== 'Linux' ) {

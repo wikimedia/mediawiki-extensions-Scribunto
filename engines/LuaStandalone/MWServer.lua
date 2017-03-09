@@ -318,6 +318,9 @@ function MWServer:dispatch( msgToPhp )
 		elseif op == 'quit' then
 			self:debug( 'MWServer:dispatch: quit message received' )
 			os.exit(0)
+		elseif op == 'testquit' then
+			self:debug( 'MWServer:dispatch: testquit message received' )
+			os.exit(42)
 		else
 			self:internalError( "Invalid message operation" )
 		end

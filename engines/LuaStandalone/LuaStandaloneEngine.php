@@ -226,6 +226,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
+				'exec', # proc_open() passes $cmd to 'sh -c' on Linux, so add an 'exec' to bypass it
 				'/bin/sh',
 				__DIR__ . '/lua_ulimit.sh',
 				$options['cpuLimit'], # soft limit (SIGXCPU)
@@ -328,6 +329,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			return;
 		}
 		$this->dispatch( array( 'op' => 'quit' ) );
+		proc_close( $this->proc );
+	}
+
+	public function testquit() {
+		if ( !$this->proc ) {
+			return;
+		}
+		$this->dispatch( array( 'op' => 'testquit' ) );
 		proc_close( $this->proc );
 	}
 
@@ -647,22 +656,41 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function handleIOError() {
 		$this->checkValid();
+
+		// Terminate, fetch the status, then close. proc_close()'s return
+		// value isn't helpful here because there's no way to differentiate a
+		// signal-kill from a normal exit.
 		proc_terminate( $this->proc );
-		$wstatus = proc_close( $this->proc );
-		$signaled = pcntl_wifsignaled( $wstatus );
-		$termsig = pcntl_wtermsig( $wstatus );
-		$exitcode = pcntl_wexitstatus( $wstatus );
+		while ( true ) {
+			$status = proc_get_status( $this->proc );
+			if ( $status === false ) {
+				// WTF? Let the caller throw an appropriate error.
+				return;
+			}
+			if ( !$status['running'] ) {
+				break;
+			}
+			usleep( 10000 ); // Give the killed process a chance to be scheduled
+		}
+		proc_close( $this->proc );
 		$this->proc = false;
-		if ( $signaled ) {
-			if ( defined( 'SIGXCPU' ) && $termsig == SIGXCPU ) {
+
+		// proc_open() sometimes uses a shell, check for shell-style signal reporting.
+		if ( !$status['signaled'] && ( $status['exitcode'] & 0x80 ) === 0x80 ) {
+			$status['signaled'] = true;
+			$status['termsig'] = $status['exitcode'] - 128;
+		}
+
+		if ( $status['signaled'] ) {
+			if ( defined( 'SIGXCPU' ) && $status['termsig'] === SIGXCPU ) {
 				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
 				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
-					array( 'args' => array( $termsig ) ) );
+					array( 'args' => array( $status['termsig'] ) ) );
 			}
 		} else {
 			$this->exitError = $this->engine->newException( 'scribunto-luastandalone-exited',
-				array( 'args' => array( $exitcode ) ) );
+				array( 'args' => array( $status['exitcode'] ) ) );
 		}
 		throw $this->exitError;
 	}
