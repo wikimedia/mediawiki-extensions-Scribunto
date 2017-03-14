@@ -6,5 +6,6 @@
 		]
 	},
 	"scribunto-common-error-category": "Skript xətası olan səhifələr",
-	"scribunto-lua-error": "Lua səhvi: $2."
+	"scribunto-lua-error": "Lua səhvi: $2.",
+	"scribunto-limitreport-timeusage-value": "$1/$2 saniyə"
 }

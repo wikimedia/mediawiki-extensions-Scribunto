@@ -61,5 +61,7 @@
 	"apihelp-scribunto-console-param-content": "Ti baro a linaon ti modulo.",
 	"apihelp-scribunto-console-param-session": "Tandaan ti sesion.",
 	"apihelp-scribunto-console-param-question": "Ti sumaruno a linia a pategan a kas eskritu.",
-	"apihelp-scribunto-console-param-clear": "Isaad a dalusan ti kasasaad ti agdama a sesion."
+	"apihelp-scribunto-console-param-clear": "Isaad a dalusan ti kasasaad ti agdama a sesion.",
+	"nstab-module": "Modulo",
+	"tooltip-ca-nstab-module": "Kitaen ti panid ti modulo"
 }
