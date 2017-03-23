@@ -2,15 +2,15 @@
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
-	const MAX_LANG_CACHE_SIZE = 20;
-
 	public $langCache = array();
 	public $timeCache = array();
+	public $maxLangCacheSize;
 
 	function register() {
 		// Pre-populate the language cache
 		global $wgContLang;
 		$this->langCache[$wgContLang->getCode()] = $wgContLang;
+		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
 		$statics = array(
 			'getContLangCode',
@@ -111,7 +111,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$name = strval( $name );
 		$code = array_shift( $args );
 		if ( !isset( $this->langCache[$code] ) ) {
-			if ( count( $this->langCache ) > self::MAX_LANG_CACHE_SIZE ) {
+			if ( count( $this->langCache ) > $this->maxLangCacheSize ) {
 				throw new Scribunto_LuaError( 'too many language codes requested' );
 			}
 			try {

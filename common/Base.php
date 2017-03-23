@@ -123,6 +123,17 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
+	 * Get an element from the configuration array
+	 *
+	 * @param string $optionName
+	 * @return mixed
+	 */
+	public function getOption( $optionName ) {
+		return isset( $this->options[$optionName] )
+			? $this->options[$optionName] : null;
+	}
+
+	/**
 	 * @param string $message
 	 * @param $params array
 	 * @return ScribuntoException

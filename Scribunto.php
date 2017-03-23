@@ -168,6 +168,13 @@ $wgScribuntoEngineConf = array(
 		// implemented in the future, and there is no guarantee that a
 		// simulation of setfenv() and getfenv() will be provided.
 		'allowEnvFuncs' => false,
+
+		// The maximum number of languages about which data can be requested.
+		// The cost is about 1.5MB of memory usage per language on default
+		// installations (during recache), but if recaching is disabled with
+		//     $wgLocalisationCacheConf['manualRecache'] = false
+		// then memory usage is perhaps 10x smaller.
+		'maxLangCacheSize' => 30,
 	),
 	'luastandalone' => array(
 		'class' => 'Scribunto_LuaStandaloneEngine',
@@ -182,6 +189,7 @@ $wgScribuntoEngineConf = array(
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
 		'allowEnvFuncs' => false,
+		'maxLangCacheSize' => 30,
 	),
 );
 

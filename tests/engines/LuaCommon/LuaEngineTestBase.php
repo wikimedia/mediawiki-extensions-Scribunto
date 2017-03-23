@@ -16,6 +16,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 			'memoryLimit' => 50000000,
 			'cpuLimit' => 30,
 			'allowEnvFuncs' => true,
+			'maxLangCacheSize' => 30,
 		),
 		'LuaStandalone' => array(
 			'errorFile' => null,
@@ -23,6 +24,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 			'memoryLimit' => 50000000,
 			'cpuLimit' => 30,
 			'allowEnvFuncs' => true,
+			'maxLangCacheSize' => 30,
 		),
 	);
 
