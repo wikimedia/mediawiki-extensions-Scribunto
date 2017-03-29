@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fraxinus"
+			"Fraxinus",
+			"Bugoslav"
 		]
 	},
-	"scribunto-lua-error": "Lua pogreška: $2."
+	"scribunto-lua-error": "Lua pogreška: $2.",
+	"nstab-module": "Modul"
 }
