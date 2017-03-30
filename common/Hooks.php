@@ -322,16 +322,16 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * EditPageBeforeEditChecks hook
+	 * EditPage::showStandardInputs:options hook
 	 *
 	 * @param EditPage $editor
-	 * @param array $checkboxes Checkbox array
-	 * @param int $tabindex Current tabindex
+	 * @param OutputPage $output
+	 * @param int $tab Current tabindex
 	 * @return bool
 	 */
-	public static function beforeEditChecks( EditPage &$editor, &$checkboxes, &$tabindex ) {
+	public static function showStandardInputsOptions( EditPage $editor, OutputPage $output, &$tab ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			$editor->getArticle()->getContext()->getOutput()->addModules( 'ext.scribunto.edit' );
+			$output->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
 		}
 		return true;

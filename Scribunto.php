@@ -70,7 +70,7 @@ $wgHooks['ParserCloned'][] = 'ScribuntoHooks::parserCloned';
 
 $wgHooks['CanonicalNamespaces'][] = 'ScribuntoHooks::addCanonicalNamespaces';
 $wgHooks['CodeEditorGetPageLanguage'][] = 'ScribuntoHooks::getCodeLanguage';
-$wgHooks['EditPageBeforeEditChecks'][] = 'ScribuntoHooks::beforeEditChecks';
+$wgHooks['EditPage::showStandardInputs:options'][] = 'ScribuntoHooks::showStandardInputsOptions';
 $wgHooks['EditPage::showReadOnlyForm:initial'][] = 'ScribuntoHooks::showReadOnlyFormInitial';
 $wgHooks['EditPageBeforeEditButtons'][] = 'ScribuntoHooks::beforeEditButtons';
 $wgHooks['EditFilterMergedContent'][] = 'ScribuntoHooks::validateScript';
