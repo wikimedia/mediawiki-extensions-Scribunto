@@ -18,7 +18,7 @@
 	"scribunto-console-intro": "* অসংরক্ষিত পরিবর্তনসহ, মডিউল রপ্তানি চলক \"p\" হিসাবে উপলব্ধ।\n* একটি লাইনকে একটি এক্সপ্রেশন হিসেবে মূল্যায়ন করতে, \"=\" দিয়ে শুরু করুন, বা print() ব্যবহার করুন।\n* এই কনসোলে বার্তা পাঠাতে মডিউল কোডে mw.log() ব্যবহার করুন।",
 	"scribunto-console-title": "ডিবাগ কনসোল",
 	"scribunto-console-current-src": "কনসোল ইনপুট",
-	"scribunto-console-clear": "পরিস্কার",
+	"scribunto-console-clear": "পরিষ্কার",
 	"scribunto-common-error-category": "স্ক্রিপ্ট ত্রুটিসহ পাতা",
 	"scribunto-common-nosuchmodule": "স্ক্রিপ্ট ত্রুটি: \"$2\" নামক কোন মডিউল নেই।",
 	"scribunto-common-nofunction": "স্ক্রিপ্ট ত্রুটি: কল করতে আপনাকে একটি ফাংশন অবশ্যই উল্লেখ করতে হবে।",
