@@ -123,6 +123,11 @@ $namespaceNames['dsb'] = array(
 	829 => 'Modul_diskusija',
 );
 
+$namespaceNames['dty'] = array(
+	828 => 'मोड्युल',
+	829 => 'मोड्युल_कुरणि',
+);
+
 $namespaceNames['dv'] = array(
 	828 => 'މޮޑިއުލް',
 	829 => 'މޮޑިއުލް_ޚިޔާލު',
