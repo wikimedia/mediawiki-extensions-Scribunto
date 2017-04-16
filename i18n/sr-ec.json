@@ -14,5 +14,6 @@
 	"scribunto-console-clear": "Очисти",
 	"scribunto-common-error-category": "Странице са грешкама у скрипти",
 	"scribunto-lua-error-location": "Lua грешка $1: $2.",
-	"scribunto-lua-error": "Lua грешка: $2."
+	"scribunto-lua-error": "Lua грешка: $2.",
+	"nstab-module": "Модул"
 }
