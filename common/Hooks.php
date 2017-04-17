@@ -218,7 +218,16 @@ class ScribuntoHooks {
 		static $stats;
 
 		if ( !$stats ) {
-			$stats = RequestContext::getMain()->getStats();
+			// check, if MediaWikiServices exists and has a StatsdDataFactory service for
+			// backward-compatibility with MediaWiki 1.25+
+			if (
+				class_exists( 'MediaWiki\\MediaWikiServices' ) &&
+				\MediaWiki\MediaWikiServices::getInstance()->hasService( 'StatsdDataFactory' )
+			) {
+				$stats = \MediaWiki\MediaWikiServices::getInstance()->getStatsdDataFactory();
+			} else {
+				$stats = RequestContext::getMain()->getStats();
+			}
 		}
 
 		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', wfWikiId(), $moduleName, $functionName );
