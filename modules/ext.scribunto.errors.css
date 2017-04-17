@@ -2,6 +2,7 @@
 	cursor: pointer;
 }
 
-.scribunto-error:hover, .scribunto-error:focus {
+.scribunto-error:hover,
+.scribunto-error:focus {
 	text-decoration: underline;
 }
