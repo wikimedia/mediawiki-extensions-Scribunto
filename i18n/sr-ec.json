@@ -2,18 +2,20 @@
 	"@metadata": {
 		"authors": [
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"scribunto-line": "на линији $1",
 	"scribunto-parser-dialog-title": "Грешка у скрипти",
 	"scribunto-error-short": "Грешка у скрипти: $1",
-	"scribunto-doc-page-name": "Модул:$1/док",
+	"scribunto-doc-page-name": "Module:$1/док",
 	"scribunto-doc-page-does-not-exist": "''Документација за овај модул се може направити на [[$1]]''",
 	"scribunto-doc-page-header": "'''Ово је документациона подстраница за [[$1]]'''",
 	"scribunto-console-clear": "Очисти",
 	"scribunto-common-error-category": "Странице са грешкама у скрипти",
 	"scribunto-lua-error-location": "Lua грешка $1: $2.",
 	"scribunto-lua-error": "Lua грешка: $2.",
-	"nstab-module": "Модул"
+	"nstab-module": "Модул",
+	"tooltip-ca-nstab-module": "Погледајте страницу модула"
 }

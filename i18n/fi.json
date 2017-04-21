@@ -57,5 +57,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-lokit",
 	"apihelp-scribunto-console-param-title": "Testattavan moduulin nimi.",
-	"apihelp-scribunto-console-param-content": "Moduulin uusi sisältö."
+	"apihelp-scribunto-console-param-content": "Moduulin uusi sisältö.",
+	"nstab-module": "Moduuli",
+	"tooltip-ca-nstab-module": "Näytä moduulisivu"
 }

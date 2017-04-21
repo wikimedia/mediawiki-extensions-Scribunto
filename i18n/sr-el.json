@@ -2,13 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"scribunto-line": "na liniji $1",
 	"scribunto-parser-dialog-title": "Greška u skripti",
 	"scribunto-error-short": "Greška u skripti: $1",
-	"scribunto-doc-page-name": "Modul:$1/dok",
+	"scribunto-doc-page-name": "Module:$1/dok",
 	"scribunto-doc-page-does-not-exist": "''Dokumentacija za ovaj modul se može napraviti na [[$1]]''",
 	"scribunto-doc-page-header": "'''Ovo je dokumentaciona podstranica za [[$1]]'''",
 	"scribunto-console-clear": "Očisti",
