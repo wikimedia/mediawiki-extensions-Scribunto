@@ -46,5 +46,7 @@
 	"scribunto-luastandalone-exited": "Error de Lua: error intern: l'intèrpret ha sortit amb l'estat «$2».",
 	"scribunto-module-with-errors-category": "Mòduls Scribunto amb errors",
 	"scribunto-module-with-errors-category-desc": "El mòdul conté un error.",
-	"scribunto-limitreport-timeusage-value": "$1/$2 segons"
+	"scribunto-limitreport-timeusage-value": "$1/$2 segons",
+	"nstab-module": "Mòdul",
+	"tooltip-ca-nstab-module": "Mostra la pàgina del mòdul"
 }
