@@ -113,6 +113,11 @@ $namespaceNames['de'] = array(
 	829 => 'Modul_Diskussion',
 );
 
+$namespaceNames['din'] = array(
+	828 => 'Mukääcëtök',
+	829 => 'Jam_wɛ̈t_ë_mukääcëtök',
+);
+
 $namespaceNames['diq'] = array(
 	828 => 'Modul',
 	829 => 'Modul_vaten',
