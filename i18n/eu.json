@@ -6,6 +6,7 @@
 			"Sator"
 		]
 	},
+	"scribunto-doc-page-name": "Modulu:$1/dok",
 	"scribunto-console-clear": "Garbitu",
 	"scribunto-lua-error-location": "Luanda errorea $1:$2.",
 	"scribunto-lua-error": "Lua errorea:$2.",

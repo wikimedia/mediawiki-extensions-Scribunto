@@ -29,7 +29,7 @@
 	"scribunto-common-nofunction": "Skriptfeil: Du må angi en funksjon som skal kalles.",
 	"scribunto-common-nosuchfunction": "Skriptfeil: Funksjonen «$2» eksisterer ikke.",
 	"scribunto-common-notafunction": "Skriptfeil: «$2» er ikke en funksjon.",
-	"scribunto-common-timeout": "Tiden som er avstatt til å kjøre skript har løpt ut.",
+	"scribunto-common-timeout": "Tiden som er avsatt til å kjøre skript har løpt ut.",
 	"scribunto-common-oom": "Mengden minne tillatt for å kjøre skript er overskredet.",
 	"scribunto-common-backtrace": "Tilbakesporing:",
 	"scribunto-common-no-details": "Ingen flere detaljer er tilgjengelig.",
