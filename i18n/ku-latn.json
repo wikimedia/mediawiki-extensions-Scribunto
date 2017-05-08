@@ -3,7 +3,8 @@
 		"authors": [
 			"Ghybu",
 			"Gomada",
-			"George Animal"
+			"George Animal",
+			"McDutchie"
 		]
 	},
 	"scribunto-line": "li ser rêza $1",
@@ -11,7 +12,7 @@
 	"scribunto-parser-dialog-title": "Çewtiya nivîsê",
 	"scribunto-error-short": "Çewtiya nivîsê: $1",
 	"scribunto-error-long": "Çewtiyên nivîsê:\n\n$1",
-	"scribunto-doc-page-name": "Modul:$1/belge",
+	"scribunto-doc-page-name": "Module:$1/belge",
 	"scribunto-doc-page-header": "'''Ev rûpela belgekirinê ya [[$1]] ye'''",
 	"scribunto-console-clear": "Jê bibe",
 	"scribunto-common-error-category": "Rûpelên bi çewtiyên kodê",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Toliño",
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguaxes de script nas páxinas de MediaWiki",
@@ -12,7 +13,7 @@
 	"scribunto-parser-dialog-title": "Erro de script",
 	"scribunto-error-short": "Erro de script: $1",
 	"scribunto-error-long": "Erros de script:\n\n$1",
-	"scribunto-doc-page-name": "Módulo:$1/uso",
+	"scribunto-doc-page-name": "Module:$1/uso",
 	"scribunto-doc-page-does-not-exist": "''A documentación deste módulo pódese crear en \"[[$1]]\"''",
 	"scribunto-doc-page-header": "'''Esta é a páxina de documentación de \"[[$1]]\"'''",
 	"scribunto-console-intro": "* As exportacións do módulo están dispoñibles como a variable \"p\", incluídas as modificacións sen gardar.\n* Poña un \"=\" ao comezo da liña para avaliala como unha expresión; tamén pode usar print().\n* Use mw.log() no código do módulo para enviar mensaxes a esta consola.",

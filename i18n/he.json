@@ -3,7 +3,8 @@
 		"authors": [
 			"Amire80",
 			"ערן",
-			"Guycn2"
+			"Guycn2",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי",
@@ -12,7 +13,7 @@
 	"scribunto-parser-dialog-title": "שגיאה בתסריט",
 	"scribunto-error-short": "שגיאה בתסריט: $1",
 	"scribunto-error-long": "שגיאות בתסריט:\n\n$1",
-	"scribunto-doc-page-name": "יחידה:$1/תיעוד",
+	"scribunto-doc-page-name": "Module:$1/תיעוד",
 	"scribunto-doc-page-does-not-exist": "ניתן ליצור תיעוד על היחידה הזאת בדף [[$1]]",
 	"scribunto-doc-page-header": "זהו דף התיעוד עבור [[$1]]",
 	"scribunto-console-intro": "* השמות המיוצאים מיחידה זמינים במשתנה \"p\", כולל שינויים שלא נשמרו.\n* כדי לחשב את השורה כביטוי יש להתחיל אותה בסימן \"=\" או להשתמש ב־print()‎.\n* כדי לשלוח הודעות למסוף הזה, יש להשתמש ב־mw.log()‎.",

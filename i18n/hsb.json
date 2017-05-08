@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Michawiki",
-			"Tlustulimu"
+			"Tlustulimu",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Wobłuk za zasadźenje skriptowych rěčow do stronow MediaWiki",
@@ -11,7 +12,7 @@
 	"scribunto-parser-dialog-title": "Skriptowy zmylk",
 	"scribunto-error-short": "Skriptowy zmylk: $1",
 	"scribunto-error-long": "Skriptowe zmylki:\n\n$1",
-	"scribunto-doc-page-name": "Modul:$1/dokumentacija",
+	"scribunto-doc-page-name": "Module:$1/dokumentacija",
 	"scribunto-doc-page-does-not-exist": "''Dokumentacija za tutón modul hodźi so na [[$1]] wutworić''",
 	"scribunto-doc-page-header": "'''To je dokumentaciska strona za [[$1]]'''",
 	"scribunto-console-intro": "* Modulowe eksporty steja jako wariabla \"p\" k dispoziciji, inkluziwnje njeskładowanych změnow.\n* Staj \"=\" před linku, zo by ju jako wuraz wuhódnoćił, abo wužij print().\n* Wužij mw.log() w modulowym kodźe, zo by powěsće na konsolu pósłał.",

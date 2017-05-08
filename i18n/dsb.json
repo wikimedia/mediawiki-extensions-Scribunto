@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Michawiki",
-			"Tlustulimu"
+			"Tlustulimu",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Wobcerk za zasajźenje skriptowych rěcow do bokow MediaWiki",
@@ -11,7 +12,7 @@
 	"scribunto-parser-dialog-title": "Skriptowa zmólka",
 	"scribunto-error-short": "Skriptowa zmólka: $1",
 	"scribunto-error-long": "Skriptowe zmólki:\n\n$1",
-	"scribunto-doc-page-name": "Modul:$1/Documentacija",
+	"scribunto-doc-page-name": "Module:$1/Documentacija",
 	"scribunto-doc-page-does-not-exist": "''Dokumentacija za toś ten modul dajo se na [[$1]] napóraś''",
 	"scribunto-doc-page-header": "'''To jo dokumentaciski bok za [[$1]]'''",
 	"scribunto-console-intro": "* Modulowe eksporty stoje ako wariabla \"p\" k dispoziciji, inkluziwnje njeskładowanych změnow.\n* Staj \"=\" pśed smužku, aby ju ako wuraz wugódnośił, abo wužyj print().\n* Wužyj mw.log() w modulowem koźe, aby powěsći na konsolu pósłał.",

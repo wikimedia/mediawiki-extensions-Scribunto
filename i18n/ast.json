@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Infraestructura pa incrustar llinguaxes de script nes páxines de MediaWiki",
@@ -10,7 +11,7 @@
 	"scribunto-parser-dialog-title": "Error de script",
 	"scribunto-error-short": "Error de script: $1",
 	"scribunto-error-long": "Errores de script:\n\n$1",
-	"scribunto-doc-page-name": "Módulu:$1/usu",
+	"scribunto-doc-page-name": "Module:$1/usu",
 	"scribunto-doc-page-does-not-exist": "''La documentación pa esti módulu pue crease'n [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta ye la páxina de documentación pa [[$1]]'''",
 	"scribunto-console-intro": "* Les esportaciones del módulu tan disponibles como la variable \"p\", incluyendo los cambios ensin guardar.\n* Ponga un \"=\" delantre de la llinia pa evaluala como una espresión, o use print().\n* Use mw.log() nel códigu del módulu pa unviar los mensaxes a esta consola.",

@@ -10,7 +10,8 @@
 			"Macofe",
 			"Ryo567",
 			"Lemondoge",
-			"Dgstranz"
+			"Dgstranz",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Marco para la incorporación de lenguajes de script en páginas de MediaWiki",
@@ -19,7 +20,7 @@
 	"scribunto-parser-dialog-title": "Error en la secuencia de comandos",
 	"scribunto-error-short": "Error de secuencia de órdenes: $1",
 	"scribunto-error-long": "Errores en la secuencia de órdenes:\n\n$1",
-	"scribunto-doc-page-name": "Módulo:$1/doc",
+	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''La documentación para este módulo puede ser creada en [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta es la página de documentación de [[$1]]'''",
 	"scribunto-console-intro": "* Las exportaciones del módulo están disponibles como la variable \"p\", incluidas las modificaciones sin guardar.\n* Inicia una línea con el carácter \"=\" para evaluarla como una expresión; o usa print().\n* Usa mw.log() en el código del módulo para enviar mensajes a esta consola.",

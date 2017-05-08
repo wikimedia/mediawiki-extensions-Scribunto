@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Muhammad Shuaib"
+			"Muhammad Shuaib",
+			"McDutchie"
 		]
 	},
 	"scribunto-line": "سطر $1 پر",
@@ -9,7 +10,7 @@
 	"scribunto-parser-dialog-title": "سکرپٹ خطا",
 	"scribunto-error-short": "سکرپٹ خطا: $1",
 	"scribunto-error-long": "سکرپٹ خطا:\n\n$1",
-	"scribunto-doc-page-name": "ماڈیول:$1/دستاویز",
+	"scribunto-doc-page-name": "Module:$1/دستاویز",
 	"scribunto-doc-page-does-not-exist": "''اس ماڈیول کی دستاویز [[$1]] پر بنائی جاسکتی ہے''",
 	"scribunto-doc-page-header": "'''یہ [[$1]] کا دستاویزی صفحہ ہے'''",
 	"scribunto-console-clear": "صاف کریں",

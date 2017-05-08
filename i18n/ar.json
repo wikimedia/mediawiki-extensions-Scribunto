@@ -3,7 +3,8 @@
 		"authors": [
 			"زكريا",
 			"Yahya Sakhnini",
-			"Mr. Ibrahem"
+			"Mr. Ibrahem",
+			"McDutchie"
 		]
 	},
 	"scribunto-line": "في السطر $1",
@@ -11,7 +12,7 @@
 	"scribunto-parser-dialog-title": "خطأ في البرنامج النصي",
 	"scribunto-error-short": "خطأ في البرنامج النصي: $1",
 	"scribunto-error-long": "أخطاء البرنامج النصي:\n\n$1",
-	"scribunto-doc-page-name": "وحدة:$1/شرح",
+	"scribunto-doc-page-name": "Module:$1/شرح",
 	"scribunto-doc-page-does-not-exist": "''يمكن إنشاء صفحة توثيق الوحدة في [[$1]]''",
 	"scribunto-doc-page-header": "'''هذه صفحة توثيق ل[[$1]]'''",
 	"scribunto-console-clear": "إفراغ",
