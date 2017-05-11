@@ -1,9 +1,0 @@
-{
-	"preset": "wikimedia",
-	"disallowEmptyBlocks": {
-		"allExcept": [ "comments" ]
-	},
-	"requireDotNotation": {
-		"allExcept": [ "keywords" ]
-	}
-}

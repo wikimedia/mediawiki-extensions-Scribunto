@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 ( function ( $, mw ) {
 
 	/**
@@ -11,14 +13,12 @@
 	 *    * Collapsible backtrace display
 	 */
 
-	var
-		histList = [ '' ],
+	var histList = [ '' ],
 		histPos = 0,
 		question,
 		input,
 		output,
 		$spinner,
-		lastError = null,
 		sessionContent = null,
 		sessionKey = null,
 		pending = false,
@@ -45,8 +45,6 @@
 	 * @param {jQuery.Event} e
 	 */
 	function inputKeydown( e ) {
-		/*jshint noempty:false */
-
 		if ( e.shiftKey && e.keyCode === 13 ) {
 			// shift-enter
 			// don't do anything; allow the shift-enter to insert a line break as normal
@@ -203,8 +201,6 @@
 	function printError( er ) {
 		var lineNumberString;
 
-		// for debugging the shell
-		lastError = er;
 		if ( er.name ) {
 			// lineNumberString should not be '', to avoid a very wacky bug in IE 6.
 			lineNumberString = ( er.lineNumber !== undefined ) ? ( ' on line ' + er.lineNumber + ': ' ) : ': ';
