@@ -7,7 +7,8 @@
 			"Vitorvicentevalente",
 			"He7d3r",
 			"Luan",
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"McDutchie"
 		]
 	},
 	"scribunto-desc": "Fornece uma estrutura para incorporação de linguagens de comandos (''scripting'') em páginas do MediaWiki",
@@ -16,7 +17,7 @@
 	"scribunto-parser-dialog-title": "Erro no script",
 	"scribunto-error-short": "Erro no script: $1",
 	"scribunto-error-long": "Erro no script:\n\n$1",
-	"scribunto-doc-page-name": "Módulo:$1/doc",
+	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''A documentação para este módulo pode ser criada na página [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta é a página de documentação de [[$1]]'''",
 	"scribunto-console-intro": "* As exportações do módulo estão disponíveis por meio da variável \"p\", incluindo alterações não gravadas.\n* Preceda a linha com \"=\" para esta ser calculada como uma expressão, ou utilize print().\n* Use mw.log() no código do módulo para enviar mensagens para esta consola.",
