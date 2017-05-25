@@ -16,5 +16,8 @@
 	"scribunto-common-error-category": "Stranice sa greškama u skripti",
 	"scribunto-lua-error-location": "Lua greška $1: $2.",
 	"scribunto-lua-error": "Lua greška: $2.",
+	"scribunto-limitreport-timeusage": "Vreme korišćenja Lua",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekundi",
+	"scribunto-limitreport-memusage": "Memorija korišćenja Lua",
 	"nstab-module": "Modul"
 }
