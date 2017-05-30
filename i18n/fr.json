@@ -49,7 +49,7 @@
 	"scribunto-luastandalone-proc-error": "Erreur LUA : Impossible de créer le processus.",
 	"scribunto-luastandalone-proc-error-msg": "Erreur LUA : Impossible de créer le processus : $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Erreur LUA : Impossible de créer le processus : proc_open n’est pas disponible. Vérifiez la directive de configuration PHP « disable_functions ».",
-	"scribunto-luastandalone-proc-error-safe-mode": "Erreur LUA : Impossible de créer le processus : Veuillez noter que la directive de configuration PHP obsolète « safe_mode » est activée.",
+	"scribunto-luastandalone-proc-error-safe-mode": "Erreur LUA : Impossible de créer le processus : Veuillez noter que la directive de configuration PHP désuète « safe_mode » est activée.",
 	"scribunto-luastandalone-decode-error": "Erreur LUA : Erreur interne : Impossible de décoder le message.",
 	"scribunto-luastandalone-write-error": "Erreur LUA : Erreur interne : Erreur d'écriture dans le tube (pipe).",
 	"scribunto-luastandalone-read-error": "Erreur LUA : Erreur interne : Erreur de lecture du tube (pipe).",
