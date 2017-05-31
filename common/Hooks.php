@@ -20,6 +20,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+use RunningStat\PSquare;
+
 /**
  * Hooks for the Scribunto extension.
  */
@@ -197,7 +199,7 @@ class ScribuntoHooks {
 		// observations in APC, and extract the Nth percentile (specified
 		// via $wgScribuntoSlowFunctionThreshold; defaults to 0.90).
 		// We need APC and \RunningStat\PSquare to do that.
-		if ( !class_exists( '\RunningStat\PSquare' ) || $cache instanceof EmptyBagOStuff ) {
+		if ( !class_exists( PSquare::class ) || $cache instanceof EmptyBagOStuff ) {
 			return;
 		}
 
@@ -207,7 +209,7 @@ class ScribuntoHooks {
 		// mutual exclusion, but the only consequence is that some samples
 		// will be dropped. We only need enough samples to estimate the
 		// the shape of the data, so that's fine.
-		$ps = $cache->get( $key ) ?: new \RunningStat\PSquare( $threshold );
+		$ps = $cache->get( $key ) ?: new PSquare( $threshold );
 		$ps->addObservation( $timing );
 		$cache->set( $key, $ps, 60 );
 
