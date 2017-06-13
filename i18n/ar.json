@@ -4,7 +4,8 @@
 			"زكريا",
 			"Yahya Sakhnini",
 			"Mr. Ibrahem",
-			"McDutchie"
+			"McDutchie",
+			"Mido"
 		]
 	},
 	"scribunto-line": "في السطر $1",
@@ -29,7 +30,7 @@
 	"scribunto-lua-in-main": "في الجزء الرئيسي",
 	"scribunto-lua-in-function-at": "في الوظيفة عند $1:$2",
 	"scribunto-lua-error-location": "خطأ لوا $1: $2.",
-	"scribunto-lua-error": "خطأ أخذ:$2",
+	"scribunto-lua-error": "خطأ لوا: $2.",
 	"scribunto-lua-notarrayreturn": "خطأ:أنتجت الوحدة $2 كقيمة، ومن المفترض أن تنتج جدول.",
 	"scribunto-luastandalone-proc-error": "خطأ لوا: لا يمكن إنشاء العملية.",
 	"scribunto-luastandalone-proc-error-msg": "خطأ لوا: لا يمكن إنشاء العملية: $2",
