@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Scribunto">
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
-		<severity>0</severity>
-	</rule>
 	<rule ref="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures">
 		<severity>0</severity>
 	</rule>

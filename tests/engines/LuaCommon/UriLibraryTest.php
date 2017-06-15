@@ -7,20 +7,20 @@ class Scribunto_LuaUriLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgServer' => '//wiki.local',
 			'wgCanonicalServer' => 'http://wiki.local',
 			'wgUsePathInfo' => true,
-			'wgActionPaths' => array(),
+			'wgActionPaths' => [],
 			'wgScript' => '/w/index.php',
 			'wgScriptPath' => '/w',
 			'wgArticlePath' => '/wiki/$1',
-		) );
+		] );
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'UriLibraryTests' => __DIR__ . '/UriLibraryTests.lua',
-		);
+		];
 	}
 }

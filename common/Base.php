@@ -45,7 +45,7 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * @var ScribuntoModuleBase[]
 	 */
-	protected $modules = array();
+	protected $modules = [];
 
 	/**
 	 * @var Parser
@@ -138,7 +138,7 @@ abstract class ScribuntoEngineBase {
 	 * @param $params array
 	 * @return ScribuntoException
 	 */
-	public function newException( $message, array $params = array() ) {
+	public function newException( $message, array $params = [] ) {
 		return new ScribuntoException( $message, $this->getDefaultExceptionParams() + $params );
 	}
 
@@ -146,7 +146,7 @@ abstract class ScribuntoEngineBase {
 	 * @return array
 	 */
 	public function getDefaultExceptionParams() {
-		$params = array();
+		$params = [];
 		if ( $this->title ) {
 			$params['title'] = $this->title;
 		}
@@ -255,9 +255,9 @@ abstract class ScribuntoEngineBase {
 	 * @param $coreLibraries Array of core libraries we support
 	 * @return array
 	 */
-	protected function getLibraries( $engine, array $coreLibraries = array() ) {
-		$extraLibraries = array();
-		Hooks::run( 'ScribuntoExternalLibraries', array( $engine, &$extraLibraries ) );
+	protected function getLibraries( $engine, array $coreLibraries = [] ) {
+		$extraLibraries = [];
+		Hooks::run( 'ScribuntoExternalLibraries', [ $engine, &$extraLibraries ] );
 		return $coreLibraries + $extraLibraries;
 	}
 
@@ -268,9 +268,9 @@ abstract class ScribuntoEngineBase {
 	 * @param $coreLibraryPaths Array of library paths to use by default
 	 * @return array
 	 */
-	protected function getLibraryPaths( $engine, array $coreLibraryPaths = array() ) {
-		$extraLibraryPaths = array();
-		Hooks::run( 'ScribuntoExternalLibraryPaths', array( $engine, &$extraLibraryPaths ) );
+	protected function getLibraryPaths( $engine, array $coreLibraryPaths = [] ) {
+		$extraLibraryPaths = [];
+		Hooks::run( 'ScribuntoExternalLibraryPaths', [ $engine, &$extraLibraryPaths ] );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
 	}
 

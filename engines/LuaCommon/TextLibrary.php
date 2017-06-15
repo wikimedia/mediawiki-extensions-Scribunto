@@ -10,21 +10,21 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
 		global $wgUrlProtocols;
 
-		$lib = array(
-			'unstrip' => array( $this, 'textUnstrip' ),
-			'unstripNoWiki' => array( $this, 'textUnstripNoWiki' ),
-			'killMarkers' => array( $this, 'killMarkers' ),
-			'getEntityTable' => array( $this, 'getEntityTable' ),
-			'jsonEncode' => array( $this, 'jsonEncode' ),
-			'jsonDecode' => array( $this, 'jsonDecode' ),
-		);
-		$opts = array(
+		$lib = [
+			'unstrip' => [ $this, 'textUnstrip' ],
+			'unstripNoWiki' => [ $this, 'textUnstripNoWiki' ],
+			'killMarkers' => [ $this, 'killMarkers' ],
+			'getEntityTable' => [ $this, 'getEntityTable' ],
+			'jsonEncode' => [ $this, 'jsonEncode' ],
+			'jsonDecode' => [ $this, 'jsonDecode' ],
+		];
+		$opts = [
 			'comma' => wfMessage( 'comma-separator' )->inContentLanguage()->text(),
 			'and' => wfMessage( 'and' )->inContentLanguage()->text() .
 				wfMessage( 'word-separator' )->inContentLanguage()->text(),
 			'ellipsis' => wfMessage( 'ellipsis' )->inContentLanguage()->text(),
-			'nowiki_protocols' => array(),
-		);
+			'nowiki_protocols' => [],
+		];
 
 		foreach ( $wgUrlProtocols as $prot ) {
 			if ( substr( $prot, -1 ) === ':' ) {
@@ -48,17 +48,17 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	function textUnstrip( $s ) {
 		$this->checkType( 'unstrip', 1, $s, 'string' );
 		$stripState = $this->getParser()->mStripState;
-		return array( $stripState->killMarkers( $stripState->unstripNoWiki( $s ) ) );
+		return [ $stripState->killMarkers( $stripState->unstripNoWiki( $s ) ) ];
 	}
 
 	function textUnstripNoWiki( $s ) {
 		$this->checkType( 'unstripNoWiki', 1, $s, 'string' );
-		return array( $this->getParser()->mStripState->unstripNoWiki( $s ) );
+		return [ $this->getParser()->mStripState->unstripNoWiki( $s ) ];
 	}
 
 	function killMarkers( $s ) {
 		$this->checkType( 'killMarkers', 1, $s, 'string' );
-		return array( $this->getParser()->mStripState->killMarkers( $s ) );
+		return [ $this->getParser()->mStripState->killMarkers( $s ) ];
 	}
 
 	function getEntityTable() {
@@ -68,7 +68,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 			$flags |= constant( "ENT_HTML5" );
 		}
 		$table = array_flip( get_html_translation_table( HTML_ENTITIES, $flags, "UTF-8" ) );
-		return array( $table );
+		return [ $table ];
 	}
 
 	public function jsonEncode( $value, $flags ) {
@@ -81,7 +81,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		if ( $ret === false ) {
 			throw new Scribunto_LuaError( 'mw.text.jsonEncode: Unable to encode value' );
 		}
-		return array( $ret );
+		return [ $ret ];
 	}
 
 	public function jsonDecode( $s, $flags ) {
@@ -100,7 +100,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		if ( !( $flags & self::JSON_PRESERVE_KEYS ) && is_array( $val ) ) {
 			$val = self::reindexArrays( $val, false );
 		}
-		return array( $val );
+		return [ $val ];
 	}
 
 	/** Recursively reindex array with integer keys to 0-based or 1-based

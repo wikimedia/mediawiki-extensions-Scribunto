@@ -4,21 +4,21 @@
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	private static $namespacesCacheLang = null;
 	private static $namespacesCache = null;
-	private static $interwikiMapCache = array();
-	private $pagesInCategoryCache = array();
+	private static $interwikiMapCache = [];
+	private $pagesInCategoryCache = [];
 
 	function register() {
 		global $wgContLang, $wgNamespaceAliases, $wgDisableCounters;
 
-		$lib = array(
-			'getNsIndex' => array( $this, 'getNsIndex' ),
-			'pagesInCategory' => array( $this, 'pagesInCategory' ),
-			'pagesInNamespace' => array( $this, 'pagesInNamespace' ),
-			'usersInGroup' => array( $this, 'usersInGroup' ),
-			'interwikiMap' => array( $this, 'interwikiMap' ),
-		);
+		$lib = [
+			'getNsIndex' => [ $this, 'getNsIndex' ],
+			'pagesInCategory' => [ $this, 'pagesInCategory' ],
+			'pagesInNamespace' => [ $this, 'pagesInNamespace' ],
+			'usersInGroup' => [ $this, 'usersInGroup' ],
+			'interwikiMap' => [ $this, 'interwikiMap' ],
+		];
 		$parser = $this->getParser();
-		$info = array(
+		$info = [
 			'siteName' => $GLOBALS['wgSitename'],
 			'server' => $GLOBALS['wgServer'],
 			'scriptPath' => $GLOBALS['wgScriptPath'],
@@ -26,14 +26,14 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'currentVersion' => SpecialVersion::getVersion(
 				'', $parser ? $parser->getTargetLanguage() : $wgContLang
 			),
-		);
+		];
 
 		if ( !self::$namespacesCache || self::$namespacesCacheLang !== $wgContLang->getCode() ) {
-			$namespaces = array();
-			$namespacesByName = array();
+			$namespaces = [];
+			$namespacesByName = [];
 			foreach ( $wgContLang->getFormattedNamespaces() as $ns => $title ) {
 				$canonical = MWNamespace::getCanonicalName( $ns );
-				$namespaces[$ns] = array(
+				$namespaces[$ns] = [
 					'id' => $ns,
 					'name' => $title,
 					'canonicalName' => strtr( $canonical, '_', ' ' ),
@@ -46,8 +46,8 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 					'isSubject' => MWNamespace::isSubject( $ns ),
 					'isTalk' => MWNamespace::isTalk( $ns ),
 					'defaultContentModel' => MWNamespace::getNamespaceContentModel( $ns ),
-					'aliases' => array(),
-				);
+					'aliases' => [],
+				];
 				if ( $ns >= NS_MAIN ) {
 					$namespaces[$ns]['subject'] = MWNamespace::getSubject( $ns );
 					$namespaces[$ns]['talk'] = MWNamespace::getTalk( $ns );
@@ -77,7 +77,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$info['namespaces'] = self::$namespacesCache;
 
-		$info['stats'] = array(
+		$info['stats'] = [
 			'pages' => (int)SiteStats::pages(),
 			'articles' => (int)SiteStats::articles(),
 			'files' => (int)SiteStats::images(),
@@ -86,7 +86,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'users' => (int)SiteStats::users(),
 			'activeUsers' => (int)SiteStats::activeUsers(),
 			'admins' => (int)SiteStats::numberingroup( 'sysop' ),
-		);
+		];
 
 		return $this->getEngine()->registerInterface( 'mw.site.lua', $lib, $info );
 	}
@@ -97,40 +97,40 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 
 		$title = Title::makeTitleSafe( NS_CATEGORY, $category );
 		if ( !$title ) {
-			return array( 0 );
+			return [ 0 ];
 		}
 		$cacheKey = $title->getDBkey();
 
 		if ( !isset( $this->pagesInCategoryCache[$cacheKey] ) ) {
 			$this->incrementExpensiveFunctionCount();
 			$category = Category::newFromTitle( $title );
-			$counts = array(
+			$counts = [
 				'all' => (int)$category->getPageCount(),
 				'subcats' => (int)$category->getSubcatCount(),
 				'files' => (int)$category->getFileCount(),
-			);
+			];
 			$counts['pages'] = $counts['all'] - $counts['subcats'] - $counts['files'];
 			$this->pagesInCategoryCache[$cacheKey] = $counts;
 		}
 		if ( $which === '*' ) {
-			return array( $this->pagesInCategoryCache[$cacheKey] );
+			return [ $this->pagesInCategoryCache[$cacheKey] ];
 		}
 		if ( !isset( $this->pagesInCategoryCache[$cacheKey][$which] ) ) {
 			$this->checkType(
 				'pagesInCategory', 2, $which, "one of '*', 'all', 'pages', 'subcats', or 'files'"
 			);
 		}
-		return array( $this->pagesInCategoryCache[$cacheKey][$which] );
+		return [ $this->pagesInCategoryCache[$cacheKey][$which] ];
 	}
 
 	public function pagesInNamespace( $ns = null ) {
 		$this->checkType( 'pagesInNamespace', 1, $ns, 'number' );
-		return array( (int)SiteStats::pagesInNs( intval( $ns ) ) );
+		return [ (int)SiteStats::pagesInNs( intval( $ns ) ) ];
 	}
 
 	public function usersInGroup( $group = null ) {
 		$this->checkType( 'usersInGroup', 1, $group, 'string' );
-		return array( (int)SiteStats::numberingroup( strtolower( $group ) ) );
+		return [ (int)SiteStats::numberingroup( strtolower( $group ) ) ];
 	}
 
 	public function getNsIndex( $name = null ) {
@@ -138,7 +138,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkType( 'getNsIndex', 1, $name, 'string' );
 		// PHP call is case-insensitive but chokes on non-standard spaces/underscores.
 		$name = trim( preg_replace( '/[\s_]+/', '_', $name ), '_' );
-		return array( $wgContLang->getNsIndex( $name ) );
+		return [ $wgContLang->getNsIndex( $name ) ];
 	}
 
 	public function interwikiMap( $filter = null ) {
@@ -158,11 +158,11 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		if ( !isset( self::$interwikiMapCache[$cacheKey] ) ) {
 			// Not expensive because we can have a max of three cache misses in the
 			// entire page parse.
-			$interwikiMap = array();
+			$interwikiMap = [];
 			$prefixes = Interwiki::getAllPrefixes( $local );
 			foreach ( $prefixes as $row ) {
 				$prefix = $row['iw_prefix'];
-				$val = array(
+				$val = [
 					'prefix' => $prefix,
 					'url' => wfExpandUrl( $row['iw_url'], PROTO_RELATIVE ),
 					'isProtocolRelative' => substr( $row['iw_url'], 0, 2 ) === '//',
@@ -170,7 +170,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 					'isTranscludable' => isset( $row['iw_trans'] ) && $row['iw_trans'] == '1',
 					'isCurrentWiki' => in_array( $prefix, $wgLocalInterwikis ),
 					'isExtraLanguageLink' => in_array( $prefix, $wgExtraInterlanguageLinkPrefixes ),
-				);
+				];
 				if ( $val['isExtraLanguageLink'] ) {
 					$displayText = wfMessage( "interlanguage-link-$prefix" );
 					if ( !$displayText->isDisabled() ) {
@@ -185,6 +185,6 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			}
 			self::$interwikiMapCache[$cacheKey] = $interwikiMap;
 		}
-		return array( self::$interwikiMapCache[$cacheKey] );
+		return [ self::$interwikiMapCache[$cacheKey] ];
 	}
 }

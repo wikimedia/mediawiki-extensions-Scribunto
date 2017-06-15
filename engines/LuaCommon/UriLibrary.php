@@ -3,22 +3,22 @@
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
-		$lib = array(
-			'anchorEncode' => array( $this, 'anchorEncode' ),
-			'localUrl' => array( $this, 'localUrl' ),
-			'fullUrl' => array( $this, 'fullUrl' ),
-			'canonicalUrl' => array( $this, 'canonicalUrl' ),
-		);
+		$lib = [
+			'anchorEncode' => [ $this, 'anchorEncode' ],
+			'localUrl' => [ $this, 'localUrl' ],
+			'fullUrl' => [ $this, 'fullUrl' ],
+			'canonicalUrl' => [ $this, 'canonicalUrl' ],
+		];
 
-		return $this->getEngine()->registerInterface( 'mw.uri.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.uri.lua', $lib, [
 			'defaultUrl' => $this->getTitle()->getFullUrl(),
-		) );
+		] );
 	}
 
 	public function anchorEncode( $s ) {
-		return array( CoreParserFunctions::anchorencode(
+		return [ CoreParserFunctions::anchorencode(
 			$this->getParser(), $s
-		) );
+		) ];
 	}
 
 	private function getUrl( $func, $page, $query ) {
@@ -36,9 +36,9 @@ class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 			} else {
 				$text = $title->$func();
 			}
-			return array( $text );
+			return [ $text ];
 		} else {
-			return array( null );
+			return [ null ];
 		}
 	}
 

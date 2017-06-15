@@ -52,41 +52,41 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		$perf = $this->getEngine()->getPerformanceCharacteristics();
 
 		if ( $perf['phpCallsRequireSerialization'] ) {
-			$lib = array(
+			$lib = [
 				// Pattern matching is still much faster in PHP, even with the
 				// overhead of serialization
-				'find' => array( $this, 'ustringFind' ),
-				'match' => array( $this, 'ustringMatch' ),
-				'gmatch_init' => array( $this, 'ustringGmatchInit' ),
-				'gmatch_callback' => array( $this, 'ustringGmatchCallback' ),
-				'gsub' => array( $this, 'ustringGsub' ),
-			);
+				'find' => [ $this, 'ustringFind' ],
+				'match' => [ $this, 'ustringMatch' ],
+				'gmatch_init' => [ $this, 'ustringGmatchInit' ],
+				'gmatch_callback' => [ $this, 'ustringGmatchCallback' ],
+				'gsub' => [ $this, 'ustringGsub' ],
+			];
 		} else {
-			$lib = array(
-				'isutf8' => array( $this, 'ustringIsUtf8' ),
-				'byteoffset' => array( $this, 'ustringByteoffset' ),
-				'codepoint' => array( $this, 'ustringCodepoint' ),
-				'gcodepoint_init' => array( $this, 'ustringGcodepointInit' ),
-				'toNFC' => array( $this, 'ustringToNFC' ),
-				'toNFD' => array( $this, 'ustringToNFD' ),
-				'toNFKC' => array( $this, 'ustringToNFKC' ),
-				'toNFKD' => array( $this, 'ustringToNFKD' ),
-				'char' => array( $this, 'ustringChar' ),
-				'len' => array( $this, 'ustringLen' ),
-				'sub' => array( $this, 'ustringSub' ),
-				'upper' => array( $this, 'ustringUpper' ),
-				'lower' => array( $this, 'ustringLower' ),
-				'find' => array( $this, 'ustringFind' ),
-				'match' => array( $this, 'ustringMatch' ),
-				'gmatch_init' => array( $this, 'ustringGmatchInit' ),
-				'gmatch_callback' => array( $this, 'ustringGmatchCallback' ),
-				'gsub' => array( $this, 'ustringGsub' ),
-			);
+			$lib = [
+				'isutf8' => [ $this, 'ustringIsUtf8' ],
+				'byteoffset' => [ $this, 'ustringByteoffset' ],
+				'codepoint' => [ $this, 'ustringCodepoint' ],
+				'gcodepoint_init' => [ $this, 'ustringGcodepointInit' ],
+				'toNFC' => [ $this, 'ustringToNFC' ],
+				'toNFD' => [ $this, 'ustringToNFD' ],
+				'toNFKC' => [ $this, 'ustringToNFKC' ],
+				'toNFKD' => [ $this, 'ustringToNFKD' ],
+				'char' => [ $this, 'ustringChar' ],
+				'len' => [ $this, 'ustringLen' ],
+				'sub' => [ $this, 'ustringSub' ],
+				'upper' => [ $this, 'ustringUpper' ],
+				'lower' => [ $this, 'ustringLower' ],
+				'find' => [ $this, 'ustringFind' ],
+				'match' => [ $this, 'ustringMatch' ],
+				'gmatch_init' => [ $this, 'ustringGmatchInit' ],
+				'gmatch_callback' => [ $this, 'ustringGmatchCallback' ],
+				'gsub' => [ $this, 'ustringGsub' ],
+			];
 		}
-		return $this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, [
 			'stringLengthLimit' => $this->stringLengthLimit,
 			'patternLengthLimit' => $this->patternLengthLimit,
-		) );
+		] );
 	}
 
 	// Once we no longer support PHP < 5.4, calls to this method may be replaced with
@@ -117,7 +117,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringIsUtf8( $s ) {
 		$this->checkString( 'isutf8', $s, false );
-		return array( $this->checkEncoding( $s ) );
+		return [ $this->checkEncoding( $s ) ];
 	}
 
 	public function ustringByteoffset( $s, $l = 1, $i = 1 ) {
@@ -130,7 +130,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$i = $bytelen + $i + 1;
 		}
 		if ( $i < 1 || $i > $bytelen ) {
-			return array( null );
+			return [ null ];
 		}
 		$i--;
 		$j = $i;
@@ -142,9 +142,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$char = mb_strlen( substr( $s, 0, $i ), 'UTF-8' ) + $l;
 		if ( $char < 0 || $char >= mb_strlen( $s, 'UTF-8' ) ) {
-			return array( null );
+			return [ null ];
 		} else {
-			return array( strlen( mb_substr( $s, 0, $char, 'UTF-8' ) ) + 1 );
+			return [ strlen( mb_substr( $s, 0, $char, 'UTF-8' ) ) + 1 ];
 		}
 	}
 
@@ -161,7 +161,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$j = $l + $j + 1;
 		}
 		if ( $j < $i ) {
-			return array();
+			return [];
 		}
 		$i = max( 1, min( $i, $l + 1 ) );
 		$j = max( 1, min( $j, $l + 1 ) );
@@ -170,39 +170,39 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	public function ustringGcodepointInit( $s, $i = 1, $j = null ) {
-		return array( $this->ustringCodepoint( $s, $i, $j ) );
+		return [ $this->ustringCodepoint( $s, $i, $j ) ];
 	}
 
 	public function ustringToNFC( $s ) {
 		$this->checkString( 'toNFC', $s, false );
 		if ( !$this->checkEncoding( $s ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( UtfNormal::toNFC( $s ) );
+		return [ UtfNormal::toNFC( $s ) ];
 	}
 
 	public function ustringToNFD( $s ) {
 		$this->checkString( 'toNFD', $s, false );
 		if ( !$this->checkEncoding( $s ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( UtfNormal::toNFD( $s ) );
+		return [ UtfNormal::toNFD( $s ) ];
 	}
 
 	public function ustringToNFKC( $s ) {
 		$this->checkString( 'toNFKC', $s, false );
 		if ( !$this->checkEncoding( $s ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( UtfNormal::toNFKC( $s ) );
+		return [ UtfNormal::toNFKC( $s ) ];
 	}
 
 	public function ustringToNFKD( $s ) {
 		$this->checkString( 'toNFKD', $s, false );
 		if ( !$this->checkEncoding( $s ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( UtfNormal::toNFKD( $s ) );
+		return [ UtfNormal::toNFKD( $s ) ];
 	}
 
 	public function ustringChar() {
@@ -226,15 +226,15 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( strlen( $s ) > $this->stringLengthLimit ) {
 			throw new Scribunto_LuaError( "result to long for '$name'" );
 		}
-		return array( $s );
+		return [ $s ];
 	}
 
 	public function ustringLen( $s ) {
 		$this->checkString( 'len', $s, false );
 		if ( !$this->checkEncoding( $s ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( mb_strlen( $s, 'UTF-8' ) );
+		return [ mb_strlen( $s, 'UTF-8' ) ];
 	}
 
 	public function ustringSub( $s, $i=1, $j=-1 ) {
@@ -250,22 +250,22 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$j = $len + $j + 1;
 		}
 		if ( $j < $i ) {
-			return array( '' );
+			return [ '' ];
 		}
 		$i = max( 1, min( $i, $len + 1 ) );
 		$j = max( 1, min( $j, $len + 1 ) );
 		$s = mb_substr( $s, $i - 1, $j - $i + 1, 'UTF-8' );
-		return array( $s );
+		return [ $s ];
 	}
 
 	public function ustringUpper( $s ) {
 		$this->checkString( 'upper', $s );
-		return array( mb_strtoupper( $s, 'UTF-8' ) );
+		return [ mb_strtoupper( $s, 'UTF-8' ) ];
 	}
 
 	public function ustringLower( $s ) {
 		$this->checkString( 'lower', $s );
-		return array( mb_strtolower( $s, 'UTF-8' ) );
+		return [ mb_strtolower( $s, 'UTF-8' ) ];
 	}
 
 	private function checkPattern( $name, $pattern ) {
@@ -285,14 +285,14 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	/* Convert a Lua pattern into a PCRE regex */
 	private function patternToRegex( $pattern, $anchor, $name ) {
-		$cacheKey = serialize( array( $pattern, $anchor ) );
+		$cacheKey = serialize( [ $pattern, $anchor ] );
 		if ( !$this->patternRegexCache->has( $cacheKey ) ) {
 			$this->checkPattern( $name, $pattern );
 			$pat = preg_split( '//us', $pattern, null, PREG_SPLIT_NO_EMPTY );
 
 			static $charsets = null, $brcharsets = null;
 			if ( $charsets === null ) {
-				$charsets = array(
+				$charsets = [
 					// If you change these, also change lualib/ustring/make-tables.php
 					// (and run it to regenerate charsets.lua)
 					'a' => '\p{L}',
@@ -317,8 +317,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 					'W' => '[^\p{L}\p{Nd}]',
 					'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
 					'Z' => '[^\0]',
-				);
-				$brcharsets = array(
+				];
+				$brcharsets = [
 					'w' => '\p{L}\p{Nd}',
 					'x' => '0-9A-Fa-f０-９Ａ-Ｆａ-ｆ',
 
@@ -334,15 +334,15 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 					// Ha!
 					'Z' => '\x01-\x{10ffff}',
-				) + $charsets;
+				] + $charsets;
 			}
 
 			$re = '/';
 			$len = count( $pat );
-			$capt = array();
+			$capt = [];
 			$anypos = false;
-			$captparen = array();
-			$opencapt = array();
+			$captparen = [];
+			$opencapt = [];
 			$bct = 0;
 
 			for ( $i = 0; $i < $len; $i++ ) {
@@ -465,7 +465,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			}
 			$re .= '/us';
 
-			$this->patternRegexCache->set( $cacheKey, array( $re, $capt, $anypos ) );
+			$this->patternRegexCache->set( $cacheKey, [ $re, $capt, $anypos ] );
 		}
 		return $this->patternRegexCache->get( $cacheKey );
 	}
@@ -517,7 +517,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$re = '.'; // 's' modifier is always used, so this works
 		}
 
-		return array( $i, $re );
+		return [ $i, $re ];
 	}
 
 	private function addCapturesFromMatch( $arr, $s, $m, $capt, $m0_if_no_captures ) {
@@ -563,17 +563,17 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				$ret = $init - 1;
 			}
 			if ( $ret === false ) {
-				return array( null );
+				return [ null ];
 			} else {
-				return array( $ret + 1, $ret + mb_strlen( $pattern ) );
+				return [ $ret + 1, $ret + mb_strlen( $pattern ) ];
 			}
 		} else {
 			list( $re, $capt ) = $this->patternToRegex( $pattern, '\G', 'find' );
 			if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $offset ) ) {
-				return array( null );
+				return [ null ];
 			}
 			$o = mb_strlen( substr( $s, 0, $m[0][1] ), 'UTF-8' );
-			$ret = array( $o + 1, $o + mb_strlen( $m[0][0], 'UTF-8' ) );
+			$ret = [ $o + 1, $o + mb_strlen( $m[0][0], 'UTF-8' ) ];
 			return $this->addCapturesFromMatch( $ret, $s, $m, $capt, false );
 		}
 	}
@@ -596,24 +596,24 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 		list( $re, $capt ) = $this->patternToRegex( $pattern, '\G', 'match' );
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $offset ) ) {
-			return array( null );
+			return [ null ];
 		}
-		return $this->addCapturesFromMatch( array(), $s, $m, $capt, true );
+		return $this->addCapturesFromMatch( [], $s, $m, $capt, true );
 	}
 
 	public function ustringGmatchInit( $s, $pattern ) {
 		$this->checkString( 'gmatch', $s );
 
 		list( $re, $capt ) = $this->patternToRegex( $pattern, false, 'gmatch' );
-		return array( $re, $capt );
+		return [ $re, $capt ];
 	}
 
 	public function ustringGmatchCallback( $s, $re, $capt, $pos ) {
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $pos ) ) {
-			return array( $pos, array() );
+			return [ $pos, [] ];
 		}
 		$pos = $m[0][1] + strlen( $m[0][0] );
-		return array( $pos, $this->addCapturesFromMatch( array( null ), $s, $m, $capt, true ) );
+		return [ $pos, $this->addCapturesFromMatch( [ null ], $s, $m, $capt, true ) ];
 	}
 
 	public function ustringGsub( $s, $pattern, $repl, $n = null ) {
@@ -623,11 +623,11 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( $n === null ) {
 			$n = -1;
 		} elseif ( $n < 1 ) {
-			return array( $s, 0 );
+			return [ $s, 0 ];
 		}
 
 		list( $re, $capt, $anypos ) = $this->patternToRegex( $pattern, '^', 'gsub' );
-		$captures = array();
+		$captures = [];
 
 		if ( $this->phpBug53823 ) {
 			// PHP bug 53823 means that a zero-length match before a UTF-8
@@ -652,8 +652,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 						continue;
 					}
 				}
-				$c = array( $m[0][0] );
-				foreach ( $this->addCapturesFromMatch( array(), $s, $m, $capt, false ) as $k => $v ) {
+				$c = [ $m[0][0] ];
+				foreach ( $this->addCapturesFromMatch( [], $s, $m, $capt, false ) as $k => $v ) {
 					$k++;
 					$c["m$k"] = $v;
 				}
@@ -702,7 +702,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				if ( $anypos ) {
 					$m = array_shift( $captures );
 				}
-				$args = array( $repl );
+				$args = [ $repl ];
 				if ( count( $capt ) ) {
 					foreach ( $capt as $i => $pos ) {
 						$args[] = $m["m$i"];
@@ -710,7 +710,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				} else {
 					$args[] = $m[0];
 				}
-				$ret = call_user_func_array( array( $interpreter, 'callFunction' ), $args );
+				$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $args );
 				if ( count( $ret ) === 0 || $ret[0] === null ) {
 					return $m[0];
 				}
@@ -746,7 +746,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( $s2 === null ) {
 			self::handlePCREError( preg_last_error(), $pattern );
 		}
-		return array( $s2, $count - $skippedMatches );
+		return [ $s2, $count - $skippedMatches ];
 	}
 
 	/**

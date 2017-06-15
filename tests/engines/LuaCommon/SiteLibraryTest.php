@@ -5,8 +5,8 @@ class Scribunto_LuaSiteLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'SiteLibraryTests';
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'SiteLibraryTests' => __DIR__ . '/SiteLibraryTests.lua',
-		);
+		];
 	}
 }

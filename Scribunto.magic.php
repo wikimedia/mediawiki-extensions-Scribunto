@@ -3,134 +3,134 @@
  * Internationalization file for magic words.
  */
 
-$magicWords = array();
+$magicWords = [];
 
 /** English (English) */
-$magicWords['en'] = array(
-	'invoke' => array( 0, 'invoke' ),
-);
+$magicWords['en'] = [
+	'invoke' => [ 0, 'invoke' ],
+];
 
 /** Arabic (العربية) */
-$magicWords['ar'] = array(
-	'invoke' => array( 0, 'استدعاء' ),
-);
+$magicWords['ar'] = [
+	'invoke' => [ 0, 'استدعاء' ],
+];
 
 /** Egyptian Arabic (مصرى) */
-$magicWords['arz'] = array(
-	'invoke' => array( 0, 'استدعا' ),
-);
+$magicWords['arz'] = [
+	'invoke' => [ 0, 'استدعا' ],
+];
 
 /** Breton (Brezhoneg) */
-$magicWords['br'] = array(
-	'invoke' => array( 0, 'galv' ),
-);
+$magicWords['br'] = [
+	'invoke' => [ 0, 'galv' ],
+];
 
 /** Chuvash (Чӑвашла) */
-$magicWords['cv'] = array(
-	'invoke' => array( 0, 'invoke' ),
-);
+$magicWords['cv'] = [
+	'invoke' => [ 0, 'invoke' ],
+];
 
 /** German (Deutsch) */
-$magicWords['de'] = array(
-	'invoke' => array( 0, 'aufrufen' ),
-);
+$magicWords['de'] = [
+	'invoke' => [ 0, 'aufrufen' ],
+];
 
 /** Zazaki (Zazaki) */
-$magicWords['diq'] = array(
-	'invoke' => array( 0, 'veynden' ),
-);
+$magicWords['diq'] = [
+	'invoke' => [ 0, 'veynden' ],
+];
 
 /** Spanish (español) */
-$magicWords['es'] = array(
-	'invoke' => array( 0, 'invocar' ),
-);
+$magicWords['es'] = [
+	'invoke' => [ 0, 'invocar' ],
+];
 
 /** Persian (فارسی) */
-$magicWords['fa'] = array(
-	'invoke' => array( 0, 'درخواست' ),
-);
+$magicWords['fa'] = [
+	'invoke' => [ 0, 'درخواست' ],
+];
 
 /** French (français) */
-$magicWords['fr'] = array(
-	'invoke' => array( 0, 'invoque' ),
-);
+$magicWords['fr'] = [
+	'invoke' => [ 0, 'invoque' ],
+];
 
 /** Galician (galego) */
-$magicWords['gl'] = array(
-	'invoke' => array( 0, 'chamar' ),
-);
+$magicWords['gl'] = [
+	'invoke' => [ 0, 'chamar' ],
+];
 
 /** Hindi (हिन्दी) */
-$magicWords['hi'] = array(
-	'invoke' => array( 0, 'बुलाएँ', 'बुलायें' ),
-);
+$magicWords['hi'] = [
+	'invoke' => [ 0, 'बुलाएँ', 'बुलायें' ],
+];
 
 /** Indonesian (Bahasa Indonesia) */
-$magicWords['id'] = array(
-	'invoke' => array( 0, 'pinta' ),
-);
+$magicWords['id'] = [
+	'invoke' => [ 0, 'pinta' ],
+];
 
 /** Korean (한국어) */
-$magicWords['ko'] = array(
-	'invoke' => array( 0, '호출' ),
-);
+$magicWords['ko'] = [
+	'invoke' => [ 0, '호출' ],
+];
 
 /** Minangkabau (Baso Minangkabau) */
-$magicWords['min'] = array(
-	'invoke' => array( 0, 'pinta' ),
-);
+$magicWords['min'] = [
+	'invoke' => [ 0, 'pinta' ],
+];
 
 /** Macedonian (македонски) */
-$magicWords['mk'] = array(
-	'invoke' => array( 0, 'повикај' ),
-);
+$magicWords['mk'] = [
+	'invoke' => [ 0, 'повикај' ],
+];
 
 /** Malayalam (മലയാളം) */
-$magicWords['ml'] = array(
-	'invoke' => array( 0, 'ഉണർത്തുക' ),
-);
+$magicWords['ml'] = [
+	'invoke' => [ 0, 'ഉണർത്തുക' ],
+];
 
 /** Dutch (Nederlands) */
-$magicWords['nl'] = array(
-	'invoke' => array( 0, 'aanroepen' ),
-);
+$magicWords['nl'] = [
+	'invoke' => [ 0, 'aanroepen' ],
+];
 
 /** Norwegian Nynorsk (norsk nynorsk) */
-$magicWords['nn'] = array(
-	'invoke' => array( 0, 'køyr' ),
-);
+$magicWords['nn'] = [
+	'invoke' => [ 0, 'køyr' ],
+];
 
 /** Brazilian Portuguese (português do Brasil) */
-$magicWords['pt-br'] = array(
-	'invoke' => array( 0, 'invocar' ),
-);
+$magicWords['pt-br'] = [
+	'invoke' => [ 0, 'invocar' ],
+];
 
 /** Russian (русский) */
-$magicWords['ru'] = array(
-	'invoke' => array( 0, 'вызвать' ),
-);
+$magicWords['ru'] = [
+	'invoke' => [ 0, 'вызвать' ],
+];
 
 /** Ukrainian (українська) */
-$magicWords['uk'] = array(
-	'invoke' => array( 0, 'викликати', 'вызвать' ),
-);
+$magicWords['uk'] = [
+	'invoke' => [ 0, 'викликати', 'вызвать' ],
+];
 
 /** Urdu (اردو) */
-$magicWords['ur'] = array(
-	'invoke' => array( 0, 'استدعا' ),
-);
+$magicWords['ur'] = [
+	'invoke' => [ 0, 'استدعا' ],
+];
 
 /** Vietnamese (Tiếng Việt) */
-$magicWords['vi'] = array(
-	'invoke' => array( 0, 'gọi' ),
-);
+$magicWords['vi'] = [
+	'invoke' => [ 0, 'gọi' ],
+];
 
 /** Simplified Chinese (中文（简体）‎) */
-$magicWords['zh-hans'] = array(
-	'invoke' => array( 0, '调用' ),
-);
+$magicWords['zh-hans'] = [
+	'invoke' => [ 0, '调用' ],
+];
 
 /** Traditional Chinese (中文（繁體）‎) */
-$magicWords['zh-hant'] = array(
-	'invoke' => array( 0, '調動' ),
-);
+$magicWords['zh-hant'] = [
+	'invoke' => [ 0, '調動' ],
+];

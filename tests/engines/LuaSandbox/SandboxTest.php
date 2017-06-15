@@ -9,9 +9,9 @@ class Scribunto_LuaSandboxTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'SandboxTests' => __DIR__ . '/SandboxTests.lua',
-		);
+		];
 	}
 
 	public function testArgumentParsingTime() {

@@ -3,10 +3,10 @@
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	function register() {
-		$lib = array(
-			'plain' => array( $this, 'messagePlain' ),
-			'check' => array( $this, 'messageCheck' ),
-		);
+		$lib = [
+			'plain' => [ $this, 'messagePlain' ],
+			'check' => [ $this, 'messageCheck' ],
+		];
 
 		// Get the correct default language from the parser
 		if ( $this->getParser() ) {
@@ -16,9 +16,9 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 			$lang = $wgContLang;
 		}
 
-		return $this->getEngine()->registerInterface( 'mw.message.lua', $lib, array(
+		return $this->getEngine()->registerInterface( 'mw.message.lua', $lib, [
 			'lang' => $lang->getCode(),
-		) );
+		] );
 	}
 
 	private function makeMessage( $data, $setParams ) {
@@ -38,20 +38,20 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	function messagePlain( $data ) {
 		try {
 			$msg = $this->makeMessage( $data, true );
-			return array( $msg->plain() );
+			return [ $msg->plain() ];
 		} catch ( MWException $ex ) {
 			throw new Scribunto_LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
 		}
 	}
 
 	function messageCheck( $what, $data ) {
-		if ( !in_array( $what, array( 'exists', 'isBlank', 'isDisabled' ) ) ) {
+		if ( !in_array( $what, [ 'exists', 'isBlank', 'isDisabled' ] ) ) {
 			throw new Scribunto_LuaError( "invalid what for 'messageCheck'" );
 		}
 
 		try {
 			$msg = $this->makeMessage( $data, false );
-			return array( call_user_func( array( $msg, $what ) ) );
+			return [ call_user_func( [ $msg, $what ] ) ];
 		} catch ( MWException $ex ) {
 			throw new Scribunto_LuaError( "msg:$what() failed (" . $ex->getMessage() . ")" );
 		}

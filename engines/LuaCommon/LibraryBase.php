@@ -106,14 +106,14 @@ abstract class Scribunto_LuaLibraryBase {
 	 * @return string Type
 	 */
 	protected function getLuaType( $var ) {
-		static $luaTypes = array(
+		static $luaTypes = [
 			'NULL' => 'nil',
 			'double' => 'number',
 			'integer' => 'number',
 			'string' => 'string',
 			'boolean' => 'boolean',
 			'array' => 'table',
-		);
+		];
 		$type = gettype( $var );
 		if ( isset( $luaTypes[$type] ) ) {
 			return $luaTypes[$type];

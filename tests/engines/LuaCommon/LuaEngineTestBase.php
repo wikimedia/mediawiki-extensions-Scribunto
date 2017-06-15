@@ -11,22 +11,22 @@
  */
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
-	private static $engineConfigurations = array(
-		'LuaSandbox' => array(
+	private static $engineConfigurations = [
+		'LuaSandbox' => [
 			'memoryLimit' => 50000000,
 			'cpuLimit' => 30,
 			'allowEnvFuncs' => true,
 			'maxLangCacheSize' => 30,
-		),
-		'LuaStandalone' => array(
+		],
+		'LuaStandalone' => [
 			'errorFile' => null,
 			'luaPath' => null,
 			'memoryLimit' => 50000000,
 			'cpuLimit' => 30,
 			'allowEnvFuncs' => true,
 			'maxLangCacheSize' => 30,
-		),
-	);
+		],
+	];
 
 	private static $staticEngineName = null;
 	private $engineName = null;
@@ -55,10 +55,10 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * Tests to skip. Associative array mapping test name to skip reason.
 	 * @var array
 	 */
-	protected $skipTests = array();
+	protected $skipTests = [];
 
 	public function __construct(
-		$name = null, array $data = array(), $dataName = '', $engineName = null
+		$name = null, array $data = [], $dataName = '', $engineName = null
 	) {
 		if ( $engineName === null ) {
 			$engineName = self::$staticEngineName;
@@ -87,7 +87,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 				$parser->startExternalParse( Title::newMainPage(), new ParserOptions, Parser::OT_HTML, true );
 				$engineClass = "Scribunto_{$engineName}Engine";
 				$engine = new $engineClass(
-					self::$engineConfigurations[$engineName] + array( 'parser' => $parser )
+					self::$engineConfigurations[$engineName] + [ 'parser' => $parser ]
 				);
 				$parser->scribunto_engine = $engine;
 				$engine->setTitle( $parser->getTitle() );
@@ -96,7 +96,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 				$suite->addTest(
 					new Scribunto_LuaEngineTestSkip(
 						$className, "interpreter for $engineName is not available"
-					), array( 'Lua', $engineName )
+					), [ 'Lua', $engineName ]
 				);
 				continue;
 			}
@@ -140,7 +140,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 					} else {
 						// no @dataProvider
 						$engineSuite->addTest(
-							new $className( $name, array(), '', $engineName ),
+							new $className( $name, [], '', $engineName ),
 							$groups
 						);
 					}
@@ -181,11 +181,11 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		if ( !$this->engine ) {
 			$parser = new Parser;
 			$options = new ParserOptions;
-			$options->setTemplateCallback( array( $this, 'templateCallback' ) );
+			$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );
 			$class = "Scribunto_{$this->engineName}Engine";
 			$this->engine = new $class(
-				self::$engineConfigurations[$this->engineName] + array( 'parser' => $parser )
+				self::$engineConfigurations[$this->engineName] + [ 'parser' => $parser ]
 			);
 			$parser->scribunto_engine = $this->engine;
 			$this->engine->setTitle( $parser->getTitle() );
@@ -195,22 +195,22 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 
 	public function templateCallback( $title, $parser ) {
 		if ( isset( $this->extraModules[$title->getFullText()] ) ) {
-			return array(
+			return [
 				'text' => $this->extraModules[$title->getFullText()],
 				'finalTitle' => $title,
-				'deps' => array()
-			);
+				'deps' => []
+			];
 		}
 
 		$modules = $this->getTestModules();
 		foreach ( $modules as $name => $fileName ) {
 			$modTitle = Title::makeTitle( NS_MODULE, $name );
 			if ( $modTitle->equals( $title ) ) {
-				return array(
+				return [
 					'text' => file_get_contents( $fileName ),
 					'finalTitle' => $title,
-					'deps' => array()
-				);
+					'deps' => []
+				];
 			}
 		}
 		return Parser::statelessFetchTemplate( $title, $parser );
@@ -226,9 +226,9 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	}
 
 	protected function getTestModules() {
-		return array(
+		return [
 			'TestFramework' => __DIR__ . '/TestFramework.lua',
-		);
+		];
 	}
 
 	public function provideLuaData() {

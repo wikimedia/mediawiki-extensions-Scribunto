@@ -24,14 +24,14 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
 }
 
-$wgExtensionCredits['parserhook']['Scribunto'] = array(
+$wgExtensionCredits['parserhook']['Scribunto'] = [
 	'path'           => __FILE__,
 	'name'           => 'Scribunto',
-	'author'         => array( 'Victor Vasiliev', 'Tim Starling', 'Brad Jorsch' ),
+	'author'         => [ 'Victor Vasiliev', 'Tim Starling', 'Brad Jorsch' ],
 	'descriptionmsg' => 'scribunto-desc',
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Scribunto',
 	'license-name'   => 'GPL-2.0+ AND MIT',
-);
+];
 
 define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
 
@@ -82,35 +82,35 @@ $wgParserTestFiles[] = __DIR__ . '/tests/engines/LuaCommon/luaParserTests.txt';
 
 $wgContentHandlers[CONTENT_MODEL_SCRIBUNTO] = 'ScribuntoContentHandler';
 
-$sbtpl = array(
+$sbtpl = [
 	'localBasePath' => __DIR__ . '/modules',
 	'remoteExtPath' => 'Scribunto/modules',
-);
+];
 
-$wgResourceModules['ext.scribunto.errors'] = $sbtpl + array(
+$wgResourceModules['ext.scribunto.errors'] = $sbtpl + [
 	'scripts' => 'ext.scribunto.errors.js',
 	'styles' => 'ext.scribunto.errors.css',
-	'dependencies' => array( 'jquery.ui.dialog' ),
-	'messages' => array(
+	'dependencies' => [ 'jquery.ui.dialog' ],
+	'messages' => [
 		'scribunto-parser-dialog-title'
-	),
-);
-$wgResourceModules['ext.scribunto.logs'] = $sbtpl + array(
+	],
+];
+$wgResourceModules['ext.scribunto.logs'] = $sbtpl + [
 	'styles' => 'ext.scribunto.logs.css',
 	'position' => 'top',
-);
-$wgResourceModules['ext.scribunto.edit'] = $sbtpl + array(
+];
+$wgResourceModules['ext.scribunto.edit'] = $sbtpl + [
 	'scripts' => 'ext.scribunto.edit.js',
 	'styles' => 'ext.scribunto.edit.css',
-	'dependencies' => array( 'mediawiki.api', 'jquery.spinner' ),
-	'messages' => array(
+	'dependencies' => [ 'mediawiki.api', 'jquery.spinner' ],
+	'messages' => [
 		'scribunto-console-title',
 		'scribunto-console-intro',
 		'scribunto-console-clear',
 		'scribunto-console-cleared',
 		'scribunto-console-cleared-session-lost',
-	),
-);
+	],
+];
 $wgAPIModules['scribunto-console'] = 'ApiScribuntoConsole';
 
 /***** Individual engines and their configurations *****/
@@ -153,8 +153,8 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 /**
  * Configuration for each script engine
  */
-$wgScribuntoEngineConf = array(
-	'luasandbox' => array(
+$wgScribuntoEngineConf = [
+	'luasandbox' => [
 		'class' => 'Scribunto_LuaSandboxEngine',
 		'memoryLimit' => 50 * 1024 * 1024,
 		'cpuLimit' => 7,
@@ -175,8 +175,8 @@ $wgScribuntoEngineConf = array(
 		//     $wgLocalisationCacheConf['manualRecache'] = false
 		// then memory usage is perhaps 10x smaller.
 		'maxLangCacheSize' => 30,
-	),
-	'luastandalone' => array(
+	],
+	'luastandalone' => [
 		'class' => 'Scribunto_LuaStandaloneEngine',
 
 		// A filename to act as the destination for stderr from the Lua
@@ -190,8 +190,8 @@ $wgScribuntoEngineConf = array(
 		'cpuLimit' => 7,
 		'allowEnvFuncs' => false,
 		'maxLangCacheSize' => 30,
-	),
-);
+	],
+];
 
 /**
  * Set to true to enable the SyntaxHighlight_GeSHi extension

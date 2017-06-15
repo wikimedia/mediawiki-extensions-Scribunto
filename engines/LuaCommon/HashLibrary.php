@@ -4,10 +4,10 @@
 class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 
 	public function register() {
-		$lib = array(
-			'listAlgorithms' => array( $this, 'listAlgorithms' ),
-			'hashValue' => array( $this, 'hashValue' ),
-		);
+		$lib = [
+			'listAlgorithms' => [ $this, 'listAlgorithms' ],
+			'hashValue' => [ $this, 'hashValue' ],
+		];
 
 		return $this->getEngine()->registerInterface( 'mw.hash.lua', $lib );
 	}
@@ -21,7 +21,7 @@ class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 		$algos = hash_algos();
 		$algos = array_combine( range( 1, count( $algos ) ), $algos );
 
-		return array( $algos );
+		return [ $algos ];
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 
 		$hash = hash( $algo, $value );
 
-		return array( $hash );
+		return [ $hash ];
 	}
 
 }

@@ -16,7 +16,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	 * @param string[] $formats
 	 */
 	public function __construct(
-		$modelId = CONTENT_MODEL_SCRIBUNTO, $formats = array( CONTENT_FORMAT_TEXT )
+		$modelId = CONTENT_MODEL_SCRIBUNTO, $formats = [ CONTENT_FORMAT_TEXT ]
 	) {
 		parent::__construct( $modelId, $formats );
 	}

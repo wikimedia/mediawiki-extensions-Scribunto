@@ -12,7 +12,7 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 			$suite->addTest(
 				new Scribunto_LuaEngineTestSkip(
 					$className, 'Cannot run TitleLibrary tests when $wgInterwikiCache is set'
-				), array( 'Lua' )
+				), [ 'Lua' ]
 			);
 			return $suite;
 		}
@@ -32,14 +32,14 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 				return true;
 			}
 
-			$data = array(
+			$data = [
 				'iw_prefix' => 'interwikiprefix',
 				'iw_url'    => '//test.wikipedia.org/wiki/$1',
 				'iw_api'    => 1,
 				'iw_wikiid' => 0,
 				'iw_local'  => 0,
 				'iw_trans'  => 0,
-			);
+			];
 			return false;
 		};
 
@@ -69,40 +69,40 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 		// Since mRestrictionsLoaded is true, they don't count as expensive
 		$title = Title::newFromText( 'Main Page' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array( 'edit' => array(), 'move' => array() );
-		$title->mCascadeSources = array(
+		$title->mRestrictions = [ 'edit' => [], 'move' => [] ];
+		$title->mCascadeSources = [
 			Title::makeTitle( NS_MAIN, "Lockbox" ),
 			Title::makeTitle( NS_MAIN, "Lockbox2" ),
-		);
-		$title->mCascadingRestrictions = array( 'edit' => array( 'sysop' ) );
+		];
+		$title->mCascadingRestrictions = [ 'edit' => [ 'sysop' ] ];
 		$title = Title::newFromText( 'Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array(
-			'edit' => array( 'sysop', 'bogus' ),
-			'move' => array( 'sysop', 'bogus' ),
-		);
-		$title->mCascadeSources = array();
-		$title->mCascadingRestrictions = array();
+		$title->mRestrictions = [
+			'edit' => [ 'sysop', 'bogus' ],
+			'move' => [ 'sysop', 'bogus' ],
+		];
+		$title->mCascadeSources = [];
+		$title->mCascadingRestrictions = [];
 		$title = Title::newFromText( 'interwikiprefix:Module:TestFramework' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array();
-		$title->mCascadeSources = array();
-		$title->mCascadingRestrictions = array();
+		$title->mRestrictions = [];
+		$title->mCascadeSources = [];
+		$title->mCascadingRestrictions = [];
 		$title = Title::newFromText( 'Talk:Has/A/Subpage' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array( 'create' => array( 'sysop' ) );
-		$title->mCascadeSources = array();
-		$title->mCascadingRestrictions = array();
+		$title->mRestrictions = [ 'create' => [ 'sysop' ] ];
+		$title->mCascadeSources = [];
+		$title->mCascadingRestrictions = [];
 		$title = Title::newFromText( 'Not/A/Subpage' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array( 'edit' => array( 'autoconfirmed' ), 'move' => array( 'sysop' ) );
-		$title->mCascadeSources = array();
-		$title->mCascadingRestrictions = array();
+		$title->mRestrictions = [ 'edit' => [ 'autoconfirmed' ], 'move' => [ 'sysop' ] ];
+		$title->mCascadeSources = [];
+		$title->mCascadingRestrictions = [];
 		$title = Title::newFromText( 'Module talk:Test Framework' );
 		$title->mRestrictionsLoaded = true;
-		$title->mRestrictions = array( 'edit' => array(), 'move' => array( 'sysop' ) );
-		$title->mCascadeSources = array();
-		$title->mCascadingRestrictions = array();
+		$title->mRestrictions = [ 'edit' => [], 'move' => [ 'sysop' ] ];
+		$title->mCascadeSources = [];
+		$title->mCascadingRestrictions = [];
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
@@ -113,15 +113,15 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 			$interpreter->loadString( "mw.title.testPageId = $testPageId", 'fortest' )
 		);
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgServer' => '//wiki.local',
 			'wgCanonicalServer' => 'http://wiki.local',
 			'wgUsePathInfo' => true,
-			'wgActionPaths' => array(),
+			'wgActionPaths' => [],
 			'wgScript' => '/w/index.php',
 			'wgScriptPath' => '/w',
 			'wgArticlePath' => '/wiki/$1',
-		) );
+		] );
 	}
 
 	protected function tearDown() {
@@ -131,9 +131,9 @@ class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'TitleLibraryTests' => __DIR__ . '/TitleLibraryTests.lua',
-		);
+		];
 	}
 
 	public function testAddsLinks() {

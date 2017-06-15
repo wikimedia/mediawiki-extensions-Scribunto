@@ -12,12 +12,12 @@ require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
  */
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
-	public $stdOpts = array(
+	public $stdOpts = [
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
-	);
+	];
 
-	protected function newInterpreter( $opts = array() ) {
+	protected function newInterpreter( $opts = [] ) {
 		$opts = $opts + $this->stdOpts;
 		$engine = new Scribunto_LuaSandboxEngine( $this->stdOpts );
 		return new Scribunto_LuaSandboxInterpreter( $engine, $opts );

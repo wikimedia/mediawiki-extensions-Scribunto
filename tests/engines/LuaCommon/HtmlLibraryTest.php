@@ -8,9 +8,9 @@ class Scribunto_LuaHtmlLibraryTests extends Scribunto_LuaEngineTestBase {
 		parent::setUp();
 
 		// For strip marker test
-		$markers = array(
+		$markers = [
 			'nowiki' => Parser::MARKER_PREFIX . '-test-nowiki-' . Parser::MARKER_SUFFIX,
-		);
+		];
 		$interpreter = $this->getEngine()->getInterpreter();
 		$interpreter->callFunction(
 			$interpreter->loadString( 'mw.html.stripMarkers = ...', 'fortest' ),
@@ -19,8 +19,8 @@ class Scribunto_LuaHtmlLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'HtmlLibraryTests' => __DIR__ . '/HtmlLibraryTests.lua',
-		);
+		];
 	}
 }

@@ -13,10 +13,10 @@ class ApiScribuntoConsole extends ApiBase {
 
 		$title = Title::newFromText( $params['title'] );
 		if ( !$title ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
-				$this->dieWithError( array( 'apierror-invalidtitle', wfEscapeWikiText( $params['title'] ) ) );
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+				$this->dieWithError( [ 'apierror-invalidtitle', wfEscapeWikiText( $params['title'] ) ] );
 			} else {
-				$this->dieUsageMsg( array( 'invalidtitle', $params['title'] ) );
+				$this->dieUsageMsg( [ 'invalidtitle', $params['title'] ] );
 			}
 		}
 
@@ -46,8 +46,8 @@ class ApiScribuntoConsole extends ApiBase {
 
 		if ( !empty( $params['clear'] ) ) {
 			$newSession['size'] -= strlen( implode( '', $newSession['questions'] ) );
-			$newSession['questions'] = array();
-			$session['questions'] = array();
+			$newSession['questions'] = [];
+			$session['questions'] = [];
 		}
 		if ( strlen( $params['question'] ) ) {
 			$newSession['size'] += strlen( $params['question'] );
@@ -59,7 +59,7 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 
 		if ( $newSession['size'] > self::SC_MAX_SIZE ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'scribunto-console-too-large' );
 			} else {
 				$this->dieUsage(
@@ -68,11 +68,12 @@ class ApiScribuntoConsole extends ApiBase {
 				);
 			}
 		}
-		$result = $this->runConsole( array(
+		$result = $this->runConsole( [
 			'title' => $title,
 			'content' => $newSession['content'],
 			'prevQuestions' => $session['questions'],
-			'question' => $params['question'] ) );
+			'question' => $params['question'],
+		] );
 
 		if ( $result['type'] === 'error' ) {
 			// Restore the questions array
@@ -100,37 +101,37 @@ class ApiScribuntoConsole extends ApiBase {
 		} catch ( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml();
 			$message = $e->getMessage();
-			$html = Html::element( 'p', array(), $message );
+			$html = Html::element( 'p', [], $message );
 			if ( $trace !== false ) {
 				$html .= Html::element( 'p',
-					array(),
+					[],
 					$this->msg( 'scribunto-common-backtrace' )->inContentLanguage()->text()
 				) . $trace;
 			}
 
-			return array(
+			return [
 				'type' => 'error',
 				'html' => $html,
 				'message' => $message,
-				'messagename' => $e->getMessageName() );
+				'messagename' => $e->getMessageName() ];
 		}
-		return array(
+		return [
 			'type' => 'normal',
 			'print' => strval( $result['print'] ),
 			'return' => strval( $result['return'] )
-		);
+		];
 	}
 
 	/**
 	 * @return array
 	 */
 	protected function newSession() {
-		return array(
+		return [
 			'content' => '',
-			'questions' => array(),
+			'questions' => [],
 			'size' => 0,
 			'version' => 1,
-		);
+		];
 	}
 
 	public function isInternal() {
@@ -138,23 +139,23 @@ class ApiScribuntoConsole extends ApiBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
-			'title' => array(
+		return [
+			'title' => [
 				ApiBase::PARAM_TYPE => 'string',
-			),
-			'content' => array(
+			],
+			'content' => [
 				ApiBase::PARAM_TYPE => 'string'
-			),
-			'session' => array(
+			],
+			'session' => [
 				ApiBase::PARAM_TYPE => 'integer',
-			),
-			'question' => array(
+			],
+			'question' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true,
-			),
-			'clear' => array(
+			],
+			'clear' => [
 				ApiBase::PARAM_TYPE => 'boolean',
-			),
-		);
+			],
+		];
 	}
 }

@@ -28,8 +28,8 @@ class Scribunto_LuaUstringLibraryPureLuaTests extends Scribunto_LuaUstringLibrar
 	}
 
 	public static function providePCREErrors() {
-		return array(
-			array( array(), array(), null ),
-		);
+		return [
+			[ [], [], null ],
+		];
 	}
 }

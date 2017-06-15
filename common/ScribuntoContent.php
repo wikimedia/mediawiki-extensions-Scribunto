@@ -74,11 +74,11 @@ class ScribuntoContent extends TextContent {
 
 				$docWikitext = Html::rawElement(
 					'div',
-					array(
+					[
 						'lang' => $docViewLang->getHtmlCode(),
 						'dir' => $dir,
 						'class' => $dirClass,
-					),
+					],
 					// Line breaks are needed so that wikitext would be
 					// appropriately isolated for correct parsing. See Bug 60664.
 					"\n" . $msg->plain() . "\n"
@@ -106,7 +106,7 @@ class ScribuntoContent extends TextContent {
 		$status = $this->validate( $title );
 		if ( !$status->isOK() ) {
 			$output->setText( self::getPOText( $output ) .
-				Html::rawElement( 'div', array( 'class' => 'errorbox' ),
+				Html::rawElement( 'div', [ 'class' => 'errorbox' ],
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
 			);
@@ -166,7 +166,7 @@ class ScribuntoContent extends TextContent {
 	 * @return string
 	 */
 	private static function getPOText( ParserOutput $po ) {
-		return is_callable( array( $po, 'getRawText' ) )
+		return is_callable( [ $po, 'getRawText' ] )
 			? $po->getRawText()
 			: $po->getText();
 	}

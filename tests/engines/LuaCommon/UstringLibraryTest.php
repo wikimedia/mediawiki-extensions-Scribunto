@@ -15,10 +15,10 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'UstringLibraryTests' => __DIR__ . '/UstringLibraryTests.lua',
 			'UstringLibraryNormalizationTests' => __DIR__ . '/UstringLibraryNormalizationTests.lua',
-		);
+		];
 	}
 
 	public function testUstringLibraryNormalizationTestsAvailable() {
@@ -43,12 +43,12 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	public function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
 		$this->luaTestName = "UstringLibraryNormalization: $name";
 		$dataProvider = $this->provideUstringLibraryNormalizationTests();
-		$expected = array(
+		$expected = [
 			$c2, $c2, $c2, $c4, $c4, // NFC
 			$c3, $c3, $c3, $c5, $c5, // NFD
 			$c4, $c4, $c4, $c4, $c4, // NFKC
 			$c5, $c5, $c5, $c5, $c5, // NFKD
-		);
+		];
 		foreach ( $expected as &$e ) {
 			$chars = array_values( unpack( 'N*', mb_convert_encoding( $e, 'UTF-32BE', 'UTF-8' ) ) );
 			foreach ( $chars as &$c ) {
@@ -65,21 +65,21 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	 * @dataProvider providePCREErrors
 	 */
 	public function testPCREErrors( $ini, $args, $error ) {
-		$reset = array();
+		$reset = [];
 		foreach ( $ini as $key => $value ) {
 			$old = ini_set( $key, $value );
 			if ( $old === false ) {
 				$this->markTestSkipped( "Failed to set ini setting $key = $value" );
 			}
-			$reset[] = new ScopedCallback( 'ini_set', array( $key, $old ) );
+			$reset[] = new ScopedCallback( 'ini_set', [ $key, $old ] );
 		}
 
 		$interpreter = $this->getEngine()->getInterpreter();
 		$func = $interpreter->loadString( 'return mw.ustring.gsub( ... )', 'fortest' );
 		try {
 			call_user_func_array(
-				array( $interpreter, 'callFunction' ),
-				array_merge( array( $func ), $args )
+				[ $interpreter, 'callFunction' ],
+				array_merge( [ $func ], $args )
 			);
 			$this->fail( 'Expected exception not thrown' );
 		} catch ( Scribunto_LuaError $e ) {
@@ -88,24 +88,24 @@ class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	public static function providePCREErrors() {
-		return array(
-			array(
-				array( 'pcre.backtrack_limit' => 10 ),
-				array( 'zzzzzzzzzzzzzzzzzzzz', '^(.-)[abc]*$', '%1' ),
+		return [
+			[
+				[ 'pcre.backtrack_limit' => 10 ],
+				[ 'zzzzzzzzzzzzzzzzzzzz', '^(.-)[abc]*$', '%1' ],
 				'Lua error: PCRE backtrack limit reached while matching pattern \'^(.-)[abc]*$\'.'
-			),
+			],
 			// @TODO: Figure out patterns that hit other PCRE limits
-		);
+		];
 	}
 }
 
 class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider {
 	protected $file = null;
 	protected $current = null;
-	protected static $static = array(
+	protected static $static = [
 		'1E0A 0323;1E0C 0307;0044 0323 0307;1E0C 0307;0044 0323 0307;',
 		false
-	);
+	];
 
 	public static function available( &$message = null ) {
 		if ( is_readable( __DIR__ . '/NormalizationTest.txt' ) ) {
@@ -156,7 +156,7 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 	}
 
 	public function next() {
-		$this->current = array( null, null, null, null, null, null );
+		$this->current = [ null, null, null, null, null, null ];
 		while ( $this->valid() ) {
 			if ( $this->file ) {
 				$line = fgets( $this->file );
@@ -166,9 +166,9 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 			$this->key++;
 			if ( preg_match( '/^((?:[0-9A-F ]+;){5})/', $line, $m ) ) {
 				$line = rtrim( $m[1], ';' );
-				$ret = array( $line );
+				$ret = [ $line ];
 				foreach ( explode( ';', $line ) as $field ) {
-					$args = array( 'N*' );
+					$args = [ 'N*' ];
 					foreach ( explode( ' ', $field ) as $char ) {
 						$args[] = hexdec( $char );
 					}

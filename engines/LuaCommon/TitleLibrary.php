@@ -6,25 +6,25 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
 	// addition besides the one for the current page calls
 	// incrementExpensiveFunctionCount()
-	private $titleCache = array();
-	private $idCache = array( 0 => null );
+	private $titleCache = [];
+	private $idCache = [ 0 => null ];
 
 	function register() {
-		$lib = array(
-			'newTitle' => array( $this, 'newTitle' ),
-			'makeTitle' => array( $this, 'makeTitle' ),
-			'getExpensiveData' => array( $this, 'getExpensiveData' ),
-			'getUrl' => array( $this, 'getUrl' ),
-			'getContent' => array( $this, 'getContent' ),
-			'getFileInfo' => array( $this, 'getFileInfo' ),
-			'protectionLevels' => array( $this, 'protectionLevels' ),
-			'cascadingProtection' => array( $this, 'cascadingProtection' ),
-			'redirectTarget' => array( $this, 'redirectTarget' ),
-		);
-		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, array(
+		$lib = [
+			'newTitle' => [ $this, 'newTitle' ],
+			'makeTitle' => [ $this, 'makeTitle' ],
+			'getExpensiveData' => [ $this, 'getExpensiveData' ],
+			'getUrl' => [ $this, 'getUrl' ],
+			'getContent' => [ $this, 'getContent' ],
+			'getFileInfo' => [ $this, 'getFileInfo' ],
+			'protectionLevels' => [ $this, 'protectionLevels' ],
+			'cascadingProtection' => [ $this, 'cascadingProtection' ],
+			'redirectTarget' => [ $this, 'redirectTarget' ],
+		];
+		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, [
 			'thisTitle' => $this->getInexpensiveTitleData( $this->getTitle() ),
 			'NS_MEDIA' => NS_MEDIA,
-		) );
+		] );
 	}
 
 	private function checkNamespace( $name, $argIdx, &$arg, $default = null ) {
@@ -60,7 +60,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	private function getInexpensiveTitleData( Title $title ) {
 		$ns = $title->getNamespace();
-		$ret = array(
+		$ret = [
 			'isLocal' => (bool)$title->isLocal(),
 			'interwiki' => $title->getInterwiki(),
 			'namespace' => $ns,
@@ -68,7 +68,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'text' => $title->getText(),
 			'fragment' => $title->getFragment(),
 			'thePartialUrl' => $title->getPartialURL(),
-		);
+		];
 		if ( $ns === NS_SPECIAL ) {
 			// Core doesn't currently record special page links, but it may in the future.
 			if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
@@ -96,7 +96,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkType( 'getExpensiveData', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( null );
+			return [ null ];
 		}
 		$dbKey = $title->getPrefixedDBkey();
 		if ( isset( $this->titleCache[$dbKey] ) ) {
@@ -119,18 +119,18 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			}
 		}
 
-		$ret = array(
+		$ret = [
 			'isRedirect' => (bool)$title->isRedirect(),
 			'id' => $title->getArticleID(),
 			'contentModel' => $title->getContentModel(),
-		);
+		];
 		if ( $title->getNamespace() === NS_SPECIAL ) {
 			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
 		} else {
 			// bug 70495: don't just check whether the ID != 0
 			$ret['exists'] = $title->exists();
 		}
-		return array( $ret );
+		return [ $ret ];
 	}
 
 	/**
@@ -162,7 +162,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			if ( $title ) {
 				$this->titleCache[$title->getPrefixedDBkey()] = $title;
 			} else {
-				return array( null );
+				return [ null ];
 			}
 		} elseif ( $type === 'string' ) {
 			$this->checkNamespace( 'title.new', 2, $defaultNamespace, NS_MAIN );
@@ -171,14 +171,14 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			// the page table.
 			$title = Title::newFromText( $text_or_id, $defaultNamespace );
 			if ( !$title ) {
-				return array( null );
+				return [ null ];
 			}
 		} else {
 			// This will always fail
 			$this->checkType( 'title.new', 1, $text_or_id, 'number or string' );
 		}
 
-		return array( $this->getInexpensiveTitleData( $title ) );
+		return [ $this->getInexpensiveTitleData( $title ) ];
 	}
 
 	/**
@@ -202,30 +202,30 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		// page table.
 		$title = Title::makeTitleSafe( $ns, $text, $fragment, $interwiki );
 		if ( !$title ) {
-			return array( null );
+			return [ null ];
 		}
 
-		return array( $this->getInexpensiveTitleData( $title ) );
+		return [ $this->getInexpensiveTitleData( $title ) ];
 	}
 
 	// May call the following Title methods:
 	// getFullUrl, getLocalUrl, getCanonicalUrl
 	function getUrl( $text, $which, $query = null, $proto = null ) {
-		static $protoMap = array(
+		static $protoMap = [
 			'http' => PROTO_HTTP,
 			'https' => PROTO_HTTPS,
 			'relative' => PROTO_RELATIVE,
 			'canonical' => PROTO_CANONICAL,
-		);
+		];
 
 		$this->checkType( 'getUrl', 1, $text, 'string' );
 		$this->checkType( 'getUrl', 2, $which, 'string' );
-		if ( !in_array( $which, array( 'fullUrl', 'localUrl', 'canonicalUrl' ), true ) ) {
+		if ( !in_array( $which, [ 'fullUrl', 'localUrl', 'canonicalUrl' ], true ) ) {
 			$this->checkType( 'getUrl', 2, $which, "'fullUrl', 'localUrl', or 'canonicalUrl'" );
 		}
 		$func = "get" . ucfirst( $which );
 
-		$args = array( $query, false );
+		$args = [ $query, false ];
 		if ( !is_string( $query ) && !is_array( $query ) ) {
 			$this->checkTypeOptional( $which, 1, $query, 'table or string', '' );
 		}
@@ -239,9 +239,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( null );
+			return [ null ];
 		}
-		return array( call_user_func_array( array( $title, $func ), $args ) );
+		return [ call_user_func_array( [ $title, $func ], $args ) ];
 	}
 
 	/**
@@ -273,51 +273,51 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	function getContent( $text ) {
 		$this->checkType( 'getContent', 1, $text, 'string' );
 		$content = $this->getContentInternal( $text );
-		return array( $content ? $content->serialize() : null );
+		return [ $content ? $content->serialize() : null ];
 	}
 
 	function getFileInfo( $text ) {
 		$this->checkType( 'getFileInfo', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( false );
+			return [ false ];
 		}
 		$ns = $title->getNamespace();
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
-			return array( false );
+			return [ false ];
 		}
 
 		$this->incrementExpensiveFunctionCount();
 		$file = wfFindFile( $title );
 		if ( !$file ) {
-			return array( array( 'exists' => false ) );
+			return [ [ 'exists' => false ] ];
 		}
 		$this->getParser()->getOutput()->addImage(
 			$file->getName(), $file->getTimestamp(), $file->getSha1()
 		);
 		if ( !$file->exists() ) {
-			return array( array( 'exists' => false ) );
+			return [ [ 'exists' => false ] ];
 		}
 		$pageCount = $file->pageCount();
 		if ( $pageCount === false ) {
 			$pages = null;
 		} else {
-			$pages = array();
+			$pages = [];
 			for ( $i = 1; $i <= $pageCount; ++$i ) {
-				$pages[$i] = array(
+				$pages[$i] = [
 					'width' => $file->getWidth( $i ),
 					'height' => $file->getHeight( $i )
-				);
+				];
 			}
 		}
-		return array( array(
+		return [ [
 			'exists' => true,
 			'width' => $file->getWidth(),
 			'height' => $file->getHeight(),
 			'mimeType' => $file->getMimeType(),
 			'size' => $file->getSize(),
 			'pages' => $pages
-		) );
+		] ];
 	}
 
 	private static function makeArrayOneBased( $arr ) {
@@ -331,42 +331,42 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkType( 'protectionLevels', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( null );
+			return [ null ];
 		}
 
 		if ( !$title->areRestrictionsLoaded() ) {
 			$this->incrementExpensiveFunctionCount();
 		}
-		return array( array_map(
+		return [ array_map(
 			'Scribunto_LuaTitleLibrary::makeArrayOneBased', $title->getAllRestrictions()
-		) );
+		) ];
 	}
 
 	public function cascadingProtection( $text ) {
 		$this->checkType( 'cascadingProtection', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
-			return array( null );
+			return [ null ];
 		}
 
 		if ( !$title->areCascadeProtectionSourcesLoaded() ) {
 			$this->incrementExpensiveFunctionCount();
 		}
 		list( $sources, $restrictions ) = $title->getCascadeProtectionSources();
-		return array( array(
+		return [ [
 			'sources' => Scribunto_LuaTitleLibrary::makeArrayOneBased( array_map(
 				function ( $t ) {
 					return $t->getPrefixedText();
 				},
 				$sources ) ),
 			'restrictions' => array_map( 'Scribunto_LuaTitleLibrary::makeArrayOneBased', $restrictions )
-		) );
+		] ];
 	}
 
 	public function redirectTarget( $text ) {
 		$this->checkType( 'redirectTarget', 1, $text, 'string' );
 		$content = $this->getContentInternal( $text );
 		$redirTitle = $content ? $content->getRedirectTarget() : null;
-		return array( $redirTitle ? $this->getInexpensiveTitleData( $redirTitle ) : null );
+		return [ $redirTitle ? $this->getInexpensiveTitleData( $redirTitle ) : null ];
 	}
 }

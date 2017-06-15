@@ -5,7 +5,7 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
 	public function __construct(
-		$name = null, array $data = array(), $dataName = '', $engineName = null
+		$name = null, array $data = [], $dataName = '', $engineName = null
 	) {
 		parent::__construct( $name, $data, $dataName, $engineName );
 
@@ -14,19 +14,19 @@ class Scribunto_LuaLanguageLibraryTests extends Scribunto_LuaEngineTestBase {
 		if ( Language::fetchLanguageName( 'en', 'fr' ) === 'English' ) {
 			$msg = 'Language name translations are unavailable; ' .
 				'install Extension:CLDR or something similar';
-			$this->skipTests += array(
+			$this->skipTests += [
 				'fetchLanguageName (en,ru)' => $msg,
 				'fetchLanguageName (ru,en)' => $msg,
 				'fetchLanguageNames (de)' => $msg,
 				'fetchLanguageNames ([[bogus]])' => $msg,
-			);
+			];
 		}
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'LanguageLibraryTests' => __DIR__ . '/LanguageLibraryTests.lua',
-		);
+		];
 	}
 
 	public function testFormatDateTTLs() {

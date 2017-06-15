@@ -12,19 +12,19 @@ require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
  */
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
-	public $stdOpts = array(
+	public $stdOpts = [
 		'errorFile' => null,
 		'luaPath' => null,
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
-	);
+	];
 
 	private function getVsize( $pid ) {
 		$size = wfShellExec( wfEscapeShellArg( 'ps', '-p', $pid, '-o', 'vsz', '--no-headers' ) );
 		return $size * 1024;
 	}
 
-	protected function newInterpreter( $opts = array() ) {
+	protected function newInterpreter( $opts = [] ) {
 		$opts = $opts + $this->stdOpts;
 		$engine = new Scribunto_LuaStandaloneEngine( $this->stdOpts );
 		return new Scribunto_LuaStandaloneInterpreter( $engine, $opts );
@@ -90,7 +90,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$id = $ret[0]->id;
 		$interpreter->cleanupLuaChunks();
 		$this->assertEquals(
-			array( 'testFreeFunction #1' ), $interpreter->callFunction( $ret[0] ),
+			[ 'testFreeFunction #1' ], $interpreter->callFunction( $ret[0] ),
 			'Test that function #1 was not freed while a reference exists'
 		);
 		$ret = null;
@@ -115,7 +115,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$ret = null;
 		$interpreter->cleanupLuaChunks();
 		$this->assertEquals(
-			array( 'testFreeFunction #2' ), $interpreter->callFunction( $func ),
+			[ 'testFreeFunction #2' ], $interpreter->callFunction( $func ),
 			'Test that function #2 was not freed while a reference exists'
 		);
 		$func = null;
@@ -140,7 +140,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$ret = null;
 		$interpreter->cleanupLuaChunks();
 		$this->assertEquals(
-			array( 'testFreeFunction #3' ), $interpreter->callFunction( $func ),
+			[ 'testFreeFunction #3' ], $interpreter->callFunction( $func ),
 			'Test that function #3 was not freed while a reference exists'
 		);
 		$func = null;

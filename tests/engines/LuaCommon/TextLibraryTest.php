@@ -5,7 +5,7 @@ class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TextLibraryTests';
 
 	public function __construct(
-		$name = null, array $data = array(), $dataName = '', $engineName = null
+		$name = null, array $data = [], $dataName = '', $engineName = null
 	) {
 		parent::__construct( $name, $data, $dataName, $engineName );
 		if ( defined( 'HHVM_VERSION' ) ) {
@@ -20,10 +20,10 @@ class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 
 		// For unstrip test
 		$parser = $this->getEngine()->getParser();
-		$markers = array(
+		$markers = [
 			'nowiki' => Parser::MARKER_PREFIX . '-test-nowiki-' . Parser::MARKER_SUFFIX,
 			'general' => Parser::MARKER_PREFIX . '-test-general-' . Parser::MARKER_SUFFIX,
-		);
+		];
 		$parser->mStripState->addNoWiki( $markers['nowiki'], 'NoWiki' );
 		$parser->mStripState->addGeneral( $markers['general'], 'General' );
 		$interpreter = $this->getEngine()->getInterpreter();
@@ -34,8 +34,8 @@ class Scribunto_LuaTextLibraryTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'TextLibraryTests' => __DIR__ . '/TextLibraryTests.lua',
-		);
+		];
 	}
 }

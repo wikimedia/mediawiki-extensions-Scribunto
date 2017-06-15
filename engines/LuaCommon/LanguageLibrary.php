@@ -2,8 +2,8 @@
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
-	public $langCache = array();
-	public $timeCache = array();
+	public $langCache = [];
+	public $timeCache = [];
 	public $maxLangCacheSize;
 
 	function register() {
@@ -12,7 +12,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$this->langCache[$wgContLang->getCode()] = $wgContLang;
 		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
-		$statics = array(
+		$statics = [
 			'getContLangCode',
 			'isSupportedLanguage',
 			'isKnownLanguageTag',
@@ -21,8 +21,8 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			'fetchLanguageName',
 			'fetchLanguageNames',
 			'getFallbacksFor',
-		);
-		$methods = array(
+		];
+		$methods = [
 			'lcfirst',
 			'ucfirst',
 			'lc',
@@ -37,10 +37,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			'convertGrammar',
 			'gender',
 			'isRTL',
-		);
-		$lib = array();
+		];
+		$lib = [];
 		foreach ( $statics as $name ) {
-			$lib[$name] = array( $this, $name );
+			$lib[$name] = [ $this, $name ];
 		}
 		$ths = $this;
 		foreach ( $methods as $name ) {
@@ -54,44 +54,44 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	function getContLangCode() {
 		global $wgContLang;
-		return array( $wgContLang->getCode() );
+		return [ $wgContLang->getCode() ];
 	}
 
 	function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
 		try {
 			// There's no good reason this should throw, but it does. Sigh.
-			return array( Language::isSupportedLanguage( $code ) );
+			return [ Language::isSupportedLanguage( $code ) ];
 		} catch ( MWException $ex ) {
-			return array( false );
+			return [ false ];
 		}
 	}
 
 	function isKnownLanguageTag( $code ) {
 		$this->checkType( 'isKnownLanguageTag', 1, $code, 'string' );
-		return array( Language::isKnownLanguageTag( $code ) );
+		return [ Language::isKnownLanguageTag( $code ) ];
 	}
 
 	function isValidCode( $code ) {
 		$this->checkType( 'isValidCode', 1, $code, 'string' );
-		return array( Language::isValidCode( $code ) );
+		return [ Language::isValidCode( $code ) ];
 	}
 
 	function isValidBuiltInCode( $code ) {
 		$this->checkType( 'isValidBuiltInCode', 1, $code, 'string' );
-		return array( (bool)Language::isValidBuiltInCode( $code ) );
+		return [ (bool)Language::isValidBuiltInCode( $code ) ];
 	}
 
 	function fetchLanguageName( $code, $inLanguage ) {
 		$this->checkType( 'fetchLanguageName', 1, $code, 'string' );
 		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', null );
-		return array( Language::fetchLanguageName( $code, $inLanguage ) );
+		return [ Language::fetchLanguageName( $code, $inLanguage ) ];
 	}
 
 	function fetchLanguageNames( $inLanguage, $include ) {
 		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', null );
 		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', 'mw' );
-		return array( Language::fetchLanguageNames( $inLanguage, $include ) );
+		return [ Language::fetchLanguageNames( $inLanguage, $include ) ];
 	}
 
 	function getFallbacksFor( $code ) {
@@ -101,7 +101,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		if ( count( $ret ) ) {
 			$ret = array_combine( range( 1, count( $ret ) ), $ret );
 		}
-		return array( $ret );
+		return [ $ret ];
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		switch ( $name ) {
 			// Zero arguments
 			case 'isRTL':
-				return array( $lang->$name() );
+				return [ $lang->$name() ];
 
 			// One string argument passed straight through
 			case 'lcfirst':
@@ -133,7 +133,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			case 'uc':
 			case 'caseFold':
 				$this->checkType( $name, 1, $args[0], 'string' );
-				return array( $lang->$name( $args[0] ) );
+				return [ $lang->$name( $args[0] ) ];
 
 			case 'parseFormattedNumber':
 				if ( is_numeric( $args[0] ) ) {
@@ -141,9 +141,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				}
 				if ( $this->getLuaType( $args[0] ) !== 'string' ) {
 					// Be like tonumber(), return nil instead of erroring out
-					return array( null );
+					return [ null ];
 				}
-				return array( $lang->$name( $args[0] ) );
+				return [ $lang->$name( $args[0] ) ];
 
 			// Custom handling
 			default:
@@ -161,7 +161,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			$args = $args[0];
 		}
 		$forms = array_values( array_map( 'strval', $args ) );
-		return array( $lang->convertPlural( $number, $forms ) );
+		return [ $lang->convertPlural( $number, $forms ) ];
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	function convertGrammar( $lang, $args ) {
 		$this->checkType( 'convertGrammar', 1, $args[0], 'string' );
 		$this->checkType( 'convertGrammar', 2, $args[1], 'string' );
-		return array( $lang->convertGrammar( $args[0], $args[1] ) );
+		return [ $lang->convertGrammar( $args[0], $args[1] ) ];
 	}
 
 	/**
@@ -215,7 +215,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				}
 			}
 		}
-		return array( $lang->gender( $gender, $forms ) );
+		return [ $lang->gender( $gender, $forms ) ];
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			$options = $args[1];
 			$noCommafy = !empty( $options['noCommafy'] );
 		}
-		return array( $lang->formatNum( $num, $noCommafy ) );
+		return [ $lang->formatNum( $num, $noCommafy ) ];
 	}
 
 	/**
@@ -265,7 +265,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			if ( $useTTL && $ttl !== null ) {
 				$this->getEngine()->setTTL( $ttl );
 			}
-			return array( $this->timeCache[$format][$cacheKey][$langcode][$local][0] );
+			return [ $this->timeCache[$format][$cacheKey][$langcode][$local][0] ];
 		}
 
 		# Default input timezone is UTC.
@@ -299,11 +299,11 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 		$ttl = null;
 		$ret = $lang->sprintfDate( $format, $ts, $tz, $ttl );
-		$this->timeCache[$format][$cacheKey][$langcode][$local] = array( $ret, $ttl );
+		$this->timeCache[$format][$cacheKey][$langcode][$local] = [ $ret, $ttl ];
 		if ( $useTTL && $ttl !== null ) {
 			$this->getEngine()->setTTL( $ttl );
 		}
-		return array( $ret );
+		return [ $ret ];
 	}
 
 	/**
@@ -311,14 +311,14 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	function formatDuration( $lang, $args ) {
 		$this->checkType( 'formatDuration', 1, $args[0], 'number' );
-		$this->checkTypeOptional( 'formatDuration', 2, $args[1], 'table', array() );
+		$this->checkTypeOptional( 'formatDuration', 2, $args[1], 'table', [] );
 
 		list( $seconds, $chosenIntervals ) = $args;
 		$langcode = $lang->getCode();
 		$chosenIntervals = array_values( $chosenIntervals );
 
 		$ret = $lang->formatDuration( $seconds, $chosenIntervals );
-		return array( $ret );
+		return [ $ret ];
 	}
 
 	/**
@@ -326,13 +326,13 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	function getDurationIntervals( $lang, $args ) {
 		$this->checkType( 'getDurationIntervals', 1, $args[0], 'number' );
-		$this->checkTypeOptional( 'getDurationIntervals', 2, $args[1], 'table', array() );
+		$this->checkTypeOptional( 'getDurationIntervals', 2, $args[1], 'table', [] );
 
 		list( $seconds, $chosenIntervals ) = $args;
 		$langcode = $lang->getCode();
 		$chosenIntervals = array_values( $chosenIntervals );
 
 		$ret = $lang->getDurationIntervals( $seconds, $chosenIntervals );
-		return array( $ret );
+		return [ $ret ];
 	}
 }

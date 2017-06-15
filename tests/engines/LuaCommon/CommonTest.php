@@ -4,7 +4,7 @@
 class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'CommonTests';
 
-	private static $allowedGlobals = array(
+	private static $allowedGlobals = [
 		// Functions
 		'assert',
 		'error',
@@ -39,28 +39,28 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		// Misc
 		'_VERSION',
-	);
+	];
 
 	protected function setUp() {
 		parent::setUp();
 
 		// Register libraries for self::testPHPLibrary()
-		$this->mergeMwGlobalArrayValue( 'wgHooks', array(
-			'ScribuntoExternalLibraries' => array(
+		$this->mergeMwGlobalArrayValue( 'wgHooks', [
+			'ScribuntoExternalLibraries' => [
 				function ( $engine, &$libs ) {
-					$libs += array(
-						'CommonTestsLib' => array(
+					$libs += [
+						'CommonTestsLib' => [
 							'class' => 'Scribunto_LuaCommonTestsLibrary',
 							'deferLoad' => true,
-						),
-						'CommonTestsFailLib' => array(
+						],
+						'CommonTestsFailLib' => [
 							'class' => 'Scribunto_LuaCommonTestsFailLibrary',
 							'deferLoad' => true,
-						),
-					);
+						],
+					];
 				}
-			)
-		) );
+			]
+		] );
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
@@ -73,7 +73,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	protected function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'CommonTests' => __DIR__ . '/CommonTests.lua',
 			'CommonTests-data' => __DIR__ . '/CommonTests-data.lua',
 			'CommonTests-data-fail1' => __DIR__ . '/CommonTests-data-fail1.lua',
@@ -81,7 +81,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			'CommonTests-data-fail3' => __DIR__ . '/CommonTests-data-fail3.lua',
 			'CommonTests-data-fail4' => __DIR__ . '/CommonTests-data-fail4.lua',
 			'CommonTests-data-fail5' => __DIR__ . '/CommonTests-data-fail5.lua',
-		);
+		];
 	}
 
 	public function testNoLeakedGlobals() {
@@ -166,14 +166,14 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			'package.loaded is right on the second call' );
 
 		# Test caching for require
-		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'cached' ) );
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( [ 1 => 'cached' ] );
 		$ret = $module->invoke( 'getSetVal', $frame->newChild( $args ) );
 		$this->assertSame( 'cachedcached', $ret,
 			'same loaded table is returned by multiple require calls' );
 
 		# Test no data communication between invokes
 		$module = $engine->fetchModuleFromParser( $title );
-		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'fail' ) );
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( [ 1 => 'fail' ] );
 		$module->invoke( 'setVal', $frame->newChild( $args ) );
 		$ret = $module->invoke( 'getVal', $frame->newChild() );
 		$this->assertSame( 'nilnope', $ret,
@@ -183,7 +183,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser( $title );
 		$ret = $module->invoke( 'libGetVal', $frame->newChild() );
 		$this->assertSame( 'nil', $ret, 'sanity check' );
-		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( array( 1 => 'ok' ) );
+		$args = $engine->getParser()->getPreprocessor()->newPartNodeArray( [ 1 => 'ok' ] );
 		$module->invoke( 'libSetVal', $frame->newChild( $args ) );
 
 		$module = $engine->fetchModuleFromParser( $title );
@@ -202,7 +202,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return ("").testModuleStringExtend', 'teststring1' )
 		);
-		$this->assertSame( array( 'ok' ), $ret, 'string can be extended' );
+		$this->assertSame( [ 'ok' ], $ret, 'string can be extended' );
 
 		$this->extraModules['Module:testModuleStringExtend'] = '
 			return {
@@ -215,7 +215,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$ret = $interpreter->callFunction(
 			$engine->executeModule( $module->getInitChunk(), 'test', null )
 		);
-		$this->assertSame( array( 'ok' ), $ret, 'string extension can be used from module' );
+		$this->assertSame( [ 'ok' ], $ret, 'string extension can be used from module' );
 
 		$this->extraModules['Module:testModuleStringExtend2'] = '
 			return {
@@ -231,39 +231,39 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$ret = $interpreter->callFunction(
 			$engine->executeModule( $module->getInitChunk(), 'test', null )
 		);
-		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from module' );
+		$this->assertSame( [ 'ok' ], $ret, 'string extension cannot be modified from module' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring2' )
 		);
-		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from module' );
+		$this->assertSame( [ 'ok' ], $ret, 'string extension cannot be modified from module' );
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array(),
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [],
 			'question' => '=("").testModuleStringExtend',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( 'ok', $ret['return'], 'string extension can be used from console' );
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array( 'string.fail = "fail"' ),
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [ 'string.fail = "fail"' ],
 			'question' => '=("").fail',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( 'nil', $ret['return'], 'string cannot be extended from console' );
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array( 'string.testModuleStringExtend = "fail"' ),
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [ 'string.testModuleStringExtend = "fail"' ],
 			'question' => '=("").testModuleStringExtend',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( 'ok', $ret['return'], 'string extension cannot be modified from console' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring3' )
 		);
-		$this->assertSame( array( 'ok' ), $ret, 'string extension cannot be modified from console' );
+		$this->assertSame( [ 'ok' ], $ret, 'string extension cannot be modified from console' );
 
 		$interpreter->callFunction(
 			$interpreter->loadString( 'string.testModuleStringExtend = nil', 'unextendstring' )
@@ -308,7 +308,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$this->assertSame( 'nil', $module->invoke( 'bar', $frame ),
 			'data module was stored in module\'s package.loaded'
 		);
-		$this->assertSame( array( 'nil' ),
+		$this->assertSame( [ 'nil' ],
 			$interpreter->callFunction( $interpreter->loadString(
 				'return tostring( package.loaded["Module:TestLoadDataLoadedOnce-data"] )', 'getLoaded'
 			) ),
@@ -319,31 +319,31 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	public function testFrames() {
 		$engine = $this->getEngine();
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array(),
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [],
 			'question' => '=mw.getCurrentFrame()',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( 'table', $ret['return'], 'frames can be used in the console' );
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array(),
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [],
 			'question' => '=mw.getCurrentFrame():newChild{}',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( 'table', $ret['return'], 'child frames can be created' );
 
-		$ret = $engine->runConsole( array(
-			'prevQuestions' => array(
+		$ret = $engine->runConsole( [
+			'prevQuestions' => [
 				'f = mw.getCurrentFrame():newChild{ args = { "ok" } }',
 				'f2 = f:newChild{ args = {} }'
-			),
+			],
 			'question' => '=f2:getParent().args[1], f2:getParent():getParent()',
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		) );
+		] );
 		$this->assertSame( "ok\ttable", $ret['return'], 'child frames have correct parents' );
 	}
 
@@ -351,83 +351,83 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();
 
-		$args = array(
-			'prevQuestions' => array(),
+		$args = [
+			'prevQuestions' => [],
 			'content' => 'return {}',
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
-		);
+		];
 
 		// Test argument calling conventions
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction{
 				name = "urlencode", args = { "x x", "wiki" }
 			}',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (named args w/table)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction{
 				name = "urlencode", args = "x x"
 			}',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x+x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x}} (named args w/scalar)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode", { "x x", "wiki" } )',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (positional args w/table)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode", "x x", "wiki" )',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (positional args w/scalars)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction{
 				name = "urlencode:x x", args = { "wiki" }
 			}',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, named args w/table)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction{
 				name = "urlencode:x x", args = "wiki"
 			}',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, named args w/scalar)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode:x x", { "wiki" } )',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, positional args w/table)'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction( "urlencode:x x", "wiki" )',
-		) + $args );
+		] + $args );
 		$this->assertSame( "x_x", $ret['return'],
 			'callParserFunction works for {{urlencode:x x|wiki}} (colon in name, positional args w/scalars)'
 		);
 
 		// Test named args to the parser function
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():callParserFunction( "#tag:pre",
 				{ "foo", style = "margin-left: 1.6em" }
 			)',
-		) + $args );
+		] + $args );
 		$this->assertSame(
 			'<pre style="margin-left: 1.6em">foo</pre>',
 			$parser->mStripState->unstripBoth( $ret['return'] ),
@@ -435,22 +435,22 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 		);
 
 		// Test extensionTag
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():extensionTag( "pre", "foo",
 				{ style = "margin-left: 1.6em" }
 			)',
-		) + $args );
+		] + $args );
 		$this->assertSame(
 			'<pre style="margin-left: 1.6em">foo</pre>',
 			$parser->mStripState->unstripBoth( $ret['return'] ),
 			'extensionTag works for {{#tag:pre|foo|style=margin-left: 1.6em}}'
 		);
 
-		$ret = $engine->runConsole( array(
+		$ret = $engine->runConsole( [
 			'question' => '=mw.getCurrentFrame():extensionTag{ name = "pre", content = "foo",
 				args = { style = "margin-left: 1.6em" }
 			}',
-		) + $args );
+		] + $args );
 		$this->assertSame(
 			'<pre style="margin-left: 1.6em">foo</pre>',
 			$parser->mStripState->unstripBoth( $ret['return'] ),
@@ -459,11 +459,11 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 
 		// Test calling a non-existent function
 		try {
-			$ret = $engine->runConsole( array(
+			$ret = $engine->runConsole( [
 				'question' => '=mw.getCurrentFrame():callParserFunction{
 					name = "thisDoesNotExist", args = { "" }
 				}',
-			) + $args );
+			] + $args );
 			$this->fail( "Expected LuaError not thrown for nonexistent parser function" );
 		} catch ( Scribunto_LuaError $err ) {
 			$this->assertSame(
@@ -646,11 +646,11 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 	}
 
 	public function provideVolatileCaching() {
-		return array(
-			array( 'preprocess' ),
-			array( 'extensionTag' ),
-			array( 'expandTemplate' ),
-		);
+		return [
+			[ 'preprocess' ],
+			[ 'extensionTag' ],
+			[ 'expandTemplate' ],
+		];
 	}
 
 	public function testGetCurrentFrameAndMWLoadData() {
@@ -705,7 +705,7 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 			}
 		';
 
-		foreach ( array( 'directly', 'statically', 'dynamically' ) as $how ) {
+		foreach ( [ 'directly', 'statically', 'dynamically' ] as $how ) {
 			$frame = $pp->newFrame();
 			$text = $frame->expand( $pp->preprocessToObj(
 				"{{#invoke:Bug67498-$how|test|foo}} -- {{#invoke:Bug67498-$how|test|bar}}"
@@ -725,18 +725,18 @@ class Scribunto_LuaCommonTests extends Scribunto_LuaEngineTestBase {
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
-		$lib = array(
-			'test' => array( $this, 'test' ),
-		);
-		$opts = array(
+		$lib = [
+			'test' => [ $this, 'test' ],
+		];
+		$opts = [
 			'test' => 'Test option',
-		);
+		];
 
 		return $this->getEngine()->registerInterface( __DIR__ . '/CommonTests-lib.lua', $lib, $opts );
 	}
 
 	public function test() {
-		return array( 'Test function' );
+		return [ 'Test function' ];
 	}
 }
 

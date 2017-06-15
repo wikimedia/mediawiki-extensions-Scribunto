@@ -12,12 +12,12 @@ if ( count( $argv ) > 1 ) {
 		die( "The specified file '$datafile' does not exist\n" );
 	}
 } else {
-	foreach ( array(
+	foreach ( [
 		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
 		__DIR__ . '/../../../../../includes/libs/normal/UtfNormalData.inc',
-	) as $tryfile ) {
+	] as $tryfile ) {
 		$tryfile = realpath( $tryfile );
 		if ( file_exists( $tryfile ) ) {
 			$datafile = $tryfile;
@@ -36,13 +36,13 @@ if ( count( $argv ) > 2 ) {
 		die( "The specified file '$datafileK' does not exist\n" );
 	}
 } else {
-	foreach ( array(
+	foreach ( [
 		dirname( $datafile ) . '/UtfNormalDataK.inc',
 		__DIR__ . '/../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../core/includes/libs/normal/UtfNormalData.inc',
 		__DIR__ . '/../../../../../includes/libs/normal/UtfNormalData.inc',
-	) as $tryfile ) {
+	] as $tryfile ) {
 		$tryfile = realpath( $tryfile );
 		if ( file_exists( $tryfile ) ) {
 			$datafileK = $tryfile;
@@ -106,7 +106,7 @@ foreach ( UtfNormal::$utfCheckNFC as $k => $v ) {
 fprintf( $X, "\t},\n\n" );
 fprintf( $X, "\t-- Combining characters, mapped to combining class\n" );
 fprintf( $X, "\tcombclass = {\n" );
-$comb = array();
+$comb = [];
 foreach ( UtfNormal::$utfCombiningClass as $k => $v ) {
 	$cp = uord( $k, true );
 	$comb[$cp] = 1;
@@ -145,7 +145,7 @@ fprintf( $X, "\t},\n\n" );
 
 fprintf( $X, "\t-- Character-pairs mapped to what they compose to\n" );
 fprintf( $X, "\t-- Note Jamo to Hangul is done separately below\n" );
-$t = array();
+$t = [];
 foreach ( UtfNormal::$utfCanonicalComp as $k => $v ) {
 	$k = uord( $k, false );
 	if ( count( $k ) == 1 ) {

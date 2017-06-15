@@ -6,468 +6,468 @@
  * @ingroup Extensions
  */
 
-$namespaceNames = array();
+$namespaceNames = [];
 
-$namespaceNames['en'] = array(
+$namespaceNames['en'] = [
 	828 => 'Module',
 	829 => 'Module_talk',
-);
+];
 
-$namespaceNames['an'] = array(
+$namespaceNames['an'] = [
 	828 => 'Módulo',
 	829 => 'Descusión_módulo',
-);
+];
 
-$namespaceNames['ar'] = array(
+$namespaceNames['ar'] = [
 	828 => 'وحدة',
 	829 => 'نقاش_الوحدة',
-);
+];
 
-$namespaceNames['ast'] = array(
+$namespaceNames['ast'] = [
 	828 => 'Módulu',
 	829 => 'Módulu_alderique',
-);
+];
 
-$namespaceNames['atj'] = array(
+$namespaceNames['atj'] = [
 	828 => 'Aitapihikewin',
 	829 => 'Aitapihikan_ke_ici_aimihitonaniwok',
-);
+];
 
-$namespaceNames['azb'] = array(
+$namespaceNames['azb'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_دانیشیغی',
-);
+];
 
-$namespaceNames['ba'] = array(
+$namespaceNames['ba'] = [
 	828 => 'Модуль',
 	829 => 'Модуль_буйынса_фекерләшеү',
-);
+];
 
-$namespaceNames['be'] = array(
+$namespaceNames['be'] = [
 	828 => 'Модуль',
 	829 => 'Размовы_пра_модуль',
-);
+];
 
-$namespaceNames['be-tarask'] = array(
+$namespaceNames['be-tarask'] = [
 	828 => 'Модуль',
 	829 => 'Абмеркаваньне_модулю',
-);
+];
 
-$namespaceNames['bg'] = array(
+$namespaceNames['bg'] = [
 	828 => 'Модул',
 	829 => 'Модул_беседа',
-);
+];
 
-$namespaceNames['bgn'] = array(
+$namespaceNames['bgn'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_ئی_گپ',
-);
+];
 
-$namespaceNames['bn'] = array(
+$namespaceNames['bn'] = [
 	828 => 'মডিউল',
 	829 => 'মডিউল_আলাপ',
-);
+];
 
-$namespaceNames['br'] = array(
+$namespaceNames['br'] = [
 	828 => 'Modulenn',
 	829 => 'Kaozeadenn_modulenn',
-);
+];
 
-$namespaceNames['bs'] = array(
+$namespaceNames['bs'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
-);
+];
 
-$namespaceNames['ca'] = array(
+$namespaceNames['ca'] = [
 	828 => 'Mòdul',
 	829 => 'Mòdul_Discussió',
-);
+];
 
-$namespaceNames['ce'] = array(
+$namespaceNames['ce'] = [
 	828 => 'Модуль',
 	829 => 'Модулин_дийцаре',
-);
+];
 
-$namespaceNames['ckb'] = array(
+$namespaceNames['ckb'] = [
 	828 => 'مۆدیوول',
 	829 => 'لێدوانی_مۆدیوول',
-);
+];
 
-$namespaceNames['crh'] = array(
+$namespaceNames['crh'] = [
 	828 => 'Modul',
 	829 => 'Modul_muzakeresi',
-);
+];
 
-$namespaceNames['cs'] = array(
+$namespaceNames['cs'] = [
 	828 => 'Modul',
 	829 => 'Diskuse_k_modulu',
-);
+];
 
-$namespaceNames['cy'] = array(
+$namespaceNames['cy'] = [
 	828 => 'Modiwl',
 	829 => 'Sgwrs_modiwl',
-);
+];
 
-$namespaceNames['da'] = array(
+$namespaceNames['da'] = [
 	828 => 'Modul',
 	829 => 'Moduldiskussion',
-);
+];
 
-$namespaceNames['de'] = array(
+$namespaceNames['de'] = [
 	828 => 'Modul',
 	829 => 'Modul_Diskussion',
-);
+];
 
-$namespaceNames['din'] = array(
+$namespaceNames['din'] = [
 	828 => 'Mukääcëtök',
 	829 => 'Jam_wɛ̈t_ë_mukääcëtök',
-);
+];
 
-$namespaceNames['diq'] = array(
+$namespaceNames['diq'] = [
 	828 => 'Modul',
 	829 => 'Modul_vaten',
-);
+];
 
-$namespaceNames['dsb'] = array(
+$namespaceNames['dsb'] = [
 	828 => 'Modul',
 	829 => 'Modul_diskusija',
-);
+];
 
-$namespaceNames['dty'] = array(
+$namespaceNames['dty'] = [
 	828 => 'मोड्युल',
 	829 => 'मोड्युल_कुरणि',
-);
+];
 
-$namespaceNames['dv'] = array(
+$namespaceNames['dv'] = [
 	828 => 'މޮޑިއުލް',
 	829 => 'މޮޑިއުލް_ޚިޔާލު',
-);
+];
 
-$namespaceNames['eml'] = array(
+$namespaceNames['eml'] = [
 	828 => 'Mòdul',
 	829 => 'Discusiòun_dal_Mòdul',
-);
+];
 
-$namespaceNames['eo'] = array(
+$namespaceNames['eo'] = [
 	828 => 'Modulo',
 	829 => 'Modulo-Diskuto',
-);
+];
 
-$namespaceNames['es'] = array(
+$namespaceNames['es'] = [
 	828 => 'Módulo',
 	829 => 'Módulo_discusión',
-);
+];
 
-$namespaceNames['et'] = array(
+$namespaceNames['et'] = [
 	828 => 'Moodul',
 	829 => 'Mooduli_arutelu',
-);
+];
 
-$namespaceNames['eu'] = array(
+$namespaceNames['eu'] = [
 	828 => 'Modulu',
 	829 => 'Modulu_eztabaida',
-);
+];
 
-$namespaceNames['fa'] = array(
+$namespaceNames['fa'] = [
 	828 => 'پودمان',
 	829 => 'بحث_پودمان',
-);
+];
 
-$namespaceNames['fi'] = array(
+$namespaceNames['fi'] = [
 	828 => 'Moduuli',
 	829 => 'Keskustelu_moduulista',
-);
+];
 
-$namespaceNames['fr'] = array(
+$namespaceNames['fr'] = [
 	828 => 'Module',
 	829 => 'Discussion_module',
-);
+];
 
-$namespaceNames['gd'] = array(
+$namespaceNames['gd'] = [
 	828 => 'Mòideal',
 	829 => 'Deasbaireachd_mòideil',
-);
+];
 
-$namespaceNames['gl'] = array(
+$namespaceNames['gl'] = [
 	828 => 'Módulo',
 	829 => 'Conversa_módulo',
-);
+];
 
-$namespaceNames['gom-deva'] = array(
+$namespaceNames['gom-deva'] = [
 	828 => 'एकक',
 	829 => 'एकक_चर्चा',
-);
+];
 
-$namespaceNames['gu'] = array(
+$namespaceNames['gu'] = [
 	828 => 'વિભાગ',
 	829 => 'વિભાગ_ચર્ચા',
-);
+];
 
-$namespaceNames['he'] = array(
+$namespaceNames['he'] = [
 	828 => 'יחידה',
 	829 => 'שיחת_יחידה',
-);
+];
 
-$namespaceNames['hr'] = array(
+$namespaceNames['hr'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
-);
+];
 
-$namespaceNames['hsb'] = array(
+$namespaceNames['hsb'] = [
 	828 => 'Modul',
 	829 => 'Modul_diskusija',
-);
+];
 
-$namespaceNames['hu'] = array(
+$namespaceNames['hu'] = [
 	828 => 'Modul',
 	829 => 'Modulvita',
-);
+];
 
-$namespaceNames['hy'] = array(
+$namespaceNames['hy'] = [
 	828 => 'Մոդուլ',
 	829 => 'Մոդուլի_քննարկում',
-);
+];
 
-$namespaceNames['id'] = array(
+$namespaceNames['id'] = [
 	828 => 'Modul',
 	829 => 'Pembicaraan_Modul',
-);
+];
 
-$namespaceNames['ilo'] = array(
+$namespaceNames['ilo'] = [
 	828 => 'Modulo',
 	829 => 'Modulo_tungtungan',
-);
+];
 
-$namespaceNames['it'] = array(
+$namespaceNames['it'] = [
 	828 => 'Modulo',
 	829 => 'Discussioni_modulo',
-);
+];
 
-$namespaceNames['ja'] = array(
+$namespaceNames['ja'] = [
 	828 => 'モジュール',
 	829 => 'モジュール・トーク',
-);
+];
 
-$namespaceNames['ka'] = array(
+$namespaceNames['ka'] = [
 	828 => 'მოდული',
 	829 => 'მოდულის_განხილვა',
-);
+];
 
-$namespaceNames['kn'] = array(
+$namespaceNames['kn'] = [
 	828 => 'ಮಾಡ್ಯೂಲ್',
 	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆ',
-);
+];
 
-$namespaceNames['ko'] = array(
+$namespaceNames['ko'] = [
 	828 => '모듈',
 	829 => '모듈토론',
-);
+];
 
-$namespaceNames['ku'] = array(
+$namespaceNames['ku'] = [
 	828 => 'Modul',
 	829 => 'Gotûbêja_modulê',
-);
+];
 
-$namespaceNames['lb'] = array(
+$namespaceNames['lb'] = [
 	828 => 'Modul',
 	829 => 'Modul_Diskussioun',
-);
+];
 
-$namespaceNames['lrc'] = array(
+$namespaceNames['lrc'] = [
 	828 => 'ماجول',
 	829 => 'چک_چنه_ماجول',
-);
+];
 
-$namespaceNames['lv'] = array(
+$namespaceNames['lv'] = [
 	828 => 'Modulis',
 	829 => 'Moduļa_diskusija',
-);
+];
 
-$namespaceNames['mai'] = array(
+$namespaceNames['mai'] = [
 	828 => 'मोड्युल',
 	829 => 'मोड्युल_वार्ता',
-);
+];
 
-$namespaceNames['min'] = array(
+$namespaceNames['min'] = [
 	828 => 'Modul',
 	829 => 'Rundiang_Modul',
-);
+];
 
-$namespaceNames['mk'] = array(
+$namespaceNames['mk'] = [
 	828 => 'Модул',
 	829 => 'Разговор_за_модул',
-);
+];
 
-$namespaceNames['ml'] = array(
+$namespaceNames['ml'] = [
 	828 => 'ഘടകം',
 	829 => 'ഘടകത്തിന്റെ_സംവാദം',
-);
+];
 
-$namespaceNames['mr'] = array(
+$namespaceNames['mr'] = [
 	828 => 'विभाग',
 	829 => 'विभाग_चर्चा',
-);
+];
 
-$namespaceNames['ms'] = array(
+$namespaceNames['ms'] = [
 	828 => 'Modul',
-);
+];
 
-$namespaceNames['mzn'] = array(
+$namespaceNames['mzn'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_گپ',
-);
+];
 
-$namespaceNames['nb'] = array(
+$namespaceNames['nb'] = [
 	828 => 'Modul',
 	829 => 'Moduldiskusjon',
-);
+];
 
-$namespaceNames['nl'] = array(
+$namespaceNames['nl'] = [
 	828 => 'Module',
 	829 => 'Overleg_module',
-);
+];
 
-$namespaceNames['nn'] = array(
+$namespaceNames['nn'] = [
 	828 => 'Modul',
 	829 => 'Moduldiskusjon',
-);
+];
 
-$namespaceNames['or'] = array(
+$namespaceNames['or'] = [
 	828 => 'ମଡ୍ୟୁଲ',
 	829 => 'ମଡ୍ୟୁଲ_ଆଲୋଚନା',
-);
+];
 
-$namespaceNames['pl'] = array(
+$namespaceNames['pl'] = [
 	828 => 'Moduł',
 	829 => 'Dyskusja_modułu',
-);
+];
 
-$namespaceNames['pnb'] = array(
+$namespaceNames['pnb'] = [
 	828 => 'ماڈیول',
 	829 => 'ماڈیول_گل_بات',
-);
+];
 
-$namespaceNames['pt'] = array(
+$namespaceNames['pt'] = [
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
-);
+];
 
-$namespaceNames['pt-br'] = array(
+$namespaceNames['pt-br'] = [
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
-);
+];
 
-$namespaceNames['ro'] = array(
+$namespaceNames['ro'] = [
 	828 => 'Modul',
 	829 => 'Discuție_Modul',
-);
+];
 
-$namespaceNames['ru'] = array(
+$namespaceNames['ru'] = [
 	828 => 'Модуль',
 	829 => 'Обсуждение_модуля',
-);
+];
 
-$namespaceNames['sa'] = array(
+$namespaceNames['sa'] = [
 	828 => 'पटलम्', // T101634
 	829 => 'पटलसम्भाषणम्',
-);
+];
 
-$namespaceNames['sh'] = array(
+$namespaceNames['sh'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
-);
+];
 
-$namespaceNames['sk'] = array(
+$namespaceNames['sk'] = [
 	828 => 'Modul',
 	829 => 'Diskusia_k_modulu',
-);
+];
 
-$namespaceNames['sl'] = array(
+$namespaceNames['sl'] = [
 	828 => 'Modul',
 	829 => 'Pogovor_o_modulu',
-);
+];
 
-$namespaceNames['sq'] = array(
+$namespaceNames['sq'] = [
 	828 => 'Moduli',
 	829 => 'Moduli_diskutim',
-);
+];
 
-$namespaceNames['sr'] = array(
+$namespaceNames['sr'] = [
 	828 => 'Модул',
 	829 => 'Разговор о модулу',
-);
+];
 
-$namespaceNames['sr-ec'] = array(
+$namespaceNames['sr-ec'] = [
 	828 => 'Модул',
 	829 => 'Разговор_о_модулу',
-);
+];
 
-$namespaceNames['sr-el'] = array(
+$namespaceNames['sr-el'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
-);
+];
 
-$namespaceNames['sv'] = array(
+$namespaceNames['sv'] = [
 	828 => 'Modul',
 	829 => 'Moduldiskussion',
-);
+];
 
-$namespaceNames['tcy'] = array(
+$namespaceNames['tcy'] = [
 	828 => 'ಮೋಡ್ಯೂಲ್',
 	829 => 'ಮೋಡ್ಯೂಲ್_ಪಾತೆರ',
-);
+];
 
-$namespaceNames['te'] = array(
+$namespaceNames['te'] = [
 	828 => 'మాడ్యూల్',
 	829 => 'మాడ్యూల్_సంభాషణ',
-);
+];
 
-$namespaceNames['tg'] = array(
+$namespaceNames['tg'] = [
 	828 => 'Модул',
 	829 => 'Баҳси_Модул',
-);
+];
 
-$namespaceNames['th'] = array(
+$namespaceNames['th'] = [
 	828 => 'มอดูล',
 	829 => 'คุยเรื่องมอดูล',
-);
+];
 
-$namespaceNames['tr'] = array(
+$namespaceNames['tr'] = [
 	828 => 'Modül',
 	829 => 'Modül_tartışma',
-);
+];
 
-$namespaceNames['uk'] = array(
+$namespaceNames['uk'] = [
 	828 => 'Модуль',
 	829 => 'Обговорення_модуля',
-);
+];
 
-$namespaceNames['ur'] = array(
+$namespaceNames['ur'] = [
 	828 => 'ماڈیول',
 	829 => 'تبادلۂ_خیال_ماڈیول',
-);
+];
 
-$namespaceNames['vi'] = array(
+$namespaceNames['vi'] = [
 	828 => 'Mô_đun',
 	829 => 'Thảo_luận_Mô_đun',
-);
+];
 
-$namespaceNames['yue'] = array(
+$namespaceNames['yue'] = [
 	828 => '模組',
 	829 => '模組討論',
-);
+];
 
-$namespaceNames['zh'] = array(
+$namespaceNames['zh'] = [
 	828 => '模块',
 	829 => '模块讨论',
-);
+];
 
-$namespaceNames['zh-hans'] = array(
+$namespaceNames['zh-hans'] = [
 	828 => '模块',
 	829 => '模块讨论',
-);
+];
 
-$namespaceNames['zh-hant'] = array(
+$namespaceNames['zh-hant'] = [
 	828 => '模組',
 	829 => '模組討論',
-);
+];

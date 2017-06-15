@@ -95,12 +95,12 @@ class ScribuntoHooks {
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title || !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule',
-					array( 'args' => array( $moduleName ) ) );
+					[ 'args' => [ $moduleName ] ] );
 			}
 			$module = $engine->fetchModuleFromParser( $title );
 			if ( !$module ) {
 				throw new ScribuntoException( 'scribunto-common-nosuchmodule',
-					array( 'args' => array( $moduleName ) ) );
+					[ 'args' => [ $moduleName ] ] );
 			}
 			$functionName = trim( $frame->expand( $args[1] ) );
 
@@ -132,16 +132,16 @@ class ScribuntoHooks {
 
 			return UtfNormal::cleanUp( strval( $result ) );
 		} catch ( ScribuntoException $e ) {
-			$trace = $e->getScriptTraceHtml( array( 'msgOptions' => array( 'content' ) ) );
-			$html = Html::element( 'p', array(), $e->getMessage() );
+			$trace = $e->getScriptTraceHtml( [ 'msgOptions' => [ 'content' ] ] );
+			$html = Html::element( 'p', [], $e->getMessage() );
 			if ( $trace !== false ) {
 				$html .= Html::element( 'p',
-					array(),
+					[],
 					wfMessage( 'scribunto-common-backtrace' )->inContentLanguage()->text()
 				) . $trace;
 			} else {
 				$html .= Html::element( 'p',
-					array(),
+					[],
 					wfMessage( 'scribunto-common-no-details' )->inContentLanguage()->text()
 				);
 			}
@@ -149,7 +149,7 @@ class ScribuntoHooks {
 			$errors = $out->getExtensionData( 'ScribuntoErrors' );
 			if ( $errors === null ) {
 				// On first hook use, set up error array and output
-				$errors = array();
+				$errors = [];
 				$parser->addTrackingCategory( 'scribunto-common-error-category' );
 				$out->addModules( 'ext.scribunto.errors' );
 			}
@@ -416,7 +416,7 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function unitTestsList( array &$files ) {
-		$tests = array(
+		$tests = [
 			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
 			'engines/LuaStandalone/StandaloneTest.php',
 			'engines/LuaSandbox/LuaSandboxInterpreterTest.php',
@@ -434,7 +434,7 @@ class ScribuntoHooks {
 			'engines/LuaCommon/LanguageLibraryTest.php',
 			'engines/LuaCommon/UstringLibraryPureLuaTest.php',
 			'engines/LuaCommon/LibraryUtilTest.php',
-		);
+		];
 		foreach ( $tests as $test ) {
 			$files[] = __DIR__ . '/../tests/' . $test;
 		}

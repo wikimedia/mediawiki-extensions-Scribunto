@@ -15,9 +15,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	}
 
 	public function getPerformanceCharacteristics() {
-		return array(
+		return [
 			'phpCallsRequireSerialization' => true,
-		);
+		];
 	}
 
 	/**
@@ -52,16 +52,16 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		if ( $this->initialStatus ) {
 			$status = $this->interpreter->getStatus();
 			$output->setLimitReportData( 'scribunto-limitreport-timeusage',
-				array(
+				[
 					sprintf( "%.3f", $status['time'] / $this->getClockTick() ),
 					sprintf( "%.3f", $this->options['cpuLimit'] )
-				)
+				]
 			);
 			$output->setLimitReportData( 'scribunto-limitreport-virtmemusage',
-				array(
+				[
 					$status['vsize'],
 					$this->options['memoryLimit']
-				)
+				]
 			);
 			$output->setLimitReportData( 'scribunto-limitreport-estmemusage',
 				$status['vsize'] - $this->initialStatus['vsize']
@@ -84,7 +84,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 				}
 				return false;
 			case 'scribunto-limitreport-virtmemusage':
-				$value = array_map( array( $lang, 'formatSize' ), $value );
+				$value = array_map( [ $lang, 'formatSize' ], $value );
 				break;
 			case 'scribunto-limitreport-estmemusage':
 				$value = $lang->formatSize( $value );
@@ -259,17 +259,17 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		$this->proc = proc_open(
 			$cmd,
-			array(
-				array( 'pipe', 'r' ),
-				array( 'pipe', 'w' ),
-				array( 'file', $options['errorFile'], 'a' )
-			),
+			[
+				[ 'pipe', 'r' ],
+				[ 'pipe', 'w' ],
+				[ 'file', $options['errorFile'], 'a' ]
+			],
 			$pipes );
 		if ( !$this->proc ) {
 			$err = error_get_last();
 			if ( !empty( $err['message'] ) ) {
 				throw $this->engine->newException( 'scribunto-luastandalone-proc-error-msg',
-					array( 'args' => array( $err['message'] ) ) );
+					[ 'args' => [ $err['message'] ] ] );
 			} elseif ( wfIniGetBool( 'safe_mode' ) ) {
 				/** @todo: Remove this case once we no longer support PHP 5.3 (MW < 1.27) */
 				throw $this->engine->newException( 'scribunto-luastandalone-proc-error-safe-mode' );
@@ -328,7 +328,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( !$this->proc ) {
 			return;
 		}
-		$this->dispatch( array( 'op' => 'quit' ) );
+		$this->dispatch( [ 'op' => 'quit' ] );
 		proc_close( $this->proc );
 	}
 
@@ -336,7 +336,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( !$this->proc ) {
 			return;
 		}
-		$this->dispatch( array( 'op' => 'testquit' ) );
+		$this->dispatch( [ 'op' => 'testquit' ] );
 		proc_close( $this->proc );
 	}
 
@@ -348,11 +348,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	public function loadString( $text, $chunkName ) {
 		$this->cleanupLuaChunks();
 
-		$result = $this->dispatch( array(
+		$result = $this->dispatch( [
 			'op' => 'loadString',
 			'text' => $text,
 			'chunkName' => $chunkName
-		) );
+		] );
 		return new Scribunto_LuaStandaloneInterpreterFunction( $this->id, $result[1] );
 	}
 
@@ -369,11 +369,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		$this->cleanupLuaChunks();
 
-		$result = $this->dispatch( array(
+		$result = $this->dispatch( [
 			'op' => 'call',
 			'id' => $func->id,
 			'nargs' => count( $args ),
-			'args' => $args ) );
+			'args' => $args,
+		] );
 		// Convert return values to zero-based
 		return array_values( $result );
 	}
@@ -382,19 +383,20 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		static $uid = 0;
 		$id = "anonymous*" . ++$uid;
 		$this->callbacks[$id] = $callable;
-		$ret = $this->dispatch( array(
+		$ret = $this->dispatch( [
 			'op' => 'wrapPhpFunction',
-			'id' => $id ) );
+			'id' => $id,
+		] );
 		return $ret[1];
 	}
 
 	public function cleanupLuaChunks() {
 		if ( isset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] ) ) {
 			unset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] );
-			$this->dispatch( array(
+			$this->dispatch( [
 				'op' => 'cleanupChunks',
 				'ids' => Scribunto_LuaStandaloneInterpreterFunction::$activeChunkIds[$this->id]
-			) );
+			] );
 		}
 	}
 
@@ -403,21 +405,23 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function registerLibrary( $name, array $functions ) {
-		$functionIds = array();
+		$functionIds = [];
 		foreach ( $functions as $funcName => $callback ) {
 			$id = "$name-$funcName";
 			$this->callbacks[$id] = $callback;
 			$functionIds[$funcName] = $id;
 		}
-		$this->dispatch( array(
+		$this->dispatch( [
 			'op' => 'registerLibrary',
 			'name' => $name,
-			'functions' => $functionIds ) );
+			'functions' => $functionIds,
+		] );
 	}
 
 	public function getStatus() {
-		$result = $this->dispatch( array(
-			'op' => 'getStatus' ) );
+		$result = $this->dispatch( [
+			'op' => 'getStatus',
+		] );
 		return $result[1];
 	}
 
@@ -447,23 +451,24 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		try {
 			$result = $this->callback( $message['id'], $message['args'] );
 		} catch ( Scribunto_LuaError $e ) {
-			return array(
+			return [
 				'op' => 'error',
-				'value' => $e->getLuaMessage() );
+				'value' => $e->getLuaMessage(),
+			];
 		}
 
 		// Convert to a 1-based array
 		if ( count( $result ) ) {
 			$result = array_combine( range( 1, count( $result ) ), $result );
 		} else {
-			$result = array();
+			$result = [];
 		}
 
-		return array(
+		return [
 			'op' => 'return',
 			'nvalues' => count( $result ),
 			'values' => $result
-		);
+		];
 	}
 
 	protected function callback( $id, array $args ) {
@@ -471,7 +476,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	protected function handleError( $message ) {
-		$opts = array();
+		$opts = [];
 		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message['value'], $m ) ) {
 			$opts['module'] = $m[1];
 			$opts['line'] = $m[2];
@@ -540,11 +545,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$body .= $buffer;
 			$lengthRemaining -= strlen( $buffer );
 		}
-		$body = strtr( $body, array(
+		$body = strtr( $body, [
 			'\\r' => "\r",
 			'\\n' => "\n",
 			'\\\\' => '\\',
-		) );
+		] );
 		$msg = unserialize( $body );
 		$this->debug( "RX <== {$msg['op']}" );
 		return $msg;
@@ -584,13 +589,13 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				return $var;
 			case 'string':
 				return '"' .
-					strtr( $var, array(
+					strtr( $var, [
 						'"' => '\\"',
 						'\\' => '\\\\',
 						"\n" => '\\n',
 						"\r" => '\\r',
 						"\000" => '\\000',
-					) ) .
+					] ) .
 					'"';
 			case 'array':
 				$s = '{';
@@ -686,11 +691,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
 				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
-					array( 'args' => array( $status['termsig'] ) ) );
+					[ 'args' => [ $status['termsig'] ] ] );
 			}
 		} else {
 			$this->exitError = $this->engine->newException( 'scribunto-luastandalone-exited',
-				array( 'args' => array( $status['exitcode'] ) ) );
+				[ 'args' => [ $status['exitcode'] ] ] );
 		}
 		throw $this->exitError;
 	}
@@ -704,8 +709,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreterFunction {
-	public static $anyChunksDestroyed = array();
-	public static $activeChunkIds = array();
+	public static $anyChunksDestroyed = [];
+	public static $activeChunkIds = [];
 
 	/**
 	 * @var int
@@ -741,7 +746,7 @@ class Scribunto_LuaStandaloneInterpreterFunction {
 
 	private function incrementRefCount() {
 		if ( !isset( self::$activeChunkIds[$this->interpreterId] ) ) {
-			self::$activeChunkIds[$this->interpreterId] = array( $this->id => 1 );
+			self::$activeChunkIds[$this->interpreterId] = [ $this->id => 1 ];
 		} elseif ( !isset( self::$activeChunkIds[$this->interpreterId][$this->id] ) ) {
 			self::$activeChunkIds[$this->interpreterId][$this->id] = 1;
 		} else {

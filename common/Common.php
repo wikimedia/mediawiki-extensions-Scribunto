@@ -25,7 +25,7 @@ class Scribunto {
 	 * @throws MWException
 	 * @return ScribuntoEngineBase
 	 */
-	public static function newDefaultEngine( $extraOptions = array() ) {
+	public static function newDefaultEngine( $extraOptions = [] ) {
 		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
 		if ( !$wgScribuntoDefaultEngine ) {
 			throw new MWException(
@@ -50,7 +50,7 @@ class Scribunto {
 	 */
 	public static function getParserEngine( Parser $parser ) {
 		if ( empty( $parser->scribunto_engine ) ) {
-			$parser->scribunto_engine = self::newDefaultEngine( array( 'parser' => $parser ) );
+			$parser->scribunto_engine = self::newDefaultEngine( [ 'parser' => $parser ] );
 			$parser->scribunto_engine->setTitle( $parser->getTitle() );
 		}
 		return $parser->scribunto_engine;
@@ -147,11 +147,11 @@ class ScribuntoException extends MWException {
 	 * @param string $messageName
 	 * @param array $params
 	 */
-	function __construct( $messageName, $params = array() ) {
+	function __construct( $messageName, $params = [] ) {
 		if ( isset( $params['args'] ) ) {
 			$this->messageArgs = $params['args'];
 		} else {
-			$this->messageArgs = array();
+			$this->messageArgs = [];
 		}
 		if ( isset( $params['module'] ) && isset( $params['line'] ) ) {
 			$codeLocation = false;
@@ -187,8 +187,8 @@ class ScribuntoException extends MWException {
 	}
 
 	public function toStatus() {
-		$args = array_merge( array( $this->messageName ), $this->messageArgs );
-		$status = call_user_func_array( array( 'Status', 'newFatal' ), $args );
+		$args = array_merge( [ $this->messageName ], $this->messageArgs );
+		$status = call_user_func_array( [ 'Status', 'newFatal' ], $args );
 		$status->scribunto_error = $this;
 		return $status;
 	}
@@ -196,7 +196,7 @@ class ScribuntoException extends MWException {
 	/**
 	 * Get the backtrace as HTML, or false if there is none available.
 	 */
-	public function getScriptTraceHtml( $options = array() ) {
+	public function getScriptTraceHtml( $options = [] ) {
 		return false;
 	}
 }

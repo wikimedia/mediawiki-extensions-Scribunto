@@ -7,27 +7,27 @@
  */
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
-	public $sandboxOpts = array(
+	public $sandboxOpts = [
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 		'allowEnvFuncs' => true,
-	);
-	public $standaloneOpts = array(
+	];
+	public $standaloneOpts = [
 		'errorFile' => null,
 		'luaPath' => null,
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 		'allowEnvFuncs' => true,
-	);
+	];
 
-	protected $engines = array();
+	protected $engines = [];
 
 	private function makeEngine( $class, $opts ) {
 		$parser = new Parser;
 		$options = new ParserOptions;
-		$options->setTemplateCallback( array( $this, 'templateCallback' ) );
+		$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
-		$engine = new $class ( array( 'parser' => $parser ) + $opts );
+		$engine = new $class ( [ 'parser' => $parser ] + $opts );
 		$parser->scribunto_engine = $engine;
 		$engine->setTitle( $parser->getTitle() );
 		$engine->getInterpreter();
@@ -60,7 +60,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 		foreach ( $this->engines as $engine ) {
 			$engine->destroy();
 		}
-		$this->engines = array();
+		$this->engines = [];
 		parent::tearDown();
 	}
 

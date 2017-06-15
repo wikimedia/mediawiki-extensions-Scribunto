@@ -3,12 +3,12 @@
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
-	protected $lineCache = array();
+	protected $lineCache = [];
 
 	public function getPerformanceCharacteristics() {
-		return array(
+		return [
 			'phpCallsRequireSerialization' => false,
-		);
+		];
 	}
 
 	public function getSoftwareInfo( array &$software ) {
@@ -46,18 +46,18 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 
 	private function getLimitReportData() {
-		$ret = array();
+		$ret = [];
 		$this->load();
 
 		$t = $this->interpreter->getCPUUsage();
-		$ret['scribunto-limitreport-timeusage'] = array(
+		$ret['scribunto-limitreport-timeusage'] = [
 			sprintf( "%.3f", $t ),
 			sprintf( "%.3f", $this->options['cpuLimit'] )
-		);
-		$ret['scribunto-limitreport-memusage'] = array(
+		];
+		$ret['scribunto-limitreport-memusage'] = [
 			$this->interpreter->getPeakMemoryUsage(),
 			$this->options['memoryLimit'],
-		);
+		];
 
 		$logs = $this->getLogBuffer();
 		if ( $logs !== '' ) {
@@ -78,7 +78,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			Scribunto_LuaSandboxInterpreter::SECONDS
 		);
 
-		$lines = array();
+		$lines = [];
 		$cumulativePercent = 0;
 		$num = $otherTime = $otherPercent = 0;
 		foreach ( $percentProfile as $name => $percent ) {
@@ -92,7 +92,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 						$name = $m[2] . ' ' . $name;
 					}
 				}
-				$lines[] = array( $name, sprintf( '%.0f', $time ), sprintf( '%.1f', $percent ) );
+				$lines[] = [ $name, sprintf( '%.0f', $time ), sprintf( '%.1f', $percent ) ];
 			} else {
 				$otherTime += $time;
 				$otherPercent += $percent;
@@ -100,7 +100,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			$cumulativePercent += $percent;
 		}
 		if ( $otherTime ) {
-			$lines[] = array( '[others]', sprintf( '%.0f', $otherTime ), sprintf( '%.1f', $otherPercent ) );
+			$lines[] = [ '[others]', sprintf( '%.0f', $otherTime ), sprintf( '%.1f', $otherPercent ) ];
 		}
 		$ret['scribunto-limitreport-profile'] = $lines;
 		return $ret;
@@ -144,7 +144,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				return false;
 
 			case 'scribunto-limitreport-memusage':
-				$value = array_map( array( $lang, 'formatSize' ), $value );
+				$value = array_map( [ $lang, 'formatSize' ], $value );
 				break;
 		}
 
@@ -168,10 +168,10 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 
 		if ( $isHTML ) {
 			$report .= Html::openElement( 'tr' ) .
-				Html::rawElement( 'th', array( 'colspan' => 2 ), $keyMsg->parse() ) .
+				Html::rawElement( 'th', [ 'colspan' => 2 ], $keyMsg->parse() ) .
 				Html::closeElement( 'tr' ) .
 				Html::openElement( 'tr' ) .
-				Html::openElement( 'td', array( 'colspan' => 2 ) ) .
+				Html::openElement( 'td', [ 'colspan' => 2 ] ) .
 				Html::openElement( 'table' );
 			foreach ( $value as $line ) {
 				$name = $line[0];
@@ -192,8 +192,8 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				$report .= Html::openElement( 'tr' ) .
 					Html::element( 'td', null, $name ) .
 					Html::rawElement( 'td', null, $location ) .
-					Html::rawElement( 'td', array( 'align' => 'right' ), $ms->parse() ) .
-					Html::rawElement( 'td', array( 'align' => 'right' ), $pct->parse() ) .
+					Html::rawElement( 'td', [ 'align' => 'right' ], $ms->parse() ) .
+					Html::rawElement( 'td', [ 'align' => 'right' ], $pct->parse() ) .
 					Html::closeElement( 'tr' );
 			}
 			$report .= Html::closeElement( 'table' ) .
@@ -282,7 +282,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	protected function convertSandboxError( LuaSandboxError $e ) {
-		$opts = array();
+		$opts = [];
 		if ( isset( $e->luaTrace ) ) {
 			$opts['trace'] = $e->luaTrace;
 		}
@@ -309,24 +309,24 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function registerLibrary( $name, array $functions ) {
-		$realLibrary = array();
+		$realLibrary = [];
 		foreach ( $functions as $funcName => $callback ) {
-			$realLibrary[$funcName] = array(
+			$realLibrary[$funcName] = [
 				new Scribunto_LuaSandboxCallback( $callback ),
-				$funcName );
+				$funcName ];
 		}
 		$this->sandbox->registerLibrary( $name, $realLibrary );
 
 		# TODO: replace this with
 		# $this->sandbox->registerVirtualLibrary(
-		# 	$name, array( $this, 'callback' ), $functions );
+		# 	$name, [ $this, 'callback' ], $functions );
 	}
 
 	public function callFunction( $func /*, ... */ ) {
 		$args = func_get_args();
 		$func = array_shift( $args );
 		try {
-			$ret = call_user_func_array( array( $func, 'call' ), $args );
+			$ret = call_user_func_array( [ $func, 'call' ], $args );
 			if ( $ret === false ) {
 				// Per the documentation on LuaSandboxFunction::call, a return value
 				// of false means that something went wrong and it's PHP's fault,
@@ -362,14 +362,15 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		if ( $this->profilerEnabled ) {
 			static $unitsMap;
 			if ( !$unitsMap ) {
-				$unitsMap = array(
+				$unitsMap = [
 					self::SAMPLES => LuaSandbox::SAMPLES,
 					self::SECONDS => LuaSandbox::SECONDS,
-					self::PERCENT => LuaSandbox::PERCENT );
+					self::PERCENT => LuaSandbox::PERCENT,
+				];
 			}
 			return $this->sandbox->getProfilerFunctionReport( $unitsMap[$units] );
 		} else {
-			return array();
+			return [];
 		}
 	}
 

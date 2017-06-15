@@ -2,7 +2,7 @@
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
-	abstract protected function newInterpreter( $opts = array() );
+	abstract protected function newInterpreter( $opts = [] );
 
 	protected function setUp() {
 		parent::setUp();
@@ -34,7 +34,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
 		$finalArgs = $args;
 		array_unshift( $finalArgs, $passthru );
-		$ret = call_user_func_array( array( $interpreter, 'callFunction' ), $finalArgs );
+		$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $finalArgs );
 		$ret = $this->normalizeOrder( $ret );
 		$this->assertSame( $args, $ret );
 	}
@@ -46,13 +46,13 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 
 		$interpreter = $this->newInterpreter();
 		$interpreter->registerLibrary( 'test',
-			array( 'passthru' => array( $this, 'passthru' ) ) );
+			[ 'passthru' => [ $this, 'passthru' ] ] );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 
 		$finalArgs = $args;
 		array_unshift( $finalArgs, $doublePassthru );
-		$ret = call_user_func_array( array( $interpreter, 'callFunction' ), $finalArgs );
+		$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $finalArgs );
 		$ret = $this->normalizeOrder( $ret );
 		$this->assertSame( $args, $ret );
 	}
@@ -69,7 +69,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not passed through' );
 
 		$interpreter->registerLibrary( 'test',
-			array( 'passthru' => array( $this, 'passthru' ) ) );
+			[ 'passthru' => [ $this, 'passthru' ] ] );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 		$ret = $interpreter->callFunction( $doublePassthru, NAN );
@@ -92,24 +92,24 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	}
 
 	public function provideRoundtrip() {
-		return array(
-			array( 1 ),
-			array( true ),
-			array( false ),
-			array( 'hello' ),
-			array( implode( '', array_map( 'chr', range( 0, 255 ) ) ) ),
-			array( 1, 2, 3 ),
-			array( array() ),
-			array( array( 0 => 'foo', 1 => 'bar' ) ),
-			array( array( 1 => 'foo', 2 => 'bar' ) ),
-			array( array( 'x' => 'foo', 'y' => 'bar', 'z' => array() ) ),
-			array( INF ),
-			array( -INF ),
-			array( 'ok', null, 'ok' ),
-			array( null, 'ok' ),
-			array( 'ok', null ),
-			array( null ),
-		);
+		return [
+			[ 1 ],
+			[ true ],
+			[ false ],
+			[ 'hello' ],
+			[ implode( '', array_map( 'chr', range( 0, 255 ) ) ) ],
+			[ 1, 2, 3 ],
+			[ [] ],
+			[ [ 0 => 'foo', 1 => 'bar' ] ],
+			[ [ 1 => 'foo', 2 => 'bar' ] ],
+			[ [ 'x' => 'foo', 'y' => 'bar', 'z' => [] ] ],
+			[ INF ],
+			[ -INF ],
+			[ 'ok', null, 'ok' ],
+			[ null, 'ok' ],
+			[ 'ok', null ],
+			[ null ],
+		];
 	}
 
 	public function testTimeLimit() {
@@ -117,7 +117,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
 		}
 
-		$interpreter = $this->newInterpreter( array( 'cpuLimit' => 2 ) );
+		$interpreter = $this->newInterpreter( [ 'cpuLimit' => 2 ] );
 		$chunk = $this->getBusyLoop( $interpreter );
 		try {
 			$interpreter->callFunction( $chunk, 1e9 );
@@ -128,7 +128,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	}
 
 	public function testTestMemoryLimit() {
-		$interpreter = $this->newInterpreter( array( 'memoryLimit' => 20 * 1e6 ) );
+		$interpreter = $this->newInterpreter( [ 'memoryLimit' => 20 * 1e6 ] );
 		$chunk = $interpreter->loadString( '
 			t = {}
 			for i = 1, 10 do
@@ -148,10 +148,10 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 	public function testWrapPHPFunction() {
 		$interpreter = $this->newInterpreter();
 		$func = $interpreter->wrapPhpFunction( function ( $n ) {
-			return array( 42, $n );
+			return [ 42, $n ];
 		} );
 		$res = $interpreter->callFunction( $func, 'From PHP' );
-		$this->assertEquals( array( 42, 'From PHP' ), $res );
+		$this->assertEquals( [ 42, 'From PHP' ], $res );
 
 		$chunk = $interpreter->loadString( '
 			f = ...
@@ -159,6 +159,6 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			',
 			'wrappedPhpFunction' );
 		$res = $interpreter->callFunction( $chunk, $func );
-		$this->assertEquals( array( 42, 'From Lua' ), $res );
+		$this->assertEquals( [ 42, 'From Lua' ], $res );
 	}
 }
