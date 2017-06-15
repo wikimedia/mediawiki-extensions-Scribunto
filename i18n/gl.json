@@ -60,6 +60,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Rexistros de Lua",
 	"apihelp-scribunto-console-description": "Módulo interno para servir peticións XHR dende a consola Scribunto.",
+	"apihelp-scribunto-console-summary": "Módulo interno para servir peticións XHR dende a consola Scribunto.",
 	"apihelp-scribunto-console-param-title": "Título do módulo a probar.",
 	"apihelp-scribunto-console-param-content": "Novo contido do módulo.",
 	"apihelp-scribunto-console-param-session": "Identificador de sesión.",

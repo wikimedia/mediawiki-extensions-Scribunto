@@ -7,5 +7,6 @@
 	"scribunto-doc-page-does-not-exist": "''[[$1]] येथे या विभागाचे दस्तावेजीकरण तयार करु शकता''",
 	"scribunto-common-error-category-desc": "या पानात अंतर्भूत विभागावर (मॉड्यूल) प्रक्रिया करण्यात त्रुटी घडली आहे.",
 	"scribunto-lua-error": "लुआ(Lua) त्रुटी: $2.",
+	"scribunto-module-with-errors-category-desc": "या विभागात (मॉड्यूलमध्ये) त्रुटी आहे.",
 	"scribunto-limitreport-timeusage-value": "$1/$2 सेकंद"
 }
