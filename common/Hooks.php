@@ -26,6 +26,14 @@ use RunningStat\PSquare;
  * Hooks for the Scribunto extension.
  */
 class ScribuntoHooks {
+
+	/**
+	 * Define content handler constant upon extension registration
+	 */
+	public static function onRegistration() {
+		define( 'CONTENT_MODEL_SCRIBUNTO', 'Scribunto' );
+	}
+
 	/**
 	 * Get software information for Special:Version
 	 *
@@ -298,18 +306,6 @@ class ScribuntoHooks {
 	public static function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		$engine = Scribunto::newDefaultEngine();
 		return $engine->formatLimitData( $key, $value, $report, $isHTML, $localize );
-	}
-
-	/**
-	 * Adds the module namespaces.
-	 *
-	 * @param string[] $list
-	 * @return bool
-	 */
-	public static function addCanonicalNamespaces( array &$list ) {
-		$list[NS_MODULE] = 'Module';
-		$list[NS_MODULE_TALK] = 'Module_talk';
-		return true;
 	}
 
 	/**
