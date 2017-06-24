@@ -275,16 +275,6 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
-	 * Get text for the limit report, old style
-	 *
-	 * @deprecated
-	 * @return string
-	 */
-	public function getLimitReport() {
-		return '';
-	}
-
-	/**
 	 * Add limit report data to a ParserOutput object
 	 *
 	 * @param $output ParserOutput ParserOutput object in which to add limit data

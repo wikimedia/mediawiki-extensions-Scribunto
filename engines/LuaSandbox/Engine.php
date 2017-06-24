@@ -106,23 +106,6 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		return $ret;
 	}
 
-	public function getLimitReport() {
-		$data = $this->getLimitReportData();
-		$lang = Language::factory( 'en' );
-
-		$t = $this->interpreter->getCPUUsage();
-		$s = 'Lua time usage: ' . sprintf( "%.3f", $data['scribunto-limitreport-timeusage'] ) . "s\n" .
-			'Lua memory usage: ' . $lang->formatSize( $data['scribunto-limitreport-memusage'] ) . "\n";
-		if ( isset( $data['scribunto-limitreport-profile'] ) ) {
-			$s .= "Lua Profile:\n";
-			$format = "    %-59s %8.0f ms %8.1f%%\n";
-			foreach ( $data['scribunto-limitreport-profile'] as $line ) {
-				$s .= sprintf( $format, $line[0], $line[1], $line[2] );
-			}
-		}
-		return $s;
-	}
-
 	public function reportLimitData( ParserOutput $output ) {
 		$data = $this->getLimitReportData();
 		foreach ( $data as $k => $v ) {
