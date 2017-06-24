@@ -24,7 +24,7 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 /**
  * The name of the default script engine.
  */
-$wgScribuntoDefaultEngine = 'luastandalone';
+$wgScribuntoDefaultEngine = 'luaautodetect';
 
 /**
  * Configuration for each script engine
@@ -66,6 +66,9 @@ $wgScribuntoEngineConf = [
 		'cpuLimit' => 7,
 		'allowEnvFuncs' => false,
 		'maxLangCacheSize' => 30,
+	],
+	'luaautodetect' => [
+		'factory' => 'Scribunto_LuaEngine::newAutodetectEngine',
 	],
 ];
 
