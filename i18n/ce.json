@@ -15,6 +15,7 @@
 	"scribunto-common-error-category-desc": "АгӀона тӀе тоьхна йолу модулаш кеч ечу хенахь гӀалат даьлла.",
 	"scribunto-common-nosuchmodule": "Скриптан гӀалат: Ишта модуль яц «$2».",
 	"scribunto-common-nosuchfunction": "Скриптан гӀалат: Функцеш «$2» яц.",
+	"scribunto-common-no-details": "Мадарра дац.",
 	"scribunto-module-with-errors-category": "Scribunto модуль гӀалаташца",
 	"scribunto-module-with-errors-category-desc": "Модуль чохь гӀалаташ ду.",
 	"scribunto-limitreport-timeusage": "Lua лелоран хан",
