@@ -20,29 +20,6 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		];
 	}
 
-	/**
-	 * @return string
-	 */
-	function getLimitReport() {
-		try {
-			$this->load();
-		} catch ( Exception $e ) {
-			return '';
-		}
-		if ( !$this->initialStatus ) {
-			return '';
-		}
-		$status = $this->interpreter->getStatus();
-		$lang = Language::factory( 'en' );
-		return
-			'Lua time usage: ' . sprintf( "%.3f", $status['time'] / $this->getClockTick() ) . "s\n" .
-			'Lua virtual size: ' .
-			$lang->formatSize( $status['vsize'] ) . ' / ' .
-			$lang->formatSize( $this->options['memoryLimit'] ) . "\n" .
-			'Lua estimated memory usage: ' .
-			$lang->formatSize( $status['vsize'] - $this->initialStatus['vsize'] ) . "\n";
-	}
-
 	function reportLimitData( ParserOutput $output ) {
 		try {
 			$this->load();

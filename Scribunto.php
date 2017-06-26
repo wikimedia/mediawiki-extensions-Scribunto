@@ -62,7 +62,6 @@ $wgAutoloadClasses['Scribunto_LuaEngineTestSkip'] =
 $wgHooks['SoftwareInfo'][] = 'ScribuntoHooks::getSoftwareInfo';
 
 $wgHooks['ParserFirstCallInit'][] = 'ScribuntoHooks::setupParserHook';
-$wgHooks['ParserLimitReport']['scribunto'] = 'ScribuntoHooks::reportLimits';
 $wgHooks['ParserLimitReportPrepare'][] = 'ScribuntoHooks::reportLimitData';
 $wgHooks['ParserLimitReportFormat'][] = 'ScribuntoHooks::formatLimitData';
 $wgHooks['ParserClearState'][] = 'ScribuntoHooks::clearState';
