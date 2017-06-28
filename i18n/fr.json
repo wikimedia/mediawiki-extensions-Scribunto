@@ -67,6 +67,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Journaux de Lua",
 	"apihelp-scribunto-console-description": "Module interne pour les requêtes de service XHR à partir de la console Scribunto.",
+	"apihelp-scribunto-console-summary": "Module interne gérant les requêtes XHR à partir de la console Scribunto.",
 	"apihelp-scribunto-console-param-title": "Le titre du module à tester.",
 	"apihelp-scribunto-console-param-content": "Le nouveau contenu du module.",
 	"apihelp-scribunto-console-param-session": "Jeton de session.",
