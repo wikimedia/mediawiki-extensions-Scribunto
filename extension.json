@@ -1,0 +1,166 @@
+{
+	"name": "Scribunto",
+	"author": [
+		"Victor Vasiliev",
+		"Tim Starling",
+		"Brad Jorsch"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Scribunto",
+	"descriptionmsg": "scribunto-desc",
+	"license-name": "GPL-2.0+ AND MIT",
+	"type": "parserhook",
+	"requires": {
+		"MediaWiki": ">=1.30.0"
+	},
+	"APIModules": {
+		"scribunto-console": "ApiScribuntoConsole"
+	},
+	"ContentHandlers": {
+		"Scribunto": "ScribuntoContentHandler"
+	},
+	"TrackingCategories": [
+		"scribunto-common-error-category",
+		"scribunto-module-with-errors-category"
+	],
+	"MessagesDirs": {
+		"Scribunto": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"ScribuntoMagic": "Scribunto.magic.php",
+		"ScribuntoNamespaces": "Scribunto.namespaces.php"
+	},
+	"AutoloadClasses": {
+		"ScribuntoEngineBase": "common/Base.php",
+		"ScribuntoModuleBase": "common/Base.php",
+		"ScribuntoHooks": "common/Hooks.php",
+		"ScribuntoException": "common/Common.php",
+		"Scribunto": "common/Common.php",
+		"ApiScribuntoConsole": "common/ApiScribuntoConsole.php",
+		"ScribuntoContentHandler": "common/ScribuntoContentHandler.php",
+		"ScribuntoContent": "common/ScribuntoContent.php",
+		"Scribunto_LuaError": "engines/LuaCommon/LuaCommon.php",
+		"Scribunto_LuaInterpreterNotFoundError": "engines/LuaCommon/LuaInterpreter.php",
+		"Scribunto_LuaInterpreterBadVersionError": "engines/LuaCommon/LuaInterpreter.php",
+		"Scribunto_LuaSandboxInterpreter": "engines/LuaSandbox/Engine.php",
+		"Scribunto_LuaSandboxCallback": "engines/LuaSandbox/Engine.php",
+		"Scribunto_LuaStandaloneInterpreterFunction": "engines/LuaStandalone/LuaStandaloneEngine.php",
+		"Scribunto_LuaEngineTestSkip": "tests/engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaEngine": "engines/LuaCommon/LuaCommon.php",
+		"Scribunto_LuaModule": "engines/LuaCommon/LuaCommon.php",
+		"Scribunto_LuaInterpreter": "engines/LuaCommon/LuaInterpreter.php",
+		"Scribunto_LuaSandboxEngine": "engines/LuaSandbox/Engine.php",
+		"Scribunto_LuaStandaloneEngine": "engines/LuaStandalone/LuaStandaloneEngine.php",
+		"Scribunto_LuaStandaloneInterpreter": "engines/LuaStandalone/LuaStandaloneEngine.php",
+		"Scribunto_LuaLibraryBase": "engines/LuaCommon/LibraryBase.php",
+		"Scribunto_LuaEngineTestBase": "tests/engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaDataProvider": "tests/engines/LuaCommon/LuaDataProvider.php",
+		"Scribunto_LuaSiteLibrary": "engines/LuaCommon/SiteLibrary.php",
+		"Scribunto_LuaUriLibrary": "engines/LuaCommon/UriLibrary.php",
+		"Scribunto_LuaUstringLibrary": "engines/LuaCommon/UstringLibrary.php",
+		"Scribunto_LuaLanguageLibrary": "engines/LuaCommon/LanguageLibrary.php",
+		"Scribunto_LuaMessageLibrary": "engines/LuaCommon/MessageLibrary.php",
+		"Scribunto_LuaTitleLibrary": "engines/LuaCommon/TitleLibrary.php",
+		"Scribunto_LuaTextLibrary": "engines/LuaCommon/TextLibrary.php",
+		"Scribunto_LuaHtmlLibrary": "engines/LuaCommon/HtmlLibrary.php",
+		"Scribunto_LuaHashLibrary": "engines/LuaCommon/HashLibrary.php"
+	},
+	"ResourceModules": {
+		"ext.scribunto.errors": {
+			"scripts": "ext.scribunto.errors.js",
+			"styles": "ext.scribunto.errors.css",
+			"dependencies": [
+				"jquery.ui.dialog"
+			],
+			"messages": [
+				"scribunto-parser-dialog-title"
+			]
+		},
+		"ext.scribunto.logs": {
+			"styles": "ext.scribunto.logs.css",
+			"position": "top"
+		},
+		"ext.scribunto.edit": {
+			"scripts": "ext.scribunto.edit.js",
+			"styles": "ext.scribunto.edit.css",
+			"dependencies": [
+				"mediawiki.api",
+				"jquery.spinner"
+			],
+			"messages": [
+				"scribunto-console-title",
+				"scribunto-console-intro",
+				"scribunto-console-clear",
+				"scribunto-console-cleared",
+				"scribunto-console-cleared-session-lost"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "Scribunto/modules"
+	},
+	"Hooks": {
+		"SoftwareInfo": "ScribuntoHooks::getSoftwareInfo",
+		"ParserFirstCallInit": "ScribuntoHooks::setupParserHook",
+		"ParserLimitReportPrepare": "ScribuntoHooks::reportLimitData",
+		"ParserLimitReportFormat": "ScribuntoHooks::formatLimitData",
+		"ParserClearState": "ScribuntoHooks::clearState",
+		"ParserCloned": "ScribuntoHooks::parserCloned",
+		"CodeEditorGetPageLanguage": "ScribuntoHooks::getCodeLanguage",
+		"EditPage::showStandardInputs:options": "ScribuntoHooks::showStandardInputsOptions",
+		"EditPage::showReadOnlyForm:initial": "ScribuntoHooks::showReadOnlyFormInitial",
+		"EditPageBeforeEditButtons": "ScribuntoHooks::beforeEditButtons",
+		"EditFilterMergedContent": "ScribuntoHooks::validateScript",
+		"ArticleViewHeader": "ScribuntoHooks::showDocPageHeader",
+		"ContentHandlerDefaultModelFor": "ScribuntoHooks::contentHandlerDefaultModelFor",
+		"UnitTestsList": "ScribuntoHooks::unitTestsList"
+	},
+	"namespaces": [
+		{
+			"id": 828,
+			"constant": "NS_MODULE",
+			"name": "Module",
+			"subpages": true
+		},
+		{
+			"id": 829,
+			"constant": "NS_MODULE_TALK",
+			"name": "Module_talk",
+			"subpages": true
+		}
+	],
+	"ParserTestFiles": [
+		"tests/engines/LuaCommon/luaParserTests.txt"
+	],
+	"callback": "ScribuntoHooks::onRegistration",
+	"config": {
+		"ScribuntoDefaultEngine": "luastandalone",
+		"ScribuntoEngineConf": {
+			"luasandbox": {
+				"class": "Scribunto_LuaSandboxEngine",
+				"memoryLimit": 52428800,
+				"cpuLimit": 7,
+				"profilerPeriod": 0.02,
+				"allowEnvFuncs": false,
+				"maxLangCacheSize": 30
+			},
+			"luastandalone": {
+				"class": "Scribunto_LuaStandaloneEngine",
+				"errorFile": null,
+				"luaPath": null,
+				"memoryLimit": 52428800,
+				"cpuLimit": 7,
+				"allowEnvFuncs": false,
+				"maxLangCacheSize": 30
+			},
+			"_merge_strategy": "array_plus_2d"
+		},
+		"ScribuntoUseGeSHi": false,
+		"ScribuntoUseCodeEditor": false,
+		"ScribuntoGatherFunctionStats": false,
+		"ScribuntoSlowFunctionThreshold": 0.9
+	},
+	"manifest_version": 1
+}
