@@ -51,6 +51,30 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	const MAX_EXPAND_CACHE_SIZE = 100;
 
 	/**
+	 * If luasandbox is installed and usable then use it,
+	 * otherwise
+	 *
+	 * @param array $options
+	 * @return Scribunto_LuaEngine
+	 */
+	public static function newAutodetectEngine( array $options ) {
+		global $wgScribuntoEngineConf;
+		$engine = 'luastandalone';
+		try {
+			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
+			$engine = 'luasandbox';
+		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
+			// pass
+		} catch ( Scribunto_LuaInterpreterBadVersionError $e ) {
+			// pass
+		}
+
+		unset( $options['factory'] );
+
+		return Scribunto::newEngine( $options + $wgScribuntoEngineConf[$engine] );
+	}
+
+	/**
 	 * Create a new interpreter object
 	 * @return Scribunto_LuaInterpreter
 	 */

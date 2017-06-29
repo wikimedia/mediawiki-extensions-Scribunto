@@ -136,7 +136,7 @@
 	],
 	"callback": "ScribuntoHooks::onRegistration",
 	"config": {
-		"ScribuntoDefaultEngine": "luastandalone",
+		"ScribuntoDefaultEngine": "luaautodetect",
 		"ScribuntoEngineConf": {
 			"luasandbox": {
 				"class": "Scribunto_LuaSandboxEngine",
@@ -154,6 +154,9 @@
 				"cpuLimit": 7,
 				"allowEnvFuncs": false,
 				"maxLangCacheSize": 30
+			},
+			"luaautodetect": {
+				"factory": "Scribunto_LuaEngine::newAutodetectEngine"
 			},
 			"_merge_strategy": "array_plus_2d"
 		},

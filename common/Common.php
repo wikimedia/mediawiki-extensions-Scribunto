@@ -13,8 +13,12 @@ class Scribunto {
 	 * @return ScribuntoEngineBase
 	 */
 	public static function newEngine( $options ) {
-		$class = $options['class'];
-		return new $class( $options );
+		if ( isset( $options['factory'] ) ) {
+			return call_user_func( $options['factory'], $options );
+		} else {
+			$class = $options['class'];
+			return new $class( $options );
+		}
 	}
 
 	/**
