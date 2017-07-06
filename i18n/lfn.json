@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cgboeree"
+			"Cgboeree",
+			"Katxis"
 		]
 	},
-	"scribunto-lua-error": "Era de lua: $2"
+	"scribunto-lua-error": "Era de Lua: $2"
 }
