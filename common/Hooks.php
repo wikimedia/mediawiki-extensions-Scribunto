@@ -388,36 +388,6 @@ class ScribuntoHooks {
 	}
 
 	/**
-	 * @param array $files
-	 * @return bool
-	 */
-	public static function unitTestsList( array &$files ) {
-		$tests = [
-			'engines/LuaStandalone/LuaStandaloneInterpreterTest.php',
-			'engines/LuaStandalone/StandaloneTest.php',
-			'engines/LuaSandbox/LuaSandboxInterpreterTest.php',
-			'engines/LuaSandbox/SandboxTest.php',
-			'engines/LuaCommon/LuaEnvironmentComparisonTest.php',
-			'engines/LuaCommon/CommonTest.php',
-			'engines/LuaCommon/SiteLibraryTest.php',
-			'engines/LuaCommon/UriLibraryTest.php',
-			'engines/LuaCommon/UstringLibraryTest.php',
-			'engines/LuaCommon/MessageLibraryTest.php',
-			'engines/LuaCommon/TitleLibraryTest.php',
-			'engines/LuaCommon/TextLibraryTest.php',
-			'engines/LuaCommon/HtmlLibraryTest.php',
-			'engines/LuaCommon/HashLibraryTest.php',
-			'engines/LuaCommon/LanguageLibraryTest.php',
-			'engines/LuaCommon/UstringLibraryPureLuaTest.php',
-			'engines/LuaCommon/LibraryUtilTest.php',
-		];
-		foreach ( $tests as $test ) {
-			$files[] = __DIR__ . '/../tests/' . $test;
-		}
-		return true;
-	}
-
-	/**
 	 * @param Article &$article
 	 * @param bool &$outputDone
 	 * @param bool &$pcache

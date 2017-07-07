@@ -46,7 +46,7 @@
 		"Scribunto_LuaSandboxInterpreter": "engines/LuaSandbox/Engine.php",
 		"Scribunto_LuaSandboxCallback": "engines/LuaSandbox/Engine.php",
 		"Scribunto_LuaStandaloneInterpreterFunction": "engines/LuaStandalone/LuaStandaloneEngine.php",
-		"Scribunto_LuaEngineTestSkip": "tests/engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaEngineTestSkip": "tests/phpunit/engines/LuaCommon/LuaEngineTestBase.php",
 		"Scribunto_LuaEngine": "engines/LuaCommon/LuaCommon.php",
 		"Scribunto_LuaModule": "engines/LuaCommon/LuaCommon.php",
 		"Scribunto_LuaInterpreter": "engines/LuaCommon/LuaInterpreter.php",
@@ -54,8 +54,8 @@
 		"Scribunto_LuaStandaloneEngine": "engines/LuaStandalone/LuaStandaloneEngine.php",
 		"Scribunto_LuaStandaloneInterpreter": "engines/LuaStandalone/LuaStandaloneEngine.php",
 		"Scribunto_LuaLibraryBase": "engines/LuaCommon/LibraryBase.php",
-		"Scribunto_LuaEngineTestBase": "tests/engines/LuaCommon/LuaEngineTestBase.php",
-		"Scribunto_LuaDataProvider": "tests/engines/LuaCommon/LuaDataProvider.php",
+		"Scribunto_LuaEngineTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaDataProvider": "tests/phpunit/engines/LuaCommon/LuaDataProvider.php",
 		"Scribunto_LuaSiteLibrary": "engines/LuaCommon/SiteLibrary.php",
 		"Scribunto_LuaUriLibrary": "engines/LuaCommon/UriLibrary.php",
 		"Scribunto_LuaUstringLibrary": "engines/LuaCommon/UstringLibrary.php",
@@ -114,8 +114,7 @@
 		"EditPageBeforeEditButtons": "ScribuntoHooks::beforeEditButtons",
 		"EditFilterMergedContent": "ScribuntoHooks::validateScript",
 		"ArticleViewHeader": "ScribuntoHooks::showDocPageHeader",
-		"ContentHandlerDefaultModelFor": "ScribuntoHooks::contentHandlerDefaultModelFor",
-		"UnitTestsList": "ScribuntoHooks::unitTestsList"
+		"ContentHandlerDefaultModelFor": "ScribuntoHooks::contentHandlerDefaultModelFor"
 	},
 	"namespaces": [
 		{
@@ -132,7 +131,7 @@
 		}
 	],
 	"ParserTestFiles": [
-		"tests/engines/LuaCommon/luaParserTests.txt"
+		"tests/phpunit/engines/LuaCommon/luaParserTests.txt"
 	],
 	"callback": "ScribuntoHooks::onRegistration",
 	"config": {
