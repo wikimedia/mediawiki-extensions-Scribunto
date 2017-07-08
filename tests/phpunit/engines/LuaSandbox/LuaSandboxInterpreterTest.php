@@ -32,4 +32,3 @@ class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 		$this->assertLessThan( 10000000, $mem, 'memory usage' );
 	}
 }
-

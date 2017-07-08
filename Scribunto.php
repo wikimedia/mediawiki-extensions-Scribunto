@@ -48,7 +48,7 @@ $wgScribuntoEngineConf = [
 		// The maximum number of languages about which data can be requested.
 		// The cost is about 1.5MB of memory usage per language on default
 		// installations (during recache), but if recaching is disabled with
-		//     $wgLocalisationCacheConf['manualRecache'] = false
+		// $wgLocalisationCacheConf['manualRecache'] = false
 		// then memory usage is perhaps 10x smaller.
 		'maxLangCacheSize' => 30,
 	],
@@ -94,4 +94,3 @@ $wgScribuntoGatherFunctionStats = false;
  * a value between 0 and 1 (exclusive).
  */
 $wgScribuntoSlowFunctionThreshold = 0.90;
-

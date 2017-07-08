@@ -127,7 +127,7 @@ class ScribuntoHooks {
 				$u1 = $engine->getResourceUsage( $engine::CPU_SECONDS );
 
 				if ( $u1 > $u0 ) {
-					$timingMs = (int) ( 1000 * ( $u1 - $u0 ) );
+					$timingMs = (int)( 1000 * ( $u1 - $u0 ) );
 					// Since the overhead of stats is worst when when #invoke
 					// calls are very short, don't process measurements <= 20ms.
 					if ( $timingMs > 20 ) {

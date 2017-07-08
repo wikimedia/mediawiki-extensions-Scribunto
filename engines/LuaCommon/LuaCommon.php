@@ -977,7 +977,7 @@ class Scribunto_LuaError extends ScribuntoException {
 		if ( !isset( $this->params['trace'] ) ) {
 			return false;
 		}
-		if ( isset( $options['msgOptions'] ) ){
+		if ( isset( $options['msgOptions'] ) ) {
 			$msgOptions = $options['msgOptions'];
 		} else {
 			$msgOptions = [];

@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <ruleset name="Scribunto">
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
-	<rule ref="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures">
-		<severity>0</severity>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
+		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment"/>
+		<exclude name="MediaWiki.Commenting.FunctionComment"/>
+		<exclude name="MediaWiki.Usage.ReferenceThis.Found"/>
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php" />
+	<arg name="encoding" value="UTF-8" />
 	<exclude-pattern>node_modules/</exclude-pattern>
 	<exclude-pattern>vendor/</exclude-pattern>
 </ruleset>
