@@ -120,7 +120,7 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 
 	public function __construct( $engine ) {
 		parent::__construct( $engine, 'UstringLibraryNormalizationTests' );
-		if ( UstringLibraryNormalizationTestProvider::available() ) {
+		if ( self::available() ) {
 			$this->file = fopen( __DIR__ . '/NormalizationTest.txt', 'r' );
 		}
 		$this->rewind();
