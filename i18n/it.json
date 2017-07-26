@@ -7,7 +7,8 @@
 			"Raoli",
 			"Ontsed",
 			"Giuseppe Forte",
-			"Bultro"
+			"Bultro",
+			"Lucas2"
 		]
 	},
 	"scribunto-desc": "Framework per incorporare linguaggi di scripting in pagine MediaWiki",
@@ -63,5 +64,6 @@
 	"scribunto-limitreport-profile-ms": "$1&nbsp;ms",
 	"scribunto-limitreport-logs": "Registri Lua",
 	"apihelp-scribunto-console-param-title": "Titolo del modulo su cui effettuare test.",
-	"nstab-module": "Modulo"
+	"nstab-module": "Modulo",
+	"tooltip-ca-nstab-module": "Vedi la pagina del modulo"
 }
