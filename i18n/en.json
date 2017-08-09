@@ -15,7 +15,7 @@
 	"scribunto-doc-page-does-not-exist": "''Documentation for this module may be created at [[$1]]''",
 	"scribunto-doc-page-show": "{{$1}}\n<hr />",
 	"scribunto-doc-page-header": "'''This is the documentation page for [[$1]]'''",
-	"scribunto-console-intro": "* The module exports are available as the variable \"p\", including unsaved modifications.\n* Precede a line with \"=\" to evaluate it as an expression, or use print().\n* Use mw.log() in module code to send messages to this console.",
+	"scribunto-console-intro": "* The module exports are available as the variable \"p\", including unsaved modifications.\n* Precede a line with \"=\" to evaluate it as an expression or use print(). Use mw.logObject() for tables.\n* Use mw.log() and mw.logObject() in module code to send messages to this console.",
 	"scribunto-console-title": "Debug console",
 	"scribunto-console-too-large": "This console session is too large. Please clear the console history or reduce the size of the module.",
 	"scribunto-console-current-src": "console input",
