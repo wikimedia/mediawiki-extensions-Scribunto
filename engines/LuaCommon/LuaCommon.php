@@ -310,7 +310,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Format the logged data for HTML output
 	 * @param string $logs Logged data
-	 * @param boolean $localize Whether to localize the message key
+	 * @param bool $localize Whether to localize the message key
 	 * @return string HTML
 	 */
 	protected function formatHtmlLogs( $logs, $localize ) {

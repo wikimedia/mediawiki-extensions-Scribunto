@@ -65,7 +65,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			foreach ( $aliases as $title => $ns ) {
 				if ( !isset( $namespacesByName[$title] ) && isset( $namespaces[$ns] ) ) {
 					$ct = count( $namespaces[$ns]['aliases'] );
-					$namespaces[$ns]['aliases'][$ct+1] = $title;
+					$namespaces[$ns]['aliases'][$ct + 1] = $title;
 					$namespacesByName[$title] = $ns;
 				}
 			}

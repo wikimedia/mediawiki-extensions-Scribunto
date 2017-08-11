@@ -210,9 +210,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( count( $args ) > $this->stringLengthLimit ) {
 			throw new Scribunto_LuaError( "too many arguments to '$name'" );
 		}
-		foreach ( $args as $k=>&$v ) {
+		foreach ( $args as $k => &$v ) {
 			if ( !is_numeric( $v ) ) {
-				$this->checkType( 'char', $k+1, $v, 'number' );
+				$this->checkType( 'char', $k + 1, $v, 'number' );
 			}
 			$v = (int)floor( $v );
 			if ( $v < 0 || $v > 0x10ffff ) {
@@ -492,8 +492,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			} elseif ( $i + 2 < $len &&
 				$pat[$i + 1] === '-' && $pat[$i + 2] !== ']' && $pat[$i + 2] !== '%'
 			) {
-				if ( $pat[$i] <= $pat[$i+2] ) {
-					$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i+2], '/' );
+				if ( $pat[$i] <= $pat[$i + 2] ) {
+					$re .= preg_quote( $pat[$i], '/' ) . '-' . preg_quote( $pat[$i + 2], '/' );
 				}
 				$i += 2;
 			} else {
