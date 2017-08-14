@@ -20,7 +20,7 @@
 	"scribunto-doc-page-name": "Module:$1/man",
 	"scribunto-doc-page-does-not-exist": "''La documentazione per questo modulo può essere creata in [[$1]]''",
 	"scribunto-doc-page-header": "'''Questa è la pagina di documentazione per [[$1]]'''",
-	"scribunto-console-intro": "* Le esportazioni del modulo sono rappresentate dalla variabile \"p\", incluse le modifiche non salvate.\n* Per valutare una linea come espressione, iniziala con \"=\" oppure usa print().\n* Usa mw.log() nel codice del modulo per inviare messaggi a questa console.",
+	"scribunto-console-intro": "* Le esportazioni del modulo sono rappresentate dalla variabile \"p\", incluse le modifiche non salvate.\n* Per valutare una linea come espressione, iniziala con \"=\" oppure usa print(). Utilizza mw.logObject() per le tabelle.\n* Usa mw.log() e mw.logObject() nel codice del modulo per inviare messaggi a questa console.",
 	"scribunto-console-title": "Console di debug",
 	"scribunto-console-too-large": "Questa sessione della console è troppo grande, cancellare la cronologia della console o ridurre le dimensioni del modulo.",
 	"scribunto-console-current-src": "input della console",

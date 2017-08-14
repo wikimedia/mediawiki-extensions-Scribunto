@@ -22,7 +22,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''La documentation pour ce module peut être créée à [[$1]]''",
 	"scribunto-doc-page-header": "'''Ceci est la page de documentation pour [[$1]]'''",
-	"scribunto-console-intro": "* Les exportations du module sont accessibles par la variable « p », y compris les modifications non enregistrées. \n* Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). \n* Utilisez mw.log() dans le code du module pour envoyer des messages à cette console.",
+	"scribunto-console-intro": "* Les exportations du module sont accessibles par la variable « p », y compris les modifications non enregistrées. \n* Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). Utilisez mw.logObject() pour les tables.\n* Utilisez mw.log()et mw.logObject() dans le code du module pour envoyer des messages à cette console.",
 	"scribunto-console-title": "Console de débogage",
 	"scribunto-console-too-large": "Cette session de console est trop grande. Veuillez effacer l’historique de la console ou réduire la taille du module.",
 	"scribunto-console-current-src": "entrée de la console",
