@@ -15,7 +15,7 @@
 	"scribunto-error-long": "Chyby skriptu:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/Dokumentace",
 	"scribunto-doc-page-does-not-exist": "''Dokumentaci tohoto modulu lze vytvořit na stránce [[$1]]''",
-	"scribunto-doc-page-header": "'''Toto je dokumentační podstránka modulu [[$1]].'''",
+	"scribunto-doc-page-header": "'''Toto je dokumentace pro [[$1]]'''",
 	"scribunto-console-intro": "* Exporty z modulu jsou dostupné jako proměnná „p“ včetně neuložených změn.\n* Řádek začínající „=“ se vyhodnotí jako výraz, případně můžete použít print().\n* V kódu modulu můžete zprávy do konzole poslat pomocí mw.log().",
 	"scribunto-console-title": "Ladicí konzole",
 	"scribunto-console-too-large": "Toto konzolové sezení je příliš velké. Vymažte historii konzole nebo zmenšete modul.",
