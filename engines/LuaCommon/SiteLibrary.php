@@ -8,7 +8,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	private $pagesInCategoryCache = [];
 
 	function register() {
-		global $wgContLang, $wgNamespaceAliases, $wgDisableCounters;
+		global $wgContLang, $wgNamespaceAliases;
 
 		$lib = [
 			'getNsIndex' => [ $this, 'getNsIndex' ],
@@ -82,7 +82,6 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			'articles' => (int)SiteStats::articles(),
 			'files' => (int)SiteStats::images(),
 			'edits' => (int)SiteStats::edits(),
-			'views' => $wgDisableCounters ? null : (int)SiteStats::views(),
 			'users' => (int)SiteStats::users(),
 			'activeUsers' => (int)SiteStats::activeUsers(),
 			'admins' => (int)SiteStats::numberingroup( 'sysop' ),
