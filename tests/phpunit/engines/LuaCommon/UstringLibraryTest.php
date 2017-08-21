@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\ScopedCallback;
+
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UstringLibraryTests';

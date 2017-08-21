@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\ScopedCallback;
+
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
