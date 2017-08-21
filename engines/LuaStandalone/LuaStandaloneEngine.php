@@ -247,9 +247,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			if ( !empty( $err['message'] ) ) {
 				throw $this->engine->newException( 'scribunto-luastandalone-proc-error-msg',
 					[ 'args' => [ $err['message'] ] ] );
-			} elseif ( wfIniGetBool( 'safe_mode' ) ) {
-				/** @todo: Remove this case once we no longer support PHP 5.3 (MW < 1.27) */
-				throw $this->engine->newException( 'scribunto-luastandalone-proc-error-safe-mode' );
 			} else {
 				throw $this->engine->newException( 'scribunto-luastandalone-proc-error' );
 			}

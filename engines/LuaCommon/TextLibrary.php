@@ -62,12 +62,9 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	function getEntityTable() {
-		$flags = ENT_QUOTES;
-		// PHP 5.3 compat
-		if ( defined( "ENT_HTML5" ) ) {
-			$flags |= constant( "ENT_HTML5" );
-		}
-		$table = array_flip( get_html_translation_table( HTML_ENTITIES, $flags, "UTF-8" ) );
+		$table = array_flip(
+			get_html_translation_table( HTML_ENTITIES, ENT_QUOTES | ENT_HTML5, "UTF-8" )
+		);
 		return [ $table ];
 	}
 
