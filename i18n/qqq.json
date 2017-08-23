@@ -52,7 +52,6 @@
 	"scribunto-luastandalone-proc-error": "Exception message.",
 	"scribunto-luastandalone-proc-error-msg": "Exception message. Parameters:\n* $1 - (Unused)\n* $2 - Warning/error text from PHP",
 	"scribunto-luastandalone-proc-error-proc-open": "Exception message displayed when PHP's <tt>proc_open</tt> function is not available, which is needed by the LuaStandalone engine. <tt>proc_open</tt> is a PHP function name and <tt>disable_functions</tt> is the name of a PHP configuration. Both these names aren't localized, thus shouldn't be translated. \n\nSee also:\n* proc_open: http://www.php.net/manual/en/function.proc-open.php\n* disable_functions: http://www.php.net/manual/en/ini.core.php",
-	"scribunto-luastandalone-proc-error-safe-mode": "Exception message displayed when PHP's \"safe_mode\" configuration directive is enabled.",
 	"scribunto-luastandalone-decode-error": "Exception message.",
 	"scribunto-luastandalone-write-error": "Exception message. A [[wikipedia:unix pipe|unix pipe]] is similar to an electronic pipeline for data.\n\nSee also:\n* {{msg-mw|Scribunto-luastandalone-read-error}}",
 	"scribunto-luastandalone-read-error": "Exception message.\nA [[wikipedia:unix pipe|unix pipe]] is similar to an electronic pipeline for data.\n\nSee also:\n* {{msg-mw|Scribunto-luastandalone-write-error}}",

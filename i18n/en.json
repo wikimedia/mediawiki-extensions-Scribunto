@@ -42,7 +42,6 @@
 	"scribunto-luastandalone-proc-error": "Lua error: Cannot create process.",
 	"scribunto-luastandalone-proc-error-msg": "Lua error: Cannot create process: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua error: Cannot create process: proc_open is not available. Check PHP's \"disable_functions\" configuration directive.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lua error: Cannot create process. Note that PHP's deprecated \"safe_mode\" configuration directive is enabled.",
 	"scribunto-luastandalone-decode-error": "Lua error: Internal error: Unable to decode message.",
 	"scribunto-luastandalone-write-error": "Lua error: Internal error: Error writing to pipe.",
 	"scribunto-luastandalone-read-error": "Lua error: Internal error: Error reading from pipe.",

@@ -16,13 +16,6 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	private $stringLengthLimit = null;
 
 	/**
-	 * PHP 5.3's mb_check_encoding does not reject characters above U+10FFFF.
-	 * When using that version, we'll need to check that manually.
-	 * @var boolean
-	 */
-	private $manualCheckForU110000AndUp = false;
-
-	/**
 	 * PHP until 5.6.9 are buggy when the regex in preg_replace an
 	 * preg_match_all matches the empty string.
 	 * @var boolean
@@ -41,7 +34,6 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$this->stringLengthLimit = $wgMaxArticleSize * 1024;
 		}
 
-		$this->manualCheckForU110000AndUp = mb_check_encoding( "\xf4\x90\x80\x80", "UTF-8" );
 		$this->phpBug53823 = preg_replace( '//us', 'x', "\xc3\xa1" ) === "x\xc3x\xa1x";
 		$this->patternRegexCache = new MapCacheLRU( 100 );
 
@@ -89,22 +81,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		] );
 	}
 
-	// Once we no longer support PHP < 5.4, calls to this method may be replaced with
-	// mb_check_encoding( $s, 'UTF-8' )
-	private function checkEncoding( $s ) {
-		$ok = mb_check_encoding( $s, 'UTF-8' );
-		if ( $ok && $this->manualCheckForU110000AndUp ) {
-			$ok = !preg_match( '/\xf4[\x90-\xbf]|[\xf5-\xff]/', $s );
-		}
-		return $ok;
-	}
-
 	private function checkString( $name, $s, $checkEncoding = true ) {
 		if ( $this->getLuaType( $s ) == 'number' ) {
 			$s = (string)$s;
 		} else {
 			$this->checkType( $name, 1, $s, 'string' );
-			if ( $checkEncoding && !$this->checkEncoding( $s ) ) {
+			if ( $checkEncoding && !mb_check_encoding( $s, 'UTF-8' ) ) {
 				throw new Scribunto_LuaError( "bad argument #1 to '$name' (string is not UTF-8)" );
 			}
 			if ( strlen( $s ) > $this->stringLengthLimit ) {
@@ -117,7 +99,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringIsUtf8( $s ) {
 		$this->checkString( 'isutf8', $s, false );
-		return [ $this->checkEncoding( $s ) ];
+		return [ mb_check_encoding( $s, 'UTF-8' ) ];
 	}
 
 	public function ustringByteoffset( $s, $l = 1, $i = 1 ) {
@@ -175,7 +157,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringToNFC( $s ) {
 		$this->checkString( 'toNFC', $s, false );
-		if ( !$this->checkEncoding( $s ) ) {
+		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
 		return [ UtfNormal::toNFC( $s ) ];
@@ -183,7 +165,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringToNFD( $s ) {
 		$this->checkString( 'toNFD', $s, false );
-		if ( !$this->checkEncoding( $s ) ) {
+		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
 		return [ UtfNormal::toNFD( $s ) ];
@@ -191,7 +173,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringToNFKC( $s ) {
 		$this->checkString( 'toNFKC', $s, false );
-		if ( !$this->checkEncoding( $s ) ) {
+		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
 		return [ UtfNormal::toNFKC( $s ) ];
@@ -199,7 +181,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringToNFKD( $s ) {
 		$this->checkString( 'toNFKD', $s, false );
-		if ( !$this->checkEncoding( $s ) ) {
+		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
 		return [ UtfNormal::toNFKD( $s ) ];
@@ -231,7 +213,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	public function ustringLen( $s ) {
 		$this->checkString( 'len', $s, false );
-		if ( !$this->checkEncoding( $s ) ) {
+		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
 		return [ mb_strlen( $s, 'UTF-8' ) ];
@@ -273,7 +255,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			$pattern = (string)$pattern;
 		}
 		$this->checkType( $name, 2, $pattern, 'string' );
-		if ( !$this->checkEncoding( $pattern ) ) {
+		if ( !mb_check_encoding( $pattern, 'UTF-8' ) ) {
 			throw new Scribunto_LuaError( "bad argument #2 to '$name' (string is not UTF-8)" );
 		}
 		if ( strlen( $pattern ) > $this->patternLengthLimit ) {

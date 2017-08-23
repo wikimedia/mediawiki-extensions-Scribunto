@@ -245,13 +245,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		];
 		$this->expandCache = [];
 
-		// @todo Once support for PHP 5.3 (MW < 1.27) is dropped, lose $ref and just use
-		// $this->currentFrames directly in the callback.
-		$ref = &$this->currentFrames;
-		$ref2 = &$this->expandCache;
-		return new ScopedCallback( function () use ( &$ref, &$ref2, $oldFrames, $oldExpandCache ) {
-			$ref = $oldFrames;
-			$ref2 = $oldExpandCache;
+		return new ScopedCallback( function () use ( $oldFrames, $oldExpandCache ) {
+			$this->currentFrames = $oldFrames;
+			$this->expandCache = $oldExpandCache;
 		} );
 	}
 
