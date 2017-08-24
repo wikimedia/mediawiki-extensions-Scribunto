@@ -49,7 +49,6 @@
 	"scribunto-luastandalone-proc-error": "Error de Lua: No se puede crear el proceso.",
 	"scribunto-luastandalone-proc-error-msg": "Error de Lua: no se puede crear el proceso: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Error de Lua: No se puede crear el proceso: proc_open no está disponible. Comprueba la directiva de configuración de PHP «disable_functions».",
-	"scribunto-luastandalone-proc-error-safe-mode": "Error de Lua: No se puede crear el proceso. Ten en cuenta que la directiva de configuración obsoleta de PHP «safe_mode» está habilitada.",
 	"scribunto-luastandalone-decode-error": "Error de Lua: Error interno: No se pudo decodificar el mensaje.",
 	"scribunto-luastandalone-write-error": "Error de Lua: Error interno: Error al escribir en la canalización (pipe).",
 	"scribunto-luastandalone-read-error": "Error de Lua: Error interno: Error al leer desde la canalización (pipe).",
