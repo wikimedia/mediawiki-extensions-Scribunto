@@ -35,6 +35,17 @@ local function rawencode( s, space )
 	return ret
 end
 
+local function wikiencode( s )
+	local ret = string.gsub( s, '([^a-zA-Z0-9!$()*,./:;@~_-])', function ( c )
+		if c == ' ' then
+			return '_'
+		else
+			return string.format( '%%%02X', string.byte( c, 1, 1 ) )
+		end
+	end );
+	return ret
+end
+
 local function rawdecode( s )
 	local ret = string.gsub( s, '%%(%x%x)', function ( hex )
 		return string.char( tonumber( hex, 16 ) )
@@ -51,7 +62,7 @@ function uri.encode( s, enctype )
 	elseif enctype == 'PATH' then
 		return rawencode( s, '%20' )
 	elseif enctype == 'WIKI' then
-		return rawencode( s, '_' )
+		return wikiencode( s )
 	else
 		error( "bad argument #2 to 'encode' (expected QUERY, PATH, or WIKI)", 2 )
 	end

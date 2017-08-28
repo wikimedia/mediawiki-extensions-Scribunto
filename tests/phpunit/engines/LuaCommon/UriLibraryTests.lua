@@ -18,16 +18,16 @@ local tests = {
 	  expect = { '__foo+b%C3%A1r+%2B+baz__' }
 	},
 	{ name = 'uri.encode QUERY', func = mw.uri.encode,
-	  args = { '__foo b\195\161r + baz__', 'QUERY' },
-	  expect = { '__foo+b%C3%A1r+%2B+baz__' }
+	  args = { '__foo b\195\161r + /baz/__', 'QUERY' },
+	  expect = { '__foo+b%C3%A1r+%2B+%2Fbaz%2F__' }
 	},
 	{ name = 'uri.encode PATH', func = mw.uri.encode,
-	  args = { '__foo b\195\161r + baz__', 'PATH' },
-	  expect = { '__foo%20b%C3%A1r%20%2B%20baz__' }
+	  args = { '__foo b\195\161r + /baz/__', 'PATH' },
+	  expect = { '__foo%20b%C3%A1r%20%2B%20%2Fbaz%2F__' }
 	},
 	{ name = 'uri.encode WIKI', func = mw.uri.encode,
-	  args = { '__foo b\195\161r + baz__', 'WIKI' },
-	  expect = { '__foo_b%C3%A1r_%2B_baz__' }
+	  args = { '__foo b\195\161r + /baz/__', 'WIKI' },
+	  expect = { '__foo_b%C3%A1r_%2B_/baz/__' }
 	},
 
 	{ name = 'uri.decode', func = mw.uri.decode,
