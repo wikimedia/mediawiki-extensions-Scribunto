@@ -33,7 +33,7 @@
 	"scribunto-common-error-category": "Páginas con errores en secuencias de órdenes",
 	"scribunto-common-error-category-desc": "Se produjo un error al procesar los módulos incluidos en la página.",
 	"scribunto-common-nosuchmodule": "Error en la secuencia de órdenes: no existe el módulo «$2».",
-	"scribunto-common-nofunction": "Error de secuencia de comandos: debe especificar una función a la que llamar.",
+	"scribunto-common-nofunction": "Error de secuencia de órdenes: se debe especificar una función a la que llamar.",
 	"scribunto-common-nosuchfunction": "Error en la secuencia de órdenes: la función «$2» no existe.",
 	"scribunto-common-notafunction": "Error en la secuencia de órdenes: «$2» no es una función.",
 	"scribunto-common-timeout": "Ha caducado el tiempo asignado para ejecutar secuencias de comandos (scripts).",

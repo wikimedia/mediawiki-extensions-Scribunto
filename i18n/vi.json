@@ -14,7 +14,7 @@
 	"scribunto-doc-page-name": "Module:$1/tài liệu",
 	"scribunto-doc-page-does-not-exist": "''Có thể viết tài liệu về mô đun này tại [[$1]].''",
 	"scribunto-doc-page-header": "'''Đây là trang dành cho tài liệu về [[$1]].'''",
-	"scribunto-console-intro": "* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.\n* Đưa “=” vào đầu dòng để tính toán nó như một biểu thức, hoặc sử dụng print().\n* Sử dụng mw.log() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.",
+	"scribunto-console-intro": "* Các giá trị được xuất khẩu từ mô đun, bao gồm các thay đổi chưa lưu, có sẵn trong biến “p”.\n* Đưa “=” vào đầu dòng để tính toán nó như một biểu thức hoặc sử dụng print(). Sử dụng mw.logObject() cho bảng.\n* Sử dụng mw.log() và mw.logObject() trong mã mô đun để đưa thông điệp vào bảng điều khiển này.",
 	"scribunto-console-title": "Bảng điều khiển gỡ lỗi",
 	"scribunto-console-too-large": "Phiên bảng điều khiển này đã dài quá. Xin vui lòng tẩy trống lịch sử bảng điều khiển hoặc giảm cỡ mô đun.",
 	"scribunto-console-current-src": "đầu vào bảng điều khiển",
@@ -41,7 +41,6 @@
 	"scribunto-luastandalone-proc-error": "Lỗi Lua: Không thể tạo ra quá trình.",
 	"scribunto-luastandalone-proc-error-msg": "Lỗi Lua: Không thể tạo quá trình: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lỗi Lua: Không thể tạo quá trình: proc_open không có sẵn. Hãy kiểm tra chỉ thị cấu hình “disable_functions” của PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lỗi Lua: Không thể tạo quá trình. Lưu ý rằng chỉ thị cấu hình phản đối “safe_mode” của PHP đang được bật.",
 	"scribunto-luastandalone-decode-error": "Lỗi Lua: Lỗi nội bộ: Không thể giải mã thông điệp.",
 	"scribunto-luastandalone-write-error": "Lỗi Lua: Lỗi nội bộ: Lỗi khi ghi vào đường ống.",
 	"scribunto-luastandalone-read-error": "Lỗi Lua: Lỗi nội bộ: Lỗi khi đọc từ đường ống.",
@@ -63,5 +62,7 @@
 	"apihelp-scribunto-console-param-content": "Nội dung mới của mô đun.",
 	"apihelp-scribunto-console-param-session": "Dấu phiên làm việc.",
 	"apihelp-scribunto-console-param-question": "Dòng sau để đánh giá như một kịch bản.",
-	"apihelp-scribunto-console-param-clear": "Đặt để xóa trạng thái phiên làm việc hiện tại."
+	"apihelp-scribunto-console-param-clear": "Đặt để xóa trạng thái phiên làm việc hiện tại.",
+	"nstab-module": "Mô đun",
+	"tooltip-ca-nstab-module": "Xem trang mô đun"
 }
