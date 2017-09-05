@@ -1,11 +1,11 @@
 local testframework = require( 'Module:TestFramework' )
 
 local function setfenv1()
-	setfenv( 5, {} )
+	setfenv( 10, {} )
 end
 
 local function getfenv1()
-	assert( getfenv( 5 ) == nil )
+	assert( getfenv( 10 ) == nil )
 end
 
 return testframework.getTestProvider( {
