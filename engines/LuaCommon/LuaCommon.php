@@ -992,7 +992,7 @@ class Scribunto_LuaError extends ScribuntoException {
 
 				$title = Title::newFromText( $short_src );
 				if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-					$title->setFragment( '#mw-ce-l' . $currentline );
+					$title = $title->createFragmentTarget( 'mw-ce-l' . $currentline );
 					$src = Html::rawElement( 'a',
 						[ 'href' => $title->getFullURL( 'action=edit' ) ],
 						$src );
