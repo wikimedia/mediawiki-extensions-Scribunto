@@ -6,5 +6,6 @@
 	},
 	"scribunto-doc-page-does-not-exist": "''La decumentaçon pa este módulo puode ser criada na páigina [[$1]]''",
 	"scribunto-common-error-category": "Páiginas cun erros de comandos",
+	"scribunto-lua-error": "Erro an Lua: $2.",
 	"nstab-module": "Módulo"
 }
