@@ -10,7 +10,8 @@
 			"Urhixidur",
 			"Orlodrim",
 			"Wyz",
-			"Wladek92"
+			"Wladek92",
+			"Od1n"
 		]
 	},
 	"scribunto-desc": "Framework pour l'intégration de langages de script dans les pages MediaWiki",
@@ -22,7 +23,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''La documentation pour ce module peut être créée à [[$1]]''",
 	"scribunto-doc-page-header": "'''Ceci est la page de documentation pour [[$1]]'''",
-	"scribunto-console-intro": "* Les exportations du module sont accessibles par la variable « p », y compris les modifications non enregistrées. \n* Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). Utilisez mw.logObject() pour les tables.\n* Utilisez mw.log()et mw.logObject() dans le code du module pour envoyer des messages à cette console.",
+	"scribunto-console-intro": "* Les exportations du module sont accessibles par la variable « p », y compris les modifications non enregistrées. \n* Faites précéder une ligne par « = » pour l'évaluer comme une expression, ou utilisez print(). Utilisez mw.logObject() pour les tables.\n* Utilisez mw.log() et mw.logObject() dans le code du module pour envoyer des messages à cette console.",
 	"scribunto-console-title": "Console de débogage",
 	"scribunto-console-too-large": "Cette session de console est trop grande. Veuillez effacer l’historique de la console ou réduire la taille du module.",
 	"scribunto-console-current-src": "entrée de la console",
@@ -49,7 +50,6 @@
 	"scribunto-luastandalone-proc-error": "Erreur LUA : Impossible de créer le processus.",
 	"scribunto-luastandalone-proc-error-msg": "Erreur LUA : Impossible de créer le processus : $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Erreur LUA : Impossible de créer le processus : proc_open n’est pas disponible. Vérifiez la directive de configuration PHP « disable_functions ».",
-	"scribunto-luastandalone-proc-error-safe-mode": "Erreur LUA : Impossible de créer le processus : Veuillez noter que la directive de configuration PHP désuète « safe_mode » est activée.",
 	"scribunto-luastandalone-decode-error": "Erreur LUA : Erreur interne : Impossible de décoder le message.",
 	"scribunto-luastandalone-write-error": "Erreur LUA : Erreur interne : Erreur d'écriture dans le tube (pipe).",
 	"scribunto-luastandalone-read-error": "Erreur LUA : Erreur interne : Erreur de lecture du tube (pipe).",
