@@ -98,15 +98,17 @@ LUA;
 
 	public function testGlobalEnvironment() {
 		// Grab the first engine as the "standard"
-		reset( $this->engines );
-		list( $firstName, $firstEngine ) = each( $this->engines );
+		$firstEngine = reset( $this->engines );
+		$firstName = key( $this->engines );
 		$firstEnv = $this->getGlobalEnvironment( $firstEngine );
 
 		// Test all others against it
-		while ( list( $secondName, $secondEngine ) = each( $this->engines ) ) {
-			$secondEnv = $this->getGlobalEnvironment( $secondEngine );
-			$this->assertEquals( $firstEnv, $secondEnv,
-				"Environments for $firstName and $secondName are not equivalent" );
+		foreach ( $this->engines as $secondName => $secondEngine ) {
+			if ( $secondName !== $firstName ) {
+				$secondEnv = $this->getGlobalEnvironment( $secondEngine );
+				$this->assertEquals( $firstEnv, $secondEnv,
+					"Environments for $firstName and $secondName are not equivalent" );
+			}
 		}
 	}
 }
