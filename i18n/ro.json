@@ -3,7 +3,8 @@
 		"authors": [
 			"Minisarm",
 			"Stelistcristi",
-			"XXN"
+			"XXN",
+			"Andreyyshore"
 		]
 	},
 	"scribunto-line": "la linia $1",
@@ -17,5 +18,7 @@
 	"scribunto-common-nosuchmodule": "Eroare în script: Niciun astfel de modul.",
 	"scribunto-common-nofunction": "Eroare în script: Trebuie să specificați o funcție pentru apelare.",
 	"scribunto-common-nosuchfunction": "Eroare în script: Funcția specificată nu există.",
-	"scribunto-lua-error": "Eroare Lua: $2."
+	"scribunto-lua-error": "Eroare Lua: $2.",
+	"nstab-module": "Modul",
+	"tooltip-ca-nstab-module": "Vezi modulul"
 }
