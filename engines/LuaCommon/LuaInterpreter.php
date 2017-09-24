@@ -8,6 +8,7 @@ abstract class Scribunto_LuaInterpreter {
 	 *
 	 * @param string $text The Lua source code
 	 * @param string $chunkName The chunk name
+	 * @return mixed
 	 */
 	abstract public function loadString( $text, $chunkName );
 
@@ -31,7 +32,7 @@ abstract class Scribunto_LuaInterpreter {
 	/**
 	 * Test whether an object is a Lua function.
 	 *
-	 * @param $object
+	 * @param object $object
 	 * @return boolean
 	 */
 	abstract public function isLuaFunction( $object );
@@ -39,8 +40,8 @@ abstract class Scribunto_LuaInterpreter {
 	/**
 	 * Register a library of functions.
 	 *
-	 * @param $name string The global variable name to be created or added to.
-	 * @param $functions array An associative array mapping the function name to the
+	 * @param string $name The global variable name to be created or added to.
+	 * @param array $functions An associative array mapping the function name to the
 	 *    callback. The callback may throw a Scribunto_LuaError, which will be
 	 *    caught and raised in the Lua code as a Lua error, catchable with
 	 *    pcall().

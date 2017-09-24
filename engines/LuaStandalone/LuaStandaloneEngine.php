@@ -408,8 +408,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * Fill in missing nulls in a list received from Lua
 	 *
-	 * @param $array array List received from Lua
-	 * @param $count integer Number of values that should be in the list
+	 * @param array $array List received from Lua
+	 * @param int $count Number of values that should be in the list
 	 * @return array Non-sparse array
 	 */
 	private static function fixNulls( array $array, $count ) {

@@ -55,7 +55,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Extract inexpensive information from a Title object for return to Lua
 	 *
-	 * @param $title Title Title to return
+	 * @param Title $title Title to return
 	 * @return array Lua data
 	 */
 	private function getInexpensiveTitleData( Title $title ) {
@@ -139,8 +139,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 * Calls Title::newFromID or Title::newFromTitle as appropriate for the
 	 * arguments.
 	 *
-	 * @param $text_or_id string|int Title or page_id to fetch
-	 * @param $defaultNamespace string|int Namespace name or number to use if
+	 * @param string|int $text_or_id Title or page_id to fetch
+	 * @param string|int $defaultNamespace Namespace name or number to use if
 	 *  $text_or_id doesn't override
 	 * @return array Lua data
 	 */
@@ -186,10 +186,10 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * Calls Title::makeTitleSafe.
 	 *
-	 * @param $ns string|int Namespace
-	 * @param $text string Title text
-	 * @param $fragment string URI fragment
-	 * @param $interwiki string Interwiki code
+	 * @param string|int $ns Namespace
+	 * @param string $text Title text
+	 * @param string $fragment URI fragment
+	 * @param string $interwiki Interwiki code
 	 * @return array Lua data
 	 */
 	function makeTitle( $ns, $text, $fragment = null, $interwiki = null ) {

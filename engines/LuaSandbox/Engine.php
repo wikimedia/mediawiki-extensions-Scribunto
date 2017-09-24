@@ -281,6 +281,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @param string $text
 	 * @param string $chunkName
+	 * @return mixed
 	 * @throws Scribunto_LuaError
 	 */
 	public function loadString( $text, $chunkName ) {
@@ -375,6 +376,9 @@ class Scribunto_LuaSandboxCallback {
 	/**
 	 * We use __call with a variable function name so that LuaSandbox will be
 	 * able to return a meaningful function name in profiling data.
+	 * @param string $funcName
+	 * @param array $args
+	 * @return mixed
 	 */
 	function __call( $funcName, $args ) {
 		try {

@@ -166,10 +166,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * global that is defined when the library's Lua module is loaded. Values
 	 * must be PHP callables, which will be seen in Lua as functions.
 	 *
-	 * @param $moduleFileName string The path to the Lua portion of the library
+	 * @param string $moduleFileName The path to the Lua portion of the library
 	 *         (absolute, or relative to $this->getLuaLibDir())
-	 * @param $interfaceFuncs array Populates mw_interface
-	 * @param $setupOptions array Passed to the modules setupInterface() method.
+	 * @param array $interfaceFuncs Populates mw_interface
+	 * @param array $setupOptions Passed to the modules setupInterface() method.
 	 * @return array Lua package
 	 */
 	public function registerInterface( $moduleFileName, $interfaceFuncs, $setupOptions = [] ) {
@@ -195,7 +195,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * absolute path (i.e. begins with DIRECTORY_SEPARATOR or "X:"), prepend
 	 * getLuaLibDir()
 	 *
-	 * @param $file String name of the lua module file
+	 * @param string $fileName name of the lua module file
 	 * @return string
 	 */
 	protected function normalizeModuleFileName( $fileName ) {
@@ -330,8 +330,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Load a library from the given file and execute it in the base environment.
-	 * @param string File name/path to load
-	 * @return mixed the export list, or null if there isn't one.
+	 * @param string $fileName File name/path to load
+	 * @return array|null the export list, or null if there isn't one.
 	 */
 	protected function loadLibraryFromFile( $fileName ) {
 		static $cache = null;
@@ -515,6 +515,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * library and return its function table. It's not necessary to cache the
 	 * function table in the object instance, since there is caching in a
 	 * wrapper on the Lua side.
+	 * @param string $name
+	 * @return array
 	 */
 	function loadPHPLibrary( $name ) {
 		$args = func_get_args();
@@ -533,6 +535,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * module and return its chunk. It's not necessary to cache the resulting
 	 * chunk in the object instance, since there is caching in a wrapper on the
 	 * Lua side.
+	 * @param string $name
+	 * @return array
 	 */
 	function loadPackage( $name ) {
 		$args = func_get_args();
@@ -621,7 +625,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Handler for getTitle()
 	 *
-	 * @param $frameId
+	 * @param string $frameId
 	 *
 	 * @return array
 	 */
@@ -705,9 +709,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for callParserFunction()
-	 * @param $frameId
-	 * @param $function
-	 * @param $args
+	 * @param string $frameId
+	 * @param string $function
+	 * @param array $args
 	 * @throws MWException
 	 * @throws Scribunto_LuaError
 	 * @return array

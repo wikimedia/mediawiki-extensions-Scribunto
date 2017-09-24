@@ -24,7 +24,7 @@ class Scribunto {
 	/**
 	 * Create a new engine object with default parameters
 	 *
-	 * @param $extraOptions array Extra options to pass to the constructor,
+	 * @param array $extraOptions Extra options to pass to the constructor,
 	 *  in addition to the configured options
 	 * @throws MWException
 	 * @return ScribuntoEngineBase
@@ -72,6 +72,7 @@ class Scribunto {
 
 	/**
 	 * Remove the current engine instance from the parser
+	 * @param Parser $parser
 	 */
 	public static function resetParserEngine( Parser $parser ) {
 		if ( !empty( $parser->scribunto_engine ) ) {
@@ -199,6 +200,8 @@ class ScribuntoException extends MWException {
 
 	/**
 	 * Get the backtrace as HTML, or false if there is none available.
+	 * @param array $options
+	 * @return bool|string
 	 */
 	public function getScriptTraceHtml( $options = [] ) {
 		return false;

@@ -32,7 +32,7 @@ abstract class Scribunto_LuaLibraryBase {
 	private $engine;
 
 	/**
-	 * @param $engine Scribunto_LuaEngine
+	 * @param Scribunto_LuaEngine $engine
 	 * @return Scribunto_LuaLibraryBase $this
 	 */
 	function __construct( Scribunto_LuaEngine $engine ) {
@@ -102,7 +102,7 @@ abstract class Scribunto_LuaLibraryBase {
 	 * returned (prefixed with "PHP"). For example, "PHP resource" or "PHP
 	 * object of class Foo".
 	 *
-	 * @param $var mixed Variable to test
+	 * @param mixed $var Variable to test
 	 * @return string Type
 	 */
 	protected function getLuaType( $var ) {
@@ -134,10 +134,10 @@ abstract class Scribunto_LuaLibraryBase {
 	 * If the type of the variable does not match the expected type,
 	 * a Scribunto_LuaError will be thrown.
 	 *
-	 * @param $name string Name of the calling function (as seen from Lua)
-	 * @param $argIdx integer Index of the argument being tested (1-based)
-	 * @param $arg mixed Variable to test
-	 * @param $expectType string Lua type expected
+	 * @param string $name Name of the calling function (as seen from Lua)
+	 * @param int $argIdx Index of the argument being tested (1-based)
+	 * @param mixed $arg Variable to test
+	 * @param string $expectType Lua type expected
 	 * @return void
 	 */
 	protected function checkType( $name, $argIdx, $arg, $expectType ) {
@@ -156,11 +156,11 @@ abstract class Scribunto_LuaLibraryBase {
 	 * type of the variable does not match the expected type, a
 	 * Scribunto_LuaError will be thrown.
 	 *
-	 * @param $name string Name of the calling function (as seen from Lua)
-	 * @param $argIdx integer Index of the argument being tested (1-based)
-	 * @param &$arg mixed Variable to test/set
-	 * @param $expectType string Lua type expected
-	 * @param $default mixed Default value
+	 * @param string $name Name of the calling function (as seen from Lua)
+	 * @param int $argIdx Index of the argument being tested (1-based)
+	 * @param mixed &$arg Variable to test/set
+	 * @param string $expectType Lua type expected
+	 * @param mixed $default Default value
 	 * @return void
 	 */
 	protected function checkTypeOptional( $name, $argIdx, &$arg, $expectType, $default ) {

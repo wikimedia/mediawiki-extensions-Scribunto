@@ -37,11 +37,11 @@ class ScribuntoContent extends TextContent {
 	/**
 	 * Parse the Content object and generate a ParserOutput from the result.
 	 *
-	 * @param $title Title The page title to use as a context for rendering
-	 * @param $revId null|int The revision being rendered (optional)
-	 * @param $options null|ParserOptions Any parser options
-	 * @param $generateHtml boolean Whether to generate HTML (default: true).
-	 * @param &$output ParserOutput representing the HTML form of the text.
+	 * @param Title $title The page title to use as a context for rendering
+	 * @param null|int $revId The revision being rendered (optional)
+	 * @param null|ParserOptions $options Any parser options
+	 * @param bool $generateHtml Whether to generate HTML (default: true).
+	 * @param ParserOutput &$output ParserOutput representing the HTML form of the text.
 	 * @return ParserOutput
 	 */
 	protected function fillParserOutput(

@@ -78,13 +78,13 @@ abstract class ScribuntoEngineBase {
 
 	/**
 	 * Get software information for Special:Version
-	 * @param &$software array
+	 * @param array &$software
 	 * @return bool
 	 */
 	abstract public function getSoftwareInfo( array &$software );
 
 	/**
-	 * @param $options array Associative array of options:
+	 * @param array $options Associative array of options:
 	 *    - parser:            A Parser object
 	 */
 	public function __construct( array $options ) {
@@ -135,7 +135,7 @@ abstract class ScribuntoEngineBase {
 
 	/**
 	 * @param string $message
-	 * @param $params array
+	 * @param array $params
 	 * @return ScribuntoException
 	 */
 	public function newException( $message, array $params = [] ) {
@@ -186,7 +186,7 @@ abstract class ScribuntoEngineBase {
 	 * Validates the script and returns a Status object containing the syntax
 	 * errors for the given code.
 	 *
-	 * @param $text string
+	 * @param string $text
 	 * @param string|bool $chunkName
 	 * @return Status
 	 */
@@ -213,6 +213,7 @@ abstract class ScribuntoEngineBase {
 
 	/**
 	 * Get the language for GeSHi syntax highlighter.
+	 * @return string|false
 	 */
 	function getGeSHiLanguage() {
 		return false;
@@ -220,6 +221,7 @@ abstract class ScribuntoEngineBase {
 
 	/**
 	 * Get the language for Ace code editor.
+	 * @return string|false
 	 */
 	function getCodeEditorLanguage() {
 		return false;
@@ -242,8 +244,8 @@ abstract class ScribuntoEngineBase {
 	 *  - deferLoad: (bool) Library should not be loaded at startup; modules
 	 *      needing the library must request it (e.g. via 'require' in Lua)
 	 *
-	 * @param $engine String script engine we're using (eg: lua)
-	 * @param $coreLibraries Array of core libraries we support
+	 * @param string $engine script engine we're using (eg: lua)
+	 * @param array $coreLibraries Array of core libraries we support
 	 * @return array
 	 */
 	protected function getLibraries( $engine, array $coreLibraries = [] ) {
@@ -255,8 +257,8 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Load a list of all paths libraries can be in for this engine
 	 *
-	 * @param $engine String script engine we're using (eg: lua)
-	 * @param $coreLibraryPaths Array of library paths to use by default
+	 * @param string $engine script engine we're using (eg: lua)
+	 * @param array $coreLibraryPaths Array of library paths to use by default
 	 * @return array
 	 */
 	protected function getLibraryPaths( $engine, array $coreLibraryPaths = [] ) {
@@ -268,7 +270,7 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Add limit report data to a ParserOutput object
 	 *
-	 * @param $output ParserOutput ParserOutput object in which to add limit data
+	 * @param ParserOutput $output ParserOutput object in which to add limit data
 	 * @return null
 	 */
 	public function reportLimitData( ParserOutput $output ) {
@@ -277,11 +279,11 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Format limit report data
 	 *
-	 * @param $key string
-	 * @param &$value string
-	 * @param &$report string
-	 * @param $isHTML bool
-	 * @param $localize bool
+	 * @param string $key
+	 * @param mixed &$value
+	 * @param string &$report
+	 * @param bool $isHTML
+	 * @param bool $localize
 	 * @return bool
 	 */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {

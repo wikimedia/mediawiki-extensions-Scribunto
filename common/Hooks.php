@@ -50,7 +50,7 @@ class ScribuntoHooks {
 	/**
 	 * Register parser hooks.
 	 *
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @return bool
 	 */
 	public static function setupParserHook( Parser &$parser ) {
@@ -61,7 +61,7 @@ class ScribuntoHooks {
 	/**
 	 * Called when the interpreter is to be reset.
 	 *
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @return bool
 	 */
 	public static function clearState( Parser &$parser ) {
@@ -83,7 +83,7 @@ class ScribuntoHooks {
 	/**
 	 * Hook function for {{#invoke:module|func}}
 	 *
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @param PPFrame $frame
 	 * @param array $args
 	 * @throws MWException
@@ -297,7 +297,7 @@ class ScribuntoHooks {
 	 * Formats the limit report data
 	 *
 	 * @param string $key
-	 * @param string &$value
+	 * @param mixed &$value
 	 * @param string &$report
 	 * @param bool $isHTML
 	 * @param bool $localize
@@ -313,7 +313,7 @@ class ScribuntoHooks {
 	 *
 	 * @param EditPage $editor
 	 * @param OutputPage $output
-	 * @param int $tab Current tabindex
+	 * @param int &$tab Current tabindex
 	 * @return bool
 	 */
 	public static function showStandardInputsOptions( EditPage $editor, OutputPage $output, &$tab ) {
@@ -329,6 +329,7 @@ class ScribuntoHooks {
 	 *
 	 * @param EditPage $editor
 	 * @param OutputPage $output
+	 * @return bool
 	 */
 	public static function showReadOnlyFormInitial( EditPage $editor, OutputPage $output ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
@@ -341,9 +342,9 @@ class ScribuntoHooks {
 	/**
 	 * EditPageBeforeEditButtons hook
 	 *
-	 * @param EditPage $editor
-	 * @param array $buttons Button array
-	 * @param int $tabindex Current tabindex
+	 * @param EditPage &$editor
+	 * @param array &$buttons Button array
+	 * @param int &$tabindex Current tabindex
 	 * @return bool
 	 */
 	public static function beforeEditButtons( EditPage &$editor, array &$buttons, &$tabindex ) {
