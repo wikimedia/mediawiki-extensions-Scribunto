@@ -196,15 +196,6 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
-	 * Allows the engine to append their information to the limits
-	 * report.
-	 */
-	public function getLimitsReport() {
-		/* No-op by default */
-		return '';
-	}
-
-	/**
 	 * Get CPU and memory usage information, if the script engine
 	 * provides it.
 	 *
