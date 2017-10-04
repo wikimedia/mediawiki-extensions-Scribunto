@@ -7,7 +7,7 @@
 			"McDutchie"
 		]
 	},
-	"scribunto-desc": "מסגרת להטמעת שפות תסריט לדפים של מדיה־ויקי",
+	"scribunto-desc": "מסגרת להטבעת שפות תסריט לדפים של מדיה־ויקי",
 	"scribunto-line": "בשורה $1",
 	"scribunto-module-line": "ביחידה $1 בשורה $2",
 	"scribunto-parser-dialog-title": "שגיאה בתסריט",
@@ -42,7 +42,6 @@
 	"scribunto-luastandalone-proc-error": "שגיאת לואה: לא ניתן ליצור תהליך.",
 	"scribunto-luastandalone-proc-error-msg": "שגיאת לואה: לא ניתן ליצור תהליך: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "שגיאת לואה: לא ניתן ליצור תהליך: הפונקציה proc_open אינה זמינה. נא לבדוק את ההגדרה \"disable_functions\" של PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "שגיאת לואה: לא ניתן ליצור תהליך. יש לשים לב לכך שמופעלת הגדרת ה־PHP המיושנת \"safe_mode\".",
 	"scribunto-luastandalone-decode-error": "שגיאת לואה: שגיאה פנימית: לא ניתן לפענח הודעה.",
 	"scribunto-luastandalone-write-error": "שגיאת לואה: שגיאה פנימית: שגיאה בכתיבה לצינור.",
 	"scribunto-luastandalone-read-error": "שגיאת לואה: שגיאה פנימית: שגיאה בקריאה מצינור.",
