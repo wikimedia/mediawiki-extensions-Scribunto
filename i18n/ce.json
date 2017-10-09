@@ -13,7 +13,7 @@
 	"scribunto-console-clear": "ЦӀанъян",
 	"scribunto-common-error-category": "Сриптийн гӀалаташ долу агӀонаш",
 	"scribunto-common-error-category-desc": "АгӀона тӀе тоьхна йолу модулаш кеч ечу хенахь гӀалат даьлла.",
-	"scribunto-common-nosuchmodule": "Скриптан гӀалат: Ишта модуль яц «$2».",
+	"scribunto-common-nosuchmodule": "Скриптан гӀалат: Иштта модуль яц «$2».",
 	"scribunto-common-nosuchfunction": "Скриптан гӀалат: Функцеш «$2» яц.",
 	"scribunto-common-no-details": "Мадарра дац.",
 	"scribunto-module-with-errors-category": "Scribunto модуль гӀалаташца",
