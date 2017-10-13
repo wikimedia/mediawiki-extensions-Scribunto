@@ -5,7 +5,8 @@
 			"Yahya Sakhnini",
 			"Mr. Ibrahem",
 			"McDutchie",
-			"Mido"
+			"Mido",
+			"Meno25"
 		]
 	},
 	"scribunto-line": "في السطر $1",
@@ -43,5 +44,6 @@
 	"scribunto-limitreport-memusage": "ذاكرة لوا المستخدمة",
 	"scribunto-limitreport-profile": "ملف تعريف لوا",
 	"scribunto-limitreport-profile-ms": "$1 مللي ثانية",
-	"scribunto-limitreport-logs": "سجل لوا"
+	"scribunto-limitreport-logs": "سجل لوا",
+	"nstab-module": "وحدة"
 }
