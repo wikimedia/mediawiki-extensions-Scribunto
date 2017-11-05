@@ -15,6 +15,7 @@
 	"scribunto-console-clear": "Očisti",
 	"scribunto-common-error-category": "Stranice sa greškama u skripti",
 	"scribunto-common-nosuchmodule": "Greška u skripti: Ne postoji modul „$2”.",
+	"scribunto-common-timeout": "Vreme izdvojeno za pokretanje skripti je isteklo.",
 	"scribunto-lua-error-location": "Lua greška $1: $2.",
 	"scribunto-lua-error": "Lua greška: $2.",
 	"scribunto-limitreport-timeusage": "Vreme korišćenja Lua",

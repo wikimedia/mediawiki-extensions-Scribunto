@@ -15,6 +15,7 @@
 	"scribunto-console-clear": "Очисти",
 	"scribunto-common-error-category": "Странице са грешкама у скрипти",
 	"scribunto-common-nosuchmodule": "Грешка у скрипти: Не постоји модул „$2”.",
+	"scribunto-common-timeout": "Време издвојено за покретање скрипти је истекло.",
 	"scribunto-lua-error-location": "Lua грешка $1: $2.",
 	"scribunto-lua-error": "Lua грешка: $2.",
 	"scribunto-limitreport-timeusage": "Време коришћења Lua",
