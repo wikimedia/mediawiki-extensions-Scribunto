@@ -37,7 +37,7 @@
 	"scribunto-common-nosuchfunction": "Error en la secuencia de órdenes: la función «$2» no existe.",
 	"scribunto-common-notafunction": "Error en la secuencia de órdenes: «$2» no es una función.",
 	"scribunto-common-timeout": "Ha caducado el tiempo asignado para ejecutar secuencias de comandos (scripts).",
-	"scribunto-common-oom": "Se ha superado la cantidad de memoria permitida para ejecutar secuencias de comandos (script).",
+	"scribunto-common-oom": "Se superó la cantidad de memoria permitida para ejecutar secuencias de órdenes.",
 	"scribunto-common-backtrace": "Traza inversa:",
 	"scribunto-common-no-details": "No hay más detalles disponibles.",
 	"scribunto-lua-in-function": "en la función \"$1\"",

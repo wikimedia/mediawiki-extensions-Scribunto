@@ -18,6 +18,8 @@
 	"scribunto-lua-error": "Lua kļūda: $2.",
 	"scribunto-luastandalone-proc-error": "Lua kļūda: Nevar izveidot procesu.",
 	"scribunto-luastandalone-proc-error-msg": "Lua kļūda: Nevar izveidot procesu: $2",
+	"scribunto-module-with-errors-category": "Scribunto moduļi ar kļūdām",
+	"scribunto-module-with-errors-category-desc": "Modulī ir kļūda.",
 	"scribunto-limitreport-profile": "Lua profils",
 	"nstab-module": "Modulis",
 	"tooltip-ca-nstab-module": "Apskatīt moduļa lapu"
