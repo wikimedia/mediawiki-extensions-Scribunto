@@ -248,6 +248,11 @@ $namespaceNames['ja'] = [
 	829 => 'モジュール・トーク',
 ];
 
+$namespaceNames['jv'] = [
+	828 => 'Modhul',
+	829 => 'Parembugan_Modhul',
+];
+
 $namespaceNames['ka'] = [
 	828 => 'მოდული',
 	829 => 'მოდულის_განხილვა',
