@@ -5,11 +5,13 @@
 			"Papuass"
 		]
 	},
+	"scribunto-line": "$1. rindā",
 	"scribunto-parser-dialog-title": "Skripta kļūda",
 	"scribunto-error-short": "Skripta kļūda: $1",
 	"scribunto-error-long": "Skripta kļūdas:\n\n$1",
 	"scribunto-doc-page-does-not-exist": "''Šī moduļa dokumentāciju var izveidot [[$1]] lapā''",
 	"scribunto-doc-page-header": "'''Šī ir [[$1]] moduļa dokumentācijas lapa'''",
+	"scribunto-console-title": "Atkļūdošanas konsole",
 	"scribunto-console-clear": "Notīrīt",
 	"scribunto-common-error-category": "Lapas ar skriptu kļūdām",
 	"scribunto-common-notafunction": "Skripta kļūda: \"$2\" nav fubkcija.",
@@ -20,7 +22,10 @@
 	"scribunto-luastandalone-proc-error-msg": "Lua kļūda: Nevar izveidot procesu: $2",
 	"scribunto-module-with-errors-category": "Scribunto moduļi ar kļūdām",
 	"scribunto-module-with-errors-category-desc": "Modulī ir kļūda.",
+	"scribunto-limitreport-memusage": "Lua atmiņas lietojums",
 	"scribunto-limitreport-profile": "Lua profils",
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"apihelp-scribunto-console-param-content": "Jaunais moduļa saturs",
 	"nstab-module": "Modulis",
 	"tooltip-ca-nstab-module": "Apskatīt moduļa lapu"
 }
