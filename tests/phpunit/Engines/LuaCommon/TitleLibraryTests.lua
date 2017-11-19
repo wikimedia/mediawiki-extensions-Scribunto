@@ -266,6 +266,14 @@ local tests = {
 		args = { 'subjectNsText' },
 		expect = { '', 'Module', '', '', '', 'Module', 'Module' }
 	},
+	{ name = '.canTalk', func = prop_foreach,
+		args = { 'canTalk' },
+		expect = { true, true, true, true, true, true, true }
+	},
+	{ name = '.talkNsText', func = prop_foreach,
+		args = { 'talkNsText' },
+		expect = { 'Talk', 'Module talk', nil, 'Talk', 'Talk', 'Module talk', 'Module talk' }
+	},
 	{ name = '.fragment', func = prop_foreach,
 		args = { 'fragment' },
 		expect = { '', '', '', 'frag', '', ' frag frag', ' frag frag' }

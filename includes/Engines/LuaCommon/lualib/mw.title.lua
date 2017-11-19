@@ -64,7 +64,15 @@ local function makeTitleObject( data )
 	data.isSpecialPage = data.namespace == mw.site.namespaces.Special.id
 	data.isTalkPage = ns.isTalk
 	data.subjectNsText = ns.subject.name
-	data.canTalk = ns.talk ~= nil
+
+	if ns.talk ~= nil then
+		data.canTalk = true
+		if not data.isExternal then
+			data.talkNsText = ns.talk.name
+		end
+	else
+		data.canTalk = false
+	end
 
 	data.prefixedText = data.text
 	if data.nsText ~= '' then
