@@ -5,7 +5,8 @@
 			"Yfdyh000",
 			"Spring Roll Conan",
 			"LNDDYL",
-			"Cwlin0416"
+			"Cwlin0416",
+			"A2093064"
 		]
 	},
 	"scribunto-desc": "用來內嵌腳本語言到 MediaWiki 頁面的框架",
@@ -59,5 +60,6 @@
 	"scribunto-limitreport-profile-ms": "$1 毫秒",
 	"scribunto-limitreport-profile-percent": "$1%",
 	"scribunto-limitreport-logs": "Lua 日誌",
-	"apihelp-scribunto-console-param-title": "要測試的模組標題。"
+	"apihelp-scribunto-console-param-title": "要測試的模組標題。",
+	"nstab-module": "模組"
 }
