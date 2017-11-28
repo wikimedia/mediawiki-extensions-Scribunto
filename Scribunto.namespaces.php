@@ -317,6 +317,11 @@ $namespaceNames['ms'] = [
 	828 => 'Modul',
 ];
 
+$namespaceNames['mwl'] = [
+	828 => 'Módulo',
+	829 => 'Cumbersa_módulo',
+];
+
 $namespaceNames['mzn'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_گپ',
