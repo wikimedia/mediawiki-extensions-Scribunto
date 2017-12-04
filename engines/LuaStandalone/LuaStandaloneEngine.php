@@ -432,7 +432,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 
 		// Convert to a 1-based array
-		if ( count( $result ) ) {
+		if ( $result !== null && count( $result ) ) {
 			$result = array_combine( range( 1, count( $result ) ), $result );
 		} else {
 			$result = [];
