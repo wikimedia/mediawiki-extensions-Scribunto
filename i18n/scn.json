@@ -41,7 +41,6 @@
 	"scribunto-luastandalone-proc-error": "Erruri dû Lua: Nun si potti criari nu prucessu.",
 	"scribunto-luastandalone-proc-error-msg": "Erruri dû Lua: Nun si potti criari nu prucessu: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Erruri dû Lua: Nun si potti criari nu prucessu: proc_open nun è dispunìbbili. Cuntrullari la dirittiva di cunfigurazzioni \"disable_functions\" dû PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Erruri dû Lua: Nun si potti criari nu prucessu. Accura chi la dirittiva di cunfigurazzioni dipricata dû PHP \"safe_mode\" è attivata.",
 	"scribunto-luastandalone-decode-error": "Erruri dû Lua: Erruri nternu: Nun si potti dicudificari un missaggiu.",
 	"scribunto-luastandalone-write-error": "Erruri dû Lua: Erruri nternu: Erruri ntâ scrivuta ntôn pipe.",
 	"scribunto-luastandalone-read-error": "Erruri dû Lua: Erruri nternu: Erruri ntâ littura dûn pipe.",

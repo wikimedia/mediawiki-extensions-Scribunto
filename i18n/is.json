@@ -37,7 +37,6 @@
 	"scribunto-luastandalone-proc-error": "Lua villa: Mistókst að búa til ferli.",
 	"scribunto-luastandalone-proc-error-msg": "Lua villa: Get ekki búið til ferli: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua villa: Get ekki búið til ferli: proc_open er ekki aðgengileg. Athugaðu \"disable_functions\" stillinguna í PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lua villa: Get ekki búið til ferli. Athugaðu að úrelda PHP stillingin \"safe_mode\" er virk.",
 	"scribunto-luastandalone-decode-error": "Lua villa: Innri villa: Ófær um að afkóta skilaboð.",
 	"scribunto-luastandalone-write-error": "Lua villa: Innri villa: Mistókst að skrifa til pípu (biðminnis).",
 	"scribunto-luastandalone-read-error": "Lua villa: Innri villa: Villa við að lesa frá pípu (biðminni).",

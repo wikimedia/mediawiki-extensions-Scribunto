@@ -46,7 +46,6 @@
 	"scribunto-luastandalone-proc-error": "Błąd Lua: Nie można utworzyć procesu.",
 	"scribunto-luastandalone-proc-error-msg": "Błąd Lua: Nie można utworzyć procesu: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Błąd Lua: Nie można utworzyć procesu: proc_open nie jest dostępny. Sprawdź dyrektywę \"disable_functions\" w konfiguracji PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Błąd Lua: Nie można utworzyć procesu. Proszę zauważyć, że przestarzała dyrektywa konfiguracyjna PHP \"safe_mode\" jest uruchomiona.",
 	"scribunto-luastandalone-decode-error": "Błąd Lua: Błąd wewnętrzny: Nie można zdekodować wiadomości.",
 	"scribunto-luastandalone-write-error": "Błąd Lua: Błąd wewnętrzny: Błąd zapisu do potoku.",
 	"scribunto-luastandalone-read-error": "Błąd Lua: Błąd wewnętrzny: Błąd czytania z potoku.",

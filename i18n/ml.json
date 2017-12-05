@@ -40,7 +40,6 @@
 	"scribunto-luastandalone-proc-error": "ലുവ പിഴവ്: പ്രോസസ്സ് സൃഷ്ടിക്കാനായില്ല.",
 	"scribunto-luastandalone-proc-error-msg": "ലുവ പിഴവ്: പ്രോസസ്സ് സൃഷ്ടിക്കാനായില്ല: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "ലുവ പിഴവ്: പ്രോസസ് സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല: proc_open ലഭ്യമല്ല. പി.എച്ച്.പി.യുടെ \"disable_functions\" ക്രമീകരണ നിർദ്ദേശിനി പരിശോധിക്കുക.",
-	"scribunto-luastandalone-proc-error-safe-mode": "ലുവ പിഴവ്: പ്രോസസ് സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല: പി.എച്ച്.പി.യിലെ \"safe_mode\" എന്ന ഒഴിവാക്കപ്പെട്ട ക്രമീകരണ നിർദ്ദേശിനി സജ്ജമാക്കി നൽകിയിട്ടുണ്ടെന്നത് ശ്രദ്ധിക്കുക.",
 	"scribunto-luastandalone-decode-error": "ലുവ പിഴവ്: ആന്തരിക പിഴവ്: സന്ദേശം നിർഗൂഢീകരിക്കാൻ സാധിച്ചില്ല.",
 	"scribunto-luastandalone-write-error": "ലുവ പിഴവ്: ആന്തരിക പിഴവ്: പൈപ്പിലേയ്ക്ക് എഴുതുന്നതിൽ പിഴവുണ്ടായി.",
 	"scribunto-luastandalone-read-error": "ലുവ പിഴവ്: ആന്തരിക പിഴവ്: പൈപ്പിൽ നിന്ന് വായിക്കുന്നതിൽ പിഴവുണ്ടായി.",

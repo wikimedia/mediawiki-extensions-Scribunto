@@ -43,7 +43,6 @@
 	"scribunto-luastandalone-proc-error": "خطای لوآ: نمی‌تواند فرآیند را ایجاد کند.",
 	"scribunto-luastandalone-proc-error-msg": "خطای لوا: روند نتوانست ایجاد شود: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "خطای لوآ: نتوانست روند را ایجاد کند: proc_open در دسترس نیست. دستور پیکربندی \"disable_functions\"پی‌اچ‌پی‌ را بررسی کنید.",
-	"scribunto-luastandalone-proc-error-safe-mode": "خطای لوآ: نتوانست روند را ایجاد کند. توجه داشته باشید که مخالفت‌ پی‌اچ‌پی \"safe_mode\" دستور پیکربندی غیرفعال است.",
 	"scribunto-luastandalone-decode-error": "خطای لوآ: خطای داخلی: نمی‌تواند پیغام را کدبرداری کند.",
 	"scribunto-luastandalone-write-error": "خطای لوآ: خطای داخلی: خطا در نوشتن لوله.",
 	"scribunto-luastandalone-read-error": "خطای لوآ: خطای داخلی: خطا در خواندن لوله.",

@@ -38,7 +38,6 @@
 	"scribunto-luastandalone-proc-error": "Lua-feil: kan ikkje oppretta prosess.",
 	"scribunto-luastandalone-proc-error-msg": "Lua-feil: kan ikkje oppretta prosess: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua-feil: kan ikkje oppretta prosess: proc_open er ikkje tilgjengeleg. Sjekk «disable_functions»- innstillingsdirektivet til PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lua-feil: kan ikkje oppretta prosess. Merk at det forelda PHP-innstillingsdirektivet «safe_mode» er slege på.",
 	"scribunto-luastandalone-decode-error": "Lua-feil: Intern feil: kan ikkje avkoda melding.",
 	"scribunto-luastandalone-write-error": "Lua-feil: Intern feil: feil under skriving til røyret.",
 	"scribunto-luastandalone-read-error": "Lua-feil: Intern feil: feil under lesing av røyret.",

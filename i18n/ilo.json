@@ -39,7 +39,6 @@
 	"scribunto-luastandalone-proc-error": "Biddut ti Lua: Saan a mapartuat ti pamuspusan.",
 	"scribunto-luastandalone-proc-error-msg": "Biddut ti Lua: Saan a makaaramid ti proseso: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Biddut ti Lua: Saan a makaaramid ti proseso: ti proc_open ket saan a magun-od. Kitaen ti \"disable_functions\" ti PHP a pannakaaramid ti direktibo.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Biddut ti Lua: Saan a makaaramid ti proseso. Laglagipen a ti naikkaten a \"safe_mode\" ti PHP a pannakaaramid ti direktibo ket napakabaelanen.",
 	"scribunto-luastandalone-decode-error": "Biddut ti Lua: Akin-uneg a biddut: Saan a nakudiguan ti mensahe.",
 	"scribunto-luastandalone-write-error": "Biddut ti Lua: Akin-uneg a biddut: Biddut ti panagsurat iti pipa.",
 	"scribunto-luastandalone-read-error": "Biddut ti Lua: Akin-uneg a biddut: Biddut a panagbasa manipud iti pipa.",

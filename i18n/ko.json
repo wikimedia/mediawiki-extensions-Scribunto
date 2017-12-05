@@ -43,7 +43,6 @@
 	"scribunto-luastandalone-proc-error": "Lua 오류: 프로세스를 생성할 수 없습니다.",
 	"scribunto-luastandalone-proc-error-msg": "Lua 오류: 프로세스를 생성할 수 없습니다: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua 오류: 프로세스를 생성할 수 없습니다: proc_open은 사용할 수 없습니다. PHP의 \"disable_functions\" 설정을 확인하십시오.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lua 오류: 프로세스를 생성할 수 없습니다. 참고로 PHP의 사용 폐기된 \"safe_mode\" 설정이 활성화되었습니다.",
 	"scribunto-luastandalone-decode-error": "Lua 오류: 내부 오류: 메시지를 디코드할 수 없습니다.",
 	"scribunto-luastandalone-write-error": "Lua 오류: 내부 오류: 파이프에 쓰는 도중 오류가 발생했습니다.",
 	"scribunto-luastandalone-read-error": "Lua 오류: 내부 오류: 파이프에서 읽는 도중 오류가 발생했습니다.",

@@ -43,7 +43,6 @@
 	"scribunto-luastandalone-proc-error": "Lua-Fehler: Der Vorgang kann nicht erstellt werden.",
 	"scribunto-luastandalone-proc-error-msg": "Lua-Fehler: Der Prozess konnte nicht erstellt werden: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua-Fehler: Der Prozess konnte nicht erstellt werden: proc_open ist nicht verfügbar. „disable_functions“ der PHP-Konfigurationsanweisung überprüfen.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Lua-Fehler: Der Prozess konnte nicht erstellt werden. Die veraltete PHP-Konfigurationsanweisung „safe_mode“ ist aktiviert.",
 	"scribunto-luastandalone-decode-error": "Interner Lua-Fehler: Die Nachricht konnte nicht dekodiert werden.",
 	"scribunto-luastandalone-write-error": "Interner Lua-Fehler: Es trat ein Fehler beim Schreiben auf.",
 	"scribunto-luastandalone-read-error": "Interner Lua-Fehler: Es trat ein Fehler beim Lesen auf.",

@@ -46,7 +46,6 @@
 	"scribunto-luastandalone-proc-error": "Errore Lua: impossibile creare il processo.",
 	"scribunto-luastandalone-proc-error-msg": "Errore Lua: impossibile creare il processo: $2.",
 	"scribunto-luastandalone-proc-error-proc-open": "Errore Lua: impossibile creare il processo: proc_open non è disponibile. Controlla la configurazione della direttiva PHP \"disable_functions\".",
-	"scribunto-luastandalone-proc-error-safe-mode": "Errore Lua: impossibile creare il processo. Nota che la configurazione della direttiva deprecata \"safe_mode\" è attiva.",
 	"scribunto-luastandalone-decode-error": "Errore Lua: errore interno - impossibile decodificare il messaggio.",
 	"scribunto-luastandalone-write-error": "Errore Lua: errore interno - errore durante la scrittura nel canale di comunicazione",
 	"scribunto-luastandalone-read-error": "Errore Lua: errore interno - errore durante la lettura nel canale di comunicazione",

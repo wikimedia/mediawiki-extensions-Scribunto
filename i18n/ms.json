@@ -39,7 +39,6 @@
 	"scribunto-luastandalone-proc-error": "Ralat Lua: Proses tidak boleh diwujudkan.",
 	"scribunto-luastandalone-proc-error-msg": "Ralat Lua: Proses tidak boleh diwujudkan: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Ralat Lua: Proses tidak boleh diwujudkan: proc_open tidak disediakan. Semak arahan konfigurasi \"disable_functions\" PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Ralat Lua: Proses tidak boleh diwujudkan. Pastikan arahan konfigurasi \"safe_mode\" PHP yang lapuk itu dihidupkan.",
 	"scribunto-luastandalone-decode-error": "Ralat Lua: Ralat dalaman: Pesanan tidak dapat dinyahkod.",
 	"scribunto-luastandalone-write-error": "Ralat Lua: Ralat dalaman: Ralat ketika menulis pada paip.",
 	"scribunto-luastandalone-read-error": "Ralat Lua: Ralat dalaman: Ralat ketika membaca dari paip.",

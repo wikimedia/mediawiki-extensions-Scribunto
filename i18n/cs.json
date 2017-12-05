@@ -42,7 +42,6 @@
 	"scribunto-luastandalone-proc-error": "Chyba Lua: Nelze vytvořit proces.",
 	"scribunto-luastandalone-proc-error-msg": "Chyba Lua: Nelze vytvořit proces: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Chyba Lua: Nelze vytvořit proces: Není k dispozici proc_open. Zkontrolujte direktivu „disable_functions“ v konfiguraci PHP.",
-	"scribunto-luastandalone-proc-error-safe-mode": "Chyba Lua: Nelze vytvořit proces. Vězte, že je v konfiguraci PHP zapnuta zavržená direktiva „safe_mode“.",
 	"scribunto-luastandalone-decode-error": "Chyba Lua: Interní chyba: Nelze dekódovat zprávu.",
 	"scribunto-luastandalone-write-error": "Chyba Lua: Interní chyba: Chyba zápisu do roury.",
 	"scribunto-luastandalone-read-error": "Chyba Lua: Interní chyba: Chyba čtení z roury.",

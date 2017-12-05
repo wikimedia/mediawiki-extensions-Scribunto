@@ -37,7 +37,6 @@
 	"scribunto-luastandalone-proc-error": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकती।",
 	"scribunto-luastandalone-proc-error-msg": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी: proc_open उपलब्ध नहीं है। PHP का \"disable_functions\" कन्फिगरेशन डायरेक्टिव जाँचें।",
-	"scribunto-luastandalone-proc-error-safe-mode": "लुआ त्रुटि: प्रक्रिया नहीं बनाई जा सकी। ध्यान दें कि PHP का पुराना (डेप्रिकेटेड) \"safe_mode\" कन्फिगरेशन डायरेक्टिव सक्षम है।",
 	"scribunto-luastandalone-decode-error": "लुआ त्रुटि: आतंरिक त्रुटि: सन्देश डीकोड नहीं किया जा सका।",
 	"scribunto-luastandalone-write-error": "लुआ त्रुटि: आतंरिक त्रुटि: पाइप में लिखने में त्रुटि।",
 	"scribunto-luastandalone-read-error": "लुआ त्रुटि: आतंरिक त्रुटि: पाइप से पढ़ने में त्रुटि।",

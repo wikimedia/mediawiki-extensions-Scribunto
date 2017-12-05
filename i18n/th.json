@@ -41,7 +41,6 @@
 	"scribunto-luastandalone-proc-error": "สคริปต์ลูอาผิดพลาด: ไม่สามารถสร้างกระบวนการ",
 	"scribunto-luastandalone-proc-error-msg": "สคริปต์ลูอาผิดพลาด: ไม่สามารถสร้างกระบวนการ: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "สคริปต์ลูอาผิดพลาด: ไม่สามารถสร้างกระบวนการ: proc_open ไม่มีให้ใช้ ให้ตรวจสอบตัวชี้แนะการตั้งค่า \"disable_functions\" ของ PHP",
-	"scribunto-luastandalone-proc-error-safe-mode": "สคริปต์ลูอาผิดพลาด: ไม่สามารภสร้างกระบวนการ: ให้สังเกตว่าตัวชี้แนะการตั้งค่า \"safe_mode\" ที่เลิกใช้แล้วของ PHP กำลังเปิดใช้งาน",
 	"scribunto-luastandalone-decode-error": "สคริปต์ลูอาผิดพลาด: ความผิดพลาดภายใน: ไม่สามารถถอดรหัสข้อความ",
 	"scribunto-luastandalone-write-error": "สคริปต์ลูอาผิดพลาด: ความผิดพลาดภายใน: การเขียนไปยังไฟป์ผิดพลาด",
 	"scribunto-luastandalone-read-error": "สคริปต์ลูอาผิดพลาด: ความผิดพลาดภายใน: การอ่านมาจากไพป์ผิดพลาด",
