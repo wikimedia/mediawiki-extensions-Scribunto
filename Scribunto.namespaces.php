@@ -13,6 +13,11 @@ $namespaceNames['en'] = [
 	829 => 'Module_talk',
 ];
 
+$namespaceNames['ab'] = [
+	828 => 'Амодуль',
+	829 => 'Амодуль_ахцәажәара',
+];
+
 $namespaceNames['an'] = [
 	828 => 'Módulo',
 	829 => 'Descusión_módulo',
