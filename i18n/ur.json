@@ -3,18 +3,20 @@
 		"authors": [
 			"Muhammad Shuaib",
 			"McDutchie",
-			"Obaid Raza"
+			"Obaid Raza",
+			"BukhariSaeed"
 		]
 	},
 	"scribunto-line": "سطر $1 پر",
 	"scribunto-module-line": "$1 میں $2 سطر پر",
-	"scribunto-parser-dialog-title": "سکرپٹ خطا",
-	"scribunto-error-short": "سکرپٹ خطا: $1",
-	"scribunto-error-long": "سکرپٹ خطا:\n\n$1",
+	"scribunto-parser-dialog-title": "اسکرپٹ خطا",
+	"scribunto-error-short": "اسکرپٹ خطا: $1",
+	"scribunto-error-long": "اسکرپٹ خطا:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/دستاویز",
 	"scribunto-doc-page-does-not-exist": "''اس ماڈیول کی دستاویز [[$1]] پر بنائی جاسکتی ہے''",
 	"scribunto-doc-page-header": "'''یہ [[$1]] کا دستاویزی صفحہ ہے'''",
 	"scribunto-console-clear": "صاف کریں",
+	"scribunto-common-timeout": "اسکرپٹ چلانے کے لیے مختص کردہ وقت ختم ہو چکا ہے۔",
 	"scribunto-lua-error-location": "لوا خطا $1: $2۔",
 	"scribunto-lua-error": "لوا خطا: $2۔",
 	"scribunto-limitreport-profile": "لوا پروفائل",
