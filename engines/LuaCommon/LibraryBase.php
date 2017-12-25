@@ -46,7 +46,7 @@ abstract class Scribunto_LuaLibraryBase {
 	 * The value returned by that call should be returned from this function,
 	 * and must be for 'deferLoad' libraries to work right.
 	 *
-	 * @return Lua package
+	 * @return array Lua package
 	 */
 	abstract function register();
 
