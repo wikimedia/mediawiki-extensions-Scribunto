@@ -7,7 +7,8 @@
 			"Jefersonmoraes",
 			"He7d3r",
 			"Luan",
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"scribunto-desc": "Estrutura para incorporar linguagens de script em páginas do MediaWiki",
@@ -19,7 +20,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''A documentação para este módulo pode ser criada em [[$1]]''",
 	"scribunto-doc-page-header": "'''Esta é a página de documentação para [[$1]]'''",
-	"scribunto-console-intro": "* As exportações do módulo estão disponíveis por meio da variável \"p\", incluindo modificações não salvas.\n* Preceda uma linha com \"=\" para avaliá-la como uma expressão ou utilize print().\n* Utilize mw.log() no código do módulo para enviar mensagens para este interpretador de comandos.",
+	"scribunto-console-intro": "* As exportações do módulo estão disponíveis por meio da variável \"p\", incluindo alterações não gravadas.\n* Preceda a linha com \"=\" para esta ser calculada como uma expressão, ou utilize print(). Use mw.logObject() para tabelas.\n* Use mw.log() e mw.logObject() no código do módulo para enviar mensagens para esta consola.",
 	"scribunto-console-title": "Interpretador de depuração de erros",
 	"scribunto-console-too-large": "Esta sessão do interpretador está muito grande. Por favor, limpe o histórico do interpretador ou reduza o tamanho do módulo.",
 	"scribunto-console-current-src": "entrada do interpretador",
