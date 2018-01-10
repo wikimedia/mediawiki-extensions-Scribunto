@@ -1,6 +1,6 @@
 <?php
 
-if ( PHP_SAPI !== 'cli' ) {
+if ( !wfIsCLI() ) {
 	exit;
 }
 
