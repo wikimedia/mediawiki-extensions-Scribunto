@@ -105,7 +105,7 @@ class ScribuntoContent extends TextContent {
 		// category if it's invalid
 		$status = $this->validate( $title );
 		if ( !$status->isOK() ) {
-			$output->setText( self::getPOText( $output ) .
+			$output->setText( $output->getRawText() .
 				Html::rawElement( 'div', [ 'class' => 'errorbox' ],
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
@@ -143,31 +143,19 @@ class ScribuntoContent extends TextContent {
 					if ( $wgUseSiteCss ) {
 						$output->addModuleStyles( 'ext.geshi.local' );
 					}
-					$output->setText( self::getPOText( $output ) . $code );
+					$output->setText( $output->getRawText() . $code );
 					return $output;
 				}
 			}
 		}
 
 		// No GeSHi, or GeSHi can't parse it, use plain <pre>
-		$output->setText( self::getPOText( $output ) .
+		$output->setText( $output->getRawText() .
 			"<pre class='mw-code mw-script' dir='ltr'>\n" .
 			htmlspecialchars( $text ) .
 			"\n</pre>\n"
 		);
 
 		return $output;
-	}
-
-	/**
-	 * Fetch the text from a ParserOutput
-	 * @todo Once support for MW < 1.27 is dropped, inline this.
-	 * @param ParserOutput $po
-	 * @return string
-	 */
-	private static function getPOText( ParserOutput $po ) {
-		return is_callable( [ $po, 'getRawText' ] )
-			? $po->getRawText()
-			: $po->getText();
 	}
 }

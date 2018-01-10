@@ -20,6 +20,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+use MediaWiki\MediaWikiServices;
 use RunningStat\PSquare;
 
 /**
@@ -195,12 +196,8 @@ class ScribuntoHooks {
 		static $cache;
 
 		if ( !$cache ) {
-			/// @todo: Clean up when support for MW < 1.27 is dropped
-			if ( is_callable( 'ObjectCache::getLocalServerInstance' ) ) {
-				$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
-			} else {
-				$cache = ObjectCache::newAccelerator( CACHE_NONE );
-			}
+			$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
+
 		}
 
 		// To control the sampling rate, we keep a compact histogram of
@@ -228,16 +225,7 @@ class ScribuntoHooks {
 		static $stats;
 
 		if ( !$stats ) {
-			// check, if MediaWikiServices exists and has a StatsdDataFactory service for
-			// backward-compatibility with MediaWiki 1.25+
-			if (
-				class_exists( 'MediaWiki\\MediaWikiServices' ) &&
-				\MediaWiki\MediaWikiServices::getInstance()->hasService( 'StatsdDataFactory' )
-			) {
-				$stats = \MediaWiki\MediaWikiServices::getInstance()->getStatsdDataFactory();
-			} else {
-				$stats = RequestContext::getMain()->getStats();
-			}
+			$stats = MediaWikiServices::getInstance()->getStatsdDataFactory();
 		}
 
 		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', wfWikiId(), $moduleName, $functionName );

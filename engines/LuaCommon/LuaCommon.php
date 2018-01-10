@@ -337,12 +337,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		static $cache = null;
 
 		if ( !$cache ) {
-			/// @todo: Clean up when support for MW < 1.27 is dropped
-			if ( is_callable( 'ObjectCache::getLocalServerInstance' ) ) {
-				$cache = ObjectCache::getLocalServerInstance( 'hash' );
-			} else {
-				$cache = ObjectCache::newAccelerator( 'hash' );
-			}
+			$cache = ObjectCache::getLocalServerInstance( 'hash' );
 		}
 
 		$mtime = filemtime( $fileName );
