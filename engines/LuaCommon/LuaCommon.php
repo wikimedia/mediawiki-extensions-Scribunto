@@ -345,7 +345,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			throw new MWException( 'Lua file does not exist: ' . $fileName );
 		}
 
-		$cacheKey = wfGlobalCacheKey( __CLASS__, $fileName );
+		$cacheKey = $cache->makeGlobalKey( __CLASS__, $fileName );
 		$fileData = $cache->get( $cacheKey );
 
 		$code = false;

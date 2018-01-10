@@ -22,8 +22,8 @@ class ApiScribuntoConsole extends ApiBase {
 			$sessionId = mt_rand( 0, 0x7fffffff );
 		}
 
-		$sessionKey = wfMemcKey( 'scribunto-console', $this->getUser()->getId(), $sessionId );
 		$cache = ObjectCache::getInstance( CACHE_ANYTHING );
+		$sessionKey = $cache->makeKey( 'scribunto-console', $this->getUser()->getId(), $sessionId );
 		$session = null;
 		$sessionIsNew = false;
 		if ( $params['session'] ) {
