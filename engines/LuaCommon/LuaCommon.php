@@ -253,6 +253,11 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Execute a module chunk in a new isolated environment, and return the specified function
+	 * @param mixed $chunk As accepted by Scribunto_LuaInterpreter::callFunction()
+	 * @param string $functionName
+	 * @param PPFrame|null $frame
+	 * @return mixed
+	 * @throws ScribuntoException
 	 */
 	public function executeModule( $chunk, $functionName, $frame ) {
 		$resetFrames = null;
@@ -278,6 +283,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Execute a module function chunk
+	 * @param mixed $chunk As accepted by Scribunto_LuaInterpreter::callFunction()
+	 * @param PPFrame|null $frame
+	 * @return array
 	 */
 	public function executeFunctionChunk( $chunk, $frame ) {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
@@ -599,6 +607,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Handler for newChildFrame()
 	 *
+	 * @param string $frameId
+	 * @param string $title
+	 * @param array $args
+	 * @return array
 	 * @throws Scribunto_LuaError
 	 */
 	function newChildFrame( $frameId, $title, array $args ) {
@@ -636,6 +648,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for setTTL()
+	 * @param int $ttl
 	 */
 	function setTTL( $ttl ) {
 		$args = func_get_args();
@@ -647,6 +660,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for getExpandedArgument()
+	 * @param string $frameId
+	 * @param string $name
+	 * @return array
 	 */
 	function getExpandedArgument( $frameId, $name ) {
 		$args = func_get_args();
@@ -664,6 +680,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for getAllExpandedArguments()
+	 * @param string $frameId
+	 * @return array
 	 */
 	function getAllExpandedArguments( $frameId ) {
 		$frame = $this->getFrameById( $frameId );
@@ -673,6 +691,11 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for expandTemplate()
+	 * @param string $frameId
+	 * @param string $titleText
+	 * @param array $args
+	 * @return array
+	 * @throws Scribunto_LuaError
 	 */
 	function expandTemplate( $frameId, $titleText, $args ) {
 		$frame = $this->getFrameById( $frameId );
@@ -794,6 +817,10 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Handler for preprocess()
+	 * @param string $frameId
+	 * @param string $text
+	 * @return array
+	 * @throws Scribunto_LuaError
 	 */
 	function preprocess( $frameId, $text ) {
 		$args = func_get_args();
@@ -880,7 +907,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
-	 * @var string
+	 * @var mixed
 	 */
 	protected $initChunk;
 
@@ -904,6 +931,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 
 	/**
 	 * Get the chunk which, when called, will return the export table.
+	 * @return mixed
 	 */
 	public function getInitChunk() {
 		if ( !$this->initChunk ) {

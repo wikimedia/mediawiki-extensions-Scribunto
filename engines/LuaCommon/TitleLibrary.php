@@ -208,8 +208,14 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		return [ $this->getInexpensiveTitleData( $title ) ];
 	}
 
-	// May call the following Title methods:
-	// getFullUrl, getLocalUrl, getCanonicalUrl
+	/**
+	 * Get a URL referring to this title
+	 * @param string $text Title text.
+	 * @param string $which 'fullUrl', 'localUrl', or 'canonicalUrl'
+	 * @param string|array|null $query Query string or query string data.
+	 * @param string|null $proto 'http', 'https', 'relative', or 'canonical'
+	 * @return array
+	 */
 	function getUrl( $text, $which, $query = null, $proto = null ) {
 		static $protoMap = [
 			'http' => PROTO_HTTP,
@@ -223,6 +229,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( !in_array( $which, [ 'fullUrl', 'localUrl', 'canonicalUrl' ], true ) ) {
 			$this->checkType( 'getUrl', 2, $which, "'fullUrl', 'localUrl', or 'canonicalUrl'" );
 		}
+
+		// May call the following Title methods:
+		// getFullUrl, getLocalUrl, getCanonicalUrl
 		$func = "get" . ucfirst( $which );
 
 		$args = [ $query, false ];
