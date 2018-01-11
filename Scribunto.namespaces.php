@@ -233,6 +233,11 @@ $namespaceNames['hy'] = [
 	829 => 'Մոդուլի_քննարկում',
 ];
 
+$namespaceNames['inh'] = [
+	828 => 'Модуль',
+	829 => 'Модуль_ювцар',
+];
+
 $namespaceNames['id'] = [
 	828 => 'Modul',
 	829 => 'Pembicaraan_Modul',
