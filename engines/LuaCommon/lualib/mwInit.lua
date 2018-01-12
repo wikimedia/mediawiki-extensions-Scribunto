@@ -26,6 +26,15 @@ do
 	end
 end
 
+-- Reduce precision on os.clock to mitigate timing attacks
+do
+	local old_clock = os.clock
+	os.clock = function ()
+		local v = old_clock()
+		return math.floor( v * 50000 + 0.5 ) / 50000
+	end
+end
+
 --- Do a "deep copy" of a table or other value.
 function mw.clone( val )
 	local tableRefs = {}
