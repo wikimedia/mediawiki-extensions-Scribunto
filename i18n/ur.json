@@ -17,6 +17,7 @@
 	"scribunto-doc-page-header": "'''یہ [[$1]] کا دستاویزی صفحہ ہے'''",
 	"scribunto-console-clear": "صاف کریں",
 	"scribunto-common-error-category": "صفحات مع اسکرپٹ نقائص",
+	"scribunto-common-nosuchmodule": "خطائے اسکرپٹ: \"$2\" کے نام کا ماڈیول موجود نہیں۔",
 	"scribunto-common-timeout": "اسکرپٹ چلانے کے لیے مختص کردہ وقت ختم ہو چکا ہے۔",
 	"scribunto-lua-error-location": "لوا خطا $1: $2۔",
 	"scribunto-lua-error": "لوا خطا: $2۔",
