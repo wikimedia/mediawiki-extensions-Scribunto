@@ -106,6 +106,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * Language object method handler
+	 * @param string $name
+	 * @param array $args
+	 * @return array
+	 * @throws Scribunto_LuaError
 	 */
 	function languageMethod( $name, $args ) {
 		$name = strval( $name );
@@ -153,6 +157,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * convertPlural handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function convertPlural( $lang, $args ) {
 		$number = array_shift( $args );
@@ -166,6 +173,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * convertGrammar handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function convertGrammar( $lang, $args ) {
 		$this->checkType( 'convertGrammar', 1, $args[0], 'string' );
@@ -175,6 +185,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * gender handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function gender( $lang, $args ) {
 		$this->checkType( 'gender', 1, $args[0], 'string' );
@@ -220,6 +233,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * formatNum handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function formatNum( $lang, $args ) {
 		$num = $args[0];
@@ -236,6 +252,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * formatDate handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
+	 * @throws Scribunto_LuaError
 	 */
 	function formatDate( $lang, $args ) {
 		$this->checkType( 'formatDate', 1, $args[0], 'string' );
@@ -308,6 +328,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * formatDuration handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function formatDuration( $lang, $args ) {
 		$this->checkType( 'formatDuration', 1, $args[0], 'number' );
@@ -323,6 +346,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * getDurationIntervals handler
+	 * @param Language $lang
+	 * @param array $args
+	 * @return array
 	 */
 	function getDurationIntervals( $lang, $args ) {
 		$this->checkType( 'getDurationIntervals', 1, $args[0], 'number' );
