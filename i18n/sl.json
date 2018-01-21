@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eleassar",
-			"Dbc334"
+			"Dbc334",
+			"Janezdrilc"
 		]
 	},
 	"scribunto-error-short": "Skriptna napaka: $1",
@@ -10,5 +11,6 @@
 	"scribunto-common-nofunction": "Skriptna napaka: določiti morate funkcijo za klic.",
 	"scribunto-common-nosuchfunction": "Skriptna napaka: Funkcija »$2« ne obstaja.",
 	"scribunto-lua-error": "Napaka Lua: $2",
-	"scribunto-lua-notarrayreturn": "Skriptna napaka: Modul je vrnil vrednost $2. Vrnil bi naj izvozno tabelo."
+	"scribunto-lua-notarrayreturn": "Skriptna napaka: Modul je vrnil vrednost $2. Vrnil bi naj izvozno tabelo.",
+	"nstab-module": "Modul"
 }
