@@ -21,7 +21,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
-use RunningStat\PSquare;
+use Wikimedia\PSquare;
 
 /**
  * Hooks for the Scribunto extension.
