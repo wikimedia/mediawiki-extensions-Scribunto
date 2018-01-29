@@ -7,7 +7,7 @@
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:Scribunto",
 	"descriptionmsg": "scribunto-desc",
-	"license-name": "GPL-2.0+ AND MIT",
+	"license-name": "GPL-2.0-or-later AND MIT",
 	"type": "parserhook",
 	"requires": {
 		"MediaWiki": ">=1.31.0"
