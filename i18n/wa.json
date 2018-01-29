@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Srtxg"
+			"Srtxg",
+			"Reptilien.19831209BE1"
 		]
 	},
+	"scribunto-common-error-category": "Pådjes avou des flotches di scripe",
 	"scribunto-lua-error": "Aroke Lua: $2."
 }
