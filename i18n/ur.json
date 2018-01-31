@@ -19,6 +19,7 @@
 	"scribunto-common-error-category": "صفحات مع اسکرپٹ نقائص",
 	"scribunto-common-nosuchmodule": "خطائے اسکرپٹ: \"$2\" کے نام کا ماڈیول موجود نہیں۔",
 	"scribunto-common-timeout": "اسکرپٹ چلانے کے لیے مختص کردہ وقت ختم ہو چکا ہے۔",
+	"scribunto-common-no-details": "کوئی اضافہ معلومات میسر نہیں۔",
 	"scribunto-lua-error-location": "لوا خطا $1: $2۔",
 	"scribunto-lua-error": "لوا خطا: $2۔",
 	"scribunto-limitreport-profile": "لوا پروفائل",
