@@ -337,6 +337,11 @@ $namespaceNames['nb'] = [
 	829 => 'Moduldiskusjon',
 ];
 
+$namespaceNames['ne'] = [
+	828 => 'मोड्युल',
+	829 => 'मोड्युल_वार्तालाप',
+];
+
 $namespaceNames['nl'] = [
 	828 => 'Module',
 	829 => 'Overleg_module',
