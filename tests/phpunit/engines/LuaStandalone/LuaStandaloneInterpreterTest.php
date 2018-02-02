@@ -21,7 +21,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 
 	private function getVsize( $pid ) {
 		$size = wfShellExec( wfEscapeShellArg( 'ps', '-p', $pid, '-o', 'vsz', '--no-headers' ) );
-		return $size * 1024;
+		return trim( $size ) * 1024;
 	}
 
 	protected function newInterpreter( $opts = [] ) {
