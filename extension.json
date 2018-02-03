@@ -78,8 +78,7 @@
 			]
 		},
 		"ext.scribunto.logs": {
-			"styles": "ext.scribunto.logs.css",
-			"position": "top"
+			"styles": "ext.scribunto.logs.css"
 		},
 		"ext.scribunto.edit": {
 			"scripts": "ext.scribunto.edit.js",
