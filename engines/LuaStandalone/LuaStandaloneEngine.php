@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\Logger\LoggerFactory;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	protected static $clockTick;
@@ -89,7 +93,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	 * @return Scribunto_LuaStandaloneInterpreter
 	 */
 	function newInterpreter() {
-		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options );
+		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options + [
+			'logger' => LoggerFactory::getInstance( 'Scribunto' )
+		] );
 	}
 
 	public function getSoftwareInfo( array &$software ) {
@@ -144,6 +150,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	public $id;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	protected $logger;
+
+	/**
 	 * @param Scribunto_LuaStandaloneEngine $engine
 	 * @param array $options
 	 * @throws MWException
@@ -192,6 +203,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		$this->engine = $engine;
 		$this->enableDebug = !empty( $options['debug'] );
+		$this->logger = isset( $options['logger'] )
+			? $options['logger']
+			: new NullLogger();
 
 		$pipes = null;
 		$cmd = wfEscapeShellArg(
@@ -221,7 +235,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$cmd = '"' . $cmd . '"';
 		}
 
-		wfDebug( __METHOD__.": creating interpreter: $cmd\n" );
+		$this->logger->debug( __METHOD__.": creating interpreter: $cmd\n" );
 
 		// Check whether proc_open is available before trying to call it (e.g.
 		// PHP's disable_functions may have removed it)
@@ -291,7 +305,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	public function terminate() {
 		if ( $this->proc ) {
-			wfDebug( __METHOD__.": terminating\n" );
+			$this->logger->debug( __METHOD__.": terminating\n" );
 			proc_terminate( $this->proc );
 			proc_close( $this->proc );
 			$this->proc = false;
@@ -478,7 +492,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					$this->handleError( $msgFromLua );
 					return; // not reached
 				default:
-					wfDebug( __METHOD__ .": invalid response op \"{$msgFromLua['op']}\"\n" );
+					$this->logger->error( __METHOD__ .": invalid response op \"{$msgFromLua['op']}\"\n" );
 					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 			}
 		}
@@ -621,7 +635,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function checkValid() {
 		if ( !$this->proc ) {
-			wfDebug( __METHOD__ . ": process already terminated\n" );
+			$this->logger->error( __METHOD__ . ": process already terminated\n" );
 			if ( $this->exitError ) {
 				throw $this->exitError;
 			} else {
@@ -676,7 +690,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	protected function debug( $msg ) {
 		if ( $this->enableDebug ) {
-			wfDebug( "Lua: $msg\n" );
+			$this->logger->debug( "Lua: $msg\n" );
 		}
 	}
 }
