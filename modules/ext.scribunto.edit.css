@@ -4,13 +4,13 @@
 }
 
 /* Preserve line breaks, but wrap too if browser supports it */
-/* stylelint-disable-next-line selector-no-id */
+/* stylelint-disable-next-line selector-max-id */
 #mw-scribunto-output {
 	white-space: pre;
 	white-space: pre-wrap;
 }
 
-/* stylelint-disable-next-line selector-no-id */
+/* stylelint-disable-next-line selector-max-id */
 #mw-scribunto-input {
 	width: 100%;
 	border: 0;

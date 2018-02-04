@@ -299,8 +299,8 @@
 					if ( result.print !== '' ) {
 						println( result.print, 'mw-scribunto-print' );
 					}
-					if ( result[ 'return' ] !== '' ) {
-						println( result[ 'return' ], 'mw-scribunto-normalOutput' );
+					if ( result.return !== '' ) {
+						println( result.return, 'mw-scribunto-normalOutput' );
 					}
 				}
 				clearPending();
