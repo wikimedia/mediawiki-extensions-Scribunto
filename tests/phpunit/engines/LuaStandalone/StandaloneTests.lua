@@ -45,4 +45,28 @@ return testframework.getTestProvider( {
 	  args = { { [math.huge] = 1 } },
 	  expect = { "array ( 'inf' => 1, )" }
 	},
+	{ name = 'Unusual array key ("00")', func = mw.var_export,
+	  args = { { ["00"] = "zero zero" } },
+	  expect = { "array ( '00' => 'zero zero', )" }
+	},
+	{ name = 'Unusual array key ("0.0")', func = mw.var_export,
+	  args = { { ["0.0"] = "zero . zero" } },
+	  expect = { "array ( '0.0' => 'zero . zero', )" }
+	},
+	{ name = 'Unusual array key ("01")', func = mw.var_export,
+	  args = { { ["01"] = "zero one" } },
+	  expect = { "array ( '01' => 'zero one', )" }
+	},
+	{ name = 'Unusual array key ("-9223372036854775808")', func = mw.var_export,
+	  args = { { ["-9223372036854775808"] = "min" } },
+	  expect = { "array ( -9223372036854775808 => 'min', )" }
+	},
+	{ name = 'Unusual array key (-9223372036854775808)', func = mw.var_export,
+	  args = { { [-9223372036854775808] = "min" } },
+	  expect = { "array ( -9223372036854775808 => 'min', )" }
+	},
+	{ name = 'Unusual array key ("-9223372036854775809")', func = mw.var_export,
+	  args = { { ["-9223372036854775809"] = "min - 1" } },
+	  expect = { "array ( '-9223372036854775809' => 'min - 1', )" }
+	},
 } )

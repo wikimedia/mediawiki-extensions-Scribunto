@@ -22,9 +22,11 @@ function MWServer:new( interpreterId, intSize )
 	}
 	if intSize == 4 then
 		obj.intMax = 2147483648
+		obj.intKeyMax = 2147483648
 	else
 		-- Lua can't represent most larger integers, so they may as well be sent to PHP as floats.
 		obj.intMax = 9007199254740992
+		obj.intKeyMax = 9223372036854775807
 	end
 	setmetatable( obj, self )
 	self.__index = self
@@ -468,11 +470,11 @@ local serialize_replacements = {
 function MWServer:serialize( var )
 	local done = {}
 
-	local function isInteger( var )
+	local function isInteger( var, max )
 		return type(var) == 'number'
 			and math.floor( var ) == var
-			and var >= -self.intMax
-			and var < self.intMax
+			and var >= -max
+			and var < max
 	end
 
 	local function recursiveEncode( var, level )
@@ -480,7 +482,7 @@ function MWServer:serialize( var )
 		if t == 'nil' then
 			return 'N;'
 		elseif t == 'number' then
-			if isInteger(var) then
+			if isInteger( var, self.intMax ) then
 				return 'i:' .. string.format( '%d', var ) .. ';'
 			elseif var < math.huge and var > -math.huge then
 				return 'd:' .. string.format( '%.17g', var ) .. ';'
@@ -506,17 +508,44 @@ function MWServer:serialize( var )
 			done[var] = true
 			local buf = { '' }
 			local numElements = 0
+			local seen = {}
 			for key, value in pairs(var) do
-				local t = type( key )
-				if t == 'number' or t == 'string' then
-					if (isInteger(key)) then
-						buf[#buf + 1] = 'i:' .. key .. ';'
-					else
-						buf[#buf + 1] = recursiveEncode( tostring( key ), level + 1 )
-					end
-				else
-					error("Cannot use " .. type( key ) .. " as an array key when passing data from Lua to PHP");
+				local k = key
+				local t = type( k )
+
+				-- Convert integers in range to look like standard integers.
+				-- Use tostring() for the rest. Reject all other non-strings.
+				if isInteger( k, self.intKeyMax ) then
+					k = string.format( '%d', k )
+				elseif t == 'number' then
+					k = tostring( k );
+				elseif t ~= 'string' then
+					error("Cannot use " .. t .. " as an array key when passing data from Lua to PHP");
 				end
+
+				-- Zend PHP doesn't really care whether integer keys are serialized
+				-- as ints or strings, it converts them correctly on unserialize.
+				-- But HHVM does depend on it, so keep doing it for now.
+				local n = nil
+				if k == '0' or k:match( '^-?[1-9]%d*$' ) then
+					n = tonumber( k )
+					if n == -9223372036854775808 and k ~= '-9223372036854775808' then
+						-- Bad edge rounding
+						n = nil
+					end
+				end
+				if isInteger( n, self.intKeyMax ) then
+					buf[#buf + 1] = 'i:' .. k .. ';'
+				else
+					buf[#buf + 1] = recursiveEncode( k, level + 1 )
+				end
+
+				-- Detect collisions, e.g. { [0] = 'foo', ["0"] = 'bar' }
+				if seen[k] then
+					error( 'Collision for array key ' .. k .. ' when passing data from Lua to PHP' );
+				end
+				seen[k] = true
+
 				buf[#buf + 1] = recursiveEncode( value, level + 1 )
 				numElements = numElements + 1
 			end

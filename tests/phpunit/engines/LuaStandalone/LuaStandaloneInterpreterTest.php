@@ -80,6 +80,107 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$this->assertEquals( $vsize, $status['vsize'], 'vsize', $vsize * 0.1 );
 	}
 
+	/**
+	 * @dataProvider providePhpToLuaArrayKeyConversion
+	 */
+	public function testPhpToLuaArrayKeyConversion( $array, $expect ) {
+		$interpreter = $this->newInterpreter();
+
+		$ret = $interpreter->callFunction(
+			$interpreter->loadString(
+				'local t, r = ..., {}; for k, v in pairs( t ) do r[v] = type(k) end return r', 'test'
+			),
+			$array
+		);
+		ksort( $ret[0], SORT_STRING );
+		$this->assertSame( $expect, $ret[0] );
+	}
+
+	public static function providePhpToLuaArrayKeyConversion() {
+		if ( PHP_INT_MAX > 9007199254740992 ) {
+			$a = [
+				'9007199254740992' => 'max', '9007199254740993' => 'max+1',
+				'-9007199254740992' => 'min', '-9007199254740993' => 'min-1',
+			];
+		} else {
+			$a = [
+				'2147483647' => 'max', '2147483648' => 'max+1',
+				'-2147483648' => 'min', '-2147483649' => 'min-1',
+			];
+		}
+
+		return [
+			'simple integers' => [
+				[ -10 => 'minus ten', 0 => 'zero', 10 => 'ten' ],
+				[ 'minus ten' => 'number', 'ten' => 'number', 'zero' => 'number' ],
+			],
+			'maximal values' => [
+				$a,
+				[ 'max' => 'number', 'max+1' => 'string', 'min' => 'number', 'min-1' => 'string' ],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideLuaToPhpArrayKeyConversion
+	 */
+	public function testLuaToPhpArrayKeyConversion( $lua, $expect ) {
+		if ( $expect instanceof Exception ) {
+			$this->setExpectedException( Scribunto_LuaError::class, $expect->getMessage() );
+		}
+
+		$interpreter = $this->newInterpreter();
+		$ret = $interpreter->callFunction(
+			$interpreter->loadString( "return { $lua }", 'test' )
+		);
+		if ( $expect instanceof Exception ) {
+			$this->fail( 'Expected exception not thrown' );
+		}
+		ksort( $ret[0], SORT_STRING );
+		$this->assertSame( $expect, $ret[0] );
+	}
+
+	public static function provideLuaToPhpArrayKeyConversion() {
+		if ( PHP_INT_MAX > 9007199254740992 ) {
+			$max = '9223372036854774784';
+			$max2 = '9223372036854775808';
+			$min = '-9223372036854775808';
+			$min2 = '-9223372036854775809';
+		} else {
+			$max = '2147483647';
+			$max2 = '2147483648';
+			$min = '-2147483648';
+			$min2 = '-2147483649';
+		}
+
+		return [
+			'simple integers' => [
+				'[-10] = "minus ten", [0] = "zero", [10] = "ten"',
+				[ -10 => 'minus ten', 0 => 'zero', 10 => 'ten' ],
+			],
+			'stringified integers' => [
+				'["-10"] = "minus ten", ["0"] = "zero", ["10"] = "ten"',
+				[ -10 => 'minus ten', 0 => 'zero', 10 => 'ten' ],
+			],
+			'maximal integers' => [
+				"['$max'] = 'near max', ['$max2'] = 'max+1', ['$min'] = 'min', ['$min2'] = 'min-1'",
+				[ $min => 'min', $min2 => 'min-1', $max => 'near max', $max2 => 'max+1' ],
+			],
+			'collision (0)' => [
+				'[0] = "number zero", ["0"] = "string zero"',
+				new Exception( 'Collision for array key 0 when passing data from Lua to PHP.' ),
+			],
+			'collision (float)' => [
+				'[1.5] = "number 1.5", ["1.5"] = "string 1.5"',
+				new Exception( 'Collision for array key 1.5 when passing data from Lua to PHP.' ),
+			],
+			'collision (inf)' => [
+				'[1/0] = "number inf", ["inf"] = "string inf"',
+				new Exception( 'Collision for array key inf when passing data from Lua to PHP.' ),
+			],
+		];
+	}
+
 	public function testFreeFunctions() {
 		$interpreter = $this->newInterpreter();
 
