@@ -198,7 +198,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$options['luaPath'],
 			__DIR__ . '/mw_main.lua',
 			dirname( dirname( __DIR__ ) ),
-			$this->id
+			$this->id,
+			PHP_INT_SIZE
 		);
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
@@ -560,7 +561,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					}
 					throw new MWException( __METHOD__.': cannot convert non-finite number' );
 				}
-				return $var;
+				return sprintf( '%.17g', $var );
 			case 'string':
 				return '"' .
 					strtr( $var, [
