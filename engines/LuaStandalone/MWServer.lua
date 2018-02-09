@@ -289,7 +289,7 @@ end
 -- @return The matching response message
 function MWServer:dispatch( msgToPhp )
 	if msgToPhp then
-		self:sendMessage( msgToPhp )
+		self:sendMessage( msgToPhp, 'call' )
 	end
 	while true do
 		local msgFromPhp = self:receiveMessage()
@@ -299,22 +299,22 @@ function MWServer:dispatch( msgToPhp )
 			return msgFromPhp
 		elseif op == 'call' then
 			msgToPhp = self:handleCall( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'loadString' then
 			msgToPhp = self:handleLoadString( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'registerLibrary' then
 			msgToPhp = self:handleRegisterLibrary( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'wrapPhpFunction' then
 			msgToPhp = self:handleWrapPhpFunction( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'cleanupChunks' then
 			msgToPhp = self:handleCleanupChunks( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'getStatus' then
 			msgToPhp = self:handleGetStatus( msgFromPhp )
-			self:sendMessage( msgToPhp )
+			self:sendMessage( msgToPhp, 'reply' )
 		elseif op == 'quit' then
 			self:debug( 'MWServer:dispatch: quit message received' )
 			os.exit(0)
@@ -369,12 +369,29 @@ end
 
 --- Send a message to PHP
 -- @param msg The message table
-function MWServer:sendMessage( msg )
+-- @param direction 'call' or 'reply'
+function MWServer:sendMessage( msg, direction )
 	if not msg.op then
 		self:internalError( "MWServer:sendMessage: invalid message", 2 )
 	end
 	self:debug('TX ==> ' .. msg.op)
-	local encMsg = self:encodeMessage( msg )
+
+	-- If we're making an outgoing call, let errors go to our caller. If we're
+	-- replying to a call from PHP, catch serialization errors and return them
+	-- to PHP.
+	local encMsg;
+	if direction == 'reply' then
+		local ok
+		ok, encMsg = pcall( self.encodeMessage, self, msg )
+		if not ok then
+			self:debug('Serialization failed: ' .. encMsg)
+			self:debug('TX ==> error')
+			encMsg = self:encodeMessage( { op = 'error', value = encMsg } )
+		end
+	else
+		encMsg = self:encodeMessage( msg )
+	end
+
 	local success, errorMsg = io.stdout:write( encMsg )
 	if not success then
 		self:ioError( 'Write error', errorMsg )
