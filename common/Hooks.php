@@ -203,12 +203,13 @@ class ScribuntoHooks {
 		// To control the sampling rate, we keep a compact histogram of
 		// observations in APC, and extract the Nth percentile (specified
 		// via $wgScribuntoSlowFunctionThreshold; defaults to 0.90).
-		// We need APC and \RunningStat\PSquare to do that.
+		// We need APC and \Wikimedia\PSquare to do that.
 		if ( !class_exists( PSquare::class ) || $cache instanceof EmptyBagOStuff ) {
 			return;
 		}
 
-		$key = $cache->makeGlobalKey( __METHOD__, $threshold );
+		$cacheVersion = '1';
+		$key = $cache->makeGlobalKey( __METHOD__, $cacheVersion, $threshold );
 
 		// This is a classic "read-update-write" critical section with no
 		// mutual exclusion, but the only consequence is that some samples
