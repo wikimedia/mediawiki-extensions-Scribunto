@@ -1,10 +1,14 @@
 MWServer = {}
 
 --- Create a new MWServer object
-function MWServer:new( interpreterId )
+function MWServer:new( interpreterId, intSize )
 	interpreterId = tonumber( interpreterId )
 	if not interpreterId then
 		error( "bad argument #1 to 'MWServer:new' (must be a number or convertible to a number)", 2 )
+	end
+	intSize = tonumber( intSize )
+	if intSize ~= 4 and intSize ~= 8 then
+		error( "bad argument #2 to 'MWServer:new' (must be 4 or 8)", 2 )
 	end
 
 	obj = {
@@ -16,6 +20,12 @@ function MWServer:new( interpreterId )
 		protectedEnvironments = {},
 		baseEnv = {}
 	}
+	if intSize == 4 then
+		obj.intMax = 2147483648
+	else
+		-- Lua can't represent most larger integers, so they may as well be sent to PHP as floats.
+		obj.intMax = 9007199254740992
+	end
 	setmetatable( obj, self )
 	self.__index = self
 
@@ -457,14 +467,12 @@ local serialize_replacements = {
 -- @param var The value.
 function MWServer:serialize( var )
 	local done = {}
-	local int_min = -2147483648
-	local int_max = 2147483647
 
 	local function isInteger( var )
 		return type(var) == 'number'
 			and math.floor( var ) == var
-			and var >= int_min
-			and var <= int_max
+			and var >= -self.intMax
+			and var < self.intMax
 	end
 
 	local function recursiveEncode( var, level )
@@ -473,9 +481,9 @@ function MWServer:serialize( var )
 			return 'N;'
 		elseif t == 'number' then
 			if isInteger(var) then
-				return 'i:' .. var .. ';'
+				return 'i:' .. string.format( '%d', var ) .. ';'
 			elseif var < math.huge and var > -math.huge then
-				return 'd:' .. var .. ';'
+				return 'd:' .. string.format( '%.17g', var ) .. ';'
 			elseif var == math.huge then
 				return 'd:INF;'
 			elseif var == -math.huge then
