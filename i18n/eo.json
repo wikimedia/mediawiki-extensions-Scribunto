@@ -47,6 +47,6 @@
 	"scribunto-luastandalone-gone": "Lua-eraro: Interna eraro: La interpretilo estas jam eligita.",
 	"scribunto-luastandalone-signal": "Lua-eraro: Interna eraro: La interpretilo finiĝis kun signalo \"$2\".",
 	"scribunto-luastandalone-exited": "Lua-eraro: Interna eraro: La interpretilo finiĝis kun statuso \"$2\".",
-	"nstab-module": "Modjulo",
+	"nstab-module": "Modulo",
 	"tooltip-ca-nstab-module": "Rigardi la modul-paĝon"
 }
