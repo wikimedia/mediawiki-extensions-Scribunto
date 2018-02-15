@@ -92,7 +92,7 @@ foreach ( $pats as $k => $pp ) {
 		foreach ( str_split( $pp[1] ) as $p ) {
 			$re2[] = $pats[$p][0];
 		}
-		$re2 = join( '|', $re2 );
+		$re2 = implode( '|', $re2 );
 	}
 
 	fprintf( $fh, "\t[0x%02x] = {\n", ord( $k ) );
@@ -132,7 +132,7 @@ foreach ( $pats as $k => $pp ) {
 		$check = array_merge( $check, $ranges[$k] );
 	}
 	if ( $check ) {
-		$body .= "\treturn " . join( " or\n\t\t", $check );
+		$body .= "\treturn " . implode( " or\n\t\t", $check );
 		fprintf( $fh, "setmetatable( pats[0x%02x], { __index = function ( t, k )\n%s\nend } )\n",
 			ord( $k ), $body );
 	}
