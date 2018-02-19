@@ -388,8 +388,13 @@ $namespaceNames['ru'] = [
 ];
 
 $namespaceNames['sa'] = [
-	828 => 'पटलम्', // T101634
+	828 => 'पटलम्',
 	829 => 'पटलसम्भाषणम्',
+];
+
+$namespaceNames['sd'] = [
+	828 => 'ماڊيول',
+	829 => 'ماڊيول_بحث',
 ];
 
 $namespaceNames['sh'] = [
