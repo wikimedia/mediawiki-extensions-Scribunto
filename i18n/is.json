@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Snævar"
+			"Snævar",
+			"Sveinn í Felli"
 		]
 	},
 	"scribunto-line": "í línu $1",
@@ -11,7 +12,7 @@
 	"scribunto-error-long": "Villur í skriftu: \n\n$1",
 	"scribunto-doc-page-does-not-exist": "''Hægt er að búa til leiðbeiningar fyrir þessa skriftu á [[$1]]''",
 	"scribunto-doc-page-header": "'''Þetta er leiðbeiningar síða fyrir [[$1]]'''",
-	"scribunto-console-intro": "* Útkomur skriftunar eru aðgengilegar sem gildið „p”, þar á meðal óvistaðar breytingar.\n* Byrjaðu línu með „=” til að ákvarða gildi sem segð, eða notaðu \"print()\".\n* Notaðu \"mw.log()\" í kóða skriftunnar til að senda skilaboð til stjórnborðsins hér.",
+	"scribunto-console-intro": "* Útkomur skriftunar eru aðgengilegar sem gildið „p”, þar á meðal óvistaðar breytingar.\n* Byrjaðu línu með „=” til að ákvarða gildi sem segð, eða notaðu \"print()\". Notaðu mw.logObject() fyrir töflur.\n* Notaðu \"mw.log()\" í kóða skriftunnar til að senda skilaboð til stjórnborðsins hér.",
 	"scribunto-console-title": "Aflúsunar stjórnborð",
 	"scribunto-console-too-large": "Þessi seta stjórnborðsins er of stór. Vinsamlegast hreinsaðu setu stjórnborðsins eða minnkaðu stærð skriftunnar.",
 	"scribunto-console-current-src": "Inntak stjórnborðs",
@@ -48,5 +49,7 @@
 	"scribunto-limitreport-timeusage": "Lua tímanotkun",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekóndur",
 	"scribunto-limitreport-estmemusage": "Áætluð minnisnotkun Lua",
-	"scribunto-limitreport-memusage": "Minnisnotkun Lua"
+	"scribunto-limitreport-memusage": "Minnisnotkun Lua",
+	"scribunto-limitreport-profile-ms": "$1 msek",
+	"nstab-module": "Eining"
 }
