@@ -8,7 +8,8 @@
 			"Skalman",
 			"WikiPhoenix",
 			"Ainali",
-			"Rotsee"
+			"Rotsee",
+			"Magol"
 		]
 	},
 	"scribunto-desc": "Ramverk för att bädda in skriptspråk på MediaWiki-sidor",
@@ -20,7 +21,7 @@
 	"scribunto-doc-page-name": "Module:$1/dok",
 	"scribunto-doc-page-does-not-exist": "''Dokumentationen för denna modul kan skapas på [[$1]]''",
 	"scribunto-doc-page-header": "'''Detta är dokumentationssidan för [[$1]]'''",
-	"scribunto-console-intro": "* Modulexporteringarna är tillgängliga som variabeln \"p\", inklusive osparade ändringar.\n* Börja en rad med \"=\" för att utvärdera den som ett uttryck, eller använd print().\n* Använd mw.log() i modulkoden för att skicka meddelande till denna konsol.",
+	"scribunto-console-intro": "* Modulexporteringarna är tillgängliga som variabeln \"p\", inklusive osparade ändringar.\n* Börja en rad med \"=\" för att utvärdera den som ett uttryck, eller använd print(). Använd mw.logObject() för tabeller.\n* Använd mw.log() och mw.logObject() i modulkoden för att skicka meddelande till denna konsol.",
 	"scribunto-console-title": "Felsökningskonsol",
 	"scribunto-console-too-large": "Denna konsolsessionen är för stor. Vänligen rensa konsolhistoriken eller minska storleken på modulen.",
 	"scribunto-console-current-src": "konsol-indata",
@@ -30,7 +31,7 @@
 	"scribunto-common-error-category": "Sidor med skriptfel",
 	"scribunto-common-error-category-desc": "Ett fel uppstod vid bearbetning av de moduler som ingår på sidan.",
 	"scribunto-common-nosuchmodule": "Skriptfel: Modulen \"$2\" finns inte.",
-	"scribunto-common-nofunction": "Skriptfel: Du måste ange en funktion att kalla.",
+	"scribunto-common-nofunction": "Skriptfel: Du måste ange en funktion att anropa.",
 	"scribunto-common-nosuchfunction": "Skriptfel: Funktionen \"$2\" finns inte.",
 	"scribunto-common-notafunction": "Skriptfel: \"$2\" är inte en funktion.",
 	"scribunto-common-timeout": "Den tid som avsatts för att köra skript har löpt ut.",
