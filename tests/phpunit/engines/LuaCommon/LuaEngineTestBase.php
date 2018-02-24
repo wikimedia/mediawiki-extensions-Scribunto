@@ -266,7 +266,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 }
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaEngineTestSkip extends PHPUnit_Framework_TestCase {
+class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
 	private $className = '';
 	private $message = '';
 
