@@ -6,5 +6,6 @@
 		]
 	},
 	"scribunto-doc-page-does-not-exist": "''Dokumentizo por ica modulo povas kreesar ye [[$1]]''",
+	"scribunto-common-error-category": "Pagini kun erori pri script",
 	"scribunto-lua-error": "Lua eroro: $2"
 }
