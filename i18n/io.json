@@ -7,6 +7,7 @@
 	},
 	"scribunto-doc-page-does-not-exist": "''Dokumentizo por ica modulo povas kreesar ye [[$1]]''",
 	"scribunto-common-error-category": "Pagini kun erori pri script",
+	"scribunto-common-nosuchmodule": "Eroro pri script: Ica modulo ne existas \"$2\".",
 	"scribunto-lua-error": "Lua eroro: $2",
 	"scribunto-luastandalone-proc-error-msg": "Eroro 'Lua': Ne povas kreesar procedo: $2"
 }
