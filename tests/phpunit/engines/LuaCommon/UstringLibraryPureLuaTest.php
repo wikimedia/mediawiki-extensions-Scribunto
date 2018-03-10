@@ -3,7 +3,7 @@
 require_once __DIR__ . '/UstringLibraryTest.php';
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaUstringLibraryPureLuaTests extends Scribunto_LuaUstringLibraryTests {
+class Scribunto_LuaUstringLibraryPureLuaTest extends Scribunto_LuaUstringLibraryTest {
 	protected function setUp() {
 		parent::setUp();
 
