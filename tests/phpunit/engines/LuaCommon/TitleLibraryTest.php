@@ -1,7 +1,7 @@
 <?php
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaTitleLibraryTests extends Scribunto_LuaEngineTestBase {
+class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
 
 	public static function suite( $className ) {

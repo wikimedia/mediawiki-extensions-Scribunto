@@ -3,7 +3,7 @@
 use Wikimedia\ScopedCallback;
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaUstringLibraryTests extends Scribunto_LuaEngineTestBase {
+class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UstringLibraryTests';
 
 	private $normalizationDataProvider = null;
