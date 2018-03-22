@@ -1,5 +1,7 @@
 <?php
 
+use UtfNormal\Validator;
+
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	/**
@@ -160,7 +162,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
-		return [ UtfNormal::toNFC( $s ) ];
+		return [ Validator::toNFC( $s ) ];
 	}
 
 	public function ustringToNFD( $s ) {
@@ -168,7 +170,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
-		return [ UtfNormal::toNFD( $s ) ];
+		return [ Validator::toNFD( $s ) ];
 	}
 
 	public function ustringToNFKC( $s ) {
@@ -176,7 +178,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
-		return [ UtfNormal::toNFKC( $s ) ];
+		return [ Validator::toNFKC( $s ) ];
 	}
 
 	public function ustringToNFKD( $s ) {
@@ -184,7 +186,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
 		}
-		return [ UtfNormal::toNFKD( $s ) ];
+		return [ Validator::toNFKD( $s ) ];
 	}
 
 	public function ustringChar() {

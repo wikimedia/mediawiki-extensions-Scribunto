@@ -61,7 +61,7 @@ class UtfNormal {
 	public static $utfCanonicalComp = null;
 	public static $utfCompatibilityDecomp = null;
 }
-class_alias( 'UtfNormal', 'UtfNormal\\Validator' );
+class_alias( UtfNormal::class, \UtfNormal\Validator::class );
 
 echo "Loading data file $datafile...\n";
 require_once $datafile;

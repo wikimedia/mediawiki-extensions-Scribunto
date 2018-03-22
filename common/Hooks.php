@@ -21,6 +21,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use UtfNormal\Validator;
 use Wikimedia\PSquare;
 
 /**
@@ -139,7 +140,7 @@ class ScribuntoHooks {
 				$result = $module->invoke( $functionName, $childFrame );
 			}
 
-			return UtfNormal::cleanUp( strval( $result ) );
+			return Validator::cleanUp( strval( $result ) );
 		} catch ( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml( [ 'msgOptions' => [ 'content' ] ] );
 			$html = Html::element( 'p', [], $e->getMessage() );
