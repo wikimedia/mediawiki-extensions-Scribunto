@@ -12,6 +12,7 @@
 	"scribunto-doc-page-does-not-exist": "''Šī moduļa dokumentāciju var izveidot [[$1]] lapā''",
 	"scribunto-doc-page-header": "'''Šī ir [[$1]] moduļa dokumentācijas lapa'''",
 	"scribunto-console-title": "Atkļūdošanas konsole",
+	"scribunto-console-current-src": "konsoles ievade",
 	"scribunto-console-clear": "Notīrīt",
 	"scribunto-common-error-category": "Lapas ar skriptu kļūdām",
 	"scribunto-common-notafunction": "Skripta kļūda: \"$2\" nav fubkcija.",
@@ -25,6 +26,7 @@
 	"scribunto-limitreport-memusage": "Lua atmiņas lietojums",
 	"scribunto-limitreport-profile": "Lua profils",
 	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-logs": "Lua žurnāli",
 	"apihelp-scribunto-console-param-content": "Jaunais moduļa saturs",
 	"nstab-module": "Modulis",
 	"tooltip-ca-nstab-module": "Apskatīt moduļa lapu"
