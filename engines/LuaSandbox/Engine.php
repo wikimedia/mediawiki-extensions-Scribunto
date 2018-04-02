@@ -25,7 +25,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 
 		$versions = LuaSandbox::getVersionInfo();
-		$software['[https://www.mediawiki.org/wiki/Extension:Scribunto#LuaSandbox LuaSandbox]'] =
+		$software['[https://www.mediawiki.org/wiki/LuaSandbox LuaSandbox]'] =
 			$versions['LuaSandbox'];
 		$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
 		if ( isset( $versions['LuaJIT'] ) ) {
