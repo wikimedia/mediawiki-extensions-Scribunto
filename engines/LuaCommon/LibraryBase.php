@@ -33,7 +33,6 @@ abstract class Scribunto_LuaLibraryBase {
 
 	/**
 	 * @param Scribunto_LuaEngine $engine
-	 * @return Scribunto_LuaLibraryBase $this
 	 */
 	function __construct( Scribunto_LuaEngine $engine ) {
 		$this->engine = $engine;

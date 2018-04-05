@@ -85,7 +85,7 @@ class Scribunto {
 	 * Test whether the page should be considered a documentation page
 	 *
 	 * @param Title $title
-	 * @param Title &$forModule Module for which this is a doc page
+	 * @param Title|null &$forModule Module for which this is a doc page
 	 * @return bool
 	 */
 	public static function isDocPage( Title $title, Title &$forModule = null ) {

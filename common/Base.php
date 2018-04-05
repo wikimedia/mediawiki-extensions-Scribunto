@@ -79,7 +79,6 @@ abstract class ScribuntoEngineBase {
 	/**
 	 * Get software information for Special:Version
 	 * @param array &$software
-	 * @return bool
 	 */
 	abstract public function getSoftwareInfo( array &$software );
 

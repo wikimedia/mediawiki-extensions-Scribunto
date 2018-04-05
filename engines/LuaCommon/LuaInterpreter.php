@@ -25,7 +25,7 @@ abstract class Scribunto_LuaInterpreter {
 	 * Lua. If an error occurs, a Scribunto_LuaError will be thrown.
 	 *
 	 * @param callable $callable The PHP callable
-	 * @return a Lua function
+	 * @return object a Lua function
 	 */
 	abstract public function wrapPhpFunction( $callable );
 
@@ -33,7 +33,7 @@ abstract class Scribunto_LuaInterpreter {
 	 * Test whether an object is a Lua function.
 	 *
 	 * @param object $object
-	 * @return boolean
+	 * @return bool
 	 */
 	abstract public function isLuaFunction( $object );
 
