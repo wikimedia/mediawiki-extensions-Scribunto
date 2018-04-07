@@ -10,7 +10,8 @@
 			"Lemondoge",
 			"Kareyac",
 			"MaxBioHazard",
-			"Patrick Star"
+			"Patrick Star",
+			"Jack who built the house"
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
@@ -31,7 +32,7 @@
 	"scribunto-console-cleared-session-lost": "Состояние консоли очищено, поскольку потеряны данные сессии.",
 	"scribunto-common-error-category": "Страницы с ошибками скриптов",
 	"scribunto-common-error-category-desc": "Произошла ошибка при обработке включённых в страницу модулей.",
-	"scribunto-common-nosuchmodule": "Ошибка скрипта: Нет такого модуля, как «$2».",
+	"scribunto-common-nosuchmodule": "Ошибка скрипта: Модуля «$2» не существует.",
 	"scribunto-common-nofunction": "Ошибка скрипта: Вы должны указать вызываемую функцию.",
 	"scribunto-common-nosuchfunction": "Ошибка скрипта: Функции «$2» не существует.",
 	"scribunto-common-notafunction": "Ошибка сценария: «$2» — не функция.",
