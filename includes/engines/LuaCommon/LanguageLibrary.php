@@ -200,9 +200,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 		// Shortcuts
 		if ( count( $forms ) === 0 ) {
-			return '';
+			return [ '' ];
 		} elseif ( count( $forms ) === 1 ) {
-			return $forms[0];
+			return [ $forms[0] ];
 		}
 
 		if ( $username === 'male' || $username === 'female' ) {

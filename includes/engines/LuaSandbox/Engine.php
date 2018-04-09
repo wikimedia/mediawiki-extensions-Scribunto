@@ -5,6 +5,11 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = [];
 
+	/**
+	 * @var Scribunto_LuaSandboxInterpreter
+	 */
+	protected $interpreter;
+
 	public function getPerformanceCharacteristics() {
 		return [
 			'phpCallsRequireSerialization' => false,
@@ -369,6 +374,12 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 
 // @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxCallback {
+
+	/**
+	 * @var callable
+	 */
+	protected $callback;
+
 	function __construct( $callback ) {
 		$this->callback = $callback;
 	}

@@ -452,7 +452,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @param string $funcName The Lua function name, for use in error messages
 	 * @param array $args The argument array
 	 * @param int $index0 The zero-based argument index
-	 * @param string $type The type name as given by gettype()
+	 * @param string|array $type The allowed type names as given by gettype()
 	 * @param string $msgType The type name used in the error message
 	 * @throws Scribunto_LuaError
 	 */
@@ -565,6 +565,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$module = $this->fetchModuleFromParser( $title );
 		if ( $module ) {
+			/** @suppress PhanUndeclaredMethod */
 			return [ $module->getInitChunk() ];
 		} else {
 			return [];
@@ -907,6 +908,11 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	protected $initChunk;
 
 	/**
+	 * @var Scribunto_LuaEngine
+	 */
+	protected $engine;
+
+	/**
 	 * @param Scribunto_LuaEngine $engine
 	 * @param string $code
 	 * @param string|bool $chunkName
@@ -973,7 +979,7 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 class Scribunto_LuaError extends ScribuntoException {
 	public $luaMessage, $lineMap = [];
 
-	function __construct( $message, $options = [] ) {
+	function __construct( $message, array $options = [] ) {
 		$this->luaMessage = $message;
 		$options = $options + [ 'args' => [ $message ] ];
 		if ( isset( $options['module'] ) && isset( $options['line'] ) ) {
