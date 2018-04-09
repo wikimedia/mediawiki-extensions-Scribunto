@@ -160,7 +160,7 @@ abstract class ScribuntoEngineBase {
 	 * text is garbage or has syntax error. Returns a module or null if it doesn't exist.
 	 *
 	 * @param Title $title The title of the module
-	 * @return ScribuntoEngineBase|null
+	 * @return ScribuntoModuleBase|null
 	 */
 	function fetchModuleFromParser( Title $title ) {
 		$key = $title->getPrefixedDBkey();
@@ -203,7 +203,7 @@ abstract class ScribuntoEngineBase {
 	 *
 	 * @param int $resource One of ScribuntoEngineBase::CPU_SECONDS
 	 *  or ScribuntoEngineBase::MEM_PEAK_BYTES.
-	 * @return float|false Resource usage for the specified resource
+	 * @return float|int|false Resource usage for the specified resource
 	 *  or false if not available.
 	 */
 	public function getResourceUsage( $resource ) {

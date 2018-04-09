@@ -26,7 +26,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * A cache of patterns and the regexes they generate.
-	 * @var array
+	 * @var MapCacheLRU
 	 */
 	private $patternRegexCache = null;
 
@@ -189,10 +189,13 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ Validator::toNFKD( $s ) ];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function ustringChar() {
 		$args = func_get_args();
 		if ( count( $args ) > $this->stringLengthLimit ) {
-			throw new Scribunto_LuaError( "too many arguments to '$name'" );
+			throw new Scribunto_LuaError( "too many arguments to 'char'" );
 		}
 		foreach ( $args as $k => &$v ) {
 			if ( !is_numeric( $v ) ) {
@@ -208,7 +211,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		$s = call_user_func_array( 'pack', $args );
 		$s = mb_convert_encoding( $s, 'UTF-8', 'UTF-32BE' );
 		if ( strlen( $s ) > $this->stringLengthLimit ) {
-			throw new Scribunto_LuaError( "result to long for '$name'" );
+			throw new Scribunto_LuaError( "result to long for 'char'" );
 		}
 		return [ $s ];
 	}

@@ -9,6 +9,11 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	protected static $clockTick;
 	public $initialStatus;
 
+	/**
+	 * @var Scribunto_LuaStandaloneInterpreter
+	 */
+	protected $interpreter;
+
 	public function load() {
 		parent::load();
 		if ( php_uname( 's' ) === 'Linux' ) {
@@ -68,6 +73,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 				$value = array_map( [ $lang, 'formatSize' ], $value );
 				break;
 			case 'scribunto-limitreport-estmemusage':
+				/** @suppress PhanTypeMismatchArgument */
 				$value = $lang->formatSize( $value );
 				break;
 		}
@@ -153,6 +159,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 * @var LoggerInterface
 	 */
 	protected $logger;
+
+	/**
+	 * @var callable[]
+	 */
+	protected $callbacks;
 
 	/**
 	 * @param Scribunto_LuaStandaloneEngine $engine
@@ -553,6 +564,13 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return sprintf( '%08x%08x%s', $length, $check, $serialized );
 	}
 
+	/**
+	 * @param mixed $var
+	 * @param int $level
+	 *
+	 * @return string
+	 * @throws MWException
+	 */
 	protected function encodeLuaVar( $var, $level = 0 ) {
 		if ( $level > 100 ) {
 			throw new MWException( __METHOD__.': recursion depth limit exceeded' );
