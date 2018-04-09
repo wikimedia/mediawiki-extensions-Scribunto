@@ -75,12 +75,12 @@ $wgScribuntoEngineConf = [
 /**
  * Set to true to enable the SyntaxHighlight_GeSHi extension
  */
-$wgScribuntoUseGeSHi = false;
+$wgScribuntoUseGeSHi = true;
 
 /**
  * Set to true to enable the CodeEditor extension
  */
-$wgScribuntoUseCodeEditor = false;
+$wgScribuntoUseCodeEditor = true;
 
 /**
  * Set to true to enable gathering and reporting of performance data

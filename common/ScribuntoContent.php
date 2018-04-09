@@ -124,7 +124,7 @@ class ScribuntoContent extends TextContent {
 
 		// Add HTML for the actual script
 		$language = $engine->getGeSHiLanguage();
-		if ( $wgScribuntoUseGeSHi && $language ) {
+		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight_GeSHi::class ) && $language ) {
 			$geshi = SyntaxHighlight_GeSHi::prepare( $text, $language );
 			$geshi->set_language( $language );
 			if ( $geshi instanceof GeSHi && !$geshi->error() ) {

@@ -158,8 +158,8 @@
 			},
 			"_merge_strategy": "array_plus_2d"
 		},
-		"ScribuntoUseGeSHi": false,
-		"ScribuntoUseCodeEditor": false,
+		"ScribuntoUseGeSHi": true,
+		"ScribuntoUseCodeEditor": true,
 		"ScribuntoGatherFunctionStats": false,
 		"ScribuntoSlowFunctionThreshold": 0.9
 	},
