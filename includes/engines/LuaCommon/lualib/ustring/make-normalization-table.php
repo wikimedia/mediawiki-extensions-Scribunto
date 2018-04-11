@@ -15,8 +15,6 @@ if ( count( $argv ) > 1 ) {
 	foreach ( [
 		__DIR__ . '/../../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../core/includes/libs/normal/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../includes/libs/normal/UtfNormalData.inc',
 	] as $tryfile ) {
 		$tryfile = realpath( $tryfile );
 		if ( file_exists( $tryfile ) ) {
@@ -40,8 +38,6 @@ if ( count( $argv ) > 2 ) {
 		dirname( $datafile ) . '/UtfNormalDataK.inc',
 		__DIR__ . '/../../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
 		__DIR__ . '/../../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../core/includes/libs/normal/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../includes/libs/normal/UtfNormalData.inc',
 	] as $tryfile ) {
 		$tryfile = realpath( $tryfile );
 		if ( file_exists( $tryfile ) ) {
