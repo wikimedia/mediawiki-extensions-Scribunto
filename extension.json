@@ -129,9 +129,6 @@
 			"subpages": true
 		}
 	],
-	"ParserTestFiles": [
-		"tests/phpunit/engines/LuaCommon/luaParserTests.txt"
-	],
 	"callback": "ScribuntoHooks::onRegistration",
 	"config": {
 		"ScribuntoDefaultEngine": "luaautodetect",
