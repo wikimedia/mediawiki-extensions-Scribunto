@@ -640,6 +640,30 @@ return testframework.getTestProvider( {
 	  args = { '12345', '[3３]', 9 },
 	  expect = { '12945', 1 }
 	},
+	{ name = 'gsub: table replacement with a bad type (boolean)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', { b = true } },
+	  expect = 'invalid replacement value (a boolean)'
+	},
+	{ name = 'gsub: table replacement with a bad type (table)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', { b = {} } },
+	  expect = 'invalid replacement value (a table)'
+	},
+	{ name = 'gsub: table replacement with a bad type (function)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', { b = function () end } },
+	  expect = 'invalid replacement value (a function)'
+	},
+	{ name = 'gsub: function replacement with a bad type (boolean)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', function () return true end },
+	  expect = 'invalid replacement value (a boolean)'
+	},
+	{ name = 'gsub: function replacement with a bad type (table)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', function () return {} end },
+	  expect = 'invalid replacement value (a table)'
+	},
+	{ name = 'gsub: function replacement with a bad type (function)', func = mw.ustring.gsub,
+	  args = { 'abc', 'b', function () return function () end end },
+	  expect = 'invalid replacement value (a function)'
+	},
 
 	{ name = 'gcodepoint: basic test', func = mw.ustring.gcodepoint,
 	  args = { str1 },

@@ -1002,7 +1002,7 @@ function ustring.gsub( s, pattern, repl, n )
 			ret[#ret + 1] = sub( s, cps, init, m[1] - 1 )
 		end
 		local mm = sub( s, cps, m[1], m[2] )
-		local val
+		local val, valType
 		if tp == 1 then
 			if m[3] then
 				val = repl( unpack( m, 3 ) )
@@ -1033,6 +1033,10 @@ function ustring.gsub( s, pattern, repl, n )
 				["%%"] = "%"
 			}
 			val = S.gsub( repl, '%%[%%0-9]', t )
+		end
+		valType = type( val )
+		if valType ~= 'nil' and valType ~= 'string' and valType ~= 'number' then
+			error( 'invalid replacement value (a ' .. valType .. ')', 2 )
 		end
 		ret[#ret + 1] = val or mm
 		init = m[2] + 1

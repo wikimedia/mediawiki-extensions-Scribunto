@@ -679,7 +679,14 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 					$m = array_shift( $captures );
 				}
 				$x = isset( $m['m1'] ) ? $m['m1'] : $m[0];
-				return isset( $repl[$x] ) ? $repl[$x] : $m[0];
+				if ( !isset( $repl[$x] ) || $repl[$x] === null ) {
+					return $m[0];
+				}
+				$type = $this->getLuaType( $repl[$x] );
+				if ( $type !== 'string' && $type !== 'number' ) {
+					throw new Scribunto_LuaError( "invalid replacement value (a $type)" );
+				}
+				return $repl[$x];
 			};
 			break;
 
@@ -700,6 +707,10 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $args );
 				if ( count( $ret ) === 0 || $ret[0] === null ) {
 					return $m[0];
+				}
+				$type = $this->getLuaType( $ret[0] );
+				if ( $type !== 'string' && $type !== 'number' ) {
+					throw new Scribunto_LuaError( "invalid replacement value (a $type)" );
 				}
 				return $ret[0];
 			};
