@@ -11,7 +11,8 @@
 			"Kareyac",
 			"MaxBioHazard",
 			"Patrick Star",
-			"Jack who built the house"
+			"Jack who built the house",
+			"Ole Yves"
 		]
 	},
 	"scribunto-desc": "Средство для включения скриптовых языков на страницах MediaWiki",
@@ -57,7 +58,7 @@
 	"scribunto-luastandalone-exited": "Ошибка Lua: Внутренняя ошибка: Интерпретатор завершил работу со статусом $2.",
 	"scribunto-module-with-errors-category": "Модули Scribunto с ошибками",
 	"scribunto-module-with-errors-category-desc": "В модуле имеется ошибка.",
-	"scribunto-limitreport-timeusage": "Время использование Lua",
+	"scribunto-limitreport-timeusage": "Время использования Lua",
 	"scribunto-limitreport-timeusage-value": "$1/$2 секунд",
 	"scribunto-limitreport-virtmemusage": "Виртуальный размер Lua",
 	"scribunto-limitreport-estmemusage": "Предположительное использование памяти Lua",
