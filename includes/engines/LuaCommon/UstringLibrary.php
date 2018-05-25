@@ -2,7 +2,6 @@
 
 use UtfNormal\Validator;
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Limit on pattern lengths, in bytes not characters

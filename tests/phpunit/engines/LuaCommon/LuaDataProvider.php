@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaDataProvider implements Iterator {
 	protected $engine = null;
 	protected $exports = null;

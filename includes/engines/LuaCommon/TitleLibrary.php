@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// Note these caches are naturally limited to
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any

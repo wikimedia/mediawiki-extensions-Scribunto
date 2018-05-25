@@ -5,7 +5,6 @@
  * @group LuaSandbox
  * @group LuaStandalone
  */
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 	public $sandboxOpts = [
 		'memoryLimit' => 50000000,

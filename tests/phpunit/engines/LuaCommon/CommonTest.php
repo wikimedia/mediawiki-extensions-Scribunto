@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'CommonTests';
 
@@ -722,7 +721,6 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$lib = [
@@ -740,7 +738,6 @@ class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaCommonTestsFailLibrary extends Scribunto_LuaLibraryBase {
 	public function __construct() {
 		throw new MWException( 'deferLoad library that is never required was loaded anyway' );

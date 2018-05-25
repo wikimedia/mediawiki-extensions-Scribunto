@@ -9,7 +9,6 @@
  * - getTestModules(): Add a mapping from $moduleName to the file containing
  *   the code.
  */
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	private static $engineConfigurations = [
 		'LuaSandbox' => [
@@ -265,7 +264,6 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
 	private $className = '';
 	private $message = '';

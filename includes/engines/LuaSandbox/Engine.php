@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	public $options, $loaded = false;
 	protected $lineCache = [];
@@ -213,7 +212,6 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @var Scribunto_LuaEngine
@@ -372,7 +370,6 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaSandboxCallback {
 
 	/**

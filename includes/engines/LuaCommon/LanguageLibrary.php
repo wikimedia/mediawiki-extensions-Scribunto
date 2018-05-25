@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	public $langCache = [];
 	public $timeCache = [];

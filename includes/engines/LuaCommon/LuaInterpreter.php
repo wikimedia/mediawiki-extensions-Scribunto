@@ -1,6 +1,5 @@
 <?php
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaInterpreter {
 	/**
 	 * Load a string. Return an object which can later be passed to callFunction.
@@ -61,8 +60,8 @@ abstract class Scribunto_LuaInterpreter {
 	abstract public function unpauseUsageTimer();
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaInterpreterNotFoundError extends MWException {}
+class Scribunto_LuaInterpreterNotFoundError extends MWException {
+}
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
-class Scribunto_LuaInterpreterBadVersionError extends MWException {}
+class Scribunto_LuaInterpreterBadVersionError extends MWException {
+}

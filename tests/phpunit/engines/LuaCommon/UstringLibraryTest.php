@@ -2,7 +2,6 @@
 
 use Wikimedia\ScopedCallback;
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UstringLibraryTests';
 

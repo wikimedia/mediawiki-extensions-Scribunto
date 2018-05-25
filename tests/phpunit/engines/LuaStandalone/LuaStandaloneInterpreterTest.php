@@ -10,7 +10,6 @@ require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
  * @group Lua
  * @group LuaStandalone
  */
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 	public $stdOpts = [
 		'errorFile' => null,

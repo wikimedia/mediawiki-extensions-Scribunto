@@ -4,7 +4,6 @@ use MediaWiki\Logger\LoggerFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	protected static $clockTick;
 	public $initialStatus;
@@ -116,7 +115,6 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	protected static $nextInterpreterId = 0;
 
@@ -721,7 +719,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaStandaloneInterpreterFunction {
 	public static $anyChunksDestroyed = [];
 	public static $activeChunkIds = [];

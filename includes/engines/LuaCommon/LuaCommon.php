@@ -2,7 +2,6 @@
 
 use Wikimedia\ScopedCallback;
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
@@ -900,7 +899,6 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var mixed
@@ -975,7 +973,6 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 	}
 }
 
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 class Scribunto_LuaError extends ScribuntoException {
 	public $luaMessage, $lineMap = [];
 

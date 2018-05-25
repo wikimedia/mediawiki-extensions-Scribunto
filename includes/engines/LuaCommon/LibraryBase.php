@@ -24,7 +24,6 @@
 /**
  * This class provides some basic services that Lua libraries will probably need
  */
-// @codingStandardsIgnoreLine Squiz.Classes.ValidClassName.NotCamelCaps
 abstract class Scribunto_LuaLibraryBase {
 	/**
 	 * @var Scribunto_LuaEngine
