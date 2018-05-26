@@ -139,7 +139,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 * arguments.
 	 *
 	 * @param string|int $text_or_id Title or page_id to fetch
-	 * @param string|int $defaultNamespace Namespace name or number to use if
+	 * @param string|int|null $defaultNamespace Namespace name or number to use if
 	 *  $text_or_id doesn't override
 	 * @return array Lua data
 	 */
@@ -187,8 +187,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @param string|int $ns Namespace
 	 * @param string $text Title text
-	 * @param string $fragment URI fragment
-	 * @param string $interwiki Interwiki code
+	 * @param string|null $fragment URI fragment
+	 * @param string|null $interwiki Interwiki code
 	 * @return array Lua data
 	 */
 	function makeTitle( $ns, $text, $fragment = null, $interwiki = null ) {
