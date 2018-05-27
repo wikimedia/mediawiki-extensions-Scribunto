@@ -2,6 +2,9 @@
 
 use Wikimedia\ScopedCallback;
 
+/**
+ * @covers Scribunto_LuaUstringLibrary
+ */
 class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UstringLibraryTests';
 

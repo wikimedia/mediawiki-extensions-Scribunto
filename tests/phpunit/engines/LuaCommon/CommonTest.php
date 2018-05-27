@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @covers ScribuntoEngineBase
+ * @covers Scribunto_LuaEngine
+ * @covers Scribunto_LuaStandaloneEngine
+ * @covers Scribunto_LuaSandboxEngine
+ * @covers Scribunto_LuaInterpreter
+ * @covers Scribunto_LuaStandaloneInterpreter
+ * @covers Scribunto_LuaSandboxInterpreter
+ */
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'CommonTests';
 

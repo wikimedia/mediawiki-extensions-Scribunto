@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/UstringLibraryTest.php';
 
+/**
+ * @coversNothing -- Covers Lua code
+ */
 class Scribunto_LuaUstringLibraryPureLuaTest extends Scribunto_LuaUstringLibraryTest {
 	protected function setUp() {
 		parent::setUp();

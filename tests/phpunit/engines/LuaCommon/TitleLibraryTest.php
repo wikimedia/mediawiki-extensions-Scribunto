@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers Scribunto_LuaTitleLibrary
+ */
 class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
 

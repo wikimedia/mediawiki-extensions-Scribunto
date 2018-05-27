@@ -4,6 +4,7 @@
  * @group Lua
  * @group LuaSandbox
  * @group LuaStandalone
+ * @coversNothing
  */
 class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
 	public $sandboxOpts = [

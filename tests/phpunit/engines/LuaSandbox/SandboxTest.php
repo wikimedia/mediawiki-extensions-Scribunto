@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers Scribunto_LuaSandboxEngine
+ */
 class Scribunto_LuaSandboxTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'SandboxTests';
 

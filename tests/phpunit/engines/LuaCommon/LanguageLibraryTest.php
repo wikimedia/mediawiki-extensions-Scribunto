@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers Scribunto_LuaLanguageLibrary
+ */
 class Scribunto_LuaLanguageLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
