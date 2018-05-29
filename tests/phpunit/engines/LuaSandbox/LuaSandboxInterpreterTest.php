@@ -9,6 +9,7 @@ require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
 /**
  * @group Lua
  * @group LuaSandbox
+ * @covers Scribunto_LuaSandboxInterpreter
  */
 class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 	public $stdOpts = [
