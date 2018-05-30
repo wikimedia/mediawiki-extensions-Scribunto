@@ -39,7 +39,8 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 			$output->setLimitReportData( 'scribunto-limitreport-timeusage',
 				[
 					sprintf( "%.3f", $status['time'] / $this->getClockTick() ),
-					sprintf( "%.3f", $this->options['cpuLimit'] )
+					// Strip trailing .0s
+					rtrim( rtrim( sprintf( "%.3f", $this->options['cpuLimit'] ), '0' ), '.' )
 				]
 			);
 			$output->setLimitReportData( 'scribunto-limitreport-virtmemusage',
