@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	private static $namespacesCacheLang = null;
 	private static $namespacesCache = null;
@@ -157,7 +159,8 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			// Not expensive because we can have a max of three cache misses in the
 			// entire page parse.
 			$interwikiMap = [];
-			$prefixes = Interwiki::getAllPrefixes( $local );
+			$lookup = MediaWikiServices::getInstance()->getInterwikiLookup();
+			$prefixes = $lookup->getAllPrefixes( $local );
 			foreach ( $prefixes as $row ) {
 				$prefix = $row['iw_prefix'];
 				$val = [
