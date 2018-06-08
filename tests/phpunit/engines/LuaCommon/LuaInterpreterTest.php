@@ -31,9 +31,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$args = $this->normalizeOrder( $args );
 		$interpreter = $this->newInterpreter();
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
-		$finalArgs = $args;
-		array_unshift( $finalArgs, $passthru );
-		$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $finalArgs );
+		$ret = $interpreter->callFunction( $passthru, ...$args );
 		$ret = $this->normalizeOrder( $ret );
 		$this->assertSame( $args, $ret );
 	}
@@ -51,7 +49,7 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 
 		$finalArgs = $args;
 		array_unshift( $finalArgs, $doublePassthru );
-		$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $finalArgs );
+		$ret = $interpreter->callFunction( ...$finalArgs );
 		$ret = $this->normalizeOrder( $ret );
 		$this->assertSame( $args, $ret );
 	}

@@ -206,8 +206,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				throw new Scribunto_LuaError( "bad argument #$k to 'char' (value out of range)" );
 			}
 		}
-		array_unshift( $args, 'N*' );
-		$s = call_user_func_array( 'pack', $args );
+		$s = pack( 'N*', ...$args );
 		$s = mb_convert_encoding( $s, 'UTF-8', 'UTF-32BE' );
 		if ( strlen( $s ) > $this->stringLengthLimit ) {
 			throw new Scribunto_LuaError( "result to long for 'char'" );
@@ -695,7 +694,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				if ( $anypos ) {
 					$m = array_shift( $captures );
 				}
-				$args = [ $repl ];
+				$args = [];
 				if ( count( $capt ) ) {
 					foreach ( $capt as $i => $pos ) {
 						$args[] = $m["m$i"];
@@ -703,7 +702,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				} else {
 					$args[] = $m[0];
 				}
-				$ret = call_user_func_array( [ $interpreter, 'callFunction' ], $args );
+				$ret = $interpreter->callFunction( $repl, ...$args );
 				if ( count( $ret ) === 0 || $ret[0] === null ) {
 					return $m[0];
 				}

@@ -192,8 +192,7 @@ class ScribuntoException extends MWException {
 	}
 
 	public function toStatus() {
-		$args = array_merge( [ $this->messageName ], $this->messageArgs );
-		$status = call_user_func_array( [ 'Status', 'newFatal' ], $args );
+		$status = Status::newFatal( $this->messageName, ...$this->messageArgs );
 		$status->scribunto_error = $this;
 		return $status;
 	}

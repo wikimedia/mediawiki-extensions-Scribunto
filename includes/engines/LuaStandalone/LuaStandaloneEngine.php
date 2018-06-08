@@ -471,7 +471,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	protected function callback( $id, array $args ) {
-		return call_user_func_array( $this->callbacks[$id], $args );
+		return ( $this->callbacks[$id] )( ...$args );
 	}
 
 	protected function handleError( $message ) {

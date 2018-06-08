@@ -249,7 +249,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		if ( !$title ) {
 			return [ null ];
 		}
-		return [ call_user_func_array( [ $title, $func ], $args ) ];
+		return [ $title->$func( ...$args ) ];
 	}
 
 	/**

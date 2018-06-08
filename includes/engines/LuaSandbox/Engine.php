@@ -313,7 +313,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$args = func_get_args();
 		$func = array_shift( $args );
 		try {
-			$ret = call_user_func_array( [ $func, 'call' ], $args );
+			$ret = $func->call( ...$args );
 			if ( $ret === false ) {
 				// Per the documentation on LuaSandboxFunction::call, a return value
 				// of false means that something went wrong and it's PHP's fault,
@@ -390,7 +390,7 @@ class Scribunto_LuaSandboxCallback {
 	 */
 	function __call( $funcName, $args ) {
 		try {
-			return call_user_func_array( $this->callback, $args );
+			return ( $this->callback )( ...$args );
 		} catch ( Scribunto_LuaError $e ) {
 			throw new LuaSandboxRuntimeError( $e->getLuaMessage() );
 		}
