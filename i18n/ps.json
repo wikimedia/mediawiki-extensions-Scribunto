@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"Baloch Khan"
 		]
 	},
+	"scribunto-doc-page-name": "Module:$1/لاسوند",
 	"scribunto-lua-error": "لوا تېروتنه: $2."
 }

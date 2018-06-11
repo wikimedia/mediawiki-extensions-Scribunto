@@ -6,7 +6,8 @@
 			"Spring Roll Conan",
 			"LNDDYL",
 			"Cwlin0416",
-			"A2093064"
+			"A2093064",
+			"Kly"
 		]
 	},
 	"scribunto-desc": "用來內嵌腳本語言到 MediaWiki 頁面的框架",
@@ -18,7 +19,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''此模組的說明文件可於 [[$1]] 建立''",
 	"scribunto-doc-page-header": "'''此頁面為 [[$1]] 的說明文件'''",
-	"scribunto-console-intro": "* 該模組的匯出資訊可透過變數 \"p\" 來取得，包含尚未儲存的修改。\n* 在行的前面加上 \"=\" 可將該行作為運算式來評估執行，或使用 print()。\n* 在模組程式碼中使用 mw.log() 以傳送訊息至主控台。",
+	"scribunto-console-intro": "* 該模組的匯出資訊可透過變數 \"p\" 來取得，包含尚未儲存的修改。\n* 在行的前面加上 \"=\" 可將該行作為運算式來評估執行，或使用 print()。表格請使用 mw.logObject()。\n* 在模組程式碼中使用 mw.log() 與 mw.logObject() 以傳送訊息至主控台。",
 	"scribunto-console-title": "除錯主控台",
 	"scribunto-console-too-large": "此主控台工作階段過大，請清除主控台的歷史記錄或減少該模組的大小。",
 	"scribunto-console-current-src": "主控台輸入",
@@ -34,6 +35,7 @@
 	"scribunto-common-timeout": "分配用來執行腳本的時間已到期。",
 	"scribunto-common-oom": "已超出執行腳本允許的記憶體用量。",
 	"scribunto-common-backtrace": "回溯：",
+	"scribunto-common-no-details": "沒有進一步可用詳情。",
 	"scribunto-lua-in-function": "於函數 \"$1\"",
 	"scribunto-lua-in-main": "於主要區塊",
 	"scribunto-lua-in-function-at": "於函數 $1:$2",
@@ -60,6 +62,13 @@
 	"scribunto-limitreport-profile-ms": "$1 毫秒",
 	"scribunto-limitreport-profile-percent": "$1%",
 	"scribunto-limitreport-logs": "Lua 日誌",
+	"apihelp-scribunto-console-description": "來自 Scribunto 主控台用於服務 XHR 請求的內部模組。",
+	"apihelp-scribunto-console-summary": "來自 Scribunto 主控台用於服務 XHR 請求的內部模組。",
 	"apihelp-scribunto-console-param-title": "要測試的模組標題。",
-	"nstab-module": "模組"
+	"apihelp-scribunto-console-param-content": "模組的新內容。",
+	"apihelp-scribunto-console-param-session": "Session 令牌。",
+	"apihelp-scribunto-console-param-question": "要評估為腳本的下一行。",
+	"apihelp-scribunto-console-param-clear": "設定來清除目前 session 狀態。",
+	"nstab-module": "模組",
+	"tooltip-ca-nstab-module": "檢視模組頁面"
 }
