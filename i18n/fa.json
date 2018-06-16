@@ -8,7 +8,8 @@
 			"جواد",
 			"Ebraminio",
 			"Calak",
-			"Dalba"
+			"Dalba",
+			"Ladsgroup"
 		]
 	},
 	"scribunto-desc": "چارچوبی برای تعبیه‌کردن زبان‌های اسکریپتی در صفحه‌های مدیاویکی",
@@ -20,7 +21,7 @@
 	"scribunto-doc-page-name": "Module:$1/توضیحات",
 	"scribunto-doc-page-does-not-exist": "''توضیحات این پودمان می‌تواند در [[$1]] قرار گیرد.''",
 	"scribunto-doc-page-header": "'''این صفحهٔ توضیحات [[$1]] است'''",
-	"scribunto-console-intro": "* برون‌بری پودمان به عنوان متغیر \"p\"، شامل تغییرات ذخیره نشده در دسترس هستند.\n* یک خط را با \"=\" برای ارزیابی آن به عنوان یک عبارت، یا با استفاده از print()‎ مقدم کنید.\n* از mw.log()‎ در کد پودمان برای ارسال پیام‌ها به این کنسول استفاده کنید.",
+	"scribunto-console-intro": "* برون‌بری پودمان به عنوان متغیر \"p\"، شامل تغییرات ذخیره نشده در دسترس هستند.\n* یک خط را با \"=\" برای ارزیابی آن به عنوان یک عبارت، یا با استفاده از print()‎ مقدم کنید. از جداول mw.logObject() استفاده کنید\n* از mw.log()‎ و mw.logObject() در کد پودمان برای ارسال پیام‌ها به این کنسول استفاده کنید.",
 	"scribunto-console-title": "میزفرمان اشکال‌زدایی",
 	"scribunto-console-too-large": "نشست میز فرمان خیلی بزرگ است. لطفاً تاریخچهٔ میز فرمان را پاک کنید یا حجم پودمان را کمتر کنید.",
 	"scribunto-console-current-src": "ورودی میزفرمان",
@@ -34,6 +35,7 @@
 	"scribunto-common-timeout": "زمان مجاز برای اجرای اسکریپت‌ها منقضی شده است.",
 	"scribunto-common-oom": "مقدار حافظهٔ استفاده شده برای اجرای اسکریپت از حد مجاز فراتر رفته است.",
 	"scribunto-common-backtrace": "نشانهٔ قبلی:",
+	"scribunto-common-no-details": "جزئیات بیشتری در دسترس نیست.",
 	"scribunto-lua-in-function": "در تابع «$1»",
 	"scribunto-lua-in-main": "در قسمت اصلی",
 	"scribunto-lua-in-function-at": "در تابع در $1:$2",
@@ -50,6 +52,7 @@
 	"scribunto-luastandalone-signal": "خطای لوآ: خطای داخلی: مفسر با سیگنال «$2» خاتمه یافته است.",
 	"scribunto-luastandalone-exited": "خطای لوآ: خطای داخلی: مفسر با وضعیت $2 خارج شده است.",
 	"scribunto-module-with-errors-category": "ماژول‌های اسکرایبونتو با خطاها",
+	"scribunto-module-with-errors-category-desc": "این پودمان در خود خطا دارد.",
 	"scribunto-limitreport-timeusage": "مصرف زمان لوآ",
 	"scribunto-limitreport-timeusage-value": "$1/ $2  ثانیه",
 	"scribunto-limitreport-virtmemusage": "اندازهٔ مجازی لوآ",
@@ -58,5 +61,8 @@
 	"scribunto-limitreport-profile": "مشخصات لوآ",
 	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه",
 	"scribunto-limitreport-profile-percent": "$1٪",
-	"nstab-module": "پودمان"
+	"scribunto-limitreport-logs": "سیاهه لوآ",
+	"apihelp-scribunto-console-param-title": "عنوان پودمان برای تست",
+	"nstab-module": "پودمان",
+	"tooltip-ca-nstab-module": "دیدن صفحه پودمان"
 }
