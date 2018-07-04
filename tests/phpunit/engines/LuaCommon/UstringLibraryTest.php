@@ -81,10 +81,7 @@ class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineTestBase {
 		$interpreter = $this->getEngine()->getInterpreter();
 		$func = $interpreter->loadString( 'return mw.ustring.gsub( ... )', 'fortest' );
 		try {
-			call_user_func_array(
-				[ $interpreter, 'callFunction' ],
-				array_merge( [ $func ], $args )
-			);
+			$interpreter->callFunction( $func, ...$args );
 			$this->fail( 'Expected exception not thrown' );
 		} catch ( Scribunto_LuaError $e ) {
 			$this->assertSame( $error, $e->getMessage() );
@@ -172,11 +169,11 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 				$line = rtrim( $m[1], ';' );
 				$ret = [ $line ];
 				foreach ( explode( ';', $line ) as $field ) {
-					$args = [ 'N*' ];
+					$args = [];
 					foreach ( explode( ' ', $field ) as $char ) {
 						$args[] = hexdec( $char );
 					}
-					$s = call_user_func_array( 'pack', $args );
+					$s = pack( 'N*', ...$args );
 					$s = mb_convert_encoding( $s, 'UTF-8', 'UTF-32BE' );
 					$ret[] = $s;
 				}
