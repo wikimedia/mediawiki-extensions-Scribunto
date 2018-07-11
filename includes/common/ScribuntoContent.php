@@ -39,7 +39,7 @@ class ScribuntoContent extends TextContent {
 	 *
 	 * @param Title $title The page title to use as a context for rendering
 	 * @param null|int $revId The revision being rendered (optional)
-	 * @param null|ParserOptions $options Any parser options
+	 * @param ParserOptions $options Any parser options
 	 * @param bool $generateHtml Whether to generate HTML (default: true).
 	 * @param ParserOutput &$output ParserOutput representing the HTML form of the text.
 	 * @return ParserOutput
@@ -84,13 +84,8 @@ class ScribuntoContent extends TextContent {
 					"\n" . $msg->plain() . "\n"
 				);
 
-				if ( !$options ) {
-					// NOTE: use canonical options per default to produce cacheable output
-					$options = ContentHandler::getForTitle( $doc )->makeParserOptions( 'canonical' );
-				} else {
-					if ( $options->getTargetLanguage() === null ) {
-						$options->setTargetLanguage( $doc->getPageLanguage() );
-					}
+				if ( $options->getTargetLanguage() === null ) {
+					$options->setTargetLanguage( $doc->getPageLanguage() );
 				}
 
 				$output = $wgParser->parse( $docWikitext, $title, $options, true, true, $revId );
