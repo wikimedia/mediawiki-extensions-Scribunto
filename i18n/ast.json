@@ -37,7 +37,7 @@
 	"scribunto-lua-error-location": "Error de Lua $1: $2.",
 	"scribunto-lua-error": "Error de Lua: $2.",
 	"scribunto-lua-notarrayreturn": "Error del script: El módulu devolvió un valor $2. Esperase que devuelva una tabla d'esportación.",
-	"scribunto-luastandalone-proc-error": "Error de Lua: Nun pue crease'l procesu.",
+	"scribunto-luastandalone-proc-error": "Error de Lua: Nun puede crease'l procesu.",
 	"scribunto-luastandalone-proc-error-msg": "Error de Lua: Nun pue crease'l procesu: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Error de Lua: Nun pue crease'l procesu: proc_open nun ta disponible. Compruebe la direutiva de configuración \"disable_functions\" de PHP.",
 	"scribunto-luastandalone-decode-error": "Error de Lua: Error internu: Nun pudo descodificase'l mensaxe.",
