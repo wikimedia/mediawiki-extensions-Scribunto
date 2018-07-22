@@ -20,7 +20,7 @@
 	"scribunto-doc-page-name": "Module:$1/ohje",
 	"scribunto-doc-page-does-not-exist": "''Tämän moduulin ohjeistuksen voi tehdä sivulle [[$1]]''",
 	"scribunto-doc-page-header": "'''Tämä on ohjesivu moduulille [[$1]]'''",
-	"scribunto-console-intro": "* Moduulien viennit ovat käytettävissä muuttujana \"p\", mukaan lukien tallentamattomat muokkaukset.\n* Aloita rivi merkillä \"=\" arvioidaksesi sitä lausekkeena, tai käytä komentoa print().\n* Käytä komentoa mw.log() moduulin koodissa lähettääksesi viestejä tähän konsoliin.",
+	"scribunto-console-intro": "* Moduulien viennit ovat käytettävissä muuttujana \"p\", mukaan lukien tallentamattomat muokkaukset.\n* Aloita rivi merkillä \"=\" arvioidaksesi sitä lausekkeena tai käytä komentoa print(). Käytä komentoa mw.logObject() taulukoille.\n* Käytä komentoja mw.log() ja mw.logObject() moduulin koodissa lähettääksesi viestejä tähän konsoliin.",
 	"scribunto-console-title": "Virheenetsintäkonsoli",
 	"scribunto-console-too-large": "Tämä konsoli-istunto on liian suuri. Tyhjennä konsolin historia tai pienennä moduulin kokoa.",
 	"scribunto-console-current-src": "konsolisyöte",
