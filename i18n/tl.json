@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"AnakngAraw"
+			"AnakngAraw",
+			"Sky Harbor"
 		]
 	},
 	"scribunto-desc": "Baskagan para sa pagbabaon ng mga wikang pampagpapanitik papaloob sa mga pahina ng MediaWiki",
@@ -27,7 +28,7 @@
 	"scribunto-lua-in-function-at": "sa loob ng tungkuling nasa $1:$2",
 	"scribunto-lua-backtrace-line": "$1: $2",
 	"scribunto-lua-error-location": "Kamalian ng lua na $1: $2",
-	"scribunto-lua-error": "Kamalian ng lua: $2",
+	"scribunto-lua-error": "Kamaliang Lua: $2",
 	"scribunto-lua-notarrayreturn": "Kamalian sa panitik: Ang modulo ay nagbalik ng isang bagay na bukod sa isang talahanayan, dapat itong magbalik ng isang talahanayan ng pag-aangkat.",
 	"scribunto-luastandalone-proc-error": "Kamalian ng lua: hindi malikha ang proseso",
 	"scribunto-luastandalone-decode-error": "Kamalian ng lua: panloob na kamalian: hindi nagawang alamin ang kodigo ng mensahe",
