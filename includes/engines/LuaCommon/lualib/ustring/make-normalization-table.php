@@ -59,11 +59,25 @@ class UtfNormal {
 }
 class_alias( UtfNormal::class, \UtfNormal\Validator::class );
 
-echo "Loading data file $datafile...\n";
-require_once $datafile;
+//phpcs:disable MediaWiki.NamingConventions
+/**
+ * This is a function solely exists so we can suppress errors
+ *
+ * @suppress SecurityCheck-XSS
+ * @suppress SecurityCheck-OTHER
+ */
+function loadDataFiles() {
+	global $datafile, $datafileK;
+	echo "Loading data file $datafile...\n";
+	require_once $datafile;
 
-echo "Loading data file $datafileK...\n";
-require_once $datafileK;
+	echo "Loading data file $datafileK...\n";
+	require_once $datafileK;
+}
+//phpcs:enable MediaWiki.NamingConventions
+
+
+loadDataFiles();
 
 if ( !UtfNormal::$utfCheckNFC ||
 	!UtfNormal::$utfCombiningClass ||
