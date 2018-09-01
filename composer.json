@@ -31,5 +31,8 @@
 			"phpcbf",
 			"minus-x fix ."
 		]
+	},
+	"extra": {
+		"phan-taint-check-plugin": "1.4.0"
 	}
 }
