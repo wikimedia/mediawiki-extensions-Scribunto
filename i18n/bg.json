@@ -3,7 +3,8 @@
 		"authors": [
 			"DCLXVI",
 			"Termininja",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"StanProg"
 		]
 	},
 	"scribunto-line": "на ред $1",
@@ -17,9 +18,9 @@
 	"scribunto-console-title": "Конзола за отстраняване на грешки",
 	"scribunto-console-clear": "Изчистване",
 	"scribunto-common-error-category": "Страници с грешки в скрипта",
-	"scribunto-common-nosuchmodule": "Грешка в скрипта: Няма такъв модул.",
+	"scribunto-common-nosuchmodule": "Грешка в скрипта: Не съществува модул с име „$2“.",
 	"scribunto-common-nofunction": "Грешка в скрипта: Необходимо е да се посочи име на функция.",
-	"scribunto-common-nosuchfunction": "Грешка в скрипта: Посочената функция не съществува.",
+	"scribunto-common-nosuchfunction": "Грешка в скрипта: Функцията „$2“ не съществува.",
 	"scribunto-common-timeout": "Времето, отделено за изпълнение на скриптове, е изтекло.",
 	"scribunto-common-oom": "Количеството памет, отделено за изпълнение на скриптове, е надвишено.",
 	"scribunto-lua-in-function": "във функцията „$1“",
