@@ -245,7 +245,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$cmd = '"' . $cmd . '"';
 		}
 
-		$this->logger->debug( __METHOD__.": creating interpreter: $cmd\n" );
+		$this->logger->debug( __METHOD__ . ": creating interpreter: $cmd\n" );
 
 		// Check whether proc_open is available before trying to call it (e.g.
 		// PHP's disable_functions may have removed it)
@@ -316,7 +316,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	public function terminate() {
 		if ( $this->proc ) {
-			$this->logger->debug( __METHOD__.": terminating\n" );
+			$this->logger->debug( __METHOD__ . ": terminating\n" );
 			proc_terminate( $this->proc );
 			proc_close( $this->proc );
 			$this->proc = false;
@@ -357,10 +357,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	public function callFunction( $func /* ... */ ) {
 		if ( !( $func instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
-			throw new MWException( __METHOD__.': invalid function type' );
+			throw new MWException( __METHOD__ . ': invalid function type' );
 		}
 		if ( $func->interpreterId !== $this->id ) {
-			throw new MWException( __METHOD__.': function belongs to a different interpreter' );
+			throw new MWException( __METHOD__ . ': function belongs to a different interpreter' );
 		}
 		$args = func_get_args();
 		unset( $args[0] );
@@ -503,7 +503,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					$this->handleError( $msgFromLua );
 					return; // not reached
 				default:
-					$this->logger->error( __METHOD__ .": invalid response op \"{$msgFromLua['op']}\"\n" );
+					$this->logger->error( __METHOD__ . ": invalid response op \"{$msgFromLua['op']}\"\n" );
 					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 			}
 		}
@@ -571,7 +571,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function encodeLuaVar( $var, $level = 0 ) {
 		if ( $level > 100 ) {
-			throw new MWException( __METHOD__.': recursion depth limit exceeded' );
+			throw new MWException( __METHOD__ . ': recursion depth limit exceeded' );
 		}
 		$type = gettype( $var );
 		switch ( $type ) {
@@ -590,7 +590,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					if ( $var === -INF ) {
 						return '(-1/0)';
 					}
-					throw new MWException( __METHOD__.': cannot convert non-finite number' );
+					throw new MWException( __METHOD__ . ': cannot convert non-finite number' );
 				}
 				return sprintf( '%.17g', $var );
 			case 'string':
@@ -622,21 +622,21 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				return $s;
 			case 'object':
 				if ( !( $var instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
-					throw new MWException( __METHOD__.': unable to convert object of type ' .
+					throw new MWException( __METHOD__ . ': unable to convert object of type ' .
 						get_class( $var ) );
 				} elseif ( $var->interpreterId !== $this->id ) {
 					throw new MWException(
-						__METHOD__.': unable to convert function belonging to a different interpreter'
+						__METHOD__ . ': unable to convert function belonging to a different interpreter'
 					);
 				} else {
-					return 'chunks[' . intval( $var->id )  . ']';
+					return 'chunks[' . intval( $var->id ) . ']';
 				}
 			case 'resource':
-				throw new MWException( __METHOD__.': unable to convert resource' );
+				throw new MWException( __METHOD__ . ': unable to convert resource' );
 			case 'NULL':
 				return 'nil';
 			default:
-				throw new MWException( __METHOD__.': unable to convert variable of unknown type' );
+				throw new MWException( __METHOD__ . ': unable to convert variable of unknown type' );
 		}
 	}
 

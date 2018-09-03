@@ -171,7 +171,7 @@ class ScribuntoHooks {
 
 			// #iferror-compatible error element
 			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" .
-				$parserError. "</span></strong>";
+				$parserError . "</span></strong>";
 		}
 	}
 

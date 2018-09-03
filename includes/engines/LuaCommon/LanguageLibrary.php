@@ -272,7 +272,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		} else {
 			# Correct for DateTime interpreting 'XXXX' as XX:XX o'clock
 			if ( preg_match( '/^[0-9]{4}$/', $date ) ) {
-				$date = '00:00 '.$date;
+				$date = '00:00 ' . $date;
 			}
 
 			$cacheKey = $date;

@@ -222,7 +222,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ mb_strlen( $s, 'UTF-8' ) ];
 	}
 
-	public function ustringSub( $s, $i=1, $j=-1 ) {
+	public function ustringSub( $s, $i = 1, $j = -1 ) {
 		$this->checkString( 'sub', $s );
 		$this->checkTypeOptional( 'sub', 2, $i, 'number', 1 );
 		$this->checkTypeOptional( 'sub', 3, $j, 'number', -1 );

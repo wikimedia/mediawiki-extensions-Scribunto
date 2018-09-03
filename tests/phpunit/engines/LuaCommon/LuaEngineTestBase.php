@@ -245,7 +245,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * @param mixed $expected
 	 */
 	public function testLua( $key, $testName, $expected ) {
-		$this->luaTestName = static::$moduleName."[$key]: $testName";
+		$this->luaTestName = static::$moduleName . "[$key]: $testName";
 		if ( isset( $this->skipTests[$testName] ) ) {
 			$this->markTestSkipped( $this->skipTests[$testName] );
 		} else {
