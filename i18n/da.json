@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Peter Alberti"
+			"Peter Alberti",
+			"Saederup92"
 		]
 	},
 	"scribunto-desc": "Gør det muligt at indlejre skriptsprog i MediaWiki-sider",
@@ -35,5 +36,6 @@
 	"scribunto-limitreport-virtmemusage": "Lua virtuel størrelse",
 	"scribunto-limitreport-estmemusage": "Lua anslået brug af hukommelse",
 	"scribunto-limitreport-memusage": "Lua brug af hukommelse",
-	"scribunto-limitreport-profile-ms": "$1 ms"
+	"scribunto-limitreport-profile-ms": "$1 ms",
+	"nstab-module": "Modul"
 }
