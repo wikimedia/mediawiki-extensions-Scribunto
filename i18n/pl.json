@@ -8,7 +8,8 @@
 			"WTM",
 			"Pio387",
 			"Darellur",
-			"Woytecr"
+			"Woytecr",
+			"Railfail536"
 		]
 	},
 	"scribunto-desc": "Framework pozwalający na osadzanie języków skryptowych na stronach MediaWiki",
@@ -20,7 +21,7 @@
 	"scribunto-doc-page-name": "Module:$1/opis",
 	"scribunto-doc-page-does-not-exist": "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
 	"scribunto-doc-page-header": "'''To jest strona dokumentacji dla [[$1]]'''",
-	"scribunto-console-intro": "* Eksportowana zawartość modułu jest dostępna pod zmienną \"p\", włącznie z niezapisanymi zmianami.\n* Poprzedź linię \"=\", aby wykonać ją jako wyrażenie lub użyj print().\n* Użyj mw.log() w kodzie modułu, aby wysyłać wiadomości do tej konsoli.",
+	"scribunto-console-intro": "* Eksportowana zawartość modułu jest dostępna pod zmienną \"p\", włącznie z niezapisanymi zmianami.\n* Poprzedź linię \"=\", aby wykonać ją jako wyrażenie lub użyj print(). Użyj mw.logObject() do tabeli.\n* Użyj mw.log() oraz mw.logObject() w kodzie modułu, aby wysyłać wiadomości do tej konsoli.",
 	"scribunto-console-title": "Konsola debugowania",
 	"scribunto-console-too-large": "Ta sesja konsoli jest za duża. Wyczyść historię konsoli lub zmniejsz rozmiar modułu.",
 	"scribunto-console-current-src": "wejście z konsoli",
@@ -63,6 +64,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Rejestry Lua",
 	"apihelp-scribunto-console-description": "Wewnętrzny moduł obsługi żądań XHR z konsoli Scribunto.",
+	"apihelp-scribunto-console-summary": "Wewnętrzny moduł obsługi żądań XHR z konsoli Scribunto.",
 	"apihelp-scribunto-console-param-title": "Tytuł modułu do przetestowania.",
 	"apihelp-scribunto-console-param-content": "Nowa zawartość modułu.",
 	"apihelp-scribunto-console-param-session": "Token sesji.",
