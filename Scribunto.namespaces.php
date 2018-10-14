@@ -417,6 +417,11 @@ $namespaceNames['sh'] = [
 	829 => 'Razgovor_o_modulu',
 ];
 
+$namespaceNames['shn'] = [
+	828 => '​မေႃႇၵျူး',
+	829 => 'ဢုပ်ႇၵုမ်_မေႃႇၵျူး',
+];
+
 $namespaceNames['sk'] = [
 	828 => 'Modul',
 	829 => 'Diskusia_k_modulu',
