@@ -261,9 +261,13 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function contentHandlerDefaultModelFor( Title $title, &$model ) {
+		if ( $model === 'sanitized-css' ) {
+			// Let TemplateStyles override Scribunto
+			return true;
+		}
 		if ( $title->getNamespace() == NS_MODULE && !Scribunto::isDocPage( $title ) ) {
 			$model = CONTENT_MODEL_SCRIBUNTO;
-			return false;
+			return true;
 		}
 		return true;
 	}

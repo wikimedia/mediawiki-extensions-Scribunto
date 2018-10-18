@@ -4,10 +4,10 @@ class ScribuntoHooksTest extends MediaWikiLangTestCase {
 
 	public function provideContentHandlerDefaultModelFor() {
 		return [
-			[ 'Module:Foo', CONTENT_MODEL_SCRIBUNTO, false ],
+			[ 'Module:Foo', CONTENT_MODEL_SCRIBUNTO, true ],
 			[ 'Module:Foo/doc', null, true ],
+			[ 'Module:Foo/styles.css', 'sanitized-css', true, 'sanitized-css' ],
 			[ 'Main Page', null, true ],
-
 		];
 	}
 
@@ -15,9 +15,11 @@ class ScribuntoHooksTest extends MediaWikiLangTestCase {
 	 * @covers ScribuntoHooks::contentHandlerDefaultModelFor
 	 * @dataProvider provideContentHandlerDefaultModelFor
 	 */
-	public function testContentHandlerDefaultModelFor( $name, $expected, $retVal ) {
+	public function testContentHandlerDefaultModelFor( $name, $expected,
+		$retVal, $before = null
+	) {
 		$title = Title::newFromText( $name );
-		$model = null;
+		$model = $before;
 		$ret = ScribuntoHooks::contentHandlerDefaultModelFor( $title, $model );
 		$this->assertSame( $retVal, $ret );
 		$this->assertSame( $expected, $model );
