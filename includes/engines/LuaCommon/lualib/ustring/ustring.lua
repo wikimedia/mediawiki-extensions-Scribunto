@@ -1002,15 +1002,20 @@ function ustring.gsub( s, pattern, repl, n )
 			ret[#ret + 1] = sub( s, cps, init, m[1] - 1 )
 		end
 		local mm = sub( s, cps, m[1], m[2] )
+
+		-- This simplifies the code for the function and table cases (tp == 1 and tp == 2) when there are
+		-- no captures in the pattern. As documented it would be incorrect for the string case by making
+		-- %1 act like %0 instead of raising an "invalid capture index" error, but Lua in fact does
+		-- exactly that for string.gsub.
+		if #m < 3 then
+			m[3] = mm
+		end
+
 		local val, valType
 		if tp == 1 then
-			if m[3] then
-				val = repl( unpack( m, 3 ) )
-			else
-				val = repl( mm )
-			end
+			val = repl( unpack( m, 3 ) )
 		elseif tp == 2 then
-			val = repl[m[3] or mm]
+			val = repl[m[3]]
 		elseif tp == 3 then
 			if ct == 0 and #m < 11 then
 				local ss = S.gsub( repl, '%%[%%0-' .. ( #m - 2 ) .. ']', 'x' )

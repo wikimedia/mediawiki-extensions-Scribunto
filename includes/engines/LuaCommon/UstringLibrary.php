@@ -664,6 +664,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 						return $m[0];
 					} elseif ( isset( $m["m$x"] ) ) {
 						return $m["m$x"];
+					} elseif ( $x === '1' ) {
+						// Match undocumented Lua string.gsub behavior
+						return $m[0];
 					} else {
 						throw new Scribunto_LuaError( "invalid capture index %$x in replacement string" );
 					}
