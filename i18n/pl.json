@@ -21,7 +21,7 @@
 	"scribunto-doc-page-name": "Module:$1/opis",
 	"scribunto-doc-page-does-not-exist": "''Dokumentacja dla tego modułu może zostać utworzona pod nazwą [[$1]]''",
 	"scribunto-doc-page-header": "'''To jest strona dokumentacji dla [[$1]]'''",
-	"scribunto-console-intro": "* Eksportowana zawartość modułu jest dostępna pod zmienną \"p\", włącznie z niezapisanymi zmianami.\n* Poprzedź linię \"=\", aby wykonać ją jako wyrażenie lub użyj print(). Użyj mw.logObject() do tabeli.\n* Użyj mw.log() oraz mw.logObject() w kodzie modułu, aby wysyłać wiadomości do tej konsoli.",
+	"scribunto-console-intro": "* Eksportowana zawartość modułu jest dostępna pod zmienną \"p\", włącznie z niezapisanymi zmianami.\n* Poprzedź linię \"=\", aby wykonać ją jako wyrażenie lub użyj print(). Użyj mw.logObject() do tabel.\n* Użyj mw.log() oraz mw.logObject() w kodzie modułu, aby wysyłać wiadomości do tej konsoli.",
 	"scribunto-console-title": "Konsola debugowania",
 	"scribunto-console-too-large": "Ta sesja konsoli jest za duża. Wyczyść historię konsoli lub zmniejsz rozmiar modułu.",
 	"scribunto-console-current-src": "wejście z konsoli",
