@@ -3,7 +3,7 @@
 /**
  * Wikitext scripting infrastructure for MediaWiki: base classes.
  * Copyright (C) 2012 Victor Vasiliev <vasilvv@gmail.com> et al
- * http://www.mediawiki.org/
+ * https://www.mediawiki.org/
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
