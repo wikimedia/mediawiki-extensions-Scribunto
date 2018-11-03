@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 
-( function ( $, mw ) {
+( function () {
 
 	/**
 	 * Debug console
@@ -395,4 +395,4 @@
 		}
 	} );
 
-}( jQuery, mediaWiki ) );
+}() );
