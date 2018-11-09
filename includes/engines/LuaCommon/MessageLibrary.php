@@ -1,7 +1,7 @@
 <?php
 
 class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
-	function register() {
+	public function register() {
 		$lib = [
 			'plain' => [ $this, 'messagePlain' ],
 			'check' => [ $this, 'messageCheck' ],
@@ -34,7 +34,13 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		return $msg;
 	}
 
-	function messagePlain( $data ) {
+	/**
+	 * Handler for messagePlain
+	 * @internal
+	 * @param array $data
+	 * @return string[]
+	 */
+	public function messagePlain( $data ) {
 		try {
 			$msg = $this->makeMessage( $data, true );
 			return [ $msg->plain() ];
@@ -43,7 +49,14 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		}
 	}
 
-	function messageCheck( $what, $data ) {
+	/**
+	 * Handler for messageCheck
+	 * @internal
+	 * @param string $what
+	 * @param array $data
+	 * @return bool[]
+	 */
+	public function messageCheck( $what, $data ) {
 		if ( !in_array( $what, [ 'exists', 'isBlank', 'isDisabled' ] ) ) {
 			throw new Scribunto_LuaError( "invalid what for 'messageCheck'" );
 		}

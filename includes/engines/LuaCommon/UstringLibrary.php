@@ -29,7 +29,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	private $patternRegexCache = null;
 
-	function __construct( $engine ) {
+	public function __construct( $engine ) {
 		if ( $this->stringLengthLimit === null ) {
 			global $wgMaxArticleSize;
 			$this->stringLengthLimit = $wgMaxArticleSize * 1024;
@@ -41,7 +41,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		parent::__construct( $engine );
 	}
 
-	function register() {
+	public function register() {
 		$perf = $this->getEngine()->getPerformanceCharacteristics();
 
 		if ( $perf['phpCallsRequireSerialization'] ) {
@@ -98,11 +98,25 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 	}
 
+	/**
+	 * Handler for isUtf8
+	 * @internal
+	 * @param string $s
+	 * @return bool[]
+	 */
 	public function ustringIsUtf8( $s ) {
 		$this->checkString( 'isutf8', $s, false );
 		return [ mb_check_encoding( $s, 'UTF-8' ) ];
 	}
 
+	/**
+	 * Handler for byteoffset
+	 * @internal
+	 * @param string $s
+	 * @param int $l
+	 * @param int $i
+	 * @return int[]|null[]
+	 */
 	public function ustringByteoffset( $s, $l = 1, $i = 1 ) {
 		$this->checkString( 'byteoffset', $s );
 		$this->checkTypeOptional( 'byteoffset', 2, $l, 'number', 1 );
@@ -131,6 +145,14 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 	}
 
+	/**
+	 * Handler for codepoint
+	 * @internal
+	 * @param string $s
+	 * @param int $i
+	 * @param int|null $j
+	 * @return int[]
+	 */
 	public function ustringCodepoint( $s, $i = 1, $j = null ) {
 		$this->checkString( 'codepoint', $s );
 		$this->checkTypeOptional( 'codepoint', 2, $i, 'number', 1 );
@@ -152,10 +174,24 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return unpack( 'N*', mb_convert_encoding( $s, 'UTF-32BE', 'UTF-8' ) );
 	}
 
+	/**
+	 * Handler for gcodepointInit
+	 * @internal
+	 * @param string $s
+	 * @param int $i
+	 * @param int|null $j
+	 * @return int[][]
+	 */
 	public function ustringGcodepointInit( $s, $i = 1, $j = null ) {
 		return [ $this->ustringCodepoint( $s, $i, $j ) ];
 	}
 
+	/**
+	 * Handler for toNFC
+	 * @internal
+	 * @param string $s
+	 * @return string[]|null[]
+	 */
 	public function ustringToNFC( $s ) {
 		$this->checkString( 'toNFC', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
@@ -164,6 +200,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ Validator::toNFC( $s ) ];
 	}
 
+	/**
+	 * Handler for toNFD
+	 * @internal
+	 * @param string $s
+	 * @return string[]|null[]
+	 */
 	public function ustringToNFD( $s ) {
 		$this->checkString( 'toNFD', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
@@ -172,6 +214,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ Validator::toNFD( $s ) ];
 	}
 
+	/**
+	 * Handler for toNFKC
+	 * @internal
+	 * @param string $s
+	 * @return string[]|null[]
+	 */
 	public function ustringToNFKC( $s ) {
 		$this->checkString( 'toNFKC', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
@@ -180,6 +228,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ Validator::toNFKC( $s ) ];
 	}
 
+	/**
+	 * Handler for toNFKD
+	 * @internal
+	 * @param string $s
+	 * @return string[]|null[]
+	 */
 	public function ustringToNFKD( $s ) {
 		$this->checkString( 'toNFKD', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
@@ -189,7 +243,9 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @return array
+	 * Handler for char
+	 * @internal
+	 * @return string[]
 	 */
 	public function ustringChar() {
 		$args = func_get_args();
@@ -214,6 +270,12 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ $s ];
 	}
 
+	/**
+	 * Handler for len
+	 * @internal
+	 * @param string $s
+	 * @return int[]|null[]
+	 */
 	public function ustringLen( $s ) {
 		$this->checkString( 'len', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
@@ -222,6 +284,14 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ mb_strlen( $s, 'UTF-8' ) ];
 	}
 
+	/**
+	 * Handler for sub
+	 * @internal
+	 * @param string $s
+	 * @param int $i
+	 * @param int $j
+	 * @return string[]
+	 */
 	public function ustringSub( $s, $i = 1, $j = -1 ) {
 		$this->checkString( 'sub', $s );
 		$this->checkTypeOptional( 'sub', 2, $i, 'number', 1 );
@@ -243,11 +313,23 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ $s ];
 	}
 
+	/**
+	 * Handler for upper
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
 	public function ustringUpper( $s ) {
 		$this->checkString( 'upper', $s );
 		return [ mb_strtoupper( $s, 'UTF-8' ) ];
 	}
 
+	/**
+	 * Handler for lower
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
 	public function ustringLower( $s ) {
 		$this->checkString( 'lower', $s );
 		return [ mb_strtolower( $s, 'UTF-8' ) ];
@@ -521,6 +603,15 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return $arr;
 	}
 
+	/**
+	 * Handler for find
+	 * @internal
+	 * @param string $s
+	 * @param string $pattern
+	 * @param int $init
+	 * @param bool $plain
+	 * @return array Format is [ null ], or [ int, int ], or [ int, int, (string|int)... ]
+	 */
 	public function ustringFind( $s, $pattern, $init = 1, $plain = false ) {
 		$this->checkString( 'find', $s );
 		$this->checkTypeOptional( 'find', 3, $init, 'number', 1 );
@@ -563,6 +654,14 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 	}
 
+	/**
+	 * Handler for match
+	 * @internal
+	 * @param string $s
+	 * @param string $pattern
+	 * @param int $init
+	 * @return array Format is [ null ] or [ (string|int)... ]
+	 */
 	public function ustringMatch( $s, $pattern, $init = 1 ) {
 		$this->checkString( 'match', $s );
 		$this->checkTypeOptional( 'match', 3, $init, 'number', 1 );
@@ -586,6 +685,13 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return $this->addCapturesFromMatch( [], $s, $m, $capt, true );
 	}
 
+	/**
+	 * Handler for gmatchInit
+	 * @internal
+	 * @param string $s
+	 * @param string $pattern
+	 * @return array Format is [ string, bool[] ]
+	 */
 	public function ustringGmatchInit( $s, $pattern ) {
 		$this->checkString( 'gmatch', $s );
 
@@ -593,6 +699,15 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ $re, $capt ];
 	}
 
+	/**
+	 * Handler for gmatchCallback
+	 * @internal
+	 * @param string $s
+	 * @param string $re
+	 * @param bool[] $capt
+	 * @param int $pos
+	 * @return array Format is [ int, [ null, (string|int)... ] ]
+	 */
 	public function ustringGmatchCallback( $s, $re, $capt, $pos ) {
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $pos ) ) {
 			return [ $pos, [] ];
@@ -601,6 +716,15 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		return [ $pos, $this->addCapturesFromMatch( [ null ], $s, $m, $capt, true ) ];
 	}
 
+	/**
+	 * Handler for gsub
+	 * @internal
+	 * @param string $s
+	 * @param string $pattern
+	 * @param mixed $repl
+	 * @param string|int|null $n
+	 * @return array Format is [ string, int ]
+	 */
 	public function ustringGsub( $s, $pattern, $repl, $n = null ) {
 		$this->checkString( 'gsub', $s );
 		$this->checkTypeOptional( 'gsub', 4, $n, 'number', null );

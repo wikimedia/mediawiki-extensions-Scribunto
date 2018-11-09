@@ -207,7 +207,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		return $this->lineCache['mw.lua'][$lineNum - 1];
 	}
 
-	function newInterpreter() {
+	protected function newInterpreter() {
 		return new Scribunto_LuaSandboxInterpreter( $this, $this->options );
 	}
 }
@@ -251,7 +251,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
-	function __construct( $engine, array $options ) {
+	public function __construct( $engine, array $options ) {
 		self::checkLuaSandboxVersion();
 
 		$this->engine = $engine;
@@ -377,7 +377,7 @@ class Scribunto_LuaSandboxCallback {
 	 */
 	protected $callback;
 
-	function __construct( $callback ) {
+	public function __construct( $callback ) {
 		$this->callback = $callback;
 	}
 
@@ -388,7 +388,7 @@ class Scribunto_LuaSandboxCallback {
 	 * @param array $args
 	 * @return mixed
 	 */
-	function __call( $funcName, $args ) {
+	public function __call( $funcName, $args ) {
 		try {
 			return ( $this->callback )( ...$args );
 		} catch ( Scribunto_LuaError $e ) {

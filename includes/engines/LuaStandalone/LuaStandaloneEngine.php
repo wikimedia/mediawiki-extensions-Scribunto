@@ -28,7 +28,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		];
 	}
 
-	function reportLimitData( ParserOutput $output ) {
+	public function reportLimitData( ParserOutput $output ) {
 		try {
 			$this->load();
 		} catch ( Exception $e ) {
@@ -59,7 +59,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 	}
 
-	function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
+	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
 		switch ( $key ) {
@@ -82,7 +82,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	/**
 	 * @return mixed
 	 */
-	function getClockTick() {
+	protected function getClockTick() {
 		if ( self::$clockTick === null ) {
 			Wikimedia\suppressWarnings();
 			self::$clockTick = intval( shell_exec( 'getconf CLK_TCK' ) );
@@ -97,7 +97,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	/**
 	 * @return Scribunto_LuaStandaloneInterpreter
 	 */
-	function newInterpreter() {
+	protected function newInterpreter() {
 		return new Scribunto_LuaStandaloneInterpreter( $this, $this->options + [
 			'logger' => LoggerFactory::getInstance( 'Scribunto' )
 		] );
@@ -170,7 +170,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 * @throws Scribunto_LuaInterpreterNotFoundError
 	 * @throws ScribuntoException
 	 */
-	function __construct( $engine, array $options ) {
+	public function __construct( $engine, array $options ) {
 		$this->id = self::$nextInterpreterId++;
 
 		if ( $options['errorFile'] === null ) {
@@ -280,7 +280,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$this->readPipe = $pipes[1];
 	}
 
-	function __destruct() {
+	public function __destruct() {
 		$this->terminate();
 	}
 
@@ -737,21 +737,21 @@ class Scribunto_LuaStandaloneInterpreterFunction {
 	 * @param int $interpreterId
 	 * @param int $id
 	 */
-	function __construct( $interpreterId, $id ) {
+	public function __construct( $interpreterId, $id ) {
 		$this->interpreterId = $interpreterId;
 		$this->id = $id;
 		$this->incrementRefCount();
 	}
 
-	function __clone() {
+	public function __clone() {
 		$this->incrementRefCount();
 	}
 
-	function __wakeup() {
+	public function __wakeup() {
 		$this->incrementRefCount();
 	}
 
-	function __destruct() {
+	public function __destruct() {
 		$this->decrementRefCount();
 	}
 

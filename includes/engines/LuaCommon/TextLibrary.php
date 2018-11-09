@@ -6,7 +6,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	const JSON_TRY_FIXING = 2;
 	const JSON_PRETTY = 4;
 
-	function register() {
+	public function register() {
 		global $wgUrlProtocols;
 
 		$lib = [
@@ -44,29 +44,59 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		return $this->getEngine()->registerInterface( 'mw.text.lua', $lib, $opts );
 	}
 
-	function textUnstrip( $s ) {
+	/**
+	 * Handler for textUnstrip
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
+	public function textUnstrip( $s ) {
 		$this->checkType( 'unstrip', 1, $s, 'string' );
 		$stripState = $this->getParser()->mStripState;
 		return [ $stripState->killMarkers( $stripState->unstripNoWiki( $s ) ) ];
 	}
 
-	function textUnstripNoWiki( $s ) {
+	/**
+	 * Handler for textUnstripNoWiki
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
+	public function textUnstripNoWiki( $s ) {
 		$this->checkType( 'unstripNoWiki', 1, $s, 'string' );
 		return [ $this->getParser()->mStripState->unstripNoWiki( $s ) ];
 	}
 
-	function killMarkers( $s ) {
+	/**
+	 * Handler for killMarkers
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
+	public function killMarkers( $s ) {
 		$this->checkType( 'killMarkers', 1, $s, 'string' );
 		return [ $this->getParser()->mStripState->killMarkers( $s ) ];
 	}
 
-	function getEntityTable() {
+	/**
+	 * Handler for getEntityTable
+	 * @internal
+	 * @return array[]
+	 */
+	public function getEntityTable() {
 		$table = array_flip(
 			get_html_translation_table( HTML_ENTITIES, ENT_QUOTES | ENT_HTML5, "UTF-8" )
 		);
 		return [ $table ];
 	}
 
+	/**
+	 * Handler for jsonEncode
+	 * @internal
+	 * @param mixed $value
+	 * @param string|int $flags
+	 * @return string[]
+	 */
 	public function jsonEncode( $value, $flags ) {
 		$this->checkTypeOptional( 'mw.text.jsonEncode', 2, $flags, 'number', 0 );
 		$flags = (int)$flags;
@@ -80,6 +110,13 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		return [ $ret ];
 	}
 
+	/**
+	 * Handler for jsonDecode
+	 * @internal
+	 * @param string $s
+	 * @param string|int $flags
+	 * @return array
+	 */
 	public function jsonDecode( $s, $flags ) {
 		$this->checkType( 'mw.text.jsonDecode', 1, $s, 'string' );
 		$this->checkTypeOptional( 'mw.text.jsonDecode', 2, $flags, 'number', 0 );

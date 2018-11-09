@@ -33,7 +33,7 @@ abstract class Scribunto_LuaLibraryBase {
 	/**
 	 * @param Scribunto_LuaEngine $engine
 	 */
-	function __construct( Scribunto_LuaEngine $engine ) {
+	public function __construct( Scribunto_LuaEngine $engine ) {
 		$this->engine = $engine;
 	}
 
@@ -46,7 +46,7 @@ abstract class Scribunto_LuaLibraryBase {
 	 *
 	 * @return array Lua package
 	 */
-	abstract function register();
+	abstract public function register();
 
 	/**
 	 * Get the engine

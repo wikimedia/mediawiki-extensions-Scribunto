@@ -1,7 +1,7 @@
 <?php
 
 class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
-	function register() {
+	public function register() {
 		$lib = [
 			'anchorEncode' => [ $this, 'anchorEncode' ],
 			'localUrl' => [ $this, 'localUrl' ],
@@ -14,6 +14,12 @@ class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 		] );
 	}
 
+	/**
+	 * Handler for anchorEncode
+	 * @internal
+	 * @param string $s
+	 * @return string[]
+	 */
 	public function anchorEncode( $s ) {
 		return [ CoreParserFunctions::anchorencode(
 			$this->getParser(), $s
@@ -41,14 +47,35 @@ class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
 		}
 	}
 
+	/**
+	 * Handler for localUrl
+	 * @internal
+	 * @param string $page
+	 * @param array $query
+	 * @return string[]|null[]
+	 */
 	public function localUrl( $page, $query ) {
 		return $this->getUrl( 'getLocalURL', $page, $query );
 	}
 
+	/**
+	 * Handler for fullUrl
+	 * @internal
+	 * @param string $page
+	 * @param array $query
+	 * @return string[]|null[]
+	 */
 	public function fullUrl( $page, $query ) {
 		return $this->getUrl( 'getFullURL', $page, $query );
 	}
 
+	/**
+	 * Handler for canonicalUrl
+	 * @internal
+	 * @param string $page
+	 * @param array $query
+	 * @return string[]|null[]
+	 */
 	public function canonicalUrl( $page, $query ) {
 		return $this->getUrl( 'getCanonicalURL', $page, $query );
 	}

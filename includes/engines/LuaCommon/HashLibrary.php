@@ -14,6 +14,7 @@ class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Returns a list of known/ supported hash algorithms
 	 *
+	 * @internal
 	 * @return string[][]
 	 */
 	public function listAlgorithms() {
@@ -26,6 +27,7 @@ class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Hash a given value.
 	 *
+	 * @internal
 	 * @param string $algo
 	 * @param string $value
 	 * @return string[]

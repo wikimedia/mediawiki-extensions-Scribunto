@@ -14,7 +14,7 @@
  */
 class ScribuntoContent extends TextContent {
 
-	function __construct( $text ) {
+	public function __construct( $text ) {
 		parent::__construct( $text, CONTENT_MODEL_SCRIBUNTO );
 	}
 
