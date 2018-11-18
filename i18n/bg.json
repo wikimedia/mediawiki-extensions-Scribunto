@@ -4,7 +4,8 @@
 			"DCLXVI",
 			"Termininja",
 			"පසිඳු කාවින්ද",
-			"StanProg"
+			"StanProg",
+			"ShockD"
 		]
 	},
 	"scribunto-line": "на ред $1",
@@ -29,5 +30,6 @@
 	"scribunto-lua-error-location": "Грешка в Lua $1: $2.",
 	"scribunto-lua-error": "Грешка в Lua: $2.",
 	"scribunto-luastandalone-proc-error": "Грешка в Lua: Не може да бъде създаден процес.",
-	"scribunto-luastandalone-decode-error": "Грешка в Lua: Вътрешна грешка: Не може да се декодира съобщението."
+	"scribunto-luastandalone-decode-error": "Грешка в Lua: Вътрешна грешка: Не може да се декодира съобщението.",
+	"nstab-module": "Модул"
 }
