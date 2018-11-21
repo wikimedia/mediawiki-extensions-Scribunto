@@ -72,13 +72,6 @@
 	"scribunto-limitreport-profile-ms": "Text to format the milliseconds in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}}.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-percent}}.\n\nParameters:\n* $1 - the time in milliseconds",
 	"scribunto-limitreport-profile-percent": "Text to format the time percentage in the \"Lua Profile\" table.\n\nPreceded by {{msg-mw|Scribunto-limitreport-profile}} and {{msg-mw|Scribunto-limitreport-profile-ms}}.\n\nParameters:\n* $1 - the percentage",
 	"scribunto-limitreport-logs": "Label for the \"Lua logs\" row in the limit report table",
-	"apihelp-scribunto-console-description": "{{doc-apihelp-description|scribunto-console}}",
-	"apihelp-scribunto-console-summary": "{{doc-apihelp-summary|scribunto-console}}",
-	"apihelp-scribunto-console-param-title": "{{doc-apihelp-param|scribunto-console|title}}",
-	"apihelp-scribunto-console-param-content": "{{doc-apihelp-param|scribunto-console|content}}",
-	"apihelp-scribunto-console-param-session": "{{doc-apihelp-param|scribunto-console|session}}",
-	"apihelp-scribunto-console-param-question": "{{doc-apihelp-param|scribunto-console|question}}",
-	"apihelp-scribunto-console-param-clear": "Probably a way to delete the history, variables etc. of the Scribunto debug console, i.e. an environment where Lua modules can be tested (not currently documented).\n----\n{{doc-apihelp-param|scribunto-console|clear}}",
 	"nstab-module": "The name for the tab of the Module namespace.\n\nSee also:\n* {{msg-mw|Nstab-module}}\n* {{msg-mw|Tooltip-ca-nstab-module}}\n{{Identical|Module}}",
 	"tooltip-ca-nstab-module": "Tooltip shown when hovering over the {{msg-mw|Nstab-module}} tab.\n\nSee also:\n* {{msg-mw|Nstab-module}}\n* {{msg-mw|Tooltip-ca-nstab-module}}"
 }
