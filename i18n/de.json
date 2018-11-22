@@ -59,11 +59,6 @@
 	"scribunto-limitreport-profile": "Lua – Profil",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-Logbücher",
-	"apihelp-scribunto-console-param-title": "Der Titel des zu testenden Moduls.",
-	"apihelp-scribunto-console-param-content": "Der neue Inhalt des Moduls.",
-	"apihelp-scribunto-console-param-session": "Sitzungs-Token.",
-	"apihelp-scribunto-console-param-question": "Die nächste Zeile, die als Skript evaluiert werden soll.",
-	"apihelp-scribunto-console-param-clear": "Setzt den aktuellen Sitzungsstatus fest oder löscht ihn.",
 	"nstab-module": "Modul",
 	"tooltip-ca-nstab-module": "Die Modulseite ansehen"
 }

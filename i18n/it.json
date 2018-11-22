@@ -62,7 +62,6 @@
 	"scribunto-limitreport-profile": "Profilo Lua",
 	"scribunto-limitreport-profile-ms": "$1&nbsp;ms",
 	"scribunto-limitreport-logs": "Registri Lua",
-	"apihelp-scribunto-console-param-title": "Titolo del modulo su cui effettuare test.",
 	"nstab-module": "Modulo",
 	"tooltip-ca-nstab-module": "Vedi la pagina del modulo"
 }

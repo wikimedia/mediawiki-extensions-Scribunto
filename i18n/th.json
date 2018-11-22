@@ -58,12 +58,6 @@
 	"scribunto-limitreport-profile": "โพรไฟล์ของสคริปต์ลูอา",
 	"scribunto-limitreport-profile-ms": "$1 มิลลิวินาที",
 	"scribunto-limitreport-logs": "ปูมของสคริปต์ลูอา",
-	"apihelp-scribunto-console-description": "มอดูลภายในสำหรับให้บริการการร้องขอ XHR จากคอนโซลสกรีบุนโท",
-	"apihelp-scribunto-console-param-title": "ชื่อเรื่องของมอดูลเพื่อทดสอบ",
-	"apihelp-scribunto-console-param-content": "เนื้อหาใหม่ของมอดูล",
-	"apihelp-scribunto-console-param-session": "โทเค็นช่วงเวลาสื่อสาร",
-	"apihelp-scribunto-console-param-question": "บรรทัดถัดไปที่จะประเมินเป็นสคริปต์",
-	"apihelp-scribunto-console-param-clear": "ตั้งค่าเพื่อล้างสถานะช่วงเวลาสื่อสารปัจจุบัน",
 	"nstab-module": "มอดูล",
 	"tooltip-ca-nstab-module": "ดูหน้ามอดูล"
 }

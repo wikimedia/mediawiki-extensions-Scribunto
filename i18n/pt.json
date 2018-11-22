@@ -62,13 +62,6 @@
 	"scribunto-limitreport-profile": "Perfil de Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Registos Lua",
-	"apihelp-scribunto-console-description": "Módulo interno para responder a pedidos XHR vindos da consola Scribunto.",
-	"apihelp-scribunto-console-summary": "Módulo interno para responder a pedidos XHR vindos da consola Scribunto.",
-	"apihelp-scribunto-console-param-title": "O título do módulo a ser testado.",
-	"apihelp-scribunto-console-param-content": "O novo conteúdo do módulo.",
-	"apihelp-scribunto-console-param-session": "Chave da sessão.",
-	"apihelp-scribunto-console-param-question": "A próxima linha a calcular como um comando.",
-	"apihelp-scribunto-console-param-clear": "Definir para limpar o estado da sessão atual.",
 	"nstab-module": "Módulo",
 	"tooltip-ca-nstab-module": "Ver a página do módulo"
 }

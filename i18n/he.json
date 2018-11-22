@@ -58,13 +58,6 @@
 	"scribunto-limitreport-profile": "פרופיל לואה",
 	"scribunto-limitreport-profile-ms": "$1 מ\"ש",
 	"scribunto-limitreport-logs": "יומני לואה",
-	"apihelp-scribunto-console-description": "יחידה פנימית לשירות בקשות XHR ממסוף Scribunto.",
-	"apihelp-scribunto-console-summary": "יחידה פנימית להבאת בקשות XHR ממסוף Scribunto.",
-	"apihelp-scribunto-console-param-title": "שם היחידה לבדיקה.",
-	"apihelp-scribunto-console-param-content": "התוכן החדש ליחידה.",
-	"apihelp-scribunto-console-param-session": "אסימון שיחה.",
-	"apihelp-scribunto-console-param-question": "השורה הבאה להערכה בתור תסריט.",
-	"apihelp-scribunto-console-param-clear": "להגדיר כדי לנקות את מצב השיחה הנוכחי.",
 	"nstab-module": "יחידה",
 	"tooltip-ca-nstab-module": "צפייה בדף היחידה"
 }

@@ -30,7 +30,6 @@
 	"scribunto-limitreport-profile": "Lua profils",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua žurnāli",
-	"apihelp-scribunto-console-param-content": "Jaunais moduļa saturs",
 	"nstab-module": "Modulis",
 	"tooltip-ca-nstab-module": "Apskatīt moduļa lapu"
 }

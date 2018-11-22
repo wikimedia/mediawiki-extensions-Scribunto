@@ -63,8 +63,6 @@
 	"scribunto-limitreport-profile-ms": "$1 میلی‌ثانیه",
 	"scribunto-limitreport-profile-percent": "$1٪",
 	"scribunto-limitreport-logs": "سیاهه لوآ",
-	"apihelp-scribunto-console-param-title": "عنوان پودمان برای تست",
-	"apihelp-scribunto-console-param-session": "بلیط سشن.",
 	"nstab-module": "پودمان",
 	"tooltip-ca-nstab-module": "دیدن صفحه پودمان"
 }

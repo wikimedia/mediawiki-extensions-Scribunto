@@ -23,7 +23,6 @@
 	"scribunto-limitreport-timeusage-value": "$1/$2 Sekonnen",
 	"scribunto-limitreport-profile": "Lua – Profil",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"apihelp-scribunto-console-param-title": "Den Titel vum Modul fir ze testen.",
 	"nstab-module": "Modul",
 	"tooltip-ca-nstab-module": "D'Modulsäit weisen"
 }

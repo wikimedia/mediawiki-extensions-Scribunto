@@ -63,9 +63,6 @@
 	"scribunto-limitreport-profile": "Luaprofiel",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua logboeken",
-	"apihelp-scribunto-console-param-title": "De titel van de module om te testen.",
-	"apihelp-scribunto-console-param-content": "De nieuwe inhoud van de module.",
-	"apihelp-scribunto-console-param-session": "Sessiesleutel.",
 	"nstab-module": "Module",
 	"tooltip-ca-nstab-module": "Modulepagina bekijken"
 }

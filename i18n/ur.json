@@ -22,6 +22,5 @@
 	"scribunto-common-no-details": "کوئی اضافہ معلومات میسر نہیں۔",
 	"scribunto-lua-error-location": "لوا خطا $1: $2۔",
 	"scribunto-lua-error": "لوا خطا: $2۔",
-	"scribunto-limitreport-profile": "لوا پروفائل",
-	"apihelp-scribunto-console-param-session": "نشست ٹوکن۔"
+	"scribunto-limitreport-profile": "لوا پروفائل"
 }

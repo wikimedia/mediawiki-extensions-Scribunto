@@ -27,9 +27,6 @@
 	"scribunto-module-with-errors-category-desc": "Modhulé ngemu masalah ing njeroné.",
 	"scribunto-limitreport-timeusage": "Panggunané wektu Lua",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekon",
-	"apihelp-scribunto-console-param-title": "Sesirah modhul sing arep diuji.",
-	"apihelp-scribunto-console-param-content": "Kontèn anyaré modhul.",
-	"apihelp-scribunto-console-param-session": "Token sèsi.",
 	"nstab-module": "Modhul",
 	"tooltip-ca-nstab-module": "Deleng kaca modhul"
 }

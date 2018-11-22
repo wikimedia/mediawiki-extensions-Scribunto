@@ -61,13 +61,6 @@
 	"scribunto-limitreport-profile": "ملف تعريف لوا",
 	"scribunto-limitreport-profile-ms": "$1 مللي ثانية",
 	"scribunto-limitreport-logs": "سجل لوا",
-	"apihelp-scribunto-console-description": "وحدة داخلية لخدمة طلبات XHR من وحدة Scribunto.",
-	"apihelp-scribunto-console-summary": "وحدة داخلية لخدمة طلبات XHR من وحدة Scribunto.",
-	"apihelp-scribunto-console-param-title": "عنوان الوحدة لاختبارها.",
-	"apihelp-scribunto-console-param-content": "المحتوى الجديد للوحدة.",
-	"apihelp-scribunto-console-param-session": "رمز الجلسة.",
-	"apihelp-scribunto-console-param-question": "السطر التالي للتقييم كنص.",
-	"apihelp-scribunto-console-param-clear": "اضبط لمسح حالة الجلسة الحالية.",
 	"nstab-module": "وحدة",
 	"tooltip-ca-nstab-module": "عرض صفحة الوحدة"
 }

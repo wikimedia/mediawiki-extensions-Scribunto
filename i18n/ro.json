@@ -30,9 +30,6 @@
 	"scribunto-limitreport-virtmemusage": "Mărime virtuală Lua",
 	"scribunto-limitreport-profile": "Profil Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"apihelp-scribunto-console-param-title": "Titllul modulului de testat",
-	"apihelp-scribunto-console-param-content": "Noul conținut al modulului.",
-	"apihelp-scribunto-console-param-session": "Token de sesiune.",
 	"nstab-module": "Modul",
 	"tooltip-ca-nstab-module": "Vezi modulul"
 }
