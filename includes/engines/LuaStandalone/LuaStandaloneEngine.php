@@ -404,9 +404,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function registerLibrary( $name, array $functions ) {
+		// Make sure all ids are unique, even when libraries share the same name
+		// which is especially relevant for "mw_interface" (T211203).
+		static $uid = 0;
+		$uid++;
+
 		$functionIds = [];
 		foreach ( $functions as $funcName => $callback ) {
-			$id = "$name-$funcName";
+			$id = "$name-$funcName-$uid";
 			$this->callbacks[$id] = $callback;
 			$functionIds[$funcName] = $id;
 		}

@@ -1,6 +1,9 @@
 <?php
 
 abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
+	/**
+	 * @return Scribunto_LuaInterpreter
+	 */
 	abstract protected function newInterpreter( $opts = [] );
 
 	protected function setUp() {
@@ -158,4 +161,36 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$res = $interpreter->callFunction( $chunk, $func );
 		$this->assertEquals( [ 42, 'From Lua' ], $res );
 	}
+
+	public function testRegisterInterfaceWithSameName() {
+		$interpreter = $this->newInterpreter();
+		$test1Called = false;
+		$test2Called = false;
+
+		// Like a first call to Scribunto_LuaEngine::registerInterface()
+		$interpreter->registerLibrary( 'mw_interface', [
+			'foo' => function ( $v ) use ( &$test1Called ) {
+				$test1Called = $v;
+			},
+		] );
+		$interpreter->callFunction(
+			$interpreter->loadString( 'test1 = mw_interface; mw_interface = nil', 'test' )
+		);
+		// Like a second call to Scribunto_LuaEngine::registerInterface()
+		$interpreter->registerLibrary( 'mw_interface', [
+			'foo' => function ( $v ) use ( &$test2Called ) {
+				$test2Called = $v;
+			},
+		] );
+		$interpreter->callFunction(
+			$interpreter->loadString( 'test2 = mw_interface; mw_interface = nil', 'test' )
+		);
+		// Call both of the interfaces registered above.
+		$interpreter->callFunction(
+			$interpreter->loadString( 'test1.foo( "first" ); test2.foo( "second" )', 'test' )
+		);
+		$this->assertSame( 'first', $test1Called, 'test1.foo was called with "first"' );
+		$this->assertSame( 'second', $test2Called, 'test2.foo was called with "second"' );
+	}
+
 }
