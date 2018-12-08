@@ -342,6 +342,11 @@ $namespaceNames['mzn'] = [
 	829 => 'ماژول_گپ',
 ];
 
+$namespaceNames['nap'] = [
+	828 => 'Modulo',
+	829 => 'Modulo_chiàcchiera',
+];
+
 $namespaceNames['nb'] = [
 	828 => 'Modul',
 	829 => 'Moduldiskusjon',
