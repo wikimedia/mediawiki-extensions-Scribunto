@@ -728,6 +728,48 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 			);
 		}
 	}
+
+	public function testNonUtf8Errors() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+
+		$this->extraModules['Module:T208689'] = '
+			local p = {}
+
+			p["foo\255bar"] = function ()
+				error( "error\255bar" )
+			end
+
+			p.foo = function ()
+				p["foo\255bar"]()
+			end
+
+			return p
+		';
+
+		// As via the API
+		try {
+			$engine->runConsole( [
+				'prevQuestions' => [],
+				'question' => 'p.foo()',
+				'title' => Title::newFromText( 'Module:T208689' ),
+				'content' => $this->extraModules['Module:T208689'],
+			] );
+			$this->fail( 'Expected exception not thrown' );
+		} catch ( ScribuntoException $e ) {
+			$this->assertTrue( mb_check_encoding( $e->getMessage(), 'UTF-8' ), 'Message is UTF-8' );
+			$this->assertTrue( mb_check_encoding( $e->getScriptTraceHtml(), 'UTF-8' ), 'Message is UTF-8' );
+		}
+
+		// Via the parser
+		$text = $parser->recursiveTagParseFully( '{{#invoke:T208689|foo}}' );
+		$this->assertTrue( mb_check_encoding( $text, 'UTF-8' ), 'Parser output is UTF-8' );
+		$vars = $parser->getOutput()->getJsConfigVars();
+		$this->assertArrayHasKey( 'ScribuntoErrors', $vars );
+		foreach ( $vars['ScribuntoErrors'] as $err ) {
+			$this->assertTrue( mb_check_encoding( $err, 'UTF-8' ), 'JS config vars are UTF-8' );
+		}
+	}
 }
 
 class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
