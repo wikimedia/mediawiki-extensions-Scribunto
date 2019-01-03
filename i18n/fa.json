@@ -9,7 +9,8 @@
 			"Ebraminio",
 			"Calak",
 			"Dalba",
-			"Ladsgroup"
+			"Ladsgroup",
+			"Huji"
 		]
 	},
 	"scribunto-desc": "چارچوبی برای تعبیه‌کردن زبان‌های اسکریپتی در صفحه‌های مدیاویکی",
@@ -52,7 +53,7 @@
 	"scribunto-luastandalone-gone": "خطای لوآ: خطای داخلی: مفسر قبلاً خارج شده است.",
 	"scribunto-luastandalone-signal": "خطای لوآ: خطای داخلی: مفسر با سیگنال «$2» خاتمه یافته است.",
 	"scribunto-luastandalone-exited": "خطای لوآ: خطای داخلی: مفسر با وضعیت $2 خارج شده است.",
-	"scribunto-module-with-errors-category": "ماژول‌های اسکرایبونتو با خطاها",
+	"scribunto-module-with-errors-category": "ماژول‌های اسکریبونتو دارای خطا",
 	"scribunto-module-with-errors-category-desc": "این پودمان در خود خطا دارد.",
 	"scribunto-limitreport-timeusage": "مصرف زمان لوآ",
 	"scribunto-limitreport-timeusage-value": "$1/ $2  ثانیه",
