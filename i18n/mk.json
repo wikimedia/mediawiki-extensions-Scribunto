@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjankuloski06"
+			"Bjankuloski06",
+			"Vlad5250"
 		]
 	},
 	"scribunto-desc": "Рамка за вметнување на скриптни јазици во страница на МедијаВики",
@@ -21,7 +22,7 @@
 	"scribunto-console-cleared": "Состојбата на конзолата е исчистена поради поднова на модулот.",
 	"scribunto-console-cleared-session-lost": "Состојбата на конзолата е исчистена поради загуба на податоците од седницата.",
 	"scribunto-common-error-category": "Страници со грешки во скриптата",
-	"scribunto-common-error-category-desc": "Се јави грешка при обработката на модулите во страницава.",
+	"scribunto-common-error-category-desc": "Се јави грешка при обработката на модулите во страницата.",
 	"scribunto-common-nosuchmodule": "Грешка во скриптата: Нема модул наречен „$2“.",
 	"scribunto-common-nofunction": "Грешка во скриптата: Мора да ја наведете функцијата што треба да се повика.",
 	"scribunto-common-nosuchfunction": "Грешка во скриптата: Функцијата „$2“ не постои.",
