@@ -13,7 +13,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''Le documentation pro iste modulo pote esser create in [[$1]]''",
 	"scribunto-doc-page-header": "'''Iste es le pagina de documentation pro [[$1]]'''",
-	"scribunto-console-intro": "* Le exportationes del modulo es disponibile como le variabile \"p\", incluse le modificationes non salveguardate.\n* Initia un linea con \"=\" pro evalutar lo como expression, o usa print().\n* Usa mw.log() in le codice del modulo pro inviar messages a iste consola.",
+	"scribunto-console-intro": "* Le exportationes del modulo es disponibile como le variabile \"p\", incluse le modificationes non salveguardate.\n* Initia un linea con \"=\" pro evalutar lo como expression, o usa print(). Usa mw.logObject() pro tabellas.\n* Usa mw.log() e mw.logObject() in le codice del modulo pro inviar messages a iste consola.",
 	"scribunto-console-title": "Consola de debug",
 	"scribunto-console-too-large": "Iste session de consola es troppo grande. Per favor rade le historia del consola o reduce le dimension del modulo.",
 	"scribunto-console-current-src": "entrata del consola",
