@@ -27,7 +27,7 @@
 	"scribunto-console-clear": "Limpar",
 	"scribunto-console-cleared": "O estado do interpretador foi esvaziado porque o módulo foi atualizado.",
 	"scribunto-console-cleared-session-lost": "O estado do interpretador foi esvaziado porque os dados de sessão foram perdidos.",
-	"scribunto-common-error-category": "Páginas com erros de sequência de comandos",
+	"scribunto-common-error-category": "Páginas com erros de comandos",
 	"scribunto-common-error-category-desc": "Ocorreu um erro ao processar os módulos incluídos na página.",
 	"scribunto-common-nosuchmodule": "Erro de script: Nenhum módulo desse tipo \"$2\".",
 	"scribunto-common-nofunction": "Erro de script: você deve especificar uma função para chamar.",
