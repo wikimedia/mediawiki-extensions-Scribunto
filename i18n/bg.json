@@ -20,6 +20,7 @@
 	"scribunto-console-title": "Конзола за отстраняване на грешки",
 	"scribunto-console-clear": "Изчистване",
 	"scribunto-common-error-category": "Страници с грешки в скрипта",
+	"scribunto-common-error-category-desc": "Грешка при обработката на модула в страницата.",
 	"scribunto-common-nosuchmodule": "Грешка в скрипта: Не съществува модул с име „$2“.",
 	"scribunto-common-nofunction": "Грешка в скрипта: Необходимо е да се посочи име на функция.",
 	"scribunto-common-nosuchfunction": "Грешка в скрипта: Функцията „$2“ не съществува.",
@@ -33,5 +34,6 @@
 	"scribunto-luastandalone-proc-error": "Грешка в Lua: Не може да бъде създаден процес.",
 	"scribunto-luastandalone-decode-error": "Грешка в Lua: Вътрешна грешка: Не може да се декодира съобщението.",
 	"scribunto-module-with-errors-category": "Модули с грешки",
+	"scribunto-module-with-errors-category-desc": "Модулът съдържа грешка.",
 	"nstab-module": "Модул"
 }
