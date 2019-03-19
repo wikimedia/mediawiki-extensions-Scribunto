@@ -336,7 +336,6 @@ Scribunto: expandTemplate with headers
 !! result
 <h2><span class="mw-headline" id="foo">foo</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: foo">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
 <h2><span class="mw-headline" id="bar">bar</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Template:Scribunto_template_with_headers&amp;action=edit&amp;section=T-1" title="Template:Scribunto template with headers">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
-
 !! end
 
 !! test
@@ -484,7 +483,6 @@ Scribunto: Strip markers in CSS
 {{#invoke:test|testStrippedCss|<nowiki>#ff0000</nowiki>}}
 !! result
 <div style="color:#ff0000"></div>
-
 !! end
 
 !! test
