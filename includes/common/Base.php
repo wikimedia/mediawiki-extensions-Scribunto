@@ -128,8 +128,7 @@ abstract class ScribuntoEngineBase {
 	 * @return mixed
 	 */
 	public function getOption( $optionName ) {
-		return isset( $this->options[$optionName] )
-			? $this->options[$optionName] : null;
+		return $this->options[$optionName] ?? null;
 	}
 
 	/**

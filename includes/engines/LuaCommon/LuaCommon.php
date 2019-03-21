@@ -241,7 +241,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$oldExpandCache = $this->expandCache;
 		$this->currentFrames = [
 			'current' => $frame,
-			'parent' => isset( $frame->parent ) ? $frame->parent : null,
+			'parent' => $frame->parent ?? null,
 		];
 		$this->expandCache = [];
 
@@ -374,7 +374,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		# Prepending an "@" to the chunk name makes Lua think it is a filename
 		$module = $this->getInterpreter()->loadString( $code, '@' . basename( $fileName ) );
 		$ret = $this->getInterpreter()->callFunction( $module );
-		return isset( $ret[0] ) ? $ret[0] : null;
+		return $ret[0] ?? null;
 	}
 
 	public function getGeSHiLanguage() {
@@ -441,8 +441,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$ret = $this->getInterpreter()->callFunction( $func, $contentInit, $contentExe );
 
 		return [
-			'return' => isset( $ret[0] ) ? $ret[0] : null,
-			'print' => isset( $ret[1] ) ? $ret[1] : '',
+			'return' => $ret[0] ?? null,
+			'print' => $ret[1] ?? '',
 		];
 	}
 

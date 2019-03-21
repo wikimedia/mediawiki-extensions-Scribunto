@@ -803,7 +803,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				if ( $anypos ) {
 					$m = array_shift( $captures );
 				}
-				$x = isset( $m['m1'] ) ? $m['m1'] : $m[0];
+				$x = $m['m1'] ?? $m[0];
 				if ( !isset( $repl[$x] ) || $repl[$x] === null ) {
 					return $m[0];
 				}

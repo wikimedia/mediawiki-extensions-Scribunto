@@ -213,9 +213,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		$this->engine = $engine;
 		$this->enableDebug = !empty( $options['debug'] );
-		$this->logger = isset( $options['logger'] )
-			? $options['logger']
-			: new NullLogger();
+		$this->logger = $options['logger'] ?? new NullLogger();
 
 		$pipes = null;
 		$cmd = wfEscapeShellArg(
