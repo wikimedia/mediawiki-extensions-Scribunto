@@ -96,7 +96,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 	 * @internal
 	 * @param string|null $category
 	 * @param string|null $which
-	 * @return int[]
+	 * @return int[]|int[][]
 	 */
 	public function pagesInCategory( $category = null, $which = null ) {
 		$this->checkType( 'pagesInCategory', 1, $category, 'string' );
