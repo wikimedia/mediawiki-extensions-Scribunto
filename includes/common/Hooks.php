@@ -363,7 +363,6 @@ class ScribuntoHooks {
 			return true;
 		}
 
-		/** @suppress PhanUndeclaredMethod */
 		$validateStatus = $content->validate( $title );
 		if ( $validateStatus->isOK() ) {
 			return true;

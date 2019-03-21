@@ -41,6 +41,7 @@ class Scribunto {
 			throw new MWException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
 		}
 		$options = $extraOptions + $wgScribuntoEngineConf[$wgScribuntoDefaultEngine];
+		// @phan-suppress-next-line PhanTypeMismatchArgument false positive
 		return self::newEngine( $options );
 	}
 

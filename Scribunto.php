@@ -1,5 +1,5 @@
 <?php
-
+// @phan-file-suppress PhanUndeclaredVariableDim false positive
 if ( function_exists( 'wfLoadExtension' ) ) {
 	wfLoadExtension( 'Scribunto' );
 	// Keep i18n globals so mergeMessageFileList.php doesn't break

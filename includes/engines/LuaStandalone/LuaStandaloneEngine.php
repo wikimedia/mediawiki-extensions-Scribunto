@@ -6,6 +6,7 @@ use Psr\Log\NullLogger;
 
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	protected static $clockTick;
+	/** @var array|bool */
 	public $initialStatus;
 
 	/**
@@ -73,7 +74,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 				$value = array_map( [ $lang, 'formatSize' ], $value );
 				break;
 			case 'scribunto-limitreport-estmemusage':
-				/** @suppress PhanTypeMismatchArgument */
+				// @phan-suppress-next-line PhanTypeMismatchArgument
 				$value = $lang->formatSize( $value );
 				break;
 		}
@@ -130,7 +131,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	public $enableDebug;
 
 	/**
-	 * @var resource
+	 * @var resource|bool
 	 */
 	public $proc;
 
@@ -684,6 +685,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		proc_terminate( $this->proc );
 		while ( true ) {
 			$status = proc_get_status( $this->proc );
+			// XXX: Should proc_get_status docs be changed so that
+			// its documented as possibly returning false?
+			// @phan-suppress-next-line PhanTypeComparisonFromArray
 			if ( $status === false ) {
 				// WTF? Let the caller throw an appropriate error.
 				return;

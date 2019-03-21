@@ -567,7 +567,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		$module = $this->fetchModuleFromParser( $title );
 		if ( $module ) {
-			/** @suppress PhanUndeclaredMethod */
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			return [ $module->getInitChunk() ];
 		} else {
 			return [];
@@ -1045,27 +1045,27 @@ class Scribunto_LuaError extends ScribuntoException {
 			}
 
 			if ( strval( $info['namewhat'] ) !== '' ) {
-				$function = wfMessage( 'scribunto-lua-in-function', wfEscapeWikiText( $info['name'] ) );
+				$functionMsg = wfMessage( 'scribunto-lua-in-function', wfEscapeWikiText( $info['name'] ) );
 				in_array( 'content', $msgOptions ) ?
-					$function = $function->inContentLanguage()->plain() :
-					$function = $function->plain();
+					$function = $functionMsg->inContentLanguage()->plain() :
+					$function = $functionMsg->plain();
 			} elseif ( $info['what'] == 'main' ) {
-				$function = wfMessage( 'scribunto-lua-in-main' );
+				$functionMsg = wfMessage( 'scribunto-lua-in-main' );
 				in_array( 'content', $msgOptions ) ?
-					$function = $function->inContentLanguage()->plain() :
-					$function = $function->plain();
+					$function = $functionMsg->inContentLanguage()->plain() :
+					$function = $functionMsg->plain();
 			} else {
 				// C function, tail call, or a Lua function where Lua can't
 				// guess the name
 				$function = '?';
 			}
 
-			$backtraceLine = wfMessage( 'scribunto-lua-backtrace-line' )
+			$backtraceLineMsg = wfMessage( 'scribunto-lua-backtrace-line' )
 				->rawParams( "<strong>$src</strong>" )
 				->params( $function );
 			in_array( 'content', $msgOptions ) ?
-				$backtraceLine = $backtraceLine->inContentLanguage()->parse() :
-				$backtraceLine = $backtraceLine->parse();
+				$backtraceLine = $backtraceLineMsg->inContentLanguage()->parse() :
+				$backtraceLine = $backtraceLineMsg->parse();
 
 			$s .= "<li>$backtraceLine</li>";
 		}

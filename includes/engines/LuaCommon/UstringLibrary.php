@@ -476,6 +476,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 						// Because %f considers the beginning and end of the string
 						// to be \0, determine if $re2 matches that and take it
 						// into account with "^" and "$".
+						// @phan-suppress-next-line PhanParamSuspiciousOrder
 						if ( preg_match( "/$re2/us", "\0" ) ) {
 							$re .= "(?<!^)(?<!$re2)(?=$re2|$)";
 						} else {
