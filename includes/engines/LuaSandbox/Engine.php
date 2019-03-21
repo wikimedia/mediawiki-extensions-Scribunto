@@ -309,9 +309,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		# 	$name, [ $this, 'callback' ], $functions );
 	}
 
-	public function callFunction( $func /*, ... */ ) {
-		$args = func_get_args();
-		$func = array_shift( $args );
+	public function callFunction( $func, ...$args ) {
 		try {
 			$ret = $func->call( ...$args );
 			if ( $ret === false ) {

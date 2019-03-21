@@ -16,8 +16,9 @@ abstract class Scribunto_LuaInterpreter {
 	 * at zero. If an error occurs, a Scribunto_LuaError will be thrown.
 	 *
 	 * @param mixed $func The function object
+	 * @param mixed ...$args Arguments to the function
 	 */
-	abstract public function callFunction( $func /*...*/ );
+	abstract public function callFunction( $func, ...$args );
 
 	/**
 	 * Wrap a PHP callable as a Lua function, which can be passed back into
