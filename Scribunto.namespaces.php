@@ -474,7 +474,7 @@ $namespaceNames['tcy'] = [
 
 $namespaceNames['te'] = [
 	828 => 'మాడ్యూల్',
-	829 => 'మాడ్యూల్_సంభాషణ',
+	829 => 'మాడ్యూల్ చర్చ',
 ];
 
 $namespaceNames['tg'] = [
