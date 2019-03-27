@@ -27,7 +27,7 @@ class ScribuntoContent extends TextContent {
 	public function validate( Title $title ) {
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( $title );
-		return $engine->validate( $this->getNativeData(), $title->getPrefixedDBkey() );
+		return $engine->validate( $this->getText(), $title->getPrefixedDBkey() );
 	}
 
 	public function prepareSave( WikiPage $page, $flags, $parentRevId, User $user ) {
@@ -49,7 +49,7 @@ class ScribuntoContent extends TextContent {
 	) {
 		global $wgParser;
 
-		$text = $this->getNativeData();
+		$text = $this->getText();
 
 		// Get documentation, if any
 		$output = new ParserOutput();
