@@ -367,6 +367,11 @@ $namespaceNames['nn'] = [
 	829 => 'Moduldiskusjon',
 ];
 
+$namespaceNames['nqo'] = [
+	828 => 'ߗߋ߬ߞߙߊߞߏ',
+	829 => 'ߗߋ߬ߞߙߊߞߏ ߢߊߝߐߞߣߍ',
+];
+
 $namespaceNames['or'] = [
 	828 => 'ମଡ୍ୟୁଲ',
 	829 => 'ମଡ୍ୟୁଲ_ଆଲୋଚନା',
