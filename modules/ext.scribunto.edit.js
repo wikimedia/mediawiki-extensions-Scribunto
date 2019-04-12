@@ -362,7 +362,7 @@
 					$( '<textarea>' )
 						.attr( {
 							id: 'mw-scribunto-input',
-							'class': 'mw-scribunto-input',
+							class: 'mw-scribunto-input',
 							wrap: 'off',
 							rows: 1,
 							dir: 'ltr',
