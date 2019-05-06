@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Lancine.kounfantoh.fofana"
+			"Lancine.kounfantoh.fofana",
+			"Youssoufkadialy"
 		]
 	},
-	"scribunto-lua-error": "ߟߎߊ߫ ߝߎ߬ߕߎ߲߬ߕߌ $2"
+	"scribunto-lua-error": "ߟߎߊ߫ ߝߎߕߌ߲ߕߌ:$2."
 }
