@@ -191,7 +191,12 @@ function uri.validate( obj )
 	if obj.host then
 		if type( obj.host ) ~= 'string' then
 			err[#err+1] = '.host must be a string, not ' .. type( obj.host )
-		elseif not string.match( obj.host, '^[^:/?#]*$' ) then
+		elseif not (
+			-- Normal syntax
+			string.match( obj.host, '^[^:/?#]*$' ) or
+			-- IP-literal syntax
+			string.match( obj.host, '^%[[^/?#%[%]@]+%]$' )
+		) then
 			err[#err+1] = 'invalid .host'
 		end
 	end
@@ -450,15 +455,27 @@ function urimt:__newindex( key, value )
 		local host, port = nil, nil
 		if value then
 			checkTypeForIndex( key, value, 'string' )
-			local i = string.find( value, ':', 1, true )
-			if i then
-				host = string.sub( value, 1, i - 1 )
-				port = tonumber( string.sub( value, i + 1 ) )
-				if not port then
-					error( string.format( "Invalid port in '%s'", value ), 2 )
+
+			-- IP-literal syntax, with and without a port
+			host, port = string.match( value, '^(%[[^/?#%[%]@]+%]):(%d+)$' )
+			if port then
+				port = tonumber( port )
+			end
+			if not host then
+				host = string.match( value, '^(%[[^/?#%[%]@]+%])$' )
+			end
+			-- Normal syntax
+			if not host then
+				local i = string.find( value, ':', 1, true )
+				if i then
+					host = string.sub( value, 1, i - 1 )
+					port = tonumber( string.sub( value, i + 1 ) )
+					if not port then
+						error( string.format( "Invalid port in '%s'", value ), 2 )
+					end
+				else
+					host = value
 				end
-			else
-				host = value
 			end
 		end
 		rawset( self, 'host', host )

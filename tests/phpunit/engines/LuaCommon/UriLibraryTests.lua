@@ -126,6 +126,15 @@ local tests = {
 	  args = { 'http://wiki.local/w/index.php#' },
 	  expect = { 'http://wiki.local/w/index.php#' },
 	},
+
+	{ name = 'uri.new with IPv6', func = mw.uri.new, type = 'ToString',
+	  args = { 'http://[2001:db8::]' },
+	  expect = { 'http://[2001:db8::]' },
+	},
+	{ name = 'uri.new with IPv6 and port', func = mw.uri.new, type = 'ToString',
+	  args = { 'http://[2001:db8::]:80' },
+	  expect = { 'http://[2001:db8::]:80' },
+	},
 }
 
 -- Add tests to test round-tripping for every combination of parameters
