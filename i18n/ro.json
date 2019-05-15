@@ -5,7 +5,8 @@
 			"Stelistcristi",
 			"XXN",
 			"Andreyyshore",
-			"Strainu"
+			"Strainu",
+			"Andrei Stroe"
 		]
 	},
 	"scribunto-line": "la linia $1",
@@ -20,9 +21,9 @@
 	"scribunto-console-clear": "Șterge",
 	"scribunto-console-cleared": "Starea consolei a fost ștearsă deoarece modulul a fost actualizat.",
 	"scribunto-common-error-category": "Pagini cu erori de script",
-	"scribunto-common-nosuchmodule": "Eroare în script: Niciun astfel de modul.",
+	"scribunto-common-nosuchmodule": "Eroare în script: Nu există modulul „$2”.",
 	"scribunto-common-nofunction": "Eroare în script: Trebuie să specificați o funcție pentru apelare.",
-	"scribunto-common-nosuchfunction": "Eroare în script: Funcția specificată nu există.",
+	"scribunto-common-nosuchfunction": "Eroare în script: Funcția „$2” nu există.",
 	"scribunto-lua-in-function-at": "în funcția de la $1:$2",
 	"scribunto-lua-error-location": "Eroare Lua $1: $2",
 	"scribunto-lua-error": "Eroare Lua: $2.",
