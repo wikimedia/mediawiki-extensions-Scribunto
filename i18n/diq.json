@@ -4,15 +4,25 @@
 			"Erdemaslancan",
 			"Mirzali",
 			"Gorizon",
-			"Gırd"
+			"Gırd",
+			"Orbot707"
 		]
 	},
+	"scribunto-line": "xeta $1 de",
+	"scribunto-module-line": "$1 dı xeta $2 dê ya",
 	"scribunto-parser-dialog-title": "Xırabiya scripti",
+	"scribunto-error-short": "Xırabiya scripti: $1",
 	"scribunto-error-long": "Xırabiya scripti:\n$1",
+	"scribunto-doc-page-name": "Module:$1/dok",
+	"scribunto-doc-page-does-not-exist": "Seba na module şıma şenê yû pela dokumani vırazê [[$1]]",
+	"scribunto-doc-page-header": "[[$1]] seba pela dokumani ya na",
 	"scribunto-console-clear": "Bestere",
 	"scribunto-lua-error": "Xetay lua: $2.",
 	"scribunto-luastandalone-proc-error": "Xetay lua: Proses nêşeno bıvıraziyo.",
+	"scribunto-module-with-errors-category-desc": "Module dê yew xeta esta",
+	"scribunto-limitreport-timeusage": "Karıtışê dema Lua",
 	"scribunto-limitreport-timeusage-value": "$1/$2 saniyeyi",
+	"scribunto-limitreport-virtmemusage": "Virtual gırdiya Lua",
 	"scribunto-limitreport-profile": "Profilê lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Qeydê lua"
