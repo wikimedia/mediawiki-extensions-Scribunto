@@ -1,63 +1,51 @@
 #!/usr/bin/php
 <?php
 
+use UtfNormal\Validator;
+
 if ( PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg' ) {
 	die( "This script may only be executed from the command line.\n" );
 }
 
-$datafile = null;
+$utfnormalDir = null;
 if ( count( $argv ) > 1 ) {
-	$datafile = $argv[1];
-	if ( !file_exists( $datafile ) ) {
-		die( "The specified file '$datafile' does not exist\n" );
+	$utfnormalDir = rtrim( $argv[1], '/' );
+	if ( !is_dir( $utfnormalDir ) ) {
+		die( "The specified UtfNormal directory '$utfnormalDir' does not exist\n" );
+	}
+	if ( file_exists( "$utfnormalDir/Validator.php" ) ) {
+		// Probably ok
+	} elseif ( file_exists( "$utfnormalDir/src/Validator.php" ) ) {
+		// Add the 'src' dir
+		$utfnormalDir = "$utfnormalDir/src";
+	} else {
+		fprintf(
+			STDERR,
+			"Warning: Supplied path \"%s\" does not seem to contain UtfNormal. Trying it anyway.\n",
+			$utfnormalDir
+		);
 	}
 } else {
-	foreach ( [
-		__DIR__ . '/../../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-	] as $tryfile ) {
-		$tryfile = realpath( $tryfile );
-		if ( file_exists( $tryfile ) ) {
-			$datafile = $tryfile;
+	$trydirs = [
+		// Checkouts of mediawiki/core and mediawiki/extensions in the same directory
+		__DIR__ . '/../../../../../../../core/vendor/wikimedia/utfnormal/src',
+		// Scribunto checked out inside the 'extensions' directory of mediawiki/core
+		__DIR__ . '/../../../../../../../vendor/wikimedia/utfnormal/src',
+	];
+	if ( getenv( 'MW_INSTALL_PATH' ) ) {
+		array_unshift( $trydirs, getenv( 'MW_INSTALL_PATH' ) . '/vendor/wikimedia/utfnormal/src' );
+	}
+	foreach ( $trydirs as $trydir ) {
+		$trydir = realpath( $trydir );
+		if ( $trydir !== false && is_dir( $trydir ) && file_exists( "$trydir/UtfNormalData.inc" ) ) {
+			$utfnormalDir = $trydir;
 			break;
 		}
 	}
-	if ( !$datafile ) {
-		die( "Cannot find UtfNormalData.inc. Please specify the path explicitly.\n" );
+	if ( !$utfnormalDir ) {
+		die( "Cannot find UtfNormal. Please specify the path explicitly.\n" );
 	}
 }
-
-$datafileK = null;
-if ( count( $argv ) > 2 ) {
-	$datafileK = $argv[2];
-	if ( !file_exists( $datafileK ) ) {
-		die( "The specified file '$datafileK' does not exist\n" );
-	}
-} else {
-	foreach ( [
-		dirname( $datafile ) . '/UtfNormalDataK.inc',
-		__DIR__ . '/../../../../../../core/vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-		__DIR__ . '/../../../../../../vendor/wikimedia/utfnormal/src/UtfNormalData.inc',
-	] as $tryfile ) {
-		$tryfile = realpath( $tryfile );
-		if ( file_exists( $tryfile ) ) {
-			$datafileK = $tryfile;
-			break;
-		}
-	}
-	if ( !$datafileK ) {
-		die( "Cannot find UtfNormalDataK.inc. Please specify the path explicitly.\n" );
-	}
-}
-
-class UtfNormal {
-	public static $utfCheckNFC = null;
-	public static $utfCombiningClass = null;
-	public static $utfCanonicalDecomp = null;
-	public static $utfCanonicalComp = null;
-	public static $utfCompatibilityDecomp = null;
-}
-class_alias( UtfNormal::class, \UtfNormal\Validator::class );
 
 //phpcs:disable MediaWiki.NamingConventions
 /**
@@ -67,27 +55,22 @@ class_alias( UtfNormal::class, \UtfNormal\Validator::class );
  * @suppress SecurityCheck-OTHER
  */
 function loadDataFiles() {
-	global $datafile, $datafileK;
-	echo "Loading data file $datafile...\n";
-	require_once $datafile;
-
-	echo "Loading data file $datafileK...\n";
-	require_once $datafileK;
+	global $utfnormalDir;
+	echo "Loading UtfNormal from $utfnormalDir...\n";
+	require_once "$utfnormalDir/Validator.php";
+	require_once "$utfnormalDir/UtfNormalData.inc";
+	require_once "$utfnormalDir/UtfNormalDataK.inc";
 }
 //phpcs:enable MediaWiki.NamingConventions
-
-
 loadDataFiles();
 
-if ( !UtfNormal::$utfCheckNFC ||
-	!UtfNormal::$utfCombiningClass ||
-	!UtfNormal::$utfCanonicalDecomp ||
-	!UtfNormal::$utfCanonicalComp
+if ( !Validator::$utfCheckNFC ||
+	!Validator::$utfCombiningClass ||
+	!Validator::$utfCanonicalDecomp ||
+	!Validator::$utfCanonicalComp ||
+	!Validator::$utfCompatibilityDecomp
 ) {
-	die( "Data file $datafile did not contain needed data.\n" );
-}
-if ( !UtfNormal::$utfCompatibilityDecomp ) {
-	die( "Data file $datafileK did not contain needed data.\n" );
+	die( "UtfNormal data files did not contain needed data.\n" );
 }
 
 // @codingStandardsIgnoreLine MediaWiki.NamingConventions.PrefixedGlobalFunctions
@@ -106,8 +89,8 @@ fprintf( $X, "local normal = {\n" );
 fprintf( $X, "\t-- Characters that might change depending on the following combiner\n" );
 fprintf( $X, "\t-- (minus any that are themselves combiners, those are added later)\n" );
 fprintf( $X, "\tcheck = {\n" );
-foreach ( UtfNormal::$utfCheckNFC as $k => $v ) {
-	if ( isset( UtfNormal::$utfCombiningClass[$k] ) ) {
+foreach ( Validator::$utfCheckNFC as $k => $v ) {
+	if ( isset( Validator::$utfCombiningClass[$k] ) ) {
 		// Skip, because it's in the other table already
 		continue;
 	}
@@ -117,7 +100,7 @@ fprintf( $X, "\t},\n\n" );
 fprintf( $X, "\t-- Combining characters, mapped to combining class\n" );
 fprintf( $X, "\tcombclass = {\n" );
 $comb = [];
-foreach ( UtfNormal::$utfCombiningClass as $k => $v ) {
+foreach ( Validator::$utfCombiningClass as $k => $v ) {
 	$cp = uord( $k, true );
 	$comb[$cp] = 1;
 	fprintf( $X, "\t\t[0x%06x] = %d,\n", $cp, $v );
@@ -126,7 +109,7 @@ fprintf( $X, "\t},\n\n" );
 fprintf( $X, "\t-- Characters mapped to what they decompose to\n" );
 fprintf( $X, "\t-- Note Hangul to Jamo is done separately below\n" );
 fprintf( $X, "\tdecomp = {\n" );
-foreach ( UtfNormal::$utfCanonicalDecomp as $k => $v ) {
+foreach ( Validator::$utfCanonicalDecomp as $k => $v ) {
 	fprintf( $X, "\t\t[0x%06x] = { ", uord( $k, true ) );
 	$fmt = "0x%06x";
 	foreach ( uord( $v, false ) as $c ) {
@@ -138,8 +121,8 @@ foreach ( UtfNormal::$utfCanonicalDecomp as $k => $v ) {
 fprintf( $X, "\t},\n\n" );
 
 fprintf( $X, "\tdecompK = {\n" );
-foreach ( UtfNormal::$utfCompatibilityDecomp as $k => $v ) {
-	if ( isset( UtfNormal::$utfCanonicalDecomp[$k] ) && UtfNormal::$utfCanonicalDecomp[$k] === $v ) {
+foreach ( Validator::$utfCompatibilityDecomp as $k => $v ) {
+	if ( isset( Validator::$utfCanonicalDecomp[$k] ) && Validator::$utfCanonicalDecomp[$k] === $v ) {
 		// Skip duplicates
 		continue;
 	}
@@ -156,7 +139,7 @@ fprintf( $X, "\t},\n\n" );
 fprintf( $X, "\t-- Character-pairs mapped to what they compose to\n" );
 fprintf( $X, "\t-- Note Jamo to Hangul is done separately below\n" );
 $t = [];
-foreach ( UtfNormal::$utfCanonicalComp as $k => $v ) {
+foreach ( Validator::$utfCanonicalComp as $k => $v ) {
 	$k = uord( $k, false );
 	if ( count( $k ) == 1 ) {
 		// No idea why these are in the file
