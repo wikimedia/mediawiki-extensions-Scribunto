@@ -132,40 +132,58 @@
 	],
 	"callback": "ScribuntoHooks::onRegistration",
 	"config": {
-		"ScribuntoDefaultEngine": "luaautodetect",
-		"ScribuntoEngineConf": {
-			"luasandbox": {
-				"class": "Scribunto_LuaSandboxEngine",
-				"memoryLimit": 52428800,
-				"cpuLimit": 7,
-				"profilerPeriod": 0.02,
-				"allowEnvFuncs": false,
-				"maxLangCacheSize": 30
-			},
-			"luastandalone": {
-				"class": "Scribunto_LuaStandaloneEngine",
-				"errorFile": null,
-				"luaPath": null,
-				"memoryLimit": 52428800,
-				"cpuLimit": 7,
-				"allowEnvFuncs": false,
-				"maxLangCacheSize": 30
-			},
-			"luaautodetect": {
-				"factory": "Scribunto_LuaEngine::newAutodetectEngine"
-			},
-			"_merge_strategy": "array_plus_2d"
+		"ScribuntoDefaultEngine": {
+			"value": "luaautodetect"
 		},
-		"ScribuntoUseGeSHi": true,
-		"ScribuntoUseCodeEditor": true,
-		"ScribuntoGatherFunctionStats": false,
-		"ScribuntoSlowFunctionThreshold": 0.9
+		"ScribuntoEngineConf": {
+			"value": {
+				"luasandbox": {
+					"class": "Scribunto_LuaSandboxEngine",
+					"memoryLimit": 52428800,
+					"cpuLimit": 7,
+					"profilerPeriod": 0.02,
+					"allowEnvFuncs": false,
+					"maxLangCacheSize": 30
+				},
+				"luastandalone": {
+					"class": "Scribunto_LuaStandaloneEngine",
+					"errorFile": null,
+					"luaPath": null,
+					"memoryLimit": 52428800,
+					"cpuLimit": 7,
+					"allowEnvFuncs": false,
+					"maxLangCacheSize": 30
+				},
+				"luaautodetect": {
+					"factory": "Scribunto_LuaEngine::newAutodetectEngine"
+				}
+			},
+			"merge_strategy": "array_plus_2d"
+		},
+		"ScribuntoUseGeSHi": {
+			"value": true
+		},
+		"ScribuntoUseCodeEditor": {
+			"value": true
+		},
+		"ScribuntoGatherFunctionStats": {
+			"value": false
+		},
+		"ScribuntoSlowFunctionThreshold": {
+			"value": 0.9
+		}
 	},
-	"TemplateSandboxEditNamespaces": [
-		828
-	],
-	"TemplateStylesNamespaces": [
-		828
-	],
-	"manifest_version": 1
+	"attributes": {
+		"TemplateSandbox": {
+			"EditNamespaces": [
+				828
+			]
+		},
+		"TemplateStyles": {
+			"Namespaces": [
+				828
+			]
+		}
+	},
+	"manifest_version": 2
 }
