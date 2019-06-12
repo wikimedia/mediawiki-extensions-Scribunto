@@ -21,8 +21,10 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			local x, i
 			local s = string.rep("x", 1000000)
 			local n = args[1]
+			local e = args[2] and os.clock() + args[2] or nil
 			for i = 1, n do
 				x = x or string.find(s, "y", 1, true)
+				if e and os.clock() >= e then break end
 			end',
 			'busy' );
 		return $chunk;
@@ -120,7 +122,11 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 		$interpreter = $this->newInterpreter( [ 'cpuLimit' => 2 ] );
 		$chunk = $this->getBusyLoop( $interpreter );
 		try {
-			$interpreter->callFunction( $chunk, 1e9 );
+			$interpreter->callFunction(
+				$chunk,
+				1e9, // Arbitrary large quantity of work for the loop
+				4 // Early termination condition: 2 second CPU limit plus 2 seconds "fudge factor"
+			);
 			$this->fail( "Expected ScribuntoException was not thrown" );
 		} catch ( ScribuntoException $ex ) {
 			$this->assertSame( 'scribunto-common-timeout', $ex->messageName );
