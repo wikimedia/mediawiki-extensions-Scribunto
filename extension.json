@@ -133,9 +133,18 @@
 	"callback": "ScribuntoHooks::onRegistration",
 	"config": {
 		"ScribuntoDefaultEngine": {
+			"description": "The name of the default script engine",
 			"value": "luaautodetect"
 		},
 		"ScribuntoEngineConf": {
+			"description": [
+				"Configuration for each script engine. Parameters:",
+				" * profilerPeriod - The profiler sample period, or false to disable the profiler",
+				" * allowEnvFuncs - Set this to true to allow setfenv() and getfenv() in user code. Note that these functions have been removed in Lua 5.2. Scribunto does not yet support Lua 5.2, but we expect support will be implemented in the future, and there is no guarantee that a simulation of setfenv() and getfenv() will be provided",
+				" * maxLangCacheSize - The maximum number of languages about which data can be requested. The cost is about 1.5MB of memory usage per language on default installations (during recache), but if recaching is disabled with `$wgLocalisationCacheConf['manualRecache'] = false;` then memory usage is perhaps 10x smaller",
+				" * errorFile - A filename to act as the destination for stderr from the Lua binary. This may provide useful error information if Lua fails to run. Set this to null to discard stderr output",
+				" * luaPath - The location of the Lua binary, or null to use the bundled binary"
+			],
 			"value": {
 				"luasandbox": {
 					"class": "Scribunto_LuaSandboxEngine",
@@ -161,15 +170,19 @@
 			"merge_strategy": "array_plus_2d"
 		},
 		"ScribuntoUseGeSHi": {
+			"description": "Set to true to enable the SyntaxHighlight_GeSHi extension integration",
 			"value": true
 		},
 		"ScribuntoUseCodeEditor": {
+			"description": "Set to true to enable the CodeEditor extension integration",
 			"value": true
 		},
 		"ScribuntoGatherFunctionStats": {
+			"description": "Set to true to enable gathering and reporting of performance data for slow function invocations.",
 			"value": false
 		},
 		"ScribuntoSlowFunctionThreshold": {
+			"description": "If $wgScribuntoGatherFunctionStats is true, this variable specifies the percentile threshold for slow function invocations. Should be a value between 0 and 1 (exclusive).",
 			"value": 0.9
 		}
 	},
