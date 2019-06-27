@@ -274,11 +274,16 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$this->getParser()->getOutput()->addTemplate(
 			$title, $title->getArticleID(), $title->getLatestRevID()
 		);
-		if ( $title->equals( $this->getTitle() ) ) {
-			$this->getParser()->getOutput()->setFlag( 'vary-revision' );
-		}
 
 		$rev = $this->getParser()->fetchCurrentRevisionOfTitle( $title );
+
+		if ( $title->equals( $this->getTitle() ) ) {
+			$parserOutput = $this->getParser()->getOutput();
+			$parserOutput->setFlag( 'vary-revision-sha1' );
+			$parserOutput->setRevisionUsedSha1Base36( $rev ? $rev->getSha1() : '' );
+			wfDebug( __METHOD__ . ": set vary-revision-sha1 for '$title'" );
+		}
+
 		return $rev ? $rev->getContent() : null;
 	}
 
