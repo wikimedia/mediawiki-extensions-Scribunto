@@ -377,6 +377,11 @@ $namespaceNames['or'] = [
 	829 => 'ମଡ୍ୟୁଲ_ଆଲୋଚନା',
 ];
 
+$namespaceNames['pa'] = [
+	828 => 'ਮੌਡਿਊਲ',
+	829 => 'ਮੌਡਿਊਲ_ਗੱਲ-ਬਾਤ',
+];
+
 $namespaceNames['pl'] = [
 	828 => 'Moduł',
 	829 => 'Dyskusja_modułu',
