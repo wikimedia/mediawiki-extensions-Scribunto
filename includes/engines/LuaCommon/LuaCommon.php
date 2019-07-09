@@ -811,6 +811,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 			$text = $this->parser->insertStripItem( $text );
 		} elseif ( $result['nowiki'] ) {
 			# Escape nowiki-style return values
+			// @phan-suppress-next-line SecurityCheck-DoubleEscaped
 			$text = wfEscapeWikiText( $text );
 		}
 
