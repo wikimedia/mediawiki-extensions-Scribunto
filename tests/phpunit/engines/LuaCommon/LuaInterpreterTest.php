@@ -1,6 +1,9 @@
 <?php
 
-abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
+abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
+	use MediaWikiCoversValidator;
+	use PHPUnit4And6Compat;
+
 	/**
 	 * @return Scribunto_LuaInterpreter
 	 */

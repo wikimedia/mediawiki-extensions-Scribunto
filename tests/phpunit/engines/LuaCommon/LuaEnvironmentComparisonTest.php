@@ -6,7 +6,10 @@
  * @group LuaStandalone
  * @coversNothing
  */
-class Scribunto_LuaEnvironmentComparisonTest extends MediaWikiTestCase {
+class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase {
+	use MediaWikiCoversValidator;
+	use PHPUnit4And6Compat;
+
 	public $sandboxOpts = [
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
