@@ -119,13 +119,13 @@ abstract class Scribunto_LuaInterpreterTest extends MediaWikiTestCase {
 			$this->markTestSkipped( "Darwin is lacking POSIX timer, skipping CPU time limiting test." );
 		}
 
-		$interpreter = $this->newInterpreter( [ 'cpuLimit' => 2 ] );
+		$interpreter = $this->newInterpreter( [ 'cpuLimit' => 1 ] );
 		$chunk = $this->getBusyLoop( $interpreter );
 		try {
 			$interpreter->callFunction(
 				$chunk,
 				1e9, // Arbitrary large quantity of work for the loop
-				4 // Early termination condition: 2 second CPU limit plus 2 seconds "fudge factor"
+				2 // Early termination condition: 1 second CPU limit plus 1 second "fudge factor"
 			);
 			$this->fail( "Expected ScribuntoException was not thrown" );
 		} catch ( ScribuntoException $ex ) {
