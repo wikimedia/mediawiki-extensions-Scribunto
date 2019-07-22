@@ -210,6 +210,7 @@ class ScribuntoHooks {
 		}
 
 		$cacheVersion = '1';
+		// @phan-suppress-next-line PhanParamTooMany
 		$key = $cache->makeGlobalKey( __METHOD__, $cacheVersion, $threshold );
 
 		// This is a classic "read-update-write" critical section with no
