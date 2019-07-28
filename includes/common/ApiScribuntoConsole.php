@@ -23,7 +23,6 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 
 		$cache = ObjectCache::getInstance( CACHE_ANYTHING );
-		// @phan-suppress-next-line PhanParamTooMany
 		$sessionKey = $cache->makeKey( 'scribunto-console', $this->getUser()->getId(), $sessionId );
 		$session = null;
 		$sessionIsNew = false;
