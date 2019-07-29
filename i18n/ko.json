@@ -7,7 +7,8 @@
 			"아라",
 			"SeoJeongHo",
 			"Hwangjy9",
-			"Ykhwong"
+			"Ykhwong",
+			"Jango"
 		]
 	},
 	"scribunto-desc": "미디어위키 문서에 스크립트 언어를 넣기 위한 프레임워크",
@@ -27,6 +28,7 @@
 	"scribunto-console-cleared": "모듈을 업데이트했기 때문에 콘솔 상태가 지워졌습니다.",
 	"scribunto-console-cleared-session-lost": "세션 데이터를 잃었기 때문에 콘솔 상태가 지워졌습니다.",
 	"scribunto-common-error-category": "스크립트 오류가 있는 문서",
+	"scribunto-common-error-category-desc": "페이지에 있던 모듈을 처리하던 중에 오류가 발생했습니다.",
 	"scribunto-common-nosuchmodule": "스크립트 오류: \"$2\" 모듈이 없습니다.",
 	"scribunto-common-nofunction": "스크립트 오류: 호출할 함수를 지정해야 합니다.",
 	"scribunto-common-nosuchfunction": "스크립트 오류: 함수 \"$2\"가 존재하지 않습니다.",
