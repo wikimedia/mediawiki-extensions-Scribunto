@@ -48,6 +48,7 @@ if ( count( $argv ) > 1 ) {
 }
 
 //phpcs:disable MediaWiki.NamingConventions
+
 /**
  * This is a function solely exists so we can suppress errors
  *
@@ -61,6 +62,7 @@ function loadDataFiles() {
 	require_once "$utfnormalDir/UtfNormalData.inc";
 	require_once "$utfnormalDir/UtfNormalDataK.inc";
 }
+
 //phpcs:enable MediaWiki.NamingConventions
 loadDataFiles();
 
