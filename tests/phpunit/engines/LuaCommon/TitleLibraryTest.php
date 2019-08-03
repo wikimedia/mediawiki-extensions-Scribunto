@@ -2,6 +2,7 @@
 
 /**
  * @covers Scribunto_LuaTitleLibrary
+ * @group Database
  */
 class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
