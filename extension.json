@@ -56,6 +56,8 @@
 		"Scribunto_LuaStandaloneInterpreter": "includes/engines/LuaStandalone/LuaStandaloneEngine.php",
 		"Scribunto_LuaLibraryBase": "includes/engines/LuaCommon/LibraryBase.php",
 		"Scribunto_LuaEngineTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaEngineUnitTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineUnitTestBase.php",
+		"Scribunto_LuaEngineTestHelper": "tests/phpunit/engines/LuaCommon/LuaEngineTestHelper.php",
 		"Scribunto_LuaDataProvider": "tests/phpunit/engines/LuaCommon/LuaDataProvider.php",
 		"Scribunto_LuaSiteLibrary": "includes/engines/LuaCommon/SiteLibrary.php",
 		"Scribunto_LuaUriLibrary": "includes/engines/LuaCommon/UriLibrary.php",

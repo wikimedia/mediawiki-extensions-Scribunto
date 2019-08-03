@@ -9,7 +9,9 @@
  * - getTestModules(): Add a mapping from $moduleName to the file containing
  *   the code.
  */
-abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
+abstract class Scribunto_LuaEngineUnitTestBase extends \PHPUnit\Framework\TestCase {
+	use MediaWikiCoversValidator;
+	use PHPUnit4And6Compat;
 	use Scribunto_LuaEngineTestHelper;
 
 	private static $staticEngineName = null;
@@ -67,15 +69,6 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		parent::tearDown();
 	}
 
-	/**
-	 * Get the title used for unit tests
-	 *
-	 * @return Title
-	 */
-	protected function getTestTitle() {
-		return Title::newMainPage();
-	}
-
 	public function toString() {
 		// When running tests written in Lua, return a nicer representation in
 		// the failure message.
@@ -122,29 +115,5 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 			$this->assertSame( $expected, $actual );
 		}
 		$this->luaTestName = null;
-	}
-}
-
-class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
-	private $className = '';
-	private $message = '';
-
-	public function __construct( $className = '', $message = '' ) {
-		$this->className = $className;
-		$this->message = $message;
-		parent::__construct( 'testDummy' );
-	}
-
-	public function testDummy() {
-		if ( $this->className ) {
-			$this->markTestSkipped( $this->message );
-		} else {
-			// Dummy
-			$this->assertTrue( true );
-		}
-	}
-
-	public function toString() {
-		return $this->className;
 	}
 }

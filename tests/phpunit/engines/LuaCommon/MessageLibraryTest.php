@@ -1,6 +1,6 @@
 <?php
 
-class Scribunto_LuaMessageLibraryTest extends Scribunto_LuaEngineTestBase {
+class Scribunto_LuaMessageLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	protected static $moduleName = 'MessageLibraryTests';
 
 	protected function getTestModules() {

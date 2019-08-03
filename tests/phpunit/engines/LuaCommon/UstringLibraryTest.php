@@ -5,7 +5,7 @@ use Wikimedia\ScopedCallback;
 /**
  * @covers Scribunto_LuaUstringLibrary
  */
-class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineTestBase {
+class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	protected static $moduleName = 'UstringLibraryTests';
 
 	private $normalizationDataProvider = null;

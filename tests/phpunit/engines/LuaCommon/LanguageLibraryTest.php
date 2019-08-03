@@ -3,7 +3,7 @@
 /**
  * @covers Scribunto_LuaLanguageLibrary
  */
-class Scribunto_LuaLanguageLibraryTest extends Scribunto_LuaEngineTestBase {
+class Scribunto_LuaLanguageLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	protected static $moduleName = 'LanguageLibraryTests';
 
 	public function __construct(

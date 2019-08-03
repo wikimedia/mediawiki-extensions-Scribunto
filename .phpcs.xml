@@ -10,6 +10,7 @@
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.shell_exec" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+		<exclude name="MediaWiki.Commenting.PhpunitAnnotations.NotTestClass" />
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php" />
