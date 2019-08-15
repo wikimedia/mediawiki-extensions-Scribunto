@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Mybluberet",
-			"Amire80"
+			"Amire80",
+			"Owula kpakpo"
 		]
 	},
-	"scribunto-lua-error": "Lua tɔmɔ: $2"
+	"scribunto-lua-error": "Lua tɔmɔ: $2."
 }
