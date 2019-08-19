@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	public $langCache = [];
 	public $timeCache = [];
@@ -272,11 +274,13 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			// check parameter, or use the ParserOptions if in interface message
 			$user = User::newFromName( $username );
 			if ( $user ) {
-				$gender = GenderCache::singleton()->getGenderOf( $user, __METHOD__ );
+				$genderCache = MediaWikiServices::getInstance()->getGenderCache();
+				$gender = $genderCache->getGenderOf( $user, __METHOD__ );
 			} elseif ( $username === '' ) {
 				$parserOptions = $this->getParserOptions();
 				if ( $parserOptions->getInterfaceMessage() ) {
-					$gender = GenderCache::singleton()->getGenderOf( $parserOptions->getUser(), __METHOD__ );
+					$genderCache = MediaWikiServices::getInstance()->getGenderCache();
+					$gender = $genderCache->getGenderOf( $parserOptions->getUser(), __METHOD__ );
 				}
 			}
 		}
