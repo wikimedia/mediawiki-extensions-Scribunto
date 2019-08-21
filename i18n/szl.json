@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Krol111"
+			"Krol111",
+			"Uostofchuodnego"
 		]
 	},
-	"scribunto-lua-error": "Lua feler: $2."
+	"scribunto-lua-error": "Feler Lua: $2."
 }
