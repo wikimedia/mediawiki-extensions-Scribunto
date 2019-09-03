@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Filipinayzd"
+			"Filipinayzd",
+			"ShimunUfesoj"
 		]
 	},
-	"scribunto-lua-error": "Lua error: $2."
+	"scribunto-lua-error": "Kasalaan nin Lua: $2."
 }
