@@ -11,7 +11,8 @@
 			"Orlodrim",
 			"Wyz",
 			"Wladek92",
-			"Od1n"
+			"Od1n",
+			"Thibaut120094"
 		]
 	},
 	"scribunto-desc": "Framework pour l'intégration de langages de script dans les pages MediaWiki",
@@ -35,7 +36,7 @@
 	"scribunto-common-nosuchmodule": "Erreur de script : le module « $2 » n’existe pas.",
 	"scribunto-common-nofunction": "Erreur de script : vous devez spécifier une fonction à appeler.",
 	"scribunto-common-nosuchfunction": "Erreur de script : la fonction « $2 » n’existe pas.",
-	"scribunto-common-notafunction": "Erreur de script : « $2 » n’est pas une fonction.",
+	"scribunto-common-notafunction": "Erreur de script : « $2 » n’est pas une fonction.",
 	"scribunto-common-timeout": "Le temps alloué pour l’exécution des scripts a expiré.",
 	"scribunto-common-oom": "La quantité de mémoire allouée pour exécuter des scripts a été dépassée.",
 	"scribunto-common-backtrace": "Pile des appels :",
@@ -49,7 +50,7 @@
 	"scribunto-lua-notarrayreturn": "Erreur de script : Le module a renvoyé une valeur $2. Il est supposé renvoyer un tableau d’exportations.",
 	"scribunto-luastandalone-proc-error": "Erreur LUA : Impossible de créer le processus.",
 	"scribunto-luastandalone-proc-error-msg": "Erreur LUA : Impossible de créer le processus : $2",
-	"scribunto-luastandalone-proc-error-proc-open": "Erreur LUA : Impossible de créer le processus : proc_open n’est pas disponible. Vérifiez la directive de configuration PHP « disable_functions ».",
+	"scribunto-luastandalone-proc-error-proc-open": "Erreur LUA : Impossible de créer le processus : proc_open n’est pas disponible. Vérifiez la directive de configuration PHP « disable_functions ».",
 	"scribunto-luastandalone-decode-error": "Erreur LUA : Erreur interne : Impossible de décoder le message.",
 	"scribunto-luastandalone-write-error": "Erreur LUA : Erreur interne : Erreur d'écriture dans le tube (pipe).",
 	"scribunto-luastandalone-read-error": "Erreur LUA : Erreur interne : Erreur de lecture du tube (pipe).",

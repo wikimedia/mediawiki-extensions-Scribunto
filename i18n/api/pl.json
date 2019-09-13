@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Railfail536",
-			"Woytecr"
+			"Woytecr",
+			"Rail"
 		]
 	},
 	"apihelp-scribunto-console-description": "Wewnętrzny moduł obsługi żądań XHR z konsoli Scribunto.",
