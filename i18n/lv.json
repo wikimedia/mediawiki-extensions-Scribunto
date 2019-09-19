@@ -15,6 +15,7 @@
 	"scribunto-console-current-src": "konsoles ievade",
 	"scribunto-console-clear": "Notīrīt",
 	"scribunto-common-error-category": "Lapas ar skriptu kļūdām",
+	"scribunto-common-nosuchmodule": "Skripta kļūda: Nav tāda moduļa \"$2\".",
 	"scribunto-common-notafunction": "Skripta kļūda: \"$2\" nav fubkcija.",
 	"scribunto-lua-in-function": "funkcijā \"$1\"",
 	"scribunto-lua-in-function-at": "funkcijā $1:$2",
