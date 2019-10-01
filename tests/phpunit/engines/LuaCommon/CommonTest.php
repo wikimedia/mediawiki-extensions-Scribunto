@@ -729,6 +729,47 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 		}
 	}
 
+	public function testGetCurrentFrameAtModuleScopeT234368() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:Outer'] = '
+			local p = {}
+
+			function p.echo( frame )
+				return "(Outer: 1=" .. frame.args[1] .. ", 2=" .. frame.args[2] .. ")"
+			end
+
+			return p
+		';
+		$this->extraModules['Module:Inner'] = '
+			local p = {}
+
+			local f = mw.getCurrentFrame()
+			local name = f:getTitle()
+			local arg1 = f.args[1]
+
+			function p.test( frame )
+				local f2 = mw.getCurrentFrame()
+				return "(Inner: mod_name=" .. name .. ", mod_1=" .. arg1 .. ", name=" .. f2:getTitle() ..
+					", 1=".. f2.args[1] .. ")"
+			end
+
+			return p
+		';
+
+		$frame = $pp->newFrame();
+		$text = $frame->expand( $pp->preprocessToObj(
+			"{{#invoke:Outer|echo|oarg|{{#invoke:Inner|test|iarg}}}}"
+		) );
+		$text = $parser->mStripState->unstripBoth( $text );
+		$this->assertSame(
+			'(Outer: 1=oarg, 2=(Inner: mod_name=Module:Inner, mod_1=iarg, name=Module:Inner, 1=iarg))',
+			$text
+		);
+	}
+
 	public function testNonUtf8Errors() {
 		$engine = $this->getEngine();
 		$parser = $engine->getParser();

@@ -260,12 +260,8 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @throws ScribuntoException
 	 */
 	public function executeModule( $chunk, $functionName, $frame ) {
-		$resetFrames = null;
-		if ( !$this->currentFrames || !isset( $this->currentFrames['current'] ) ) {
-			// Only reset frames if there isn't already current frame
-			// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
-			$resetFrames = $this->setupCurrentFrames( $frame );
-		}
+		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
+		$resetFrames = $this->setupCurrentFrames( $frame );
 
 		$retval = $this->getInterpreter()->callFunction(
 			$this->mw['executeModule'], $chunk, $functionName
