@@ -11,7 +11,6 @@
  */
 abstract class Scribunto_LuaEngineUnitTestBase extends \PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
-	use PHPUnit4And6Compat;
 	use Scribunto_LuaEngineTestHelper;
 
 	private static $staticEngineName = null;

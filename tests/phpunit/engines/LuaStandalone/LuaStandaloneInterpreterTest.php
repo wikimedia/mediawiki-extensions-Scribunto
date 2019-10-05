@@ -129,7 +129,8 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 	 */
 	public function testLuaToPhpArrayKeyConversion( $lua, $expect ) {
 		if ( $expect instanceof Exception ) {
-			$this->setExpectedException( Scribunto_LuaError::class, $expect->getMessage() );
+			$this->expectException( Scribunto_LuaError::class );
+			$this->expectExceptionMessage( $expect->getMessage() );
 		}
 
 		$interpreter = $this->newInterpreter();
