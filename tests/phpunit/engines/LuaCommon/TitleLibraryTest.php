@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\Framework\TestSuite;
+
 /**
  * @covers Scribunto_LuaTitleLibrary
  * @group Database
@@ -10,7 +12,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	public static function suite( $className ) {
 		global $wgInterwikiCache;
 		if ( $wgInterwikiCache ) {
-			$suite = new PHPUnit_Framework_TestSuite;
+			$suite = new TestSuite;
 			$suite->setName( $className );
 			$suite->addTest(
 				new Scribunto_LuaEngineTestSkip(
