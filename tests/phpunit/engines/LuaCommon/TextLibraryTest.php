@@ -3,17 +3,6 @@
 class Scribunto_LuaTextLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	protected static $moduleName = 'TextLibraryTests';
 
-	public function __construct(
-		$name = null, array $data = [], $dataName = '', $engineName = null
-	) {
-		parent::__construct( $name, $data, $dataName, $engineName );
-		if ( defined( 'HHVM_VERSION' ) ) {
-			// HHVM bug https://github.com/facebook/hhvm/issues/5813
-			$this->skipTests['json decode, invalid values (trailing comma)'] =
-				'json decode bug in HHVM';
-		}
-	}
-
 	protected function setUp() {
 		parent::setUp();
 
