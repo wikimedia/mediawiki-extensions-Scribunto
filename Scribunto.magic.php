@@ -20,6 +20,11 @@ $magicWords['arz'] = [
 	'invoke' => [ 0, 'استدعا' ],
 ];
 
+/** Balinese (Basa Bali) */
+$magicWords['ban'] = [
+	'invoke' => [ 0, 'nunas' ],
+];
+
 /** Breton (Brezhoneg) */
 $magicWords['br'] = [
 	'invoke' => [ 0, 'galv' ],

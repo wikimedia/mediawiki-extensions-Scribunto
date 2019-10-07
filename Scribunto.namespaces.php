@@ -48,6 +48,11 @@ $namespaceNames['ba'] = [
 	829 => 'Модуль_буйынса_фекерләшеү',
 ];
 
+$namespaceNames['ban'] = [
+	828 => 'Modul',
+	829 => 'Pabligbagan_Modul',
+];
+
 $namespaceNames['be'] = [
 	828 => 'Модуль',
 	829 => 'Размовы_пра_модуль',
