@@ -12,7 +12,8 @@
 			"Wyz",
 			"Wladek92",
 			"Od1n",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Verdy p"
 		]
 	},
 	"scribunto-desc": "Framework pour l'intégration de langages de script dans les pages MediaWiki",
@@ -46,7 +47,7 @@
 	"scribunto-lua-in-function-at": "dans la fonction $1 : $2",
 	"scribunto-lua-backtrace-line": "$1 : $2",
 	"scribunto-lua-error-location": "Erreur Lua $1 : $2.",
-	"scribunto-lua-error": "Erreur Lua : $2",
+	"scribunto-lua-error": "Erreur Lua : $2",
 	"scribunto-lua-notarrayreturn": "Erreur de script : Le module a renvoyé une valeur $2. Il est supposé renvoyer un tableau d’exportations.",
 	"scribunto-luastandalone-proc-error": "Erreur LUA : Impossible de créer le processus.",
 	"scribunto-luastandalone-proc-error-msg": "Erreur LUA : Impossible de créer le processus : $2",
