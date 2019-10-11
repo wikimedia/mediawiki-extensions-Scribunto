@@ -55,7 +55,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		return self::makeSuite( $className );
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		if ( $this->luaDataProvider ) {
 			$this->luaDataProvider->destroy();
 			$this->luaDataProvider = null;

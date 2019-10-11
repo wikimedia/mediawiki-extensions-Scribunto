@@ -3,7 +3,7 @@
 class Scribunto_LuaUriLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'UriLibraryTests';
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

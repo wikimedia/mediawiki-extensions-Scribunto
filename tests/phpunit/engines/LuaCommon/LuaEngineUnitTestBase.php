@@ -56,7 +56,7 @@ abstract class Scribunto_LuaEngineUnitTestBase extends \PHPUnit\Framework\TestCa
 		return self::makeSuite( $className );
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		if ( $this->luaDataProvider ) {
 			$this->luaDataProvider->destroy();
 			$this->luaDataProvider = null;

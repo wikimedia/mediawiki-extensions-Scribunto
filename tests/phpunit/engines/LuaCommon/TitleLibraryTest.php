@@ -25,7 +25,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		return parent::suite( $className );
 	}
 
-	protected function setUp() {
+	protected function setUp() : void {
 		global $wgHooks;
 
 		parent::setUp();
@@ -129,7 +129,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		] );
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		global $wgHooks;
 		$wgHooks = $this->hooks;
 		parent::tearDown();

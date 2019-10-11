@@ -3,7 +3,7 @@
 class Scribunto_LuaTextLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	protected static $moduleName = 'TextLibraryTests';
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		// For unstrip test

@@ -10,7 +10,7 @@ class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 
 	private $normalizationDataProvider = null;
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		if ( $this->normalizationDataProvider ) {
 			$this->normalizationDataProvider->destroy();
 			$this->normalizationDataProvider = null;
