@@ -328,6 +328,11 @@ $namespaceNames['ml'] = [
 	829 => 'ഘടകത്തിന്റെ_സംവാദം',
 ];
 
+$namespaceNames['mnw'] = [
+	828 => 'မဝ်ဂျူ',
+	829 => 'မဝ်ဂျူ_ဓရီုကျာ',
+];
+
 $namespaceNames['mr'] = [
 	828 => 'विभाग',
 	829 => 'विभाग_चर्चा',
@@ -340,6 +345,11 @@ $namespaceNames['ms'] = [
 $namespaceNames['mwl'] = [
 	828 => 'Módulo',
 	829 => 'Cumbersa_módulo',
+];
+
+$namespaceNames['my'] = [
+	828 => 'မော်ဂျူး',
+	829 => 'မော်ဂျူး_ဆွေးနွေးချက်',
 ];
 
 $namespaceNames['mzn'] = [

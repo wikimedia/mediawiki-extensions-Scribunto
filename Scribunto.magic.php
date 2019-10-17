@@ -95,6 +95,21 @@ $magicWords['ml'] = [
 	'invoke' => [ 0, 'ഉണർത്തുക' ],
 ];
 
+/** Mon (ဘာသာ မန် ) */
+$magicWords['mnw'] = [
+	'invoke' => [ 0, 'စၞောန်ထ္ၜး' ],
+];
+
+/** Burmese (မြန်မာဘာသာ) */
+$magicWords['my'] = [
+	'invoke' => [ 0, 'ဖော်ပြ' ],
+];
+
+/** Norwegian Bokmål (Norsk bokmål) */
+$magicWords['nb'] = [
+	'invoke' => [ 0, 'kjør' ],
+];
+
 /** Dutch (Nederlands) */
 $magicWords['nl'] = [
 	'invoke' => [ 0, 'aanroepen' ],
