@@ -74,7 +74,7 @@
 			"scripts": "ext.scribunto.errors.js",
 			"styles": "ext.scribunto.errors.css",
 			"dependencies": [
-				"jquery.ui.dialog"
+				"jquery.ui"
 			],
 			"messages": [
 				"scribunto-parser-dialog-title"
