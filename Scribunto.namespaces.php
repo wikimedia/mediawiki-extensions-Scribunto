@@ -457,6 +457,11 @@ $namespaceNames['sk'] = [
 	829 => 'Diskusia_k_modulu',
 ];
 
+$namespaceNames['skr-arab'] = [
+	828 => 'ماڈیول',
+	829 => 'ماڈیول_ڳالھ_مہاڑ',
+];
+
 $namespaceNames['sl'] = [
 	828 => 'Modul',
 	829 => 'Pogovor_o_modulu',
