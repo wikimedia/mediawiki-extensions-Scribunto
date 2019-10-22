@@ -811,6 +811,23 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 			$this->assertTrue( mb_check_encoding( $err, 'UTF-8' ), 'JS config vars are UTF-8' );
 		}
 	}
+
+	public function testT236092() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:T236092'] = '
+			local p = {}
+			p.foo = mw.isSubsting
+			return p
+		';
+
+		$frame = $pp->newFrame();
+		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:T236092|foo}}<" ) );
+		$text = $parser->mStripState->unstripBoth( $text );
+		$this->assertSame( '>false<', $text );
+	}
 }
 
 class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {

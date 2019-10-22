@@ -496,7 +496,16 @@ function mw.executeModule( chunk, name, frame )
 end
 
 function mw.executeFunction( chunk )
-	local frame = getfenv( chunk ).mw.getCurrentFrame()
+	local getCurrentFrame = getfenv( chunk ).mw.getCurrentFrame
+	local frame
+	if getCurrentFrame then
+		-- Normal case
+		frame = getCurrentFrame()
+	else
+		-- If someone assigns a built-in method to the module's return table,
+		-- its env won't have mw.getCurrentFrame()
+		frame = newFrame( 'current', 'parent' )
+	end
 
 	if executeFunctionDepth == 0 then
 		-- math.random is defined as using C's rand(), and C's rand() uses 1 as
