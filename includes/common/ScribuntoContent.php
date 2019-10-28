@@ -9,6 +9,8 @@
  * @author Brad Jorsch <bjorsch@wikimedia.org>
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Represents the content of a Scribunto script page
  */
@@ -47,7 +49,7 @@ class ScribuntoContent extends TextContent {
 	protected function fillParserOutput(
 		Title $title, $revId, ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		$text = $this->getText();
 
@@ -88,7 +90,7 @@ class ScribuntoContent extends TextContent {
 					$options->setTargetLanguage( $doc->getPageLanguage() );
 				}
 
-				$output = $wgParser->parse( $docWikitext, $title, $options, true, true, $revId );
+				$output = $parser->parse( $docWikitext, $title, $options, true, true, $revId );
 			}
 
 			// Mark the doc page as a transclusion, so we get purged when it

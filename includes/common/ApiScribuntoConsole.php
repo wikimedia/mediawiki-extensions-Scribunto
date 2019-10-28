@@ -1,9 +1,10 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * API module for serving debug console requests on the edit page
  */
-
 class ApiScribuntoConsole extends ApiBase {
 	const SC_MAX_SIZE = 500000;
 	const SC_SESSION_EXPIRY = 3600;
@@ -81,10 +82,10 @@ class ApiScribuntoConsole extends ApiBase {
 	}
 
 	protected function runConsole( array $params ) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$options = new ParserOptions;
-		$wgParser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
-		$engine = Scribunto::getParserEngine( $wgParser );
+		$parser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
+		$engine = Scribunto::getParserEngine( $parser );
 		try {
 			$result = $engine->runConsole( $params );
 		} catch ( ScribuntoException $e ) {
