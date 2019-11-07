@@ -74,7 +74,6 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 				$value = array_map( [ $lang, 'formatSize' ], $value );
 				break;
 			case 'scribunto-limitreport-estmemusage':
-				// @phan-suppress-next-line PhanTypeMismatchArgument
 				$value = $lang->formatSize( $value );
 				break;
 		}
@@ -504,7 +503,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					break;
 				case 'error':
 					$this->handleError( $msgFromLua );
-					return; // not reached
+					return [];
 				default:
 					$this->logger->error( __METHOD__ . ": invalid response op \"{$msgFromLua['op']}\"\n" );
 					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
@@ -685,7 +684,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$status = proc_get_status( $this->proc );
 			// XXX: Should proc_get_status docs be changed so that
 			// its documented as possibly returning false?
-			// @phan-suppress-next-line PhanTypeComparisonFromArray
 			if ( $status === false ) {
 				// WTF? Let the caller throw an appropriate error.
 				return;

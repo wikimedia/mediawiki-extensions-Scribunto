@@ -103,7 +103,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	public function destroy() {
 		// Break reference cycles
 		$this->interpreter = null;
-		$this->mw = null;
+		$this->mw = [];
 		$this->expandCache = null;
 		parent::destroy();
 	}
