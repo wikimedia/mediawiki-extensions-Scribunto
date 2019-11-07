@@ -507,6 +507,11 @@ $namespaceNames['sv'] = [
 	829 => 'Moduldiskussion',
 ];
 
+$namespaceNames['szy'] = [
+	828 => 'bacu-saupu',
+	829 => 'pisubelidan_tu_kamu_i_bacu-saupu_sapimatatengil',
+];
+
 $namespaceNames['tcy'] = [
 	828 => 'ಮೋಡ್ಯೂಲ್',
 	829 => 'ಮೋಡ್ಯೂಲ್_ಪಾತೆರ',
