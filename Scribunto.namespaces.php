@@ -38,6 +38,11 @@ $namespaceNames['atj'] = [
 	829 => 'Aitapihikan_ke_ici_aimihitonaniwok',
 ];
 
+$namespaceNames['avk'] = [
+	828 => 'Siba',
+	829 => 'Sibaprilara',
+];
+
 $namespaceNames['azb'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_دانیشیغی',
@@ -191,6 +196,11 @@ $namespaceNames['fi'] = [
 $namespaceNames['fr'] = [
 	828 => 'Module',
 	829 => 'Discussion_module',
+];
+
+$namespaceNames['gcr'] = [
+	828 => 'Modjoul',
+	829 => 'Diskisyon_modjoul',
 ];
 
 $namespaceNames['gd'] = [
@@ -450,6 +460,11 @@ $namespaceNames['sh'] = [
 $namespaceNames['shn'] = [
 	828 => 'မေႃႇၵျူး',
 	829 => 'ဢုပ်ႇၵုမ်_မေႃႇၵျူး',
+];
+
+$namespaceNames['shy-latn'] = [
+	828 => 'Amṣada',
+	829 => 'Amṣada_tameslayt',
 ];
 
 $namespaceNames['sk'] = [
