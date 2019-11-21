@@ -68,7 +68,7 @@ abstract class Scribunto_LuaEngineUnitTestBase extends \PHPUnit\Framework\TestCa
 		parent::tearDown();
 	}
 
-	public function toString() {
+	public function toString(): string {
 		// When running tests written in Lua, return a nicer representation in
 		// the failure message.
 		if ( $this->luaTestName ) {

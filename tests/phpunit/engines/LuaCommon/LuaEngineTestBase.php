@@ -76,7 +76,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		return Title::newMainPage();
 	}
 
-	public function toString() {
+	public function toString(): string {
 		// When running tests written in Lua, return a nicer representation in
 		// the failure message.
 		if ( $this->luaTestName ) {
@@ -144,7 +144,7 @@ class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
 		}
 	}
 
-	public function toString() {
+	public function toString(): string {
 		return $this->className;
 	}
 }
