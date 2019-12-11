@@ -33,8 +33,8 @@
 		"ScribuntoNamespaces": "Scribunto.namespaces.php"
 	},
 	"AutoloadClasses": {
-		"ScribuntoEngineBase": "includes/common/Base.php",
-		"ScribuntoModuleBase": "includes/common/Base.php",
+		"ScribuntoEngineBase": "includes/common/ScribuntoEngineBase.php",
+		"ScribuntoModuleBase": "includes/common/ScribuntoModuleBase.php",
 		"ScribuntoHooks": "includes/common/Hooks.php",
 		"ScribuntoException": "includes/common/Common.php",
 		"Scribunto": "includes/common/Common.php",
