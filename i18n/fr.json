@@ -57,7 +57,7 @@
 	"scribunto-luastandalone-read-error": "Erreur LUA : Erreur interne : Erreur de lecture du tube (pipe).",
 	"scribunto-luastandalone-gone": "Erreur LUA : Erreur interne : L'interpréteur s'est déjà arrêté.",
 	"scribunto-luastandalone-signal": "Erreur LUA : Erreur interne: L'interpréteur s'est arrêté avec le signal « $2 ».",
-	"scribunto-luastandalone-exited": "Erreur LUA : Erreur interne : L'interpréteur s'est arrêté avec le statut « $2 ».",
+	"scribunto-luastandalone-exited": "Erreur Lua : Erreur interne : L’interpréteur s’est arrêté avec le statut « $2 ».",
 	"scribunto-module-with-errors-category": "Modules Scribunto avec des erreurs",
 	"scribunto-module-with-errors-category-desc": "Le module contient une erreur.",
 	"scribunto-limitreport-timeusage": "Temps d’utilisation de Lua",
