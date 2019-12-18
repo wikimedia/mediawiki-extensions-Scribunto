@@ -829,29 +829,3 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 		$this->assertSame( '>false<', $text );
 	}
 }
-
-class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
-	public function register() {
-		$lib = [
-			'test' => [ $this, 'test' ],
-		];
-		$opts = [
-			'test' => 'Test option',
-		];
-
-		return $this->getEngine()->registerInterface( __DIR__ . '/CommonTests-lib.lua', $lib, $opts );
-	}
-
-	public function test() {
-		return [ 'Test function' ];
-	}
-}
-
-class Scribunto_LuaCommonTestsFailLibrary extends Scribunto_LuaLibraryBase {
-	public function __construct() {
-		throw new MWException( 'deferLoad library that is never required was loaded anyway' );
-	}
-
-	public function register() {
-	}
-}

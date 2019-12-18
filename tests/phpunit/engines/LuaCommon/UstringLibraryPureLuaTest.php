@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/UstringLibraryTest.php';
+require_once __DIR__ . '/LuaUstringLibraryTest.php';
 
 /**
  * @coversNothing -- Covers Lua code
