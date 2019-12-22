@@ -210,7 +210,7 @@ class ScribuntoHooks {
 		}
 
 		$cacheVersion = '1';
-		$key = $cache->makeGlobalKey( __METHOD__, $cacheVersion, $threshold );
+		$key = $cache->makeGlobalKey( __METHOD__, $cacheVersion, (string)$threshold );
 
 		// This is a classic "read-update-write" critical section with no
 		// mutual exclusion, but the only consequence is that some samples

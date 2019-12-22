@@ -284,6 +284,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				}
 			}
 		}
+		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable gender always not null
 		return [ $lang->gender( $gender, $forms ) ];
 	}
 

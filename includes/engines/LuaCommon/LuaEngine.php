@@ -33,7 +33,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $loaded = false;
 
 	/**
-	 * @var Scribunto_LuaInterpreter
+	 * @var Scribunto_LuaInterpreter|null
 	 */
 	protected $interpreter;
 
@@ -739,6 +739,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @throws MWException
 	 * @throws Scribunto_LuaError
 	 * @return array
+	 * @suppress PhanImpossibleCondition
 	 */
 	public function callParserFunction( $frameId, $function, $args ) {
 		$frame = $this->getFrameById( $frameId );

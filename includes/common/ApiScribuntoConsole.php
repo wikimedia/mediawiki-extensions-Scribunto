@@ -60,6 +60,7 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 		$result = $this->runConsole( [
 			'title' => $title,
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			'content' => $newSession['content'],
 			'prevQuestions' => $session['questions'],
 			'question' => $params['question'],

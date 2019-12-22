@@ -33,7 +33,7 @@ abstract class ScribuntoEngineBase {
 	const MEM_PEAK_BYTES = 2;
 
 	/**
-	 * @var Title
+	 * @var Title|null
 	 */
 	protected $title;
 
@@ -43,12 +43,12 @@ abstract class ScribuntoEngineBase {
 	protected $options;
 
 	/**
-	 * @var ScribuntoModuleBase[]
+	 * @var (ScribuntoModuleBase|null)[]
 	 */
 	protected $modules = [];
 
 	/**
-	 * @var Parser
+	 * @var Parser|null
 	 */
 	protected $parser;
 

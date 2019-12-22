@@ -107,8 +107,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$options['luaPath'],
 			__DIR__ . '/mw_main.lua',
 			dirname( dirname( __DIR__ ) ),
-			$this->id,
-			PHP_INT_SIZE
+			(string)$this->id,
+			(string)PHP_INT_SIZE
 		);
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
@@ -116,9 +116,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				'exec', # proc_open() passes $cmd to 'sh -c' on Linux, so add an 'exec' to bypass it
 				'/bin/sh',
 				__DIR__ . '/lua_ulimit.sh',
-				$options['cpuLimit'], # soft limit (SIGXCPU)
-				$options['cpuLimit'] + 1, # hard limit
-				intval( $options['memoryLimit'] / 1024 ),
+				(string)$options['cpuLimit'], # soft limit (SIGXCPU)
+				(string)( $options['cpuLimit'] + 1 ), # hard limit
+				(string)intval( $options['memoryLimit'] / 1024 ),
 				$cmd );
 		}
 
@@ -148,6 +148,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			[
 				[ 'pipe', 'r' ],
 				[ 'pipe', 'w' ],
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				[ 'file', $options['errorFile'], 'a' ]
 			],
 			$pipes );
@@ -354,6 +355,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		return [
 			'op' => 'return',
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullableInternal result always array
 			'nvalues' => count( $result ),
 			'values' => $result
 		];
@@ -589,11 +591,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$status['termsig'] = $status['exitcode'] - 128;
 		}
 
+		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 		if ( $status['signaled'] ) {
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			if ( defined( 'SIGXCPU' ) && $status['termsig'] === SIGXCPU ) {
 				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
 				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
+					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 					[ 'args' => [ $status['termsig'] ] ] );
 			}
 		} else {

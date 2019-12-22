@@ -177,9 +177,9 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		$this->checkTypeOptional( 'interwikiMap', 1, $filter, 'string', null );
 		$local = null;
 		if ( $filter === 'local' ) {
-			$local = 1;
+			$local = '1';
 		} elseif ( $filter === '!local' ) {
-			$local = 0;
+			$local = '0';
 		} elseif ( $filter !== null ) {
 			throw new Scribunto_LuaError(
 				"bad argument #1 to 'interwikiMap' (unknown filter '$filter')"

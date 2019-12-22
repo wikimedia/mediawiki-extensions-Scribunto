@@ -91,7 +91,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			if ( $cumulativePercent <= 99 && $num <= 10 ) {
 				// Map some regularly appearing internal names
 				if ( preg_match( '/^<mw.lua:(\d+)>$/', $name, $m ) ) {
-					$line = $this->getMwLuaLine( $m[1] );
+					$line = $this->getMwLuaLine( (int)$m[1] );
 					if ( preg_match( '/^\s*(local\s+)?function ([a-zA-Z0-9_.]*)/', $line, $m ) ) {
 						$name = $m[2] . ' ' . $name;
 					}
@@ -177,8 +177,8 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				$pct = clone $percentMsg;
 				$pct->params( $line[2] );
 				$report .= Html::openElement( 'tr' ) .
-					Html::element( 'td', null, $name ) .
-					Html::rawElement( 'td', null, $location ) .
+					Html::element( 'td', [], $name ) .
+					Html::rawElement( 'td', [], $location ) .
 					Html::rawElement( 'td', [ 'align' => 'right' ], $ms->parse() ) .
 					Html::rawElement( 'td', [ 'align' => 'right' ], $pct->parse() ) .
 					Html::closeElement( 'tr' );
