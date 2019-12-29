@@ -34,7 +34,7 @@ abstract class Scribunto_LuaEngineUnitTestBase extends \PHPUnit\Framework\TestCa
 	 * Class to use for the data provider
 	 * @var string
 	 */
-	protected static $dataProviderClass = 'Scribunto_LuaDataProvider';
+	protected static $dataProviderClass = Scribunto_LuaDataProvider::class;
 
 	/**
 	 * Tests to skip. Associative array mapping test name to skip reason.

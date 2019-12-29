@@ -58,11 +58,11 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 				function ( $engine, &$libs ) {
 					$libs += [
 						'CommonTestsLib' => [
-							'class' => 'Scribunto_LuaCommonTestsLibrary',
+							'class' => Scribunto_LuaCommonTestsLibrary::class,
 							'deferLoad' => true,
 						],
 						'CommonTestsFailLib' => [
-							'class' => 'Scribunto_LuaCommonTestsFailLibrary',
+							'class' => Scribunto_LuaCommonTestsFailLibrary::class,
 							'deferLoad' => true,
 						],
 					];

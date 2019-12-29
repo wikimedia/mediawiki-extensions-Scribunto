@@ -33,7 +33,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * Class to use for the data provider
 	 * @var string
 	 */
-	protected static $dataProviderClass = 'Scribunto_LuaDataProvider';
+	protected static $dataProviderClass = Scribunto_LuaDataProvider::class;
 
 	/**
 	 * Tests to skip. Associative array mapping test name to skip reason.

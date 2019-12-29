@@ -8,15 +8,15 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @var array Maps module names to PHP classes or definition arrays
 	 */
 	protected static $libraryClasses = [
-		'mw.site' => 'Scribunto_LuaSiteLibrary',
-		'mw.uri' => 'Scribunto_LuaUriLibrary',
-		'mw.ustring' => 'Scribunto_LuaUstringLibrary',
-		'mw.language' => 'Scribunto_LuaLanguageLibrary',
-		'mw.message' => 'Scribunto_LuaMessageLibrary',
-		'mw.title' => 'Scribunto_LuaTitleLibrary',
-		'mw.text' => 'Scribunto_LuaTextLibrary',
-		'mw.html' => 'Scribunto_LuaHtmlLibrary',
-		'mw.hash' => 'Scribunto_LuaHashLibrary',
+		'mw.site' => Scribunto_LuaSiteLibrary::class,
+		'mw.uri' => Scribunto_LuaUriLibrary::class,
+		'mw.ustring' => Scribunto_LuaUstringLibrary::class,
+		'mw.language' => Scribunto_LuaLanguageLibrary::class,
+		'mw.message' => Scribunto_LuaMessageLibrary::class,
+		'mw.title' => Scribunto_LuaTitleLibrary::class,
+		'mw.text' => Scribunto_LuaTextLibrary::class,
+		'mw.html' => Scribunto_LuaHtmlLibrary::class,
+		'mw.hash' => Scribunto_LuaHashLibrary::class,
 	];
 
 	/**

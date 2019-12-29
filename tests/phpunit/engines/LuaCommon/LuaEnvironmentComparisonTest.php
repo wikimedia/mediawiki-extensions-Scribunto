@@ -41,7 +41,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 
 		try {
 			$this->engines['LuaSandbox'] = $this->makeEngine(
-				'Scribunto_LuaSandboxEngine', $this->sandboxOpts
+				Scribunto_LuaSandboxEngine::class, $this->sandboxOpts
 			);
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaSandbox interpreter not available" );
@@ -50,7 +50,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 
 		try {
 			$this->engines['LuaStandalone'] = $this->makeEngine(
-				'Scribunto_LuaStandaloneEngine', $this->standaloneOpts
+				Scribunto_LuaStandaloneEngine::class, $this->standaloneOpts
 			);
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaStandalone interpreter not available" );
