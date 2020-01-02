@@ -14,6 +14,7 @@ class Scribunto_LuaUriLibraryTest extends Scribunto_LuaEngineTestBase {
 			'wgScript' => '/w/index.php',
 			'wgScriptPath' => '/w',
 			'wgArticlePath' => '/wiki/$1',
+			'wgFragmentMode' => [ 'legacy', 'html5' ],
 		] );
 	}
 
