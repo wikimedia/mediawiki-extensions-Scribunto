@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestSuite;
 class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected static $moduleName = 'TitleLibraryTests';
 
+	/** @var Title|null */
+	private $testTitle = null;
+
+	private $testPageId = null;
+
 	public static function suite( $className ) {
 		global $wgInterwikiCache;
 		if ( $wgInterwikiCache ) {
@@ -28,6 +33,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	protected function setUp() : void {
 		global $wgHooks;
 
+		$this->setTestTitle( null );
 		parent::setUp();
 
 		// Hook to inject our interwiki prefix
@@ -56,7 +62,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 			),
 			'Summary'
 		);
-		$testPageId = $page->getId();
+		$this->testPageId = $page->getId();
 
 		// Pages for redirectTarget tests
 		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestRedirect' ) );
@@ -115,7 +121,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		// Indicate to the tests that it's safe to create the title objects
 		$interpreter = $this->getEngine()->getInterpreter();
 		$interpreter->callFunction(
-			$interpreter->loadString( "mw.title.testPageId = $testPageId", 'fortest' )
+			$interpreter->loadString( "mw.title.testPageId = $this->testPageId", 'fortest' )
 		);
 
 		$this->setMwGlobals( [
@@ -133,6 +139,15 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		global $wgHooks;
 		$wgHooks = $this->hooks;
 		parent::tearDown();
+	}
+
+	protected function getTestTitle() {
+		return $this->testTitle ?? parent::getTestTitle();
+	}
+
+	protected function setTestTitle( $title ) {
+		$this->testTitle = $title !== null ? Title::newFromText( $title ) : null;
+		$this->resetEngine();
 	}
 
 	protected function getTestModules() {
@@ -168,5 +183,74 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		$templates = $engine->getParser()->getOutput()->getTemplates();
 		$this->assertArrayHasKey( NS_PROJECT, $templates );
 		$this->assertArrayHasKey( 'Loaded_from_Lua', $templates[NS_PROJECT] );
+	}
+
+	/**
+	 * @dataProvider provideVaryPageId
+	 * @param string $code Code to create the mw.title
+	 * @param bool $flag Whether the flag gets set in the end
+	 */
+	public function testVaryPageId( $testTitle, $code, $flag ) {
+		$this->setTestTitle( $testTitle );
+
+		$code = strtr( $code, [ '$$ID$$' => $this->testPageId ] );
+
+		$engine = $this->getEngine();
+		$interpreter = $engine->getInterpreter();
+		$this->assertFalse(
+			$engine->getParser()->getOutput()->getFlag( 'vary-page-id' ), 'sanity check'
+		);
+
+		$interpreter->callFunction( $interpreter->loadString(
+			"local _ = $code", 'reference title but not id'
+		) );
+		$this->assertFalse( $engine->getParser()->getOutput()->getFlag( 'vary-page-id' ) );
+
+		$interpreter->callFunction( $interpreter->loadString(
+			"local _ = $code.id", 'reference id'
+		) );
+		$this->assertSame( $flag, $engine->getParser()->getOutput()->getFlag( 'vary-page-id' ) );
+	}
+
+	public function provideVaryPageId() {
+		return [
+			'by getCurrentTitle()' => [
+				'ScribuntoTestPage',
+				'mw.title.getCurrentTitle()',
+				true
+			],
+			'by name' => [
+				'ScribuntoTestPage',
+				'mw.title.new("ScribuntoTestPage")',
+				true
+			],
+			'by id' => [
+				'ScribuntoTestPage',
+				'mw.title.new( $$ID$$ )',
+				true
+			],
+
+			'other page by name' => [
+				'ScribuntoTestRedirect',
+				'mw.title.new("ScribuntoTestPage")',
+				false
+			],
+			'other page by id' => [
+				'ScribuntoTestRedirect',
+				'mw.title.new( $$ID$$ )',
+				false
+			],
+
+			'new page by getCurrentTitle()' => [
+				'ScribuntoTestPage/DoesNotExist',
+				'mw.title.getCurrentTitle()',
+				true
+			],
+			'new page by name' => [
+				'ScribuntoTestPage/DoesNotExist',
+				'mw.title.new("ScribuntoTestPage/DoesNotExist")',
+				true
+			],
+		];
 	}
 }

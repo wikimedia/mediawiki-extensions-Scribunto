@@ -19,6 +19,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'protectionLevels' => [ $this, 'protectionLevels' ],
 			'cascadingProtection' => [ $this, 'cascadingProtection' ],
 			'redirectTarget' => [ $this, 'redirectTarget' ],
+			'recordVaryFlag' => [ $this, 'recordVaryFlag' ],
 		];
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, [
 			'thisTitle' => $this->getInexpensiveTitleData( $this->getTitle() ),
@@ -67,6 +68,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	private function getInexpensiveTitleData( Title $title ) {
 		$ns = $title->getNamespace();
 		$ret = [
+			'isCurrentTitle' => (bool)$title->equals( $this->getTitle() ),
 			'isLocal' => (bool)$title->isLocal(),
 			'interwiki' => $title->getInterwiki(),
 			'namespace' => $ns,
@@ -427,5 +429,22 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		$content = $this->getContentInternal( $text );
 		$redirTitle = $content ? $content->getRedirectTarget() : null;
 		return [ $redirTitle ? $this->getInexpensiveTitleData( $redirTitle ) : null ];
+	}
+
+	/**
+	 * Record a ParserOutput flag when the current title is accessed
+	 * @internal
+	 * @param string $text
+	 * @param string $flag
+	 * @return array
+	 */
+	public function recordVaryFlag( $text, $flag ) {
+		$this->checkType( 'recordVaryFlag', 1, $text, 'string' );
+		$this->checkType( 'recordVaryFlag', 2, $flag, 'string' );
+		$title = Title::newFromText( $text );
+		if ( $title && $title->equals( $this->getTitle() ) ) {
+			$this->getParser()->getOutput()->setFlag( $flag );
+		}
+		return [];
 	}
 }

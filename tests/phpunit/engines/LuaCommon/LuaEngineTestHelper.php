@@ -170,4 +170,12 @@ trait Scribunto_LuaEngineTestHelper {
 		return Title::newMainPage();
 	}
 
+	/**
+	 * Reset the cached engine. The next call to getEngine() will return a new
+	 * object.
+	 */
+	protected function resetEngine() {
+		$this->engine = null;
+	}
+
 }
