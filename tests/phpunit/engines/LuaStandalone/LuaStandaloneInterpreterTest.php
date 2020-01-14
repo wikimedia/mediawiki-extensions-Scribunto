@@ -66,7 +66,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$engine = TestingAccessWrapper::newFromObject( $interpreter->engine );
 		$status = $interpreter->getStatus();
 		$pid = $status['pid'];
-		$this->assertInternalType( 'integer', $status['pid'] );
+		$this->assertIsInt( $status['pid'] );
 		$initialVsize = $this->getVsize( $pid );
 		$this->assertGreaterThan( 0, $initialVsize, 'Initial vsize' );
 

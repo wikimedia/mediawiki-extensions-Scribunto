@@ -103,7 +103,7 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 		);
 
 		$leakedGlobals = array_diff( $actualGlobals, self::$allowedGlobals );
-		$this->assertEquals( 0, count( $leakedGlobals ),
+		$this->assertEmpty( $leakedGlobals,
 			'The following globals are leaked: ' . implode( ' ', $leakedGlobals )
 		);
 	}
