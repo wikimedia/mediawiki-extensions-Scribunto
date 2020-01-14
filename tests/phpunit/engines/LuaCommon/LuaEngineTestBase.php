@@ -41,6 +41,12 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	 */
 	protected $skipTests = [];
 
+	/**
+	 * @param string|null $name
+	 * @param array $data
+	 * @param string $dataName
+	 * @param string|null $engineName Engine to test with
+	 */
 	public function __construct(
 		$name = null, array $data = [], $dataName = '', $engineName = null
 	) {
@@ -51,6 +57,11 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		parent::__construct( $name, $data, $dataName );
 	}
 
+	/**
+	 * Create a PHPUnit test suite to run the test against all engines
+	 * @param string $className Test class name
+	 * @return \PHPUnit\Framework\TestSuite
+	 */
 	public static function suite( $className ) {
 		return self::makeSuite( $className );
 	}
@@ -85,6 +96,10 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		return $this->engineName . ': ' . parent::toString();
 	}
 
+	/**
+	 * Modules that should exist
+	 * @return string[] Mapping module names to files
+	 */
 	protected function getTestModules() {
 		return [
 			'TestFramework' => __DIR__ . '/TestFramework.lua',

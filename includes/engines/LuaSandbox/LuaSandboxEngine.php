@@ -9,12 +9,14 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	 */
 	protected $interpreter;
 
+	/** @inheritDoc */
 	public function getPerformanceCharacteristics() {
 		return [
 			'phpCallsRequireSerialization' => false,
 		];
 	}
 
+	/** @inheritDoc */
 	public function getSoftwareInfo( array &$software ) {
 		try {
 			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
@@ -37,6 +39,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/** @inheritDoc */
 	public function getResourceUsage( $resource ) {
 		$this->load();
 		switch ( $resource ) {
@@ -49,6 +52,9 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	private function getLimitReportData() {
 		$ret = [];
 		$this->load();
@@ -110,6 +116,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		return $ret;
 	}
 
+	/** @inheritDoc */
 	public function reportLimitData( ParserOutput $output ) {
 		$data = $this->getLimitReportData();
 		foreach ( $data as $k => $v ) {
@@ -120,6 +127,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/** @inheritDoc */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
@@ -200,6 +208,11 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		return false;
 	}
 
+	/**
+	 * Fetch a line from mw.lua
+	 * @param int $lineNum
+	 * @return string
+	 */
 	protected function getMwLuaLine( $lineNum ) {
 		if ( !isset( $this->lineCache['mw.lua'] ) ) {
 			$this->lineCache['mw.lua'] = file( $this->getLuaLibDir() . '/mw.lua' );

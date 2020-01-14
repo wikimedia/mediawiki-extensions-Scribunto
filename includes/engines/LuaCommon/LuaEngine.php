@@ -372,14 +372,17 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return $ret[0] ?? null;
 	}
 
+	/** @inheritDoc */
 	public function getGeSHiLanguage() {
 		return 'lua';
 	}
 
+	/** @inheritDoc */
 	public function getCodeEditorLanguage() {
 		return 'lua';
 	}
 
+	/** @inheritDoc */
 	public function runConsole( array $params ) {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 		$resetFrames = $this->setupCurrentFrames();
@@ -885,6 +888,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		return [ $this->getParser()->OutputType() === Parser::OT_WIKI ];
 	}
 
+	/**
+	 * @param PPFrame $frame
+	 * @param string|array $input
+	 * @param mixed $cacheKey
+	 * @return string
+	 */
 	private function doCachedExpansion( $frame, $input, $cacheKey ) {
 		$hash = md5( serialize( $cacheKey ) );
 		if ( isset( $this->expandCache[$hash] ) ) {

@@ -20,6 +20,17 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		] );
 	}
 
+	/**
+	 * Create a Message
+	 * @param array $data
+	 *  - 'rawMessage': (string, optional) If set, create a RawMessage using this as `$text`
+	 *  - 'keys': (string|string[]) Message keys. Required unless 'rawMessage' is set.
+	 *  - 'lang': (Language|StubUserLang|string) Language for the Message.
+	 *  - 'useDB': (bool) "Use database" flag.
+	 *  - 'params': (array) Parameters for the Message. May be omitted if $setParams is false.
+	 * @param bool $setParams Whether to use $data['params']
+	 * @return Message
+	 */
 	private function makeMessage( $data, $setParams ) {
 		if ( isset( $data['rawMessage'] ) ) {
 			$msg = new RawMessage( $data['rawMessage'] );

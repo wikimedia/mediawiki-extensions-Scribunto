@@ -9,17 +9,24 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 		false
 	];
 
+	/**
+	 * @param string|null &$message Message to report when skipping
+	 * @return bool Whether the test can be run
+	 */
 	public static function available( &$message = null ) {
 		if ( is_readable( __DIR__ . '/NormalizationTest.txt' ) ) {
 			return true;
 		}
 		$message = wordwrap( 'Download the Unicode Normalization Test Suite from ' .
-			'http://unicode.org/Public/6.0.0/ucd/NormalizationTest.txt and save as ' .
+			'http://unicode.org/Public/8.0.0/ucd/NormalizationTest.txt and save as ' .
 			__DIR__ . '/NormalizationTest.txt to run normalization tests. Note that ' .
 			'running these tests takes quite some time.' );
 		return false;
 	}
 
+	/**
+	 * @param Scribunto_LuaEngine $engine
+	 */
 	public function __construct( $engine ) {
 		parent::__construct( $engine, 'UstringLibraryNormalizationTests' );
 		if ( self::available() ) {
@@ -84,6 +91,15 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 		}
 	}
 
+	/**
+	 * Run the normalization test
+	 * @param string $c1 Column 1 from NormalizationTest.txt
+	 * @param string $c2 Column 2 from NormalizationTest.txt
+	 * @param string $c3 Column 3 from NormalizationTest.txt
+	 * @param string $c4 Column 4 from NormalizationTest.txt
+	 * @param string $c5 Column 5 from NormalizationTest.txt
+	 * @return array
+	 */
 	public function runNorm( $c1, $c2, $c3, $c4, $c5 ) {
 		return $this->engine->getInterpreter()->callFunction( $this->exports['run'],
 			$c1, $c2, $c3, $c4, $c5

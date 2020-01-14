@@ -26,6 +26,13 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		] );
 	}
 
+	/**
+	 * Check a namespace parameter
+	 * @param string $name Function name (for errors)
+	 * @param int $argIdx Argument index (for errors)
+	 * @param mixed &$arg Argument
+	 * @param int|null $default Default value, if $arg is null
+	 */
 	private function checkNamespace( $name, $argIdx, &$arg, $default = null ) {
 		global $wgContLang;
 
@@ -261,7 +268,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * The title is counted as a transclusion.
 	 *
-	 * @param $text string Title text
+	 * @param string $text Title text
 	 * @return Content|null The Content object of the title, null if missing
 	 */
 	private function getContentInternal( $text ) {
@@ -349,6 +356,11 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		] ];
 	}
 
+	/**
+	 * Renumber an array for return to Lua
+	 * @param array $arr
+	 * @return array
+	 */
 	private static function makeArrayOneBased( $arr ) {
 		if ( empty( $arr ) ) {
 			return $arr;

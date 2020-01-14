@@ -82,6 +82,15 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 	}
 
+	/**
+	 * Execute the console
+	 * @param array $params
+	 *  - 'title': (Title) Module being processed
+	 *  - 'content': (string) New module text
+	 *  - 'prevQuestions': (string[]) Previous values for 'question' in this session.
+	 *  - 'question': (string) Lua code to run.
+	 * @return array Result data
+	 */
 	protected function runConsole( array $params ) {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$options = new ParserOptions;
@@ -129,6 +138,7 @@ class ApiScribuntoConsole extends ApiBase {
 		return true;
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'title' => [

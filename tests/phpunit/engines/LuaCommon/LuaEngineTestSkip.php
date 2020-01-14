@@ -4,6 +4,10 @@ class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
 	private $className = '';
 	private $message = '';
 
+	/**
+	 * @param string $className Class being skipped
+	 * @param string $message Skip message
+	 */
 	public function __construct( $className = '', $message = '' ) {
 		$this->className = $className;
 		$this->message = $message;

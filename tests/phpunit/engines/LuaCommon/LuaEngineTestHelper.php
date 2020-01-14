@@ -26,6 +26,12 @@ trait Scribunto_LuaEngineTestHelper {
 		],
 	];
 
+	/**
+	 * Create a PHPUnit test suite to run the test against all engines
+	 * @param string $className Test class name
+	 * @param string|null $group Engine to run with, or null to run all engines
+	 * @return TestSuite
+	 */
 	protected static function makeSuite( $className, $group = null ) {
 		$suite = new TestSuite;
 		$suite->setName( $className );
@@ -143,6 +149,12 @@ trait Scribunto_LuaEngineTestHelper {
 		return $this->engine;
 	}
 
+	/**
+	 * @see Parser::statelessFetchTemplate
+	 * @param Title $title
+	 * @param Parser|false $parser
+	 * @return array
+	 */
 	public function templateCallback( $title, $parser ) {
 		if ( isset( $this->extraModules[$title->getFullText()] ) ) {
 			return [

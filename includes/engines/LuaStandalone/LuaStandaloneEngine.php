@@ -21,12 +21,14 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/** @inheritDoc */
 	public function getPerformanceCharacteristics() {
 		return [
 			'phpCallsRequireSerialization' => true,
 		];
 	}
 
+	/** @inheritDoc */
 	public function reportLimitData( ParserOutput $output ) {
 		try {
 			$this->load();
@@ -59,6 +61,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 	}
 
+	/** @inheritDoc */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
@@ -102,6 +105,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		] );
 	}
 
+	/** @inheritDoc */
 	public function getSoftwareInfo( array &$software ) {
 		$ver = Scribunto_LuaStandaloneInterpreter::getLuaVersion( $this->options );
 		if ( $ver !== null ) {

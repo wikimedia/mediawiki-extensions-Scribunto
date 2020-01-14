@@ -16,6 +16,9 @@ use MediaWiki\MediaWikiServices;
  */
 class ScribuntoContent extends TextContent {
 
+	/**
+	 * @param string $text
+	 */
 	public function __construct( $text ) {
 		parent::__construct( $text, CONTENT_MODEL_SCRIBUNTO );
 	}
@@ -32,6 +35,7 @@ class ScribuntoContent extends TextContent {
 		return $engine->validate( $this->getText(), $title->getPrefixedDBkey() );
 	}
 
+	/** @inheritDoc */
 	public function prepareSave( WikiPage $page, $flags, $parentRevId, User $user ) {
 		return $this->validate( $page->getTitle() );
 	}

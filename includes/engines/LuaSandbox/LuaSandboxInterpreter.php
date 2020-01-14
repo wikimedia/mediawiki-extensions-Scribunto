@@ -39,6 +39,10 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * @param Scribunto_LuaEngine $engine
+	 * @param array $options
+	 */
 	public function __construct( $engine, array $options ) {
 		self::checkLuaSandboxVersion();
 
@@ -55,6 +59,11 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * Convert a LuaSandboxError to a Scribunto_LuaError
+	 * @param LuaSandboxError $e
+	 * @return Scribunto_LuaError
+	 */
 	protected function convertSandboxError( LuaSandboxError $e ) {
 		$opts = [];
 		if ( isset( $e->luaTrace ) ) {
@@ -83,6 +92,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/** @inheritDoc */
 	public function registerLibrary( $name, array $functions ) {
 		$realLibrary = [];
 		foreach ( $functions as $funcName => $callback ) {
@@ -97,6 +107,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		# 	$name, [ $this, 'callback' ], $functions );
 	}
 
+	/** @inheritDoc */
 	public function callFunction( $func, ...$args ) {
 		try {
 			$ret = $func->call( ...$args );
@@ -115,22 +126,34 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/** @inheritDoc */
 	public function wrapPhpFunction( $callable ) {
 		return $this->sandbox->wrapPhpFunction( $callable );
 	}
 
+	/** @inheritDoc */
 	public function isLuaFunction( $object ) {
 		return $object instanceof LuaSandboxFunction;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getPeakMemoryUsage() {
 		return $this->sandbox->getPeakMemoryUsage();
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getCPUUsage() {
 		return $this->sandbox->getCPUUsage();
 	}
 
+	/**
+	 * @param int $units self::SAMPLES, self::SECONDS, or self::PERCENT
+	 * @return array
+	 */
 	public function getProfilerFunctionReport( $units ) {
 		if ( $this->profilerEnabled ) {
 			static $unitsMap;

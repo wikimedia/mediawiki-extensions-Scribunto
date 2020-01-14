@@ -3,8 +3,12 @@
 use UtfNormal\Validator;
 
 class Scribunto_LuaError extends ScribuntoException {
-	public $luaMessage, $lineMap = [];
+	public $luaMessage;
 
+	/**
+	 * @param string $message
+	 * @param array $options
+	 */
 	public function __construct( $message, array $options = [] ) {
 		$this->luaMessage = $message;
 		$options = $options + [ 'args' => [ Validator::cleanUp( $message ) ] ];
@@ -17,12 +21,11 @@ class Scribunto_LuaError extends ScribuntoException {
 		parent::__construct( $msg, $options );
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getLuaMessage() {
 		return $this->luaMessage;
-	}
-
-	public function setLineMap( $map ) {
-		$this->lineMap = $map;
 	}
 
 	/**

@@ -7,6 +7,9 @@ class Scribunto_LuaSandboxCallback {
 	 */
 	protected $callback;
 
+	/**
+	 * @param callable $callback
+	 */
 	public function __construct( $callback ) {
 		$this->callback = $callback;
 	}

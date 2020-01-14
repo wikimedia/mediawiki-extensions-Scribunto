@@ -169,6 +169,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$this->terminate();
 	}
 
+	/**
+	 * Fetch the Lua version
+	 * @param array $options Engine options
+	 * @return string|null
+	 */
 	public static function getLuaVersion( array $options ) {
 		if ( $options['luaPath'] === null ) {
 			// We know which versions are distributed, no need to run them.
@@ -240,6 +245,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return new Scribunto_LuaStandaloneInterpreterFunction( $this->id, $result[1] );
 	}
 
+	/** @inheritDoc */
 	public function callFunction( $func, ...$args ) {
 		if ( !( $func instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
 			throw new MWException( __METHOD__ . ': invalid function type' );
@@ -263,6 +269,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return array_values( $result );
 	}
 
+	/** @inheritDoc */
 	public function wrapPhpFunction( $callable ) {
 		static $uid = 0;
 		$id = "anonymous*" . ++$uid;
@@ -284,10 +291,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/** @inheritDoc */
 	public function isLuaFunction( $object ) {
 		return $object instanceof Scribunto_LuaStandaloneInterpreterFunction;
 	}
 
+	/** @inheritDoc */
 	public function registerLibrary( $name, array $functions ) {
 		// Make sure all ids are unique, even when libraries share the same name
 		// which is especially relevant for "mw_interface" (T211203).
@@ -307,6 +316,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		] );
 	}
 
+	/**
+	 * Get interpreter status
+	 * @return array
+	 */
 	public function getStatus() {
 		$result = $this->dispatch( [
 			'op' => 'getStatus',
@@ -335,6 +348,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * Handle a protocol 'call' message from Lua
+	 * @param array $message
+	 * @return array Response message to send to Lua
+	 */
 	protected function handleCall( $message ) {
 		$message['args'] = self::fixNulls( $message['args'], $message['nargs'] );
 		try {
@@ -355,16 +373,28 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 		return [
 			'op' => 'return',
-			// @phan-suppress-next-line PhanTypeMismatchArgumentNullableInternal result always array
 			'nvalues' => count( $result ),
 			'values' => $result
 		];
 	}
 
+	/**
+	 * Call a registered/wrapped PHP function from Lua
+	 * @param string $id Callback ID
+	 * @param array $args Arguments to pass to the callback
+	 * @return mixed Return value from the callback
+	 */
 	protected function callback( $id, array $args ) {
 		return ( $this->callbacks[$id] )( ...$args );
 	}
 
+	/**
+	 * Handle a protocol error response
+	 *
+	 * Converts the encoded Lua error to an appropriate exception and throws it.
+	 *
+	 * @param array $message
+	 */
 	protected function handleError( $message ) {
 		$opts = [];
 		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message['value'], $m ) ) {
@@ -378,6 +408,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		throw $this->engine->newLuaError( $message['value'], $opts );
 	}
 
+	/**
+	 * Send a protocol message to Lua, and handle any responses
+	 * @param array $msgToLua
+	 * @return mixed Response data
+	 */
 	protected function dispatch( $msgToLua ) {
 		$this->sendMessage( $msgToLua );
 		while ( true ) {
@@ -400,6 +435,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * Send a protocol message to Lua
+	 * @param array $msg
+	 */
 	protected function sendMessage( $msg ) {
 		$this->debug( "TX ==> {$msg['op']}" );
 		$this->checkValid();
@@ -413,6 +452,10 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * Receive a protocol message from Lua
+	 * @return array
+	 */
 	protected function receiveMessage() {
 		$this->checkValid();
 		// Read the header
@@ -445,6 +488,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		return $msg;
 	}
 
+	/**
+	 * Encode a protocol message to send to Lua
+	 * @param mixed $message
+	 * @return string
+	 */
 	protected function encodeMessage( $message ) {
 		$serialized = $this->encodeLuaVar( $message );
 		$length = strlen( $serialized );
@@ -531,6 +579,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		}
 	}
 
+	/**
+	 * Verify protocol header and extract the body length.
+	 * @param string $header
+	 * @return int Length
+	 */
 	protected function decodeHeader( $header ) {
 		$length = substr( $header, 0, 8 );
 		$check = substr( $header, 8, 8 );
@@ -608,6 +661,9 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		throw $this->exitError;
 	}
 
+	/**
+	 * @param string $msg
+	 */
 	protected function debug( $msg ) {
 		if ( $this->enableDebug ) {
 			$this->logger->debug( "Lua: $msg\n" );
