@@ -66,7 +66,7 @@ trait Scribunto_LuaEngineTestHelper {
 			$engineSuite->setName( "$engineName: $className" );
 
 			foreach ( $class->getMethods() as $method ) {
-				if ( TestSuite::isTestMethod( $method ) && $method->isPublic() ) {
+				if ( self::isTestMethod( $method ) && $method->isPublic() ) {
 					$name = $method->getName();
 					$groups = Test::getGroups( $className, $name );
 					$groups[] = 'Lua';
@@ -105,6 +105,23 @@ trait Scribunto_LuaEngineTestHelper {
 		}
 
 		return $suite;
+	}
+
+	/**
+	 * Temporary helper for the duration of PHPUnit 8 migration
+	 * @fixme Remove after migration is over
+	 *
+	 * @param ReflectionMethod $method
+	 * @return bool
+	 */
+	private static function isTestMethod( ReflectionMethod $method ) : bool {
+		// PHPUnit 6
+		if ( method_exists( TestSuite::class, 'isTestMethod' ) ) {
+			return TestSuite::isTestMethod( $method );
+		}
+
+		// PHPUnit 8
+		return Test::isTestMethod( $method );
 	}
 
 	/**
