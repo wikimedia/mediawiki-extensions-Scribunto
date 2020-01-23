@@ -80,7 +80,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$time = $status['time'] / $engine->getClockTick();
 		$this->assertGreaterThan( 0.1, $time, 'getStatus() time usage' );
 		$this->assertLessThan( 1.5, $time, 'getStatus() time usage' );
-		$this->assertEquals( $vsize, $status['vsize'], 'vsize', $vsize * 0.1 );
+		$this->assertEqualsWithDelta( $vsize, $status['vsize'], $vsize * 0.1, 'vsize' );
 	}
 
 	/**
