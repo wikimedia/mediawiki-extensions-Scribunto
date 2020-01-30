@@ -884,6 +884,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 		default:
 			$this->checkType( 'gsub', 3, $repl, 'function or table or string' );
+			throw new LogicException( 'checkType above should have failed' );
 		}
 
 		$skippedMatches = 0;
@@ -906,7 +907,6 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		$count = 0;
-		// @phan-suppress-next-line PhanTypeMismatchArgumentNullableInternal
 		$s2 = preg_replace_callback( $re, $cb, $s, $n, $count );
 		if ( $s2 === null ) {
 			self::handlePCREError( preg_last_error(), $pattern );

@@ -9,6 +9,9 @@ class ApiScribuntoConsole extends ApiBase {
 	const SC_MAX_SIZE = 500000;
 	const SC_SESSION_EXPIRY = 3600;
 
+	/**
+	 * @suppress PhanTypePossiblyInvalidDimOffset
+	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
 
@@ -60,7 +63,6 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 		$result = $this->runConsole( [
 			'title' => $title,
-			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			'content' => $newSession['content'],
 			'prevQuestions' => $session['questions'],
 			'question' => $params['question'],

@@ -182,8 +182,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				return [ null ];
 			}
 		} else {
-			// This will always fail
 			$this->checkType( 'title.new', 1, $text_or_id, 'number or string' );
+			throw new LogicException( 'checkType above should have failed' );
 		}
 
 		return [ $this->getInexpensiveTitleData( $title ) ];

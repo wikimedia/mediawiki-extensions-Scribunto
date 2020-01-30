@@ -148,7 +148,6 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			[
 				[ 'pipe', 'r' ],
 				[ 'pipe', 'w' ],
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				[ 'file', $options['errorFile'], 'a' ]
 			],
 			$pipes );
@@ -644,14 +643,11 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$status['termsig'] = $status['exitcode'] - 128;
 		}
 
-		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 		if ( $status['signaled'] ) {
-			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			if ( defined( 'SIGXCPU' ) && $status['termsig'] === SIGXCPU ) {
 				$this->exitError = $this->engine->newException( 'scribunto-common-timeout' );
 			} else {
 				$this->exitError = $this->engine->newException( 'scribunto-luastandalone-signal',
-					// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 					[ 'args' => [ $status['termsig'] ] ] );
 			}
 		} else {
