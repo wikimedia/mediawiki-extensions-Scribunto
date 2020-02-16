@@ -308,6 +308,11 @@ $namespaceNames['lfn'] = [
 	829 => 'Modulo_Discute',
 ];
 
+$namespaceNames['lmo'] = [
+	828 => 'Mòdul',
+	829 => 'Ciciarada_Mòdul',
+];
+
 $namespaceNames['lrc'] = [
 	828 => 'ماجول',
 	829 => 'چک_چنه_ماجول',
