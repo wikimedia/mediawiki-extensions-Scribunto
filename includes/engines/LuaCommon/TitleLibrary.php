@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// Note these caches are naturally limited to
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
@@ -82,7 +84,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
 				$this->getParser()->getOutput()->addLink( $title );
 			}
-			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
+			$ret['exists'] = MediaWikiServices::getInstance()
+				->getSpecialPageFactory()->exists( $title->getDBkey() );
 		}
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
 			$ret['file'] = false;
@@ -134,7 +137,8 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'contentModel' => $title->getContentModel(),
 		];
 		if ( $title->getNamespace() === NS_SPECIAL ) {
-			$ret['exists'] = (bool)SpecialPageFactory::exists( $title->getDBkey() );
+			$ret['exists'] = MediaWikiServices::getInstance()
+				->getSpecialPageFactory()->exists( $title->getDBkey() );
 		} else {
 			// bug 70495: don't just check whether the ID != 0
 			$ret['exists'] = $title->exists();
