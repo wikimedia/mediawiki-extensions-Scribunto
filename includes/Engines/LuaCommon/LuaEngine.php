@@ -7,6 +7,7 @@ use FormatJson;
 use Html;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
 use MediaWiki\Extension\Scribunto\Scribunto;
+use MediaWiki\Extension\Scribunto\ScribuntoContent;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
@@ -971,6 +972,63 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		// We'll throw an error for non-tables on the Lua side
 
 		return [ $json ];
+	}
+
+	/**
+	 * @see Content::updateRedirect
+	 *
+	 * @param ScribuntoContent $content
+	 * @param Title $target
+	 * @return ScribuntoContent
+	 */
+	public function updateRedirect( ScribuntoContent $content, Title $target ): ScribuntoContent {
+		if ( !$content->isRedirect() ) {
+			return $content;
+		}
+		return $this->makeRedirectContent( $target );
+	}
+
+	/**
+	 * @see Content::getRedirectTarget
+	 *
+	 * @param ScribuntoContent $content
+	 * @return Title|null
+	 */
+	public function getRedirectTarget( ScribuntoContent $content ) {
+		$text = $content->getText();
+		preg_match( '/^return require \[\[(.*?)\]\]/', $text, $matches );
+		if ( isset( $matches[1] ) ) {
+			$title = Title::newFromText( $matches[1] );
+			// Can only redirect to other Scribunto pages
+			if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+				// Have a title, check that the current content equals what
+				// the redirect content should be
+				if ( $content->equals( $this->makeRedirectContent( $title ) ) ) {
+					return $title;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @see ContentHandler::makeRedirectContent
+	 * @param Title $destination
+	 * @param string $text
+	 * @return ScribuntoContent
+	 */
+	public function makeRedirectContent( Title $destination, $text = '' ) {
+		$targetPage = $destination->getPrefixedText();
+		$redirectText = "return require [[$targetPage]]";
+		return new ScribuntoContent( $redirectText );
+	}
+
+	/**
+	 * @see ContentHandler::supportsRedirects
+	 * @return bool true
+	 */
+	public function supportsRedirects(): bool {
+		return true;
 	}
 }
 

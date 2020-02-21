@@ -34,8 +34,9 @@ class TitleLibrary extends LibraryBase {
 			'redirectTarget' => [ $this, 'redirectTarget' ],
 			'recordVaryFlag' => [ $this, 'recordVaryFlag' ],
 		];
+		$title = $this->getTitle();
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, [
-			'thisTitle' => $this->getInexpensiveTitleData( $this->getTitle() ),
+			'thisTitle' => $title ? $this->getInexpensiveTitleData( $title ) : null,
 			'NS_MEDIA' => NS_MEDIA,
 		] );
 	}

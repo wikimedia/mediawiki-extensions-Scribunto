@@ -173,6 +173,16 @@ function p.testFrameCaching( frame )
 	)
 end
 
+function p.testIsRedirect( frame )
+	local name = frame.args[1]
+	local title = mw.title.new( name )
+	if title.redirectTarget then
+		return string.format( "redirects to %s", title.redirectTarget.prefixedText )
+	else
+		return "not a redirect"
+	end
+end
+
 return p
 !! endarticle
 
@@ -212,6 +222,24 @@ setmetatable(mt1.__index, mt2)
 setmetatable(p, mt1)
 
 return p
+!! endarticle
+
+!! article
+Module:Redirected
+!! text
+return require [[Module:Test]]
+!! endarticle
+
+!! article
+Module:Test "with" quotes
+!! text
+return require [[Module:Test]]
+!! endarticle
+
+!! article
+Module:Redirected "with" quotes
+!! text
+return require [[Module:Test "with" quotes]]
 !! endarticle
 
 !! article
@@ -276,6 +304,25 @@ parsoid={ "modes": ["wt2html","wt2wt"], "normalizePhp": true }
 {{#invoke:test|hello}}
 !! html
 <p>hello
+</p>
+!! end
+
+!! test
+Scribunto: redirect to hello world
+!! options
+parsoid={ "modes": ["wt2html","wt2wt"], "normalizePhp": true }
+!! wikitext
+{{#invoke:redirected|hello}}
+{{#invoke:redirected "with" quotes|hello}}
+{{#invoke:redirected|testIsRedirect|Module:Redirected}}
+{{#invoke:redirected "with" quotes|testIsRedirect|Module:Test "with" quotes}}
+{{#invoke:redirected "with" quotes|testIsRedirect|Module:Redirected "with" quotes}}
+!! html
+<p>hello
+hello
+redirects to Module:Test
+redirects to Module:Test
+redirects to Module:Test "with" quotes
 </p>
 !! end
 

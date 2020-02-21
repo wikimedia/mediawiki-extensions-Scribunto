@@ -184,7 +184,8 @@ abstract class ScribuntoEngineBase {
 			if ( !isset( $this->modules[$finalKey] ) ) {
 				$this->modules[$finalKey] = $this->newModule( $text, $finalKey );
 			}
-			// Almost certainly $key === $finalKey, but just in case...
+			// $finalKey may be different from $key in the case of redirects;
+			// store the module in both places.
 			// @phan-suppress-next-line PhanTypeMismatchProperty
 			$this->modules[$key] = $this->modules[$finalKey];
 		}
@@ -298,5 +299,44 @@ abstract class ScribuntoEngineBase {
 	 */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		return true;
+	}
+
+	/**
+	 * @see Content::updateRedirect
+	 *
+	 * @param ScribuntoContent $content
+	 * @param Title $target
+	 * @return ScribuntoContent
+	 */
+	public function updateRedirect( ScribuntoContent $content, Title $target ): ScribuntoContent {
+		return $content;
+	}
+
+	/**
+	 * @see Content::getRedirectTarget
+	 *
+	 * @param ScribuntoContent $content
+	 * @return Title|null
+	 */
+	public function getRedirectTarget( ScribuntoContent $content ) {
+		return null;
+	}
+
+	/**
+	 * @see ContentHandler::makeRedirectContent
+	 * @param Title $destination
+	 * @param string $text
+	 * @return ScribuntoContent|null
+	 */
+	public function makeRedirectContent( Title $destination, $text = '' ) {
+		return null;
+	}
+
+	/**
+	 * @see ContentHandler::supportsRedirects
+	 * @return bool false
+	 */
+	public function supportsRedirects(): bool {
+		return false;
 	}
 }
