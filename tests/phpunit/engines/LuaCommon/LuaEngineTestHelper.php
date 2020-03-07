@@ -45,7 +45,12 @@ trait Scribunto_LuaEngineTestHelper {
 
 			try {
 				$parser = new Parser;
-				$parser->startExternalParse( Title::newMainPage(), new ParserOptions, Parser::OT_HTML, true );
+				$parser->startExternalParse(
+					Title::newMainPage(),
+					ParserOptions::newFromAnon(),
+					Parser::OT_HTML,
+					true
+				);
 				$engineClass = "Scribunto_{$engineName}Engine";
 				$engine = new $engineClass(
 					self::$engineConfigurations[$engineName] + [ 'parser' => $parser ]
@@ -119,7 +124,7 @@ trait Scribunto_LuaEngineTestHelper {
 	protected function getEngine() {
 		if ( !$this->engine ) {
 			$parser = new Parser;
-			$options = new ParserOptions;
+			$options = ParserOptions::newFromAnon();
 			$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );
 			$class = "Scribunto_{$this->engineName}Engine";

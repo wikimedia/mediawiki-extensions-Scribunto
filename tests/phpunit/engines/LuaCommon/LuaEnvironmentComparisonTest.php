@@ -26,7 +26,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 
 	private function makeEngine( $class, $opts ) {
 		$parser = new Parser;
-		$options = new ParserOptions;
+		$options = ParserOptions::newFromAnon();
 		$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
 		$engine = new $class ( [ 'parser' => $parser ] + $opts );

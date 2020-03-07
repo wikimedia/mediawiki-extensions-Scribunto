@@ -95,7 +95,7 @@ class ApiScribuntoConsole extends ApiBase {
 	 */
 	protected function runConsole( array $params ) {
 		$parser = MediaWikiServices::getInstance()->getParser();
-		$options = new ParserOptions;
+		$options = new ParserOptions( $this->getUser() );
 		$parser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
 		$engine = Scribunto::getParserEngine( $parser );
 		try {
