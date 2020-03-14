@@ -37,8 +37,6 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	 * @param int|null $default Default value, if $arg is null
 	 */
 	private function checkNamespace( $name, $argIdx, &$arg, $default = null ) {
-		global $wgContLang;
-
 		if ( $arg === null && $default !== null ) {
 			$arg = $default;
 		} elseif ( is_numeric( $arg ) ) {
@@ -49,7 +47,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 				);
 			}
 		} elseif ( is_string( $arg ) ) {
-			$ns = $wgContLang->getNsIndex( $arg );
+			$ns = MediaWikiServices::getInstance()->getContentLanguage()->getNsIndex( $arg );
 			if ( $ns === false ) {
 				throw new Scribunto_LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace name '$arg')"

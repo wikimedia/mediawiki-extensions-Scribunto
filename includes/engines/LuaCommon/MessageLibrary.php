@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$lib = [
@@ -11,8 +13,7 @@ class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 		if ( $this->getParser() ) {
 			$lang = $this->getParser()->getTargetLanguage();
 		} else {
-			global $wgContLang;
-			$lang = $wgContLang;
+			$lang = MediaWikiServices::getInstance()->getContentLanguage();
 		}
 
 		return $this->getEngine()->registerInterface( 'mw.message.lua', $lib, [

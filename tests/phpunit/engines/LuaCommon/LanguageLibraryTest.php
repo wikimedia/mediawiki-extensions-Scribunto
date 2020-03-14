@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @covers Scribunto_LuaLanguageLibrary
  */
@@ -32,13 +34,12 @@ class Scribunto_LuaLanguageLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	}
 
 	public function testFormatDateTTLs() {
-		global $wgContLang;
-
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
 
 		$ttl = null;
-		$wgContLang->sprintfDate( 's', '20130101000000', null, $ttl );
+		MediaWikiServices::getInstance()->getContentLanguage()
+			->sprintfDate( 's', '20130101000000', null, $ttl );
 		if ( $ttl === null ) {
 			$this->markTestSkipped( "Language::sprintfDate does not set a TTL" );
 		}
