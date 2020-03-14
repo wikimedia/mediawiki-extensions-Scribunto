@@ -328,7 +328,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		$this->incrementExpensiveFunctionCount();
-		$file = wfFindFile( $title );
+		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
 		if ( !$file ) {
 			return [ [ 'exists' => false ] ];
 		}
