@@ -1,5 +1,7 @@
 {
 	"ignore": [
-		"./includes/engines/LuaStandalone/binaries/lua5_1_5_mac_lion_fat_generic/lua"
+		"./includes/engines/LuaStandalone/binaries/lua5_1_5_mac_lion_fat_generic/lua",
+		"./includes/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua",
+		"./includes/engines/LuaStandalone/binaries/lua5_1_5_linux_32_generic/lua"
 	]
 }
