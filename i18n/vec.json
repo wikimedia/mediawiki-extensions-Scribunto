@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Candalua"
+			"Candalua",
+			"Fierodelveneto"
 		]
 	},
 	"scribunto-common-error-category": "Pagine co erori de script",
-	"scribunto-lua-error": "Error Lua: $2."
+	"scribunto-lua-error": "Eror Lua: $2."
 }
