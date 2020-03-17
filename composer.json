@@ -3,7 +3,7 @@
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"mediawiki/mediawiki-codesniffer": "29.0.0",
 		"mediawiki/lua-sandbox": "3.0.1",
-		"mediawiki/minus-x": "1.0.0",
+		"mediawiki/minus-x": "1.1.0",
 		"jakub-onderka/php-console-highlighter": "0.4.0",
 		"mediawiki/mediawiki-phan-config": "0.9.1"
 	},
