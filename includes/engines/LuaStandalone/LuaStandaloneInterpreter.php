@@ -131,7 +131,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$cmd = '"' . $cmd . '"';
 		}
 
-		$this->logger->debug( __METHOD__ . ": creating interpreter: $cmd\n" );
+		$this->logger->debug( __METHOD__ . ": creating interpreter: $cmd" );
 
 		// Check whether proc_open is available before trying to call it (e.g.
 		// PHP's disable_functions may have removed it)
@@ -205,7 +205,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 
 	public function terminate() {
 		if ( $this->proc ) {
-			$this->logger->debug( __METHOD__ . ": terminating\n" );
+			$this->logger->debug( __METHOD__ . ": terminating" );
 			proc_terminate( $this->proc );
 			proc_close( $this->proc );
 			$this->proc = false;
@@ -428,7 +428,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					$this->handleError( $msgFromLua );
 					return [];
 				default:
-					$this->logger->error( __METHOD__ . ": invalid response op \"{$msgFromLua['op']}\"\n" );
+					$this->logger->error( __METHOD__ . ": invalid response op \"{$msgFromLua['op']}\"" );
 					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
 			}
 		}
@@ -602,7 +602,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function checkValid() {
 		if ( !$this->proc ) {
-			$this->logger->error( __METHOD__ . ": process already terminated\n" );
+			$this->logger->error( __METHOD__ . ": process already terminated" );
 			if ( $this->exitError ) {
 				throw $this->exitError;
 			} else {
@@ -662,7 +662,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function debug( $msg ) {
 		if ( $this->enableDebug ) {
-			$this->logger->debug( "Lua: $msg\n" );
+			$this->logger->debug( "Lua: $msg" );
 		}
 	}
 }
