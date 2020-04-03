@@ -874,6 +874,9 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @param string $text wikitext
 	 */
 	public function addWarning( $text ) {
+		$args = func_get_args();
+		$this->checkString( 'addWarning', $args, 0 );
+
 		$this->getParser()->getOutput()->addWarning( $text );
 	}
 

@@ -828,4 +828,27 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 		$text = $parser->mStripState->unstripBoth( $text );
 		$this->assertSame( '>false<', $text );
 	}
+
+	public function testAddWarning() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:TestAddWarning'] = '
+			local p = {}
+
+			p.foo = function ()
+				mw.addWarning( "Don\'t panic!" )
+				return "ok"
+			end
+
+			return p
+		';
+
+		$frame = $pp->newFrame();
+		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:TestAddWarning|foo}}<" ) );
+		$text = $parser->mStripState->unstripBoth( $text );
+		$this->assertSame( '>ok<', $text );
+		$this->assertSame( [ 'Don\'t panic!' ], $parser->getOutput()->getWarnings() );
+	}
 }
