@@ -1,14 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226",
-			"Yfdyh000",
-			"Spring Roll Conan",
-			"LNDDYL",
-			"Cwlin0416",
 			"A2093064",
+			"Cwlin0416",
 			"Kly",
-			"Xiplus"
+			"LNDDYL",
+			"Liuxinyu970226",
+			"Spring Roll Conan",
+			"Xiplus",
+			"Yfdyh000"
 		]
 	},
 	"scribunto-desc": "用來內嵌腳本語言到 MediaWiki 頁面的框架",

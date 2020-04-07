@@ -2,11 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"KuboF",
-			"Wizzard",
-			"Teslaton",
-			"McDutchie",
 			"Luky001",
-			"TomášPolonec"
+			"McDutchie",
+			"Teslaton",
+			"TomášPolonec",
+			"Wizzard"
 		]
 	},
 	"scribunto-desc": "Umožňuje vkladať do stránok MediaWiki skriptovacie jazyky",

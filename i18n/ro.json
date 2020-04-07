@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Andrei Stroe",
+			"Andreyyshore",
 			"Minisarm",
 			"Stelistcristi",
-			"XXN",
-			"Andreyyshore",
 			"Strainu",
-			"Andrei Stroe"
+			"XXN"
 		]
 	},
 	"scribunto-line": "la linia $1",
