@@ -11,6 +11,7 @@ use Wikimedia\TestingAccessWrapper;
 /**
  * @group Lua
  * @group LuaStandalone
+ * @group Standalone
  * @covers Scribunto_LuaStandaloneInterpreter
  */
 class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {

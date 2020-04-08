@@ -82,6 +82,10 @@ trait Scribunto_LuaEngineTestHelper {
 					$groups = Test::getGroups( $className, $name );
 					$groups[] = 'Lua';
 					$groups[] = $engineName;
+					// Only run tests locally if the engine isn't the MW sandbox T125050
+					if ( $engineName !== 'LuaSandbox' ) {
+						$groups[] = 'Standalone';
+					}
 					$groups = array_unique( $groups );
 
 					$data = Test::getProvidedData( $className, $name );
