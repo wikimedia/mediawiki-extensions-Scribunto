@@ -885,7 +885,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 */
 	public function isSubsting() {
 		// See Parser::braceSubstitution, OT_WIKI is the switch
-		return [ $this->getParser()->OutputType() === Parser::OT_WIKI ];
+		return [ $this->getParser()->getOutputType() === Parser::OT_WIKI ];
 	}
 
 	/**
