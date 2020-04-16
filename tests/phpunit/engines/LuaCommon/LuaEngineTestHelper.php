@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 use PHPUnit\Framework\DataProviderTestSuite;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\WarningTestCase;
@@ -44,7 +46,7 @@ trait Scribunto_LuaEngineTestHelper {
 			}
 
 			try {
-				$parser = new Parser;
+				$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
 				$parser->startExternalParse(
 					Title::newMainPage(),
 					ParserOptions::newFromAnon(),
@@ -127,7 +129,7 @@ trait Scribunto_LuaEngineTestHelper {
 	 */
 	protected function getEngine() {
 		if ( !$this->engine ) {
-			$parser = new Parser;
+			$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
 			$options = ParserOptions::newFromAnon();
 			$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );

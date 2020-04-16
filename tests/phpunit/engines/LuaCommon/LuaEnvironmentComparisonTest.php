@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @group Lua
  * @group LuaSandbox
@@ -25,7 +27,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 	protected $engines = [];
 
 	private function makeEngine( $class, $opts ) {
-		$parser = new Parser;
+		$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
 		$options = ParserOptions::newFromAnon();
 		$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
