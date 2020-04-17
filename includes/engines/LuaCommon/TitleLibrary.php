@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 
 class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// Note these caches are naturally limited to
@@ -286,7 +287,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$title, $title->getArticleID(), $title->getLatestRevID()
 		);
 
-		$rev = $this->getParser()->fetchCurrentRevisionOfTitle( $title );
+		$rev = $this->getParser()->fetchCurrentRevisionRecordOfTitle( $title );
 
 		if ( $title->equals( $this->getTitle() ) ) {
 			$parserOutput = $this->getParser()->getOutput();
@@ -295,7 +296,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			wfDebug( __METHOD__ . ": set vary-revision-sha1 for '$title'" );
 		}
 
-		return $rev ? $rev->getContent() : null;
+		return $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
 	}
 
 	/**
