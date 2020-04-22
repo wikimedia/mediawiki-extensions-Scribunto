@@ -1,6 +1,5 @@
 <?php
 
-
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var mixed

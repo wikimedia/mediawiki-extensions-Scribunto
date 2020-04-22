@@ -1,6 +1,5 @@
 <?php
 
-
 class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider {
 	protected $file = null;
 	protected $current = null;

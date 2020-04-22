@@ -1,6 +1,5 @@
 <?php
 
-
 class Scribunto_LuaStandaloneInterpreterFunction {
 	public static $anyChunksDestroyed = [];
 	public static $activeChunkIds = [];
