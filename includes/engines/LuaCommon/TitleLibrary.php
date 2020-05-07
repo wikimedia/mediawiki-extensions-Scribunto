@@ -1,6 +1,8 @@
 <?php
 
+use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\SlotRecord;
 
 class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
@@ -296,7 +298,21 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			wfDebug( __METHOD__ . ": set vary-revision-sha1 for '$title'" );
 		}
 
-		return $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
+		if ( !$rev ) {
+			return null;
+		}
+
+		try {
+			$content = $rev->getContent( SlotRecord::MAIN );
+		} catch ( RevisionAccessException $ex ) {
+			$logger = LoggerFactory::getInstance( 'Scribunto' );
+			$logger->warning(
+				__METHOD__ . ': Unable to transclude revision content',
+				[ 'exception' => $ex ]
+			);
+			$content = null;
+		}
+		return $content;
 	}
 
 	/**
