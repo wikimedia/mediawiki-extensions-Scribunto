@@ -49,7 +49,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	protected $expandCache = [];
 	protected $availableLibraries = [];
 
-	const MAX_EXPAND_CACHE_SIZE = 100;
+	private const MAX_EXPAND_CACHE_SIZE = 100;
 
 	/**
 	 * If luasandbox is installed and usable then use it,

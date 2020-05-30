@@ -6,8 +6,8 @@ use MediaWiki\MediaWikiServices;
  * API module for serving debug console requests on the edit page
  */
 class ApiScribuntoConsole extends ApiBase {
-	const SC_MAX_SIZE = 500000;
-	const SC_SESSION_EXPIRY = 3600;
+	private const SC_MAX_SIZE = 500000;
+	private const SC_SESSION_EXPIRY = 3600;
 
 	/**
 	 * @suppress PhanTypePossiblyInvalidDimOffset

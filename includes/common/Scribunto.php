@@ -4,8 +4,6 @@
  * Static function collection for general extension support.
  */
 class Scribunto {
-	const LOCAL = 'local';
-
 	/**
 	 * Create a new engine object with specified parameters.
 	 *

@@ -29,8 +29,8 @@
 abstract class ScribuntoEngineBase {
 
 	// Flags for ScribuntoEngineBase::getResourceUsage()
-	const CPU_SECONDS = 1;
-	const MEM_PEAK_BYTES = 2;
+	public const CPU_SECONDS = 1;
+	public const MEM_PEAK_BYTES = 2;
 
 	/**
 	 * @var Title|null

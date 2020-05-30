@@ -16,9 +16,9 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	public $profilerEnabled;
 
-	const SAMPLES = 0;
-	const SECONDS = 1;
-	const PERCENT = 2;
+	public const SAMPLES = 0;
+	public const SECONDS = 1;
+	public const PERCENT = 2;
 
 	/**
 	 * Check that php-luasandbox is available and of a recent-enough version
