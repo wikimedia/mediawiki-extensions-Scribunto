@@ -591,7 +591,7 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'second', $frame );
-		$this->assertEquals( 1, $frame->getTTL(),
+		$this->assertSame( 1, $frame->getTTL(),
 			'TTL must be equal to 1 second when seconds are requested' );
 
 		$frame = $pp->newFrame();
@@ -601,12 +601,12 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'tablesec', $frame );
-		$this->assertEquals( 1, $frame->getTTL(),
+		$this->assertSame( 1, $frame->getTTL(),
 			'TTL must be equal to 1 second when seconds are requested from a table' );
 
 		$frame = $pp->newFrame();
 		$module->invoke( 'time', $frame );
-		$this->assertEquals( 1, $frame->getTTL(),
+		$this->assertSame( 1, $frame->getTTL(),
 			'TTL must be equal to 1 second when os.time() is called' );
 
 		$frame = $pp->newFrame();
