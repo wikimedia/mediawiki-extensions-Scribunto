@@ -457,6 +457,11 @@ $namespaceNames['sd'] = [
 	829 => 'ماڊيول_بحث',
 ];
 
+$namespaceNames['se'] = [
+	828 => 'Modula',
+	829 => 'Modulaságastallan',
+];
+
 $namespaceNames['sh'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
