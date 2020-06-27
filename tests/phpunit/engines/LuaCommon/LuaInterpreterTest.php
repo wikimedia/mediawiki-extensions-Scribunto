@@ -33,8 +33,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @dataProvider provideRoundtrip */
-	public function testRoundtrip( /*...*/ ) {
-		$args = func_get_args();
+	public function testRoundtrip( ...$args ) {
 		$args = $this->normalizeOrder( $args );
 		$interpreter = $this->newInterpreter();
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
@@ -44,8 +43,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @dataProvider provideRoundtrip */
-	public function testDoubleRoundtrip( /* ... */ ) {
-		$args = func_get_args();
+	public function testDoubleRoundtrip( ...$args ) {
 		$args = $this->normalizeOrder( $args );
 
 		$interpreter = $this->newInterpreter();
@@ -90,8 +88,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 		return $a;
 	}
 
-	public function passthru( /* ... */ ) {
-		$args = func_get_args();
+	public function passthru( ...$args ) {
 		return $args;
 	}
 
