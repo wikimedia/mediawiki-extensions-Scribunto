@@ -2798,7 +2798,7 @@ local pats = {
 	[0x5a] = {},
 }
 setmetatable( pats[0x61], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return pats[0x6c][k] or
 		pats[0x75][k] or
 		c >= 0x0002b0 and c < 0x0002c2 or
@@ -2951,12 +2951,12 @@ setmetatable( pats[0x61], { __index = function ( t, k )
 		c >= 0x02f800 and c < 0x02fa1e
 end } )
 setmetatable( pats[0x63], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x000000 and c < 0x000020 or
 		c >= 0x00007f and c < 0x0000a0
 end } )
 setmetatable( pats[0x64], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x000660 and c < 0x00066a or
 		c >= 0x0006f0 and c < 0x0006fa or
 		c >= 0x0007c0 and c < 0x0007ca or
@@ -3000,7 +3000,7 @@ setmetatable( pats[0x64], { __index = function ( t, k )
 		c >= 0x01d7ce and c < 0x01d800
 end } )
 setmetatable( pats[0x6c], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x0000df and c < 0x0000f7 or
 		c >= 0x00024f and c < 0x000294 or
 		c >= 0x000295 and c < 0x0002b0 or
@@ -3035,7 +3035,7 @@ setmetatable( pats[0x6c], { __index = function ( t, k )
 		c >= 0x01d7aa and c < 0x01d7c3
 end } )
 setmetatable( pats[0x70], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x000700 and c < 0x00070e or
 		c >= 0x000830 and c < 0x00083f or
 		c >= 0x000f04 and c < 0x000f13 or
@@ -3057,11 +3057,11 @@ setmetatable( pats[0x70], { __index = function ( t, k )
 		c >= 0x00fe54 and c < 0x00fe62
 end } )
 setmetatable( pats[0x73], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x002000 and c < 0x00200b
 end } )
 setmetatable( pats[0x75], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x0000c0 and c < 0x0000d7 or
 		c >= 0x000391 and c < 0x0003a2 or
 		c >= 0x0003fd and c < 0x000430 or
@@ -3091,7 +3091,7 @@ setmetatable( pats[0x77], { __index = function ( t, k )
 		pats[0x61][k]
 end } )
 setmetatable( pats[0x78], { __index = function ( t, k )
-	local c = tonumber( k ) or 0/0;
+	local c = tonumber( k ) or (0/0);
 	return c >= 0x00ff10 and c < 0x00ff1a
 end } )
 setmetatable( pats[0x41], { __index = function ( t, k ) return k and not pats[0x61][k] end } )

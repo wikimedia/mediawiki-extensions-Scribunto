@@ -1,6 +1,22 @@
 local mwtext = {}
 
 libraryUtil = require('libraryUtil');
+local checkTypeForNamedArg = libraryUtil.checkTypeForNamedArg
+local checkType = libraryUtil.checkType
+
+function mwtext.setupInterface( opts )
+	-- Boilerplate
+	mwtext.setupInterface = nil
+--	php = mw_interface
+--	mw_interface = nil
+	options = opts
+
+	-- Register this library in the "mw" global
+	mw = mw or {}
+	mw.text = mwtext
+
+	package.loaded['mw.text'] = mwtext
+end
 
 function mwtext.trim( s, charset )
 	charset = charset or '\t\r\n\f '
@@ -96,6 +112,7 @@ for sp, esc in pairs( {
 	nowikiReplMagic['PMID' .. sp] = 'PMID' .. esc
 end
 
+-- 
 function mwtext.nowiki( s )
 	-- string.gsub is safe here, because we're only caring about ASCII chars
 	s = string.gsub( s, '["&\'<=>%[%]{|}]', nowikiRepl1 )
@@ -172,9 +189,9 @@ end
 -- 	return php.unstripNoWiki( s )
 -- end
 
-function mwtext.killMarkers( s )
-	return php.killMarkers( s )
-end
+-- function mwtext.killMarkers( s )
+--	return php.killMarkers( s )
+-- end
 
 function mwtext.split( text, pattern, plain )
 	local ret = {}

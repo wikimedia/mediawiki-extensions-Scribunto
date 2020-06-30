@@ -7,7 +7,6 @@
 local uri = {}
 local urifuncs = {}
 local urimt = {}
-local php
 
 local util = require 'libraryUtil'
 local checkType = util.checkType
@@ -16,11 +15,10 @@ local checkTypeForIndex = util.checkTypeForIndex
 function uri.setupInterface( options )
 	-- Boilerplate
 	uri.setupInterface = nil
-	php = mw_interface
 	mw_interface = nil
 
 	-- Store options
-	php.options = options
+	-- php.options = options
 
 	-- Register this library in the "mw" global
 	mw = mw or {}
@@ -89,7 +87,8 @@ function uri.decode( s, enctype )
 	end
 end
 
-function uri.anchorEncode( s )
+--[[
+	function uri.anchorEncode( s )
 	checkType( 'anchorEncode', 1, s, 'string' )
 	return php.anchorEncode( s )
 end
@@ -129,7 +128,7 @@ function uri.canonicalUrl( page, query )
 	end
 	return uri.new( url )
 end
-
+--]]
 
 function uri.new( s )
 	if s == nil or type( s ) == 'string' then
@@ -145,7 +144,7 @@ function uri.new( s )
 			fragment = nil,
 		}
 		setmetatable( obj, urimt )
-		obj:parse( s or php.options.defaultUrl )
+		obj:parse( s )
 		return obj
 	elseif type( s ) == 'table' then
 		local obj = {
