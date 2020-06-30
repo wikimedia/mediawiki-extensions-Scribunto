@@ -417,7 +417,7 @@ end
 function HtmlBuilder.setupInterface( opts )
 	-- Boilerplate
 	HtmlBuilder.setupInterface = nil
-	mw_interface = nil
+--	mw_interface = nil
 	options = opts
 
 	-- Prepare patterns for unencoding strip markers

@@ -1,6 +1,7 @@
 local mwtext = {}
 
 libraryUtil = require('libraryUtil');
+local options = {}
 local checkTypeForNamedArg = libraryUtil.checkTypeForNamedArg
 local checkType = libraryUtil.checkType
 

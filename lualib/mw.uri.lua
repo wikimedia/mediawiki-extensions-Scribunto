@@ -15,7 +15,7 @@ local checkTypeForIndex = util.checkTypeForIndex
 function uri.setupInterface( options )
 	-- Boilerplate
 	uri.setupInterface = nil
-	mw_interface = nil
+--	mw_interface = nil
 
 	-- Store options
 	-- php.options = options
