@@ -1,3 +1,6 @@
+removing functions that rely on php
+by ru.wikipedia.org/wiki/U:DonRumata
+
 This is ustring, a pure-Lua library to handle UTF-8 strings.
 
 It implements generally the same interface as the standard string library, with

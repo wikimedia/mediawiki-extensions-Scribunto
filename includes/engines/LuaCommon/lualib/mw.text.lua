@@ -1,24 +1,6 @@
 local mwtext = {}
-local php
-local options
 
-local util = require 'libraryUtil'
-local checkType = util.checkType
-local checkTypeForNamedArg = util.checkTypeForNamedArg
-
-function mwtext.setupInterface( opts )
-	-- Boilerplate
-	mwtext.setupInterface = nil
-	php = mw_interface
-	mw_interface = nil
-	options = opts
-
-	-- Register this library in the "mw" global
-	mw = mw or {}
-	mw.text = mwtext
-
-	package.loaded['mw.text'] = mwtext
-end
+libraryUtil = require('libraryUtil');
 
 function mwtext.trim( s, charset )
 	charset = charset or '\t\r\n\f '
@@ -38,7 +20,6 @@ local htmldecode_map = {}
 for k, v in pairs( htmlencode_map ) do
 	htmldecode_map[v] = k
 end
-local decode_named_entities = nil
 
 function mwtext.encode( s, charset )
 	charset = charset or '<>&"\'\194\160'
@@ -53,17 +34,8 @@ function mwtext.encode( s, charset )
 	return s
 end
 
-function mwtext.decode( s, decodeNamedEntities )
-	local dec
-	if decodeNamedEntities then
-		if decode_named_entities == nil then
-			decode_named_entities = php.getEntityTable()
-			setmetatable( decode_named_entities, { __index = htmldecode_map } )
-		end
-		dec = decode_named_entities
-	else
-		dec = htmldecode_map
-	end
+function mwtext.decode( s )
+	local dec = htmldecode_map
 	-- string.gsub is safe here, because only ASCII chars are in the pattern
 	s = string.gsub( s, '(&(#?x?)([a-zA-Z0-9]+);)', function ( m, flg, name )
 		if not dec[m] then
@@ -139,7 +111,6 @@ function mwtext.nowiki( s )
 	for k, v in pairs( options.nowiki_protocols ) do
 		s = string.gsub( s, k, v )
 	end
-
 	return s
 end
 
@@ -154,7 +125,6 @@ function mwtext.tag( name, attrs, content )
 		checkType( 'tag', 1, name, 'string' )
 		checkType( 'tag', 2, attrs, 'table', true )
 	end
-
 	local ret = { '<' .. name }
 	for k, v in pairs( attrs or {} ) do
 		if type( k ) ~= 'string' then
@@ -191,17 +161,16 @@ function mwtext.tag( name, attrs, content )
 			checkType( 'tag', 3, content, 'string, number, nil, or false' )
 		end
 	end
-
 	return table.concat( ret )
 end
 
-function mwtext.unstrip( s )
-	return php.unstrip( s )
-end
+-- function mwtext.unstrip( s )
+--	return php.unstrip( s )
+-- end
 
-function mwtext.unstripNoWiki( s )
-	return php.unstripNoWiki( s )
-end
+-- function mwtext.unstripNoWiki( s )
+-- 	return php.unstripNoWiki( s )
+-- end
 
 function mwtext.killMarkers( s )
 	return php.killMarkers( s )
@@ -245,14 +214,12 @@ function mwtext.listToText( list, separator, conjunction )
 	separator = separator or options.comma
 	conjunction = conjunction or options['and']
 	local n = #list
-
 	local ret
 	if n > 1 then
 		ret = table.concat( list, separator, 1, n - 1 ) .. conjunction .. list[n]
 	else
 		ret = tostring( list[1] or '' )
 	end
-
 	return ret
 end
 
@@ -261,13 +228,11 @@ function mwtext.truncate( text, length, ellipsis, adjustLength )
 	if l <= math.abs( length ) then
 		return text
 	end
-
 	ellipsis = ellipsis or options.ellipsis
 	local elen = 0
 	if adjustLength then
 		elen = mw.ustring.len( ellipsis )
 	end
-
 	local ret
 	if math.abs( length ) <= elen then
 		ret = ellipsis
@@ -276,55 +241,11 @@ function mwtext.truncate( text, length, ellipsis, adjustLength )
 	else
 		ret = ellipsis .. mw.ustring.sub( text, length + elen )
 	end
-
 	if mw.ustring.len( ret ) < l then
 		return ret
 	else
 		return text
 	end
 end
-
--- Check for stuff that can't even be passed to PHP properly and other stuff
--- that gives different error messages in different versions of PHP
-local function checkForJsonEncode( t, seen, lvl )
-	local tp = type( t )
-	if tp == 'table' then
-		if seen[t] then
-			error( "mw.text.jsonEncode: Cannot use recursive tables", lvl )
-		end
-		seen[t] = 1
-		for k, v in pairs( t ) do
-			if type( k ) == 'number' then
-				if k >= math.huge or k <= -math.huge then
-					error( string.format( "mw.text.jsonEncode: Cannot use 'inf' as a table key", type( k ) ), lvl )
-				end
-			elseif type( k ) ~= 'string' then
-				error( string.format( "mw.text.jsonEncode: Cannot use type '%s' as a table key", type( k ) ), lvl )
-			end
-			checkForJsonEncode( v, seen, lvl + 1 )
-		end
-		seen[t] = nil
-	elseif tp == 'number' then
-		if t ~= t or t >= math.huge or t <= -math.huge then
-			error( "mw.text.jsonEncode: Cannot encode non-finite numbers", lvl )
-		end
-	elseif tp ~= 'boolean' and tp ~= 'string' and tp ~= 'nil' then
-		error( string.format( "mw.text.jsonEncode: Cannot encode type '%s'", tp ), lvl )
-	end
-end
-
-function mwtext.jsonEncode( value, flags )
-	checkForJsonEncode( value, {}, 3 )
-	return php.jsonEncode( value, flags )
-end
-
-function mwtext.jsonDecode( json, flags )
-	return php.jsonDecode( json, flags )
-end
-
--- Matches PHP Scribunto_LuaTextLibrary constants
-mwtext.JSON_PRESERVE_KEYS = 1
-mwtext.JSON_TRY_FIXING = 2
-mwtext.JSON_PRETTY = 4
 
 return mwtext

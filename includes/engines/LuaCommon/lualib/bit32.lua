@@ -1,4 +1,8 @@
----
+--[[
+	This file is left for future inclusion
+	in the library for debugging,
+	work of the listed functions is not guaranteed
+--]]
 -- An implementation of the lua 5.2 bit32 library, in pure Lua
 
 -- Note that in Lua, "x % n" is defined such that will always return a number

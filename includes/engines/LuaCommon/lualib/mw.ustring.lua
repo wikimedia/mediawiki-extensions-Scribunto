@@ -1,3 +1,8 @@
+--[[
+	This file is left for future inclusion
+	in the library for debugging,
+	work of the listed functions is not guaranteed
+
 -- Get a fresh copy of the basic ustring
 local old_ustring = package.loaded.ustring
 package.loaded.ustring = nil
@@ -106,3 +111,4 @@ function ustring.setupInterface( opt )
 end
 
 return ustring
+--]]

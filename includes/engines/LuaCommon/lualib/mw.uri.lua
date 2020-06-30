@@ -1,3 +1,9 @@
+--[[
+	This file is left for future inclusion
+	in the library for debugging,
+	work of the listed functions is not guaranteed
+--]]
+
 local uri = {}
 local urifuncs = {}
 local urimt = {}

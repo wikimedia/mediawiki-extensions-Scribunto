@@ -1,3 +1,8 @@
+--[[
+	This file is left for future inclusion
+	in the library for debugging,
+    work of the listed functions is not guaranteed
+--]]
 string.isutf8 = ustring.isutf8
 string.byteoffset = ustring.byteoffset
 string.codepoint = ustring.codepoint
