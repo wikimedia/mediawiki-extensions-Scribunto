@@ -1,3 +1,8 @@
+--[[
+	This file is left for future inclusion
+	in the library for debugging,
+	work of the listed functions is not guaranteed
+--]]
 -- This file is for anything that needs to be set up before a Lua engine can
 -- start. Things in this file may run more than once, so avoid putting anything
 -- other than function definitions in it. Also, because this can run before

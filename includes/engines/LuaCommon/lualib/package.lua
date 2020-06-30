@@ -1,4 +1,9 @@
 --[[
+	This file is left for future inclusion
+	in the library for debugging,
+	work of the listed functions is not guaranteed
+--]]
+--[[
 -- A package library similar to the one that comes with Lua 5.1, but without
 -- the local filesystem access. Based on Compat-5.1 which comes with the
 -- following license notice:
