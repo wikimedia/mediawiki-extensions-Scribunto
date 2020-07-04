@@ -104,4 +104,4 @@ mw {
     ["toNFKD"] = function: #78,
     ["upper"] = function: #79,
   },
-}```
+}
