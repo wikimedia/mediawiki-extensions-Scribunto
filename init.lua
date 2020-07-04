@@ -1,9 +1,11 @@
 package.path = package.path .. ";?;?.lua;.\\lualib\\?.lua;./lualib/?.lua;.\\modules\\?.lua;./modules/?.lua"
 mw = require("mw")
-mwInit = require('mwInit')
-bit = require("luabit/bit")
-hex = require("luabit/hex")
-package = require('package')
+-- mwInit = require('mwInit')
+bit = require("luabit/bit"); mw.bit = bit
+hex = require("luabit/hex"); mw.hex = hex
+mw.libraryUtil = libraryUtil
+
+-- package = require('package')
 
 --[[    
         TODO
@@ -40,9 +42,5 @@ end
 -- some tests
 output("yesno module:",yesno(0),yesno(1))
 output(mw_logObject(mw))
-output(mw_logObject(mwInit))
-output(mw_logObject(bit))
-output(mw_logObject(hex))
-output(mw_logObject(package))
 
 
