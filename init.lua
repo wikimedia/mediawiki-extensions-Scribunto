@@ -1,14 +1,19 @@
 package.path = package.path .. ";?;?.lua;.\\lualib\\?.lua;./lualib/?.lua;.\\modules\\?.lua;./modules/?.lua"
-local mw = require("mw")
---[[    TODO
-            * alter package.searchers so that require('Module:yesno') == require('yesno')
+mw = require("mw")
+mwInit = require('mwInit')
+bit = require("luabit/bit")
+hex = require("luabit/hex")
+package = require('package')
 
+--[[    
+        TODO
+            * alter package.searchers so that require('Module:yesno') == require('yesno')
+            * Module:String, Module:Arguments, Module:Math
         HOW TO USE:
 for now you need to put your module and other modules it uses 
 in "\modules\.." folder and then alter their code (for example comment a line 
 "yesno = require('Module:Yesno')" in your module) and instead write here:]]
 yesno = require('yesno')
-mw = require('mw')
 
 -- you can define some dull function instead of copying module code:
 getArgs = function  (input)
@@ -26,11 +31,18 @@ local output = function(...)
     io.write(table.concat(string," "))
 end
 
--- some tests
-local t_table = {}
-t_table[1] = "start"
-t_table[2] = t_table
-t_table[3] = "end"
+local function mw_logObject (t)
+    mw.logObject( t )
+    output(mw.getLogBuffer())
+    mw.clearLogBuffer()
+end
 
+-- some tests
 output("yesno module:",yesno(0),yesno(1))
-output(unpack(t_table))
+output(mw_logObject(mw))
+output(mw_logObject(mwInit))
+output(mw_logObject(bit))
+output(mw_logObject(hex))
+output(mw_logObject(package))
+
+

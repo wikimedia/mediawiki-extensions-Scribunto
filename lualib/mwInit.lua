@@ -40,36 +40,6 @@ do
 	end
 end
 
---- Do a "deep copy" of a table or other value.
-function mw.clone( val )
-	local tableRefs = {}
-	local function recursiveClone( val )
-		if type( val ) == 'table' then
-			-- Encode circular references correctly
-			if tableRefs[val] ~= nil then
-				return tableRefs[val]
-			end
-
-			local retVal
-			retVal = {}
-			tableRefs[val] = retVal
-
-			-- Copy metatable
-			if getmetatable( val ) then
-				setmetatable( retVal, recursiveClone( getmetatable( val ) ) )
-			end
-
-			for key, elt in pairs( val ) do
-				retVal[key] = recursiveClone( elt )
-			end
-			return retVal
-		else
-			return val
-		end
-	end
-	return recursiveClone( val )
-end
-
 --- Make isolation-safe setfenv and getfenv functions
 --
 -- @param protectedEnvironments A table where the keys are protected environment

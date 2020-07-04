@@ -1,7 +1,11 @@
 mw = mw or {
 	ustring = require('ustring'),
 	text = require('text'),
-	loglevel = 3
+	loglevel = 3,
+	bit32 = require('bit32'),
+	html = require('html'),
+	hash = require('hash'),
+	uri = require('uri'),	 
 }
 
 --- Do a "deep copy" of a table or other value.

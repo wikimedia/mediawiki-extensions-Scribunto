@@ -16,7 +16,7 @@ copyright(c) 2006~2007 hanzhao (abrash_han@hotmail.com)
 2013-02-20: Brad Jorsch: Fix to not try messing with globals, doesn't work in Scribunto
 --]]---------------
 
-local bit = require 'bit'
+local bit = bit
 
 do 
 
