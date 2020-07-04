@@ -13,13 +13,6 @@ local S = {
 	format = string.format,
 }
 
-local function unpack (t, i)
-	i = i or 1
-	if t[i] ~= nil then
-	  return t[i], unpack(t, i + 1)
-	end
-end
-
 ---- Configuration ----
 -- To limit the length of strings or patterns processed, set these
 ustring.maxStringLength = math.huge
