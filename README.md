@@ -5,17 +5,17 @@ Contains a stripped-down lua part of MediaWiki code for developing and debugging
 ```lua
 mw {
   ["allToString"] = function: #1,
-  ["bit"] = table#2 {
-    ["band"] = function: #2,
-    ["blogic_rshift"] = function: #3,
-    ["blshift"] = function: #4,
-    ["bnot"] = function: #5,
-    ["bor"] = function: #6,
-    ["brshift"] = function: #7,
-    ["bxor"] = function: #8,
+  ["bit"] = {
+    ["band"] = function(m, n) -- bitwise and (m & n),
+    ["blogic_rshift"] = function(n, bits) -- logic right shift(zero fill >>>),
+    ["blshift"] = function(n, bits) -- left shift (n << bits),
+    ["bnot"] = function(n) -- bitwise not (~n),
+    ["bor"] = function(m, n) -- bitwise or (m | n),
+    ["brshift"] = function(n, bits) -- right shift (n >> bits),
+    ["bxor"] = function(m, n) -- bitwise xor (m ^ n),
     ["bxor2"] = function: #9,
-    ["tobits"] = function: #10,
-    ["tonumb"] = function: #11,
+    ["tobits"] = function(n) -- convert n into a bit table(which is a 1/0 sequence) high bits first,
+    ["tonumb"] = function(bit_tbl) -- convert a bit table into a number,
   },
   ["bit32"] = table#3 {
     ["arshift"] = function: #12,
