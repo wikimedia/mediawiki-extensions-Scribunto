@@ -1,6 +1,7 @@
 package.path = package.path .. ";?;?.lua;.\\lualib\\?.lua;./lualib/?.lua;.\\modules\\?.lua;./modules/?.lua"
 mw = require("mw")
--- mwInit = require('mwInit')
+-- All loaded functions are registered in the mw table in order to track them.
+-- mwInit = require('mwInit') - does not lead to any changes in the mw table, apparently it should be deleted
 bit = require("luabit/bit"); mw.bit = bit
 hex = require("luabit/hex"); mw.hex = hex
 mw.libraryUtil = libraryUtil
@@ -23,24 +24,6 @@ getArgs = function  (input)
     return input
 end
 
--- in VSC actboy168.lua-debug io.write will appear in "DEBUG CONSOLE"
-local output = function(...)
-    local string = {}
-    for _,arg in pairs{...} do
-        table.insert(string,tostring(arg))
-    end
-    table.insert(string,"\n")
-    io.write(table.concat(string," "))
-end
+test = require('test')
 
-local function mw_logObject (t)
-    mw.logObject( t )
-    output(mw.getLogBuffer())
-    mw.clearLogBuffer()
-end
-
--- some tests
-output("yesno module:",yesno(0),yesno(1))
-output(mw_logObject(mw))
-
-
+test.run()
