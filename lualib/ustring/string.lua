@@ -1,4 +1,4 @@
---[[ not called once ]]
+--[[ not called once 
 
 string.isutf8 = ustring.isutf8
 string.byteoffset = ustring.byteoffset
@@ -14,4 +14,4 @@ string.ulower = ustring.lower
 string.ufind = ustring.find
 string.umatch = ustring.match
 string.ugmatch = ustring.gmatch
-string.ugsub = ustring.gsub
+string.ugsub = ustring.gsub ]]

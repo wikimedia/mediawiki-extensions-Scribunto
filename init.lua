@@ -24,6 +24,6 @@ getArgs = function  (input)
     return input
 end
 
-test = require('test')
-
-test.run()
+-- some tests of loaded functions
+test = require('test').run
+test()
