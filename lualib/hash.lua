@@ -1,3 +1,5 @@
+--[[ DON'T WORK HERE ]]
+
 local hash = {}
 local php
 

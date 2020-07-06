@@ -4,50 +4,50 @@ Contains a stripped-down lua part of MediaWiki code for developing and debugging
 # content
 ```lua
 mw {
-  ["allToString"] = function: #1,
+  ["allToString"] = function(...)
   ["bit"] = {
-    ["band"] = function(m, n) -- bitwise and (m & n),
-    ["blogic_rshift"] = function(n, bits) -- logic right shift(zero fill >>>),
-    ["blshift"] = function(n, bits) -- left shift (n << bits),
-    ["bnot"] = function(n) -- bitwise not (~n),
-    ["bor"] = function(m, n) -- bitwise or (m | n),
-    ["brshift"] = function(n, bits) -- right shift (n >> bits),
-    ["bxor"] = function(m, n) -- bitwise xor (m ^ n),
-    ["bxor2"] = function: #9,
-    ["tobits"] = function(n) -- convert n into a bit table(which is a 1/0 sequence) high bits first,
-    ["tonumb"] = function(bit_tbl) -- convert a bit table into a number,
+    ["band"] = function(m, n) -- bitwise and (m & n)
+    ["blogic_rshift"] = function(n, bits) -- logic right shift(zero fill >>>)
+    ["blshift"] = function(n, bits) -- left shift (n << bits)
+    ["bnot"] = function(n) -- bitwise not (~n)
+    ["bor"] = function(m, n) -- bitwise or (m | n)
+    ["brshift"] = function(n, bits) -- right shift (n >> bits)
+    ["bxor"] = function(m, n) -- bitwise xor (m ^ n)
+    ["bxor2"] = function(m, n)
+    ["tobits"] = function(n) -- convert n into a bit table(which is a 1/0 sequence) high bits first
+    ["tonumb"] = function(bit_tbl) -- convert a bit table into a number
   },
-  ["bit32"] = table#3 {
-    ["arshift"] = function: #12,
-    ["band"] = function: #13,
-    ["bnot"] = function: #14,
-    ["bor"] = function: #15,
-    ["btest"] = function: #16,
-    ["bxor"] = function: #17,
-    ["extract"] = function: #18,
-    ["lrotate"] = function: #19,
-    ["lshift"] = function: #20,
-    ["replace"] = function: #21,
-    ["rrotate"] = function: #22,
-    ["rshift"] = function: #23,
+  ["bit32"] = {
+    ["arshift"] = function(x, disp)
+    ["band"] = function(...)
+    ["bnot"] = function(x)
+    ["bor"] = function(...)
+    ["btest"] = function(...)
+    ["bxor"] = function(...)
+    ["extract"] = function(n, field, width)
+    ["lrotate"] = function(x, disp)
+    ["lshift"] = function(x, disp)
+    ["replace"] = function(n, v, field, width)
+    ["rrotate"] = function(x, disp)
+    ["rshift"] = function(x, disp)
   },
-  ["clearLogBuffer"] = function: #24,
-  ["clone"] = function: #25,
-  ["dumpObject"] = function: #26,
-  ["getLogBuffer"] = function: #27,
-  ["hash"] = table#4 {
-    ["hashValue"] = function: #28,
-    ["listAlgorithms"] = function: #29,
-    ["setupInterface"] = function: #30,
+  ["clearLogBuffer"] = function()
+  ["clone"] = function(val_tbl)
+  ["dumpObject"] = function(object)
+  ["getLogBuffer"] = function()
+--["hash"] = PHP-based functions, don't work in pure lua { 
+--  ["hashValue"] = function(algo, value)
+--  ["listAlgorithms"] = function() { "md2", "md4", "md5", "sha1", "sha224", "sha256", "sha384", "sha512/224", "sha512/256", "sha512", "sha3-224", "sha3-256", "sha3-384", "sha3-512", "ripemd128", "ripemd160", "ripemd256", "ripemd320", "whirlpool", "tiger128,3", "tiger160,3", "tiger192,3", "tiger128,4", "tiger160,4", "tiger192,4", "snefru", "snefru256", "gost", "gost-crypto", "adler32", "crc32", "crc32b", "fnv132", "fnv1a32", "fnv164", "fnv1a64", "joaat", "haval128,3", "haval160,3", "haval192,3", "haval224,3", "haval256,3", "haval128,4", "haval160,4", "haval192,4", "haval224,4", "haval256,4", "haval128,5", "haval160,5", "haval192,5", "haval224,5", "haval256,5",}
+--  ["setupInterface"] = function()
   },
   ["hex"] = table#5 {
     ["to_dec"] = function: #31,
     ["to_hex"] = function: #32,
   },
-  ["html"] = table#6 {
-    ["create"] = function: #33,
-    ["setupInterface"] = function: #34,
-  },
+--["html"] = table#6 {
+--  ["create"] = function: #33,
+--  ["setupInterface"] = function()
+--},
   ["libraryUtil"] = table#7 {
     ["checkType"] = function: #35,
     ["checkTypeForIndex"] = function: #36,
