@@ -41,23 +41,23 @@ mw {
 --  ["setupInterface"] = function()
   },
   ["hex"] = table#5 {
-    ["to_dec"] = function: #31,
-    ["to_hex"] = function: #32,
+    ["to_dec"] = function(hex) -- convert a hex string(prefix with '0x' or '0X') to number
+    ["to_hex"] = function(n) -- convert a number to a hex string
   },
 --["html"] = table#6 {
 --  ["create"] = function: #33,
 --  ["setupInterface"] = function()
 --},
   ["libraryUtil"] = table#7 {
-    ["checkType"] = function: #35,
-    ["checkTypeForIndex"] = function: #36,
-    ["checkTypeForNamedArg"] = function: #37,
-    ["checkTypeMulti"] = function: #38,
-    ["makeCheckSelfFunction"] = function: #39,
+    ["checkType"] = function( name, argIdx, arg, expectType, nilOk )
+    ["checkTypeForIndex"] = function( index, value, expectType )
+    ["checkTypeForNamedArg"] = function( name, argName, arg, expectType, nilOk )
+    ["checkTypeMulti"] = function( name, argIdx, arg, expectTypes )
+    ["makeCheckSelfFunction"] = function( libraryName, varName, selfObj, selfObjDesc )
   },
-  ["loadData"] = function: #40,
-  ["log"] = function: #41,
-  ["logObject"] = function: #42,
+  ["loadData"] = function( module )
+  ["log"] = function( ... )
+  ["logObject"] = function( object, prefix )
   ["loglevel"] = 3,
   ["text"] = table#8 {
     ["decode"] = function: #43,
