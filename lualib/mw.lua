@@ -5,7 +5,7 @@ mw = mw or {
 	bit32 = require('bit32'),
 	html = require('html'),
 	hash = require('hash'),
-	uri = require('uri'),	 
+	uri = require('uri'),
 }
 
 --- Do a "deep copy" of a table or other value.
