@@ -304,7 +304,11 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			$options = $args[1];
 			$noCommafy = !empty( $options['noCommafy'] );
 		}
-		return [ $lang->formatNum( $num, $noCommafy ) ];
+		if ( $noCommafy ) {
+			return [ $lang->formatNumNoSeparators( $num ) ];
+		} else {
+			return [ $lang->formatNum( $num ) ];
+		}
 	}
 
 	/**
