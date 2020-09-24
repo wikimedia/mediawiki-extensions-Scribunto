@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gott wisst"
+			"Gott wisst",
+			"Heahwrita"
 		]
 	},
-	"scribunto-lua-error": "Lua wōg: $2"
+	"scribunto-lua-error": "Lua wog: $2"
 }
