@@ -492,6 +492,11 @@ $namespaceNames['sl'] = [
 	829 => 'Pogovor_o_modulu',
 ];
 
+$namespaceNames['smn'] = [
+	828 => 'Mooduul',
+	829 => 'Savâstâllâm_modulist',
+];
+
 $namespaceNames['sq'] = [
 	828 => 'Moduli',
 	829 => 'Moduli_diskutim',
