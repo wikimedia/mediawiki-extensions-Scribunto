@@ -73,9 +73,11 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 				return false;
 			case 'scribunto-limitreport-virtmemusage':
 				$value = array_map( [ $lang, 'formatSize' ], $value );
+				$value = wfMessage( $key . '-value-raw' )->params( $value );
 				break;
 			case 'scribunto-limitreport-estmemusage':
 				$value = $lang->formatSize( $value );
+				$value = wfMessage( $key . '-value-raw' )->params( $value );
 				break;
 		}
 		return true;
