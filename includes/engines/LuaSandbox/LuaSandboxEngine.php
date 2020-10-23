@@ -127,7 +127,10 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 	}
 
-	/** @inheritDoc */
+	/**
+	 * @inheritDoc
+	 * @suppress SecurityCheck-DoubleEscaped phan false positive
+	 */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
 		global $wgLang;
 		$lang = $localize ? $wgLang : Language::factory( 'en' );
@@ -146,6 +149,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		if ( $key !== 'scribunto-limitreport-profile' ) {
 			return true;
 		}
+		'@phan-var string[] $value';
 
 		$keyMsg = wfMessage( 'scribunto-limitreport-profile' );
 		$msMsg = wfMessage( 'scribunto-limitreport-profile-ms' );
