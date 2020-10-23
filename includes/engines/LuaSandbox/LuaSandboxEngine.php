@@ -140,11 +140,6 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 					$report .= $this->formatHtmlLogs( $value, $localize );
 				}
 				return false;
-
-			case 'scribunto-limitreport-memusage':
-				$value = array_map( [ $lang, 'formatSize' ], $value );
-				$value = wfMessage( $key . '-value-raw' )->params( $value );
-				break;
 		}
 
 		if ( $key !== 'scribunto-limitreport-profile' ) {
