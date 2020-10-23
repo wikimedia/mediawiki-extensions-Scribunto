@@ -48,8 +48,8 @@ return testframework.getTestProvider( {
 	  expect = { "('''foo''' 123456)" }
 	},
 	{ name = 'num param', func = test_params,
-	  args = { '($1 $2)', 'numParams', "'''foo'''", 123456 },
-	  expect = { "('''foo''' 123,456)" }
+	  args = { '($1 $2)', 'numParams', "-1.23", 123456 },
+	  expect = { "(-1.23 123,456)" }
 	},
 	{ name = 'mixed params', func = test_params,
 	  args = { '($1 $2 $3)', 'params',
