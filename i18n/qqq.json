@@ -65,7 +65,7 @@
 	"scribunto-limitreport-virtmemusage": "Label for the \"Lua virtual size\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-virtmemusage-value}}",
 	"scribunto-limitreport-virtmemusage-value-raw": "{{optional}}\nFormat for the \"Lua virtual size\" value in the limit report table. Parameters:\n* $1 - the usage\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-virtmemusage}}",
 	"scribunto-limitreport-estmemusage": "Label for the \"Lua estimated memory usage\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-estmemusage-value}}",
-	"scribunto-limitreport-estmemusage-value-raw": "{{optional}}\nFormat for the \"Lua estimated memory usage\" value in the limit report table.\n\nParameters:\n* $1 - the value\nSee also:\n* {{msg-mw|Scribunto-limitreport-estmemusage}}",
+	"scribunto-limitreport-estmemusage-value-raw": "{{notranslate}}\nFormat for the \"Lua estimated memory usage\" value in the limit report table.\n\nParameters:\n* $1 - the value\nSee also:\n* {{msg-mw|Scribunto-limitreport-estmemusage}}",
 	"scribunto-limitreport-memusage": "Label for the \"Lua memory usage\" row in the limit report table.\n\nSee also:\n* {{msg-mw|Scribunto-limitreport-memusage-value}}",
 	"scribunto-limitreport-memusage-value-raw": "{{optional}}\nFormat for the \"Lua memory usage\" value in the limit report table. Parameters:\n* $1 - the usage\n* $2 - the maximum\nSee also:\n* {{msg-mw|Scribunto-limitreport-memusage}}",
 	"scribunto-limitreport-profile": "Label for the \"Lua Profile\" row in the limit report table.\n\nFollowed by {{msg-mw|Scribunto-limitreport-profile-ms}} and {{msg-mw|Scribunto-limitreport-profile-percent}}.",
