@@ -61,6 +61,7 @@
 	"scribunto-limitreport-memusage": "루아 메모리 사용",
 	"scribunto-limitreport-profile": "루아 프로필",
 	"scribunto-limitreport-profile-ms": "$1ms",
+	"scribunto-limitreport-logs": "Lua 기록",
 	"nstab-module": "모듈",
 	"tooltip-ca-nstab-module": "모듈 문서 보기"
 }
