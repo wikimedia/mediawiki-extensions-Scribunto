@@ -1,11 +1,18 @@
 {
 	"root": true,
-	"extends": "wikimedia",
+	"extends": [
+		"wikimedia",
+		"wikimedia/mediawiki",
+		"wikimedia/jquery"
+	],
 	"env": {
 		"browser": true
 	},
-	"globals": {
-		"mw": false,
-		"$": false
+	"rules": {
+		"no-jquery/no-global-selector": "warn",
+		"no-jquery/no-parse-html-literal": "warn",
+		"no-jquery/no-global-selector": "warn",
+		"mediawiki/class-doc": "warn",
+		"mediawiki/msg-doc": "warn"
 	}
 }

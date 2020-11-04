@@ -5,21 +5,21 @@ use UtfNormal\Validator;
 class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Limit on pattern lengths, in bytes not characters
-	 * @var integer
+	 * @var int
 	 */
 	private $patternLengthLimit = 10000;
 
 	/**
 	 * Limit on string lengths, in bytes not characters
 	 * If null, $wgMaxArticleSize * 1024 will be used
-	 * @var integer|null
+	 * @var int|null
 	 */
 	private $stringLengthLimit = null;
 
 	/**
 	 * PHP until 5.6.9 are buggy when the regex in preg_replace an
 	 * preg_match_all matches the empty string.
-	 * @var boolean
+	 * @var bool
 	 */
 	private $phpBug53823 = false;
 
