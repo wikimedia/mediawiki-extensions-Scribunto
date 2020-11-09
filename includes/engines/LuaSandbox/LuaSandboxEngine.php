@@ -102,7 +102,8 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 						$name = $m[2] . ' ' . $name;
 					}
 				}
-				$lines[] = [ $name, sprintf( '%.0f', $time ), sprintf( '%.1f', $percent ) ];
+				$utf8Name = $this->fixTruncation( $name );
+				$lines[] = [ $utf8Name, sprintf( '%.0f', $time ), sprintf( '%.1f', $percent ) ];
 			} else {
 				$otherTime += $time;
 				$otherPercent += $percent;
@@ -114,6 +115,20 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 		$ret['scribunto-limitreport-profile'] = $lines;
 		return $ret;
+	}
+
+	/**
+	 * Lua truncates symbols at 60 bytes, but this may create invalid UTF-8.
+	 *
+	 * MediaWiki has Language::normalize() but that's complex and seems like
+	 * overkill. A no-op iconv() with errors ignored does the job.
+	 *
+	 * @param string $s
+	 * @return string
+	 */
+	private function fixTruncation( $s ) {
+		$lang = Language::factory( 'en' );
+		return $lang->iconv( 'UTF-8', 'UTF-8', $s );
 	}
 
 	/** @inheritDoc */
