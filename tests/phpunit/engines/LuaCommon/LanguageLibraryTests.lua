@@ -249,6 +249,36 @@ return testframework.getTestProvider( {
 		}
 	},
 
+	{ name = 'lang:formatNum (NaN)', func = test_method,
+		args = { 'formatNum', 0/0 },
+		expect = {
+			"bad argument #1 to 'formatDate' (NaN)",
+			"bad argument #1 to 'formatDate' (NaN)",
+			"bad argument #1 to 'formatDate' (NaN)",
+			"language code '[[bogus]]' is invalid",
+		}
+	},
+
+	{ name = 'lang:formatNum (Inf)', func = test_method,
+		args = { 'formatNum', 1/0 },
+		expect = {
+			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatDate' (infinite)",
+			"language code '[[bogus]]' is invalid",
+		}
+	},
+
+	{ name = 'lang:formatNum (-Inf)', func = test_method,
+		args = { 'formatNum', -1/0 },
+		expect = {
+			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatDate' (infinite)",
+			"language code '[[bogus]]' is invalid",
+		}
+	},
+
 	{ name = 'lang:formatDate', func = test_method,
 		args = { 'formatDate', 'Y-F-d H:i:s', '20140305123456' },
 		expect = {

@@ -297,6 +297,12 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	public function formatNum( $lang, $args ) {
 		$num = $args[0];
 		$this->checkType( 'formatNum', 1, $num, 'number' );
+		if ( is_infinite( $num ) ) {
+			throw new Scribunto_LuaError( "bad argument #1 to 'formatDate' (infinite)" );
+		}
+		if ( is_nan( $num ) ) {
+			throw new Scribunto_LuaError( "bad argument #1 to 'formatDate' (NaN)" );
+		}
 
 		$noCommafy = false;
 		if ( isset( $args[1] ) ) {
