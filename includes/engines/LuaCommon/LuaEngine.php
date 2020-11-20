@@ -64,9 +64,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		try {
 			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
 			$engine = 'luasandbox';
-		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
-			// pass
-		} catch ( Scribunto_LuaInterpreterBadVersionError $e ) {
+		} catch ( Scribunto_LuaInterpreterNotFoundError | Scribunto_LuaInterpreterBadVersionError $e ) {
 			// pass
 		}
 

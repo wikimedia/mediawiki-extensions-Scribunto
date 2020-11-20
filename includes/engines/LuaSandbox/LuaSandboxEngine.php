@@ -26,6 +26,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 			// Special:Version fatal.
 			return;
 		} catch ( Scribunto_LuaInterpreterBadVersionError $e ) {
+			// @phan-suppress-previous-line PhanPluginDuplicateCatchStatementBody
 			// Same for if the extension is too old.
 			return;
 		}
