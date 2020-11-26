@@ -252,9 +252,9 @@ return testframework.getTestProvider( {
 	{ name = 'lang:formatNum (NaN)', func = test_method,
 		args = { 'formatNum', 0/0 },
 		expect = {
-			"bad argument #1 to 'formatDate' (NaN)",
-			"bad argument #1 to 'formatDate' (NaN)",
-			"bad argument #1 to 'formatDate' (NaN)",
+			"bad argument #1 to 'formatNum' (NaN)",
+			"bad argument #1 to 'formatNum' (NaN)",
+			"bad argument #1 to 'formatNum' (NaN)",
 			"language code '[[bogus]]' is invalid",
 		}
 	},
@@ -262,9 +262,9 @@ return testframework.getTestProvider( {
 	{ name = 'lang:formatNum (Inf)', func = test_method,
 		args = { 'formatNum', 1/0 },
 		expect = {
-			"bad argument #1 to 'formatDate' (infinite)",
-			"bad argument #1 to 'formatDate' (infinite)",
-			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
 			"language code '[[bogus]]' is invalid",
 		}
 	},
@@ -272,9 +272,9 @@ return testframework.getTestProvider( {
 	{ name = 'lang:formatNum (-Inf)', func = test_method,
 		args = { 'formatNum', -1/0 },
 		expect = {
-			"bad argument #1 to 'formatDate' (infinite)",
-			"bad argument #1 to 'formatDate' (infinite)",
-			"bad argument #1 to 'formatDate' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
+			"bad argument #1 to 'formatNum' (infinite)",
 			"language code '[[bogus]]' is invalid",
 		}
 	},
