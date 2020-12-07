@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abbas dhothar",
 			"Khalid Mahmood"
 		]
 	},
-	"scribunto-lua-error": "لوا غلطی:$2."
+	"scribunto-lua-error": "لوا غلطی:$2.",
+	"scribunto-limitreport-virtmemusage-value": "$1/$2 {{PLURAL:$2|بائیٹ|بائیٹس}}",
+	"scribunto-limitreport-estmemusage-value": "$1 {{PLURAL:$1|بائیٹ|بائیٹس}}",
+	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|بائیٹ|بائیٹس}}"
 }
