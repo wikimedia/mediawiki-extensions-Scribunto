@@ -11,7 +11,7 @@ class Scribunto_LuaError extends ScribuntoException {
 	 */
 	public function __construct( $message, array $options = [] ) {
 		$this->luaMessage = $message;
-		$options = $options + [ 'args' => [ Validator::cleanUp( $message ) ] ];
+		$options += [ 'args' => [ Validator::cleanUp( $message ) ] ];
 		if ( isset( $options['module'] ) && isset( $options['line'] ) ) {
 			$msg = 'scribunto-lua-error-location';
 		} else {

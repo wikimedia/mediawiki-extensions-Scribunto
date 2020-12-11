@@ -865,6 +865,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 				$args = [];
 				if ( count( $capt ) ) {
 					foreach ( $capt as $i => $pos ) {
+						// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 						$args[] = $m["m$i"];
 					}
 				} else {
