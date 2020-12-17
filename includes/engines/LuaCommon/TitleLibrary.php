@@ -372,6 +372,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'width' => $file->getWidth(),
 			'height' => $file->getHeight(),
 			'mimeType' => $file->getMimeType(),
+			'length' => $file->getLength(),
 			'size' => $file->getSize(),
 			'pages' => $pages
 		] ];
