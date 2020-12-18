@@ -10,7 +10,9 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
 	// addition besides the one for the current page calls
 	// incrementExpensiveFunctionCount()
+	/** @var Title[] */
 	private $titleCache = [];
+	/** @var (Title|null)[] */
 	private $idCache = [ 0 => null ];
 
 	public function register() {

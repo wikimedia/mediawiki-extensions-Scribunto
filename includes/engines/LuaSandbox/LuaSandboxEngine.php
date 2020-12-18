@@ -1,7 +1,11 @@
 <?php
 
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
-	public $options, $loaded = false;
+	/** @var array */
+	public $options;
+	/** @var bool */
+	public $loaded = false;
+	/** @var array */
 	protected $lineCache = [];
 
 	/**

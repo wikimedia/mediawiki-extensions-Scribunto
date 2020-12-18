@@ -30,6 +30,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		'ustring',
 	];
 
+	/** @var bool */
 	protected $loaded = false;
 
 	/**
@@ -46,7 +47,13 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @var array
 	 */
 	protected $currentFrames = [];
+	/**
+	 * @var array|null
+	 */
 	protected $expandCache = [];
+	/**
+	 * @var array
+	 */
 	protected $availableLibraries = [];
 
 	private const MAX_EXPAND_CACHE_SIZE = 100;

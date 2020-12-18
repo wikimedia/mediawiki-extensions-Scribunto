@@ -3,6 +3,7 @@
 use UtfNormal\Validator;
 
 class Scribunto_LuaError extends ScribuntoException {
+	/** @var string */
 	public $luaMessage;
 
 	/**

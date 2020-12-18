@@ -3,8 +3,9 @@
 use MediaWiki\Logger\LoggerFactory;
 
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
+	/** @var int|null */
 	protected static $clockTick;
-	/** @var array|bool */
+	/** @var array|false */
 	public $initialStatus;
 
 	/**
@@ -76,7 +77,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
 	protected function getClockTick() {
 		if ( self::$clockTick === null ) {

@@ -3,8 +3,11 @@
 use MediaWiki\MediaWikiServices;
 
 class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
+	/** @var Language[] */
 	public $langCache = [];
+	/** @var array */
 	public $timeCache = [];
+	/** @var int */
 	public $maxLangCacheSize;
 
 	public function register() {
