@@ -372,12 +372,13 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	 *  - $re: The regular expression
 	 *  - $capt: Definition of capturing groups, see addCapturesFromMatch()
 	 *  - $anypos: Whether any positional captures were encountered in the pattern.
+	 * @return-taint none
 	 */
 	private function patternToRegex( $pattern, $anchor, $name ) {
 		$cacheKey = serialize( [ $pattern, $anchor ] );
 		if ( !$this->patternRegexCache->has( $cacheKey ) ) {
 			$this->checkPattern( $name, $pattern );
-			$pat = preg_split( '//us', $pattern, null, PREG_SPLIT_NO_EMPTY );
+			$pat = preg_split( '//us', $pattern, -1, PREG_SPLIT_NO_EMPTY );
 
 			static $charsets = null, $brcharsets = null;
 			if ( $charsets === null ) {

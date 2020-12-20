@@ -50,11 +50,11 @@ if ( count( $argv ) > 1 ) {
 
 // @phan-suppress-next-line SecurityCheck-XSS
 echo "Loading UtfNormal from $utfnormalDir...\n";
-// @phan-suppress-next-line SecurityCheck-OTHER
+// @phan-suppress-next-line SecurityCheck-PathTraversal
 require_once "$utfnormalDir/Validator.php";
-// @phan-suppress-next-line SecurityCheck-OTHER
+// @phan-suppress-next-line SecurityCheck-PathTraversal
 require_once "$utfnormalDir/UtfNormalData.inc";
-// @phan-suppress-next-line SecurityCheck-OTHER
+// @phan-suppress-next-line SecurityCheck-PathTraversal
 require_once "$utfnormalDir/UtfNormalDataK.inc";
 
 if ( !Validator::$utfCheckNFC ||
