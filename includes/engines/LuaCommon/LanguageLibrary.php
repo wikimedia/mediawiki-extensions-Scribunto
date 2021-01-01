@@ -269,7 +269,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 
 			// Check for "User:" prefix
 			$title = Title::newFromText( $username );
-			if ( $title && $title->getNamespace() == NS_USER ) {
+			if ( $title && $title->getNamespace() === NS_USER ) {
 				$username = $title->getText();
 			}
 
