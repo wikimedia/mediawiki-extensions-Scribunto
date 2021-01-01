@@ -147,7 +147,7 @@ class ScribuntoContent extends TextContent {
 		global $wgScribuntoUseGeSHi;
 		$language = $engine->getGeSHiLanguage();
 		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight::class ) && $language ) {
-			$status = SyntaxHighlight::highlight( $text, $language );
+			$status = SyntaxHighlight::highlight( $text, $language, [ 'line' => true ] );
 			if ( $status->isGood() ) {
 				// @todo replace addModuleStyles line with the appropriate call on
 				// SyntaxHighlight once one is created
