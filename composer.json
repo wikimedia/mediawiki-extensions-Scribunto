@@ -1,11 +1,11 @@
 {
 	"require-dev": {
-		"jakub-onderka/php-parallel-lint": "1.0.0",
-		"mediawiki/mediawiki-codesniffer": "18.0.0",
 		"mediawiki/lua-sandbox": "3.0.1",
+		"mediawiki/mediawiki-codesniffer": "19.1.0",
+		"mediawiki/mediawiki-phan-config": "0.2.0",
 		"mediawiki/minus-x": "0.3.1",
-		"jakub-onderka/php-console-highlighter": "0.3.2",
-		"mediawiki/mediawiki-phan-config": "0.2.0"
+		"php-parallel-lint/php-console-highlighter": "0.3.2",
+		"php-parallel-lint/php-parallel-lint": "1.0.0"
 	},
 	"repositories": [
 		{
@@ -28,8 +28,9 @@
 			"minus-x check ."
 		],
 		"fix": [
-			"phpcbf",
-			"minus-x fix ."
-		]
+			"minus-x fix .",
+			"phpcbf"
+		],
+		"phan": "phan -d . -p"
 	}
 }
