@@ -18,6 +18,11 @@ $namespaceNames['ab'] = [
 	829 => 'Амодул_ахцәажәара',
 ];
 
+$namespaceNames['alt'] = [
+	828 => 'Модуль',
+	829 => 'Модульды_шӱӱжери',
+];
+
 $namespaceNames['an'] = [
 	828 => 'Módulo',
 	829 => 'Descusión_módulo',
