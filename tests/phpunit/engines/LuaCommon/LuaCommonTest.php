@@ -10,8 +10,10 @@
  * @covers Scribunto_LuaSandboxInterpreter
  */
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
+	/** @inheritDoc */
 	protected static $moduleName = 'CommonTests';
 
+	/** @var string[] */
 	private static $allowedGlobals = [
 		// Functions
 		'assert',

@@ -7,11 +7,13 @@ use MediaWiki\Interwiki\ClassicInterwikiLookup;
  * @group Database
  */
 class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
+	/** @inheritDoc */
 	protected static $moduleName = 'TitleLibraryTests';
 
 	/** @var Title|null */
 	private $testTitle = null;
 
+	/** @var int */
 	private $testPageId = null;
 
 	protected function setUp() : void {
@@ -153,8 +155,6 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 
 	/**
 	 * @dataProvider provideVaryPageId
-	 * @param string $code Code to create the mw.title
-	 * @param bool $flag Whether the flag gets set in the end
 	 */
 	public function testVaryPageId( $testTitle, $code, $flag ) {
 		$this->setTestTitle( $testTitle );
