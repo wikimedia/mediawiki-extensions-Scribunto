@@ -9,6 +9,7 @@
 	"scribunto-console-title": "ڈی بگ کنسول",
 	"scribunto-lua-error": "لوا غلطی:$2.",
 	"scribunto-limitreport-timeusage": "لوآ ویلہ ورتوں",
+	"scribunto-limitreport-timeusage-value": "$1/$2 سکنٹ",
 	"scribunto-limitreport-virtmemusage-value": "$1/$2 {{PLURAL:$2|بائٹ|بائٹاں}}",
 	"scribunto-limitreport-estmemusage-value": "$1 {{PLURAL:$1|بائٹ|بائٹاں}}",
 	"scribunto-limitreport-memusage": "لوآ میموری ورتوں",
