@@ -264,8 +264,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		if ( $username === 'male' || $username === 'female' ) {
 			$gender = $username;
 		} else {
+			$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
 			// default
-			$gender = User::getDefaultOption( 'gender' );
+			$gender = $userOptionsLookup->getDefaultOption( 'gender' );
 
 			// Check for "User:" prefix
 			$title = Title::newFromText( $username );
@@ -286,7 +287,6 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 				}
 			}
 		}
-		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable gender always not null
 		return [ $lang->gender( $gender, $forms ) ];
 	}
 
