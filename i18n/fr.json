@@ -71,6 +71,7 @@
 	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|octet|octets}}",
 	"scribunto-limitreport-profile": "Profil Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-profile-percent": "$1 %",
 	"scribunto-limitreport-logs": "Journaux de Lua",
 	"nstab-module": "Module",
 	"tooltip-ca-nstab-module": "Afficher la page du module"
