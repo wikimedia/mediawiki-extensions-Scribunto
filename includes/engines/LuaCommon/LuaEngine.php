@@ -603,7 +603,12 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	 * @return array
 	 */
 	public function frameExists( $frameId ) {
-		return [ $frameId === 'empty' || isset( $this->currentFrames[$frameId] ) ];
+		$exists = ( $frameId === 'empty' || isset( $this->currentFrames[$frameId] ) );
+		if ( $frameId === 'current' && !$exists ) {
+			// Temporary logging to see if php.frameExists('current') is ever false. -- ori, 2021-03-16.
+			wfDebugLog( 'AdHocDebug', __METHOD__ . ": 'current' frame does not exist.\n" . wfBacktrace( true ) );
+		}
+		return [ $exists ];
 	}
 
 	/**
