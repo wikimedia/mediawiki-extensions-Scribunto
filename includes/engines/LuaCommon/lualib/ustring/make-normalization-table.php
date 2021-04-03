@@ -66,8 +66,12 @@ if ( !Validator::$utfCheckNFC ||
 	die( "UtfNormal data files did not contain needed data.\n" );
 }
 
-// @codingStandardsIgnoreLine MediaWiki.NamingConventions.PrefixedGlobalFunctions
-function uord( $c, $firstOnly ) {
+/**
+ * @param string $c
+ * @param bool $firstOnly
+ * @return array|string
+ */
+function uord( $c, $firstOnly ) { // phpcs:ignore MediaWiki.NamingConventions.PrefixedGlobalFunctions
 	$ret = unpack( 'N*', mb_convert_encoding( $c, 'UTF-32BE', 'UTF-8' ) );
 	return $firstOnly ? $ret[1] : $ret;
 }
