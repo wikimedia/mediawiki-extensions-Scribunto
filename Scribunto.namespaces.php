@@ -48,6 +48,11 @@ $namespaceNames['avk'] = [
 	829 => 'Sibaprilara',
 ];
 
+$namespaceNames['az'] = [
+	828 => 'Modul',
+	829 => 'Modul_müzakirəsi',
+];
+
 $namespaceNames['azb'] = [
 	828 => 'ماژول',
 	829 => 'ماژول_دانیشیغی',
