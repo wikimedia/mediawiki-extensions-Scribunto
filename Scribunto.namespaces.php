@@ -365,6 +365,12 @@ $namespaceNames['mr'] = [
 
 $namespaceNames['ms'] = [
 	828 => 'Modul',
+	829 => 'Perbincangan_modul',
+];
+
+$namespaceNames['ms-arab'] = [
+	828 => 'مودول',
+	829 => 'ڤربينچڠن_مودول',
 ];
 
 $namespaceNames['mwl'] = [
