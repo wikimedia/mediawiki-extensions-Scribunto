@@ -23,7 +23,7 @@
 	"scribunto-lua-in-function-at": "$1:$2 функци чохь",
 	"scribunto-lua-error-location": "Lua гӀалат $1: $2.",
 	"scribunto-lua-error": "Lua гӀалат: $2.",
-	"scribunto-luastandalone-write-error": "Lua гӀалат: Чоьхьара гӀалат: Конвейер чохь дӀаяздаран гӀалат.",
+	"scribunto-luastandalone-write-error": "Lua гӀалат: Чоьхьара гӀалат: Конвейер чохь дӀайаздаран гӀалат.",
 	"scribunto-module-with-errors-category": "Scribunto модуль гӀалаташца",
 	"scribunto-module-with-errors-category-desc": "Модуль чохь гӀалаташ ду.",
 	"scribunto-limitreport-timeusage": "Lua лелоран хан",
