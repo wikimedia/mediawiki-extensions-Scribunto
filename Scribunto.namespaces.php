@@ -555,7 +555,7 @@ $namespaceNames['te'] = [
 
 $namespaceNames['ti'] = [
 	828 => 'ሞድዩል',
-	829 => 'ሞድዩል_ምይይጥ',
+	829 => 'ምይይጥ_ሞድዩል',
 ];
 
 $namespaceNames['tg'] = [
