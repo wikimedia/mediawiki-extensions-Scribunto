@@ -48,7 +48,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$ths = $this;
 		foreach ( $methods as $name ) {
-			$lib[$name] = function () use ( $ths, $name ) {
+			$lib[$name] = static function () use ( $ths, $name ) {
 				$args = func_get_args();
 				return $ths->languageMethod( $name, $args );
 			};

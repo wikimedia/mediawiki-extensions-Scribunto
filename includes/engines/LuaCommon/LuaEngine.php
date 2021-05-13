@@ -756,7 +756,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		$args = array_merge( [], $args );
 
 		# Sort, since we can't rely on the order coming in from Lua
-		uksort( $args, function ( $a, $b ) {
+		uksort( $args, static function ( $a, $b ) {
 			if ( is_int( $a ) !== is_int( $b ) ) {
 				return is_int( $a ) ? -1 : 1;
 			}

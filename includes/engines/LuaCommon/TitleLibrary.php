@@ -432,7 +432,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 		list( $sources, $restrictions ) = $title->getCascadeProtectionSources();
 		return [ [
 			'sources' => self::makeArrayOneBased( array_map(
-				function ( $t ) {
+				static function ( $t ) {
 					return $t->getPrefixedText();
 				},
 				$sources ) ),
