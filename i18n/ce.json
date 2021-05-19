@@ -14,7 +14,7 @@
 	"scribunto-console-title": "Лелоран консуль",
 	"scribunto-console-clear": "ЦӀанйан",
 	"scribunto-common-error-category": "Сриптийн гӀалаташ долу агӀонаш",
-	"scribunto-common-error-category-desc": "АгӀона тӀе тоьхна йолу модулаш кеч ечу хенахь гӀалат даьлла.",
+	"scribunto-common-error-category-desc": "АгӀонан тӀетоьхна йолу модулаш кечйечу хенахь гӀалат даьлла.",
 	"scribunto-common-nosuchmodule": "Скриптан гӀалат: Иштта модуль йац «$2».",
 	"scribunto-common-nosuchfunction": "Скриптан гӀалат: Функцеш «$2» йац.",
 	"scribunto-common-backtrace": "Кхайкхамийн трассинг",
