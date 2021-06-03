@@ -46,7 +46,7 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$arg = $default;
 		} elseif ( is_numeric( $arg ) ) {
 			$arg = (int)$arg;
-			if ( !MWNamespace::exists( $arg ) ) {
+			if ( !MediaWikiServices::getInstance()->getNamespaceInfo()->exists( $arg ) ) {
 				throw new Scribunto_LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace number '$arg')"
 				);

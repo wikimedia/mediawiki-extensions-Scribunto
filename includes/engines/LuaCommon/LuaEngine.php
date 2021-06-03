@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use Wikimedia\ScopedCallback;
 
 abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
@@ -715,7 +716,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
 			throw new Scribunto_LuaError( 'expandTemplate: template depth limit exceeded' );
 		}
-		if ( MWNamespace::isNonincludable( $title->getNamespace() ) ) {
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
 			throw new Scribunto_LuaError( 'expandTemplate: template inclusion denied' );
 		}
 
