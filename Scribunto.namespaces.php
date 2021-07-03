@@ -8,6 +8,8 @@
 
 $namespaceNames = [];
 
+$namespaceAliases = [];
+
 $namespaceNames['en'] = [
 	828 => 'Module',
 	829 => 'Module_talk',
@@ -594,8 +596,8 @@ $namespaceNames['yue'] = [
 ];
 
 $namespaceNames['zh'] = [
-	828 => '模块',
-	829 => '模块讨论',
+	828 => 'Module',
+	829 => 'Module_talk',
 ];
 
 $namespaceNames['zh-hans'] = [
@@ -603,7 +605,25 @@ $namespaceNames['zh-hans'] = [
 	829 => '模块讨论',
 ];
 
+$namespaceAliases['zh-hans'] = [
+	'模块' => 828,
+	'模组' => 828,
+	'模块对话' => 829,
+	'模块讨论' => 829,
+	'模组对话' => 829,
+	'模组讨论' => 829,
+];
+
 $namespaceNames['zh-hant'] = [
 	828 => '模組',
 	829 => '模組討論',
+];
+
+$namespaceAliases['zh-hant'] = [
+	'模組' => 828,
+	'模塊' => 828,
+	'模組對話' => 829,
+	'模組討論' => 829,
+	'模塊對話' => 829,
+	'模塊討論' => 829,
 ];
