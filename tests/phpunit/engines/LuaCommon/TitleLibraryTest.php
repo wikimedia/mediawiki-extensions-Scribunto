@@ -16,7 +16,7 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 	/** @var int */
 	private $testPageId = null;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		$this->setTestTitle( null );
 		parent::setUp();
 

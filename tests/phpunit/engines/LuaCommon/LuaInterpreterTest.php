@@ -9,7 +9,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	 */
 	abstract protected function newInterpreter( $opts = [] );
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		try {
 			$this->newInterpreter();
