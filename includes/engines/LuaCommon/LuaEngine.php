@@ -78,6 +78,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 
 		unset( $options['factory'] );
 
+		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 		return Scribunto::newEngine( $options + $wgScribuntoEngineConf[$engine] );
 	}
 

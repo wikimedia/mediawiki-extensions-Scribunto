@@ -394,6 +394,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 * Converts the encoded Lua error to an appropriate exception and throws it.
 	 *
 	 * @param array $message
+	 * @return never
 	 */
 	protected function handleError( $message ) {
 		$opts = [];
@@ -427,7 +428,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 					break;
 				case 'error':
 					$this->handleError( $msgFromLua );
-					return [];
+					// handleError prevents continuation
 				default:
 					$this->logger->error( __METHOD__ . ": invalid response op \"{$msgFromLua['op']}\"" );
 					throw $this->engine->newException( 'scribunto-luastandalone-decode-error' );
