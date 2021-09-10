@@ -2,6 +2,7 @@
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use UtfNormal\Validator;
 
 class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	/** @var int */
@@ -398,6 +399,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 */
 	protected function handleError( $message ) {
 		$opts = [];
+		$message['value'] = Validator::cleanUp( $message['value'] );
 		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message['value'], $m ) ) {
 			$opts['module'] = $m[1];
 			$opts['line'] = $m[2];
