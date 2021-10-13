@@ -2,6 +2,7 @@
 
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
 
 /**
@@ -191,18 +192,18 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		$engine = $this->getEngine();
 		$interpreter = $engine->getInterpreter();
 		$this->assertFalse(
-			$engine->getParser()->getOutput()->getFlag( 'vary-page-id' ), 'sanity check'
+			$engine->getParser()->getOutput()->getOutputFlag( ParserOutputFlags::VARY_PAGE_ID ), 'sanity check'
 		);
 
 		$interpreter->callFunction( $interpreter->loadString(
 			"local _ = $code", 'reference title but not id'
 		) );
-		$this->assertFalse( $engine->getParser()->getOutput()->getFlag( 'vary-page-id' ) );
+		$this->assertFalse( $engine->getParser()->getOutput()->getOutputFlag( ParserOutputFlags::VARY_PAGE_ID ) );
 
 		$interpreter->callFunction( $interpreter->loadString(
 			"local _ = $code.id", 'reference id'
 		) );
-		$this->assertSame( $flag, $engine->getParser()->getOutput()->getFlag( 'vary-page-id' ) );
+		$this->assertSame( $flag, $engine->getParser()->getOutput()->getOutputFlag( ParserOutputFlags::VARY_PAGE_ID ) );
 	}
 
 	public function provideVaryPageId() {
