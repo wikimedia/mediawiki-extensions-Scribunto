@@ -53,7 +53,9 @@ class ScribuntoContent extends TextContent {
 	protected function fillParserOutput(
 		Title $title, $revId, ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
-		$parser = MediaWikiServices::getInstance()->getParser();
+		$services = MediaWikiServices::getInstance();
+		$parser = $services->getParser();
+		$trackingCategories = $services->getTrackingCategories();
 
 		$text = $this->getText();
 
@@ -111,7 +113,9 @@ class ScribuntoContent extends TextContent {
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
 			);
-			$output->addTrackingCategory( 'scribunto-module-with-errors-category', $title );
+			$trackingCategories->addTrackingCategory(
+				$output, 'scribunto-module-with-errors-category', $title
+			);
 		}
 
 		if ( !$generateHtml ) {
