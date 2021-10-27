@@ -362,8 +362,11 @@ class ScribuntoHooks {
 		if ( !$content instanceof ScribuntoContent ) {
 			return true;
 		}
+		$contentHandlerFactory = MediaWikiServices::getInstance()->getContentHandlerFactory();
+		$contentHandler = $contentHandlerFactory->getContentHandler( $content->getModel() );
 
-		$validateStatus = $content->validate( $title );
+		'@phan-var ScribuntoContentHandler $contentHandler';
+		$validateStatus = $contentHandler->validate( $content, $title );
 		if ( $validateStatus->isOK() ) {
 			return true;
 		}

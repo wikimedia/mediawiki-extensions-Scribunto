@@ -1,7 +1,9 @@
 <?php
 
 use MediaWiki\Content\Renderer\ContentParseParams;
+use MediaWiki\Content\ValidationParams;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\PageIdentity;
 
 /**
  * Scribunto Content Handler
@@ -55,6 +57,36 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		}
 
 		return parent::canBeUsedOn( $title );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function validateSave(
+		Content $content,
+		ValidationParams $validationParams
+	) {
+		'@phan-var ScribuntoContent $content';
+		return $this->validate( $content, $validationParams->getPageIdentity() );
+	}
+
+	/**
+	 * Checks whether the script is valid
+	 *
+	 * @param TextContent $content
+	 * @param PageIdentity $page
+	 * @return Status
+	 */
+	public function validate( TextContent $content, PageIdentity $page ) {
+		if ( !( $page instanceof Title ) ) {
+			$titleFactory = MediaWikiServices::getInstance()->getTitleFactory();
+			$page = $titleFactory->castFromPageIdentity( $page );
+		}
+
+		$engine = Scribunto::newDefaultEngine();
+		// @phan-suppress-next-line PhanTypeMismatchArgument
+		$engine->setTitle( $page );
+		return $engine->validate( $content->getText(), $page->getPrefixedDBkey() );
 	}
 
 	/**
@@ -122,7 +154,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		// Validate the script, and include an error message and tracking
 		// category if it's invalid
 		// @phan-suppress-next-line PhanTypeMismatchArgument
-		$status = $content->validate( $title );
+		$status = $this->validate( $content, $title );
 		if ( !$status->isOK() ) {
 			$output->setText( $output->getRawText() .
 				Html::rawElement( 'div', [ 'class' => 'errorbox' ],
