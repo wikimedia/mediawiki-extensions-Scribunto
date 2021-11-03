@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Gmelfi",
 			"Pippinu",
 			"Sarvaturi"
@@ -52,8 +53,11 @@
 	"scribunto-limitreport-timeusage": "Cunzumu di tempu dû Lua",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sicunni",
 	"scribunto-limitreport-virtmemusage": "Grannizza virtuali dû Lua",
+	"scribunto-limitreport-virtmemusage-value": "$1/$2 {{PLURAL:$2|byte}}",
 	"scribunto-limitreport-estmemusage": "Cunzumu di mimoria dû Lua stimatu",
+	"scribunto-limitreport-estmemusage-value": "$1 {{PLURAL:$1|byte}}",
 	"scribunto-limitreport-memusage": "Cunzumu di mimoria dû Lua",
+	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|byte}}",
 	"scribunto-limitreport-profile": "Prufilu dû Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Riggistri dû Lua"
