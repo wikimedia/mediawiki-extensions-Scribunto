@@ -46,7 +46,7 @@
 	"scribunto-luastandalone-decode-error": "Lua xətası: Daxili xəta: Mesajın şifrini açmaq etmək mümkün olmadı.",
 	"scribunto-luastandalone-write-error": "Lua xətası: Daxili xəta: Paypa (pipe) yazarkən xəta.",
 	"scribunto-luastandalone-read-error": "Lua xətası: Daxili xəta: Paypdan (pipe) oxuyarkən xəta.",
-	"scribunto-luastandalone-gone": "Lua xətası: Daxili xəta: İnterpretator onsuzda çıxış edib.",
+	"scribunto-luastandalone-gone": "Lua xətası: Daxili xəta: İnterpretator onsuz da çıxış edib.",
 	"scribunto-luastandalone-signal": "Lua xətası: Daxili xəta: İnterpretator \"$2\" siqnalı ilə dayanıb.",
 	"scribunto-luastandalone-exited": "Lua xətası: Daxili xəta: İnterpretator \"$2\" statusu ilə çıxış edib.",
 	"scribunto-module-with-errors-category": "Xətaları olan skribunto modulları",
