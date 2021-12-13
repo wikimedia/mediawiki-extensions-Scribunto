@@ -58,6 +58,7 @@
 	"scribunto-limitreport-memusage": "Lua – Speichernutzung",
 	"scribunto-limitreport-profile": "Lua – Profil",
 	"scribunto-limitreport-profile-ms": "$1 ms",
+	"scribunto-limitreport-profile-percent": "$1 %",
 	"scribunto-limitreport-logs": "Lua-Logbücher",
 	"nstab-module": "Modul",
 	"tooltip-ca-nstab-module": "Die Modulseite ansehen"

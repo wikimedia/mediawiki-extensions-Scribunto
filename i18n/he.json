@@ -34,7 +34,7 @@
 	"scribunto-common-backtrace": "מחסנית קריאות:",
 	"scribunto-common-no-details": "פרטים נוספים אינם זמינים.",
 	"scribunto-lua-in-function": "בפונקציה \"$1\"",
-	"scribunto-lua-in-main": "בגוש העיקרי",
+	"scribunto-lua-in-main": "בפלח העיקרי",
 	"scribunto-lua-in-function-at": "בפונקציה $1 בשורה $2",
 	"scribunto-lua-error-location": "שגיאת לואה $1: $2.",
 	"scribunto-lua-error": "שגיאת לואה: $2.",

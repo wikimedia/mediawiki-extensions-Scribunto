@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Katxis"
+			"Katxis",
+			"Dentonius"
 		]
 	},
-	"scribunto-lua-error": "Lua era: $2."
+	"scribunto-lua-error": "Lua error: $2."
 }
