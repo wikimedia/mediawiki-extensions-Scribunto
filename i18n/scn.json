@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ajeje Brazorf",
+			"AntiCompositeNumber",
 			"Gmelfi",
 			"Pippinu",
 			"Sarvaturi"
@@ -60,5 +61,7 @@
 	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|byte}}",
 	"scribunto-limitreport-profile": "Prufilu dû Lua",
 	"scribunto-limitreport-profile-ms": "$1 ms",
-	"scribunto-limitreport-logs": "Riggistri dû Lua"
+	"scribunto-limitreport-logs": "Riggistri dû Lua",
+	"nstab-module": "Mòdulu",
+	"tooltip-ca-nstab-module": "Talìa la pàggina dû mòdulu"
 }
