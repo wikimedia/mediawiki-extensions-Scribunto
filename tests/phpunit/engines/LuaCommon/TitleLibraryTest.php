@@ -43,8 +43,10 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 
 		$editor = $this->getTestSysop()->getUser();
 
+		$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
+
 		// Page for getContent test
-		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestPage' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestPage' ) );
 		$page->doUserEditContent(
 			new WikitextContent(
 				'{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>'
@@ -55,13 +57,13 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 		$this->testPageId = $page->getId();
 
 		// Pages for redirectTarget tests
-		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestRedirect' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestRedirect' ) );
 		$page->doUserEditContent(
 			new WikitextContent( '#REDIRECT [[ScribuntoTestTarget]]' ),
 			$editor,
 			'Summary'
 		);
-		$page = WikiPage::factory( Title::newFromText( 'ScribuntoTestNonRedirect' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestNonRedirect' ) );
 		$page->doUserEditContent(
 			new WikitextContent( 'Not a redirect.' ),
 			$editor,
