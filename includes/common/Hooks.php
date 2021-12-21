@@ -230,7 +230,7 @@ class ScribuntoHooks {
 			$stats = MediaWikiServices::getInstance()->getStatsdDataFactory();
 		}
 
-		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', wfWikiId(), $moduleName, $functionName );
+		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', WikiMap::getCurrentWikiId(), $moduleName, $functionName );
 		$stats->timing( $metricKey, $timing );
 	}
 
