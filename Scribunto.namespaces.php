@@ -470,6 +470,11 @@ $namespaceNames['sat'] = [
 	829 => 'ᱢᱳᱰᱩᱞ_ᱜᱟᱞᱢᱟᱨᱟᱣ',
 ];
 
+$namespaceNames['scn'] = [
+	828 => 'Mòdulu',
+	829 => 'Discussioni_mòdulu',
+];
+
 $namespaceNames['sd'] = [
 	828 => 'ماڊيول',
 	829 => 'ماڊيول_بحث',
