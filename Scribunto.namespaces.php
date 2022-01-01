@@ -475,6 +475,11 @@ $namespaceNames['scn'] = [
 	829 => 'Discussioni_mòdulu',
 ];
 
+$namespaceAliases['scn'] = [
+	'Modulo' => 828,
+	'Discussioni_modulo' => 829,
+];
+
 $namespaceNames['sd'] = [
 	828 => 'ماڊيول',
 	829 => 'ماڊيول_بحث',
