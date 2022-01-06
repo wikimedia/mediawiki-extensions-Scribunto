@@ -139,7 +139,6 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			'isRedirect' => (bool)$title->isRedirect(),
 			'id' => $title->getArticleID(),
 			'contentModel' => $title->getContentModel(),
-			'pageLanguage' => $title->getPageLanguage()->getCode(),
 		];
 		if ( $title->getNamespace() === NS_SPECIAL ) {
 			$ret['exists'] = MediaWikiServices::getInstance()

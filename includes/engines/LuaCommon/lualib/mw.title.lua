@@ -175,7 +175,6 @@ local function makeTitleObject( data )
 		exists = 'e',
 		isRedirect = 'e',
 		contentModel = 'e',
-		pageLanguage = 'e',
 		id = 'e',
 		redirectTarget = true,
 	}
@@ -208,9 +207,6 @@ local function makeTitleObject( data )
 
 			if readOnlyFields[k] == 'e' and data[k] == nil then
 				for k,v in pairs( php.getExpensiveData( t.fullText ) ) do
-					if k == 'pageLanguage' and mw.language then
-						v = mw.language.new( v )
-					end
 					data[k] = v
 				end
 			end
