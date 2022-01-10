@@ -70,6 +70,11 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		return parent::canBeUsedOn( $title );
 	}
 
+	/** @inheritDoc */
+	public function supportsPreloadContent(): bool {
+		return true;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
