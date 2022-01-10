@@ -11,31 +11,27 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * Limit on string lengths, in bytes not characters
-	 * If null, $wgMaxArticleSize * 1024 will be used
-	 * @var int|null
+	 * @var int
 	 */
-	private $stringLengthLimit = null;
+	private $stringLengthLimit;
 
 	/**
 	 * PHP until 5.6.9 are buggy when the regex in preg_replace an
 	 * preg_match_all matches the empty string.
 	 * @var bool
 	 */
-	private $phpBug53823 = false;
+	private $phpBug53823;
 
 	/**
 	 * A cache of patterns and the regexes they generate.
 	 * @var MapCacheLRU
 	 */
-	private $patternRegexCache = null;
+	private $patternRegexCache;
 
 	/** @inheritDoc */
 	public function __construct( $engine ) {
-		if ( $this->stringLengthLimit === null ) {
-			global $wgMaxArticleSize;
-			$this->stringLengthLimit = $wgMaxArticleSize * 1024;
-		}
-
+		global $wgMaxArticleSize;
+		$this->stringLengthLimit = $wgMaxArticleSize * 1024;
 		$this->phpBug53823 = preg_replace( '//us', 'x', "\xc3\xa1" ) === "x\xc3x\xa1x";
 		$this->patternRegexCache = new MapCacheLRU( 100 );
 
@@ -846,7 +842,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 					$m = array_shift( $captures );
 				}
 				$x = $m['m1'] ?? $m[0];
-				if ( !isset( $repl[$x] ) || $repl[$x] === null ) {
+				if ( !isset( $repl[$x] ) ) {
 					return $m[0];
 				}
 				$type = $this->getLuaType( $repl[$x] );

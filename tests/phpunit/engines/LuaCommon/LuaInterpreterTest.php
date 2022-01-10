@@ -70,14 +70,14 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 
 		$passthru = $interpreter->loadString( 'return ...', 'passthru' );
 		$ret = $interpreter->callFunction( $passthru, NAN );
-		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not passed through' );
+		$this->assertNan( $ret[0], 'NaN was not passed through' );
 
 		$interpreter->registerLibrary( 'test',
 			[ 'passthru' => [ $this, 'passthru' ] ] );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 		$ret = $interpreter->callFunction( $doublePassthru, NAN );
-		$this->assertTrue( is_nan( $ret[0] ), 'NaN was not double passed through' );
+		$this->assertNan( $ret[0], 'NaN was not double passed through' );
 	}
 
 	private function normalizeOrder( $a ) {
