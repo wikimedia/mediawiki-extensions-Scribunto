@@ -155,17 +155,17 @@ class ScribuntoHooks {
 					wfMessage( 'scribunto-common-no-details' )->inContentLanguage()->text()
 				);
 			}
-			$out = $parser->getOutput();
-			$errors = $out->getExtensionData( 'ScribuntoErrors' );
+			$parserOutput = $parser->getOutput();
+			$errors = $parserOutput->getExtensionData( 'ScribuntoErrors' );
 			if ( $errors === null ) {
 				// On first hook use, set up error array and output
 				$errors = [];
 				$parser->addTrackingCategory( 'scribunto-common-error-category' );
-				$out->addModules( 'ext.scribunto.errors' );
+				$parserOutput->addModules( [ 'ext.scribunto.errors' ] );
 			}
 			$errors[] = $html;
-			$out->setExtensionData( 'ScribuntoErrors', $errors );
-			$out->addJsConfigVars( 'ScribuntoErrors', $errors );
+			$parserOutput->setExtensionData( 'ScribuntoErrors', $errors );
+			$parserOutput->addJsConfigVars( 'ScribuntoErrors', $errors );
 			$id = 'mw-scribunto-error-' . ( count( $errors ) - 1 );
 			$parserError = htmlspecialchars( $e->getMessage() );
 
@@ -276,13 +276,13 @@ class ScribuntoHooks {
 	 * Adds report of number of evaluations by the single wikitext page.
 	 *
 	 * @param Parser $parser
-	 * @param ParserOutput $output
+	 * @param ParserOutput $parserOutput
 	 * @return bool
 	 */
-	public static function reportLimitData( Parser $parser, ParserOutput $output ) {
+	public static function reportLimitData( Parser $parser, ParserOutput $parserOutput ) {
 		if ( Scribunto::isParserEnginePresent( $parser ) ) {
 			$engine = Scribunto::getParserEngine( $parser );
-			$engine->reportLimitData( $output );
+			$engine->reportLimitData( $parserOutput );
 		}
 		return true;
 	}

@@ -30,7 +30,7 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	}
 
 	/** @inheritDoc */
-	public function reportLimitData( ParserOutput $output ) {
+	public function reportLimitData( ParserOutput $parserOutput ) {
 		try {
 			$this->load();
 		} catch ( Exception $e ) {
@@ -38,27 +38,27 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 		}
 		if ( $this->initialStatus ) {
 			$status = $this->interpreter->getStatus();
-			$output->setLimitReportData( 'scribunto-limitreport-timeusage',
+			$parserOutput->setLimitReportData( 'scribunto-limitreport-timeusage',
 				[
 					sprintf( "%.3f", $status['time'] / $this->getClockTick() ),
 					// Strip trailing .0s
 					rtrim( rtrim( sprintf( "%.3f", $this->options['cpuLimit'] ), '0' ), '.' )
 				]
 			);
-			$output->setLimitReportData( 'scribunto-limitreport-virtmemusage',
+			$parserOutput->setLimitReportData( 'scribunto-limitreport-virtmemusage',
 				[
 					$status['vsize'],
 					$this->options['memoryLimit']
 				]
 			);
-			$output->setLimitReportData( 'scribunto-limitreport-estmemusage',
+			$parserOutput->setLimitReportData( 'scribunto-limitreport-estmemusage',
 				$status['vsize'] - $this->initialStatus['vsize']
 			);
 		}
 		$logs = $this->getLogBuffer();
 		if ( $logs !== '' ) {
-			$output->addModules( 'ext.scribunto.logs' );
-			$output->setLimitReportData( 'scribunto-limitreport-logs', $logs );
+			$parserOutput->addModules( [ 'ext.scribunto.logs' ] );
+			$parserOutput->setLimitReportData( 'scribunto-limitreport-logs', $logs );
 		}
 	}
 

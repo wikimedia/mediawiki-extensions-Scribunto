@@ -95,7 +95,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	protected function fillParserOutput(
 		Content $content,
 		ContentParseParams $cpoParams,
-		ParserOutput &$output
+		ParserOutput &$parserOutput
 	) {
 		'@phan-var ScribuntoContent $content';
 		$page = $cpoParams->getPage();
@@ -107,7 +107,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$text = $content->getText();
 
 		// Get documentation, if any
-		$output = new ParserOutput();
+		$parserOutput = new ParserOutput();
 		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$doc = Scribunto::getDocPage( $title );
 		if ( $doc ) {
@@ -143,12 +143,12 @@ class ScribuntoContentHandler extends CodeContentHandler {
 				if ( $parserOptions->getTargetLanguage() === null ) {
 					$parserOptions->setTargetLanguage( $doc->getPageLanguage() );
 				}
-				$output = $parser->parse( $docWikitext, $page, $parserOptions, true, true, $revId );
+				$parserOutput = $parser->parse( $docWikitext, $page, $parserOptions, true, true, $revId );
 			}
 
 			// Mark the doc page as a transclusion, so we get purged when it
 			// changes.
-			$output->addTemplate( $doc, $doc->getArticleID(), $doc->getLatestRevID() );
+			$parserOutput->addTemplate( $doc, $doc->getArticleID(), $doc->getLatestRevID() );
 		}
 
 		// Validate the script, and include an error message and tracking
@@ -156,30 +156,30 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$status = $this->validate( $content, $title );
 		if ( !$status->isOK() ) {
-			$output->setText( $output->getRawText() .
+			$parserOutput->setText( $parserOutput->getRawText() .
 				Html::rawElement( 'div', [ 'class' => 'errorbox' ],
 					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 				)
 			);
 			$trackingCategories = MediaWikiServices::getInstance()->getTrackingCategories();
-			$trackingCategories->addTrackingCategory( $output, 'scribunto-module-with-errors-category', $page );
+			$trackingCategories->addTrackingCategory( $parserOutput, 'scribunto-module-with-errors-category', $page );
 		}
 
 		if ( !$generateHtml ) {
 			// We don't need the actual HTML
-			$output->setText( '' );
+			$parserOutput->setText( '' );
 			return;
 		}
 
 		$engine = Scribunto::newDefaultEngine();
 		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$engine->setTitle( $title );
-		if ( $this->highlight( $text, $output, $engine ) ) {
+		if ( $this->highlight( $text, $parserOutput, $engine ) ) {
 			return;
 		}
 
 		// No GeSHi, or GeSHi can't parse it, use plain <pre>
-		$output->setText( $output->getRawText() .
+		$parserOutput->setText( $parserOutput->getRawText() .
 			"<pre class='mw-code mw-script' dir='ltr'>\n" .
 			htmlspecialchars( $text ) .
 			"\n</pre>\n"
@@ -189,11 +189,11 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	/**
 	 * Adds syntax highlighting to the output (or do not touch it and return false).
 	 * @param string $text
-	 * @param ParserOutput $output
+	 * @param ParserOutput $parserOutput
 	 * @param ScribuntoEngineBase $engine
 	 * @return bool Success status
 	 */
-	protected function highlight( $text, ParserOutput $output, ScribuntoEngineBase $engine ) {
+	protected function highlight( $text, ParserOutput $parserOutput, ScribuntoEngineBase $engine ) {
 		global $wgScribuntoUseGeSHi;
 		$language = $engine->getGeSHiLanguage();
 		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight::class ) && $language ) {
@@ -201,9 +201,9 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			if ( $status->isGood() ) {
 				// @todo replace addModuleStyles line with the appropriate call on
 				// SyntaxHighlight once one is created
-				$output->addModuleStyles( 'ext.pygments' );
-				$output->addModules( 'ext.pygments.linenumbers' );
-				$output->setText( $output->getRawText() . $status->getValue() );
+				$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
+				$parserOutput->addModules( [ 'ext.pygments.linenumbers' ] );
+				$parserOutput->setText( $parserOutput->getRawText() . $status->getValue() );
 				return true;
 			}
 		}
