@@ -119,11 +119,11 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 			$this->incrementExpensiveFunctionCount();
 			$category = Category::newFromTitle( $title );
 			$counts = [
-				'all' => (int)$category->getPageCount(),
-				'subcats' => (int)$category->getSubcatCount(),
-				'files' => (int)$category->getFileCount(),
+				'all' => $category->getMemberCount(),
+				'subcats' => $category->getSubcatCount(),
+				'files' => $category->getFileCount(),
+				'pages' => $category->getPageCount( Category::COUNT_CONTENT_PAGES ),
 			];
-			$counts['pages'] = $counts['all'] - $counts['subcats'] - $counts['files'];
 			$this->pagesInCategoryCache[$cacheKey] = $counts;
 		}
 		if ( $which === '*' ) {
