@@ -97,10 +97,6 @@ local function test_getCurrentTitle_fragment()
 	return mw.title.getCurrentTitle().fragment
 end
 
-local function test_pageLanguage()
-	return mw.title.getCurrentTitle().pageLanguage:getCode() == mw.language.getContentLanguage():getCode()
-end
-
 -- Tests
 local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
@@ -419,7 +415,6 @@ local tests = {
 	{ name = "fragments don't leak via getCurrentTitle()", func = test_getCurrentTitle_fragment,
 		expect = { '' }
 	},
-	{ name = "mw.pageLanguage", func = test_pageLanguage, expect = { true } },
 }
 
 return testframework.getTestProvider( tests )
