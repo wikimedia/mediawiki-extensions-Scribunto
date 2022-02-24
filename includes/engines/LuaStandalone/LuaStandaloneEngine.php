@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Logger\LoggerFactory;
+use Wikimedia\AtEase\AtEase;
 
 class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	/** @var int|null */
@@ -81,9 +82,9 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 	 */
 	protected function getClockTick() {
 		if ( self::$clockTick === null ) {
-			Wikimedia\suppressWarnings();
+			AtEase::suppressWarnings();
 			self::$clockTick = intval( shell_exec( 'getconf CLK_TCK' ) );
-			Wikimedia\restoreWarnings();
+			AtEase::restoreWarnings();
 			if ( !self::$clockTick ) {
 				self::$clockTick = 100;
 			}
