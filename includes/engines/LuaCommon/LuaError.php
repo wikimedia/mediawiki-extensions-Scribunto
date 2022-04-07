@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
+
 class Scribunto_LuaError extends ScribuntoException {
 	/** @var string */
 	public $luaMessage;

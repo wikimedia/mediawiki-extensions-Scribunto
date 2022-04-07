@@ -1,7 +1,9 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
+
 /**
- * @covers ScribuntoEngineBase
+ * @covers \MediaWiki\Extension\Scribunto\ScribuntoEngineBase
  * @covers Scribunto_LuaEngine
  * @covers Scribunto_LuaStandaloneEngine
  * @covers Scribunto_LuaSandboxEngine

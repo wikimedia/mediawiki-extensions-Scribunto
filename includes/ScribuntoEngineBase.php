@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Wikitext scripting infrastructure for MediaWiki: base classes.
  * Copyright (C) 2012 Victor Vasiliev <vasilvv@gmail.com> et al
@@ -20,6 +19,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  */
+
+namespace MediaWiki\Extension\Scribunto;
+
+use Hooks as MWHooks;
+use Parser;
+use ParserOutput;
+use Status;
+use Title;
 
 /**
  * Base class for all script engines. Includes all code
@@ -249,7 +256,7 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraries( $engine, array $coreLibraries = [] ) {
 		$extraLibraries = [];
-		Hooks::run( 'ScribuntoExternalLibraries', [ $engine, &$extraLibraries ] );
+		MWHooks::run( 'ScribuntoExternalLibraries', [ $engine, &$extraLibraries ] );
 		return $coreLibraries + $extraLibraries;
 	}
 
@@ -262,7 +269,7 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraryPaths( $engine, array $coreLibraryPaths = [] ) {
 		$extraLibraryPaths = [];
-		Hooks::run( 'ScribuntoExternalLibraryPaths', [ $engine, &$extraLibraryPaths ] );
+		MWHooks::run( 'ScribuntoExternalLibraryPaths', [ $engine, &$extraLibraryPaths ] );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
 	}
 

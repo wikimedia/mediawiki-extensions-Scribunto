@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
+
 abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 

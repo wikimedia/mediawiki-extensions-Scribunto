@@ -9,6 +9,10 @@
  * @author Brad Jorsch <bjorsch@wikimedia.org>
  */
 
+namespace MediaWiki\Extension\Scribunto;
+
+use TextContent;
+
 /**
  * Represents the content of a Scribunto script page
  */

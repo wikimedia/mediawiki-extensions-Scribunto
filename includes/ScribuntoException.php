@@ -1,5 +1,11 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto;
+
+use MWException;
+use Status;
+use Title;
+
 /**
  * An exception class which represents an error in the script. This does not
  * normally abort the request, instead it is caught and shown to the user.

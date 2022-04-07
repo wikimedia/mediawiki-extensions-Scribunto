@@ -1,10 +1,20 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto;
+
+use CodeContentHandler;
+use Content;
+use ExtensionRegistry;
+use Html;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\ValidationParams;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
+use ParserOutput;
+use Status;
+use TextContent;
+use Title;
 
 /**
  * Scribunto Content Handler

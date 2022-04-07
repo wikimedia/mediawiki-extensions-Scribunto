@@ -6,6 +6,7 @@ if ( !wfIsCLI() ) {
 
 require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
 use Wikimedia\TestingAccessWrapper;
 
 /**

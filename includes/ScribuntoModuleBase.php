@@ -21,6 +21,11 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\Scribunto;
+
+use PPFrame;
+use Status;
+
 /**
  * Class that represents a module. Responsible for initial module parsing
  * and maintaining the contents of the module.

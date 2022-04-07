@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWiki\Extension\Scribunto\ScribuntoModuleBase;
+
 class Scribunto_LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var mixed

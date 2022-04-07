@@ -20,14 +20,32 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\Scribunto;
+
+use Article;
+use Content;
+use EditPage;
+use EmptyBagOStuff;
+use Html;
+use IContextSource;
 use MediaWiki\MediaWikiServices;
+use MWException;
+use ObjectCache;
+use OutputPage;
+use Parser;
+use ParserOutput;
+use PPFrame;
+use Status;
+use Title;
 use UtfNormal\Validator;
+use WikiMap;
 use Wikimedia\PSquare;
+use Xml;
 
 /**
  * Hooks for the Scribunto extension.
  */
-class ScribuntoHooks {
+class Hooks {
 
 	/**
 	 * Define content handler constant upon extension registration
@@ -56,7 +74,7 @@ class ScribuntoHooks {
 	 * @return bool
 	 */
 	public static function setupParserHook( Parser $parser ) {
-		$parser->setFunctionHook( 'invoke', 'ScribuntoHooks::invokeHook', Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', [ self::class, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
 		return true;
 	}
 

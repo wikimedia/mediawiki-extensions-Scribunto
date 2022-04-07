@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\ScribuntoException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use UtfNormal\Validator;

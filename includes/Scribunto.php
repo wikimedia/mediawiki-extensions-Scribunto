@@ -1,5 +1,11 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto;
+
+use MWException;
+use Parser;
+use Title;
+
 /**
  * Static function collection for general extension support.
  */

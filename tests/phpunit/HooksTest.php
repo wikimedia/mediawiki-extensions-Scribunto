@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Hooks as ScribuntoHooks;
+
 class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 
@@ -13,7 +15,7 @@ class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @covers ScribuntoHooks::contentHandlerDefaultModelFor
+	 * @covers \MediaWiki\Extension\Scribunto\Hooks::contentHandlerDefaultModelFor
 	 * @dataProvider provideContentHandlerDefaultModelFor
 	 */
 	public function testContentHandlerDefaultModelFor( $name, $expected,

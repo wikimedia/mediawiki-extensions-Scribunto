@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Scribunto;
+use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
+use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\ScopedCallback;
 
