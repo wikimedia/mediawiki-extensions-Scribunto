@@ -130,7 +130,7 @@ class ScribuntoHooks {
 
 				if ( $u1 > $u0 ) {
 					$timingMs = (int)( 1000 * ( $u1 - $u0 ) );
-					// Since the overhead of stats is worst when when #invoke
+					// Since the overhead of stats is worst when #invoke
 					// calls are very short, don't process measurements <= 20ms.
 					if ( $timingMs > 20 ) {
 						self::reportTiming( $moduleName, $functionName, $timingMs );
@@ -215,7 +215,7 @@ class ScribuntoHooks {
 		// This is a classic "read-update-write" critical section with no
 		// mutual exclusion, but the only consequence is that some samples
 		// will be dropped. We only need enough samples to estimate the
-		// the shape of the data, so that's fine.
+		// shape of the data, so that's fine.
 		$ps = $cache->get( $key ) ?: new PSquare( $threshold );
 		$ps->addObservation( $timing );
 		$cache->set( $key, $ps, 60 );

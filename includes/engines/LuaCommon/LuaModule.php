@@ -66,10 +66,6 @@ class Scribunto_LuaModule extends ScribuntoModuleBase {
 		}
 
 		$result = $this->engine->executeFunctionChunk( $ret, $frame );
-		if ( isset( $result[0] ) ) {
-			return $result[0];
-		} else {
-			return null;
-		}
+		return $result[0] ?? null;
 	}
 }

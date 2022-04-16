@@ -19,7 +19,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	}
 
 	protected function getBusyLoop( $interpreter ) {
-		$chunk = $interpreter->loadString( '
+		return $interpreter->loadString( '
 			local args = {...}
 			local x, i
 			local s = string.rep("x", 1000000)
@@ -30,7 +30,6 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 				if e and os.clock() >= e then break end
 			end',
 			'busy' );
-		return $chunk;
 	}
 
 	/** @dataProvider provideRoundtrip */

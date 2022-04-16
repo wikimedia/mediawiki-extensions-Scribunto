@@ -911,7 +911,7 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 		$count = 0;
 		$s2 = preg_replace_callback( $re, $cb, $s, $n, $count );
 		if ( $s2 === null ) {
-			self::handlePCREError( preg_last_error(), $pattern );
+			$this->handlePCREError( preg_last_error(), $pattern );
 		}
 		return [ $s2, $count - $skippedMatches ];
 	}

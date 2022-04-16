@@ -36,15 +36,11 @@ class Scribunto_LuaError extends ScribuntoException {
 		if ( !isset( $this->params['trace'] ) ) {
 			return false;
 		}
-		if ( isset( $options['msgOptions'] ) ) {
-			$msgOptions = $options['msgOptions'];
-		} else {
-			$msgOptions = [];
-		}
+		$msgOptions = $options['msgOptions'] ?? [];
 
 		$s = '<ol class="scribunto-trace">';
 		foreach ( $this->params['trace'] as $info ) {
-			$short_src = $srcdefined = $info['short_src'];
+			$short_src = $info['short_src'];
 			$currentline = $info['currentline'];
 
 			$src = htmlspecialchars( $short_src );

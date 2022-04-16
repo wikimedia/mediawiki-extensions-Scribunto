@@ -19,7 +19,7 @@ class Scribunto_LuaSandboxInterpreterTest extends Scribunto_LuaInterpreterTest {
 	];
 
 	protected function newInterpreter( $opts = [] ) {
-		$opts = $opts + $this->stdOpts;
+		$opts += $this->stdOpts;
 		$engine = new Scribunto_LuaSandboxEngine( $this->stdOpts );
 		return new Scribunto_LuaSandboxInterpreter( $engine, $opts );
 	}

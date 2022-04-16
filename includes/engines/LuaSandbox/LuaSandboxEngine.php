@@ -152,8 +152,6 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	 * @suppress SecurityCheck-DoubleEscaped phan false positive
 	 */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
-		global $wgLang;
-		$lang = $localize ? $wgLang : Language::factory( 'en' );
 		switch ( $key ) {
 			case 'scribunto-limitreport-logs':
 				if ( $isHTML ) {

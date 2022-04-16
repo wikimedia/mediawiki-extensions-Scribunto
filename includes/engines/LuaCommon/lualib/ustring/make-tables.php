@@ -107,11 +107,9 @@ foreach ( $pats as $k => $pp ) {
 			if ( $rstart === null ) {
 				$rstart = $i;
 			}
-		} else {
-			if ( $rstart !== null ) {
-				addRange( $k, $rstart, $i );
-				$rstart = null;
-			}
+		} elseif ( $rstart !== null ) {
+			addRange( $k, $rstart, $i );
+			$rstart = null;
 		}
 	}
 	if ( $rstart !== null ) {

@@ -50,7 +50,6 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 			);
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaSandbox interpreter not available" );
-			return;
 		}
 
 		try {
@@ -59,7 +58,6 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 			);
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaStandalone interpreter not available" );
-			return;
 		}
 	}
 

@@ -65,8 +65,6 @@ class Scribunto_LuaStandaloneEngine extends Scribunto_LuaEngine {
 
 	/** @inheritDoc */
 	public function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
-		global $wgLang;
-		$lang = $localize ? $wgLang : Language::factory( 'en' );
 		switch ( $key ) {
 			case 'scribunto-limitreport-logs':
 				if ( $isHTML ) {

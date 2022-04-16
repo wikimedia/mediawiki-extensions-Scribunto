@@ -469,7 +469,7 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 
 		// Test calling a non-existent function
 		try {
-			$ret = $engine->runConsole( [
+			$engine->runConsole( [
 				'question' => '=mw.getCurrentFrame():callParserFunction{
 					name = "thisDoesNotExist", args = { "" }
 				}',

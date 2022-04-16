@@ -29,7 +29,7 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 	}
 
 	protected function newInterpreter( $opts = [] ) {
-		$opts = $opts + $this->stdOpts;
+		$opts += $this->stdOpts;
 		$engine = new Scribunto_LuaStandaloneEngine( $this->stdOpts );
 		return new Scribunto_LuaStandaloneInterpreter( $engine, $opts );
 	}
@@ -62,7 +62,6 @@ class Scribunto_LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTes
 		$startTime = microtime( true );
 		if ( php_uname( 's' ) !== 'Linux' ) {
 			$this->markTestSkipped( "getStatus() not supported on platforms other than Linux" );
-			return;
 		}
 		$interpreter = $this->newInterpreter();
 		$engine = TestingAccessWrapper::newFromObject( $interpreter->engine );
