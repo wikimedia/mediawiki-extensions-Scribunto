@@ -4,6 +4,7 @@ use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\ValidationParams;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
+use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 
 /**
  * Scribunto Content Handler
@@ -196,7 +197,9 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	protected function highlight( $text, ParserOutput $parserOutput, ScribuntoEngineBase $engine ) {
 		global $wgScribuntoUseGeSHi;
 		$language = $engine->getGeSHiLanguage();
-		if ( $wgScribuntoUseGeSHi && class_exists( SyntaxHighlight::class ) && $language ) {
+		if (
+			$wgScribuntoUseGeSHi && $language && ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' )
+		) {
 			$status = SyntaxHighlight::highlight( $text, $language, [ 'line' => true, 'linelinks' => 'L' ] );
 			if ( $status->isGood() ) {
 				// @todo replace addModuleStyles line with the appropriate call on
