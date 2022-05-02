@@ -587,8 +587,9 @@ function mw.dumpObject( object )
 
 			local ret = { doneObj[object], ' {\n' }
 			local mt = getmetatable( object )
+			local indentString = "  "
 			if mt then
-				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = string.rep( indentString, indent + 2 )
 				ret[#ret + 1] = 'metatable = '
 				ret[#ret + 1] = _dumpObject( mt, indent + 2, false )
 				ret[#ret + 1] = "\n"
@@ -597,7 +598,7 @@ function mw.dumpObject( object )
 			local doneKeys = {}
 			for key, value in ipairs( object ) do
 				doneKeys[key] = true
-				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = string.rep( indentString, indent + 2 )
 				ret[#ret + 1] = _dumpObject( value, indent + 2, true )
 				ret[#ret + 1] = ',\n'
 			end
@@ -610,14 +611,14 @@ function mw.dumpObject( object )
 			table.sort( keys, sorter )
 			for i = 1, #keys do
 				local key = keys[i]
-				ret[#ret + 1] = string.rep( " ", indent + 2 )
+				ret[#ret + 1] = string.rep( indentString, indent + 2 )
 				ret[#ret + 1] = '['
 				ret[#ret + 1] = _dumpObject( key, indent + 3, false )
 				ret[#ret + 1] = '] = '
 				ret[#ret + 1] = _dumpObject( object[key], indent + 2, true )
 				ret[#ret + 1] = ",\n"
 			end
-			ret[#ret + 1] = string.rep( " ", indent )
+			ret[#ret + 1] = string.rep( indentString, indent )
 			ret[#ret + 1] = '}'
 			return table.concat( ret )
 		else
