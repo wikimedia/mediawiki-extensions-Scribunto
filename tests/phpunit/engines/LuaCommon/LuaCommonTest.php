@@ -57,22 +57,21 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 		parent::setUp();
 
 		// Register libraries for self::testPHPLibrary()
-		$this->mergeMwGlobalArrayValue( 'wgHooks', [
-			'ScribuntoExternalLibraries' => [
-				static function ( $engine, &$libs ) {
-					$libs += [
-						'CommonTestsLib' => [
-							'class' => Scribunto_LuaCommonTestsLibrary::class,
-							'deferLoad' => true,
-						],
-						'CommonTestsFailLib' => [
-							'class' => Scribunto_LuaCommonTestsFailLibrary::class,
-							'deferLoad' => true,
-						],
-					];
-				}
-			]
-		] );
+		$this->setTemporaryHook(
+			'ScribuntoExternalLibraries',
+			static function ( $engine, &$libs ) {
+				$libs += [
+					'CommonTestsLib' => [
+						'class' => Scribunto_LuaCommonTestsLibrary::class,
+						'deferLoad' => true,
+					],
+					'CommonTestsFailLib' => [
+						'class' => Scribunto_LuaCommonTestsFailLibrary::class,
+						'deferLoad' => true,
+					],
+				];
+			}
+		);
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
