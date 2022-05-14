@@ -336,6 +336,8 @@ Scribunto: expandTemplate
 
 !! test
 Scribunto: expandTemplate with headers
+!! options
+disabled
 !! wikitext
 ==foo==
 {{#invoke:test|testExpandTemplateWithHeaders}}
