@@ -8,7 +8,8 @@
 			"Liuxinyu970226",
 			"SolidBlock",
 			"Xiaomingyan",
-			"Yfdyh000"
+			"Yfdyh000",
+			"GuoPC"
 		]
 	},
 	"scribunto-desc": "用于在MediaWiki页面中嵌入脚本语言的框架",
@@ -33,7 +34,7 @@
 	"scribunto-common-nofunction": "脚本错误：您必须指定要调用的函数。",
 	"scribunto-common-nosuchfunction": "脚本错误：函数“$2”不存在。",
 	"scribunto-common-notafunction": "脚本错误：“$2”不是函数。",
-	"scribunto-common-timeout": "为运行的脚本分配的时间已耗尽。",
+	"scribunto-common-timeout": "为运行脚本而分配的时间已耗尽。",
 	"scribunto-common-oom": "运行的脚本超出允许的内存用量。",
 	"scribunto-common-backtrace": "回溯：",
 	"scribunto-common-no-details": "没有可用的进一步细节。",
