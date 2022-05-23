@@ -5,7 +5,9 @@
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.popen" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.proc_open" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.shell_exec" />
+		<exclude name="MediaWiki.Usage.StaticClosure.StaticClosure" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+		<exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon" />
 		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
 	</rule>
 	<file>.</file>
