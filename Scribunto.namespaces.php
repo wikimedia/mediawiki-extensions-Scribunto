@@ -435,6 +435,11 @@ $namespaceNames['pa'] = [
 	829 => 'ਮੌਡਿਊਲ_ਗੱਲ-ਬਾਤ',
 ];
 
+$namespaceNames['pcm'] = [
+	828 => 'Modul',
+	829 => 'Modul_tok_abaut_am',
+];
+
 $namespaceNames['pl'] = [
 	828 => 'Moduł',
 	829 => 'Dyskusja_modułu',
