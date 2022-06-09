@@ -315,6 +315,11 @@ $namespaceNames['ku'] = [
 	829 => 'Gotûbêja_modulê',
 ];
 
+$namespaceNames['ky'] = [
+	828 => 'Модуль',
+	829 => 'Модулду_талкуулоо',
+];
+
 $namespaceNames['lb'] = [
 	828 => 'Modul',
 	829 => 'Modul_Diskussioun',
