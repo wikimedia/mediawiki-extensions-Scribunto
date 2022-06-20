@@ -114,7 +114,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$parserOptions = $cpoParams->getParserOptions();
 		$revId = $cpoParams->getRevId();
 		$generateHtml = $cpoParams->getGenerateHtml();
-		$parser = MediaWikiServices::getInstance()->getParser();
+		$parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
 		$text = $content->getText();
 
 		// Get documentation, if any
