@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	/** @var array */
 	public $options;
@@ -186,6 +188,9 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 				Html::openElement( 'tr' ) .
 				Html::openElement( 'td', [ 'colspan' => 2 ] ) .
 				Html::openElement( 'table' );
+
+			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
 			foreach ( $value as $line ) {
 				$name = $line[0];
 				$location = '';
@@ -193,7 +198,8 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 					$name = $m[1];
 					$title = Title::newFromText( $m[2] );
 					if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-						$location = '&lt;' . Linker::link( $title ) . ":{$m[3]}&gt;";
+						$location = '&lt;' .
+							$linkRenderer->makeLink( $title ) . ":{$m[3]}&gt;";
 					} else {
 						$location = htmlspecialchars( "<{$m[2]}:{$m[3]}>" );
 					}
