@@ -37,12 +37,12 @@ class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider 
 		$this->rewind();
 	}
 
-	public function destory() {
+	public function destroy() {
 		if ( $this->file ) {
 			fclose( $this->file );
 			$this->file = null;
 		}
-		parent::destory();
+		parent::destroy();
 	}
 
 	public function rewind() {
