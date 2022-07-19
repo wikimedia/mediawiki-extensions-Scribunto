@@ -213,7 +213,6 @@ class Hooks {
 		}
 
 		static $cache;
-
 		if ( !$cache ) {
 			$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
 
@@ -222,8 +221,8 @@ class Hooks {
 		// To control the sampling rate, we keep a compact histogram of
 		// observations in APC, and extract the Nth percentile (specified
 		// via $wgScribuntoSlowFunctionThreshold; defaults to 0.90).
-		// We need APC and \Wikimedia\PSquare to do that.
-		if ( !class_exists( PSquare::class ) || $cache instanceof EmptyBagOStuff ) {
+		// We need a non-empty local server cache for that (e.g. php-apcu).
+		if ( $cache instanceof EmptyBagOStuff ) {
 			return;
 		}
 
@@ -243,7 +242,6 @@ class Hooks {
 		}
 
 		static $stats;
-
 		if ( !$stats ) {
 			$stats = MediaWikiServices::getInstance()->getStatsdDataFactory();
 		}
