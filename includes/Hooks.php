@@ -227,8 +227,8 @@ class Hooks {
 			return;
 		}
 
-		$cacheVersion = '1';
-		$key = $cache->makeGlobalKey( __METHOD__, $cacheVersion, (string)$threshold );
+		$cacheVersion = '2';
+		$key = $cache->makeGlobalKey( 'scribunto-stats', $cacheVersion, (string)$threshold );
 
 		// This is a classic "read-update-write" critical section with no
 		// mutual exclusion, but the only consequence is that some samples
