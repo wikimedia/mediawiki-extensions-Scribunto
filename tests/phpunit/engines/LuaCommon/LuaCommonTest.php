@@ -5,10 +5,10 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
 /**
  * @covers \MediaWiki\Extension\Scribunto\ScribuntoEngineBase
  * @covers Scribunto_LuaEngine
- * @covers Scribunto_LuaStandaloneEngine
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
  * @covers Scribunto_LuaInterpreter
- * @covers Scribunto_LuaStandaloneInterpreter
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter
  */
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {

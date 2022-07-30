@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
+use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -55,7 +56,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 
 		try {
 			$this->engines['LuaStandalone'] = $this->makeEngine(
-				Scribunto_LuaStandaloneEngine::class, $this->standaloneOpts
+				LuaStandaloneEngine::class, $this->standaloneOpts
 			);
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaStandalone interpreter not available" );

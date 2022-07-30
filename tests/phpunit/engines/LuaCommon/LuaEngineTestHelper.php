@@ -1,6 +1,8 @@
 <?php
 
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
+use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
+use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\DataProviderTestSuite;
 use PHPUnit\Framework\TestSuite;
@@ -21,7 +23,7 @@ trait Scribunto_LuaEngineTestHelper {
 			'maxLangCacheSize' => 30,
 		],
 		'LuaStandalone' => [
-			'class' => Scribunto_LuaStandaloneEngine::class,
+			'class' => LuaStandaloneEngine::class,
 			'errorFile' => null,
 			'luaPath' => null,
 			'memoryLimit' => 50000000,
@@ -136,7 +138,14 @@ trait Scribunto_LuaEngineTestHelper {
 			$options = ParserOptions::newFromAnon();
 			$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );
-			$class = "Scribunto_{$this->engineName}Engine";
+
+			// HACK
+			if ( $this->engineName === 'LuaSandbox' ) {
+				$class = LuaSandboxEngine::class;
+			} elseif ( $this->engineName === 'LuaStandalone' ) {
+				$class = LuaStandaloneEngine::class;
+			}
+
 			$this->engine = new $class(
 				self::$engineConfigurations[$this->engineName] + [ 'parser' => $parser ]
 			);

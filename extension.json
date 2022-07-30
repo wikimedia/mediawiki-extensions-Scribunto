@@ -40,8 +40,6 @@
 		"Scribunto_LuaEngine": "includes/engines/LuaCommon/LuaEngine.php",
 		"Scribunto_LuaModule": "includes/engines/LuaCommon/LuaModule.php",
 		"Scribunto_LuaInterpreter": "includes/engines/LuaCommon/LuaInterpreter.php",
-		"Scribunto_LuaStandaloneEngine": "includes/engines/LuaStandalone/LuaStandaloneEngine.php",
-		"Scribunto_LuaStandaloneInterpreter": "includes/engines/LuaStandalone/LuaStandaloneInterpreter.php",
 		"Scribunto_LuaLibraryBase": "includes/engines/LuaCommon/LibraryBase.php",
 		"Scribunto_LuaSiteLibrary": "includes/engines/LuaCommon/SiteLibrary.php",
 		"Scribunto_LuaUriLibrary": "includes/engines/LuaCommon/UriLibrary.php",
@@ -51,7 +49,8 @@
 		"Scribunto_LuaTitleLibrary": "includes/engines/LuaCommon/TitleLibrary.php",
 		"Scribunto_LuaTextLibrary": "includes/engines/LuaCommon/TextLibrary.php",
 		"Scribunto_LuaHtmlLibrary": "includes/engines/LuaCommon/HtmlLibrary.php",
-		"Scribunto_LuaHashLibrary": "includes/engines/LuaCommon/HashLibrary.php"
+		"Scribunto_LuaHashLibrary": "includes/engines/LuaCommon/HashLibrary.php",
+		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneInterpreterFunction": "includes/engines/LuaStandalone/LuaStandaloneInterpreterFunction.php"
 	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\Scribunto\\": "includes/",
@@ -155,7 +154,7 @@
 					"maxLangCacheSize": 30
 				},
 				"luastandalone": {
-					"class": "Scribunto_LuaStandaloneEngine",
+					"class": "MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneEngine",
 					"errorFile": null,
 					"luaPath": null,
 					"memoryLimit": 52428800,

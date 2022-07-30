@@ -1,16 +1,22 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Engines\LuaStandalone;
+
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MWException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Scribunto_LuaError;
+use Scribunto_LuaInterpreter;
+use Scribunto_LuaInterpreterNotFoundError;
 use UtfNormal\Validator;
 
-class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
+class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	/** @var int */
 	protected static $nextInterpreterId = 0;
 
 	/**
-	 * @var Scribunto_LuaStandaloneEngine
+	 * @var LuaStandaloneEngine
 	 */
 	public $engine;
 
@@ -55,7 +61,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	protected $callbacks;
 
 	/**
-	 * @param Scribunto_LuaStandaloneEngine $engine
+	 * @param LuaStandaloneEngine $engine
 	 * @param array $options
 	 * @throws MWException
 	 * @throws Scribunto_LuaInterpreterNotFoundError
@@ -237,7 +243,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @param string $text
 	 * @param string $chunkName
-	 * @return Scribunto_LuaStandaloneInterpreterFunction
+	 * @return LuaStandaloneInterpreterFunction
 	 */
 	public function loadString( $text, $chunkName ) {
 		$this->cleanupLuaChunks();
@@ -247,12 +253,12 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			'text' => $text,
 			'chunkName' => $chunkName
 		] );
-		return new Scribunto_LuaStandaloneInterpreterFunction( $this->id, $result[1] );
+		return new LuaStandaloneInterpreterFunction( $this->id, $result[1] );
 	}
 
 	/** @inheritDoc */
 	public function callFunction( $func, ...$args ) {
-		if ( !( $func instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
+		if ( !( $func instanceof LuaStandaloneInterpreterFunction ) ) {
 			throw new MWException( __METHOD__ . ': invalid function type' );
 		}
 		if ( $func->interpreterId !== $this->id ) {
@@ -287,18 +293,18 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	}
 
 	public function cleanupLuaChunks() {
-		if ( isset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] ) ) {
-			unset( Scribunto_LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] );
+		if ( isset( LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] ) ) {
+			unset( LuaStandaloneInterpreterFunction::$anyChunksDestroyed[$this->id] );
 			$this->dispatch( [
 				'op' => 'cleanupChunks',
-				'ids' => Scribunto_LuaStandaloneInterpreterFunction::$activeChunkIds[$this->id]
+				'ids' => LuaStandaloneInterpreterFunction::$activeChunkIds[$this->id]
 			] );
 		}
 	}
 
 	/** @inheritDoc */
 	public function isLuaFunction( $object ) {
-		return $object instanceof Scribunto_LuaStandaloneInterpreterFunction;
+		return $object instanceof LuaStandaloneInterpreterFunction;
 	}
 
 	/** @inheritDoc */
@@ -567,7 +573,7 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				$s .= '}';
 				return $s;
 			case 'object':
-				if ( !( $var instanceof Scribunto_LuaStandaloneInterpreterFunction ) ) {
+				if ( !( $var instanceof LuaStandaloneInterpreterFunction ) ) {
 					throw new MWException( __METHOD__ . ': unable to convert object of type ' .
 						get_class( $var ) );
 				} elseif ( $var->interpreterId !== $this->id ) {
