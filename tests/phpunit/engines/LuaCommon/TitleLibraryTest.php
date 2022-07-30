@@ -80,7 +80,8 @@ class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
 				'areRestrictionsLoaded',
 				'areCascadeProtectionSourcesLoaded',
 				'getAllRestrictions',
-				'registerOldRestrictions' // just do nothing
+				// just do nothing
+				'registerOldRestrictions'
 			]
 		);
 

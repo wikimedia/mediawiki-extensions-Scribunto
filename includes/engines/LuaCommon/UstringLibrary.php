@@ -610,7 +610,8 @@ class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 			// "(?!)" would be simpler and could be quantified if not for a bug in PCRE 8.13 to 8.33
 			$re = '(?:(*FAIL))';
 		} elseif ( $re === '[^]' ) {
-			$re = '.'; // 's' modifier is always used, so this works
+			// 's' modifier is always used, so this works
+			$re = '.';
 		}
 
 		return [ $i, $re ];

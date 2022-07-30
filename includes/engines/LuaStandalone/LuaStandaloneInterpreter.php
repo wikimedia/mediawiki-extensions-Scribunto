@@ -116,11 +116,14 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = wfEscapeShellArg(
-				'exec', # proc_open() passes $cmd to 'sh -c' on Linux, so add an 'exec' to bypass it
+				# proc_open() passes $cmd to 'sh -c' on Linux, so add an 'exec' to bypass it
+				'exec',
 				'/bin/sh',
 				__DIR__ . '/lua_ulimit.sh',
-				(string)$options['cpuLimit'], # soft limit (SIGXCPU)
-				(string)( $options['cpuLimit'] + 1 ), # hard limit
+				# soft limit (SIGXCPU)
+				(string)$options['cpuLimit'],
+				# hard limit
+				(string)( $options['cpuLimit'] + 1 ),
 				(string)intval( $options['memoryLimit'] / 1024 ),
 				$cmd );
 		}
@@ -637,7 +640,8 @@ class Scribunto_LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			if ( !$status['running'] ) {
 				break;
 			}
-			usleep( 10000 ); // Give the killed process a chance to be scheduled
+			// Give the killed process a chance to be scheduled
+			usleep( 10000 );
 		}
 		proc_close( $this->proc );
 		$this->proc = false;
