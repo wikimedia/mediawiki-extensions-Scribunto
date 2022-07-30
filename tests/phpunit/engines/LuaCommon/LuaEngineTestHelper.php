@@ -1,7 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\MediaWikiServices;
-
 use PHPUnit\Framework\DataProviderTestSuite;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\WarningTestCase;
@@ -14,12 +14,14 @@ trait Scribunto_LuaEngineTestHelper {
 	/** @var array[] */
 	private static $engineConfigurations = [
 		'LuaSandbox' => [
+			'class' => LuaSandboxEngine::class,
 			'memoryLimit' => 50000000,
 			'cpuLimit' => 30,
 			'allowEnvFuncs' => true,
 			'maxLangCacheSize' => 30,
 		],
 		'LuaStandalone' => [
+			'class' => Scribunto_LuaStandaloneEngine::class,
 			'errorFile' => null,
 			'luaPath' => null,
 			'memoryLimit' => 50000000,
@@ -54,7 +56,7 @@ trait Scribunto_LuaEngineTestHelper {
 					Parser::OT_HTML,
 					true
 				);
-				$engineClass = "Scribunto_{$engineName}Engine";
+				$engineClass = $opts['class'];
 				$engine = new $engineClass(
 					self::$engineConfigurations[$engineName] + [ 'parser' => $parser ]
 				);

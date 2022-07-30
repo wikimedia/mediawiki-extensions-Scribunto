@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @covers Scribunto_LuaSandboxEngine
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
  */
-class Scribunto_LuaSandboxTest extends Scribunto_LuaEngineUnitTestBase {
+class LuaSandboxTest extends Scribunto_LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'SandboxTests';
 

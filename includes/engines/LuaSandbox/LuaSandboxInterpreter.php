@@ -1,8 +1,20 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Engines\LuaSandbox;
+
+use LuaSandbox;
+use LuaSandboxError;
+use LuaSandboxFunction;
+use LuaSandboxTimeoutError;
+use MWException;
+use Scribunto_LuaEngine;
+use Scribunto_LuaError;
+use Scribunto_LuaInterpreter;
+use Scribunto_LuaInterpreterBadVersionError;
+use Scribunto_LuaInterpreterNotFoundError;
 use UtfNormal\Validator;
 
-class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
+class LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	/**
 	 * @var Scribunto_LuaEngine
 	 */
@@ -99,7 +111,7 @@ class Scribunto_LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 		$realLibrary = [];
 		foreach ( $functions as $funcName => $callback ) {
 			$realLibrary[$funcName] = [
-				new Scribunto_LuaSandboxCallback( $callback ),
+				new LuaSandboxCallback( $callback ),
 				$funcName ];
 		}
 		$this->sandbox->registerLibrary( $name, $realLibrary );

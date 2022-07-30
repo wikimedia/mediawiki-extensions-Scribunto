@@ -36,13 +36,10 @@
 		"Scribunto_LuaError": "includes/engines/LuaCommon/LuaError.php",
 		"Scribunto_LuaInterpreterNotFoundError": "includes/engines/LuaCommon/LuaInterpreterNotFoundError.php",
 		"Scribunto_LuaInterpreterBadVersionError": "includes/engines/LuaCommon/LuaInterpreterBadVersionError.php",
-		"Scribunto_LuaSandboxInterpreter": "includes/engines/LuaSandbox/LuaSandboxInterpreter.php",
-		"Scribunto_LuaSandboxCallback": "includes/engines/LuaSandbox/LuaSandboxCallback.php",
 		"Scribunto_LuaStandaloneInterpreterFunction": "includes/engines/LuaStandalone/LuaStandaloneInterpreterFunction.php",
 		"Scribunto_LuaEngine": "includes/engines/LuaCommon/LuaEngine.php",
 		"Scribunto_LuaModule": "includes/engines/LuaCommon/LuaModule.php",
 		"Scribunto_LuaInterpreter": "includes/engines/LuaCommon/LuaInterpreter.php",
-		"Scribunto_LuaSandboxEngine": "includes/engines/LuaSandbox/LuaSandboxEngine.php",
 		"Scribunto_LuaStandaloneEngine": "includes/engines/LuaStandalone/LuaStandaloneEngine.php",
 		"Scribunto_LuaStandaloneInterpreter": "includes/engines/LuaStandalone/LuaStandaloneInterpreter.php",
 		"Scribunto_LuaLibraryBase": "includes/engines/LuaCommon/LibraryBase.php",
@@ -57,7 +54,8 @@
 		"Scribunto_LuaHashLibrary": "includes/engines/LuaCommon/HashLibrary.php"
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\Scribunto\\": "includes/"
+		"MediaWiki\\Extension\\Scribunto\\": "includes/",
+		"MediaWiki\\Extension\\Scribunto\\Engines\\": "includes/engines/"
 	},
 	"TestAutoloadClasses": {
 		"Scribunto_LuaCommonTestsFailLibrary": "tests/phpunit/engines/LuaCommon/LuaCommonTestsFailLibrary.php",
@@ -149,7 +147,7 @@
 			],
 			"value": {
 				"luasandbox": {
-					"class": "Scribunto_LuaSandboxEngine",
+					"class": "MediaWiki\\Extension\\Scribunto\\Engines\\LuaSandbox\\LuaSandboxEngine",
 					"memoryLimit": 52428800,
 					"cpuLimit": 7,
 					"profilerPeriod": 0.02,

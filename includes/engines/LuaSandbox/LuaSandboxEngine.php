@@ -1,8 +1,18 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
+namespace MediaWiki\Extension\Scribunto\Engines\LuaSandbox;
 
-class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
+use Html;
+use Language;
+use LuaSandbox;
+use MediaWiki\MediaWikiServices;
+use ParserOutput;
+use Scribunto_LuaEngine;
+use Scribunto_LuaInterpreterBadVersionError;
+use Scribunto_LuaInterpreterNotFoundError;
+use Title;
+
+class LuaSandboxEngine extends Scribunto_LuaEngine {
 	/** @var array */
 	public $options;
 	/** @var bool */
@@ -11,7 +21,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	protected $lineCache = [];
 
 	/**
-	 * @var Scribunto_LuaSandboxInterpreter
+	 * @var LuaSandboxInterpreter
 	 */
 	protected $interpreter;
 
@@ -25,7 +35,7 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	/** @inheritDoc */
 	public function getSoftwareInfo( array &$software ) {
 		try {
-			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
+			LuaSandboxInterpreter::checkLuaSandboxVersion();
 		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 			// They shouldn't be using this engine if the extension isn't
 			// loaded. But in case they do for some reason, let's not have
@@ -86,13 +96,13 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 		}
 
 		$percentProfile = $this->interpreter->getProfilerFunctionReport(
-			Scribunto_LuaSandboxInterpreter::PERCENT
+			LuaSandboxInterpreter::PERCENT
 		);
 		if ( !count( $percentProfile ) ) {
 			return $ret;
 		}
 		$timeProfile = $this->interpreter->getProfilerFunctionReport(
-			Scribunto_LuaSandboxInterpreter::SECONDS
+			LuaSandboxInterpreter::SECONDS
 		);
 
 		$lines = [];
@@ -245,6 +255,6 @@ class Scribunto_LuaSandboxEngine extends Scribunto_LuaEngine {
 	}
 
 	protected function newInterpreter() {
-		return new Scribunto_LuaSandboxInterpreter( $this, $this->options );
+		return new LuaSandboxInterpreter( $this, $this->options );
 	}
 }

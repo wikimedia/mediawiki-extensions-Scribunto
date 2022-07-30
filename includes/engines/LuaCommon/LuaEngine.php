@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
 use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
@@ -73,7 +74,7 @@ abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 		global $wgScribuntoEngineConf;
 		$engine = 'luastandalone';
 		try {
-			Scribunto_LuaSandboxInterpreter::checkLuaSandboxVersion();
+			LuaSandboxInterpreter::checkLuaSandboxVersion();
 			$engine = 'luasandbox';
 		} catch ( Scribunto_LuaInterpreterNotFoundError | Scribunto_LuaInterpreterBadVersionError $e ) {
 			// pass

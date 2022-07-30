@@ -6,10 +6,10 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
  * @covers \MediaWiki\Extension\Scribunto\ScribuntoEngineBase
  * @covers Scribunto_LuaEngine
  * @covers Scribunto_LuaStandaloneEngine
- * @covers Scribunto_LuaSandboxEngine
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
  * @covers Scribunto_LuaInterpreter
  * @covers Scribunto_LuaStandaloneInterpreter
- * @covers Scribunto_LuaSandboxInterpreter
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter
  */
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 	/** @inheritDoc */
