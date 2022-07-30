@@ -33,28 +33,27 @@
 		"ScribuntoNamespaces": "Scribunto.namespaces.php"
 	},
 	"AutoloadClasses": {
-		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LibraryBase": "includes/engines/LuaCommon/LibraryBase.php",
-		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LuaError": "includes/engines/LuaCommon/LuaError.php",
-		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneInterpreterFunction": "includes/engines/LuaStandalone/LuaStandaloneInterpreterFunction.php",
-		"Scribunto_LuaError": "includes/engines/LuaCommon/LuaError.php",
-		"Scribunto_LuaLibraryBase": "includes/engines/LuaCommon/LibraryBase.php",
-		"Scribunto_LuaStandaloneInterpreterFunction": "includes/engines/LuaStandalone/LuaStandaloneInterpreterFunction.php"
+		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LibraryBase": "includes/Engines/LuaCommon/LibraryBase.php",
+		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LuaError": "includes/Engines/LuaCommon/LuaError.php",
+		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneInterpreterFunction": "includes/Engines/LuaStandalone/LuaStandaloneInterpreterFunction.php",
+		"Scribunto_LuaError": "includes/Engines/LuaCommon/LuaError.php",
+		"Scribunto_LuaLibraryBase": "includes/Engines/LuaCommon/LibraryBase.php",
+		"Scribunto_LuaStandaloneInterpreterFunction": "includes/Engines/LuaStandalone/LuaStandaloneInterpreterFunction.php"
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\Scribunto\\": "includes/",
-		"MediaWiki\\Extension\\Scribunto\\Engines\\": "includes/engines/"
+		"MediaWiki\\Extension\\Scribunto\\": "includes/"
 	},
 	"TestAutoloadClasses": {
-		"LuaCommonTestsFailLibrary": "tests/phpunit/engines/LuaCommon/LuaCommonTestsFailLibrary.php",
-		"LuaCommonTestsLibrary": "tests/phpunit/engines/LuaCommon/LuaCommonTestsLibrary.php",
-		"LuaDataProvider": "tests/phpunit/engines/LuaCommon/LuaDataProvider.php",
-		"LuaEngineTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineTestBase.php",
-		"LuaEngineTestHelper": "tests/phpunit/engines/LuaCommon/LuaEngineTestHelper.php",
-		"LuaEngineTestSkip": "tests/phpunit/engines/LuaCommon/LuaEngineTestSkip.php",
-		"LuaEngineUnitTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineUnitTestBase.php",
-		"Scribunto_LuaEngineTestBase": "tests/phpunit/engines/LuaCommon/LuaEngineTestBase.php",
-		"UstringLibraryTest": "tests/phpunit/engines/LuaCommon/UstringLibraryTest.php",
-		"UstringLibraryNormalizationTestProvider": "tests/phpunit/engines/LuaCommon/UstringLibraryNormalizationTestProvider.php"
+		"LuaCommonTestsFailLibrary": "tests/phpunit/Engines/LuaCommon/LuaCommonTestsFailLibrary.php",
+		"LuaCommonTestsLibrary": "tests/phpunit/Engines/LuaCommon/LuaCommonTestsLibrary.php",
+		"LuaDataProvider": "tests/phpunit/Engines/LuaCommon/LuaDataProvider.php",
+		"LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php",
+		"LuaEngineTestHelper": "tests/phpunit/Engines/LuaCommon/LuaEngineTestHelper.php",
+		"LuaEngineTestSkip": "tests/phpunit/Engines/LuaCommon/LuaEngineTestSkip.php",
+		"LuaEngineUnitTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineUnitTestBase.php",
+		"Scribunto_LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php",
+		"UstringLibraryTest": "tests/phpunit/Engines/LuaCommon/UstringLibraryTest.php",
+		"UstringLibraryNormalizationTestProvider": "tests/phpunit/Engines/LuaCommon/UstringLibraryNormalizationTestProvider.php"
 	},
 	"ResourceModules": {
 		"ext.scribunto.errors": {
