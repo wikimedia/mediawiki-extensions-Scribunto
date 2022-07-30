@@ -2,16 +2,16 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaStandalone;
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MWException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Scribunto_LuaError;
-use Scribunto_LuaInterpreter;
-use Scribunto_LuaInterpreterNotFoundError;
 use UtfNormal\Validator;
 
-class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
+class LuaStandaloneInterpreter extends LuaInterpreter {
 	/** @var int */
 	protected static $nextInterpreterId = 0;
 
@@ -64,7 +64,7 @@ class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 	 * @param LuaStandaloneEngine $engine
 	 * @param array $options
 	 * @throws MWException
-	 * @throws Scribunto_LuaInterpreterNotFoundError
+	 * @throws LuaInterpreterNotFoundError
 	 * @throws ScribuntoException
 	 */
 	public function __construct( $engine, array $options ) {
@@ -94,7 +94,7 @@ class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 				$path = 'lua5_1_5_mac_lion_fat_generic/lua';
 			}
 			if ( $path === false ) {
-				throw new Scribunto_LuaInterpreterNotFoundError(
+				throw new LuaInterpreterNotFoundError(
 					'No Lua interpreter was given in the configuration, ' .
 					'and no bundled binary exists for this platform.' );
 			}
@@ -368,7 +368,7 @@ class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 		$message['args'] = self::fixNulls( $message['args'], $message['nargs'] );
 		try {
 			$result = $this->callback( $message['id'], $message['args'] );
-		} catch ( Scribunto_LuaError $e ) {
+		} catch ( LuaError $e ) {
 			return [
 				'op' => 'error',
 				'value' => $e->getLuaMessage(),

@@ -1,4 +1,8 @@
 <?php
 
-class Scribunto_LuaInterpreterNotFoundError extends MWException {
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
+use MWException;
+
+class LuaInterpreterNotFoundError extends MWException {
 }

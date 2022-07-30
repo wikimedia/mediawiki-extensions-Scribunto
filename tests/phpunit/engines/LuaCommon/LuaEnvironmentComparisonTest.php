@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\MediaWikiServices;
@@ -10,7 +12,7 @@ use MediaWiki\MediaWikiServices;
  * @group LuaStandalone
  * @coversNothing
  */
-class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase {
+class LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 
 	/** @var array */
@@ -28,7 +30,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 		'allowEnvFuncs' => true,
 	];
 
-	/** @var Scribunto_LuaEngine[] */
+	/** @var LuaEngine[] */
 	protected $engines = [];
 
 	private function makeEngine( $class, $opts ) {
@@ -50,7 +52,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 			$this->engines['LuaSandbox'] = $this->makeEngine(
 				LuaSandboxEngine::class, $this->sandboxOpts
 			);
-		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
+		} catch ( LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaSandbox interpreter not available" );
 		}
 
@@ -58,7 +60,7 @@ class Scribunto_LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase 
 			$this->engines['LuaStandalone'] = $this->makeEngine(
 				LuaStandaloneEngine::class, $this->standaloneOpts
 			);
-		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
+		} catch ( LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "LuaStandalone interpreter not available" );
 		}
 	}

@@ -1,6 +1,8 @@
 <?php
 
-class Scribunto_LuaCommonTestsLibrary extends Scribunto_LuaLibraryBase {
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+
+class LuaCommonTestsLibrary extends LibraryBase {
 	public function register() {
 		$lib = [
 			'test' => [ $this, 'test' ],

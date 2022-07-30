@@ -1,6 +1,6 @@
 <?php
 
-class Scribunto_LuaHashLibraryTest extends Scribunto_LuaEngineUnitTestBase {
+class HashLibraryTest extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'HashLibraryTests';
 

@@ -1,8 +1,18 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
-class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
+use DateTime;
+use DateTimeZone;
+use Exception;
+use Language;
+use MediaWiki\MediaWikiServices;
+use MWException;
+use MWTimestamp;
+use Title;
+use User;
+
+class LanguageLibrary extends LibraryBase {
 	/** @var Language[] */
 	public $langCache = [];
 	/** @var array */
@@ -161,19 +171,19 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 * @param string $name
 	 * @param array $args
 	 * @return array
-	 * @throws Scribunto_LuaError
+	 * @throws LuaError
 	 */
 	public function languageMethod( $name, $args ) {
 		$name = strval( $name );
 		$code = array_shift( $args );
 		if ( !isset( $this->langCache[$code] ) ) {
 			if ( count( $this->langCache ) > $this->maxLangCacheSize ) {
-				throw new Scribunto_LuaError( 'too many language codes requested' );
+				throw new LuaError( 'too many language codes requested' );
 			}
 			try {
 				$this->langCache[$code] = Language::factory( $code );
 			} catch ( MWException $ex ) {
-				throw new Scribunto_LuaError( "language code '$code' is invalid" );
+				throw new LuaError( "language code '$code' is invalid" );
 			}
 		}
 		$lang = $this->langCache[$code];
@@ -300,10 +310,10 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$num = $args[0];
 		$this->checkType( 'formatNum', 1, $num, 'number' );
 		if ( is_infinite( $num ) ) {
-			throw new Scribunto_LuaError( "bad argument #1 to 'formatNum' (infinite)" );
+			throw new LuaError( "bad argument #1 to 'formatNum' (infinite)" );
 		}
 		if ( is_nan( $num ) ) {
-			throw new Scribunto_LuaError( "bad argument #1 to 'formatNum' (NaN)" );
+			throw new LuaError( "bad argument #1 to 'formatNum' (NaN)" );
 		}
 
 		$noCommafy = false;
@@ -325,7 +335,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
-	 * @throws Scribunto_LuaError
+	 * @throws LuaError
 	 */
 	public function formatDate( $lang, $args ) {
 		$this->checkType( 'formatDate', 1, $args[0], 'string' );
@@ -363,7 +373,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 			$utc = new DateTimeZone( 'UTC' );
 			$dateObject = new DateTime( $date, $utc );
 		} catch ( Exception $ex ) {
-			throw new Scribunto_LuaError( "bad argument #2 to 'formatDate' (not a valid timestamp)" );
+			throw new LuaError( "bad argument #2 to 'formatDate' (not a valid timestamp)" );
 		}
 
 		# Set output timezone.
@@ -382,9 +392,9 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 		$ts = $dateObject->format( 'YmdHis' );
 
 		if ( $ts < 0 ) {
-			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years from 0" );
+			throw new LuaError( "mw.language:formatDate() only supports years from 0" );
 		} elseif ( $ts >= 100000000000000 ) {
-			throw new Scribunto_LuaError( "mw.language:formatDate() only supports years up to 9999" );
+			throw new LuaError( "mw.language:formatDate() only supports years up to 9999" );
 		}
 
 		$ttl = null;

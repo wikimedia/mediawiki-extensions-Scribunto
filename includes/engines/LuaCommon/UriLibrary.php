@@ -1,6 +1,11 @@
 <?php
 
-class Scribunto_LuaUriLibrary extends Scribunto_LuaLibraryBase {
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
+use CoreParserFunctions;
+use Title;
+
+class UriLibrary extends LibraryBase {
 	public function register() {
 		$lib = [
 			'anchorEncode' => [ $this, 'anchorEncode' ],

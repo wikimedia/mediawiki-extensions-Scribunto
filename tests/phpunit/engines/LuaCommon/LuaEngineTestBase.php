@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use PHPUnit\Framework\TestSuite;
 
 /**
@@ -11,16 +13,16 @@ use PHPUnit\Framework\TestSuite;
  * - getTestModules(): Add a mapping from $moduleName to the file containing
  *   the code.
  */
-abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
-	use Scribunto_LuaEngineTestHelper;
+abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
+	use LuaEngineTestHelper;
 
 	/** @var string|null */
 	private static $staticEngineName = null;
 	/** @var string|null */
 	private $engineName = null;
-	/** @var Scribunto_LuaEngine|null */
+	/** @var LuaEngine|null */
 	private $engine = null;
-	/** @var Scribunto_LuaDataProvider|null */
+	/** @var LuaDataProvider|null */
 	private $luaDataProvider = null;
 
 	/**
@@ -39,7 +41,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * Class to use for the data provider
 	 * @var string
 	 */
-	protected static $dataProviderClass = Scribunto_LuaDataProvider::class;
+	protected static $dataProviderClass = LuaDataProvider::class;
 
 	/**
 	 * Tests to skip. Associative array mapping test name to skip reason.
@@ -133,7 +135,7 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		} else {
 			try {
 				$actual = $this->provideLuaData()->run( $key );
-			} catch ( Scribunto_LuaError $ex ) {
+			} catch ( LuaError $ex ) {
 				if ( substr( $ex->getLuaMessage(), 0, 6 ) === 'SKIP: ' ) {
 					$this->markTestSkipped( substr( $ex->getLuaMessage(), 6 ) );
 				} else {
@@ -145,3 +147,5 @@ abstract class Scribunto_LuaEngineTestBase extends MediaWikiLangTestCase {
 		$this->luaTestName = null;
 	}
 }
+
+class_alias( LuaEngineTestBase::class, 'Scribunto_LuaEngineTestBase' );

@@ -2,7 +2,7 @@
 
 use MediaWiki\Extension\Scribunto\Hooks as ScribuntoHooks;
 
-class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
+class HooksTest extends PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 
 	public function provideContentHandlerDefaultModelFor() {

@@ -1,7 +1,9 @@
 <?php
 
-class Scribunto_LuaDataProvider implements Iterator {
-	/** @var Scribunto_LuaEngine|null */
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
+
+class LuaDataProvider implements Iterator {
+	/** @var LuaEngine|null */
 	protected $engine = null;
 	/** @var mixed|null */
 	protected $exports = null;
@@ -9,7 +11,7 @@ class Scribunto_LuaDataProvider implements Iterator {
 	protected $key = 1;
 
 	/**
-	 * @param Scribunto_LuaEngine $engine
+	 * @param LuaEngine $engine
 	 * @param string $moduleName
 	 */
 	public function __construct( $engine, $moduleName ) {

@@ -1,25 +1,29 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\Extension\Scribunto\ScribuntoModuleBase;
+use PPFrame;
+use Status;
 
-class Scribunto_LuaModule extends ScribuntoModuleBase {
+class LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var mixed
 	 */
 	protected $initChunk;
 
 	/**
-	 * @var Scribunto_LuaEngine
+	 * @var LuaEngine
 	 */
 	protected $engine;
 
 	/**
-	 * @param Scribunto_LuaEngine $engine
+	 * @param LuaEngine $engine
 	 * @param string $code
 	 * @param string|bool $chunkName
 	 */
-	public function __construct( Scribunto_LuaEngine $engine, $code, $chunkName ) {
+	public function __construct( LuaEngine $engine, $code, $chunkName ) {
 		parent::__construct( $engine, $code, $chunkName );
 	}
 

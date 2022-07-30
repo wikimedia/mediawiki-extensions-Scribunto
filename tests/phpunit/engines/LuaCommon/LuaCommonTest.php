@@ -1,17 +1,18 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\ScribuntoEngineBase
- * @covers Scribunto_LuaEngine
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
- * @covers Scribunto_LuaInterpreter
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter
  */
-class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
+class LuaCommonTest extends LuaEngineTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'CommonTests';
 
@@ -62,11 +63,11 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 			static function ( $engine, &$libs ) {
 				$libs += [
 					'CommonTestsLib' => [
-						'class' => Scribunto_LuaCommonTestsLibrary::class,
+						'class' => LuaCommonTestsLibrary::class,
 						'deferLoad' => true,
 					],
 					'CommonTestsFailLib' => [
-						'class' => Scribunto_LuaCommonTestsFailLibrary::class,
+						'class' => LuaCommonTestsFailLibrary::class,
 						'deferLoad' => true,
 					],
 				];
@@ -476,7 +477,7 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 				}',
 			] + $args );
 			$this->fail( "Expected LuaError not thrown for nonexistent parser function" );
-		} catch ( Scribunto_LuaError $err ) {
+		} catch ( LuaError $err ) {
 			$this->assertSame(
 				'Lua error: callParserFunction: function "thisDoesNotExist" was not found.',
 				$err->getMessage(),

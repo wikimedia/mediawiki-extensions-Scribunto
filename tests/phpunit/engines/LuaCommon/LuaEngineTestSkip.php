@@ -1,6 +1,6 @@
 <?php
 
-class Scribunto_LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
+class LuaEngineTestSkip extends PHPUnit\Framework\TestCase {
 	/** @var string */
 	private $className;
 	/** @var string */

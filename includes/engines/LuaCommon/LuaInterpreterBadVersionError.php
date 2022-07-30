@@ -1,4 +1,8 @@
 <?php
 
-class Scribunto_LuaInterpreterBadVersionError extends MWException {
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
+use MWException;
+
+class LuaInterpreterBadVersionError extends MWException {
 }

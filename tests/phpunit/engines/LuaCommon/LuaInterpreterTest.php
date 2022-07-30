@@ -1,13 +1,15 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 
-abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
+abstract class LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 
 	/**
 	 * @param array $opts
-	 * @return Scribunto_LuaInterpreter
+	 * @return LuaInterpreter
 	 */
 	abstract protected function newInterpreter( $opts = [] );
 
@@ -15,7 +17,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 		parent::setUp();
 		try {
 			$this->newInterpreter();
-		} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
+		} catch ( LuaInterpreterNotFoundError $e ) {
 			$this->markTestSkipped( "interpreter not available" );
 		}
 	}
@@ -176,7 +178,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 		$test1Called = false;
 		$test2Called = false;
 
-		// Like a first call to Scribunto_LuaEngine::registerInterface()
+		// Like a first call to LuaEngine::registerInterface()
 		$interpreter->registerLibrary( 'mw_interface', [
 			'foo' => static function ( $v ) use ( &$test1Called ) {
 				$test1Called = $v;
@@ -185,7 +187,7 @@ abstract class Scribunto_LuaInterpreterTest extends PHPUnit\Framework\TestCase {
 		$interpreter->callFunction(
 			$interpreter->loadString( 'test1 = mw_interface; mw_interface = nil', 'test' )
 		);
-		// Like a second call to Scribunto_LuaEngine::registerInterface()
+		// Like a second call to LuaEngine::registerInterface()
 		$interpreter->registerLibrary( 'mw_interface', [
 			'foo' => static function ( $v ) use ( &$test2Called ) {
 				$test2Called = $v;

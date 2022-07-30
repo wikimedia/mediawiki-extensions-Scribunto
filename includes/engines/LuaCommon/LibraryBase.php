@@ -21,19 +21,25 @@
  * @author Brad Jorsch
  */
 
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
+use Parser;
+use ParserOptions;
+use Title;
+
 /**
  * This class provides some basic services that Lua libraries will probably need
  */
-abstract class Scribunto_LuaLibraryBase {
+abstract class LibraryBase {
 	/**
-	 * @var Scribunto_LuaEngine
+	 * @var LuaEngine
 	 */
 	private $engine;
 
 	/**
-	 * @param Scribunto_LuaEngine $engine
+	 * @param LuaEngine $engine
 	 */
-	public function __construct( Scribunto_LuaEngine $engine ) {
+	public function __construct( LuaEngine $engine ) {
 		$this->engine = $engine;
 	}
 
@@ -49,14 +55,14 @@ abstract class Scribunto_LuaLibraryBase {
 	abstract public function register();
 
 	/**
-	 * @return Scribunto_LuaEngine engine
+	 * @return LuaEngine engine
 	 */
 	protected function getEngine() {
 		return $this->engine;
 	}
 
 	/**
-	 * @return Scribunto_LuaInterpreter interpreter
+	 * @return LuaInterpreter interpreter
 	 */
 	protected function getInterpreter() {
 		return $this->engine->getInterpreter();
@@ -120,7 +126,7 @@ abstract class Scribunto_LuaLibraryBase {
 	 * Check the type of a variable
 	 *
 	 * If the type of the variable does not match the expected type,
-	 * a Scribunto_LuaError will be thrown.
+	 * a LuaError will be thrown.
 	 *
 	 * @param string $name Name of the calling function (as seen from Lua)
 	 * @param int $argIdx Index of the argument being tested (1-based)
@@ -131,7 +137,7 @@ abstract class Scribunto_LuaLibraryBase {
 	protected function checkType( $name, $argIdx, $arg, $expectType ) {
 		$type = $this->getLuaType( $arg );
 		if ( $type !== $expectType ) {
-			throw new Scribunto_LuaError(
+			throw new LuaError(
 				"bad argument #$argIdx to '$name' ($expectType expected, got $type)"
 			);
 		}
@@ -142,7 +148,7 @@ abstract class Scribunto_LuaLibraryBase {
 	 *
 	 * If the variable is null, $default will be assigned. Otherwise, if the
 	 * type of the variable does not match the expected type, a
-	 * Scribunto_LuaError will be thrown.
+	 * LuaError will be thrown.
 	 *
 	 * @param string $name Name of the calling function (as seen from Lua)
 	 * @param int $argIdx Index of the argument being tested (1-based)
@@ -168,3 +174,5 @@ abstract class Scribunto_LuaLibraryBase {
 		return $this->getEngine()->incrementExpensiveFunctionCount();
 	}
 }
+
+class_alias( LibraryBase::class, 'Scribunto_LuaLibraryBase' );

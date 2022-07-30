@@ -6,6 +6,7 @@ if ( !wfIsCLI() ) {
 
 require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreterFunction;
@@ -18,7 +19,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group Standalone
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
  */
-class LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
+class StandaloneInterpreterTest extends LuaInterpreterTest {
 	/** @var array */
 	public $stdOpts = [
 		'errorFile' => null,
@@ -134,7 +135,7 @@ class LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 	 */
 	public function testLuaToPhpArrayKeyConversion( $lua, $expect ) {
 		if ( $expect instanceof Exception ) {
-			$this->expectException( Scribunto_LuaError::class );
+			$this->expectException( LuaError::class );
 			$this->expectExceptionMessage( $expect->getMessage() );
 		}
 
@@ -209,7 +210,7 @@ class LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 		try {
 			$interpreter->callFunction( $testfunc );
 			$this->fail( "Expected exception because function #1 should have been freed" );
-		} catch ( Scribunto_LuaError $e ) {
+		} catch ( LuaError $e ) {
 			$this->assertEquals(
 				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #1'
@@ -234,7 +235,7 @@ class LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 		try {
 			$interpreter->callFunction( $testfunc );
 			$this->fail( "Expected exception because function #2 should have been freed" );
-		} catch ( Scribunto_LuaError $e ) {
+		} catch ( LuaError $e ) {
 			$this->assertEquals(
 				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #2'
@@ -259,7 +260,7 @@ class LuaStandaloneInterpreterTest extends Scribunto_LuaInterpreterTest {
 		try {
 			$interpreter->callFunction( $testfunc );
 			$this->fail( "Expected exception because function #3 should have been freed" );
-		} catch ( Scribunto_LuaError $e ) {
+		} catch ( LuaError $e ) {
 			$this->assertEquals(
 				"function id $id does not exist", $e->messageArgs[1],
 				'Testing for expected error when calling a freed function #3'
