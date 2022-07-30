@@ -1,16 +1,18 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaStandalone;
+
 if ( !wfIsCLI() ) {
 	exit;
 }
 
-require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
-
+use Exception;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreterFunction;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaInterpreterTest;
 use Wikimedia\TestingAccessWrapper;
 
 /**

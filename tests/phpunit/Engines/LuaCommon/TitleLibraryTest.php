@@ -1,9 +1,13 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
+use Title;
+use WikitextContent;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TitleLibrary

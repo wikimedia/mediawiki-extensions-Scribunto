@@ -1,8 +1,12 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
+use MediaWikiLangTestCase;
 use PHPUnit\Framework\TestSuite;
+use Title;
 
 /**
  * This is the subclass for Lua library tests. It will automatically run all

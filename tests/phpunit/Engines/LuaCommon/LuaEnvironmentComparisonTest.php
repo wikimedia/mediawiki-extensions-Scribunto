@@ -1,10 +1,17 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\MediaWikiServices;
+use MediaWikiCoversValidator;
+use Parser;
+use ParserOptions;
+use PHPUnit\Framework\TestCase;
+use Title;
 
 /**
  * @group Lua
@@ -12,7 +19,7 @@ use MediaWiki\MediaWikiServices;
  * @group LuaStandalone
  * @coversNothing
  */
-class LuaEnvironmentComparisonTest extends PHPUnit\Framework\TestCase {
+class LuaEnvironmentComparisonTest extends TestCase {
 	use MediaWikiCoversValidator;
 
 	/** @var array */

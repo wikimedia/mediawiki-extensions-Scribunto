@@ -1,7 +1,10 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
+use MediaWikiCoversValidator;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestSuite;
 

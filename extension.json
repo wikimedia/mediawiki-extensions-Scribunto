@@ -44,16 +44,11 @@
 		"MediaWiki\\Extension\\Scribunto\\": "includes/"
 	},
 	"TestAutoloadClasses": {
-		"LuaCommonTestsFailLibrary": "tests/phpunit/Engines/LuaCommon/LuaCommonTestsFailLibrary.php",
-		"LuaCommonTestsLibrary": "tests/phpunit/Engines/LuaCommon/LuaCommonTestsLibrary.php",
-		"LuaDataProvider": "tests/phpunit/Engines/LuaCommon/LuaDataProvider.php",
-		"LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php",
-		"LuaEngineTestHelper": "tests/phpunit/Engines/LuaCommon/LuaEngineTestHelper.php",
-		"LuaEngineTestSkip": "tests/phpunit/Engines/LuaCommon/LuaEngineTestSkip.php",
-		"LuaEngineUnitTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineUnitTestBase.php",
-		"Scribunto_LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php",
-		"UstringLibraryTest": "tests/phpunit/Engines/LuaCommon/UstringLibraryTest.php",
-		"UstringLibraryNormalizationTestProvider": "tests/phpunit/Engines/LuaCommon/UstringLibraryNormalizationTestProvider.php"
+		"MediaWiki\\Extension\\Scribunto\\Tests\\Engines\\LuaCommon\\LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php",
+		"Scribunto_LuaEngineTestBase": "tests/phpunit/Engines/LuaCommon/LuaEngineTestBase.php"
+	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\Scribunto\\Tests\\": "tests/phpunit/"
 	},
 	"ResourceModules": {
 		"ext.scribunto.errors": {

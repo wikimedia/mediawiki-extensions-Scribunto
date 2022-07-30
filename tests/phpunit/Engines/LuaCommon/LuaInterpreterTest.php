@@ -1,10 +1,14 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWikiCoversValidator;
+use PHPUnit\Framework\TestCase;
 
-abstract class LuaInterpreterTest extends PHPUnit\Framework\TestCase {
+abstract class LuaInterpreterTest extends TestCase {
 	use MediaWikiCoversValidator;
 
 	/**

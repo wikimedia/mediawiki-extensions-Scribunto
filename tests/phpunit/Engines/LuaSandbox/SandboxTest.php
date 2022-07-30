@@ -1,5 +1,9 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaSandbox;
+
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineUnitTestBase;
+
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
  */

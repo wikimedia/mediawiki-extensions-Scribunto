@@ -1,13 +1,14 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaSandbox;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaInterpreterTest;
 
 if ( !wfIsCLI() ) {
 	exit;
 }
-
-require_once __DIR__ . '/../LuaCommon/LuaInterpreterTest.php';
 
 /**
  * @group Lua

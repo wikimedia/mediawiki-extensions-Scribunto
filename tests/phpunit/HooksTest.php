@@ -1,8 +1,13 @@
 <?php
 
-use MediaWiki\Extension\Scribunto\Hooks as ScribuntoHooks;
+namespace MediaWiki\Extension\Scribunto\Tests;
 
-class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
+use MediaWiki\Extension\Scribunto\Hooks;
+use MediaWikiCoversValidator;
+use Monolog\Test\TestCase;
+use Title;
+
+class HooksTest extends TestCase {
 	use MediaWikiCoversValidator;
 
 	public function provideContentHandlerDefaultModelFor() {
@@ -25,7 +30,7 @@ class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
 	) {
 		$title = Title::newFromText( $name );
 		$model = $before;
-		$ret = ScribuntoHooks::contentHandlerDefaultModelFor( $title, $model );
+		$ret = Hooks::contentHandlerDefaultModelFor( $title, $model );
 		$this->assertSame( $retVal, $ret );
 		$this->assertSame( $expected, $model );
 	}

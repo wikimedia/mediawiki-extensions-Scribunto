@@ -1,5 +1,7 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 
 class LuaCommonTestsLibrary extends LibraryBase {

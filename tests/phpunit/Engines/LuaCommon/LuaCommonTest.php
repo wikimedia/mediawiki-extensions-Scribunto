@@ -1,7 +1,10 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use Title;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\ScribuntoEngineBase

@@ -1,6 +1,9 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+use MWException;
 
 class LuaCommonTestsFailLibrary extends LibraryBase {
 	public function __construct() {

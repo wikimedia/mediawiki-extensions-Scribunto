@@ -1,5 +1,7 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
 /**
  * @coversNothing -- Covers Lua code
  */

@@ -1,6 +1,11 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
+use Exception;
+use Iterator;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
+use Title;
 
 class LuaDataProvider implements Iterator {
 	/** @var LuaEngine|null */

@@ -1,6 +1,10 @@
 <?php
 
+namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
+
+use Language;
 use MediaWiki\MediaWikiServices;
+use Title;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\LanguageLibrary
