@@ -326,7 +326,7 @@ function mwtext.jsonDecode( json, flags )
 	return php.jsonDecode( json, flags )
 end
 
--- Matches PHP Scribunto_LuaTextLibrary constants
+-- Matches PHP MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary constants
 mwtext.JSON_PRESERVE_KEYS = 1
 mwtext.JSON_TRY_FIXING = 2
 mwtext.JSON_PRETTY = 4

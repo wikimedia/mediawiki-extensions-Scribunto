@@ -1,11 +1,12 @@
 <?php
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use Wikimedia\ScopedCallback;
 
 /**
- * @covers Scribunto_LuaUstringLibrary
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\UstringLibrary
  */
-class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineUnitTestBase {
+class UstringLibraryTest extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'UstringLibraryTests';
 
@@ -89,7 +90,7 @@ class Scribunto_LuaUstringLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 		try {
 			$interpreter->callFunction( $func, ...$args );
 			$this->fail( 'Expected exception not thrown' );
-		} catch ( Scribunto_LuaError $e ) {
+		} catch ( LuaError $e ) {
 			$this->assertSame( $error, $e->getMessage() );
 		}
 	}

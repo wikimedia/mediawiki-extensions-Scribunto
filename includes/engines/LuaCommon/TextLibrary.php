@@ -1,6 +1,11 @@
 <?php
 
-class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
+
+use CoreTagHooks;
+use FormatJson;
+
+class TextLibrary extends LibraryBase {
 	// Matches Lua mw.text constants
 	private const JSON_PRESERVE_KEYS = 1;
 	private const JSON_TRY_FIXING = 2;
@@ -119,7 +124,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$ret = FormatJson::encode( $value, (bool)( $flags & self::JSON_PRETTY ), FormatJson::ALL_OK );
 		if ( $ret === false ) {
-			throw new Scribunto_LuaError( 'mw.text.jsonEncode: Unable to encode value' );
+			throw new LuaError( 'mw.text.jsonEncode: Unable to encode value' );
 		}
 		return [ $ret ];
 	}
@@ -141,7 +146,7 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 		}
 		$status = FormatJson::parse( $s, $opts );
 		if ( !$status->isOk() ) {
-			throw new Scribunto_LuaError( 'mw.text.jsonDecode: ' . $status->getMessage()->text() );
+			throw new LuaError( 'mw.text.jsonDecode: ' . $status->getMessage()->text() );
 		}
 		$val = $status->getValue();
 		if ( !( $flags & self::JSON_PRESERVE_KEYS ) && is_array( $val ) ) {

@@ -1,8 +1,14 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
+namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
-class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
+use Category;
+use MediaWiki\MediaWikiServices;
+use SiteStats;
+use SpecialVersion;
+use Title;
+
+class SiteLibrary extends LibraryBase {
 	/** @var string|null */
 	private static $namespacesCacheLang = null;
 	/** @var array[]|null */
@@ -187,7 +193,7 @@ class Scribunto_LuaSiteLibrary extends Scribunto_LuaLibraryBase {
 		} elseif ( $filter === '!local' ) {
 			$local = false;
 		} elseif ( $filter !== null ) {
-			throw new Scribunto_LuaError(
+			throw new LuaError(
 				"bad argument #1 to 'interwikiMap' (unknown filter '$filter')"
 			);
 		}

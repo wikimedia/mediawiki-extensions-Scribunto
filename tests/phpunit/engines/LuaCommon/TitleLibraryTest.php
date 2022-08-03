@@ -6,10 +6,10 @@ use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
 
 /**
- * @covers Scribunto_LuaTitleLibrary
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TitleLibrary
  * @group Database
  */
-class Scribunto_LuaTitleLibraryTest extends Scribunto_LuaEngineTestBase {
+class TitleLibraryTest extends LuaEngineTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'TitleLibraryTests';
 

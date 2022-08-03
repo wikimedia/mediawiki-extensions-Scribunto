@@ -3,9 +3,9 @@
 use MediaWiki\MediaWikiServices;
 
 /**
- * @covers Scribunto_LuaLanguageLibrary
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\LanguageLibrary
  */
-class Scribunto_LuaLanguageLibraryTest extends Scribunto_LuaEngineUnitTestBase {
+class LanguageLibraryTest extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'LanguageLibraryTests';
 
