@@ -1,8 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-class HashLibrary extends LibraryBase {
+class Scribunto_LuaHashLibrary extends Scribunto_LuaLibraryBase {
 
 	public function register() {
 		$lib = [
@@ -36,7 +34,7 @@ class HashLibrary extends LibraryBase {
 	 */
 	public function hashValue( $algo, $value ) {
 		if ( !in_array( $algo, hash_algos() ) ) {
-			throw new LuaError( "Unknown hashing algorithm: $algo" );
+			throw new Scribunto_LuaError( "Unknown hashing algorithm: $algo" );
 		}
 
 		$hash = hash( $algo, $value );

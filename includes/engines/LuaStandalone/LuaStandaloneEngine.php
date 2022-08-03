@@ -3,12 +3,12 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaStandalone;
 
 use Exception;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Logger\LoggerFactory;
 use ParserOutput;
+use Scribunto_LuaEngine;
 use Wikimedia\AtEase\AtEase;
 
-class LuaStandaloneEngine extends LuaEngine {
+class LuaStandaloneEngine extends Scribunto_LuaEngine {
 	/** @var int|null */
 	protected static $clockTick;
 	/** @var array|false */

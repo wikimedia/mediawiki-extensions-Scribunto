@@ -6,17 +6,17 @@ use LuaSandbox;
 use LuaSandboxError;
 use LuaSandboxFunction;
 use LuaSandboxTimeoutError;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterBadVersionError;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MWException;
+use Scribunto_LuaEngine;
+use Scribunto_LuaError;
+use Scribunto_LuaInterpreter;
+use Scribunto_LuaInterpreterBadVersionError;
+use Scribunto_LuaInterpreterNotFoundError;
 use UtfNormal\Validator;
 
-class LuaSandboxInterpreter extends LuaInterpreter {
+class LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	/**
-	 * @var LuaEngine
+	 * @var Scribunto_LuaEngine
 	 */
 	public $engine;
 
@@ -36,17 +36,17 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 
 	/**
 	 * Check that php-luasandbox is available and of a recent-enough version
-	 * @throws LuaInterpreterNotFoundError
-	 * @throws LuaInterpreterBadVersionError
+	 * @throws Scribunto_LuaInterpreterNotFoundError
+	 * @throws Scribunto_LuaInterpreterBadVersionError
 	 */
 	public static function checkLuaSandboxVersion() {
 		if ( !extension_loaded( 'luasandbox' ) ) {
-			throw new LuaInterpreterNotFoundError(
+			throw new Scribunto_LuaInterpreterNotFoundError(
 				'The luasandbox extension is not present, this engine cannot be used.' );
 		}
 
 		if ( !is_callable( 'LuaSandbox::getVersionInfo' ) ) {
-			throw new LuaInterpreterBadVersionError(
+			throw new Scribunto_LuaInterpreterBadVersionError(
 				'The luasandbox extension is too old (version 1.6+ is required), ' .
 					'this engine cannot be used.'
 			);
@@ -54,7 +54,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	}
 
 	/**
-	 * @param LuaEngine $engine
+	 * @param Scribunto_LuaEngine $engine
 	 * @param array $options
 	 */
 	public function __construct( $engine, array $options ) {
@@ -74,9 +74,9 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	}
 
 	/**
-	 * Convert a LuaSandboxError to a LuaError
+	 * Convert a LuaSandboxError to a Scribunto_LuaError
 	 * @param LuaSandboxError $e
-	 * @return LuaError
+	 * @return Scribunto_LuaError
 	 */
 	protected function convertSandboxError( LuaSandboxError $e ) {
 		$opts = [];
@@ -96,7 +96,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	 * @param string $text
 	 * @param string $chunkName
 	 * @return mixed
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	public function loadString( $text, $chunkName ) {
 		try {

@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
@@ -13,7 +12,7 @@ use PHPUnit\Util\Test;
 /**
  * Trait that helps LuaEngineTestBase and LuaEngineUnitTestBase
  */
-trait LuaEngineTestHelper {
+trait Scribunto_LuaEngineTestHelper {
 	/** @var array[] */
 	private static $engineConfigurations = [
 		'LuaSandbox' => [
@@ -66,9 +65,9 @@ trait LuaEngineTestHelper {
 				$parser->scribunto_engine = $engine;
 				$engine->setTitle( $parser->getTitle() );
 				$engine->getInterpreter();
-			} catch ( LuaInterpreterNotFoundError $e ) {
+			} catch ( Scribunto_LuaInterpreterNotFoundError $e ) {
 				$suite->addTest(
-					new LuaEngineTestSkip(
+					new Scribunto_LuaEngineTestSkip(
 						$className, "interpreter for $engineName is not available"
 					), [ 'Lua', $engineName ]
 				);

@@ -1,6 +1,6 @@
 <?php
 
-class HtmlLibraryTest extends LuaEngineUnitTestBase {
+class Scribunto_LuaHtmlLibraryTest extends Scribunto_LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'HtmlLibraryTests';
 

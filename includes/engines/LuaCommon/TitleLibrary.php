@@ -1,17 +1,12 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-use Content;
-use LogicException;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\SlotRecord;
-use Title;
 
-class TitleLibrary extends LibraryBase {
+class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 	// Note these caches are naturally limited to
 	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
 	// addition besides the one for the current page calls
@@ -53,14 +48,14 @@ class TitleLibrary extends LibraryBase {
 		} elseif ( is_numeric( $arg ) ) {
 			$arg = (int)$arg;
 			if ( !MediaWikiServices::getInstance()->getNamespaceInfo()->exists( $arg ) ) {
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace number '$arg')"
 				);
 			}
 		} elseif ( is_string( $arg ) ) {
 			$ns = MediaWikiServices::getInstance()->getContentLanguage()->getNsIndex( $arg );
 			if ( $ns === false ) {
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace name '$arg')"
 				);
 			}
@@ -417,7 +412,7 @@ class TitleLibrary extends LibraryBase {
 			$this->incrementExpensiveFunctionCount();
 		}
 		return [ array_map(
-			[ self::class, 'makeArrayOneBased' ],
+			'Scribunto_LuaTitleLibrary::makeArrayOneBased',
 			$restrictionStore->getAllRestrictions( $title )
 		) ];
 	}
@@ -451,7 +446,7 @@ class TitleLibrary extends LibraryBase {
 				},
 				$sources ) ),
 			'restrictions' => array_map(
-				[ self::class, 'makeArrayOneBased' ],
+				'Scribunto_LuaTitleLibrary::makeArrayOneBased',
 				$restrictions
 			)
 		] ];

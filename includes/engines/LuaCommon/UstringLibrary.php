@@ -1,12 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-use LogicException;
-use MapCacheLRU;
 use UtfNormal\Validator;
 
-class UstringLibrary extends LibraryBase {
+class Scribunto_LuaUstringLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Limit on pattern lengths, in bytes not characters
 	 * @var int
@@ -95,10 +91,10 @@ class UstringLibrary extends LibraryBase {
 		} else {
 			$this->checkType( $name, 1, $s, 'string' );
 			if ( $checkEncoding && !mb_check_encoding( $s, 'UTF-8' ) ) {
-				throw new LuaError( "bad argument #1 to '$name' (string is not UTF-8)" );
+				throw new Scribunto_LuaError( "bad argument #1 to '$name' (string is not UTF-8)" );
 			}
 			if ( strlen( $s ) > $this->stringLengthLimit ) {
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"bad argument #1 to '$name' (string is longer than $this->stringLengthLimit bytes)"
 				);
 			}
@@ -257,7 +253,7 @@ class UstringLibrary extends LibraryBase {
 	public function ustringChar() {
 		$args = func_get_args();
 		if ( count( $args ) > $this->stringLengthLimit ) {
-			throw new LuaError( "too many arguments to 'char'" );
+			throw new Scribunto_LuaError( "too many arguments to 'char'" );
 		}
 		foreach ( $args as $k => &$v ) {
 			if ( !is_numeric( $v ) ) {
@@ -266,13 +262,13 @@ class UstringLibrary extends LibraryBase {
 			$v = (int)floor( $v );
 			if ( $v < 0 || $v > 0x10ffff ) {
 				$k++;
-				throw new LuaError( "bad argument #$k to 'char' (value out of range)" );
+				throw new Scribunto_LuaError( "bad argument #$k to 'char' (value out of range)" );
 			}
 		}
 		$s = pack( 'N*', ...$args );
 		$s = mb_convert_encoding( $s, 'UTF-8', 'UTF-32BE' );
 		if ( strlen( $s ) > $this->stringLengthLimit ) {
-			throw new LuaError( "result to long for 'char'" );
+			throw new Scribunto_LuaError( "result to long for 'char'" );
 		}
 		return [ $s ];
 	}
@@ -353,10 +349,10 @@ class UstringLibrary extends LibraryBase {
 		}
 		$this->checkType( $name, 2, $pattern, 'string' );
 		if ( !mb_check_encoding( $pattern, 'UTF-8' ) ) {
-			throw new LuaError( "bad argument #2 to '$name' (string is not UTF-8)" );
+			throw new Scribunto_LuaError( "bad argument #2 to '$name' (string is not UTF-8)" );
 		}
 		if ( strlen( $pattern ) > $this->patternLengthLimit ) {
-			throw new LuaError(
+			throw new Scribunto_LuaError(
 				"bad argument #2 to '$name' (pattern is longer than $this->patternLengthLimit bytes)"
 			);
 		}
@@ -451,7 +447,7 @@ class UstringLibrary extends LibraryBase {
 
 				case '(':
 					if ( $i + 1 >= $len ) {
-						throw new LuaError( "Unmatched open-paren at pattern character $ii" );
+						throw new Scribunto_LuaError( "Unmatched open-paren at pattern character $ii" );
 					}
 					$n = count( $capt ) + 1;
 					$capt[$n] = ( $pat[$i + 1] === ')' );
@@ -465,7 +461,7 @@ class UstringLibrary extends LibraryBase {
 
 				case ')':
 					if ( count( $opencapt ) <= 0 ) {
-						throw new LuaError( "Unmatched close-paren at pattern character $ii" );
+						throw new Scribunto_LuaError( "Unmatched close-paren at pattern character $ii" );
 					}
 					array_pop( $opencapt );
 					$re .= $pat[$i];
@@ -474,14 +470,14 @@ class UstringLibrary extends LibraryBase {
 				case '%':
 					$i++;
 					if ( $i >= $len ) {
-						throw new LuaError( "malformed pattern (ends with '%')" );
+						throw new Scribunto_LuaError( "malformed pattern (ends with '%')" );
 					}
 					if ( isset( $charsets[$pat[$i]] ) ) {
 						$re .= $charsets[$pat[$i]];
 						$q = true;
 					} elseif ( $pat[$i] === 'b' ) {
 						if ( $i + 2 >= $len ) {
-							throw new LuaError( "malformed pattern (missing arguments to \'%b\')" );
+							throw new Scribunto_LuaError( "malformed pattern (missing arguments to \'%b\')" );
 						}
 						$d1 = preg_quote( $pat[++$i], '/' );
 						$d2 = preg_quote( $pat[++$i], '/' );
@@ -493,7 +489,7 @@ class UstringLibrary extends LibraryBase {
 						}
 					} elseif ( $pat[$i] === 'f' ) {
 						if ( $i + 1 >= $len || $pat[++$i] !== '[' ) {
-							throw new LuaError( "missing '[' after %f in pattern at pattern character $ii" );
+							throw new Scribunto_LuaError( "missing '[' after %f in pattern at pattern character $ii" );
 						}
 						list( $i, $re2 ) = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
 						// Because %f considers the beginning and end of the string
@@ -508,7 +504,7 @@ class UstringLibrary extends LibraryBase {
 					} elseif ( $pat[$i] >= '0' && $pat[$i] <= '9' ) {
 						$n = ord( $pat[$i] ) - 0x30;
 						if ( $n === 0 || $n > count( $capt ) || in_array( $n, $opencapt ) ) {
-							throw new LuaError( "invalid capture index %$n at pattern character $ii" );
+							throw new Scribunto_LuaError( "invalid capture index %$n at pattern character $ii" );
 						}
 						$re .= "\\g{m$n}";
 					} else {
@@ -524,7 +520,7 @@ class UstringLibrary extends LibraryBase {
 					break;
 
 				case ']':
-					throw new LuaError( "Unmatched close-bracket at pattern character $ii" );
+					throw new Scribunto_LuaError( "Unmatched close-bracket at pattern character $ii" );
 
 				case '.':
 					$re .= $pat[$i];
@@ -552,7 +548,7 @@ class UstringLibrary extends LibraryBase {
 			}
 			if ( count( $opencapt ) ) {
 				$ii = $captparen[$opencapt[0]];
-				throw new LuaError( "Unclosed capture beginning at pattern character $ii" );
+				throw new Scribunto_LuaError( "Unclosed capture beginning at pattern character $ii" );
 			}
 			$re .= '/us';
 
@@ -601,7 +597,7 @@ class UstringLibrary extends LibraryBase {
 			}
 		}
 		if ( $i >= $len ) {
-			throw new LuaError(
+			throw new Scribunto_LuaError(
 				"Missing close-bracket for character set beginning at pattern character $ii"
 			);
 		}
@@ -835,7 +831,7 @@ class UstringLibrary extends LibraryBase {
 						// Match undocumented Lua string.gsub behavior
 						return $m[0];
 					} else {
-						throw new LuaError( "invalid capture index %$x in replacement string" );
+						throw new Scribunto_LuaError( "invalid capture index %$x in replacement string" );
 					}
 				}, $repl );
 			};
@@ -852,7 +848,7 @@ class UstringLibrary extends LibraryBase {
 				}
 				$type = $this->getLuaType( $repl[$x] );
 				if ( $type !== 'string' && $type !== 'number' ) {
-					throw new LuaError( "invalid replacement value (a $type)" );
+					throw new Scribunto_LuaError( "invalid replacement value (a $type)" );
 				}
 				return $repl[$x];
 			};
@@ -879,7 +875,7 @@ class UstringLibrary extends LibraryBase {
 				}
 				$type = $this->getLuaType( $ret[0] );
 				if ( $type !== 'string' && $type !== 'number' ) {
-					throw new LuaError( "invalid replacement value (a $type)" );
+					throw new Scribunto_LuaError( "invalid replacement value (a $type)" );
 				}
 				return $ret[0];
 			};
@@ -921,7 +917,7 @@ class UstringLibrary extends LibraryBase {
 	 * Handle a PCRE error
 	 * @param int $error From preg_last_error()
 	 * @param string $pattern Pattern being matched
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	private function handlePCREError( $error, $pattern ) {
 		$PREG_JIT_STACKLIMIT_ERROR = defined( 'PREG_JIT_STACKLIMIT_ERROR' )
@@ -934,27 +930,27 @@ class UstringLibrary extends LibraryBase {
 				// Huh?
 				break;
 			case PREG_INTERNAL_ERROR:
-				throw new LuaError( "PCRE internal error" );
+				throw new Scribunto_LuaError( "PCRE internal error" );
 			case PREG_BACKTRACK_LIMIT_ERROR:
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"PCRE backtrack limit reached while matching pattern '$pattern'"
 				);
 			case PREG_RECURSION_LIMIT_ERROR:
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"PCRE recursion limit reached while matching pattern '$pattern'"
 				);
 			case PREG_BAD_UTF8_ERROR:
 				// Should have alreay been caught, but just in case
-				throw new LuaError( "PCRE bad UTF-8 error" );
+				throw new Scribunto_LuaError( "PCRE bad UTF-8 error" );
 			case PREG_BAD_UTF8_OFFSET_ERROR:
 				// Shouldn't happen, but just in case
-				throw new LuaError( "PCRE bad UTF-8 offset error" );
+				throw new Scribunto_LuaError( "PCRE bad UTF-8 offset error" );
 			case $PREG_JIT_STACKLIMIT_ERROR:
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"PCRE JIT stack limit reached while matching pattern '$pattern'"
 				);
 			default:
-				throw new LuaError(
+				throw new Scribunto_LuaError(
 					"PCRE error code $error while matching pattern '$pattern'"
 				);
 		}

@@ -1,8 +1,6 @@
 <?php
 
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
-
-class UstringLibraryNormalizationTestProvider extends LuaDataProvider {
+class UstringLibraryNormalizationTestProvider extends Scribunto_LuaDataProvider {
 	/** @var resource|null */
 	protected $file = null;
 	/** @var string[]|null */
@@ -29,7 +27,7 @@ class UstringLibraryNormalizationTestProvider extends LuaDataProvider {
 	}
 
 	/**
-	 * @param LuaEngine $engine
+	 * @param Scribunto_LuaEngine $engine
 	 */
 	public function __construct( $engine ) {
 		parent::__construct( $engine, 'UstringLibraryNormalizationTests' );

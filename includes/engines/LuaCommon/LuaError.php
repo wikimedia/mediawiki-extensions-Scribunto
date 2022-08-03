@@ -1,12 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-use Html;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
-use Title;
 
-class LuaError extends ScribuntoException {
+class Scribunto_LuaError extends ScribuntoException {
 	/** @var string */
 	public $luaMessage;
 

@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaSandbox;
 
 use LuaSandboxRuntimeError;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
+use Scribunto_LuaError;
 
 class LuaSandboxCallback {
 
@@ -29,7 +29,7 @@ class LuaSandboxCallback {
 	public function __call( $funcName, $args ) {
 		try {
 			return ( $this->callback )( ...$args );
-		} catch ( LuaError $e ) {
+		} catch ( Scribunto_LuaError $e ) {
 			throw new LuaSandboxRuntimeError( $e->getLuaMessage() );
 		}
 	}

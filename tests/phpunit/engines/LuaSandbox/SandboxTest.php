@@ -3,7 +3,7 @@
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine
  */
-class SandboxTest extends LuaEngineUnitTestBase {
+class LuaSandboxTest extends Scribunto_LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'SandboxTests';
 

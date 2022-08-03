@@ -1,36 +1,27 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-use Exception;
-use Html;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
 use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
-use MWException;
-use ObjectCache;
-use Parser;
-use PPFrame;
-use Title;
 use Wikimedia\ScopedCallback;
 
-abstract class LuaEngine extends ScribuntoEngineBase {
+abstract class Scribunto_LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
 	 * @var array Maps module names to PHP classes or definition arrays
 	 */
 	protected static $libraryClasses = [
-		'mw.site' => SiteLibrary::class,
-		'mw.uri' => UriLibrary::class,
-		'mw.ustring' => UstringLibrary::class,
-		'mw.language' => LanguageLibrary::class,
-		'mw.message' => MessageLibrary::class,
-		'mw.title' => TitleLibrary::class,
-		'mw.text' => TextLibrary::class,
-		'mw.html' => HtmlLibrary::class,
-		'mw.hash' => HashLibrary::class,
+		'mw.site' => Scribunto_LuaSiteLibrary::class,
+		'mw.uri' => Scribunto_LuaUriLibrary::class,
+		'mw.ustring' => Scribunto_LuaUstringLibrary::class,
+		'mw.language' => Scribunto_LuaLanguageLibrary::class,
+		'mw.message' => Scribunto_LuaMessageLibrary::class,
+		'mw.title' => Scribunto_LuaTitleLibrary::class,
+		'mw.text' => Scribunto_LuaTextLibrary::class,
+		'mw.html' => Scribunto_LuaHtmlLibrary::class,
+		'mw.hash' => Scribunto_LuaHashLibrary::class,
 	];
 
 	/**
@@ -48,7 +39,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	protected $loaded = false;
 
 	/**
-	 * @var LuaInterpreter|null
+	 * @var Scribunto_LuaInterpreter|null
 	 */
 	protected $interpreter;
 
@@ -77,7 +68,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * otherwise
 	 *
 	 * @param array $options
-	 * @return LuaEngine
+	 * @return Scribunto_LuaEngine
 	 */
 	public static function newAutodetectEngine( array $options ) {
 		global $wgScribuntoEngineConf;
@@ -85,7 +76,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		try {
 			LuaSandboxInterpreter::checkLuaSandboxVersion();
 			$engine = 'luasandbox';
-		} catch ( LuaInterpreterNotFoundError | LuaInterpreterBadVersionError $e ) {
+		} catch ( Scribunto_LuaInterpreterNotFoundError | Scribunto_LuaInterpreterBadVersionError $e ) {
 			// pass
 		}
 
@@ -97,26 +88,26 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Create a new interpreter object
-	 * @return LuaInterpreter
+	 * @return Scribunto_LuaInterpreter
 	 */
 	abstract protected function newInterpreter();
 
 	/**
 	 * @param string $text
 	 * @param string|bool $chunkName
-	 * @return LuaModule
+	 * @return Scribunto_LuaModule
 	 */
 	protected function newModule( $text, $chunkName ) {
-		return new LuaModule( $this, $text, $chunkName );
+		return new Scribunto_LuaModule( $this, $text, $chunkName );
 	}
 
 	/**
 	 * @param string $message
 	 * @param array $params
-	 * @return LuaError
+	 * @return Scribunto_LuaError
 	 */
 	public function newLuaError( $message, $params = [] ) {
-		return new LuaError( $message, $this->getDefaultExceptionParams() + $params );
+		return new Scribunto_LuaError( $message, $this->getDefaultExceptionParams() + $params );
 	}
 
 	public function destroy() {
@@ -237,7 +228,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Get the current interpreter object
-	 * @return LuaInterpreter
+	 * @return Scribunto_LuaInterpreter
 	 */
 	public function getInterpreter() {
 		$this->load();
@@ -272,7 +263,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Execute a module chunk in a new isolated environment, and return the specified function
-	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
+	 * @param mixed $chunk As accepted by Scribunto_LuaInterpreter::callFunction()
 	 * @param string $functionName
 	 * @param PPFrame|null $frame
 	 * @return mixed
@@ -298,7 +289,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Execute a module function chunk
-	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
+	 * @param mixed $chunk As accepted by Scribunto_LuaInterpreter::callFunction()
 	 * @param PPFrame|null $frame
 	 * @return array
 	 */
@@ -472,7 +463,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param int $index0 The zero-based argument index
 	 * @param string|array $type The allowed type names as given by gettype()
 	 * @param string $msgType The type name used in the error message
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	public function checkType( $funcName, $args, $index0, $type, $msgType ) {
 		if ( !is_array( $type ) ) {
@@ -480,7 +471,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		}
 		if ( !isset( $args[$index0] ) || !in_array( gettype( $args[$index0] ), $type, true ) ) {
 			$index1 = $index0 + 1;
-			throw new LuaError( "bad argument #$index1 to '$funcName' ($msgType expected)" );
+			throw new Scribunto_LuaError( "bad argument #$index1 to '$funcName' ($msgType expected)" );
 		}
 	}
 
@@ -598,7 +589,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $frameId
 	 * @return PPFrame
 	 *
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	protected function getFrameById( $frameId ) {
 		if ( $frameId === 'empty' ) {
@@ -606,7 +597,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		} elseif ( isset( $this->currentFrames[$frameId] ) ) {
 			return $this->currentFrames[$frameId];
 		} else {
-			throw new LuaError( 'invalid frame ID' );
+			throw new Scribunto_LuaError( 'invalid frame ID' );
 		}
 	}
 
@@ -629,11 +620,11 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $title
 	 * @param array $args
 	 * @return array
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	public function newChildFrame( $frameId, $title, array $args ) {
 		if ( count( $this->currentFrames ) > 100 ) {
-			throw new LuaError( 'newChild: too many frames' );
+			throw new Scribunto_LuaError( 'newChild: too many frames' );
 		}
 
 		$frame = $this->getFrameById( $frameId );
@@ -642,7 +633,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		} else {
 			$title = Title::newFromText( $title );
 			if ( !$title ) {
-				throw new LuaError( 'newChild: invalid title' );
+				throw new Scribunto_LuaError( 'newChild: invalid title' );
 			}
 		}
 		$args = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
@@ -718,28 +709,28 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $titleText
 	 * @param array $args
 	 * @return array
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	public function expandTemplate( $frameId, $titleText, $args ) {
 		$frame = $this->getFrameById( $frameId );
 		$title = Title::newFromText( $titleText, NS_TEMPLATE );
 		if ( !$title ) {
-			throw new LuaError( "expandTemplate: invalid title \"$titleText\"" );
+			throw new Scribunto_LuaError( "expandTemplate: invalid title \"$titleText\"" );
 		}
 
 		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
-			throw new LuaError( 'expandTemplate: template depth limit exceeded' );
+			throw new Scribunto_LuaError( 'expandTemplate: template depth limit exceeded' );
 		}
 		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
-			throw new LuaError( 'expandTemplate: template inclusion denied' );
+			throw new Scribunto_LuaError( 'expandTemplate: template inclusion denied' );
 		}
 
 		list( $dom, $finalTitle ) = $this->parser->getTemplateDom( $title );
 		if ( $dom === false ) {
-			throw new LuaError( "expandTemplate: template \"$titleText\" does not exist" );
+			throw new Scribunto_LuaError( "expandTemplate: template \"$titleText\" does not exist" );
 		}
 		if ( !$frame->loopCheck( $finalTitle ) ) {
-			throw new LuaError( 'expandTemplate: template loop detected' );
+			throw new Scribunto_LuaError( 'expandTemplate: template loop detected' );
 		}
 
 		$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
@@ -760,7 +751,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $function
 	 * @param array $args
 	 * @throws MWException
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 * @return array
 	 * @suppress PhanImpossibleCondition
 	 */
@@ -790,7 +781,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		if ( !isset( $args[0] ) ) {
 			# It's impossible to call a parser function from wikitext without
 			# supplying an arg 0. Insist that one be provided via Lua, too.
-			throw new LuaError( 'callParserFunction: At least one unnamed parameter ' .
+			throw new Scribunto_LuaError( 'callParserFunction: At least one unnamed parameter ' .
 				'(the parameter that comes after the colon in wikitext) ' .
 				'must be provided'
 			);
@@ -798,7 +789,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		$result = $this->parser->callParserFunction( $frame, $function, $args );
 		if ( !$result['found'] ) {
-			throw new LuaError( "callParserFunction: function \"$function\" was not found" );
+			throw new Scribunto_LuaError( "callParserFunction: function \"$function\" was not found" );
 		}
 
 		# Set defaults for various flags
@@ -846,7 +837,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $frameId
 	 * @param string $text
 	 * @return array
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 */
 	public function preprocess( $frameId, $text ) {
 		$args = func_get_args();
@@ -855,7 +846,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		$frame = $this->getFrameById( $frameId );
 
 		if ( !$frame ) {
-			throw new LuaError( 'attempt to call mw.preprocess with no frame' );
+			throw new Scribunto_LuaError( 'attempt to call mw.preprocess with no frame' );
 		}
 
 		// Don't count the time for expanding all the frame arguments against
@@ -876,12 +867,12 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * Increment the expensive function count, and throw if limit exceeded
 	 *
 	 * @internal
-	 * @throws LuaError
+	 * @throws Scribunto_LuaError
 	 * @return null
 	 */
 	public function incrementExpensiveFunctionCount() {
 		if ( !$this->getParser()->incrementExpensiveFunctionCount() ) {
-			throw new LuaError( "too many expensive function calls" );
+			throw new Scribunto_LuaError( "too many expensive function calls" );
 		}
 		return null;
 	}

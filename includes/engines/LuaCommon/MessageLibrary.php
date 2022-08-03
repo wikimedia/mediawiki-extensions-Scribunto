@@ -1,13 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
 use MediaWiki\MediaWikiServices;
-use Message;
-use MWException;
-use RawMessage;
 
-class MessageLibrary extends LibraryBase {
+class Scribunto_LuaMessageLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$lib = [
 			'plain' => [ $this, 'messagePlain' ],
@@ -62,7 +57,7 @@ class MessageLibrary extends LibraryBase {
 			$msg = $this->makeMessage( $data, true );
 			return [ $msg->plain() ];
 		} catch ( MWException $ex ) {
-			throw new LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
+			throw new Scribunto_LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
 		}
 	}
 
@@ -75,14 +70,14 @@ class MessageLibrary extends LibraryBase {
 	 */
 	public function messageCheck( $what, $data ) {
 		if ( !in_array( $what, [ 'exists', 'isBlank', 'isDisabled' ] ) ) {
-			throw new LuaError( "invalid what for 'messageCheck'" );
+			throw new Scribunto_LuaError( "invalid what for 'messageCheck'" );
 		}
 
 		try {
 			$msg = $this->makeMessage( $data, false );
 			return [ call_user_func( [ $msg, $what ] ) ];
 		} catch ( MWException $ex ) {
-			throw new LuaError( "msg:$what() failed (" . $ex->getMessage() . ")" );
+			throw new Scribunto_LuaError( "msg:$what() failed (" . $ex->getMessage() . ")" );
 		}
 	}
 }

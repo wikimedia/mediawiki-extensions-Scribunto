@@ -1,10 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
-
-use Parser;
-
-class HtmlLibrary extends LibraryBase {
+class Scribunto_LuaHtmlLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		return $this->getEngine()->registerInterface( 'mw.html.lua', [], [
 			'uniqPrefix' => Parser::MARKER_PREFIX,
