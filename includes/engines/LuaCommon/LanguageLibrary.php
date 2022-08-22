@@ -131,7 +131,7 @@ class Scribunto_LuaLanguageLibrary extends Scribunto_LuaLibraryBase {
 	 * @internal
 	 * @param null|string $inLanguage
 	 * @param null|string $include
-	 * @return array[][]
+	 * @return string[][]
 	 */
 	public function fetchLanguageNames( $inLanguage, $include ) {
 		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', null );
