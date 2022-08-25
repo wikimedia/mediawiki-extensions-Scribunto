@@ -14,12 +14,12 @@ setmetatable( tagattrs, { __pairs = function ( t )
 end } )
 
 -- For data provider, make sure this is defined
-mw.text.stripTest = mw.text.stripTest or { nowiki = '!!!', general = '!!!' }
+mw.text.stripTest = mw.text.stripTest or { nowiki = '!!!', general = '!!!', ppnowiki = '!!!' }
 
 -- Can't directly expect the value from mw.text.stripTest, because when
 -- 'expect' is processed by the data provider it's the dummy entry above.
-local function stripTest( func, marker )
-	local result = func( marker )
+local function stripTest( func, marker, arg )
+	local result = func( marker, arg )
 	if result == marker then
 		result = 'strip-marker'
 	end
@@ -139,11 +139,26 @@ local tests = {
 		args = { mw.text.unstrip, mw.text.stripTest.general },
 		expect = { '' }
 	},
+	{ name = 'unstrip (pp-nowiki)',
+		func = stripTest,
+		args = { mw.text.unstrip, mw.text.stripTest.ppnowiki },
+		expect = { '<nowiki>PP-NoWiki</nowiki>' }
+	},
 
 	{ name = 'unstripNoWiki (nowiki)',
 		func = stripTest,
 		args = { mw.text.unstripNoWiki, mw.text.stripTest.nowiki },
 		expect = { 'NoWiki' }
+	},
+	{ name = 'unstripNoWiki (pp-nowiki)',
+		func = stripTest,
+		args = { mw.text.unstripNoWiki, mw.text.stripTest.ppnowiki },
+		expect = { 'PP-NoWiki' }
+	},
+	{ name = 'unstripNoWiki (pp-nowiki-original)',
+		func = stripTest,
+		args = { mw.text.unstripNoWiki, mw.text.stripTest.ppnowiki, true },
+		expect = { '<nowiki>PP-NoWiki</nowiki>' }
 	},
 	{ name = 'unstripNoWiki (general)',
 		func = stripTest,

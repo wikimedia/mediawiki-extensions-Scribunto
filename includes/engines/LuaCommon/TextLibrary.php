@@ -57,14 +57,28 @@ class Scribunto_LuaTextLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
+	 * @param string $text
+	 * @return string
+	 */
+	public function processNoWikis( string $text ): string {
+		$content = preg_replace( "#</?nowiki[^>]*>#i", '', $text );
+		return $content ? CoreTagHooks::nowiki( $content, [], $this->getParser() )[0] : '';
+	}
+
+	/**
 	 * Handler for textUnstripNoWiki
 	 * @internal
 	 * @param string $s
+	 * @param bool $getOrigTextWhenPreprocessing
 	 * @return string[]
 	 */
-	public function textUnstripNoWiki( $s ) {
+	public function textUnstripNoWiki( $s, $getOrigTextWhenPreprocessing ) {
 		$this->checkType( 'unstripNoWiki', 1, $s, 'string' );
-		return [ $this->getParser()->getStripState()->unstripNoWiki( $s ) ];
+		if ( !$getOrigTextWhenPreprocessing ) {
+			return [ $this->getParser()->getStripState()->replaceNoWikis( $s, [ $this, "processNowikis" ] ) ];
+		} else {
+			return [ $this->getParser()->getStripState()->unstripNoWiki( $s ) ];
+		}
 	}
 
 	/**
