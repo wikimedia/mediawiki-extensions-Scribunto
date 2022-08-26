@@ -1,5 +1,4 @@
 !! options
-parsoid-compatible
 version=2
 !! end
 
