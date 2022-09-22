@@ -32,6 +32,8 @@ trait Scribunto_LuaEngineTestHelper {
 			'maxLangCacheSize' => 30,
 		],
 	];
+	/** @var int[] */
+	protected $templateLoadCounts = [];
 
 	/**
 	 * Create a PHPUnit test suite to run the test against all engines
@@ -162,6 +164,8 @@ trait Scribunto_LuaEngineTestHelper {
 	 * @return array
 	 */
 	public function templateCallback( $title, $parser ) {
+		$this->templateLoadCounts[$title->getFullText()] =
+			( $this->templateLoadCounts[$title->getFullText()] ?? 0 ) + 1;
 		if ( isset( $this->extraModules[$title->getFullText()] ) ) {
 			return [
 				'text' => $this->extraModules[$title->getFullText()],

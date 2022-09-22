@@ -10,6 +10,7 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
  * @covers Scribunto_LuaInterpreter
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter
+ * @group Database
  */
 class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 	/** @inheritDoc */
@@ -72,6 +73,22 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 				];
 			}
 		);
+
+		$status = $this->editPage(
+			Title::makeTitle( NS_MODULE, 'CommonTests-data.json' ),
+			file_get_contents( __DIR__ . '/CommonTests-data.json' )
+		);
+		if ( !$status->isOK() ) {
+			throw new \Exception( "Failed to create Module:CommonTests-data.json: " . $status->getWikitext() );
+		}
+		// Create a non-JSON/Module page for loadJsonData()
+		$status = $this->editPage(
+			Title::makeTitle( NS_HELP, 'Foo' ),
+			'help'
+		);
+		if ( !$status->isOK() ) {
+			throw new \Exception( "Failed to create Help:Foo: " . $status->getWikitext() );
+		}
 
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
@@ -324,6 +341,31 @@ class Scribunto_LuaCommonTest extends Scribunto_LuaEngineTestBase {
 				'return tostring( package.loaded["Module:TestLoadDataLoadedOnce-data"] )', 'getLoaded'
 			) ),
 			'data module was stored in top level\'s package.loaded'
+		);
+	}
+
+	public function testLoadJsonDataLoadedOnce() {
+		$this->extraModules['Module:TestLoadDataLoadedOnce'] = '
+			local data = mw.loadJsonData( "Module:CommonTests-data.json" )
+			return {
+				foo = function() end,
+			}
+		';
+
+		$engine = $this->getEngine();
+		$interpreter = $engine->getInterpreter();
+		$frame = $engine->getParser()->getPreprocessor()->newFrame();
+
+		// Make sure JSON data isn't parsed twice. Simulate several {{#invoke:}}s
+		$title = Title::makeTitle( NS_MODULE, 'TestLoadDataLoadedOnce' );
+		for ( $i = 0; $i < 10; $i++ ) {
+			$module = $engine->fetchModuleFromParser( $title );
+			$module->invoke( 'foo', $frame->newChild() );
+		}
+
+		$this->assertSame(
+			1, $this->templateLoadCounts['Module:CommonTests-data.json'],
+			'JSON data was loaded more than once'
 		);
 	}
 
