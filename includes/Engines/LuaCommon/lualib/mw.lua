@@ -6,7 +6,9 @@ local php
 local allowEnvFuncs = false
 local logBuffer = ''
 local loadedData = {}
+local loadedJsonData = {}
 local executeFunctionDepth = 0
+
 
 --- Put an isolation-friendly package module into the specified environment
 -- table. The package module will have an empty cache, because caching of
@@ -660,13 +662,14 @@ function mw.addWarning( text )
 end
 
 ---
--- Wrapper for mw.loadData. This creates the read-only dummy table for
--- accessing the real data.
+-- Wrapper for mw.loadData/loadJsonData. This creates the read-only dummy table
+-- for accessing the real data.
 --
 -- @param data table Data to access
 -- @param seen table|nil Table of already-seen tables.
+-- @param name string Name of calling function
 -- @return table
-local function dataWrapper( data, seen )
+local function dataWrapper( data, seen, name )
 	local t = {}
 	seen = seen or { [data] = t }
 
@@ -692,13 +695,13 @@ local function dataWrapper( data, seen )
 			assert( t == tt )
 			local v = data[k]
 			if type( v ) == 'table' then
-				seen[v] = seen[v] or dataWrapper( v, seen )
+				seen[v] = seen[v] or dataWrapper( v, seen, name )
 				return seen[v]
 			end
 			return v
 		end,
 		__newindex = function ( t, k, v )
-			error( "table from mw.loadData is read-only", 2 )
+			error( "table from " .. name .. " is read-only", 2 )
 		end,
 		__pairs = function ( tt )
 			assert( t == tt )
@@ -780,7 +783,30 @@ function mw.loadData( module )
 		loadedData[module] = data
 	end
 
-	return dataWrapper( data )
+	return dataWrapper( data, nil, 'mw.loadData' )
+end
+
+function mw.loadJsonData( module )
+	if type( module ) ~= "string" then
+		error( string.format( "bad argument #1 to 'mw.loadJsonData' (string expected, got %s)",
+			type( arg ) ), 2 )
+	end
+	local data = loadedJsonData[module]
+	if type( data ) == 'string' then
+		-- No point in re-validating
+		error( data, 2 )
+	end
+	if not data then
+		data = php.loadJsonData( module )
+		if type( data ) ~= "table" then
+			local err = module .. ' returned ' .. type( data ) .. ', table expected'
+			loadedJsonData[module] = err
+			error( err, 2 )
+		end
+		loadedJsonData[module] = data
+	end
+
+	return dataWrapper( data, nil, 'mw.loadJsonData' )
 end
 
 return mw

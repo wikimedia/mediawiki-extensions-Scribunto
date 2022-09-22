@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use Exception;
+use FormatJson;
 use Html;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
 use MediaWiki\Extension\Scribunto\Scribunto;
@@ -155,6 +156,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 				'getFrameTitle',
 				'setTTL',
 				'addWarning',
+				'loadJsonData',
 			];
 
 			$lib = [];
@@ -944,6 +946,34 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			$this->expandCache[$hash] = $ret;
 		}
 		return $ret;
+	}
+
+	/**
+	 * Implements mw.loadJsonData()
+	 *
+	 * @param string $title Title text, type-checked in Lua
+	 * @return string[]
+	 */
+	public function loadJsonData( $title ) {
+		$this->incrementExpensiveFunctionCount();
+
+		$titleObj = Title::newFromText( $title );
+		if ( !$titleObj || !$titleObj->exists() || !$titleObj->hasContentModel( CONTENT_MODEL_JSON ) ) {
+			throw new LuaError(
+				"bad argument #1 to 'mw.loadJsonData' ('$title' is not a valid JSON page)"
+			);
+		}
+
+		$parser = $this->getParser();
+		list( $text, $finalTitle ) = $parser->fetchTemplateAndTitle( $titleObj );
+
+		$json = FormatJson::decode( $text, true );
+		if ( is_array( $json ) ) {
+			$json = TextLibrary::reindexArrays( $json, false );
+		}
+		// We'll throw an error for non-tables on the Lua side
+
+		return [ $json ];
 	}
 }
 

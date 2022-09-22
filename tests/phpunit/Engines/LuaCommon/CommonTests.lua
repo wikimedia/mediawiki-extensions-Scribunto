@@ -234,6 +234,57 @@ function test.loadData.rawset()
 	return d1.str, d2.str, d3.str
 end
 
+test.loadJsonData = {}
+
+function test.loadJsonData.get( ... )
+	local d = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	for i = 1, select( '#', ... ) do
+		local k = select( i, ... )
+		d = d[k]
+	end
+	return d
+end
+
+function test.loadJsonData.set( v, ... )
+	local d = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	local n = select( '#', ... )
+	for i = 1, n - 1 do
+		local k = select( i, ... )
+		d = d[k]
+	end
+	d[select( n, ... )] = v
+	return d[select( n, ... )]
+end
+
+function test.loadJsonData.iterate( func )
+	local d = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	local ret = {}
+	for k, v in func( d.table ) do
+		ret[k] = v
+	end
+	return ret
+end
+
+function test.loadJsonData.setmetatable()
+	local d = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	setmetatable( d, {} )
+	return 'setmetatable succeeded'
+end
+
+function test.loadJsonData.rawset()
+	-- We can't easily prevent rawset (and it's not worth trying to redefine
+	-- it), but we can make sure it doesn't affect other instances of the data
+	local d1 = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	local d2 = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	rawset( d1, 'str', 'ugh' )
+	local d3 = mw.loadJsonData( 'Module:CommonTests-data.json' )
+	return d1.str, d2.str, d3.str
+end
+
+function test.loadJsonData.error( name )
+	mw.loadJsonData( name )
+end
+
 return testframework.getTestProvider( {
 	{ name = 'clone', func = test.clone1,
 		expect = { true },
@@ -412,6 +463,71 @@ return testframework.getTestProvider( {
 	{ name = 'mw.loadData, rawset',
 		func = test.loadData.rawset,
 		expect = { 'ugh', 'foo bar', 'foo bar' },
+	},
+
+	{ name = 'mw.loadJsonData, getter (true)',
+		func = test.loadJsonData.get, args = { 'true' },
+		expect = { true }
+	},
+	{ name = 'mw.loadJsonData, getter (false)',
+		func = test.loadJsonData.get, args = { 'false' },
+		expect = { false }
+	},
+	{ name = 'mw.loadJsonData, getter (num)',
+		func = test.loadJsonData.get, args = { 'num' },
+		expect = { 12.5 }
+	},
+	{ name = 'mw.loadJsonData, getter (str)',
+		func = test.loadJsonData.get, args = { 'str' },
+		expect = { 'foo bar' }
+	},
+	{ name = 'mw.loadJsonData, getter (table.2)',
+		func = test.loadJsonData.get, args = { 'table', 2 },
+		expect = { 'two' }
+	},
+	{ name = 'mw.loadJsonData, pairs',
+		func = test.loadJsonData.iterate, args = { pairs },
+		expect = { { 'one', 'two', 'three' } },
+	},
+	{ name = 'mw.loadJsonData, ipairs',
+		func = test.loadJsonData.iterate, args = { ipairs },
+		expect = { { 'one', 'two', 'three' } },
+	},
+	{ name = 'mw.loadJsonData, setmetatable',
+		func = test.loadJsonData.setmetatable,
+		expect = "cannot change a protected metatable"
+	},
+	{ name = 'mw.loadJsonData, setter (1)',
+		func = test.loadJsonData.set, args = { 'ugh', 'str' },
+		expect = "table from mw.loadJsonData is read-only",
+	},
+	{ name = 'mw.loadJsonData, setter (2)',
+		func = test.loadJsonData.set, args = { 'ugh', 'table', 2 },
+		expect = "table from mw.loadJsonData is read-only",
+	},
+	{ name = 'mw.loadJsonData, setter (3)',
+		func = test.loadJsonData.set, args = { 'ugh', 't' },
+		expect = "table from mw.loadJsonData is read-only",
+	},
+	{ name = 'mw.loadJsonData, rawset',
+		func = test.loadJsonData.rawset,
+		expect = { 'ugh', 'foo bar', 'foo bar' },
+	},
+	{ name = 'mw.loadJsonData, bad title (1)',
+		func = test.loadJsonData.error, args = { 0 },
+		expect = "bad argument #1 to 'mw.loadJsonData' (string expected, got nil)",
+	},
+	{ name = 'mw.loadJsonData, bad title (2)',
+		func = test.loadJsonData.error, args = { "<invalid title>" },
+		expect = "bad argument #1 to 'mw.loadJsonData' ('<invalid title>' is not a valid JSON page)",
+	},
+	{ name = 'mw.loadJsonData, bad title (3)',
+		func = test.loadJsonData.error, args = { "Help:Foo" },
+		expect = "bad argument #1 to 'mw.loadJsonData' ('Help:Foo' is not a valid JSON page)",
+	},
+	{ name = 'mw.loadJsonData, bad title (4)',
+		func = test.loadJsonData.error, args = { "Help:Does not exist" },
+		expect = "bad argument #1 to 'mw.loadJsonData' ('Help:Does not exist' is not a valid JSON page)",
 	},
 
 	{ name = 'mw.addWarning',
