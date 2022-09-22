@@ -10,6 +10,8 @@ class ScribuntoHooksTest extends PHPUnit\Framework\TestCase {
 			[ 'Module:Foo', CONTENT_MODEL_SCRIBUNTO, true ],
 			[ 'Module:Foo/doc', null, true ],
 			[ 'Module:Foo/styles.css', 'sanitized-css', true, 'sanitized-css' ],
+			[ 'Module:Foo.json', CONTENT_MODEL_JSON, true ],
+			[ 'Module:Foo/subpage.json', CONTENT_MODEL_JSON, true ],
 			[ 'Main Page', null, true ],
 		];
 	}

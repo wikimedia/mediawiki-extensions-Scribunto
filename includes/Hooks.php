@@ -281,8 +281,12 @@ class Hooks {
 			// Let TemplateStyles override Scribunto
 			return true;
 		}
-		if ( $title->getNamespace() === NS_MODULE && !Scribunto::isDocPage( $title ) ) {
-			$model = CONTENT_MODEL_SCRIBUNTO;
+		if ( $title->getNamespace() === NS_MODULE ) {
+			if ( str_ends_with( $title->getText(), '.json' ) ) {
+				$model = CONTENT_MODEL_JSON;
+			} elseif ( !Scribunto::isDocPage( $title ) ) {
+				$model = CONTENT_MODEL_SCRIBUNTO;
+			}
 			return true;
 		}
 		return true;
