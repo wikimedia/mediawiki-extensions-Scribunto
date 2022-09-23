@@ -15,5 +15,7 @@
 	"scribunto-common-no-details": "Dodatne podrobnosti niso na voljo.",
 	"scribunto-lua-error": "Napaka Lua: $2",
 	"scribunto-lua-notarrayreturn": "Skriptna napaka: Modul je vrnil vrednost $2. Vrnil bi naj izvozno tabelo.",
+	"scribunto-limitreport-timeusage": "Poraba časa, Lua",
+	"scribunto-limitreport-timeusage-value": "$1/$2 sekund",
 	"nstab-module": "Modul"
 }
