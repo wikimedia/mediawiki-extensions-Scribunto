@@ -166,6 +166,22 @@ function test.noLeaksViaPackageLoaded()
 	return 'ok'
 end
 
+function test.strictGood()
+	require( 'strict' )
+	local foo = "bar"
+	return foo
+end
+
+function test.strictBad1()
+	require( 'strict' )
+	return bar
+end
+
+function test.strictBad2()
+	require( 'strict' )
+	bar = "foo"
+end
+
 test.loadData = {}
 
 function test.loadData.get( ... )
@@ -298,6 +314,19 @@ return testframework.getTestProvider( {
 	{ name = 'package.loaded does not leak references to out-of-environment objects',
 	  func = test.noLeaksViaPackageLoaded,
 	  expect = { 'ok' },
+	},
+
+	{ name = 'strict on good code raises no errors',
+		func = test.strictGood,
+		expect = { 'bar' },
+	},
+	{ name = 'strict on code reading from a global errors',
+		func = test.strictBad1,
+		expect = "variable 'bar' is not declared",
+	},
+	{ name = 'strict on code setting from a global errors',
+		func = test.strictBad2,
+		expect = "assign to undeclared variable 'bar'",
 	},
 
 	{ name = 'mw.loadData, returning non-table',
