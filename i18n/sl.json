@@ -8,6 +8,7 @@
 	},
 	"scribunto-parser-dialog-title": "Skriptna napaka",
 	"scribunto-error-short": "Skriptna napaka: $1",
+	"scribunto-console-clear": "Počisti",
 	"scribunto-common-nosuchmodule": "Skriptna napaka: Modul »$2« ne obstaja.",
 	"scribunto-common-nofunction": "Skriptna napaka: določiti morate funkcijo za klic.",
 	"scribunto-common-nosuchfunction": "Skriptna napaka: Funkcija »$2« ne obstaja.",
