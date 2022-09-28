@@ -13,6 +13,7 @@ use MWException;
 use ObjectCache;
 use Parser;
 use PPFrame;
+use TextContent;
 use Title;
 use Wikimedia\ScopedCallback;
 
@@ -927,7 +928,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		}
 
 		if ( is_scalar( $input ) ) {
-			$input = str_replace( [ "\r\n", "\r" ], "\n", $input );
+			$input = TextContent::normalizeLineEndings( $input );
 			$dom = $this->parser->getPreprocessor()->preprocessToObj(
 				$input, $frame->depth ? Parser::PTD_FOR_INCLUSION : 0 );
 		} else {

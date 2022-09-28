@@ -584,11 +584,7 @@ class UstringLibrary extends LibraryBase {
 				if ( $i >= $len ) {
 					break;
 				}
-				if ( isset( $brcharsets[$pat[$i]] ) ) {
-					$re .= $brcharsets[$pat[$i]];
-				} else {
-					$re .= preg_quote( $pat[$i], '/' );
-				}
+				$re .= $brcharsets[$pat[$i]] ?? preg_quote( $pat[$i], '/' );
 			} elseif ( $i + 2 < $len &&
 				$pat[$i + 1] === '-' && $pat[$i + 2] !== ']' && $pat[$i + 2] !== '%'
 			) {
