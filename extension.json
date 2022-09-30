@@ -34,8 +34,10 @@
 	},
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LibraryBase": "includes/Engines/LuaCommon/LibraryBase.php",
+		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LuaEngine": "includes/Engines/LuaCommon/LuaEngine.php",
 		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LuaError": "includes/Engines/LuaCommon/LuaError.php",
 		"MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneInterpreterFunction": "includes/Engines/LuaStandalone/LuaStandaloneInterpreterFunction.php",
+		"Scribunto_LuaEngine": "includes/Engines/LuaCommon/LuaEngine.php",
 		"Scribunto_LuaError": "includes/Engines/LuaCommon/LuaError.php",
 		"Scribunto_LuaLibraryBase": "includes/Engines/LuaCommon/LibraryBase.php",
 		"Scribunto_LuaStandaloneInterpreterFunction": "includes/Engines/LuaStandalone/LuaStandaloneInterpreterFunction.php"

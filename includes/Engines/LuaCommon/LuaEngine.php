@@ -946,3 +946,5 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		return $ret;
 	}
 }
+
+class_alias( LuaEngine::class, 'Scribunto_LuaEngine' );
