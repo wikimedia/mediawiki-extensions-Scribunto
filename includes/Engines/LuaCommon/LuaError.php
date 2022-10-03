@@ -81,9 +81,9 @@ class LuaError extends ScribuntoException {
 			$backtraceLineMsg = wfMessage( 'scribunto-lua-backtrace-line' )
 				->rawParams( "<strong>$src</strong>" )
 				->params( $function );
-			in_array( 'content', $msgOptions ) ?
-				$backtraceLine = $backtraceLineMsg->inContentLanguage()->parse() :
-				$backtraceLine = $backtraceLineMsg->parse();
+			$backtraceLine = in_array( 'content', $msgOptions ) ?
+				$backtraceLineMsg->inContentLanguage()->parse() :
+				$backtraceLineMsg->parse();
 
 			$s .= "<li>$backtraceLine</li>";
 		}
