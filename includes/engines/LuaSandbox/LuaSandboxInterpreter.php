@@ -81,7 +81,16 @@ class LuaSandboxInterpreter extends Scribunto_LuaInterpreter {
 	protected function convertSandboxError( LuaSandboxError $e ) {
 		$opts = [];
 		if ( isset( $e->luaTrace ) ) {
-			$opts['trace'] = $e->luaTrace;
+			$trace = $e->luaTrace;
+			foreach ( $trace as &$val ) {
+				$val = array_map( static function ( $val ) {
+					if ( is_string( $val ) ) {
+						$val = Validator::cleanUp( $val );
+					}
+					return $val;
+				}, $val );
+			}
+			$opts['trace'] = $trace;
 		}
 		$message = Validator::cleanUp( $e->getMessage() );
 		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message, $m ) ) {

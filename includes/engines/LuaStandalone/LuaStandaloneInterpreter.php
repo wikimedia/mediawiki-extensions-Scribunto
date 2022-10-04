@@ -416,6 +416,14 @@ class LuaStandaloneInterpreter extends Scribunto_LuaInterpreter {
 			$message['value'] = $m[3];
 		}
 		if ( isset( $message['trace'] ) ) {
+			foreach ( $message['trace'] as &$val ) {
+				$val = array_map( static function ( $val ) {
+					if ( is_string( $val ) ) {
+						$val = Validator::cleanUp( $val );
+					}
+					return $val;
+				}, $val );
+			}
 			$opts['trace'] = array_values( $message['trace'] );
 		}
 		throw $this->engine->newLuaError( $message['value'], $opts );
