@@ -4,6 +4,9 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
 use Parser;
 
+/**
+ * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary
+ */
 class TextLibraryTest extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'TextLibraryTests';

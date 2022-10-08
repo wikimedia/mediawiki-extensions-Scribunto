@@ -7,6 +7,9 @@ use MediaWikiCoversValidator;
 use Monolog\Test\TestCase;
 use Title;
 
+/**
+ * @covers \MediaWiki\Extension\Scribunto\Hooks
+ */
 class HooksTest extends TestCase {
 	use MediaWikiCoversValidator;
 
@@ -22,7 +25,6 @@ class HooksTest extends TestCase {
 	}
 
 	/**
-	 * @covers \MediaWiki\Extension\Scribunto\Hooks::contentHandlerDefaultModelFor
 	 * @dataProvider provideContentHandlerDefaultModelFor
 	 */
 	public function testContentHandlerDefaultModelFor( $name, $expected,
