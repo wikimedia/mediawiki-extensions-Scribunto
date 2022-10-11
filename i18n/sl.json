@@ -11,7 +11,7 @@
 	"scribunto-error-short": "Skriptna napaka: $1",
 	"scribunto-console-clear": "Počisti",
 	"scribunto-common-error-category": "Strani s skriptnimi napakami",
-	"scribunto-common-error-category-desc": "Pri obdelavi modulov, vključenih na strani, se je pojavila napaka.",
+	"scribunto-common-error-category-desc": "Pri obdelavi modulov, vključenih na strani, je prišlo do napake.",
 	"scribunto-common-nosuchmodule": "Skriptna napaka: Modul »$2« ne obstaja.",
 	"scribunto-common-nofunction": "Skriptna napaka: določiti morate funkcijo za klic.",
 	"scribunto-common-nosuchfunction": "Skriptna napaka: Funkcija »$2« ne obstaja.",
