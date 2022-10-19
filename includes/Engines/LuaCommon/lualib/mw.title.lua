@@ -266,6 +266,14 @@ local function makeTitleObject( data )
 				end
 				return title.makeTitle( ns.id, data.text )
 			end
+			if k == 'pageLang' then
+				if data.pageLang == nil then
+					data.pageLang = mw.language.new(
+						php.getPageLangCode( data.prefixedText )
+					);
+				end
+				return data.pageLang
+			end
 			if k == 'file' then
 				if data.file == nil then
 					data.file = php.getFileInfo( data.prefixedText )

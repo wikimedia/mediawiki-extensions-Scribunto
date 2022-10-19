@@ -33,6 +33,7 @@ class TitleLibrary extends LibraryBase {
 			'cascadingProtection' => [ $this, 'cascadingProtection' ],
 			'redirectTarget' => [ $this, 'redirectTarget' ],
 			'recordVaryFlag' => [ $this, 'recordVaryFlag' ],
+			'getPageLangCode' => [ $this, 'getPageLangCode' ],
 		];
 		$title = $this->getTitle();
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, [
@@ -488,5 +489,25 @@ class TitleLibrary extends LibraryBase {
 			$this->getParser()->getOutput()->setOutputFlag( $flag );
 		}
 		return [];
+	}
+
+	/**
+	 * Handler for getPageLangCode
+	 * @internal
+	 * @param string $text Title text.
+	 * @return array<?string>
+	 */
+	public function getPageLangCode( $text ) {
+		$title = Title::newFromText( $text );
+		if ( $title ) {
+			// If the page language is coming from the page record, we've
+			// probably accounted for the cost of reading the title from
+			// the DB already. However, a PageContentLanguage hook handler
+			// might get invoked here, and who knows how much that costs.
+			// Be safe and increment here, even though this could over-count.
+			$this->incrementExpensiveFunctionCount();
+			return [ $title->getPageLanguage()->getCode() ];
+		}
+		return [ null ];
 	}
 }
