@@ -7,7 +7,9 @@
 	"scribunto-parser-dialog-title": "Skript xatosi",
 	"scribunto-error-short": "Skript xatosi: $1",
 	"scribunto-error-long": "Skript xatolari:\n\n$1",
-	"scribunto-doc-page-name": "Modul:$1/doc",
+	"scribunto-doc-page-name": "Module:$1/doc",
+	"scribunto-doc-page-does-not-exist": "''Bu modul uchun [[$1]] nomli hujjat sahifasini yaratishingiz mumkin''",
+	"scribunto-doc-page-header": "'''Bu sahifa [[$1]] uchun hujjat sahifasidir'''",
 	"scribunto-console-clear": "Tozalash",
 	"scribunto-common-error-category": "Skript xatolari mavjud boʻlgan sahifalar",
 	"scribunto-common-nosuchmodule": "Skript xatosi: „$2“ moduli yoʻq.",
@@ -20,6 +22,6 @@
 	"scribunto-limitreport-estmemusage-value": "$1 {{PLURAL:$1|bayt|bayt}}",
 	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|bayt|bayt}}",
 	"scribunto-limitreport-logs": "Lua qaydlari",
-	"nstab-module": "Modul",
+	"nstab-module": "Module",
 	"tooltip-ca-nstab-module": "Modul sahifasini koʻrish"
 }
