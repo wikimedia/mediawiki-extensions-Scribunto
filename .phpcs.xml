@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="Scribunto">
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.PHPUnit.AssertEmpty.AssertEmptyUsed" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.popen" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.proc_open" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.shell_exec" />
