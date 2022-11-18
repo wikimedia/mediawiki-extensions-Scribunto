@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
+use Language;
 use MediaWiki\MediaWikiServices;
 use Message;
-use MWException;
 use RawMessage;
 
 class MessageLibrary extends LibraryBase {
@@ -43,8 +43,12 @@ class MessageLibrary extends LibraryBase {
 		} else {
 			$msg = Message::newFallbackSequence( $data['keys'] );
 		}
-		$msg->inLanguage( $data['lang'] )
-			->useDatabase( $data['useDB'] );
+		if ( is_string( $data['lang'] ) && !Language::isValidCode( $data['lang'] ) ) {
+			throw new LuaError( "language code '{$data['lang']}' is invalid" );
+		} else {
+			$msg->inLanguage( $data['lang'] );
+		}
+		$msg->useDatabase( $data['useDB'] );
 		if ( $setParams ) {
 			$msg->params( array_values( $data['params'] ) );
 		}
@@ -58,12 +62,8 @@ class MessageLibrary extends LibraryBase {
 	 * @return string[]
 	 */
 	public function messagePlain( $data ) {
-		try {
-			$msg = $this->makeMessage( $data, true );
-			return [ $msg->plain() ];
-		} catch ( MWException $ex ) {
-			throw new LuaError( "msg:plain() failed (" . $ex->getMessage() . ")" );
-		}
+		$msg = $this->makeMessage( $data, true );
+		return [ $msg->plain() ];
 	}
 
 	/**
@@ -78,11 +78,7 @@ class MessageLibrary extends LibraryBase {
 			throw new LuaError( "invalid what for 'messageCheck'" );
 		}
 
-		try {
-			$msg = $this->makeMessage( $data, false );
-			return [ call_user_func( [ $msg, $what ] ) ];
-		} catch ( MWException $ex ) {
-			throw new LuaError( "msg:$what() failed (" . $ex->getMessage() . ")" );
-		}
+		$msg = $this->makeMessage( $data, false );
+		return [ call_user_func( [ $msg, $what ] ) ];
 	}
 }

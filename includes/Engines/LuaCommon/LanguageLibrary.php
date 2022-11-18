@@ -7,7 +7,6 @@ use DateTimeZone;
 use Exception;
 use Language;
 use MediaWiki\MediaWikiServices;
-use MWException;
 use MWTimestamp;
 use Title;
 use User;
@@ -82,12 +81,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
-		try {
-			// There's no good reason this should throw, but it does. Sigh.
-			return [ Language::isSupportedLanguage( $code ) ];
-		} catch ( MWException $ex ) {
-			return [ false ];
-		}
+		return [ Language::isSupportedLanguage( $code ) ];
 	}
 
 	/**
@@ -180,9 +174,9 @@ class LanguageLibrary extends LibraryBase {
 			if ( count( $this->langCache ) > $this->maxLangCacheSize ) {
 				throw new LuaError( 'too many language codes requested' );
 			}
-			try {
+			if ( Language::isValidCode( $code ) ) {
 				$this->langCache[$code] = Language::factory( $code );
-			} catch ( MWException $ex ) {
+			} else {
 				throw new LuaError( "language code '$code' is invalid" );
 			}
 		}
