@@ -429,13 +429,18 @@ parsoid={ "modes": ["wt2html","wt2wt"], "normalizePhp": true }
 !! test
 Scribunto: expandTemplate with headers
 !! options
-parsoid={ "modes": ["wt2html","wt2wt"], "normalizePhp": true }
+parsoid={ "modes": ["wt2html","wt2wt"] }
+!! config
+wgParserEnableLegacyHeadingDOM=false
 !! wikitext
 ==foo==
 {{#invoke:test|testExpandTemplateWithHeaders}}
-!! html
-<h2><span class="mw-headline" id="foo">foo</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: foo">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
-<h2><span class="mw-headline" id="bar">bar</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Template:Scribunto_template_with_headers&amp;action=edit&amp;section=T-1" title="Edit section: bar">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+!! html/php
+<div class="mw-heading mw-heading2"><h2 id="foo">foo</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: foo">edit</a><span class="mw-editsection-bracket">]</span></span></div>
+<div class="mw-heading mw-heading2"><h2 id="bar">bar</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Template:Scribunto_template_with_headers&amp;action=edit&amp;section=T-1" title="Edit section: bar">edit</a><span class="mw-editsection-bracket">]</span></span></div>
+!! html/parsoid
+<h2 id="foo">foo</h2>
+<h2 typeof="mw:Transclusion" id="bar" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"testExpandTemplateWithHeaders"}},"i":0}}]}'>bar</h2>
 !! end
 
 !! test
