@@ -127,7 +127,7 @@ class LuaCommonTest extends LuaEngineTestBase {
 		);
 
 		$leakedGlobals = array_diff( $actualGlobals, self::$allowedGlobals );
-		$this->assertEmpty( $leakedGlobals,
+		$this->assertCount( 0, $leakedGlobals,
 			'The following globals are leaked: ' . implode( ' ', $leakedGlobals )
 		);
 	}
