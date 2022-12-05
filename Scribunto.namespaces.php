@@ -45,6 +45,11 @@ $namespaceNames['ary'] = [
 	829 => 'مداكرة_د_لمودول',
 ];
 
+$namespaceAliases['ary'] = [
+	'وحدة' => 828,
+	'نقاش_الوحدة' => 829,
+];
+
 $namespaceNames['ast'] = [
 	828 => 'Módulu',
 	829 => 'Módulu_alderique',
