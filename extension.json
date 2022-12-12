@@ -54,6 +54,7 @@
 	},
 	"ResourceModules": {
 		"ext.scribunto.errors": {
+			"targets": [ "desktop", "mobile" ],
 			"scripts": "ext.scribunto.errors.js",
 			"styles": "ext.scribunto.errors.css",
 			"dependencies": [
@@ -64,6 +65,7 @@
 			]
 		},
 		"ext.scribunto.logs": {
+			"targets": [ "desktop", "mobile" ],
 			"styles": "ext.scribunto.logs.css"
 		},
 		"ext.scribunto.edit": {
