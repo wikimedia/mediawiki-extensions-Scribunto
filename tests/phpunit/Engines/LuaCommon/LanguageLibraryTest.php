@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
-use Language;
 use MediaWiki\MediaWikiServices;
 use Title;
 
@@ -20,7 +19,7 @@ class LanguageLibraryTest extends LuaEngineUnitTestBase {
 
 		// Skip certain tests if something isn't providing translated language names
 		// (bug 67343)
-		if ( Language::fetchLanguageName( 'en', 'fr' ) === 'English' ) {
+		if ( MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName( 'en', 'fr' ) === 'English' ) {
 			$msg = 'Language name translations are unavailable; ' .
 				'install Extension:CLDR or something similar';
 			$this->skipTests += [
