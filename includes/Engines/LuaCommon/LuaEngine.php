@@ -729,7 +729,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			throw new LuaError( "expandTemplate: invalid title \"$titleText\"" );
 		}
 
-		if ( $frame->depth >= $this->parser->mOptions->getMaxTemplateDepth() ) {
+		if ( $frame->depth >= $this->parser->getOptions()->getMaxTemplateDepth() ) {
 			throw new LuaError( 'expandTemplate: template depth limit exceeded' );
 		}
 		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
