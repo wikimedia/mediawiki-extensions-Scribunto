@@ -153,7 +153,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function getFallbacksFor( $code ) {
 		$this->checkType( 'getFallbacksFor', 1, $code, 'string' );
-		$ret = Language::getFallbacksFor( $code );
+		$ret = MediaWikiServices::getInstance()->getLanguageFallback()->getAll( $code );
 		// Make 1-based
 		if ( count( $ret ) ) {
 			$ret = array_combine( range( 1, count( $ret ) ), $ret );
