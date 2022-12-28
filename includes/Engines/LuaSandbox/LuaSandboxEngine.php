@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaSandbox;
 
 use Html;
-use Language;
 use LuaSandbox;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterBadVersionError;
@@ -144,7 +143,7 @@ class LuaSandboxEngine extends LuaEngine {
 	 * @return string
 	 */
 	private function fixTruncation( $s ) {
-		$lang = Language::factory( 'en' );
+		$lang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 		return $lang->iconv( 'UTF-8', 'UTF-8', $s );
 	}
 

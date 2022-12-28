@@ -177,7 +177,7 @@ class LanguageLibrary extends LibraryBase {
 				throw new LuaError( 'too many language codes requested' );
 			}
 			if ( Language::isValidCode( $code ) ) {
-				$this->langCache[$code] = Language::factory( $code );
+				$this->langCache[$code] = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $code );
 			} else {
 				throw new LuaError( "language code '$code' is invalid" );
 			}
