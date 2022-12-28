@@ -81,7 +81,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
-		return [ Language::isSupportedLanguage( $code ) ];
+		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isSupportedLanguage( $code ) ];
 	}
 
 	/**
@@ -92,7 +92,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isKnownLanguageTag( $code ) {
 		$this->checkType( 'isKnownLanguageTag', 1, $code, 'string' );
-		return [ Language::isKnownLanguageTag( $code ) ];
+		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isKnownLanguageTag( $code ) ];
 	}
 
 	/**
@@ -103,7 +103,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isValidCode( $code ) {
 		$this->checkType( 'isValidCode', 1, $code, 'string' );
-		return [ Language::isValidCode( $code ) ];
+		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidCode( $code ) ];
 	}
 
 	/**
@@ -114,7 +114,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isValidBuiltInCode( $code ) {
 		$this->checkType( 'isValidBuiltInCode', 1, $code, 'string' );
-		return [ (bool)Language::isValidBuiltInCode( $code ) ];
+		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $code ) ];
 	}
 
 	/**
@@ -176,8 +176,9 @@ class LanguageLibrary extends LibraryBase {
 			if ( count( $this->langCache ) > $this->maxLangCacheSize ) {
 				throw new LuaError( 'too many language codes requested' );
 			}
-			if ( Language::isValidCode( $code ) ) {
-				$this->langCache[$code] = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $code );
+			$services = MediaWikiServices::getInstance();
+			if ( $services->getLanguageNameUtils()->isValidCode( $code ) ) {
+				$this->langCache[$code] = $services->getLanguageFactory()->getLanguage( $code );
 			} else {
 				throw new LuaError( "language code '$code' is invalid" );
 			}

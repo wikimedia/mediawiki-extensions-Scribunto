@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
-use Language;
 use MediaWiki\MediaWikiServices;
 use Message;
 use RawMessage;
@@ -43,7 +42,9 @@ class MessageLibrary extends LibraryBase {
 		} else {
 			$msg = Message::newFallbackSequence( $data['keys'] );
 		}
-		if ( is_string( $data['lang'] ) && !Language::isValidCode( $data['lang'] ) ) {
+		if ( is_string( $data['lang'] ) &&
+			!MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidCode( $data['lang'] )
+		) {
 			throw new LuaError( "language code '{$data['lang']}' is invalid" );
 		} else {
 			$msg->inLanguage( $data['lang'] );
