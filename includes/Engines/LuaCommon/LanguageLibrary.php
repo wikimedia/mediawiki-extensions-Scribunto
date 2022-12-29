@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Language;
+use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
 use MWTimestamp;
 use Title;
@@ -126,7 +127,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function fetchLanguageName( $code, $inLanguage ) {
 		$this->checkType( 'fetchLanguageName', 1, $code, 'string' );
-		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', null );
+		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
 		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()
 			->getLanguageName( $code, $inLanguage ) ];
 	}
@@ -139,8 +140,8 @@ class LanguageLibrary extends LibraryBase {
 	 * @return string[][]
 	 */
 	public function fetchLanguageNames( $inLanguage, $include ) {
-		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', null );
-		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', 'mw' );
+		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
+		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', LanguageNameUtils::DEFINED );
 		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()
 			->getLanguageNames( $inLanguage, $include ) ];
 	}
