@@ -334,6 +334,11 @@ $namespaceNames['ko'] = [
 	829 => '모듈토론',
 ];
 
+$namespaceNames['ks-arab'] = [
+	828 => 'ماڈیوٗل',
+	829 => 'ماڈیوٗل_کَتھ',
+];
+
 $namespaceNames['ku'] = [
 	828 => 'Modul',
 	829 => 'Gotûbêja_modulê',
