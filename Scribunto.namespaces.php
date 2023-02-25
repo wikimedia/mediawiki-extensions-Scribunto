@@ -244,6 +244,11 @@ $namespaceNames['gl'] = [
 	829 => 'Conversa_módulo',
 ];
 
+$namespaceNames['glk'] = [
+	828 => 'ماجۊل',
+	829 => 'ماجۊلˇ_گب',
+];
+
 $namespaceNames['gom-deva'] = [
 	828 => 'एकक',
 	829 => 'एकक_चर्चा',
