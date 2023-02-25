@@ -67,7 +67,7 @@ class ScribuntoException extends MWException {
 
 	public function toStatus() {
 		$status = Status::newFatal( $this->messageName, ...$this->messageArgs );
-		$status->scribunto_error = $this;
+		$status->value = $this;
 		return $status;
 	}
 
