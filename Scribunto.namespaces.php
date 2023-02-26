@@ -127,7 +127,11 @@ $namespaceNames['ca'] = [
 
 $namespaceNames['ce'] = [
 	828 => 'Модуль',
-	829 => 'Модулин_дийцаре',
+	829 => 'Модуль_йийцар',
+];
+
+$namespaceAliases['ce'] = [
+	'Модулин_дийцаре' => 829,
 ];
 
 $namespaceNames['ckb'] = [
