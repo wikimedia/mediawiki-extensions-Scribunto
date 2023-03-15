@@ -35,6 +35,11 @@ $namespaceNames['an'] = [
 	829 => 'Descusión_módulo',
 ];
 
+$namespaceNames['anp'] = [
+	828 => 'मोड्यूल',
+	829 => 'मोड्यूल_वार्ता',
+];
+
 $namespaceNames['ar'] = [
 	828 => 'وحدة',
 	829 => 'نقاش_الوحدة',
