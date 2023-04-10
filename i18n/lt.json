@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eitvys200",
-			"Hugo.arg"
+			"Hugo.arg",
+			"Nokeoo"
 		]
 	},
 	"scribunto-lua-error": "Lua klaida: $2.",
