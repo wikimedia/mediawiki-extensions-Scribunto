@@ -29,6 +29,7 @@ use EmptyBagOStuff;
 use Html;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\WikiMap\WikiMap;
 use MWException;
 use ObjectCache;
 use OutputPage;
@@ -38,7 +39,6 @@ use PPFrame;
 use Status;
 use Title;
 use UtfNormal\Validator;
-use WikiMap;
 use Wikimedia\PSquare;
 use Xml;
 
