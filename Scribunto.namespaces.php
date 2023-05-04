@@ -259,6 +259,11 @@ $namespaceNames['gom-deva'] = [
 	829 => 'एकक_चर्चा',
 ];
 
+$namespaceNames['gpe'] = [
+	828 => 'Module',
+	829 => 'Module_talk',
+];
+
 $namespaceNames['gu'] = [
 	828 => 'વિભાગ',
 	829 => 'વિભાગ_ચર્ચા',
