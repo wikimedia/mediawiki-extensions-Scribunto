@@ -22,7 +22,7 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use Hooks as MWHooks;
+use MediaWiki\MediaWikiServices;
 use Parser;
 use ParserOutput;
 use Status;
@@ -256,7 +256,8 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraries( $engine, array $coreLibraries = [] ) {
 		$extraLibraries = [];
-		MWHooks::run( 'ScribuntoExternalLibraries', [ $engine, &$extraLibraries ] );
+		MediaWikiServices::getInstance()->getHookContainer()
+			->run( 'ScribuntoExternalLibraries', [ $engine, &$extraLibraries ] );
 		return $coreLibraries + $extraLibraries;
 	}
 
@@ -269,7 +270,8 @@ abstract class ScribuntoEngineBase {
 	 */
 	protected function getLibraryPaths( $engine, array $coreLibraryPaths = [] ) {
 		$extraLibraryPaths = [];
-		MWHooks::run( 'ScribuntoExternalLibraryPaths', [ $engine, &$extraLibraryPaths ] );
+		MediaWikiServices::getInstance()->getHookContainer()
+			->run( 'ScribuntoExternalLibraryPaths', [ $engine, &$extraLibraryPaths ] );
 		return array_merge( $coreLibraryPaths, $extraLibraryPaths );
 	}
 
