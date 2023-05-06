@@ -24,10 +24,10 @@ namespace MediaWiki\Extension\Scribunto;
 
 use Article;
 use Content;
-use EditPage;
 use EmptyBagOStuff;
 use Html;
 use IContextSource;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
 use MWException;
