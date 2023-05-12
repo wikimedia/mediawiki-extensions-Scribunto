@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
-use Category;
+use MediaWiki\Category\Category;
 use MediaWiki\MediaWikiServices;
 use SiteStats;
 use SpecialVersion;
