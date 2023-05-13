@@ -301,6 +301,12 @@ local function makeTitleObject( data )
 				end
 				return data.redirectTarget
 			end
+			if k == 'categories' then
+				if data.categories == nil then
+					data.categories = php.getCategories( data.prefixedText )
+				end
+				return data.categories
+			end
 
 			return data[k]
 		end,

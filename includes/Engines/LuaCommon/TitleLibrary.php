@@ -28,6 +28,7 @@ class TitleLibrary extends LibraryBase {
 			'getExpensiveData' => [ $this, 'getExpensiveData' ],
 			'getUrl' => [ $this, 'getUrl' ],
 			'getContent' => [ $this, 'getContent' ],
+			'getCategories' => [ $this, 'getCategories' ],
 			'getFileInfo' => [ $this, 'getFileInfo' ],
 			'protectionLevels' => [ $this, 'protectionLevels' ],
 			'cascadingProtection' => [ $this, 'cascadingProtection' ],
@@ -335,6 +336,35 @@ class TitleLibrary extends LibraryBase {
 		$this->checkType( 'getContent', 1, $text, 'string' );
 		$content = $this->getContentInternal( $text );
 		return [ $content ? $content->serialize() : null ];
+	}
+
+	/**
+	 * @internal
+	 * @param string $text
+	 * @return string[][]
+	 */
+	public function getCategories( $text ) {
+		$this->checkType( 'getCategories', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return [ [] ];
+		}
+		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		$this->incrementExpensiveFunctionCount();
+
+		$parserOutput = $this->getParser()->getOutput();
+		if ( $title->equals( $this->getTitle() ) ) {
+			$parserOutput->setOutputFlag( ParserOutputFlags::VARY_REVISION );
+		}
+		// Record in templatelinks, so edits cause the page to be refreshed
+		$parserOutput->addTemplate( $title, $title->getArticleID(), $title->getLatestRevID() );
+
+		$categoryTitles = $page->getCategories();
+		$categoryNames = [];
+		foreach ( $categoryTitles as $title ) {
+			$categoryNames[] = $title->getText();
+		}
+		return [ self::makeArrayOneBased( $categoryNames ) ];
 	}
 
 	/**
