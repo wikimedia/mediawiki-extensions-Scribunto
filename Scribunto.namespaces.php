@@ -644,6 +644,11 @@ $namespaceNames['ur'] = [
 	829 => 'تبادلۂ_خیال_ماڈیول',
 ];
 
+$namespaceNames['uz'] = [
+	828 => 'Modul',
+	829 => 'Modul_munozarasi',
+];
+
 $namespaceNames['vi'] = [
 	828 => 'Mô_đun',
 	829 => 'Thảo_luận_Mô_đun',
