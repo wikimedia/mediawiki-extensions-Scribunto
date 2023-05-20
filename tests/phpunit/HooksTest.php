@@ -13,7 +13,7 @@ use Title;
 class HooksTest extends TestCase {
 	use MediaWikiCoversValidator;
 
-	public function provideContentHandlerDefaultModelFor() {
+	public static function provideContentHandlerDefaultModelFor() {
 		return [
 			[ 'Module:Foo', CONTENT_MODEL_SCRIBUNTO, true ],
 			[ 'Module:Foo/doc', null, true ],

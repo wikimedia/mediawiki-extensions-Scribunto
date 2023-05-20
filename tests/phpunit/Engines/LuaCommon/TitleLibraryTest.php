@@ -213,7 +213,7 @@ class TitleLibraryTest extends LuaEngineTestBase {
 		$this->assertSame( $flag, $engine->getParser()->getOutput()->getOutputFlag( ParserOutputFlags::VARY_PAGE_ID ) );
 	}
 
-	public function provideVaryPageId() {
+	public static function provideVaryPageId() {
 		return [
 			'by getCurrentTitle()' => [
 				'ScribuntoTestPage',

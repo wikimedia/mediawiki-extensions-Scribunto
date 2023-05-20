@@ -702,7 +702,7 @@ class LuaCommonTest extends LuaEngineTestBase {
 		$this->assertEquals( '1 2', $text, "Volatile wikitext was not cached" );
 	}
 
-	public function provideVolatileCaching() {
+	public static function provideVolatileCaching() {
 		return [
 			[ 'preprocess' ],
 			[ 'extensionTag' ],
