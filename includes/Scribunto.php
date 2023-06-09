@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use MWException;
+use ConfigException;
 use Parser;
 use Title;
 
@@ -30,19 +30,18 @@ class Scribunto {
 	 *
 	 * @param array $extraOptions Extra options to pass to the constructor,
 	 *  in addition to the configured options
-	 * @throws MWException
 	 * @return ScribuntoEngineBase
 	 */
 	public static function newDefaultEngine( $extraOptions = [] ) {
 		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
 		if ( !$wgScribuntoDefaultEngine ) {
-			throw new MWException(
+			throw new ConfigException(
 				'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set'
 			);
 		}
 
 		if ( !isset( $wgScribuntoEngineConf[$wgScribuntoDefaultEngine] ) ) {
-			throw new MWException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
+			throw new ConfigException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
 		}
 		$options = $extraOptions + $wgScribuntoEngineConf[$wgScribuntoDefaultEngine];
 		// @phan-suppress-next-line PhanTypeMismatchArgument false positive

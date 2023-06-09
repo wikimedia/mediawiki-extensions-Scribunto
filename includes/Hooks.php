@@ -30,7 +30,6 @@ use IContextSource;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
-use MWException;
 use ObjectCache;
 use OutputPage;
 use Parser;
@@ -106,8 +105,6 @@ class Hooks {
 	 * @param Parser $parser
 	 * @param PPFrame $frame
 	 * @param array $args
-	 * @throws MWException
-	 * @throws ScribuntoException
 	 * @return string
 	 */
 	public static function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
