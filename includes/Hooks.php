@@ -197,18 +197,26 @@ class Hooks implements
 					wfMessage( 'scribunto-common-no-details' )->inContentLanguage()->text()
 				);
 			}
+
+			// Index this error by a uniq ID so that we are independent of
+			// page parse order. (T300979)
+			// (The only way this will conflict is if two exceptions have
+			// exactly the same backtrace, in which case we really only need
+			// one copy of the backtrace!)
+			$uuid = substr( sha1( $html ), -8 );
 			$parserOutput = $parser->getOutput();
-			$errors = $parserOutput->getExtensionData( 'ScribuntoErrors' );
-			if ( $errors === null ) {
-				// On first hook use, set up error array and output
-				$errors = [];
-				$parser->addTrackingCategory( 'scribunto-common-error-category' );
-				$parserOutput->addModules( [ 'ext.scribunto.errors' ] );
-			}
-			$errors[] = $html;
-			$parserOutput->setExtensionData( 'ScribuntoErrors', $errors );
-			$parserOutput->addJsConfigVars( 'ScribuntoErrors', $errors );
-			$id = 'mw-scribunto-error-' . ( count( $errors ) - 1 );
+			$parserOutput->appendExtensionData( 'ScribuntoErrors', $uuid );
+			$parserOutput->setExtensionData( "ScribuntoErrors-$uuid", $html );
+
+			$parserOutput->appendJsConfigVar( 'ScribuntoErrors', $uuid );
+			$parserOutput->setJsConfigVar( "ScribuntoErrors-$uuid", $html );
+
+			// These methods are idempotent; doesn't hurt to call them every
+			// time.
+			$parser->addTrackingCategory( 'scribunto-common-error-category' );
+			$parserOutput->addModules( [ 'ext.scribunto.errors' ] );
+
+			$id = "mw-scribunto-error-$uuid";
 			$parserError = htmlspecialchars( $e->getMessage() );
 
 			// #iferror-compatible error element
