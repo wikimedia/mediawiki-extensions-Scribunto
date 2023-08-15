@@ -10,7 +10,7 @@
 	"license-name": "GPL-2.0-or-later AND MIT",
 	"type": "parserhook",
 	"requires": {
-		"MediaWiki": ">= 1.40.0"
+		"MediaWiki": ">= 1.41.0"
 	},
 	"APIModules": {
 		"scribunto-console": "MediaWiki\\Extension\\Scribunto\\ApiScribuntoConsole"
@@ -93,7 +93,7 @@
 		"ParserLimitReportFormat": "main",
 		"ParserClearState": "main",
 		"ParserCloned": "main",
-		"CodeEditorGetPageLanguage": "MediaWiki\\Extension\\Scribunto\\Hooks::getCodeLanguage",
+		"CodeEditorGetPageLanguage": "codeeditor",
 		"EditPage::showStandardInputs:options": "main",
 		"EditPage::showReadOnlyForm:initial": "main",
 		"EditPageBeforeEditButtons": "main",
@@ -104,6 +104,9 @@
 	"HookHandlers": {
 		"main": {
 			"class": "MediaWiki\\Extension\\Scribunto\\Hooks"
+		},
+		"codeeditor": {
+			"class": "MediaWiki\\Extension\\Scribunto\\CodeEditorHooks"
 		}
 	},
 	"namespaces": [

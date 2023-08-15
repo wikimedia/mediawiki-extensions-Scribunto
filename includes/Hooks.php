@@ -275,25 +275,6 @@ class Hooks implements
 	}
 
 	/**
-	 * @param Title $title
-	 * @param string &$languageCode
-	 * @return bool
-	 */
-	public static function getCodeLanguage( Title $title, &$languageCode ) {
-		global $wgScribuntoUseCodeEditor;
-		if ( $wgScribuntoUseCodeEditor && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO )
-		) {
-			$engine = Scribunto::newDefaultEngine();
-			if ( $engine->getCodeEditorLanguage() ) {
-				$languageCode = $engine->getCodeEditorLanguage();
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
 	 * Set the Scribunto content handler for modules
 	 *
 	 * @param Title $title
