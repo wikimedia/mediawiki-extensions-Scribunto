@@ -20,6 +20,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
+
 namespace MediaWiki\Extension\Scribunto;
 
 use Article;
@@ -28,7 +30,19 @@ use EmptyBagOStuff;
 use Html;
 use IContextSource;
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Hook\EditFilterMergedContentHook;
+use MediaWiki\Hook\EditPage__showReadOnlyForm_initialHook;
+use MediaWiki\Hook\EditPage__showStandardInputs_optionsHook;
+use MediaWiki\Hook\EditPageBeforeEditButtonsHook;
+use MediaWiki\Hook\ParserClearStateHook;
+use MediaWiki\Hook\ParserClonedHook;
+use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\Hook\ParserLimitReportFormatHook;
+use MediaWiki\Hook\ParserLimitReportPrepareHook;
+use MediaWiki\Hook\SoftwareInfoHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Hook\ArticleViewHeaderHook;
+use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\WikiMap\WikiMap;
 use ObjectCache;
 use OutputPage;
@@ -37,6 +51,7 @@ use ParserOutput;
 use PPFrame;
 use Status;
 use Title;
+use User;
 use UtfNormal\Validator;
 use Wikimedia\PSquare;
 use Xml;
@@ -44,8 +59,20 @@ use Xml;
 /**
  * Hooks for the Scribunto extension.
  */
-class Hooks {
-
+class Hooks implements
+	SoftwareInfoHook,
+	ParserFirstCallInitHook,
+	ParserLimitReportPrepareHook,
+	ParserLimitReportFormatHook,
+	ParserClearStateHook,
+	ParserClonedHook,
+	EditPage__showStandardInputs_optionsHook,
+	EditPage__showReadOnlyForm_initialHook,
+	EditPageBeforeEditButtonsHook,
+	EditFilterMergedContentHook,
+	ArticleViewHeaderHook,
+	ContentHandlerDefaultModelForHook
+{
 	/**
 	 * Define content handler constant upon extension registration
 	 */
@@ -59,7 +86,7 @@ class Hooks {
 	 * @param array &$software
 	 * @return bool
 	 */
-	public static function getSoftwareInfo( array &$software ) {
+	public function onSoftwareInfo( &$software ) {
 		$engine = Scribunto::newDefaultEngine();
 		$engine->setTitle( Title::makeTitle( NS_SPECIAL, 'Version' ) );
 		$engine->getSoftwareInfo( $software );
@@ -72,7 +99,7 @@ class Hooks {
 	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function setupParserHook( Parser $parser ) {
+	public function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'invoke', [ self::class, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
 		return true;
 	}
@@ -83,7 +110,7 @@ class Hooks {
 	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function clearState( Parser $parser ) {
+	public function onParserClearState( $parser ) {
 		Scribunto::resetParserEngine( $parser );
 		return true;
 	}
@@ -94,7 +121,7 @@ class Hooks {
 	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function parserCloned( Parser $parser ) {
+	public function onParserCloned( $parser ) {
 		$parser->scribunto_engine = null;
 		return true;
 	}
@@ -273,7 +300,7 @@ class Hooks {
 	 * @param string &$model
 	 * @return bool
 	 */
-	public static function contentHandlerDefaultModelFor( Title $title, &$model ) {
+	public function onContentHandlerDefaultModelFor( $title, &$model ) {
 		if ( $model === 'sanitized-css' ) {
 			// Let TemplateStyles override Scribunto
 			return true;
@@ -296,7 +323,7 @@ class Hooks {
 	 * @param ParserOutput $parserOutput
 	 * @return bool
 	 */
-	public static function reportLimitData( Parser $parser, ParserOutput $parserOutput ) {
+	public function onParserLimitReportPrepare( $parser, $parserOutput ) {
 		if ( Scribunto::isParserEnginePresent( $parser ) ) {
 			$engine = Scribunto::getParserEngine( $parser );
 			$engine->reportLimitData( $parserOutput );
@@ -314,7 +341,7 @@ class Hooks {
 	 * @param bool $localize
 	 * @return bool
 	 */
-	public static function formatLimitData( $key, &$value, &$report, $isHTML, $localize ) {
+	public function onParserLimitReportFormat( $key, &$value, &$report, $isHTML, $localize ) {
 		$engine = Scribunto::newDefaultEngine();
 		return $engine->formatLimitData( $key, $value, $report, $isHTML, $localize );
 	}
@@ -327,7 +354,7 @@ class Hooks {
 	 * @param int &$tab Current tabindex
 	 * @return bool
 	 */
-	public static function showStandardInputsOptions( EditPage $editor, OutputPage $output, &$tab ) {
+	public function onEditPage__showStandardInputs_options( $editor, $output, &$tab ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$output->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
@@ -342,7 +369,7 @@ class Hooks {
 	 * @param OutputPage $output
 	 * @return bool
 	 */
-	public static function showReadOnlyFormInitial( EditPage $editor, OutputPage $output ) {
+	public function onEditPage__showReadOnlyForm_initial( $editor, $output ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$output->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterContent .= '<div id="mw-scribunto-console"></div>';
@@ -358,7 +385,7 @@ class Hooks {
 	 * @param int &$tabindex Current tabindex
 	 * @return bool
 	 */
-	public static function beforeEditButtons( EditPage $editor, array &$buttons, &$tabindex ) {
+	public function onEditPageBeforeEditButtons( $editor, &$buttons, &$tabindex ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			unset( $buttons['preview'] );
 		}
@@ -369,10 +396,13 @@ class Hooks {
 	 * @param IContextSource $context
 	 * @param Content $content
 	 * @param Status $status
+	 * @param string $summary
+	 * @param User $user
+	 * @param bool $minoredit
 	 * @return bool
 	 */
-	public static function validateScript( IContextSource $context, Content $content,
-		Status $status
+	public function onEditFilterMergedContent( IContextSource $context, Content $content,
+		Status $status, $summary, User $user, $minoredit
 	) {
 		$title = $context->getTitle();
 
@@ -413,7 +443,7 @@ class Hooks {
 	 * @param bool &$pcache
 	 * @return bool
 	 */
-	public static function showDocPageHeader( Article $article, &$outputDone, &$pcache ) {
+	public function onArticleViewHeader( $article, &$outputDone, &$pcache ) {
 		$title = $article->getTitle();
 		if ( Scribunto::isDocPage( $title, $forModule ) ) {
 			$article->getContext()->getOutput()->addHTML(

@@ -32,7 +32,7 @@ class HooksTest extends TestCase {
 	) {
 		$title = Title::newFromText( $name );
 		$model = $before;
-		$ret = Hooks::contentHandlerDefaultModelFor( $title, $model );
+		$ret = ( new Hooks )->onContentHandlerDefaultModelFor( $title, $model );
 		$this->assertSame( $retVal, $ret );
 		$this->assertSame( $expected, $model );
 	}
