@@ -10,11 +10,11 @@ use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use ObjectCache;
 use Parser;
 use PPFrame;
 use RuntimeException;
-use Title;
 use Wikimedia\ScopedCallback;
 
 abstract class LuaEngine extends ScribuntoEngineBase {

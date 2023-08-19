@@ -8,8 +8,8 @@ use Exception;
 use Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MWTimestamp;
-use Title;
 use User;
 
 class LanguageLibrary extends LibraryBase {
