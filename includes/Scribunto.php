@@ -3,8 +3,8 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use ConfigException;
+use MediaWiki\Title\Title;
 use Parser;
-use Title;
 
 /**
  * Static function collection for general extension support.

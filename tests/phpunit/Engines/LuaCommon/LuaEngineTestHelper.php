@@ -7,6 +7,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Parser;
 use ParserOptions;
 use PHPUnit\Framework\DataProviderTestSuite;
@@ -14,7 +15,6 @@ use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\WarningTestCase;
 use PHPUnit\Util\Test;
 use ReflectionClass;
-use Title;
 
 /**
  * Trait that helps LuaEngineTestBase and LuaEngineUnitTestBase

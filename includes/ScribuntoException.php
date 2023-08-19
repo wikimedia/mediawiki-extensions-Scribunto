@@ -3,8 +3,8 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use Exception;
+use MediaWiki\Title\Title;
 use Status;
-use Title;
 
 /**
  * An exception class which represents an error in the script. This does not

@@ -3,9 +3,9 @@
 namespace MediaWiki\Extension\Scribunto\Tests;
 
 use MediaWiki\Extension\Scribunto\Hooks;
+use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
 use Monolog\Test\TestCase;
-use Title;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Hooks

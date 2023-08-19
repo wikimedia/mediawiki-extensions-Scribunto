@@ -6,7 +6,7 @@ use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
-use Title;
+use MediaWiki\Title\Title;
 use WikitextContent;
 
 /**
