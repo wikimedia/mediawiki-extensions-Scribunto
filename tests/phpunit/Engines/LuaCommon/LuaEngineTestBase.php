@@ -16,6 +16,8 @@ use PHPUnit\Framework\TestSuite;
  * - $moduleName: Name of the module being tested
  * - getTestModules(): Add a mapping from $moduleName to the file containing
  *   the code.
+ *
+ * Also, your test must be in the Database group.
  */
 abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	use LuaEngineTestHelper;
