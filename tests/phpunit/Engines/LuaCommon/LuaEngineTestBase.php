@@ -98,7 +98,11 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * @return Title
 	 */
 	protected function getTestTitle() {
-		return Title::newMainPage();
+		// XXX This should use a dedicated test page, not the main page
+		$t = Title::newMainPage();
+		// Force content model to avoid DB queries
+		$t->setContentModel( CONTENT_MODEL_WIKITEXT );
+		return $t;
 	}
 
 	public function toString(): string {
