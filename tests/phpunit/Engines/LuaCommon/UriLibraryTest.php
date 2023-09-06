@@ -4,8 +4,6 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\UriLibrary
- *
- * @group Database
  */
 class UriLibraryTest extends LuaEngineTestBase {
 	/** @inheritDoc */
