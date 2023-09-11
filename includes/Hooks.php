@@ -207,7 +207,7 @@ class Hooks implements
 			}
 			$errors[] = $html;
 			$parserOutput->setExtensionData( 'ScribuntoErrors', $errors );
-			$parserOutput->setJsConfigVar( 'ScribuntoErrors', $errors );
+			$parserOutput->addJsConfigVars( 'ScribuntoErrors', $errors );
 			$id = 'mw-scribunto-error-' . ( count( $errors ) - 1 );
 			$parserError = htmlspecialchars( $e->getMessage() );
 
