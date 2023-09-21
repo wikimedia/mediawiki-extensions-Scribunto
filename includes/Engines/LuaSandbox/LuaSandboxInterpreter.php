@@ -45,7 +45,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 				'The luasandbox extension is not present, this engine cannot be used.' );
 		}
 
-		if ( !is_callable( 'LuaSandbox::getVersionInfo' ) ) {
+		if ( !is_callable( [ LuaSandbox::class, 'getVersionInfo' ] ) ) {
 			throw new LuaInterpreterBadVersionError(
 				'The luasandbox extension is too old (version 1.6+ is required), ' .
 					'this engine cannot be used.'
