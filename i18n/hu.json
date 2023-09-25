@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bean49",
 			"Misibacsi",
 			"TK-999",
 			"Tacsipacsi",
@@ -48,7 +49,7 @@
 	"scribunto-luastandalone-gone": "Lua-hiba: Belső hiba: Az értelmező már kilépett.",
 	"scribunto-luastandalone-signal": "Lua-hiba: Belső hiba: Az értelmező „$2” állapotüzenettel tért vissza.",
 	"scribunto-luastandalone-exited": "Lua-hiba: Belső hiba: Az értelmező $2 státusszal ért lépett ki.",
-	"scribunto-module-with-errors-category": "Hibát okozó Scribunto-modulok",
+	"scribunto-module-with-errors-category": "Hibás modulok",
 	"scribunto-module-with-errors-category-desc": "A modul hibát tartalmaz.",
 	"scribunto-limitreport-timeusage": "Lua-időhasználat",
 	"scribunto-limitreport-timeusage-value": "$1/$2 másodperc",
