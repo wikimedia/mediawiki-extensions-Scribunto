@@ -41,6 +41,8 @@ trait LuaEngineTestHelper {
 	];
 	/** @var int[] */
 	protected $templateLoadCounts = [];
+	/** @var array */
+	protected $extraModules = [];
 
 	/**
 	 * Create a PHPUnit test suite to run the test against all engines
