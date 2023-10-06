@@ -647,7 +647,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 			$status = proc_get_status( $this->proc );
 			// XXX: Should proc_get_status docs be changed so that
 			// its documented as possibly returning false?
-			// @phan-suppress-next-line PhanTypeComparisonFromArray
+			'@phan-var array|false $status';
 			if ( $status === false ) {
 				// WTF? Let the caller throw an appropriate error.
 				return;
