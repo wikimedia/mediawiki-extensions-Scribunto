@@ -57,7 +57,7 @@ class Scribunto {
 	 * @return ScribuntoEngineBase
 	 */
 	public static function getParserEngine( Parser $parser ) {
-		if ( empty( $parser->scribunto_engine ) ) {
+		if ( !isset( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine = self::newDefaultEngine( [ 'parser' => $parser ] );
 			$parser->scribunto_engine->setTitle( $parser->getTitle() );
 		}
@@ -71,7 +71,7 @@ class Scribunto {
 	 * @return bool
 	 */
 	public static function isParserEnginePresent( Parser $parser ) {
-		return !empty( $parser->scribunto_engine );
+		return isset( $parser->scribunto_engine );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Scribunto {
 	 * @param Parser $parser
 	 */
 	public static function resetParserEngine( Parser $parser ) {
-		if ( !empty( $parser->scribunto_engine ) ) {
+		if ( isset( $parser->scribunto_engine ) ) {
 			$parser->scribunto_engine->destroy();
 			$parser->scribunto_engine = null;
 		}
