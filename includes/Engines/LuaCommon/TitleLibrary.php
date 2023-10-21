@@ -392,7 +392,7 @@ class TitleLibrary extends LibraryBase {
 	 * @return array
 	 */
 	private static function makeArrayOneBased( $arr ) {
-		if ( empty( $arr ) ) {
+		if ( !$arr ) {
 			return $arr;
 		}
 		return array_combine( range( 1, count( $arr ) ), array_values( $arr ) );
