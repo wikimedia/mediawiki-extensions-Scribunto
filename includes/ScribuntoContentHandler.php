@@ -120,22 +120,27 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$revId = $cpoParams->getRevId();
 		$generateHtml = $cpoParams->getGenerateHtml();
 		$parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
-		$text = $content->getText();
-
-		// Get documentation, if any
-		$parserOutput = new ParserOutput();
+		$sourceCode = $content->getText();
 		// @phan-suppress-next-line PhanTypeMismatchArgument
-		$doc = Scribunto::getDocPage( $title );
-		if ( $doc ) {
-			$msg = wfMessage(
-				$doc->exists() ? 'scribunto-doc-page-show' : 'scribunto-doc-page-does-not-exist',
-				$doc->getPrefixedText()
-			)->inContentLanguage();
+		$docTitle = Scribunto::getDocPage( $title );
+		$docMsg = $docTitle ? wfMessage(
+			$docTitle->exists() ? 'scribunto-doc-page-show' : 'scribunto-doc-page-does-not-exist',
+			$docTitle->getPrefixedText()
+		)->inContentLanguage() : null;
 
-			if ( !$msg->isDisabled() ) {
-				// We need the ParserOutput for categories and such, so we
-				// can't use $msg->parse().
-				$docViewLang = $doc->getPageViewLanguage();
+		// Accumulate the following output:
+		// - docs (if any)
+		// - validation error (if any)
+		// - highlighted source code
+		$parserOutput = new ParserOutput();
+		$html = '';
+
+		if ( $docMsg ) {
+			if ( !$docMsg->isDisabled() ) {
+				// In order to allow the doc page to categorize the Module page,
+				// we need access to the ParserOutput of the doc page.
+				// This is why we can't simply use $docMsg->parse().
+				$docViewLang = $docTitle->getPageViewLanguage();
 				$dir = $docViewLang->getDir();
 
 				// Code is forced to be ltr, but the documentation can be rtl.
@@ -153,18 +158,21 @@ class ScribuntoContentHandler extends CodeContentHandler {
 					],
 					// Line breaks are needed so that wikitext would be
 					// appropriately isolated for correct parsing. See Bug 60664.
-					"\n" . $msg->plain() . "\n"
+					"\n" . $docMsg->plain() . "\n"
 				);
 
 				if ( $parserOptions->getTargetLanguage() === null ) {
-					$parserOptions->setTargetLanguage( $doc->getPageLanguage() );
+					$parserOptions->setTargetLanguage( $docTitle->getPageLanguage() );
 				}
 				$parserOutput = $parser->parse( $docWikitext, $page, $parserOptions, true, true, $revId );
+				$html .= $parserOutput->getRawText();
 			}
+		}
 
-			// Mark the doc page as a transclusion, so we get purged when it
-			// changes.
-			$parserOutput->addTemplate( $doc, $doc->getArticleID(), $doc->getLatestRevID() );
+		if ( $docTitle ) {
+			// Mark the doc page as transcluded, so that edits to the doc page will
+			// purge this Module page.
+			$parserOutput->addTemplate( $docTitle, $docTitle->getArticleID(), $docTitle->getLatestRevID() );
 		}
 
 		// Validate the script, and include an error message and tracking
@@ -172,17 +180,24 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$status = $this->validate( $content, $title );
 		if ( !$status->isOK() ) {
-			$parserOutput->setText( $parserOutput->getRawText() .
-				Html::rawElement( 'div', [ 'class' => 'errorbox' ],
-					$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
-				)
+			// FIXME: This uses a Status object, which in turn uses global RequestContext
+			// to localize the message. This would poison the ParserCache.
+			//
+			// But, this code is almost unreachable in practice because there has
+			// been no way to create a Module page with invalid content since 2014
+			// (we validate and abort on edit, undelete, content-model change etc.).
+			// See also T304381.
+			$html .= Html::rawElement( 'div', [ 'class' => 'errorbox' ],
+				$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 			);
 			$trackingCategories = MediaWikiServices::getInstance()->getTrackingCategories();
 			$trackingCategories->addTrackingCategory( $parserOutput, 'scribunto-module-with-errors-category', $page );
 		}
 
 		if ( !$generateHtml ) {
-			// We don't need the actual HTML
+			// The doc page and validation error produce metadata and must happen
+			// unconditionally. The next step (syntax highlight) can be skipped if
+			// we don't actually need the HTML.
 			$parserOutput->setText( '' );
 			return;
 		}
@@ -190,41 +205,39 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$engine = Scribunto::newDefaultEngine();
 		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$engine->setTitle( $title );
-		if ( $this->highlight( $text, $parserOutput, $engine ) ) {
-			return;
-		}
+		$codeLang = $engine->getGeSHiLanguage();
+		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
 
-		// No GeSHi, or GeSHi can't parse it, use plain <pre>
-		$parserOutput->setText( $parserOutput->getRawText() .
-			"<pre class='mw-code mw-script' dir='ltr'>\n" .
-			htmlspecialchars( $text ) .
-			"\n</pre>\n"
-		);
+		$parserOutput->setText( $html );
 	}
 
 	/**
-	 * Adds syntax highlighting to the output (or do not touch it and return false).
-	 * @param string $text
+	 * Get syntax highlighted code and add metadata to output.
+	 *
+	 * If SyntaxHighlight is not possible, falls back to a `<pre>` element.
+	 *
+	 * @param string $source Source code
 	 * @param ParserOutput $parserOutput
-	 * @param ScribuntoEngineBase $engine
-	 * @return bool Success status
+	 * @param string|false $codeLang
+	 * @return string HTML
 	 */
-	protected function highlight( $text, ParserOutput $parserOutput, ScribuntoEngineBase $engine ) {
+	private function highlight( $source, ParserOutput $parserOutput, $codeLang ) {
 		global $wgScribuntoUseGeSHi;
-		$language = $engine->getGeSHiLanguage();
 		if (
-			$wgScribuntoUseGeSHi && $language && ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' )
+			$wgScribuntoUseGeSHi && $codeLang && ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' )
 		) {
-			$status = SyntaxHighlight::highlight( $text, $language, [ 'line' => true, 'linelinks' => 'L' ] );
+			$status = SyntaxHighlight::highlight( $source, $codeLang, [ 'line' => true, 'linelinks' => 'L' ] );
 			if ( $status->isGood() ) {
 				// @todo replace addModuleStyles line with the appropriate call on
 				// SyntaxHighlight once one is created
 				$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
 				$parserOutput->addModules( [ 'ext.pygments.linenumbers' ] );
-				$parserOutput->setText( $parserOutput->getRawText() . $status->getValue() );
-				return true;
+				return $status->getValue();
 			}
 		}
-		return false;
+
+		return "<pre class='mw-code mw-script' dir='ltr'>\n" .
+			htmlspecialchars( $source ) .
+			"\n</pre>\n";
 	}
 }
