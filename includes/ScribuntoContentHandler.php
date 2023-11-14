@@ -132,41 +132,36 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		// - docs (if any)
 		// - validation error (if any)
 		// - highlighted source code
-		$parserOutput = new ParserOutput();
 		$html = '';
 
-		if ( $docMsg ) {
-			if ( !$docMsg->isDisabled() ) {
-				// In order to allow the doc page to categorize the Module page,
-				// we need access to the ParserOutput of the doc page.
-				// This is why we can't simply use $docMsg->parse().
-				$docViewLang = $docTitle->getPageViewLanguage();
-				$dir = $docViewLang->getDir();
-
-				// Code is forced to be ltr, but the documentation can be rtl.
-				// Correct direction class is needed for correct formatting.
-				// The possible classes are
-				// mw-content-ltr or mw-content-rtl
-				$dirClass = "mw-content-$dir";
-
-				$docWikitext = Html::rawElement(
-					'div',
-					[
-						'lang' => $docViewLang->getHtmlCode(),
-						'dir' => $dir,
-						'class' => $dirClass,
-					],
-					// Line breaks are needed so that wikitext would be
-					// appropriately isolated for correct parsing. See Bug 60664.
-					"\n" . $docMsg->plain() . "\n"
-				);
-
-				if ( $parserOptions->getTargetLanguage() === null ) {
-					$parserOptions->setTargetLanguage( $docTitle->getPageLanguage() );
-				}
-				$parserOutput = $parser->parse( $docWikitext, $page, $parserOptions, true, true, $revId );
-				$html .= $parserOutput->getRawText();
+		if ( $docMsg && !$docMsg->isDisabled() ) {
+			// In order to allow the doc page to categorize the Module page,
+			// we need access to the ParserOutput of the doc page.
+			// This is why we can't simply use $docMsg->parse().
+			//
+			// We also can't use use ParserOutput::getText and ParserOutput::collectMetadata
+			// to merge the result into $parserOutput, because doing so would remove the
+			// ability for Skin/OutputPage to (post-cache) decide on the ParserOutput::getText
+			// parameters edit section links, TOC, and user language etc.
+			//
+			// So instead, this uses the doc page's ParserOutput as the actual ParserOutput
+			// we return, and add the other stuff to it. This is the only way to leave
+			// skin-decisions undecided and in-tact.
+			if ( $parserOptions->getTargetLanguage() === null ) {
+				$parserOptions->setTargetLanguage( $docTitle->getPageLanguage() );
 			}
+			$parserOutput = $parser->parse( $docMsg->plain(), $page, $parserOptions, true, true, $revId );
+
+			// Code is displayed and syntax highlighted as LTR, but the
+			// documentation can be RTL on RTL-language wikis.
+			//
+			// As long as we leave the $parserOutput in-tact, it will preserve the appropiate
+			// lang, dir, and class attributes (mw-content-ltr or mw-content-rtl) as needed
+			// for correct styling and accessiblity of the documentation page content.
+			// These will be applied when OutputPage eventually calls ParserOutput::getText()
+			$html .= $parserOutput->getRawText();
+		} else {
+			$parserOutput = new ParserOutput();
 		}
 
 		if ( $docTitle ) {
