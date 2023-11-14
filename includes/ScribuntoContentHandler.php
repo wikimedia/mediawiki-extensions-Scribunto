@@ -227,8 +227,11 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			}
 		}
 
-		return "<pre class='mw-code mw-script' dir='ltr'>\n" .
-			htmlspecialchars( $source ) .
-			"\n</pre>\n";
+		return Html::element( 'pre', [
+			// Same as CodeContentHandler
+			'lang' => 'en',
+			'dir' => 'ltr',
+			'class' => 'mw-code mw-script'
+		], "\n$source\n" );
 	}
 }
