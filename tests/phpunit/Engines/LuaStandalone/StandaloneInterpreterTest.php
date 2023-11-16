@@ -13,6 +13,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreterFunction;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaInterpreterTestBase;
+use MediaWiki\Title\Title;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -37,7 +38,9 @@ class StandaloneInterpreterTest extends LuaInterpreterTestBase {
 
 	protected function newInterpreter( $opts = [] ) {
 		$opts += $this->stdOpts;
-		$engine = new LuaStandaloneEngine( $this->stdOpts );
+		$engine = new LuaStandaloneEngine( $this->stdOpts + [
+			'title' => Title::makeTitle( NS_MODULE, 'StandaloneInterpreterTest' ),
+		] );
 		return new LuaStandaloneInterpreter( $engine, $opts );
 	}
 

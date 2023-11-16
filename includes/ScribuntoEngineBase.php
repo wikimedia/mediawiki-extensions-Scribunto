@@ -155,6 +155,8 @@ abstract class ScribuntoEngineBase {
 		$params = [];
 		if ( $this->title ) {
 			$params['title'] = $this->title;
+		} else {
+			wfDeprecated( __METHOD__ . ' without valid title for engine', '1.42' );
 		}
 		return $params;
 	}
