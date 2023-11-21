@@ -12,7 +12,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreterFunction;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
-use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaInterpreterTest;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaInterpreterTestBase;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -21,7 +21,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group Standalone
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneInterpreter
  */
-class StandaloneInterpreterTest extends LuaInterpreterTest {
+class StandaloneInterpreterTest extends LuaInterpreterTestBase {
 	/** @var array */
 	public $stdOpts = [
 		'errorFile' => null,

@@ -8,7 +8,7 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWikiCoversValidator;
 use PHPUnit\Framework\TestCase;
 
-abstract class LuaInterpreterTest extends TestCase {
+abstract class LuaInterpreterTestBase extends TestCase {
 	use MediaWikiCoversValidator;
 
 	/**
