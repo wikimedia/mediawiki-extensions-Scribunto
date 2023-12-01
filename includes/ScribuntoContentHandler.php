@@ -96,11 +96,10 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	public function validate( TextContent $content, PageIdentity $page ) {
 		if ( !( $page instanceof Title ) ) {
 			$titleFactory = MediaWikiServices::getInstance()->getTitleFactory();
-			$page = $titleFactory->castFromPageIdentity( $page );
+			$page = $titleFactory->newFromPageIdentity( $page );
 		}
 
 		$engine = Scribunto::newDefaultEngine();
-		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$engine->setTitle( $page );
 		return $engine->validate( $content->getText(), $page->getPrefixedDBkey() );
 	}
@@ -115,13 +114,12 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	) {
 		'@phan-var ScribuntoContent $content';
 		$page = $cpoParams->getPage();
-		$title = Title::castFromPageReference( $page );
+		$title = Title::newFromPageReference( $page );
 		$parserOptions = $cpoParams->getParserOptions();
 		$revId = $cpoParams->getRevId();
 		$generateHtml = $cpoParams->getGenerateHtml();
 		$parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
 		$sourceCode = $content->getText();
-		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$docTitle = Scribunto::getDocPage( $title );
 		$docMsg = $docTitle ? wfMessage(
 			$docTitle->exists() ? 'scribunto-doc-page-show' : 'scribunto-doc-page-does-not-exist',
@@ -172,7 +170,6 @@ class ScribuntoContentHandler extends CodeContentHandler {
 
 		// Validate the script, and include an error message and tracking
 		// category if it's invalid
-		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$status = $this->validate( $content, $title );
 		if ( !$status->isOK() ) {
 			// FIXME: This uses a Status object, which in turn uses global RequestContext
@@ -198,7 +195,6 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		}
 
 		$engine = Scribunto::newDefaultEngine();
-		// @phan-suppress-next-line PhanTypeMismatchArgument
 		$engine->setTitle( $title );
 		$codeLang = $engine->getGeSHiLanguage();
 		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
