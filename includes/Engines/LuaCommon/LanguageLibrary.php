@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Language;
+use LanguageCode;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
@@ -36,6 +37,7 @@ class LanguageLibrary extends LibraryBase {
 			'fetchLanguageName',
 			'fetchLanguageNames',
 			'getFallbacksFor',
+			'toBcp47Code',
 		];
 		$methods = [
 			'lcfirst',
@@ -160,6 +162,18 @@ class LanguageLibrary extends LibraryBase {
 		if ( count( $ret ) ) {
 			$ret = array_combine( range( 1, count( $ret ) ), $ret );
 		}
+		return [ $ret ];
+	}
+
+	/**
+	 * Handler for toBcp47Code
+	 * @internal
+	 * @param string $code a MediaWiki-internal code
+	 * @return string[] a BCP-47 language tag
+	 */
+	public function toBcp47Code( $code ) {
+		$this->checkType( 'toBcp47Code', 1, $code, 'string' );
+		$ret = LanguageCode::bcp47( $code );
 		return [ $ret ];
 	}
 
