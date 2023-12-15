@@ -213,7 +213,7 @@ local tests = {
 	},
 	{ name = '.isTalkPage', func = prop_foreach,
 		args = { 'isTalkPage' },
-		expect = { false, false, false, true, false, true, true }
+		expect = { false, false, nil, true, false, true, true }
 	},
 	{ name = '.isSubpage', func = prop_foreach,
 		args = { 'isSubpage' },
@@ -264,11 +264,11 @@ local tests = {
 	},
 	{ name = '.subjectNsText', func = prop_foreach,
 		args = { 'subjectNsText' },
-		expect = { '', 'Module', '', '', '', 'Module', 'Module' }
+		expect = { '', 'Module', nil, '', '', 'Module', 'Module' }
 	},
 	{ name = '.canTalk', func = prop_foreach,
 		args = { 'canTalk' },
-		expect = { true, true, true, true, true, true, true }
+		expect = { true, true, nil, true, true, true, true }
 	},
 	{ name = '.talkNsText', func = prop_foreach,
 		args = { 'talkNsText' },

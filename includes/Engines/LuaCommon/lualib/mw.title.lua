@@ -54,6 +54,9 @@ local function makeTitleObject( data )
 
 	local obj = {}
 	local checkSelf = util.makeCheckSelfFunction( 'mw.title', 'title', obj, 'title object' );
+	-- For external (interwiki) links, data.namespace is unknown and we'll
+	-- end up just using the properties for the default namespace here.
+	-- We'll fix it up below to avoid misleading the caller.
 	local ns = mw.site.namespaces[data.namespace]
 
 	local isCurrentTitle = data.isCurrentTitle
@@ -67,11 +70,20 @@ local function makeTitleObject( data )
 
 	if ns.talk ~= nil then
 		data.canTalk = true
-		if not data.isExternal then
-			data.talkNsText = ns.talk.name
-		end
+		data.talkNsText = ns.talk.name
 	else
 		data.canTalk = false
+	end
+
+	if data.isExternal then
+		-- For interwiki links we don't know the true value of any of these
+		-- properties, so nil them out.
+		data.isContentPage = nil
+		data.isSpecialPage = nil
+		data.isTalkPage = nil
+		data.canTalk = nil
+		data.subjectNsText = nil
+		data.talkNsText = nil
 	end
 
 	data.prefixedText = data.text
