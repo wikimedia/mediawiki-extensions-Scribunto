@@ -133,7 +133,6 @@ local function bit_and(m, n)
 end
 
 local function bit_not(n)
-
  local tbl = to_bits(n)
  local size = math.max(table.getn(tbl), 32)
  for i = 1, size do
@@ -213,8 +212,7 @@ end
 local function bit_xor2(m, n)
  local rhs = bit_or(bit_not(m), bit_not(n))
  local lhs = bit_or(m, n)
- local rslt = bit_and(lhs, rhs)
- return rslt
+ return bit_and(lhs, rhs)
 end
 
 --------------------
@@ -249,16 +247,3 @@ for i = 1, 100 do
  end
 end
 --]]
-
-
-
-
-
-
-
-
-
-
-
-
-

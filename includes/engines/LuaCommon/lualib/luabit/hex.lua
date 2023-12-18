@@ -36,11 +36,11 @@ local function to_hex(n)
   n = bit.tonumb(n)
  end
 
- hex_tbl = {'A', 'B', 'C', 'D', 'E', 'F'}
- hex_str = ""
+ local hex_tbl = {'A', 'B', 'C', 'D', 'E', 'F'}
+ local hex_str = ""
 
  while(n ~= 0) do
-  last = math.mod(n, 16)
+  local last = math.mod(n, 16)
   if(last < 10) then
    hex_str = tostring(last) .. hex_str
   else
@@ -65,9 +65,7 @@ local function to_dec(hex)
   error("wrong hex format, should lead by 0x or 0X.")
  end
 
- v = tonumber(string.sub(hex, 3), 16)
-
- return v;
+ return tonumber(string.sub(hex, 3), 16)
 end
 
 --------------------
@@ -87,7 +85,6 @@ d = 4341688
 h = to_hex(d)
 print(h)
 print(to_dec(h))
-
 
 for i = 1, 100000 do
  h = hex.to_hex(i)
