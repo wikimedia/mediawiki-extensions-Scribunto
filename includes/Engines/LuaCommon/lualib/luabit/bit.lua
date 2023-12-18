@@ -14,14 +14,14 @@ How to use:
  bit.brshift(n, bits) -- right shift (n >> bits)
  bit.blshift(n, bits) -- left shift (n << bits)
  bit.blogic_rshift(n, bits) -- logic right shift(zero fill >>>)
- 
+
 Please note that bit.brshift and bit.blshift only support number within
 32 bits.
 
 2 utility functions are provided too:
  bit.tobits(n) -- convert n into a bit table(which is a 1/0 sequence)
                -- high bits first
- bit.tonumb(bit_tbl) -- convert a bit table into a number 
+ bit.tonumb(bit_tbl) -- convert a bit table into a number
 -------------------
 
 Under the MIT license.
@@ -75,7 +75,7 @@ local function tbl_to_number(tbl)
   rslt = rslt + tbl[i]*power
   power = power*2
  end
- 
+
  return rslt
 end
 
@@ -110,14 +110,14 @@ local function bit_or(m, n)
    tbl[i] = 1
   end
  end
- 
+
  return tbl_to_number(tbl)
 end
 
 local function bit_and(m, n)
  local tbl_m = to_bits(m)
  local tbl_n = to_bits(n)
- expand(tbl_m, tbl_n) 
+ expand(tbl_m, tbl_n)
 
  local tbl = {}
  local rslt = math.max(table.getn(tbl_m), table.getn(tbl_n))
@@ -133,11 +133,11 @@ local function bit_and(m, n)
 end
 
 local function bit_not(n)
- 
+
  local tbl = to_bits(n)
  local size = math.max(table.getn(tbl), 32)
  for i = 1, size do
-  if(tbl[i] == 1) then 
+  if(tbl[i] == 1) then
    tbl[i] = 0
   else
    tbl[i] = 1
@@ -149,7 +149,7 @@ end
 local function bit_xor(m, n)
  local tbl_m = to_bits(m)
  local tbl_n = to_bits(n)
- expand(tbl_m, tbl_n) 
+ expand(tbl_m, tbl_n)
 
  local tbl = {}
  local rslt = math.max(table.getn(tbl_m), table.getn(tbl_n))
@@ -160,7 +160,7 @@ local function bit_xor(m, n)
    tbl[i] = 0
   end
  end
- 
+
  --table.foreach(tbl, print)
 
  return tbl_to_number(tbl)
@@ -168,7 +168,7 @@ end
 
 local function bit_rshift(n, bits)
  check_int(n)
- 
+
  local high_bit = 0
  if(n < 0) then
   -- negative
@@ -198,7 +198,7 @@ end
 
 local function bit_lshift(n, bits)
  check_int(n)
- 
+
  if(n < 0) then
   -- negative
   n = bit_not(math.abs(n)) + 1
