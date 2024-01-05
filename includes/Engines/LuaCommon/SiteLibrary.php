@@ -4,9 +4,9 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use MediaWiki\Category\Category;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\SiteStats\SiteStats;
+use MediaWiki\Specials\SpecialVersion;
 use MediaWiki\Title\Title;
-use SiteStats;
-use SpecialVersion;
 
 class SiteLibrary extends LibraryBase {
 	/** @var string|null */

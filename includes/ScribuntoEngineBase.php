@@ -24,10 +24,10 @@ namespace MediaWiki\Extension\Scribunto;
 
 use MediaWiki\Extension\Scribunto\Hooks\HookRunner;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use Parser;
-use ParserOutput;
-use Status;
 
 /**
  * Base class for all script engines. Includes all code

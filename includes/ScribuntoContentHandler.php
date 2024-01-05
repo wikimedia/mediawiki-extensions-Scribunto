@@ -5,15 +5,15 @@ namespace MediaWiki\Extension\Scribunto;
 use CodeContentHandler;
 use Content;
 use ExtensionRegistry;
-use Html;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\ValidationParams;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Status\Status;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MediaWiki\Title\Title;
-use ParserOutput;
-use Status;
 use TextContent;
 
 /**

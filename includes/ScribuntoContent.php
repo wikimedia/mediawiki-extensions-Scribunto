@@ -11,8 +11,8 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
+use MediaWiki\Title\Title;
 use TextContent;
-use Title;
 
 /**
  * Represents the content of a Scribunto script page

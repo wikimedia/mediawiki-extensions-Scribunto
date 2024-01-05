@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use ApiBase;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use ObjectCache;

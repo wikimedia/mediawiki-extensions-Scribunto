@@ -10,8 +10,8 @@ use LanguageCode;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MWTimestamp;
-use User;
+use MediaWiki\User\User;
+use MediaWiki\Utils\MWTimestamp;
 use Wikimedia\RequestTimeout\TimeoutException;
 
 class LanguageLibrary extends LibraryBase {

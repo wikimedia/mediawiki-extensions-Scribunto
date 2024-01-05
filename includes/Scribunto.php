@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use ConfigException;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Title\Title;
 use Parser;
 
