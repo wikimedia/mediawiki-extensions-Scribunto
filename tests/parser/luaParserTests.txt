@@ -275,7 +275,7 @@ extension[ScribuntoErrors-5e10d413]="<p>Script error: No such module \"foo\".</p
 <p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-5e10d413">Script error: No such module &quot;foo&quot;.</span></strong>
 </p>
 !! html/parsoid
-<p><strong class="error" about="#mwt1" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:foo","function":"invoke"},"params":{"1":{"wt":"bar"}},"i":0}}]}'><span class="scribunto-error" id="mw-scribunto-error-0">Script error: No such module <span typeof="mw:Entity">"</span>foo<span typeof="mw:Entity">"</span>.</span></strong></p>
+<p><strong class="error" about="#mwt1" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:foo","function":"invoke"},"params":{"1":{"wt":"bar"}},"i":0}}]}'><span class="scribunto-error" id="mw-scribunto-error-5e10d413">Script error: No such module <span typeof="mw:Entity">"</span>foo<span typeof="mw:Entity">"</span>.</span></strong></p>
 !! end
 
 !! test
@@ -293,7 +293,7 @@ extension[ScribuntoErrors-d64a22ba]="<p>Script error: The function \"blah\" does
 <p><strong class="error"><span class="scribunto-error" id="mw-scribunto-error-d64a22ba">Script error: The function &quot;blah&quot; does not exist.</span></strong>
 </p>
 !! html/parsoid
-<p><strong class="error" about="#mwt1" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"blah"}},"i":0}}]}'><span class="scribunto-error" id="mw-scribunto-error-0">Script error: The function <span typeof="mw:Entity">"</span>blah<span typeof="mw:Entity">"</span> does not exist.</span></strong></p>
+<p><strong class="error" about="#mwt1" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"blah"}},"i":0}}]}'><span class="scribunto-error" id="mw-scribunto-error-d64a22ba">Script error: The function <span typeof="mw:Entity">"</span>blah<span typeof="mw:Entity">"</span> does not exist.</span></strong></p>
 !! end
 
 !! test
