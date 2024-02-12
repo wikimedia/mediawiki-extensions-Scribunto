@@ -45,7 +45,7 @@
 	"scribunto-luastandalone-gone": "Lua villa: Innri villa: Túlkurinn hefur þegar lokið vinnslu.",
 	"scribunto-luastandalone-signal": "Lua villa: Innri villa: Túlkurinn hefur slökkt á sér með merkinu \"$2\".",
 	"scribunto-luastandalone-exited": "Lua villa: Innri villa: Túlkurinn hefur slökkt á sér með stöðunni $2.",
-	"scribunto-module-with-errors-category": "Scribunto-skriftur með villum",
+	"scribunto-module-with-errors-category": "Scribunto-skriftur með villur",
 	"scribunto-module-with-errors-category-desc": "Skriftan hefur villu í sér.",
 	"scribunto-limitreport-timeusage": "Lua tímanotkun",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekóndur",
