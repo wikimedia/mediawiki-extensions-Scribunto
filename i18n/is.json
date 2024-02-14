@@ -21,7 +21,7 @@
 	"scribunto-console-cleared": "Staða stjórnborðsins var hreinsuð því skriftan var uppfærð.",
 	"scribunto-console-cleared-session-lost": "Staða stjórnborðsins var hreinsuð því setu gögn töpuðust.",
 	"scribunto-common-error-category": "Síður með skriftuvillur",
-	"scribunto-common-error-category-desc": "Villa átti sér stað við vinnslu skriftanna á þessari síðu.",
+	"scribunto-common-error-category-desc": "Það kom upp villa við meðhöndlun skriftanna sem innifalnar eru á síðunni.",
 	"scribunto-common-nosuchmodule": "Villa í skriftu: Skriftan „$2” er ekki til.",
 	"scribunto-common-nofunction": "Villa í skriftu: Þú þarft að kalla á aðgerð.",
 	"scribunto-common-nosuchfunction": "Villa í skriftu: Aðgerðin „$2” er ekki til.",
