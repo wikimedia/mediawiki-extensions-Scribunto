@@ -190,7 +190,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			// The doc page and validation error produce metadata and must happen
 			// unconditionally. The next step (syntax highlight) can be skipped if
 			// we don't actually need the HTML.
-			$parserOutput->setText( '' );
+			$parserOutput->setRawText( '' );
 			return;
 		}
 
@@ -199,7 +199,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$codeLang = $engine->getGeSHiLanguage();
 		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
 
-		$parserOutput->setText( $html );
+		$parserOutput->setRawText( $html );
 	}
 
 	/**
