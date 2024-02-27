@@ -26,7 +26,7 @@
 	"scribunto-common-nofunction": "Villa í skriftu: Þú þarft að kalla á aðgerð.",
 	"scribunto-common-nosuchfunction": "Villa í skriftu: Aðgerðin „$2” er ekki til.",
 	"scribunto-common-notafunction": "Villa í skriftu: „$2“ er ekki aðgerð.",
-	"scribunto-common-timeout": "Sá tími sem er tileinkaður keyrslu skriftna hefur runnið út.",
+	"scribunto-common-timeout": "Tíminn úthlutaður til að keyra skriftur er útrunninn.",
 	"scribunto-common-oom": "Það magn minnis sem er leyft fyrir keyrslu skrifta er þegar uppurið.",
 	"scribunto-common-backtrace": "Afturekja:",
 	"scribunto-common-no-details": "Engar frekari upplýsingar eru til.",
