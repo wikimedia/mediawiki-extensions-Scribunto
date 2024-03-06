@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Fohanno",
+			"Huñvreüs",
 			"Y-M D"
 		]
 	},
@@ -12,5 +13,6 @@
 	"scribunto-lua-error": "Fazi Lua : $2.",
 	"scribunto-module-with-errors-category-desc": "Ur fazi a zo er modulenn.",
 	"scribunto-limitreport-timeusage-value": "$1/$2 eilenn",
-	"scribunto-limitreport-profile-ms": "$1 me"
+	"scribunto-limitreport-profile-ms": "$1 me",
+	"nstab-module": "Modulenn"
 }
