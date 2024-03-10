@@ -444,7 +444,7 @@ class TitleLibrary extends LibraryBase {
 			$this->incrementExpensiveFunctionCount();
 		}
 
-		list( $sources, $restrictions ) = $restrictionStore->getCascadeProtectionSources( $title );
+		[ $sources, $restrictions ] = $restrictionStore->getCascadeProtectionSources( $title );
 
 		return [ [
 			'sources' => self::makeArrayOneBased( array_map(

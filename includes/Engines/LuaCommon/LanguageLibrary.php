@@ -355,7 +355,7 @@ class LanguageLibrary extends LibraryBase {
 		$this->checkTypeOptional( 'formatDate', 2, $args[1], 'string', '' );
 		$this->checkTypeOptional( 'formatDate', 3, $args[2], 'boolean', false );
 
-		list( $format, $date, $local ) = $args;
+		[ $format, $date, $local ] = $args;
 		$langcode = $lang->getCode();
 
 		if ( $date === '' ) {
@@ -434,7 +434,7 @@ class LanguageLibrary extends LibraryBase {
 		$this->checkType( 'formatDuration', 1, $args[0], 'number' );
 		$this->checkTypeOptional( 'formatDuration', 2, $args[1], 'table', [] );
 
-		list( $seconds, $chosenIntervals ) = $args;
+		[ $seconds, $chosenIntervals ] = $args;
 		$chosenIntervals = array_values( $chosenIntervals );
 
 		$ret = $lang->formatDuration( $seconds, $chosenIntervals );
@@ -452,7 +452,7 @@ class LanguageLibrary extends LibraryBase {
 		$this->checkType( 'getDurationIntervals', 1, $args[0], 'number' );
 		$this->checkTypeOptional( 'getDurationIntervals', 2, $args[1], 'table', [] );
 
-		list( $seconds, $chosenIntervals ) = $args;
+		[ $seconds, $chosenIntervals ] = $args;
 		$chosenIntervals = array_values( $chosenIntervals );
 
 		$ret = $lang->getDurationIntervals( $seconds, $chosenIntervals );

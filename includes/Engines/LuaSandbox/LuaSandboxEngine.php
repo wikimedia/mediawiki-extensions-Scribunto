@@ -59,12 +59,12 @@ class LuaSandboxEngine extends LuaEngine {
 	public function getResourceUsage( $resource ) {
 		$this->load();
 		switch ( $resource ) {
-		case self::MEM_PEAK_BYTES:
-			return $this->interpreter->getPeakMemoryUsage();
-		case self::CPU_SECONDS:
-			return $this->interpreter->getCPUUsage();
-		default:
-			return false;
+			case self::MEM_PEAK_BYTES:
+				return $this->interpreter->getPeakMemoryUsage();
+			case self::CPU_SECONDS:
+				return $this->interpreter->getCPUUsage();
+			default:
+				return false;
 		}
 	}
 

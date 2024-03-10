@@ -376,7 +376,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		$code = false;
 		if ( $fileData ) {
-			list( $code, $cachedMtime ) = $fileData;
+			[ $code, $cachedMtime ] = $fileData;
 			if ( $cachedMtime < $mtime ) {
 				$code = false;
 			}
@@ -736,7 +736,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			throw new LuaError( 'expandTemplate: template inclusion denied' );
 		}
 
-		list( $dom, $finalTitle ) = $this->parser->getTemplateDom( $title );
+		[ $dom, $finalTitle ] = $this->parser->getTemplateDom( $title );
 		if ( $dom === false ) {
 			throw new LuaError( "expandTemplate: template \"$titleText\" does not exist" );
 		}
@@ -963,7 +963,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		}
 
 		$parser = $this->getParser();
-		list( $text, $finalTitle ) = $parser->fetchTemplateAndTitle( $titleObj );
+		[ $text, $finalTitle ] = $parser->fetchTemplateAndTitle( $titleObj );
 
 		$json = FormatJson::decode( $text, true );
 		if ( is_array( $json ) ) {
