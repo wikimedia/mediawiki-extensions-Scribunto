@@ -4,6 +4,8 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use LogicException;
 use MapCacheLRU;
+use MediaWiki\MainConfigNames;
+use MediaWiki\MediaWikiServices;
 use UtfNormal\Validator;
 
 class UstringLibrary extends LibraryBase {
@@ -34,8 +36,8 @@ class UstringLibrary extends LibraryBase {
 
 	/** @inheritDoc */
 	public function __construct( $engine ) {
-		global $wgMaxArticleSize;
-		$this->stringLengthLimit = $wgMaxArticleSize * 1024;
+		$maxArticleSize = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::MaxArticleSize );
+		$this->stringLengthLimit = $maxArticleSize * 1024;
 		$this->phpBug53823 = preg_replace( '//us', 'x', "\xc3\xa1" ) === "x\xc3x\xa1x";
 		$this->patternRegexCache = new MapCacheLRU( 100 );
 

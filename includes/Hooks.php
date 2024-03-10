@@ -135,8 +135,6 @@ class Hooks implements
 	 * @return string
 	 */
 	public static function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
-		global $wgScribuntoGatherFunctionStats;
-
 		try {
 			if ( count( $args ) < 2 ) {
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
@@ -165,7 +163,7 @@ class Hooks implements
 			// have an index, we don't need the index offset.
 			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
 
-			if ( $wgScribuntoGatherFunctionStats ) {
+			if ( MediaWikiServices::getInstance()->getMainConfig()->get( 'ScribuntoGatherFunctionStats' ) ) {
 				$u0 = $engine->getResourceUsage( $engine::CPU_SECONDS );
 				$result = $module->invoke( $functionName, $childFrame );
 				$u1 = $engine->getResourceUsage( $engine::CPU_SECONDS );
@@ -233,13 +231,12 @@ class Hooks implements
 	 * @param int $timing Function execution time in milliseconds.
 	 */
 	public static function reportTiming( $moduleName, $functionName, $timing ) {
-		global $wgScribuntoGatherFunctionStats, $wgScribuntoSlowFunctionThreshold;
-
-		if ( !$wgScribuntoGatherFunctionStats ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		if ( !$config->get( 'ScribuntoGatherFunctionStats' ) ) {
 			return;
 		}
 
-		$threshold = $wgScribuntoSlowFunctionThreshold;
+		$threshold = $config->get( 'ScribuntoSlowFunctionThreshold' );
 		if ( !( is_float( $threshold ) && $threshold > 0 && $threshold < 1 ) ) {
 			return;
 		}

@@ -213,9 +213,9 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	 * @return string HTML
 	 */
 	private function highlight( $source, ParserOutput $parserOutput, $codeLang ) {
-		global $wgScribuntoUseGeSHi;
+		$useGeSHi = MediaWikiServices::getInstance()->getMainConfig()->get( 'ScribuntoUseGeSHi' );
 		if (
-			$wgScribuntoUseGeSHi && $codeLang && ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' )
+			$useGeSHi && $codeLang && ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' )
 		) {
 			$status = SyntaxHighlight::highlight( $source, $codeLang, [ 'line' => true, 'linelinks' => 'L' ] );
 			if ( $status->isGood() ) {

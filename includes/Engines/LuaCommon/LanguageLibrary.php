@@ -8,6 +8,7 @@ use Exception;
 use Language;
 use LanguageCode;
 use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -395,9 +396,9 @@ class LanguageLibrary extends LibraryBase {
 
 		# Set output timezone.
 		if ( $local ) {
-			global $wgLocaltimezone;
-			if ( isset( $wgLocaltimezone ) ) {
-				$tz = new DateTimeZone( $wgLocaltimezone );
+			$localtimezone = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::Localtimezone );
+			if ( isset( $localtimezone ) ) {
+				$tz = new DateTimeZone( $localtimezone );
 			} else {
 				$tz = new DateTimeZone( date_default_timezone_get() );
 			}

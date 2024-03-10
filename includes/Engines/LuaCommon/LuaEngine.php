@@ -82,7 +82,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return LuaEngine
 	 */
 	public static function newAutodetectEngine( array $options ) {
-		global $wgScribuntoEngineConf;
+		$engineConf = MediaWikiServices::getInstance()->getMainConfig()->get( 'ScribuntoEngineConf' );
 		$engine = 'luastandalone';
 		try {
 			LuaSandboxInterpreter::checkLuaSandboxVersion();
@@ -94,7 +94,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		unset( $options['factory'] );
 
 		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
-		return Scribunto::newEngine( $options + $wgScribuntoEngineConf[$engine] );
+		return Scribunto::newEngine( $options + $engineConf[$engine] );
 	}
 
 	/**

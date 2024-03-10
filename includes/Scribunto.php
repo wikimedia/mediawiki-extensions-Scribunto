@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use MediaWiki\Config\ConfigException;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use Parser;
 
@@ -33,17 +34,19 @@ class Scribunto {
 	 * @return ScribuntoEngineBase
 	 */
 	public static function newDefaultEngine( $extraOptions = [] ) {
-		global $wgScribuntoDefaultEngine, $wgScribuntoEngineConf;
-		if ( !$wgScribuntoDefaultEngine ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$defaultEngine = $config->get( 'ScribuntoDefaultEngine' );
+		if ( !$defaultEngine ) {
 			throw new ConfigException(
 				'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set'
 			);
 		}
 
-		if ( !isset( $wgScribuntoEngineConf[$wgScribuntoDefaultEngine] ) ) {
+		$engineConf = $config->get( 'ScribuntoEngineConf' );
+		if ( !isset( $engineConf[$defaultEngine] ) ) {
 			throw new ConfigException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
 		}
-		$options = $extraOptions + $wgScribuntoEngineConf[$wgScribuntoDefaultEngine];
+		$options = $extraOptions + $engineConf[$defaultEngine];
 		// @phan-suppress-next-line PhanTypeMismatchArgument false positive
 		return self::newEngine( $options );
 	}
