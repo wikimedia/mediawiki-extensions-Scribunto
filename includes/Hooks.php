@@ -28,6 +28,7 @@ use Article;
 use Content;
 use EmptyBagOStuff;
 use IContextSource;
+use MediaWiki\Config\Config;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Hook\EditFilterMergedContentHook;
 use MediaWiki\Hook\EditPage__showReadOnlyForm_initialHook;
@@ -73,6 +74,14 @@ class Hooks implements
 	ArticleViewHeaderHook,
 	ContentHandlerDefaultModelForHook
 {
+	private Config $config;
+
+	public function __construct(
+		Config $config
+	) {
+		$this->config = $config;
+	}
+
 	/**
 	 * Define content handler constant upon extension registration
 	 */
@@ -100,7 +109,7 @@ class Hooks implements
 	 * @return bool
 	 */
 	public function onParserFirstCallInit( $parser ) {
-		$parser->setFunctionHook( 'invoke', [ self::class, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', [ $this, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
 		return true;
 	}
 
@@ -134,7 +143,7 @@ class Hooks implements
 	 * @param array $args
 	 * @return string
 	 */
-	public static function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
+	public function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
 		try {
 			if ( count( $args ) < 2 ) {
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
@@ -163,7 +172,7 @@ class Hooks implements
 			// have an index, we don't need the index offset.
 			$childFrame = $frame->newChild( $args, $title, $bits['index'] === '' ? 0 : 1 );
 
-			if ( MediaWikiServices::getInstance()->getMainConfig()->get( 'ScribuntoGatherFunctionStats' ) ) {
+			if ( $this->config->get( 'ScribuntoGatherFunctionStats' ) ) {
 				$u0 = $engine->getResourceUsage( $engine::CPU_SECONDS );
 				$result = $module->invoke( $functionName, $childFrame );
 				$u1 = $engine->getResourceUsage( $engine::CPU_SECONDS );
@@ -173,7 +182,7 @@ class Hooks implements
 					// Since the overhead of stats is worst when #invoke
 					// calls are very short, don't process measurements <= 20ms.
 					if ( $timingMs > 20 ) {
-						self::reportTiming( $moduleName, $functionName, $timingMs );
+						$this->reportTiming( $moduleName, $functionName, $timingMs );
 					}
 				}
 			} else {
@@ -230,13 +239,12 @@ class Hooks implements
 	 * @param string $functionName
 	 * @param int $timing Function execution time in milliseconds.
 	 */
-	public static function reportTiming( $moduleName, $functionName, $timing ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		if ( !$config->get( 'ScribuntoGatherFunctionStats' ) ) {
+	private function reportTiming( $moduleName, $functionName, $timing ) {
+		if ( !$this->config->get( 'ScribuntoGatherFunctionStats' ) ) {
 			return;
 		}
 
-		$threshold = $config->get( 'ScribuntoSlowFunctionThreshold' );
+		$threshold = $this->config->get( 'ScribuntoSlowFunctionThreshold' );
 		if ( !( is_float( $threshold ) && $threshold > 0 && $threshold < 1 ) ) {
 			return;
 		}
