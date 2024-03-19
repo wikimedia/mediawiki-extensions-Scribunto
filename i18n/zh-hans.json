@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Anterdc99",
 			"Arthur2e5",
 			"Duolaimi",
 			"GuoPC",
@@ -13,6 +14,7 @@
 			"Yfdyh000"
 		]
 	},
+	"content-model-scribunto": "Scribunto模块",
 	"scribunto-desc": "用于在MediaWiki页面中嵌入脚本语言的框架",
 	"scribunto-line": "在第$1行",
 	"scribunto-module-line": "在$1的第$2行",
