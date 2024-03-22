@@ -897,7 +897,7 @@ class UstringLibrary extends LibraryBase {
 			$realCallback = $cb;
 			$cb = static function ( $m ) use ( $realCallback, &$skippedMatches, &$maxMatches ) {
 				$c = ord( $m['phpBug53823'] );
-				if ( $c >= 0x80 && $c <= 0xbf || $maxMatches <= 0 ) {
+				if ( ( $c >= 0x80 && $c <= 0xbf ) || $maxMatches <= 0 ) {
 					$skippedMatches++;
 					return $m[0];
 				} else {
