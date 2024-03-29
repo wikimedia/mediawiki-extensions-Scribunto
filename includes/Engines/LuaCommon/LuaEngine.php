@@ -363,7 +363,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		static $cache = null;
 
 		if ( !$cache ) {
-			$cache = ObjectCache::getLocalServerInstance( 'hash' );
+			$cache = ObjectCache::getLocalServerInstance( CACHE_HASH );
 		}
 
 		$mtime = filemtime( $fileName );
