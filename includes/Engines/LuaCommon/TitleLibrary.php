@@ -290,7 +290,7 @@ class TitleLibrary extends LibraryBase {
 	 */
 	private function getContentInternal( $text ) {
 		$title = Title::newFromText( $text );
-		if ( !$title ) {
+		if ( !$title || $title->isExternal() ) {
 			return null;
 		}
 
