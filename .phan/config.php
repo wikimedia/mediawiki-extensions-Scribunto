@@ -26,12 +26,4 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 	]
 );
 
-$cfg['suppress_issue_types'] = array_merge(
-	$cfg['suppress_issue_types'],
-	[
-		// \Parser->scribunto_engine
-		'PhanUndeclaredProperty',
-	]
-);
-
 return $cfg;
