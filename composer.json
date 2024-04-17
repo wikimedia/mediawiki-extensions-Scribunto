@@ -1,6 +1,6 @@
 {
 	"require-dev": {
-		"mediawiki/lua-sandbox": "4.0.2",
+		"mediawiki/lua-sandbox": "4.1.2",
 		"mediawiki/mediawiki-codesniffer": "43.0.0",
 		"mediawiki/mediawiki-phan-config": "0.14.0",
 		"mediawiki/minus-x": "1.1.1",
@@ -12,11 +12,11 @@
 			"type": "package",
 			"package": {
 				"name": "mediawiki/lua-sandbox",
-				"version": "4.0.2",
+				"version": "4.1.2",
 				"source": {
 					"url": "https://gerrit.wikimedia.org/r/mediawiki/php/luasandbox.git",
 					"type": "git",
-					"reference": "tags/4.0.2"
+					"reference": "tags/4.1.2"
 				}
 			}
 		}
