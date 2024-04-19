@@ -1,4 +1,4 @@
-( function () {
+( () => {
 
 	/**
 	 * Debug console
@@ -11,8 +11,8 @@
 	 *    * Collapsible backtrace display
 	 */
 
-	var histList = [ '' ],
-		histPos = 0,
+	const histList = [ '' ];
+	let histPos = 0,
 		question,
 		input,
 		output,
@@ -85,33 +85,29 @@
 	}
 
 	function caretInFirstLine( textbox ) {
-		var firstLineBreak;
-
 		// IE doesn't support selectionStart/selectionEnd
 		if ( textbox.selectionStart === undefined ) {
 			return true;
 		}
 
-		firstLineBreak = textbox.value.indexOf( '\n' );
+		const firstLineBreak = textbox.value.indexOf( '\n' );
 
 		return ( ( firstLineBreak === -1 ) || ( textbox.selectionStart <= firstLineBreak ) );
 	}
 
 	function caretInLastLine( textbox ) {
-		var lastLineBreak;
-
 		// IE doesn't support selectionStart/selectionEnd
 		if ( textbox.selectionEnd === undefined ) {
 			return true;
 		}
 
-		lastLineBreak = textbox.value.lastIndexOf( '\n' );
+		const lastLineBreak = textbox.value.lastIndexOf( '\n' );
 
 		return ( textbox.selectionEnd > lastLineBreak );
 	}
 
 	function recalculateInputHeight() {
-		var rows = input.value.split( /\n/ ).length +
+		const rows = input.value.split( /\n/ ).length +
 			// prevent scrollbar flickering in Mozilla
 			1 +
 			// leave room for scrollbar in Opera
@@ -124,9 +120,8 @@
 	}
 
 	function println( s, type ) {
-		var newdiv;
 		if ( ( s = String( s ) ) ) {
-			newdiv = document.createElement( 'div' );
+			const newdiv = document.createElement( 'div' );
 			newdiv.appendChild( document.createTextNode( s ) );
 			newdiv.className = type;
 			output.appendChild( newdiv );
@@ -147,7 +142,7 @@
 		// (last item in histList) and should be reachable by pressing
 		// down again.
 
-		var L = histList.length;
+		const L = histList.length;
 
 		if ( L === 1 ) {
 			return;
@@ -165,10 +160,9 @@
 				// Set to nothing first for the same reason
 				setTimeout(
 					function () {
-						var caretPos;
 						input.value = '';
 						input.value = histList[ histPos ];
-						caretPos = input.value.length;
+						const caretPos = input.value.length;
 						if ( input.setSelectionRange ) {
 							input.setSelectionRange( caretPos, caretPos );
 						}
@@ -197,11 +191,9 @@
 	}
 
 	function printError( er ) {
-		var lineNumberString;
-
 		if ( er.name ) {
 			// lineNumberString should not be '', to avoid a very wacky bug in IE 6.
-			lineNumberString = ( er.lineNumber !== undefined ) ? ( ' on line ' + er.lineNumber + ': ' ) : ': ';
+			const lineNumberString = ( er.lineNumber !== undefined ) ? ( ' on line ' + er.lineNumber + ': ' ) : ': ';
 			// Because IE doesn't have error.toString.
 			println( er.name + lineNumberString + er.message, 'mw-scribunto-error' );
 		} else {
@@ -223,8 +215,6 @@
 	}
 
 	function go() {
-		var params, api, content, sentContent;
-
 		if ( pending ) {
 			// If there is an XHR request pending, don't send another one
 			// We set readOnly on the textarea to give a UI indication, this is
@@ -253,14 +243,14 @@
 		recalculateInputHeight();
 		printQuestion( question );
 
-		params = {
+		const params = {
 			action: 'scribunto-console',
 			title: mw.config.get( 'wgPageName' ),
 			question: question
 		};
 
-		content = getContent();
-		sentContent = false;
+		const content = getContent();
+		let sentContent = false;
 
 		if ( !sessionKey || sessionContent !== content ) {
 			params.clear = true;
@@ -275,7 +265,7 @@
 			clearNextRequest = false;
 		}
 
-		api = new mw.Api();
+		const api = new mw.Api();
 		setPending();
 
 		api.postWithToken( 'csrf', params )
@@ -319,7 +309,7 @@
 	}
 
 	function getContent() {
-		var $textarea = $( '#wpTextbox1' ),
+		const $textarea = $( '#wpTextbox1' ),
 			context = $textarea.data( 'wikiEditor-context' );
 
 		if ( context === undefined || context.codeEditor === undefined ) {
@@ -336,13 +326,12 @@
 	}
 
 	function initEditPage() {
-		var $wpTextbox1,
-			$console = $( '#mw-scribunto-console' );
+		let $console = $( '#mw-scribunto-console' );
 		if ( !$console.length ) {
 			// There is no console in the DOM; on read-only (protected) pages,
 			// we need to add it here, because the hook does not insert
 			// it server-side.
-			$wpTextbox1 = $( '#wpTextbox1' );
+			const $wpTextbox1 = $( '#wpTextbox1' );
 			if ( !$wpTextbox1.length || !$wpTextbox1.prop( 'readonly' ) ) {
 				return;
 			}
@@ -366,8 +355,8 @@
 							dir: 'ltr',
 							lang: 'en'
 						} )
-						.bind( 'keydown', inputKeydown )
-						.bind( 'focus', inputFocus )
+						.on( 'keydown', inputKeydown )
+						.on( 'focus', inputFocus )
 				)
 			)
 			.append(
@@ -377,7 +366,7 @@
 							type: 'button',
 							value: mw.msg( 'scribunto-console-clear' )
 						} )
-						.bind( 'click', onClearClick )
+						.on( 'click', onClearClick )
 				)
 			)
 			.wrap( '<form>' )
@@ -386,11 +375,11 @@
 		initConsole();
 	}
 
-	$( function () {
-		var action = mw.config.get( 'wgAction' );
+	$( () => {
+		const action = mw.config.get( 'wgAction' );
 		if ( action === 'edit' || action === 'submit' || action === 'editredlink' ) {
 			initEditPage();
 		}
 	} );
 
-}() );
+} )();
