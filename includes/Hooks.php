@@ -55,7 +55,6 @@ use Parser;
 use PPFrame;
 use UtfNormal\Validator;
 use Wikimedia\PSquare;
-use Xml;
 
 /**
  * Hooks for the Scribunto extension.
@@ -419,7 +418,7 @@ class Hooks implements
 			$line = $validateStatus->value->params['line'];
 			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
 				$out = $context->getOutput();
-				$out->addInlineScript( 'window.location.hash = ' . Xml::encodeJsVar( "#mw-ce-l$line" ) );
+				$out->addInlineScript( 'window.location.hash = ' . Html::encodeJsVar( "#mw-ce-l$line" ) );
 			}
 		}
 		if ( !$status->isOK() ) {
