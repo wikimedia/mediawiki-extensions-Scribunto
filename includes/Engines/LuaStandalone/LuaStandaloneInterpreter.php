@@ -572,7 +572,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 
 					// Lua's number type can't represent most integers beyond 2**53, so stringify such keys
 					if ( is_int( $key ) && ( $key > 9007199254740992 || $key < -9007199254740992 ) ) {
-						$key = sprintf( '%d', $key );
+						$key = (string)$key;
 					}
 
 					$s .= '[' . $this->encodeLuaVar( $key, $level + 1 ) . ']' .

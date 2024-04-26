@@ -62,10 +62,7 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	public function __construct(
 		$name = null, array $data = [], $dataName = '', $engineName = null
 	) {
-		if ( $engineName === null ) {
-			$engineName = self::$staticEngineName;
-		}
-		$this->engineName = $engineName;
+		$this->engineName = $engineName ?? self::$staticEngineName;
 		parent::__construct( $name, $data, $dataName );
 	}
 
