@@ -279,11 +279,13 @@ class Hooks implements
 
 		static $stats;
 		if ( !$stats ) {
-			$stats = MediaWikiServices::getInstance()->getStatsdDataFactory();
+			$stats = MediaWikiServices::getInstance()->getStatsFactory();
 		}
-
-		$metricKey = sprintf( 'scribunto.traces.%s__%s__%s', WikiMap::getCurrentWikiId(), $moduleName, $functionName );
-		$stats->timing( $metricKey, $timing );
+		$statAction = WikiMap::getCurrentWikiId() . '__' . $moduleName . '__' . $functionName;
+		$stats->getTiming( 'scribunto_traces_seconds' )
+			->setLabel( 'action', $statAction )
+			->copyToStatsdAt( 'scribunto.traces.' . $statAction )
+			->observe( $timing );
 	}
 
 	/**
