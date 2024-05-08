@@ -5,8 +5,8 @@ namespace MediaWiki\Extension\Scribunto;
 use ApiBase;
 use ApiMain;
 use MediaWiki\Html\Html;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use ObjectCache;
 use Parser;
 use ParserFactory;
 use ParserOptions;
@@ -51,7 +51,9 @@ class ApiScribuntoConsole extends ApiBase {
 			$sessionId = mt_rand( 0, 0x7fffffff );
 		}
 
-		$cache = ObjectCache::getInstance( CACHE_ANYTHING );
+		$services = MediaWikiServices::getInstance();
+
+		$cache = $services->getObjectCacheFactory()->getInstance( CACHE_ANYTHING );
 		$sessionKey = $cache->makeKey( 'scribunto-console', $this->getUser()->getId(), $sessionId );
 		$session = null;
 		$sessionIsNew = false;

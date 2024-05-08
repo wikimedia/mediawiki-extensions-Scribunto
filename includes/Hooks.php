@@ -50,7 +50,6 @@ use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\WikiMap\WikiMap;
-use ObjectCache;
 use Parser;
 use PPFrame;
 use UtfNormal\Validator;
@@ -248,9 +247,10 @@ class Hooks implements
 			return;
 		}
 
+		$objectcachefactory = MediaWikiServices::getInstance()->getObjectCacheFactory();
 		static $cache;
 		if ( !$cache ) {
-			$cache = ObjectCache::getLocalServerInstance( CACHE_NONE );
+			$cache = $objectcachefactory->getLocalServerInstance( CACHE_NONE );
 
 		}
 

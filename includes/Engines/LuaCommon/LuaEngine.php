@@ -12,7 +12,6 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use ObjectCache;
 use Parser;
 use PPFrame;
 use RuntimeException;
@@ -362,8 +361,10 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	protected function loadLibraryFromFile( $fileName ) {
 		static $cache = null;
 
+		$objectcachefactory = MediaWikiServices::getInstance()->getObjectCacheFactory();
+
 		if ( !$cache ) {
-			$cache = ObjectCache::getLocalServerInstance( CACHE_HASH );
+			$cache = $objectcachefactory->getLocalServerInstance( CACHE_HASH );
 		}
 
 		$mtime = filemtime( $fileName );
