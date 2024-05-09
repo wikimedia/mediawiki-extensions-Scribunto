@@ -15,7 +15,7 @@
 	"scribunto-error-long": "Skriptitõrked:\n\n$1",
 	"scribunto-doc-page-does-not-exist": "''Selle mooduli dokumentatsiooni saab kirjutada asukohta [[$1]]''.",
 	"scribunto-doc-page-header": "'''See on üksuse [[$1]] dokumentatsiooni lehekülg.'''",
-	"scribunto-console-intro": "* Moodul on eksporditav muutujana \"p\", mis sisaldab ka salvestmata muudatusi.\n* Lisa rea algusesse \"=\", et käsitada seda avaldisena või kasuta funktsiooni print(). Tabelite jaoks kasuta funktsiooni mw.logObject().\n* Kasuta mooduli koodis funktsioone mw.log() ja mw.logObject(), et saata sõnum siia konsooli.",
+	"scribunto-console-intro": "* Moodul on eksporditav muutujana \"p\", mis sisaldab ka salvestamata muudatusi.\n* Lisa rea algusesse \"=\", et käsitada seda avaldisena või kasuta funktsiooni print(). Tabelite jaoks kasuta funktsiooni mw.logObject().\n* Kasuta mooduli koodis funktsioone mw.log() ja mw.logObject(), et saata sõnum siia konsooli.",
 	"scribunto-console-title": "Veatõrje konsool",
 	"scribunto-console-current-src": "konsoolisisend",
 	"scribunto-console-clear": "Puhasta",
