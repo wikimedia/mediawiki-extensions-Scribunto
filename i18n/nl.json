@@ -15,6 +15,7 @@
 			"Sjoerddebruin"
 		]
 	},
+	"content-model-scribunto": "Scribunto-module",
 	"scribunto-desc": "Framework voor het inbedden van scripttalen in pagina's",
 	"scribunto-line": "op regel $1",
 	"scribunto-module-line": "in $1 op regel $2",
