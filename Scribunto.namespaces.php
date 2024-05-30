@@ -274,6 +274,11 @@ $namespaceNames['he'] = [
 	829 => 'שיחת_יחידה',
 ];
 
+$namespaceNames['hi'] = [
+	828 => 'अनुखंड',
+	829 => 'अनुखंड_वार्ता',
+];
+
 $namespaceNames['hr'] = [
 	828 => 'Modul',
 	829 => 'Razgovor_o_modulu',
