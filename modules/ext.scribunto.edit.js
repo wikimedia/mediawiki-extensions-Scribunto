@@ -159,7 +159,7 @@
 				// Use a timeout to prevent up from moving cursor within new text
 				// Set to nothing first for the same reason
 				setTimeout(
-					function () {
+					() => {
 						input.value = '';
 						input.value = histList[ histPos ];
 						const caretPos = input.value.length;
@@ -236,7 +236,7 @@
 		// print() output will go in the right place.
 		input.value = '';
 		// can't preventDefault on input, so also clear it later
-		setTimeout( function () {
+		setTimeout( () => {
 			input.value = '';
 		}, 0 );
 
@@ -269,7 +269,7 @@
 		setPending();
 
 		api.postWithToken( 'csrf', params )
-			.done( function ( result ) {
+			.done( ( result ) => {
 				if ( result.sessionIsNew === '' && !sentContent ) {
 					// Session was lost. Resend query, with content
 					printClearBar( 'scribunto-console-cleared-session-lost' );
@@ -294,7 +294,7 @@
 				clearPending();
 				setTimeout( refocus, 0 );
 			} )
-			.fail( function ( code, result ) {
+			.fail( ( code, result ) => {
 				if ( result.error && result.error.info ) {
 					printError( result.error.info );
 				} else if ( result.exception ) {
