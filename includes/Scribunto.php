@@ -4,8 +4,8 @@ namespace MediaWiki\Extension\Scribunto;
 
 use MediaWiki\Config\ConfigException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Parser;
 use MediaWiki\Title\Title;
-use Parser;
 
 /**
  * Static function collection for general extension support.

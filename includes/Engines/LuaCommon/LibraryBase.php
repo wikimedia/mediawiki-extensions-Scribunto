@@ -23,8 +23,8 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
+use MediaWiki\Parser\Parser;
 use MediaWiki\Title\Title;
-use Parser;
 use ParserOptions;
 
 /**

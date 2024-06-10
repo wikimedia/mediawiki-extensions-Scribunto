@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use MediaWiki\Language\RawMessage;
 use MediaWiki\MediaWikiServices;
-use Message;
+use MediaWiki\Message\Message;
 
 class MessageLibrary extends LibraryBase {
 	public function register() {
