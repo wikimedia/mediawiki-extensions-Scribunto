@@ -51,7 +51,16 @@ class MessageLibrary extends LibraryBase {
 		}
 		$msg->useDatabase( $data['useDB'] );
 		if ( $setParams ) {
-			$msg->params( array_values( $data['params'] ) );
+			foreach ( $data['params'] as $param ) {
+				// Only rawParam and numParam are supposed by the Lua message API
+				if ( is_array( $param ) && isset( $param['raw'] ) ) {
+					$msg->rawParams( $param );
+				} elseif ( is_array( $param ) && isset( $param['num'] ) ) {
+					$msg->numParams( $param );
+				} else {
+					$msg->params( $param );
+				}
+			}
 		}
 		return $msg;
 	}
