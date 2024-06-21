@@ -220,7 +220,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 				// @todo replace addModuleStyles line with the appropriate call on
 				// SyntaxHighlight once one is created
 				$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
-				$parserOutput->addModules( [ 'ext.pygments.linenumbers' ] );
+				$parserOutput->addModules( [ 'ext.pygments.view' ] );
 				return $status->getValue();
 			}
 		}
