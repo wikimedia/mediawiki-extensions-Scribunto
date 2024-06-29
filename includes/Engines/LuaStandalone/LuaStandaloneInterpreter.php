@@ -204,7 +204,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		// The output is expected to be one line, something like these:
 		// Lua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio
 		// LuaJIT 2.0.0 -- Copyright (C) 2005-2012 Mike Pall. http://luajit.org/
-		$cmd = wfEscapeShellArg( $options['luaPath'] ) . ' -v';
+		$cmd = wfEscapeShellArg( $options['luaPath'] ) . ' -v 2>&1';
 		$handle = popen( $cmd, 'r' );
 		if ( $handle ) {
 			$ret = fgets( $handle, 80 );
