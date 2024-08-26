@@ -228,9 +228,9 @@ class SiteLibrary extends LibraryBase {
 				$val = [
 					'prefix' => $prefix,
 					'url' => $urlUtils->expand( $row['iw_url'], PROTO_RELATIVE ) ?? false,
-					'isProtocolRelative' => substr( $row['iw_url'], 0, 2 ) === '//',
-					'isLocal' => isset( $row['iw_local'] ) && $row['iw_local'] == '1',
-					'isTranscludable' => isset( $row['iw_trans'] ) && $row['iw_trans'] == '1',
+					'isProtocolRelative' => str_starts_with( $row['iw_url'], '//' ),
+					'isLocal' => (bool)( $row['iw_local'] ?? false ),
+					'isTranscludable' => (bool)( $row['iw_trans'] ?? false ),
 					'isCurrentWiki' => in_array( $prefix, $localInterwikis ),
 					'isExtraLanguageLink' => in_array( $prefix, $extraInterlanguageLinkPrefixes ),
 				];
