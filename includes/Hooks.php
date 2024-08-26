@@ -52,6 +52,7 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\WikiMap\WikiMap;
 use PPFrame;
+use PPNode;
 use UtfNormal\Validator;
 use Wikimedia\PSquare;
 
@@ -135,7 +136,7 @@ class Hooks implements
 	 *
 	 * @param Parser $parser
 	 * @param PPFrame $frame
-	 * @param array $args
+	 * @param PPNode[] $args
 	 * @return string
 	 */
 	public function invokeHook( Parser $parser, PPFrame $frame, array $args ) {

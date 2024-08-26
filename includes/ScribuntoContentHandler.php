@@ -38,9 +38,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		parent::__construct( $modelId, $formats );
 	}
 
-	/**
-	 * @return string Class name
-	 */
+	/** @inheritDoc */
 	protected function getContentClass() {
 		return ScribuntoContent::class;
 	}

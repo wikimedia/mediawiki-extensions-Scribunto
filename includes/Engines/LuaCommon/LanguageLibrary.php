@@ -18,7 +18,7 @@ use Wikimedia\RequestTimeout\TimeoutException;
 class LanguageLibrary extends LibraryBase {
 	/** @var Language[] */
 	public $langCache = [];
-	/** @var array */
+	/** @var array[] */
 	public $timeCache = [];
 	/** @var int */
 	public $maxLangCacheSize;
