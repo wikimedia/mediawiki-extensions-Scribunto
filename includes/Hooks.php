@@ -104,33 +104,30 @@ class Hooks implements
 	 * Register parser hooks.
 	 *
 	 * @param Parser $parser
-	 * @return bool
+	 * @return void
 	 */
 	public function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'invoke', [ $this, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
-		return true;
 	}
 
 	/**
 	 * Called when the interpreter is to be reset.
 	 *
 	 * @param Parser $parser
-	 * @return bool
+	 * @return void
 	 */
 	public function onParserClearState( $parser ) {
 		Scribunto::resetParserEngine( $parser );
-		return true;
 	}
 
 	/**
 	 * Called when the parser is cloned
 	 *
 	 * @param Parser $parser
-	 * @return bool
+	 * @return void
 	 */
 	public function onParserCloned( $parser ) {
 		$parser->scribunto_engine = null;
-		return true;
 	}
 
 	/**
@@ -293,12 +290,12 @@ class Hooks implements
 	 *
 	 * @param Title $title
 	 * @param string &$model
-	 * @return bool
+	 * @return void
 	 */
 	public function onContentHandlerDefaultModelFor( $title, &$model ) {
 		if ( $model === 'sanitized-css' ) {
 			// Let TemplateStyles override Scribunto
-			return true;
+			return;
 		}
 		if ( $title->getNamespace() === NS_MODULE ) {
 			if ( str_ends_with( $title->getText(), '.json' ) ) {
@@ -306,9 +303,7 @@ class Hooks implements
 			} elseif ( !Scribunto::isDocPage( $title ) ) {
 				$model = CONTENT_MODEL_SCRIBUNTO;
 			}
-			return true;
 		}
-		return true;
 	}
 
 	/**
@@ -316,14 +311,13 @@ class Hooks implements
 	 *
 	 * @param Parser $parser
 	 * @param ParserOutput $parserOutput
-	 * @return bool
+	 * @return void
 	 */
 	public function onParserLimitReportPrepare( $parser, $parserOutput ) {
 		if ( Scribunto::isParserEnginePresent( $parser ) ) {
 			$engine = Scribunto::getParserEngine( $parser );
 			$engine->reportLimitData( $parserOutput );
 		}
-		return true;
 	}
 
 	/**
@@ -347,14 +341,13 @@ class Hooks implements
 	 * @param EditPage $editor
 	 * @param OutputPage $output
 	 * @param int &$tab Current tabindex
-	 * @return bool
+	 * @return void
 	 */
 	public function onEditPage__showStandardInputs_options( $editor, $output, &$tab ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$output->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
 		}
-		return true;
 	}
 
 	/**
@@ -362,14 +355,13 @@ class Hooks implements
 	 *
 	 * @param EditPage $editor
 	 * @param OutputPage $output
-	 * @return bool
+	 * @return void
 	 */
 	public function onEditPage__showReadOnlyForm_initial( $editor, $output ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$output->addModules( 'ext.scribunto.edit' );
 			$editor->editFormTextAfterContent .= '<div id="mw-scribunto-console"></div>';
 		}
-		return true;
 	}
 
 	/**
@@ -378,13 +370,12 @@ class Hooks implements
 	 * @param EditPage $editor
 	 * @param array &$buttons Button array
 	 * @param int &$tabindex Current tabindex
-	 * @return bool
+	 * @return void
 	 */
 	public function onEditPageBeforeEditButtons( $editor, &$buttons, &$tabindex ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			unset( $buttons['preview'] );
 		}
-		return true;
 	}
 
 	/**
@@ -436,7 +427,7 @@ class Hooks implements
 	 * @param Article $article
 	 * @param bool|ParserOutput|null &$outputDone
 	 * @param bool &$pcache
-	 * @return bool
+	 * @return void
 	 */
 	public function onArticleViewHeader( $article, &$outputDone, &$pcache ) {
 		$title = $article->getTitle();
@@ -445,6 +436,5 @@ class Hooks implements
 				wfMessage( 'scribunto-doc-page-header', $forModule->getPrefixedText() )->parseAsBlock()
 			);
 		}
-		return true;
 	}
 }
