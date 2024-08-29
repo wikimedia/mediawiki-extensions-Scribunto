@@ -223,7 +223,7 @@ class SiteLibrary extends LibraryBase {
 				$prefix = $row['iw_prefix'];
 				$val = [
 					'prefix' => $prefix,
-					'url' => wfExpandUrl( $row['iw_url'], PROTO_RELATIVE ),
+					'url' => wfGetUrlUtils()->expand( $row['iw_url'], PROTO_RELATIVE ) ?? false,
 					'isProtocolRelative' => substr( $row['iw_url'], 0, 2 ) === '//',
 					'isLocal' => isset( $row['iw_local'] ) && $row['iw_local'] == '1',
 					'isTranscludable' => isset( $row['iw_trans'] ) && $row['iw_trans'] == '1',
