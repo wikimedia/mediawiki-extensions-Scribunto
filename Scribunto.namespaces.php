@@ -639,6 +639,11 @@ $namespaceNames['th'] = [
 	829 => 'คุยเรื่องมอดูล',
 ];
 
+$namespaceNames['tly'] = [
+	828 => 'Modul',
+	829 => 'Moduli_no-pegət',
+];
+
 $namespaceNames['tr'] = [
 	828 => 'Modül',
 	829 => 'Modül_tartışma',
