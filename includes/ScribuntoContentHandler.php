@@ -158,6 +158,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			$html .= $parserOutput->getRawText();
 		} else {
 			$parserOutput = new ParserOutput();
+			$parserOutput->setLanguage( $parserOptions->getTargetLanguage() ?? $docTitle->getPageLanguage() );
 		}
 
 		if ( $docTitle ) {
