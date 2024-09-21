@@ -295,11 +295,6 @@ class TitleLibrary extends LibraryBase {
 			return null;
 		}
 
-		// Record in templatelinks, so edits cause the page to be refreshed
-		$this->getParser()->getOutput()->addTemplate(
-			$title, $title->getArticleID(), $title->getLatestRevID()
-		);
-
 		$rev = $this->getParser()->fetchCurrentRevisionRecordOfTitle( $title );
 
 		if ( $title->equals( $this->getTitle() ) ) {
@@ -307,6 +302,11 @@ class TitleLibrary extends LibraryBase {
 			$parserOutput->setOutputFlag( ParserOutputFlags::VARY_REVISION_SHA1 );
 			$parserOutput->setRevisionUsedSha1Base36( $rev ? $rev->getSha1() : '' );
 			wfDebug( __METHOD__ . ": set vary-revision-sha1 for '$title'" );
+		} else {
+			// Record in templatelinks, so edits cause the page to be refreshed
+			$this->getParser()->getOutput()->addTemplate(
+				$title, $title->getArticleID(), $title->getLatestRevID()
+			);
 		}
 
 		if ( !$rev ) {
@@ -355,9 +355,10 @@ class TitleLibrary extends LibraryBase {
 		$parserOutput = $this->getParser()->getOutput();
 		if ( $title->equals( $this->getTitle() ) ) {
 			$parserOutput->setOutputFlag( ParserOutputFlags::VARY_REVISION );
+		} else {
+			// Record in templatelinks, so edits cause the page to be refreshed
+			$parserOutput->addTemplate( $title, $title->getArticleID(), $title->getLatestRevID() );
 		}
-		// Record in templatelinks, so edits cause the page to be refreshed
-		$parserOutput->addTemplate( $title, $title->getArticleID(), $title->getLatestRevID() );
 
 		$categoryTitles = $page->getCategories();
 		$categoryNames = [];
