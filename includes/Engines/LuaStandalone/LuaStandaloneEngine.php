@@ -84,7 +84,7 @@ class LuaStandaloneEngine extends LuaEngine {
 	 */
 	protected function getClockTick() {
 		if ( self::$clockTick === null ) {
-			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,MediaWiki.Usage.ForbiddenFunctions.shell_exec
 			self::$clockTick = intval( @shell_exec( 'getconf CLK_TCK' ) );
 			if ( !self::$clockTick ) {
 				self::$clockTick = 100;
