@@ -1,11 +1,15 @@
 ( () => {
 
 	mw.hook( 'wikipage.content' ).add( () => {
-		const regex = /^mw-scribunto-error-(\w+)/;
+		const regex = /\bmw-scribunto-error-(\w+)\b/;
 		let popup;
 
 		$( '.scribunto-error' ).each( ( index, span ) => {
-			const matches = regex.exec( span.id );
+			let matches = regex.exec( span.className );
+			if ( matches === null ) {
+				// T375539: backward-compatibility with old cached HTML
+				matches = regex.exec( span.id );
+			}
 			if ( matches === null ) {
 				mw.log( 'mw.scribunto.errors: regex mismatch!' );
 				return;
