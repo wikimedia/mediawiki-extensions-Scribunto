@@ -29,7 +29,7 @@
 	"scribunto-common-error-category-desc": "Bu səhifədəki modulları işləyərkən xəta baş verdi.",
 	"scribunto-common-nosuchmodule": "Script xətası: \"$2\" modulu mövcud deyil.",
 	"scribunto-common-nofunction": "Script xətası: Çağırmaq üçün funksiya göstərməlisiniz.",
-	"scribunto-common-nosuchfunction": "Script xətası: \"$2\" funksiyası mövcud deyil.",
+	"scribunto-common-nosuchfunction": "Skript xətası: \"$2\" funksiyası mövcud deyil.",
 	"scribunto-common-notafunction": "Skript xətası: \"$2\" funksiya deyil.",
 	"scribunto-common-timeout": "Skriptlərin işləməsi üçün ayrılan vaxt bitdi.",
 	"scribunto-common-oom": "Skriptlərin işləməsi üçün ayrılan yaddaş limiti aşıldı.",
