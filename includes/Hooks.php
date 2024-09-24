@@ -223,7 +223,7 @@ class Hooks implements
 			$parserError = htmlspecialchars( $e->getMessage() );
 
 			// #iferror-compatible error element
-			return "<strong class=\"error\"><span class=\"scribunto-error\" id=\"$id\">" .
+			return "<strong class=\"error\"><span class=\"scribunto-error $id\">" .
 				$parserError . "</span></strong>";
 		}
 	}
