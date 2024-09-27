@@ -524,26 +524,24 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Instantiate and register a library.
 	 * @param string $name
-	 * @param array|class-string<LibraryBase> $def
-	 * @param bool $loadDeferred
+	 * @param array|class-string<LibraryBase> $spec
+	 * @param bool $isDeferredLoad
 	 * @return array|null
 	 */
-	private function instantiatePHPLibrary( $name, $def, $loadDeferred ) {
-		$def = $this->availableLibraries[$name];
-		if ( is_string( $def ) ) {
-			/** @var LibraryBase $class */
-			$class = new $def( $this );
-		} else {
-			if ( !$loadDeferred && !empty( $def['deferLoad'] ) ) {
-				return null;
-			}
-			if ( isset( $def['class'] ) ) {
-				/** @var LibraryBase $class */
-				$class = new $def['class']( $this );
-			} else {
-				throw new RuntimeException( "No class for library \"$name\"" );
-			}
+	private function instantiatePHPLibrary( $name, $spec, $isDeferredLoad ) {
+		// If it's _not_ a deferred load, and that the library is to be loaded
+		// as deferred (i.e. when explicitly `require`d), do not load the library.
+		if ( !$isDeferredLoad && ( $spec['deferLoad'] ?? false ) ) {
+			return null;
 		}
+
+		/** @var LibraryBase $class */
+		$class = MediaWikiServices::getInstance()->getObjectFactory()
+			->createObject( $spec, [
+				'allowClassName' => true,
+				'extraArgs' => [ $this ],
+				'assertClass' => LibraryBase::class,
+			] );
 		return $class->register();
 	}
 
