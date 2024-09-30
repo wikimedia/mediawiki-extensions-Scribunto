@@ -1,7 +1,4 @@
-.mw-scribunto-console-fieldset {
-	background: #fff;
-	color: #000;
-}
+@import 'mediawiki.skin.variables.less';
 
 /* Preserve line breaks, but wrap too if browser supports it */
 /* stylelint-disable-next-line selector-max-id */
@@ -13,31 +10,28 @@
 /* stylelint-disable-next-line selector-max-id */
 #mw-scribunto-input {
 	width: 100%;
-	border: 0;
+	border: 1px solid @border-color-subtle;
 	overflow: auto;
-	background: #e0e0e0;
+	background: @background-color-notice-subtle;
 }
 
 .mw-scribunto-input {
-	color: #00f;
+	color: @color-progressive--active;
 	font: inherit;
 	font-weight: bold;
 	margin-top: 0.5em;
 }
 
 .mw-scribunto-normalOutput {
-	color: #000;
-	background: #fff;
+	color: @color-base;
 }
 
 .mw-scribunto-print {
-	color: #630;
-	background: #fff;
+	color: @color-content-removed;
 }
 
 .mw-scribunto-error {
-	color: #f00;
-	background: #fff;
+	color: @color-error;
 }
 
 .mw-scribunto-propList {
@@ -46,8 +40,7 @@
 }
 
 .mw-scribunto-message {
-	color: #008000;
-	background: #fff;
+	color: @color-content-added;
 }
 
 .mw-scribunto-tabcomplete {
@@ -56,8 +49,8 @@
 }
 
 .mw-scribunto-clear {
-	color: #f00;
+	color: @color-error;
 	text-align: center;
 	margin-top: 1em;
-	border-bottom: 1px solid #f00;
+	border-bottom: 1px solid @color-error;
 }
