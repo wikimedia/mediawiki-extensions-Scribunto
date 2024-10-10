@@ -14,7 +14,7 @@ use MediaWiki\Title\Title;
 
 class TitleLibrary extends LibraryBase {
 	// Note these caches are naturally limited to
-	// $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
+	// 25 * $wgExpensiveParserFunctionLimit + 1 actual Title objects because any
 	// addition besides the one for the current page calls
 	// incrementExpensiveFunctionCount()
 	/** @var Title[] */
@@ -29,6 +29,7 @@ class TitleLibrary extends LibraryBase {
 	public function register() {
 		$lib = [
 			'newTitle' => [ $this, 'newTitle' ],
+			'newBatchLookupExistence' => [ $this, 'newBatchLookupExistence' ],
 			'makeTitle' => [ $this, 'makeTitle' ],
 			'getExpensiveData' => [ $this, 'getExpensiveData' ],
 			'getUrl' => [ $this, 'getUrl' ],
@@ -155,6 +156,16 @@ class TitleLibrary extends LibraryBase {
 			}
 		}
 
+		return [ $this->getExpensiveDataForTitle( $title ) ];
+	}
+
+	/**
+	 * Fetch various expensive properties of a Title
+	 *
+	 * @param Title $title
+	 * @return array The expensive data for the title
+	 */
+	private function getExpensiveDataForTitle( Title $title ) {
 		$ret = [
 			'isRedirect' => (bool)$title->isRedirect(),
 			'id' => $title->getArticleID(),
@@ -167,7 +178,95 @@ class TitleLibrary extends LibraryBase {
 			// bug 70495: don't just check whether the ID != 0
 			$ret['exists'] = $title->exists();
 		}
-		return [ $ret ];
+		return $ret;
+	}
+
+	/**
+	 * Handler for mw.title.newBatch(list):lookupExistence():getTitles()
+	 *
+	 * This allows batching of lookups of expensive title properties.
+	 *
+	 * @internal
+	 * @param array $list Table of strings to turn into titles (1-indexed)
+	 * @param mixed $defaultNamespace
+	 * @return array
+	 */
+	public function newBatchLookupExistence( $list, $defaultNamespace = null ) {
+		$this->checkType( 'mw.title.newBatch', 1, $list, 'table' );
+		$this->checkNamespace( 'mw.title.newBatch', 2, $defaultNamespace, NS_MAIN );
+		$returnValue = [];
+		// array of prefixedDbKey -> what indexes to put it in returned table
+		$returnMapping = [];
+		$expensiveCount = 0;
+		$lb = MediaWikiServices::getInstance()->getLinkBatchFactory()->newLinkBatch();
+		$lb->setCaller( __METHOD__ );
+		for ( $i = 1; $i < count( $list ) + 1; $i++ ) {
+			if ( !isset( $list[$i] ) ) {
+				throw new LuaError( 'First argument to mw.title.newBatch must be contiguous table' );
+			}
+			// For now we only support string titles. Perhaps a future version
+			// will allow batching numeric title id lookups.
+			$this->checkType( 'mw.title.newBatch title list', $i, $list[$i], 'string' );
+			$curTitle = Title::newFromText( $list[$i], $defaultNamespace );
+			if ( !$curTitle ) {
+				// Consistency with mw.title.new()
+				$returnValue[$i] = null;
+				continue;
+			}
+			if ( !$curTitle->canExist() ) {
+				// For titles that don't represent a normal page,
+				// treat it just like mw.title.new().
+				// Importantly, this means that NS_MEDIA won't be preloaded.
+				// .exists on an NS_MEDIA title is actually .file.exists
+				// which will still trigger an expensive parser function
+				// increment if the user accesses it.
+				$returnValue[$i] = $this->getInexpensiveTitleData( $curTitle );
+				continue;
+			}
+			$key = $curTitle->getPrefixedDBkey();
+			if ( isset( $this->titleCache[$key] ) ) {
+				$returnValue[$i] = $this->getInexpensiveTitleData( $curTitle ) +
+					$this->getExpensiveDataForTitle( $curTitle );
+				continue;
+			}
+			// We actually have to do the lookup
+
+			// We always increment at least once if we have to lookup
+			// a title. Increment an additional time for every 25 titles.
+			if ( $expensiveCount % 25 === 0 ) {
+				$this->incrementExpensiveFunctionCount();
+			}
+			$expensiveCount++;
+
+			// Keep track of what index we should return this title in.
+			$returnMapping[$key][] = $i;
+
+			$lb->addObj( $curTitle );
+		}
+
+		$lb->execute();
+
+		foreach ( $returnMapping as $key => $placesToInsert ) {
+			$curTitle = Title::newFromText( $key );
+			// Cache the title so subsequent lookups don't trigger expensive
+			// parser function count to be incremented.
+			$this->titleCache[$curTitle->getPrefixedDBKey()] = $curTitle;
+			if ( $curTitle->getArticleId() ) {
+				$this->idCache[$curTitle->getArticleID()] = $curTitle;
+			}
+
+			foreach ( $placesToInsert as $place ) {
+				$returnValue[$place] = $this->getInexpensiveTitleData( $curTitle ) +
+					$this->getExpensiveDataForTitle( $curTitle );
+			}
+
+			// Record a link since this prefills existence.
+			// Important we do this after the linkBatch executes.
+			if ( $this->getParser() && !$curTitle->equals( $this->getTitle() ) ) {
+				$this->getParser()->getOutput()->addExistenceDependency( $curTitle );
+			}
+		}
+		return [ $returnValue ];
 	}
 
 	/**
