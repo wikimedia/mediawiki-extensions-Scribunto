@@ -1043,5 +1043,3 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		return true;
 	}
 }
-
-class_alias( LuaEngine::class, 'Scribunto_LuaEngine' );

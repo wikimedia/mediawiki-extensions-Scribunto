@@ -61,6 +61,3 @@ class LuaStandaloneInterpreterFunction {
 		}
 	}
 }
-
-// Alias exists due to serialization of class name into MWServer.lua
-class_alias( LuaStandaloneInterpreterFunction::class, 'Scribunto_LuaStandaloneInterpreterFunction' );

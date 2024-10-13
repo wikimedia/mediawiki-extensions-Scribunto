@@ -559,8 +559,7 @@ function MWServer:serialize( var )
 			else
 				id = self:addChunk(var)
 			end
-			-- Serialization of a PHP class name is fun when it is namespaced...
-			return 'O:42:"Scribunto_LuaStandaloneInterpreterFunction":2:{s:13:"interpreterId";i:' ..
+			return 'O:84:"MediaWiki\\Extension\\Scribunto\\Engines\\LuaStandalone\\LuaStandaloneInterpreterFunction":2:{s:13:"interpreterId";i:' ..
 				self.interpreterId .. ';s:2:"id";i:' .. id .. ';}'
 		elseif t == 'thread' then
 			error("Cannot pass thread to PHP")

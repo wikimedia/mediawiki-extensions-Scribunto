@@ -148,5 +148,3 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 		$this->luaTestName = null;
 	}
 }
-
-class_alias( LuaEngineTestBase::class, 'Scribunto_LuaEngineTestBase' );

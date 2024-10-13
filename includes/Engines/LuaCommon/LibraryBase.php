@@ -174,5 +174,3 @@ abstract class LibraryBase {
 		return $this->getEngine()->incrementExpensiveFunctionCount();
 	}
 }
-
-class_alias( LibraryBase::class, 'Scribunto_LuaLibraryBase' );

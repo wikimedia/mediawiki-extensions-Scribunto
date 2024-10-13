@@ -91,5 +91,3 @@ class LuaError extends ScribuntoException {
 		return $s;
 	}
 }
-
-class_alias( LuaError::class, 'Scribunto_LuaError' );
