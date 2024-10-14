@@ -184,6 +184,11 @@ $namespaceNames['dsb'] = [
 	829 => 'Modul_diskusija',
 ];
 
+$namespaceNames['dtp'] = [
+	828 => 'Modul',
+	829 => 'Pibarasan_modul',
+];
+
 $namespaceNames['dty'] = [
 	828 => 'मोड्युल',
 	829 => 'मोड्युल_कुरणि',
