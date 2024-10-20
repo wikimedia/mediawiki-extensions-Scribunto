@@ -25,9 +25,8 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use Article;
-use Content;
-use EmptyBagOStuff;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Hook\EditFilterMergedContentHook;
@@ -46,14 +45,15 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleViewHeaderHook;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\PPFrame;
+use MediaWiki\Parser\PPNode;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\WikiMap\WikiMap;
-use PPFrame;
-use PPNode;
 use UtfNormal\Validator;
+use Wikimedia\ObjectCache\EmptyBagOStuff;
 use Wikimedia\PSquare;
 
 /**

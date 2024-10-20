@@ -2,14 +2,14 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use ApiBase;
-use ApiMain;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserFactory;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
-use ParserFactory;
-use ParserOptions;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**

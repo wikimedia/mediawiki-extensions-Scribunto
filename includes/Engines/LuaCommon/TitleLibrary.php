@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
-use Content;
 use LogicException;
+use MediaWiki\Content\Content;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutputFlags;

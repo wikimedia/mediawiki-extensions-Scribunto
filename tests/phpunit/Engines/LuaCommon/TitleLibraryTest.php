@@ -2,13 +2,13 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
+use MediaWiki\Content\WikitextContent;
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Title\Title;
-use WikitextContent;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TitleLibrary
