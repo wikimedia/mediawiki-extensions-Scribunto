@@ -20,14 +20,9 @@ class ApiScribuntoConsole extends ApiBase {
 	private const SC_SESSION_EXPIRY = 3600;
 	private ParserFactory $parserFactory;
 
-	/**
-	 * @param ApiMain $main
-	 * @param string $action
-	 * @param ParserFactory $parserFactory
-	 */
 	public function __construct(
 		ApiMain $main,
-		$action,
+		string $action,
 		ParserFactory $parserFactory
 	) {
 		parent::__construct( $main, $action );
