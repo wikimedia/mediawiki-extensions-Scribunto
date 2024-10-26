@@ -27,6 +27,7 @@ namespace MediaWiki\Extension\Scribunto;
 use Article;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Hook\EditFilterMergedContentHook;
@@ -40,7 +41,6 @@ use MediaWiki\Hook\ParserLimitReportFormatHook;
 use MediaWiki\Hook\ParserLimitReportPrepareHook;
 use MediaWiki\Hook\SoftwareInfoHook;
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleViewHeaderHook;
 use MediaWiki\Parser\Parser;
@@ -52,9 +52,11 @@ use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\WikiMap\WikiMap;
+use ObjectCacheFactory;
 use UtfNormal\Validator;
 use Wikimedia\ObjectCache\EmptyBagOStuff;
 use Wikimedia\PSquare;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * Hooks for the Scribunto extension.
@@ -74,11 +76,20 @@ class Hooks implements
 	ContentHandlerDefaultModelForHook
 {
 	private Config $config;
+	private IContentHandlerFactory $contentHandlerFactory;
+	private ObjectCacheFactory $objectCacheFactory;
+	private StatsFactory $statsFactory;
 
 	public function __construct(
-		Config $config
+		Config $config,
+		IContentHandlerFactory $contentHandlerFactory,
+		ObjectCacheFactory $objectCacheFactory,
+		StatsFactory $statsFactory
 	) {
 		$this->config = $config;
+		$this->contentHandlerFactory = $contentHandlerFactory;
+		$this->objectCacheFactory = $objectCacheFactory;
+		$this->statsFactory = $statsFactory;
 	}
 
 	/**
@@ -245,10 +256,9 @@ class Hooks implements
 			return;
 		}
 
-		$objectcachefactory = MediaWikiServices::getInstance()->getObjectCacheFactory();
 		static $cache;
 		if ( !$cache ) {
-			$cache = $objectcachefactory->getLocalServerInstance( CACHE_NONE );
+			$cache = $this->objectCacheFactory->getLocalServerInstance( CACHE_NONE );
 
 		}
 
@@ -277,7 +287,7 @@ class Hooks implements
 
 		static $stats;
 		if ( !$stats ) {
-			$stats = MediaWikiServices::getInstance()->getStatsFactory();
+			$stats = $this->statsFactory;
 		}
 		$statAction = WikiMap::getCurrentWikiId() . '__' . $moduleName . '__' . $functionName;
 		$stats->getTiming( 'scribunto_traces_seconds' )
@@ -396,8 +406,7 @@ class Hooks implements
 		if ( !$content instanceof ScribuntoContent ) {
 			return true;
 		}
-		$contentHandlerFactory = MediaWikiServices::getInstance()->getContentHandlerFactory();
-		$contentHandler = $contentHandlerFactory->getContentHandler( $content->getModel() );
+		$contentHandler = $this->contentHandlerFactory->getContentHandler( $content->getModel() );
 
 		'@phan-var ScribuntoContentHandler $contentHandler';
 		$validateStatus = $contentHandler->validate( $content, $title );

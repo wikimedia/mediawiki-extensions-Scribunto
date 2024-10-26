@@ -16,6 +16,7 @@
 		"scribunto-console": {
 			"class": "MediaWiki\\Extension\\Scribunto\\ApiScribuntoConsole",
 			"services": [
+				"ObjectCacheFactory",
 				"ParserFactory"
 			]
 		}
@@ -110,7 +111,10 @@
 		"main": {
 			"class": "MediaWiki\\Extension\\Scribunto\\Hooks",
 			"services": [
-				"MainConfig"
+				"MainConfig",
+				"ContentHandlerFactory",
+				"ObjectCacheFactory",
+				"StatsFactory"
 			]
 		},
 		"codeeditor": {
