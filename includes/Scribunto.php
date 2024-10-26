@@ -95,7 +95,7 @@ class Scribunto {
 	 * @param Title|null &$forModule Module for which this is a doc page
 	 * @return bool
 	 */
-	public static function isDocPage( Title $title, Title &$forModule = null ) {
+	public static function isDocPage( Title $title, ?Title &$forModule = null ) {
 		$docPage = wfMessage( 'scribunto-doc-page-name' )->inContentLanguage();
 		if ( $docPage->isDisabled() ) {
 			return false;

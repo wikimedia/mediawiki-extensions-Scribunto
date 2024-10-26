@@ -253,7 +253,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param PPFrame|null $frame If null, an empty frame with no parent will be used
 	 * @return ScopedCallback
 	 */
-	private function setupCurrentFrames( PPFrame $frame = null ) {
+	private function setupCurrentFrames( ?PPFrame $frame = null ) {
 		if ( !$frame ) {
 			$frame = $this->getParser()->getPreprocessor()->newFrame();
 		}
