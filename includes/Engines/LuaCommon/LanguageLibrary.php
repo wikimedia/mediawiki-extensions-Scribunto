@@ -401,7 +401,7 @@ class LanguageLibrary extends LibraryBase {
 		# Set output timezone.
 		if ( $local ) {
 			$localtimezone = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::Localtimezone );
-			if ( isset( $localtimezone ) ) {
+			if ( $localtimezone !== null ) {
 				$tz = new DateTimeZone( $localtimezone );
 			} else {
 				$tz = new DateTimeZone( date_default_timezone_get() );
