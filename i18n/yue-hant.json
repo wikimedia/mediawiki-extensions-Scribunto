@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"H78c67c"
 		]
 	},
 	"scribunto-doc-page-does-not-exist": "''呢個模組嘅解說可以喺[[$1]]度開''",
