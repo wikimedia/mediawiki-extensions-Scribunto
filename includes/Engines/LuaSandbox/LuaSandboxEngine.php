@@ -87,7 +87,7 @@ class LuaSandboxEngine extends LuaEngine {
 
 		$logs = $this->getLogBuffer();
 		if ( $logs !== '' ) {
-			$ret['scribunto-limitreport-logs'] = $logs;
+			$ret['scribunto-limitreport-logs'] = $this->fixTruncation( $logs );
 		}
 
 		if ( $t < 1.0 ) {
