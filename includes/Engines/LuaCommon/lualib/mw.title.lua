@@ -315,6 +315,10 @@ local function makeTitleObject( data )
 				return data.categories
 			end
 
+			if data[k] == nil then
+				data[k] = php.getAttributeValue( data.prefixedText, k )
+			end
+
 			return data[k]
 		end,
 		__newindex = function ( t, k, v )

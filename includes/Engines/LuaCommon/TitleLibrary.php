@@ -7,6 +7,7 @@ use MediaWiki\Content\Content;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutputFlags;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -20,6 +21,9 @@ class TitleLibrary extends LibraryBase {
 	private $titleCache = [];
 	/** @var (Title|null)[] */
 	private $idCache = [ 0 => null ];
+
+	/** @var TitleAttributeResolver[] */
+	private array $attributeResolvers = [];
 
 	/** @inheritDoc */
 	public function register() {
@@ -36,8 +40,19 @@ class TitleLibrary extends LibraryBase {
 			'redirectTarget' => [ $this, 'redirectTarget' ],
 			'recordVaryFlag' => [ $this, 'recordVaryFlag' ],
 			'getPageLangCode' => [ $this, 'getPageLangCode' ],
+			'getAttributeValue' => [ $this, 'getAttributeValue' ],
 		];
 		$title = $this->getTitle();
+
+		$extensionRegistry = ExtensionRegistry::getInstance();
+		$objectFactory = MediaWikiServices::getInstance()->getObjectFactory();
+		$extraTitleAttributes = $extensionRegistry->getAttribute( 'ScribuntoLuaExtraTitleAttributes' );
+		foreach ( $extraTitleAttributes as $key => $value ) {
+			$resolver = $objectFactory->createObject( $value );
+			$resolver->setEngine( $this->getEngine() );
+			$this->attributeResolvers[$key] = $resolver;
+		}
+
 		return $this->getEngine()->registerInterface( 'mw.title.lua', $lib, [
 			'thisTitle' => $title ? $this->getInexpensiveTitleData( $title ) : null,
 			'NS_MEDIA' => NS_MEDIA,
@@ -418,6 +433,26 @@ class TitleLibrary extends LibraryBase {
 			'size' => $file->getSize(),
 			'pages' => $pages
 		] ];
+	}
+
+	/**
+	 * Handler for getAttributeValue
+	 * @internal
+	 * @param string $text
+	 * @param string $attribute
+	 * @return array
+	 */
+	public function getAttributeValue( $text, $attribute ) {
+		$this->checkType( 'getAttributeValue', 1, $text, 'string' );
+		$this->checkType( 'getAttributeValue', 2, $attribute, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return [ null ];
+		}
+		if ( isset( $this->attributeResolvers[$attribute] ) ) {
+			return [ $this->attributeResolvers[$attribute]->resolve( $title ) ];
+		}
+		return [ null ];
 	}
 
 	/**

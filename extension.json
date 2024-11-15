@@ -192,6 +192,10 @@
 		"ScribuntoSlowFunctionThreshold": {
 			"description": "If $wgScribuntoGatherFunctionStats is true, this variable specifies the percentile threshold for slow function invocations. Should be a value between 0 and 1 (exclusive).",
 			"value": 0.9
+		},
+		"ScribuntoLuaExtraTitleAttributes": {
+			"description": "Extra attributes added to Lua mw.title objects. Keys are the name of the attributes, and values are the ObjectFactory specification for resolving the attribute.",
+			"value": {}
 		}
 	},
 	"attributes": {
