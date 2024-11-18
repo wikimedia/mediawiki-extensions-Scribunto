@@ -3,6 +3,7 @@
 		"authors": [
 			"Kwj2772",
 			"Markingdots",
+			"Suleiman the Magnificent Television",
 			"Ykhwong"
 		]
 	},
@@ -10,5 +11,6 @@
 	"apihelp-scribunto-console-param-title": "테스트할 모듈의 제목입니다.",
 	"apihelp-scribunto-console-param-content": "모듈의 새로운 내용입니다.",
 	"apihelp-scribunto-console-param-session": "세션 토큰.",
+	"apihelp-scribunto-console-param-question": "다음 줄은 스크립트로 평가해야 함.",
 	"apihelp-scribunto-console-param-clear": "현재 세션 상태를 지우려면 설정합니다."
 }
