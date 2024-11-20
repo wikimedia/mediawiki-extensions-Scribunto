@@ -346,7 +346,11 @@ $namespaceNames['ka'] = [
 
 $namespaceNames['kn'] = [
 	828 => 'ಮಾಡ್ಯೂಲ್',
-	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆ',
+	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆಪುಟ',
+];
+
+$namespaceAliases['kn'] = [
+	'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆ' => 829,
 ];
 
 $namespaceNames['ko'] = [
