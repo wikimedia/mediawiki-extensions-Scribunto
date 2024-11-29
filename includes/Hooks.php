@@ -442,8 +442,12 @@ class Hooks implements
 	public function onArticleViewHeader( $article, &$outputDone, &$pcache ) {
 		$title = $article->getTitle();
 		if ( Scribunto::isDocPage( $title, $forModule ) ) {
-			$article->getContext()->getOutput()->addHTML(
-				wfMessage( 'scribunto-doc-page-header', $forModule->getPrefixedText() )->parseAsBlock()
+			$context = $article->getContext();
+			$context->getOutput()->addHTML(
+				$context->msg(
+					'scribunto-doc-page-header',
+					$forModule->getPrefixedText()
+				)->parseAsBlock()
 			);
 		}
 	}
