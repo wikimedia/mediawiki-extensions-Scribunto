@@ -48,7 +48,7 @@ class ScribuntoException extends Exception {
 				)->inContentLanguage()->text();
 			}
 		} else {
-			$codeLocation = '[UNKNOWN]';
+			$codeLocation = '(unknown code location)';
 		}
 		array_unshift( $this->messageArgs, $codeLocation );
 		$msg = wfMessage( $messageName )
