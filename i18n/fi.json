@@ -6,6 +6,7 @@
 			"Crt",
 			"Nike",
 			"Pxos",
+			"Samoasambia",
 			"Silvonen",
 			"Stryn",
 			"Valtlai",
@@ -38,7 +39,7 @@
 	"scribunto-common-notafunction": "Komentosarjavirhe: ”$2” ei ole funktio.",
 	"scribunto-common-timeout": "Skriptien suorittamiseen varattu aika on päättynyt.",
 	"scribunto-common-oom": "Skriptien suorittamiseen sallittu muistin määrä on ylitetty.",
-	"scribunto-common-no-details": "Lisätietoja ei ole saatavilla.",
+	"scribunto-common-no-details": "Tietoja koodin sijainnista ei ole saatavilla.",
 	"scribunto-lua-in-function": "funktiossa ”$1”",
 	"scribunto-lua-in-function-at": "funktiossa kohdassa $1:$2",
 	"scribunto-lua-error-location": "Lua-virhe $1: $2.",
@@ -63,5 +64,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua-lokit",
 	"nstab-module": "Moduuli",
-	"tooltip-ca-nstab-module": "Näytä moduulisivu"
+	"tooltip-ca-nstab-module": "Näytä moduulisivu",
+	"namespaceinfo-description-ns828": "Nimiavaruus Lua-koodimoduuleille, joita voidaan kutsua wikisivuilta sekä niiden dokumentaatiosivuilta",
+	"namespaceinfo-description-ns829": "Moduulien ja dokumentaatiosivujen keskustelusivut"
 }
