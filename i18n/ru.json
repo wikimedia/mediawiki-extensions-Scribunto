@@ -17,6 +17,7 @@
 			"Okras",
 			"Ole Yves",
 			"Patrick Star",
+			"Qwrop",
 			"Stjn"
 		]
 	},
@@ -45,7 +46,7 @@
 	"scribunto-common-timeout": "Время, выделенное для выполнения скриптов, истекло.",
 	"scribunto-common-oom": "Количество памяти, выделенное для выполнения скриптов, превышено.",
 	"scribunto-common-backtrace": "Трассировка вызовов:",
-	"scribunto-common-no-details": "Нет никаких подробностей.",
+	"scribunto-common-no-details": "Подробная информация о положении кода отсутствует.",
 	"scribunto-lua-in-function": "в функции «$1»",
 	"scribunto-lua-in-main": "в основной части кода",
 	"scribunto-lua-in-function-at": "в функции $1:$2",

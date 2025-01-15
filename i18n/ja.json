@@ -5,6 +5,7 @@
 			"Fryed-peach",
 			"Kiri",
 			"Otokoume",
+			"Qwrop",
 			"Shirayuki",
 			"Whym",
 			"Yusuke1109"
@@ -35,7 +36,7 @@
 	"scribunto-common-timeout": "スクリプトに割り当てた時間が終了しました。",
 	"scribunto-common-oom": "スクリプトの実行で使用を許可されているメモリ量を超過しました。",
 	"scribunto-common-backtrace": "バックトレース:",
-	"scribunto-common-no-details": "詳細情報はありません。",
+	"scribunto-common-no-details": "コード位置に関する詳細は不明です。",
 	"scribunto-lua-in-function": "関数「$1」内",
 	"scribunto-lua-in-main": "メインチャンク内",
 	"scribunto-lua-in-function-at": "関数内、$1:$2",
