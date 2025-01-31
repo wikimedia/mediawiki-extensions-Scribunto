@@ -19,7 +19,7 @@ class Scribunto {
 	 */
 	public static function newEngine( $options ) {
 		if ( isset( $options['factory'] ) ) {
-			return call_user_func( $options['factory'], $options );
+			return $options['factory']( $options );
 		} else {
 			$class = $options['class'];
 			return new $class( $options );

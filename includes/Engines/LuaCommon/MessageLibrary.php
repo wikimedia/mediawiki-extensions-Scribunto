@@ -89,6 +89,6 @@ class MessageLibrary extends LibraryBase {
 		}
 
 		$msg = $this->makeMessage( $data, false );
-		return [ call_user_func( [ $msg, $what ] ) ];
+		return [ $msg->$what() ];
 	}
 }
