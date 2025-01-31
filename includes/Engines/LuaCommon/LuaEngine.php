@@ -13,6 +13,7 @@ use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
+use MediaWiki\Parser\PPNode;
 use MediaWiki\Title\Title;
 use RuntimeException;
 use Wikimedia\ScopedCallback;
@@ -744,6 +745,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		if ( $dom === false ) {
 			throw new LuaError( "expandTemplate: template \"$titleText\" does not exist" );
 		}
+		$finalTitle = Title::newFromLinkTarget( $finalTitle );
 		if ( !$frame->loopCheck( $finalTitle ) ) {
 			throw new LuaError( 'expandTemplate: template loop detected' );
 		}
@@ -921,7 +923,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * @param PPFrame $frame
-	 * @param string|array $input
+	 * @param string|PPNode $input
 	 * @param mixed $cacheKey
 	 * @return string
 	 */
