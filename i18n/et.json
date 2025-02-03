@@ -25,7 +25,7 @@
 	"scribunto-common-nosuchfunction": "Skriptitõrge: Funktsioon \"$2\" puudub.",
 	"scribunto-common-notafunction": "Skriptitõrge: \"$2\" pole funktsioon.",
 	"scribunto-common-backtrace": "Pinujälg:",
-	"scribunto-common-no-details": "Rohkem üksikasju pole saadaval.",
+	"scribunto-common-no-details": "Üksikasjad koodi asukoha kohta pole saadaval.",
 	"scribunto-lua-in-function": "funktsioonis \"$1\"",
 	"scribunto-lua-error-location": "Lua tõrge $1: $2.",
 	"scribunto-lua-error": "Lua tõrge: $2.",
@@ -41,5 +41,7 @@
 	"scribunto-limitreport-memusage-value": "$1/$2 {{PLURAL:$2|bait|baiti}}",
 	"scribunto-limitreport-profile": "Lua profiil",
 	"nstab-module": "Moodul",
-	"tooltip-ca-nstab-module": "Vaata mooduli lehekülge"
+	"tooltip-ca-nstab-module": "Vaata mooduli lehekülge",
+	"namespaceinfo-description-ns828": "Nimeruum viki lehekülgede kaudu kutsutavate Lua koodi moodulite ja nende dokumentatsiooni lehekülgede jaoks",
+	"namespaceinfo-description-ns829": "Moodulite ja nende dokumentatsiooni aruteluleheküljed"
 }
