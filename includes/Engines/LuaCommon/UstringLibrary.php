@@ -254,10 +254,10 @@ class UstringLibrary extends LibraryBase {
 	/**
 	 * Handler for char
 	 * @internal
+	 * @param int ...$args
 	 * @return string[]
 	 */
-	public function ustringChar() {
-		$args = func_get_args();
+	public function ustringChar( ...$args ) {
 		if ( count( $args ) > $this->stringLengthLimit ) {
 			throw new LuaError( "too many arguments to 'char'" );
 		}

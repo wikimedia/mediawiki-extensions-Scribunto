@@ -61,8 +61,7 @@ class LanguageLibrary extends LibraryBase {
 			$lib[$name] = [ $this, $name ];
 		}
 		foreach ( $methods as $name ) {
-			$lib[$name] = function () use ( $name ) {
-				$args = func_get_args();
+			$lib[$name] = function ( ...$args ) use ( $name ) {
 				return $this->languageMethod( $name, $args );
 			};
 		}
