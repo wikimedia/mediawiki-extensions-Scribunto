@@ -546,8 +546,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return array
 	 */
 	public function loadPHPLibrary( $name ) {
-		$args = func_get_args();
-		$this->checkString( 'loadPHPLibrary', $args, 0 );
+		$this->checkString( 'loadPHPLibrary', [ $name ], 0 );
 
 		$ret = null;
 		if ( isset( $this->availableLibraries[$name] ) ) {
@@ -567,8 +566,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return array
 	 */
 	public function loadPackage( $name ) {
-		$args = func_get_args();
-		$this->checkString( 'loadPackage', $args, 0 );
+		$this->checkString( 'loadPackage', [ $name ], 0 );
 
 		# This is what Lua does for its built-in loaders
 		$luaName = str_replace( '.', '/', $name ) . '.lua';
@@ -677,8 +675,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param int $ttl
 	 */
 	public function setTTL( $ttl ) {
-		$args = func_get_args();
-		$this->checkNumber( 'setTTL', $args, 0 );
+		$this->checkNumber( 'setTTL', [ $ttl ], 0 );
 
 		$frame = $this->getFrameById( 'current' );
 		$frame->setTTL( $ttl );
@@ -692,8 +689,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return array
 	 */
 	public function getExpandedArgument( $frameId, $name ) {
-		$args = func_get_args();
-		$this->checkString( 'getExpandedArgument', $args, 0 );
+		$this->checkString( 'getExpandedArgument', [ $frameId ], 0 );
 
 		$frame = $this->getFrameById( $frameId );
 		$this->getInterpreter()->pauseUsageTimer();
@@ -854,8 +850,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @throws LuaError
 	 */
 	public function preprocess( $frameId, $text ) {
-		$args = func_get_args();
-		$this->checkString( 'preprocess', $args, 0 );
+		$this->checkString( 'preprocess', [ $frameId ], 0 );
 
 		$frame = $this->getFrameById( $frameId );
 
@@ -898,8 +893,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param string $text wikitext
 	 */
 	public function addWarning( $text ) {
-		$args = func_get_args();
-		$this->checkString( 'addWarning', $args, 0 );
+		$this->checkString( 'addWarning', [ $text ], 0 );
 
 		// Message localization has to happen on the Lua side
 		$this->getParser()->getOutput()->addWarningMsg(
