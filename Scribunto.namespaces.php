@@ -130,6 +130,11 @@ $namespaceNames['ca'] = [
 	829 => 'Mòdul_Discussió',
 ];
 
+$namespaceNames['cbk-zam'] = [
+	828 => 'Módulo',
+	829 => 'Discusión_del_módulo',
+];
+
 $namespaceNames['ce'] = [
 	828 => 'Модуль',
 	829 => 'Модуль_йийцар',
