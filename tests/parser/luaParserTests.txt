@@ -1,5 +1,5 @@
 !! options
-parsoid-compatible
+parsoid-compatible=wt2html,wt2wt
 version=2
 !! end
 
