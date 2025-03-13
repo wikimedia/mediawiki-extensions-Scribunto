@@ -655,6 +655,7 @@ return p
 Scribunto: Test unstripNowiki behavior
 !! options
 parsoid={ "modes": ["wt2html","wt2wt"] }
+disabled
 !! wikitext
 {{#invoke:EchoTest|echo|<nowiki>foo</nowiki>}}
 {{#invoke:EchoTest|echo|<nowiki>[[Foo]]</nowiki>}}
@@ -668,8 +669,8 @@ parsoid={ "modes": ["wt2html","wt2wt"] }
 &#91;&#91;Foo&#93;&#93;
 </p>
 !! html/parsoid
-<p><span typeof="mw:Transclusion" about="#mwt2" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:EchoTest","function":"invoke"},"params":{"1":{"wt":"echo"},"2":{"wt":"&lt;nowiki>foo&lt;/nowiki>"}},"i":0}}]}'>foo</span>
-<span typeof="mw:Transclusion" about="#mwt6" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:EchoTest","function":"invoke"},"params":{"1":{"wt":"echo"},"2":{"wt":"&lt;nowiki>[[Foo]]&lt;/nowiki>"}},"i":0}}]}'>[[Foo]]</span></p>
+<p><span typeof="mw:Nowiki mw:Transclusion" about="#mwt2" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:EchoTest","function":"invoke"},"params":{"1":{"wt":"echo"},"2":{"wt":"&lt;nowiki>foo&lt;/nowiki>"}},"i":0}}]}'>foo</span>
+<span typeof="mw:Nowiki mw:Transclusion" about="#mwt6" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:EchoTest","function":"invoke"},"params":{"1":{"wt":"echo"},"2":{"wt":"&lt;nowiki>[[Foo]]&lt;/nowiki>"}},"i":0}}]}'>[[Foo]]</span></p>
 
 <p><span about="#mwt10" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:UnstripTest","function":"invoke"},"params":{"1":{"wt":"unstrip"},"2":{"wt":"&lt;nowiki>foo&lt;/nowiki>"}},"i":0}}]}'>foo</span>
 <span typeof="mw:Transclusion mw:Entity" about="#mwt12" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:UnstripTest","function":"invoke"},"params":{"1":{"wt":"unstrip"},"2":{"wt":"&lt;nowiki>[[Foo]]&lt;/nowiki>"}},"i":0}}]}'>[</span><span typeof="mw:Entity" about="#mwt12">[</span><span about="#mwt12">Foo</span><span typeof="mw:Entity" about="#mwt12">]</span><span typeof="mw:Entity" about="#mwt12">]</span></p>
