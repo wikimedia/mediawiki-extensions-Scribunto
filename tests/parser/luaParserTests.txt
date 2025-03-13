@@ -655,7 +655,6 @@ return p
 Scribunto: Test unstripNowiki behavior
 !! options
 parsoid={ "modes": ["wt2html","wt2wt"] }
-disabled
 !! wikitext
 {{#invoke:EchoTest|echo|<nowiki>foo</nowiki>}}
 {{#invoke:EchoTest|echo|<nowiki>[[Foo]]</nowiki>}}
