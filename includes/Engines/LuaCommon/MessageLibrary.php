@@ -7,6 +7,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 
 class MessageLibrary extends LibraryBase {
+	/** @inheritDoc */
 	public function register() {
 		$lib = [
 			'plain' => [ $this, 'messagePlain' ],

@@ -23,6 +23,7 @@ class LanguageLibrary extends LibraryBase {
 	/** @var int */
 	public $maxLangCacheSize;
 
+	/** @inheritDoc */
 	public function register() {
 		// Pre-populate the language cache
 		$contLang = MediaWikiServices::getInstance()->getContentLanguage();

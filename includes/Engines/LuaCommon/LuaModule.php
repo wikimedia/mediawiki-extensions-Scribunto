@@ -27,6 +27,7 @@ class LuaModule extends ScribuntoModuleBase {
 		parent::__construct( $engine, $code, $chunkName );
 	}
 
+	/** @inheritDoc */
 	public function validate() {
 		try {
 			$this->getInitChunk();

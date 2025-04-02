@@ -21,6 +21,7 @@ class TitleLibrary extends LibraryBase {
 	/** @var (Title|null)[] */
 	private $idCache = [ 0 => null ];
 
+	/** @inheritDoc */
 	public function register() {
 		$lib = [
 			'newTitle' => [ $this, 'newTitle' ],

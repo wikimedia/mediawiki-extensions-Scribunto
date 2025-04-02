@@ -44,6 +44,7 @@ class UstringLibrary extends LibraryBase {
 		parent::__construct( $engine );
 	}
 
+	/** @inheritDoc */
 	public function register() {
 		$perf = $this->getEngine()->getPerformanceCharacteristics();
 

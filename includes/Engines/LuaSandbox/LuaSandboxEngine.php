@@ -253,6 +253,7 @@ class LuaSandboxEngine extends LuaEngine {
 		return $this->lineCache['mw.lua'][$lineNum - 1];
 	}
 
+	/** @inheritDoc */
 	protected function newInterpreter() {
 		return new LuaSandboxInterpreter( $this, $this->options );
 	}
