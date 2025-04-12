@@ -49,9 +49,9 @@ class LuaSandboxEngine extends LuaEngine {
 		$versions = LuaSandbox::getVersionInfo();
 		$software['[https://www.mediawiki.org/wiki/LuaSandbox LuaSandbox]'] =
 			$versions['LuaSandbox'];
-		$software['[http://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
+		$software['[https://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
 		if ( isset( $versions['LuaJIT'] ) ) {
-			$software['[http://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
+			$software['[https://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
 		}
 	}
 
