@@ -8,9 +8,11 @@
 			"Shirayuki",
 			"Whym",
 			"Yusuke1109",
-			"Qwrop"
+			"Qwrop",
+			"TAKAHASHI Shuuji"
 		]
 	},
+	"content-model-scribunto": "Scribuntoモジュール",
 	"scribunto-desc": "スクリプト言語を MediaWiki ページに埋め込むためのフレームワーク",
 	"scribunto-line": "$1 行目",
 	"scribunto-module-line": "$1 内、$2 行目",
@@ -43,6 +45,7 @@
 	"scribunto-lua-error-location": "Lua エラー $1: $2",
 	"scribunto-lua-error": "Lua エラー: $2",
 	"scribunto-lua-notarrayreturn": "スクリプトエラー: モジュールが値 $2 を返しました。書き出しテーブルを返すことになっています。",
+	"scribunto-lua-warning": "スクリプトの警告: $1",
 	"scribunto-luastandalone-proc-error": "Lua エラー: プロセスを作成できません。",
 	"scribunto-luastandalone-proc-error-msg": "Lua エラー: プロセスを作成できません: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lua エラー: プロセスを作成できません: proc_open を利用できません。PHP の「disable_function」ディレクティブを確認してください。",
@@ -67,5 +70,7 @@
 	"scribunto-limitreport-profile-percent": "$1%",
 	"scribunto-limitreport-logs": "Lua のログ",
 	"nstab-module": "モジュール",
-	"tooltip-ca-nstab-module": "モジュールページを表示"
+	"tooltip-ca-nstab-module": "モジュールページを表示",
+	"namespaceinfo-description-ns828": "ウィキページとそのドキュメントページから呼び出すことができる、Luaコードモジュールの名前空間。",
+	"namespaceinfo-description-ns829": "モジュールとドキュメントの会話ページ"
 }
