@@ -100,6 +100,7 @@
 		"ParserClearState": "main",
 		"ParserCloned": "main",
 		"CodeEditorGetPageLanguage": "codeeditor",
+		"CodeMirrorGetMode": "codemirror",
 		"EditPage::showStandardInputs:options": "main",
 		"EditPage::showReadOnlyForm:initial": "main",
 		"EditPageBeforeEditButtons": "main",
@@ -119,6 +120,12 @@
 		},
 		"codeeditor": {
 			"class": "MediaWiki\\Extension\\Scribunto\\CodeEditorHooks",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"codemirror": {
+			"class": "MediaWiki\\Extension\\Scribunto\\CodeMirrorHooks",
 			"services": [
 				"MainConfig"
 			]
@@ -184,6 +191,10 @@
 		"ScribuntoUseCodeEditor": {
 			"description": "Set to true to enable the CodeEditor extension integration",
 			"value": true
+		},
+		"ScribuntoUseCodeMirror": {
+			"description": "Set to true to enable the CodeMirror extension integration",
+			"value": false
 		},
 		"ScribuntoGatherFunctionStats": {
 			"description": "Set to true to enable gathering and reporting of performance data for slow function invocations.",

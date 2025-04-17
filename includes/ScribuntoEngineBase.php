@@ -238,6 +238,14 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
+	 * Get the language for the CodeMirror editor.
+	 * @return string|false
+	 */
+	public function getCodeMirrorLanguage() {
+		return false;
+	}
+
+	/**
 	 * @return Parser
 	 */
 	public function getParser() {
