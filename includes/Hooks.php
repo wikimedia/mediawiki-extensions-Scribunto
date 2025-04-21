@@ -24,7 +24,6 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use Article;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
 use MediaWiki\Content\IContentHandlerFactory;
@@ -42,6 +41,7 @@ use MediaWiki\Hook\ParserLimitReportPrepareHook;
 use MediaWiki\Hook\SoftwareInfoHook;
 use MediaWiki\Html\Html;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Page\Article;
 use MediaWiki\Page\Hook\ArticleViewHeaderHook;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
