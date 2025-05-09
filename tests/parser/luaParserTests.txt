@@ -430,8 +430,6 @@ parsoid={ "modes": ["wt2html","wt2wt"], "normalizePhp": true }
 Scribunto: expandTemplate with headers
 !! options
 parsoid={ "modes": ["wt2html","wt2wt"] }
-!! config
-wgParserEnableLegacyHeadingDOM=false
 !! wikitext
 ==foo==
 {{#invoke:test|testExpandTemplateWithHeaders}}
