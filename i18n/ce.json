@@ -61,5 +61,6 @@
 	"scribunto-limitreport-profile-ms": "$1 мс",
 	"scribunto-limitreport-logs": "Lua журналаш",
 	"nstab-module": "Модуль",
-	"tooltip-ca-nstab-module": "Модулан агӀо хьажа"
+	"tooltip-ca-nstab-module": "Модулан агӀо хьажа",
+	"namespaceinfo-description-ns829": "Модулийн а, документацин а дийцарийн агӀонаш"
 }
