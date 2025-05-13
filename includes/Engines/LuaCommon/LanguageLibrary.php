@@ -301,14 +301,14 @@ class LanguageLibrary extends LibraryBase {
 				$username = $title->getText();
 			}
 
-			// check parameter, or use the ParserOptions if in interface message
+			// check parameter, or use the ParserOptions if in a message
 			$user = User::newFromName( $username );
 			if ( $user ) {
 				$genderCache = MediaWikiServices::getInstance()->getGenderCache();
 				$gender = $genderCache->getGenderOf( $user, __METHOD__ );
 			} elseif ( $username === '' ) {
 				$parserOptions = $this->getParserOptions();
-				if ( $parserOptions->getInterfaceMessage() ) {
+				if ( $parserOptions->isMessage() ) {
 					$genderCache = MediaWikiServices::getInstance()->getGenderCache();
 					$gender = $genderCache->getGenderOf( $parserOptions->getUserIdentity(), __METHOD__ );
 				}
