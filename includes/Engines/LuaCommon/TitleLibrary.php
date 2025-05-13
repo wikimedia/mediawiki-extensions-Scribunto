@@ -108,10 +108,6 @@ class TitleLibrary extends LibraryBase {
 			'thePartialUrl' => $title->getPartialURL(),
 		];
 		if ( $ns === NS_SPECIAL ) {
-			// Core doesn't currently record special page links, but it may in the future.
-			if ( $this->getParser() && !$title->equals( $this->getTitle() ) ) {
-				$this->getParser()->getOutput()->addLink( $title );
-			}
 			$ret['exists'] = MediaWikiServices::getInstance()
 				->getSpecialPageFactory()->exists( $title->getDBkey() );
 		}
@@ -148,7 +144,7 @@ class TitleLibrary extends LibraryBase {
 
 				// Record a link
 				if ( $this->getParser() ) {
-					$this->getParser()->getOutput()->addLink( $title );
+					$this->getParser()->getOutput()->addExistenceDependency( $title );
 				}
 			}
 
@@ -198,7 +194,7 @@ class TitleLibrary extends LibraryBase {
 
 				// Record a link
 				if ( $title && $this->getParser() && !$title->equals( $this->getTitle() ) ) {
-					$this->getParser()->getOutput()->addLink( $title );
+					$this->getParser()->getOutput()->addExistenceDependency( $title );
 				}
 			}
 			if ( $title ) {
