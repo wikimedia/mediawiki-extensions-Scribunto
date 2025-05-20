@@ -9,7 +9,8 @@
 			"Whym",
 			"Yusuke1109",
 			"Qwrop",
-			"TAKAHASHI Shuuji"
+			"TAKAHASHI Shuuji",
+			"Foomin10"
 		]
 	},
 	"content-model-scribunto": "Scribuntoモジュール",
@@ -22,7 +23,7 @@
 	"scribunto-doc-page-name": "Module:$1/doc",
 	"scribunto-doc-page-does-not-exist": "''このモジュールについての説明文ページを [[$1]] に作成できます''",
 	"scribunto-doc-page-header": "'''このページは、[[$1]]の説明文を記述するページです。'''",
-	"scribunto-console-intro": "* モジュールのエクスポートは、保存していない変更も含めて、「p」という変数として利用できます。\n* 式として評価するには、行頭に「=」をつけるか print() を使ってください。テーブルには mw.logObject() を使用します。\n* モジュールのコードからこのコンソールにメッセージを送信するには mw.log() および mw.logObject() を使ってください。",
+	"scribunto-console-intro": "* モジュールのエクスポートは、保存していない変更も含めて、「p」という変数として利用できます。\n* 式として評価するには、行頭に「=」をつけるか print() を使ってください。テーブルには mw.logObject() を使用します。\n* モジュールのコードからこのコンソールにメッセージを送信するには mw.log() と mw.logObject() を使ってください。",
 	"scribunto-console-title": "デバッグコンソール",
 	"scribunto-console-too-large": "このコンソールセッションは大きすぎます。コンソール履歴を消去するか、モジュールのサイズを減らしてください。",
 	"scribunto-console-current-src": "コンソール入力",
@@ -71,6 +72,6 @@
 	"scribunto-limitreport-logs": "Lua のログ",
 	"nstab-module": "モジュール",
 	"tooltip-ca-nstab-module": "モジュールページを表示",
-	"namespaceinfo-description-ns828": "ウィキページとそのドキュメントページから呼び出すことができる、Luaコードモジュールの名前空間。",
-	"namespaceinfo-description-ns829": "モジュールとドキュメントの会話ページ"
+	"namespaceinfo-description-ns828": "ウィキページとその文書ページから呼び出すことができる、Luaコードモジュールの名前空間。",
+	"namespaceinfo-description-ns829": "モジュールと文書のトークページ"
 }
