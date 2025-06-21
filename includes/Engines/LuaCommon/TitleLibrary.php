@@ -299,6 +299,10 @@ class TitleLibrary extends LibraryBase {
 			$title, $title->getArticleID(), $title->getLatestRevID()
 		);
 
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
+			return null;
+		}
+
 		$rev = $this->getParser()->fetchCurrentRevisionRecordOfTitle( $title );
 
 		if ( $title->equals( $this->getTitle() ) ) {
