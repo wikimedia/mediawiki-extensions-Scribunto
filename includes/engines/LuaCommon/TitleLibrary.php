@@ -292,6 +292,10 @@ class Scribunto_LuaTitleLibrary extends Scribunto_LuaLibraryBase {
 			$title, $title->getArticleID(), $title->getLatestRevID()
 		);
 
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
+			return null;
+		}
+
 		$rev = $this->getParser()->fetchCurrentRevisionRecordOfTitle( $title );
 
 		if ( $title->equals( $this->getTitle() ) ) {
