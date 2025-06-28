@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
 use MediaWiki\Content\WikitextContent;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\SiteLibrary;
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Page\PageIdentityValue;
@@ -10,6 +11,7 @@ use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Title\Title;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TitleLibrary
@@ -45,6 +47,17 @@ class TitleLibraryTest extends LuaEngineTestBase {
 			] ] ),
 		] );
 
+		// Set up restricted namespaces
+		$this->overrideConfigValues( [
+			MainConfigNames::ExtraNamespaces => [
+				100 => 'Test',
+				101 => 'Test talk',
+			],
+			MainConfigNames::NonincludableNamespaces => [ 100, 101 ],
+		] );
+		// Refresh cached namespace info
+		TestingAccessWrapper::newFromClass( SiteLibrary::class )->namespacesCache = null;
+
 		$editor = self::getTestSysop()->getUser();
 
 		$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
@@ -59,6 +72,13 @@ class TitleLibraryTest extends LuaEngineTestBase {
 			'Summary'
 		);
 		$this->testPageId = $page->getId();
+
+		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'Test:Restricted' ) );
+		$page->doUserEditContent(
+			new WikitextContent( 'Some secret.' ),
+			$editor,
+			'Summary'
+		);
 
 		// Pages for redirectTarget tests
 		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestRedirect' ) );
