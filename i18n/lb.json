@@ -31,7 +31,7 @@
 	"scribunto-common-no-details": "Keng weider Detailer verfügbar.",
 	"scribunto-lua-in-function": "an der Funktioun „$1“",
 	"scribunto-lua-error-location": "Lua-Feeler $1: $2.",
-	"scribunto-lua-error": "Lua Feeler: $2.",
+	"scribunto-lua-error": "Lua-Feeler: $2.",
 	"scribunto-lua-warning": "Skriptwarnung: $1",
 	"scribunto-module-with-errors-category": "Scirbunto-Moduler mat Feeler",
 	"scribunto-module-with-errors-category-desc": "De Modul huet e Feeler.",
