@@ -87,7 +87,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		try {
 			LuaSandboxInterpreter::checkLuaSandboxVersion();
 			$engine = 'luasandbox';
-		} catch ( LuaInterpreterNotFoundError | LuaInterpreterBadVersionError $e ) {
+		} catch ( LuaInterpreterNotFoundError | LuaInterpreterBadVersionError ) {
 			// pass
 		}
 
@@ -325,7 +325,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		try {
 			$log = $this->getInterpreter()->callFunction( $this->mw['getLogBuffer'] );
 			return $log[0];
-		} catch ( ScribuntoException $ex ) {
+		} catch ( ScribuntoException ) {
 			// Probably time expired, ignore it.
 			return '';
 		}
