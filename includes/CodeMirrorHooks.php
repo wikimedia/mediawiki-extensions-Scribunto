@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace MediaWiki\Extension\Scribunto;
 
@@ -26,7 +27,7 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 	 * @param string $model
 	 * @return bool
 	 */
-	public function onCodeMirrorGetMode( Title $title, ?string &$mode, string $model ) {
+	public function onCodeMirrorGetMode( Title $title, ?string &$mode, string $model ): bool {
 		if ( $this->useCodeMirror && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
 			$engine = Scribunto::newDefaultEngine();
 			if ( $engine->getCodeMirrorLanguage() ) {
