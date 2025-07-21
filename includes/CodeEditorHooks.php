@@ -28,7 +28,12 @@ class CodeEditorHooks implements CodeEditorGetPageLanguageHook {
 	 * @return bool
 	 */
 	public function onCodeEditorGetPageLanguage( Title $title, ?string &$languageCode, string $model, string $format ) {
-		if ( $this->useCodeEditor && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
+		if ( $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) && (
+				$this->useCodeEditor ||
+				// Temporary while CodeMirror is still in beta (T373711#11018957).
+				!( \MediaWiki\Extension\CodeEditor\Hooks::tempIsCodeMirrorEnabled() )
+			)
+		) {
 			$engine = Scribunto::newDefaultEngine();
 			if ( $engine->getCodeEditorLanguage() ) {
 				$languageCode = $engine->getCodeEditorLanguage();
