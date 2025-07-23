@@ -9,8 +9,8 @@ use MediaWiki\Title\Title;
 /**
  * Base class for extensions to define custom attributes on mw.title objects.
  *
- * @stable to implement
- * @since 1.44
+ * @stable to extend
+ * @since 1.45
  */
 abstract class TitleAttributeResolver {
 
