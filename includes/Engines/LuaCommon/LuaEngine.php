@@ -16,6 +16,7 @@ use MediaWiki\Parser\PPFrame;
 use MediaWiki\Parser\PPNode;
 use MediaWiki\Title\Title;
 use RuntimeException;
+use Wikimedia\Message\MessageValue;
 use Wikimedia\ScopedCallback;
 
 abstract class LuaEngine extends ScribuntoEngineBase {
@@ -71,6 +72,10 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @var array<string,array|class-string<LibraryBase>>
 	 */
 	protected $availableLibraries = [];
+	/**
+	 * @var int The amount of warnings that were added using mw.addWarning
+	 */
+	protected $addedScriptWarnings = 0;
 
 	private const MAX_EXPAND_CACHE_SIZE = 100;
 
@@ -903,9 +908,10 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		$this->checkString( 'addWarning', [ $text ], 0 );
 
 		// Message localization has to happen on the Lua side
-		$this->getParser()->getOutput()->addWarningMsg(
-			'scribunto-lua-warning',
-			$text
+		$this->getParser()->getOutput()->addWarningMsgVal(
+			MessageValue::new( 'scribunto-lua-warning', [ $text ] ),
+			// T398390: specify deduplication key so multiple script warnings won't override each other
+			'scribunto-lua-warning-' . ++$this->addedScriptWarnings
 		);
 	}
 

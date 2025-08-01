@@ -900,4 +900,34 @@ class LuaCommonTest extends LuaEngineTestBase {
 		$this->assertSame( '>ok<', $text );
 		$this->assertSame( [ 'Script warning: Don\'t panic!' ], $parser->getOutput()->getWarnings() );
 	}
+
+	public function testAddMultipleWarningsT398390() {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+
+		$this->extraModules['Module:T398390'] = '
+			local p = {}
+
+			p.foo = function ()
+				mw.addWarning( "First warning!" )
+				mw.addWarning( "Second warning!" )
+				return "ok"
+			end
+
+			return p
+		';
+
+		$frame = $pp->newFrame();
+		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:T398390|foo}}<" ) );
+		$text = $parser->getStripState()->unstripBoth( $text );
+		$this->assertSame( '>ok<', $text );
+		$this->assertSame(
+			[
+				'Script warning: First warning!',
+				'Script warning: Second warning!'
+			],
+			$parser->getOutput()->getWarnings()
+		);
+	}
 }
