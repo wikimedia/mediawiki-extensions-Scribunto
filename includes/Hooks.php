@@ -417,7 +417,9 @@ class Hooks implements
 		$status->merge( $validateStatus );
 
 		if ( isset( $validateStatus->value->params['module'] ) ) {
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$module = $validateStatus->value->params['module'];
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$line = $validateStatus->value->params['line'];
 			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
 				$out = $context->getOutput();
