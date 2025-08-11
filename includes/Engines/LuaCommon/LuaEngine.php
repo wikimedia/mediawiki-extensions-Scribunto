@@ -775,7 +775,6 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param array $args
 	 * @throws LuaError
 	 * @return array
-	 * @suppress PhanImpossibleCondition
 	 */
 	public function callParserFunction( $frameId, $function, $args ) {
 		$frame = $this->getFrameById( $frameId );
