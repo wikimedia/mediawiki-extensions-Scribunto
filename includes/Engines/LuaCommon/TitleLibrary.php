@@ -48,7 +48,7 @@ class TitleLibrary extends LibraryBase {
 		$objectFactory = MediaWikiServices::getInstance()->getObjectFactory();
 		$extraTitleAttributes = $extensionRegistry->getAttribute( 'ScribuntoLuaExtraTitleAttributes' );
 		foreach ( $extraTitleAttributes as $key => $value ) {
-			$resolver = $objectFactory->createObject( $value );
+			$resolver = $objectFactory->createObject( $value, [ 'assertClass' => TitleAttributeResolver::class ] );
 			$resolver->setEngine( $this->getEngine() );
 			$this->attributeResolvers[$key] = $resolver;
 		}
