@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Saurmandal",
 			"Sfic",
 			"Siddhartha Ghai"
 		]
@@ -12,7 +13,7 @@
 	"scribunto-error-short": "स्क्रिप्ट त्रुटि: $1",
 	"scribunto-error-long": "स्क्रिप्ट त्रुटियाँ:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/doc",
-	"scribunto-doc-page-does-not-exist": "\"इस मॉड्यूल हेतु प्रलेख [[$1]] पर बनाया जा सकता है\"",
+	"scribunto-doc-page-does-not-exist": "''इस मॉड्यूल हेतु प्रलेख [[$1]] पर बनाया जा सकता है''",
 	"scribunto-doc-page-header": "'''यह [[$1]] हेतु प्रलेख पृष्ठ है'''",
 	"scribunto-console-intro": "* मॉड्यूल के निर्यात वेरियेबल \"p\" में उपलब्ध हैं, नहीं सहेजे गये बदलावों सहित।\n*किसी पंक्ति को एक्सप्रेशन की तरह चलाने के लिए उससे पहले \"=\" लगाएँ, अथवा print() का प्रयोग करें।\n* इस कौन्सोल को सन्देश भेजने के लिए मॉड्यूल कोड में mw.log() का प्रयोग करें",
 	"scribunto-console-title": "डीबग कौन्सोल",
