@@ -75,21 +75,12 @@ class Hooks implements
 	ArticleViewHeaderHook,
 	ContentHandlerDefaultModelForHook
 {
-	private Config $config;
-	private IContentHandlerFactory $contentHandlerFactory;
-	private ObjectCacheFactory $objectCacheFactory;
-	private StatsFactory $statsFactory;
-
 	public function __construct(
-		Config $config,
-		IContentHandlerFactory $contentHandlerFactory,
-		ObjectCacheFactory $objectCacheFactory,
-		StatsFactory $statsFactory
+		private readonly Config $config,
+		private readonly IContentHandlerFactory $contentHandlerFactory,
+		private readonly ObjectCacheFactory $objectCacheFactory,
+		private readonly StatsFactory $statsFactory,
 	) {
-		$this->config = $config;
-		$this->contentHandlerFactory = $contentHandlerFactory;
-		$this->objectCacheFactory = $objectCacheFactory;
-		$this->statsFactory = $statsFactory;
 	}
 
 	/**

@@ -18,18 +18,14 @@ use Wikimedia\ParamValidator\ParamValidator;
 class ApiScribuntoConsole extends ApiBase {
 	private const SC_MAX_SIZE = 500000;
 	private const SC_SESSION_EXPIRY = 3600;
-	private ObjectCacheFactory $objectCacheFactory;
-	private ParserFactory $parserFactory;
 
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		ObjectCacheFactory $objectCacheFactory,
-		ParserFactory $parserFactory
+		private readonly ObjectCacheFactory $objectCacheFactory,
+		private readonly ParserFactory $parserFactory,
 	) {
 		parent::__construct( $main, $action );
-		$this->objectCacheFactory = $objectCacheFactory;
-		$this->parserFactory = $parserFactory;
 	}
 
 	/**
