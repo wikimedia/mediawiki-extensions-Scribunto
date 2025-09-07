@@ -36,6 +36,7 @@ class TitleLibrary extends LibraryBase {
 			'getContent' => [ $this, 'getContent' ],
 			'getCategories' => [ $this, 'getCategories' ],
 			'getFileInfo' => [ $this, 'getFileInfo' ],
+			'getFileMetadata' => [ $this, 'getFileMetadata' ],
 			'protectionLevels' => [ $this, 'protectionLevels' ],
 			'cascadingProtection' => [ $this, 'cascadingProtection' ],
 			'redirectTarget' => [ $this, 'redirectTarget' ],
@@ -532,6 +533,77 @@ class TitleLibrary extends LibraryBase {
 			'size' => $file->getSize(),
 			'pages' => $pages
 		] ];
+	}
+
+	/**
+	 * Get Exif-style metadata for a file
+	 *
+	 * This uses $file->getCommonMetaArray not $file->getMetadataArray().
+	 * getMetadataArray() is defined entirely by the handler, while getCommonMetaArray
+	 * should use the same format for all handlers.
+	 *
+	 * Fetching metadata requires an additional DB request beyond just fetching the
+	 * file so increment the expensive function counter again.
+	 *
+	 * @param string $text File name to lookup
+	 * @return array
+	 */
+	public function getFileMetadata( $text ) {
+		// Redo these checks just in case, but we should never be able
+		// to get here if any of them are false except for race conditions.
+		$this->checkType( 'getFileMetadata', 1, $text, 'string' );
+		$title = Title::newFromText( $text );
+		if ( !$title ) {
+			return [ [] ];
+		}
+		$ns = $title->getNamespace();
+		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
+			return [ [] ];
+		}
+
+		$this->incrementExpensiveFunctionCount();
+		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		if ( !$file ) {
+			return [ [] ];
+		}
+		return [ $this->normalizeMetadata( $file->getCommonMetaArray() ) ];
+	}
+
+	/**
+	 * Normalize metadata array (Change to 1-based indexing)
+	 *
+	 * MediaWiki distinguishes between handler does not support metadata and
+	 * a particular image just doesn't have metadata, but we are going to return
+	 * an empty array in both cases.
+	 *
+	 * The general format of the metadata array is:
+	 * [
+	 *   'field name' => 'simple value',
+	 *   'field2' => [ 'item1', 'item2', '_type' => 'ul' ],
+	 *   'lang field' => [ 'en' => 'English text', 'de' => 'German text', '_type' => 'x-default' ]
+	 * ]
+	 * In the UI metadata field names are translated with i18n messages, but we just have keys.
+	 *
+	 * @param bool|array $arr Associative array or false if media type doesn't support
+	 * @return array One based array.
+	 */
+	private function normalizeMetadata( $arr ) {
+		if ( $arr === false ) {
+			return [];
+		}
+		// The metadata array contains string keys
+		// The values can be either a string or an array.
+		// If the value is an array it can contain both numeric
+		// and string keys.
+		foreach ( $arr as &$entry ) {
+			if ( is_array( $entry ) ) {
+				// Note: We cannot use makeArrayOneBased as it
+				// modifies string keys.
+				array_unshift( $entry, null );
+				unset( $entry[0] );
+			}
+		}
+		return $arr;
 	}
 
 	/**
