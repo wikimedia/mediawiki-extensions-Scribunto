@@ -370,7 +370,7 @@ parsoid={ "modes": ["wt2html","wt2wt"] }
 <p>b
 b
 </p>
-!! html/parsoid+disabled
+!! html/parsoid
 <p><span typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"getArg"},"2":{"wt":"2"},"3":{"wt":"a"},"4":{"wt":"2=b"}},"i":0}}]}'>b</span>
 <span typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"getArg"},"2":{"wt":"2"},"3":{"wt":"2=a"},"4":{"wt":"b"}},"i":0}}]}'>b</span></p>
 !! end
@@ -386,7 +386,7 @@ parsoid={ "modes": ["wt2html","wt2wt"] }
 <p>3
 1
 </p>
-!! html/parsoid+disabled
+!! html/parsoid
 <p><span typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"getArgLength"},"2":{"wt":"2"},"3":{"wt":" x "}},"i":0}}]}'>3</span>
 <span typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"#invoke:test","function":"invoke"},"params":{"1":{"wt":"getArgLength"},"2":{"wt":"2"},"3":{"wt":"2= x "}},"i":0}}]}'>1</span></p>
 !! end
