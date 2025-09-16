@@ -19,13 +19,11 @@ use MediaWiki\Title\Title;
 /**
  * Scribunto Content Handler
  *
- * @file
  * @ingroup Extensions
  * @ingroup Scribunto
  *
  * @author Brad Jorsch <bjorsch@wikimedia.org>
  */
-
 class ScribuntoContentHandler extends CodeContentHandler {
 
 	/**
