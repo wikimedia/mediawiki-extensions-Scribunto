@@ -2,7 +2,6 @@
 <ruleset name="Scribunto">
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.Commenting.ClassAnnotations.UnrecognizedAnnotation" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php" />

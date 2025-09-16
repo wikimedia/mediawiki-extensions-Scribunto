@@ -16,6 +16,7 @@ class LuaCommonTestsSpecLibrary extends LibraryBase {
 		$this->message = $message;
 	}
 
+	/** @inheritDoc */
 	public function register() {
 		$lib = [];
 		$opts = [
