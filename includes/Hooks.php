@@ -20,8 +20,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
-
 namespace MediaWiki\Extension\Scribunto;
 
 use MediaWiki\Config\Config;
