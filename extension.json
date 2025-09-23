@@ -22,7 +22,12 @@
 		}
 	},
 	"ContentHandlers": {
-		"Scribunto": "MediaWiki\\Extension\\Scribunto\\ScribuntoContentHandler"
+		"Scribunto": {
+			"class": "MediaWiki\\Extension\\Scribunto\\ScribuntoContentHandler",
+			"services": [
+				"Scribunto.EngineFactory"
+			]
+		}
 	},
 	"TrackingCategories": [
 		"scribunto-common-error-category",
@@ -58,6 +63,9 @@
 	"TestAutoloadNamespaces": {
 		"MediaWiki\\Extension\\Scribunto\\Tests\\": "tests/phpunit/"
 	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"ResourceModules": {
 		"ext.scribunto.errors": {
 			"scripts": "ext.scribunto.errors.js",
@@ -115,19 +123,22 @@
 				"MainConfig",
 				"ContentHandlerFactory",
 				"ObjectCacheFactory",
-				"StatsFactory"
+				"StatsFactory",
+				"Scribunto.EngineFactory"
 			]
 		},
 		"codeeditor": {
 			"class": "MediaWiki\\Extension\\Scribunto\\CodeEditorHooks",
 			"services": [
-				"MainConfig"
+				"MainConfig",
+				"Scribunto.EngineFactory"
 			]
 		},
 		"codemirror": {
 			"class": "MediaWiki\\Extension\\Scribunto\\CodeMirrorHooks",
 			"services": [
-				"MainConfig"
+				"MainConfig",
+				"Scribunto.EngineFactory"
 			]
 		}
 	},
@@ -179,7 +190,7 @@
 					"maxLangCacheSize": 30
 				},
 				"luaautodetect": {
-					"factory": "MediaWiki\\Extension\\Scribunto\\Engines\\LuaCommon\\LuaEngine::newAutodetectEngine"
+					"implementation": "autodetect"
 				}
 			},
 			"merge_strategy": "array_plus_2d"

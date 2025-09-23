@@ -15,7 +15,8 @@ class CodeEditorHooks implements CodeEditorGetPageLanguageHook {
 	private bool $useCodeEditor;
 
 	public function __construct(
-		Config $config
+		Config $config,
+		private readonly EngineFactory $engineFactory,
 	) {
 		$this->useCodeEditor = $config->get( 'ScribuntoUseCodeEditor' );
 	}
@@ -34,7 +35,7 @@ class CodeEditorHooks implements CodeEditorGetPageLanguageHook {
 				!( \MediaWiki\Extension\CodeEditor\Hooks::tempIsCodeMirrorEnabled() )
 			)
 		) {
-			$engine = Scribunto::newDefaultEngine();
+			$engine = $this->engineFactory->newDefaultEngine();
 			if ( $engine->getCodeEditorLanguage() ) {
 				$languageCode = $engine->getCodeEditorLanguage();
 				return false;

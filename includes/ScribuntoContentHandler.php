@@ -26,14 +26,11 @@ use MediaWiki\Title\Title;
  */
 class ScribuntoContentHandler extends CodeContentHandler {
 
-	/**
-	 * @param string $modelId
-	 * @param string[] $formats
-	 */
 	public function __construct(
-		$modelId = CONTENT_MODEL_SCRIBUNTO, $formats = [ CONTENT_FORMAT_TEXT ]
+		string $modelId,
+		private readonly EngineFactory $engineFactory,
 	) {
-		parent::__construct( $modelId, $formats );
+		parent::__construct( $modelId, [ CONTENT_FORMAT_TEXT ] );
 	}
 
 	/** @inheritDoc */
@@ -95,7 +92,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			$page = $titleFactory->newFromPageIdentity( $page );
 		}
 
-		$engine = Scribunto::newDefaultEngine();
+		$engine = $this->engineFactory->newDefaultEngine();
 		$engine->setTitle( $page );
 		return $engine->validate( $content->getText(), $page->getPrefixedDBkey() );
 	}
@@ -191,7 +188,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			return;
 		}
 
-		$engine = Scribunto::newDefaultEngine();
+		$engine = $this->engineFactory->newDefaultEngine();
 		$engine->setTitle( $title );
 		$codeLang = $engine->getGeSHiLanguage();
 		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
@@ -242,13 +239,13 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	 * @return ScribuntoContent
 	 */
 	public function makeRedirectContent( Title $target, $text = '' ) {
-		return Scribunto::newDefaultEngine()->makeRedirectContent( $target, $text );
+		return $this->engineFactory->newDefaultEngine()->makeRedirectContent( $target, $text );
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function supportsRedirects() {
-		return Scribunto::newDefaultEngine()->supportsRedirects();
+		return $this->engineFactory->newDefaultEngine()->supportsRedirects();
 	}
 }

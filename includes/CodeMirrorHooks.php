@@ -16,7 +16,8 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 	private bool $useCodeMirror;
 
 	public function __construct(
-		Config $config
+		Config $config,
+		private readonly EngineFactory $engineFactory,
 	) {
 		$this->useCodeMirror = $config->get( 'ScribuntoUseCodeMirror' );
 	}
@@ -29,7 +30,7 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 	 */
 	public function onCodeMirrorGetMode( Title $title, ?string &$mode, string $model ): bool {
 		if ( $this->useCodeMirror && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			$engine = Scribunto::newDefaultEngine();
+			$engine = $this->engineFactory->newDefaultEngine();
 			if ( $engine->getCodeMirrorLanguage() ) {
 				$mode = $engine->getCodeMirrorLanguage();
 				return false;

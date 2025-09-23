@@ -3,8 +3,6 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use Exception;
-use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
-use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoContent;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
@@ -78,29 +76,6 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	protected $addedScriptWarnings = 0;
 
 	private const MAX_EXPAND_CACHE_SIZE = 100;
-
-	/**
-	 * If luasandbox is installed and usable then use it,
-	 * otherwise
-	 *
-	 * @param array $options
-	 * @return LuaEngine
-	 */
-	public static function newAutodetectEngine( array $options ) {
-		$engineConf = MediaWikiServices::getInstance()->getMainConfig()->get( 'ScribuntoEngineConf' );
-		$engine = 'luastandalone';
-		try {
-			LuaSandboxInterpreter::checkLuaSandboxVersion();
-			$engine = 'luasandbox';
-		} catch ( LuaInterpreterNotFoundError | LuaInterpreterBadVersionError ) {
-			// pass
-		}
-
-		unset( $options['factory'] );
-
-		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
-		return Scribunto::newEngine( $options + $engineConf[$engine] );
-	}
 
 	/**
 	 * Create a new interpreter object
