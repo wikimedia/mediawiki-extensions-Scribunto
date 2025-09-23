@@ -64,5 +64,7 @@
 	"scribunto-limitreport-profile-ms": "$1 ms",
 	"scribunto-limitreport-logs": "Lua logger",
 	"nstab-module": "Modul",
-	"tooltip-ca-nstab-module": "Vis modulsiden"
+	"tooltip-ca-nstab-module": "Vis modulsiden",
+	"namespaceinfo-description-ns828": "Navnerom for Lua-moduler, som kan påkalles fra wikisider, og deres dokumentasjonssider",
+	"namespaceinfo-description-ns829": "Diskusjonssider for modulene og dokumentasjonen"
 }
