@@ -23,8 +23,10 @@ class Scribunto {
 			/** @var EngineFactory $engineFactory */
 			$engineFactory = MediaWikiServices::getInstance()->getService( 'Scribunto.EngineFactory' );
 			'@phan-var EngineFactory $engineFactory';
-			$parser->scribunto_engine = $engineFactory->newDefaultEngine( [ 'parser' => $parser ] );
-			$parser->scribunto_engine->setTitle( $parser->getTitle() );
+			$parser->scribunto_engine = $engineFactory->getDefaultEngine( [
+				'parser' => $parser,
+				'title' => $parser->getTitle(),
+			] );
 		}
 		return $parser->scribunto_engine;
 	}

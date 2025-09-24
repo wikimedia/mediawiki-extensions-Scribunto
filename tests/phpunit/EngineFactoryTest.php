@@ -22,20 +22,20 @@ class EngineFactoryTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function testNewDefaultEngine() {
+	public function testGetDefaultEngine() {
 		$factory = $this->getServiceContainer()->getService( 'Scribunto.EngineFactory' );
-		$this->assertNotNull( $factory->newDefaultEngine() );
+		$this->assertNotNull( $factory->getDefaultEngine() );
 	}
 
-	/** @dataProvider provideNewDefaultEngineException */
-	public function testNewDefaultEngineException( array $options ) {
+	/** @dataProvider provideGetDefaultEngineException */
+	public function testGetDefaultEngineException( array $options ) {
 		$factory = $this->newFactory( $options );
 
 		$this->expectException( ConfigException::class );
-		$factory->newDefaultEngine();
+		$factory->getDefaultEngine();
 	}
 
-	public static function provideNewDefaultEngineException(): iterable {
+	public static function provideGetDefaultEngineException(): iterable {
 		return [
 			[
 				[

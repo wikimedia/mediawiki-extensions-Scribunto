@@ -22,6 +22,8 @@ class EngineFactory {
 	/** @var array<string,array> */
 	private readonly array $engineConf;
 
+	private ?ScribuntoEngineBase $cachedDefaultEngine = null;
+
 	/** @internal For use by ServiceWiring */
 	public function __construct(
 		ServiceOptions $options,
@@ -59,7 +61,11 @@ class EngineFactory {
 	 * @param array $extraOptions Extra options to pass to the constructor,
 	 *  in addition to the configured options
 	 */
-	public function newDefaultEngine( array $extraOptions = [] ): ScribuntoEngineBase {
+	public function getDefaultEngine( array $extraOptions = [] ): ScribuntoEngineBase {
+		if ( $extraOptions === [] && $this->cachedDefaultEngine !== null ) {
+			return $this->cachedDefaultEngine;
+		}
+
 		if ( !$this->defaultEngine ) {
 			throw new ConfigException(
 				'Scribunto extension is enabled but $wgScribuntoDefaultEngine is not set'
@@ -71,7 +77,13 @@ class EngineFactory {
 			throw new ConfigException( 'Invalid scripting engine is specified in $wgScribuntoDefaultEngine' );
 		}
 		$options = $extraOptions + $this->engineConf[$this->defaultEngine];
-		return $this->newEngine( $options );
+		$defaultEngine = $this->newEngine( $options );
+
+		if ( $extraOptions === [] && $this->cachedDefaultEngine === null ) {
+			$this->cachedDefaultEngine = $defaultEngine;
+		}
+
+		return $defaultEngine;
 	}
 
 	/**

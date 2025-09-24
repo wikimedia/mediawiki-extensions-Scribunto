@@ -30,7 +30,7 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 	 */
 	public function onCodeMirrorGetMode( Title $title, ?string &$mode, string $model ): bool {
 		if ( $this->useCodeMirror && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			$engine = $this->engineFactory->newDefaultEngine();
+			$engine = $this->engineFactory->getDefaultEngine();
 			if ( $engine->getCodeMirrorLanguage() ) {
 				$mode = $engine->getCodeMirrorLanguage();
 				return false;

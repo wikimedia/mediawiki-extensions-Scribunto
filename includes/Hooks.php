@@ -96,8 +96,9 @@ class Hooks implements
 	 * @return bool
 	 */
 	public function onSoftwareInfo( &$software ) {
-		$engine = $this->engineFactory->newDefaultEngine();
-		$engine->setTitle( Title::makeTitle( NS_SPECIAL, 'Version' ) );
+		$engine = $this->engineFactory->getDefaultEngine( [
+			'title' => Title::makeTitle( NS_SPECIAL, 'Version' ),
+		] );
 		$engine->getSoftwareInfo( $software );
 		return true;
 	}
@@ -332,7 +333,7 @@ class Hooks implements
 	 * @return bool
 	 */
 	public function onParserLimitReportFormat( $key, &$value, &$report, $isHTML, $localize ) {
-		$engine = $this->engineFactory->newDefaultEngine();
+		$engine = $this->engineFactory->getDefaultEngine();
 		return $engine->formatLimitData( $key, $value, $report, $isHTML, $localize );
 	}
 

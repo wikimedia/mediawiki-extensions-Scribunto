@@ -35,7 +35,7 @@ class CodeEditorHooks implements CodeEditorGetPageLanguageHook {
 				!( \MediaWiki\Extension\CodeEditor\Hooks::tempIsCodeMirrorEnabled() )
 			)
 		) {
-			$engine = $this->engineFactory->newDefaultEngine();
+			$engine = $this->engineFactory->getDefaultEngine();
 			if ( $engine->getCodeEditorLanguage() ) {
 				$languageCode = $engine->getCodeEditorLanguage();
 				return false;

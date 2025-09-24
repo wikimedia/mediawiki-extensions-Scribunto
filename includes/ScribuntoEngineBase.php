@@ -115,13 +115,6 @@ abstract class ScribuntoEngineBase {
 	}
 
 	/**
-	 * @param Title $title
-	 */
-	public function setTitle( $title ) {
-		$this->title = $title;
-	}
-
-	/**
 	 * @return Title
 	 */
 	public function getTitle() {

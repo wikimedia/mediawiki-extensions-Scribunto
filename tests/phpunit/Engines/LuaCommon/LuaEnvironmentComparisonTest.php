@@ -45,9 +45,8 @@ class LuaEnvironmentComparisonTest extends TestCase {
 		$options = ParserOptions::newFromAnon();
 		$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
-		$engine = new $class ( [ 'parser' => $parser ] + $opts );
+		$engine = new $class ( [ 'parser' => $parser, 'title' => $parser->getTitle() ] + $opts );
 		$parser->scribunto_engine = $engine;
-		$engine->setTitle( $parser->getTitle() );
 		$engine->getInterpreter();
 		return $engine;
 	}

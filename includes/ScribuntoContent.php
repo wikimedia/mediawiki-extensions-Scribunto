@@ -31,14 +31,14 @@ class ScribuntoContent extends TextContent {
 	 * @inheritDoc
 	 */
 	public function updateRedirect( Title $target ) {
-		return $this->getEngineFactory()->newDefaultEngine()->updateRedirect( $this, $target );
+		return $this->getEngineFactory()->getDefaultEngine()->updateRedirect( $this, $target );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getRedirectTarget() {
-		return $this->getEngineFactory()->newDefaultEngine()->getRedirectTarget( $this );
+		return $this->getEngineFactory()->getDefaultEngine()->getRedirectTarget( $this );
 	}
 
 	private function getEngineFactory(): EngineFactory {

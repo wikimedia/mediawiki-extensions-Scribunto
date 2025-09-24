@@ -92,8 +92,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			$page = $titleFactory->newFromPageIdentity( $page );
 		}
 
-		$engine = $this->engineFactory->newDefaultEngine();
-		$engine->setTitle( $page );
+		$engine = $this->engineFactory->getDefaultEngine( [ 'title' => $page ] );
 		return $engine->validate( $content->getText(), $page->getPrefixedDBkey() );
 	}
 
@@ -188,8 +187,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			return;
 		}
 
-		$engine = $this->engineFactory->newDefaultEngine();
-		$engine->setTitle( $title );
+		$engine = $this->engineFactory->getDefaultEngine( [ 'title' => $title ] );
 		$codeLang = $engine->getGeSHiLanguage();
 		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
 
@@ -239,13 +237,13 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	 * @return ScribuntoContent
 	 */
 	public function makeRedirectContent( Title $target, $text = '' ) {
-		return $this->engineFactory->newDefaultEngine()->makeRedirectContent( $target, $text );
+		return $this->engineFactory->getDefaultEngine()->makeRedirectContent( $target, $text );
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function supportsRedirects() {
-		return $this->engineFactory->newDefaultEngine()->supportsRedirects();
+		return $this->engineFactory->getDefaultEngine()->supportsRedirects();
 	}
 }
