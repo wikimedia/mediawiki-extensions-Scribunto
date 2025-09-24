@@ -109,7 +109,6 @@ abstract class ScribuntoEngineBase {
 
 	public function destroy() {
 		// Break reference cycles
-		$this->parser = null;
 		$this->title = null;
 		$this->modules = [];
 	}

@@ -24,6 +24,7 @@ class ApiScribuntoConsole extends ApiBase {
 		string $action,
 		private readonly ObjectCacheFactory $objectCacheFactory,
 		private readonly ParserFactory $parserFactory,
+		private readonly EngineFactory $engineFactory,
 	) {
 		parent::__construct( $main, $action );
 	}
@@ -116,7 +117,7 @@ class ApiScribuntoConsole extends ApiBase {
 		$parser = $this->parserFactory->getInstance();
 		$options = new ParserOptions( $this->getUser() );
 		$parser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
-		$engine = Scribunto::getParserEngine( $parser );
+		$engine = $this->engineFactory->getEngineForParser( $parser );
 		try {
 			$result = $engine->runConsole( $params );
 		} catch ( ScribuntoException $e ) {

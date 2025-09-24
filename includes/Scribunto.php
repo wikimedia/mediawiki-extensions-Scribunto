@@ -17,38 +17,13 @@ class Scribunto {
 	 *
 	 * @param Parser $parser
 	 * @return ScribuntoEngineBase
+	 * @deprecated Use EngineFactory::getEngineForParser
 	 */
 	public static function getParserEngine( Parser $parser ) {
-		if ( $parser->scribunto_engine === null ) {
-			/** @var EngineFactory $engineFactory */
-			$engineFactory = MediaWikiServices::getInstance()->getService( 'Scribunto.EngineFactory' );
-			'@phan-var EngineFactory $engineFactory';
-			$parser->scribunto_engine = $engineFactory->getDefaultEngine( [
-				'parser' => $parser,
-				'title' => $parser->getTitle(),
-			] );
-		}
-		return $parser->scribunto_engine;
-	}
-
-	/**
-	 * Check if an engine instance is present in the given parser
-	 *
-	 * @param Parser $parser
-	 * @return bool
-	 */
-	public static function isParserEnginePresent( Parser $parser ) {
-		return $parser->scribunto_engine !== null;
-	}
-
-	/**
-	 * Remove the current engine instance from the parser
-	 */
-	public static function resetParserEngine( Parser $parser ) {
-		if ( $parser->scribunto_engine !== null ) {
-			$parser->scribunto_engine->destroy();
-			$parser->scribunto_engine = null;
-		}
+		/** @var EngineFactory $engineFactory */
+		$engineFactory = MediaWikiServices::getInstance()->getService( 'Scribunto.EngineFactory' );
+		'@phan-var EngineFactory $engineFactory';
+		return $engineFactory->getEngineForParser( $parser );
 	}
 
 	/**

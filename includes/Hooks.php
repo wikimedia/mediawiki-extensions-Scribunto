@@ -32,7 +32,6 @@ use MediaWiki\Hook\EditPage__showReadOnlyForm_initialHook;
 use MediaWiki\Hook\EditPage__showStandardInputs_optionsHook;
 use MediaWiki\Hook\EditPageBeforeEditButtonsHook;
 use MediaWiki\Hook\ParserClearStateHook;
-use MediaWiki\Hook\ParserClonedHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\ParserLimitReportFormatHook;
 use MediaWiki\Hook\ParserLimitReportPrepareHook;
@@ -65,7 +64,6 @@ class Hooks implements
 	ParserLimitReportPrepareHook,
 	ParserLimitReportFormatHook,
 	ParserClearStateHook,
-	ParserClonedHook,
 	EditPage__showStandardInputs_optionsHook,
 	EditPage__showReadOnlyForm_initialHook,
 	EditPageBeforeEditButtonsHook,
@@ -120,17 +118,7 @@ class Hooks implements
 	 * @return void
 	 */
 	public function onParserClearState( $parser ) {
-		Scribunto::resetParserEngine( $parser );
-	}
-
-	/**
-	 * Called when the parser is cloned
-	 *
-	 * @param Parser $parser
-	 * @return void
-	 */
-	public function onParserCloned( $parser ) {
-		$parser->scribunto_engine = null;
+		$this->engineFactory->destroyEngineForParser( $parser );
 	}
 
 	/**
@@ -147,7 +135,7 @@ class Hooks implements
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
 			}
 			$moduleName = trim( $frame->expand( $args[0] ) );
-			$engine = Scribunto::getParserEngine( $parser );
+			$engine = $this->engineFactory->getEngineForParser( $parser );
 
 			$title = Title::makeTitleSafe( NS_MODULE, $moduleName );
 			if ( !$title || !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
@@ -316,10 +304,8 @@ class Hooks implements
 	 * @return void
 	 */
 	public function onParserLimitReportPrepare( $parser, $parserOutput ) {
-		if ( Scribunto::isParserEnginePresent( $parser ) ) {
-			$engine = Scribunto::getParserEngine( $parser );
-			$engine->reportLimitData( $parserOutput );
-		}
+		$this->engineFactory->peekEngineForParser( $parser )
+			?->reportLimitData( $parserOutput );
 	}
 
 	/**

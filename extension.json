@@ -17,7 +17,8 @@
 			"class": "MediaWiki\\Extension\\Scribunto\\ApiScribuntoConsole",
 			"services": [
 				"ObjectCacheFactory",
-				"ParserFactory"
+				"ParserFactory",
+				"Scribunto.EngineFactory"
 			]
 		}
 	},
@@ -106,7 +107,6 @@
 		"ParserLimitReportPrepare": "main",
 		"ParserLimitReportFormat": "main",
 		"ParserClearState": "main",
-		"ParserCloned": "main",
 		"CodeEditorGetPageLanguage": "codeeditor",
 		"CodeMirrorGetMode": "codemirror",
 		"EditPage::showStandardInputs:options": "main",

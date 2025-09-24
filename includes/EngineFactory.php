@@ -7,6 +7,8 @@ use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterBadVersionError;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter;
+use MediaWiki\Parser\Parser;
+use WeakMap;
 
 /**
  * Factory class to create a new lua engine
@@ -21,6 +23,8 @@ class EngineFactory {
 	private readonly ?string $defaultEngine;
 	/** @var array<string,array> */
 	private readonly array $engineConf;
+	/** @var WeakMap<Parser,ScribuntoEngineBase> */
+	private WeakMap $engineForParser;
 
 	private ?ScribuntoEngineBase $cachedDefaultEngine = null;
 
@@ -31,6 +35,7 @@ class EngineFactory {
 		$options->assertRequiredOptions( self::CONSTRUCTOR_OPTIONS );
 		$this->defaultEngine = $options->get( 'ScribuntoDefaultEngine' );
 		$this->engineConf = $options->get( 'ScribuntoEngineConf' );
+		$this->engineForParser = new WeakMap();
 	}
 
 	/**
@@ -100,5 +105,27 @@ class EngineFactory {
 		}
 
 		return $this->newEngine( $options + $this->engineConf[$engine] );
+	}
+
+	/**
+	 * Get an engine instance for the given parser, and cache it
+	 * so that subsequent calls to this function for the same parser will return
+	 * the same engine.
+	 */
+	public function getEngineForParser( Parser $parser ): ScribuntoEngineBase {
+		$this->engineForParser[$parser] ??= $this->getDefaultEngine( [
+			'parser' => $parser,
+			'title' => $parser->getTitle(),
+		] );
+
+		return $this->engineForParser[$parser];
+	}
+
+	public function peekEngineForParser( Parser $parser ): ?ScribuntoEngineBase {
+		return $this->engineForParser[$parser] ?? null;
+	}
+
+	public function destroyEngineForParser( Parser $parser ): void {
+		unset( $this->engineForParser[$parser] );
 	}
 }
