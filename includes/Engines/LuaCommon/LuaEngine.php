@@ -32,6 +32,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		'mw.text' => TextLibrary::class,
 		'mw.html' => HtmlLibrary::class,
 		'mw.hash' => HashLibrary::class,
+		'mw.svg' => SvgLibrary::class,
 	];
 
 	/**
