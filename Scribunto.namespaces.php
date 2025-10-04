@@ -181,7 +181,11 @@ $namespaceNames['din'] = [
 
 $namespaceNames['diq'] = [
 	828 => 'Modul',
-	829 => 'Modul_vaten',
+	829 => 'Werênayışê_moduli',
+];
+
+$namespaceAliases['diq'] = [
+	'Modul_vaten' => 829,
 ];
 
 $namespaceNames['dsb'] = [
