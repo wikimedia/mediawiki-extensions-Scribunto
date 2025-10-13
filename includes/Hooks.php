@@ -264,12 +264,8 @@ class Hooks implements
 			return;
 		}
 
-		static $stats;
-		if ( !$stats ) {
-			$stats = $this->statsFactory;
-		}
 		$statAction = WikiMap::getCurrentWikiId() . '__' . $moduleName . '__' . $functionName;
-		$stats->getTiming( 'scribunto_traces_seconds' )
+		$this->statsFactory->getTiming( 'scribunto_traces_seconds' )
 			->setLabel( 'action', $statAction )
 			->copyToStatsdAt( 'scribunto.traces.' . $statAction )
 			->observe( $timing );
