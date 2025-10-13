@@ -530,6 +530,11 @@ $namespaceNames['pnb'] = [
 	829 => 'ماڈیول_گل_بات',
 ];
 
+$namespaceNames['ps'] = [
+	828 => 'چلنوال',
+	829 => 'د_چلنوال_خبرې_اترې',
+];
+
 $namespaceNames['pt'] = [
 	828 => 'Módulo',
 	829 => 'Módulo_Discussão',
