@@ -8,8 +8,23 @@
 			"شاه زمان پټان"
 		]
 	},
+	"content-model-scribunto": "سکريبونتو چلنوال",
+	"scribunto-desc": "د مېډياويکي مخونو کې د سکريپټي ژبو ځای‌پرځای‌کولو چوکاټ",
+	"scribunto-line": "په $1 کرښه کې",
+	"scribunto-module-line": "د $1 په $2 کرښه کې",
+	"scribunto-parser-dialog-title": "سکريپټ تېروتنه",
+	"scribunto-error-short": "سکريپټ تېروتنه: $1",
+	"scribunto-error-long": "سکريپټ تېروتنه:\n\n$1",
 	"scribunto-doc-page-name": "Module:$1/لاسوند",
+	"scribunto-doc-page-does-not-exist": "\"د دې چلندوال لاسوند په [[$1]] کې جوړېدای شي\"",
+	"scribunto-doc-page-header": "دا د '''[[$1]] لپاره لاسوند مخ دی'''",
+	"scribunto-console-clear": "سپينول",
+	"scribunto-common-timeout": "د سکريپټونو چلولو لپاره ټاکل‌شوی وخت پای ته رسېدلی دی.",
+	"scribunto-common-oom": "د سکريپټونو چلولو لپاره د اجازه‌ورکړل‌شوې حافظې کچه ډېره شوې ده.",
+	"scribunto-common-backtrace": "شاليد:",
 	"scribunto-lua-error": "لوا تېروتنه: $2.",
+	"scribunto-limitreport-timeusage-value": "$1/$2 ثانيې",
+	"nstab-module": "چلنوال",
 	"namespaceinfo-description-ns828": "د لوا کوډ چلنوالو لپاره نوم‌تشيال، کوم چې د ويکي‌مخونو او د دوی لاسوندمخونو څخه غوښتل کېدای شي",
 	"namespaceinfo-description-ns829": "چلنوالو او لاسوندونو لپاره د خبرو اترو مخونه"
 }
