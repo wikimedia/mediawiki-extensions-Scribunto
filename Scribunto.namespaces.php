@@ -356,6 +356,11 @@ $namespaceNames['ka'] = [
 	829 => 'მოდულის_განხილვა',
 ];
 
+$namespaceNames['kaa'] = [
+	828 => 'Modul',
+	829 => 'Modul_talqılawı',
+];
+
 $namespaceNames['kn'] = [
 	828 => 'ಮಾಡ್ಯೂಲ್',
 	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆಪುಟ',
