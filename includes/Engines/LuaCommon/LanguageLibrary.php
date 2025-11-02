@@ -7,6 +7,7 @@ use DateTimeZone;
 use Exception;
 use MediaWiki\Language\Language;
 use MediaWiki\Language\LanguageCode;
+use MediaWiki\Language\LanguageFallback;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -16,6 +17,14 @@ use MediaWiki\Utils\MWTimestamp;
 use Wikimedia\RequestTimeout\TimeoutException;
 
 class LanguageLibrary extends LibraryBase {
+
+	private const FALLBACK_MESSAGES = 'FALLBACK_MESSAGES';
+	private const FALLBACK_STRICT = 'FALLBACK_STRICT';
+	private const FALLBACK_MAP = [
+		self::FALLBACK_MESSAGES => LanguageFallback::MESSAGES,
+		self::FALLBACK_STRICT => LanguageFallback::STRICT,
+	];
+
 	/** @var Language[] */
 	public $langCache = [];
 	/** @var array[] */
@@ -31,6 +40,7 @@ class LanguageLibrary extends LibraryBase {
 		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
 		$statics = [
+			'getConstants',
 			'getContLangCode',
 			'isSupportedLanguage',
 			'isKnownLanguageTag',
@@ -67,6 +77,13 @@ class LanguageLibrary extends LibraryBase {
 			};
 		}
 		return $this->getEngine()->registerInterface( 'mw.language.lua', $lib );
+	}
+
+	public function getConstants(): array {
+		return [ [
+			'FALLBACK_MESSAGES' => self::FALLBACK_MESSAGES,
+			'FALLBACK_STRICT' => self::FALLBACK_STRICT,
+		] ];
 	}
 
 	/**
@@ -154,11 +171,18 @@ class LanguageLibrary extends LibraryBase {
 	 * Handler for fetchLanguageNames
 	 * @internal
 	 * @param string $code
+	 * @param int|null $mode
 	 * @return string[][]
 	 */
-	public function getFallbacksFor( $code ) {
+	public function getFallbacksFor( $code, $mode ) {
 		$this->checkType( 'getFallbacksFor', 1, $code, 'string' );
-		$ret = MediaWikiServices::getInstance()->getLanguageFallback()->getAll( $code );
+		$mode ??= self::FALLBACK_MESSAGES;
+		if ( !isset( self::FALLBACK_MAP[$mode] ) ) {
+			$this->checkType( 'getFallbacksFor', 2, $mode,
+				'one of mw.language.FALLBACK_MESSAGES or mw.language.FALLBACK_STRICT' );
+		}
+		$ret = MediaWikiServices::getInstance()->getLanguageFallback()->getAll(
+			$code, self::FALLBACK_MAP[$mode] );
 		// Make 1-based
 		if ( count( $ret ) ) {
 			$ret = array_combine( range( 1, count( $ret ) ), $ret );
