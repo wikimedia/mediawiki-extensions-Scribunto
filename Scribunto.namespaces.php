@@ -292,8 +292,8 @@ $namespaceNames['hi'] = [
 $namespaceAliases['hi'] = [
 	# Former namespace names; incorrect (T366235), but kept as aliases
 	# for backwards compatibility
-	828 => 'अनुखंड',
-	829 => 'अनुखंड_वार्ता',
+	'अनुखंड' => 828,
+	'अनुखंड_वार्ता' => 829,
 ];
 
 $namespaceNames['hr'] = [
