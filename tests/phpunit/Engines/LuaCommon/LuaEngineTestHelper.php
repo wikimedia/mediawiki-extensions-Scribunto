@@ -7,14 +7,17 @@ use MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaStandalone\LuaStandaloneEngine;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 use PHPUnit\Framework\DataProviderTestSuite;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\WarningTestCase;
 use PHPUnit\Util\Test;
 use ReflectionClass;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * Trait that helps LuaEngineTestBase and LuaEngineUnitTestBase
@@ -212,4 +215,40 @@ trait LuaEngineTestHelper {
 		$this->engine = null;
 	}
 
+	public function assertTtl( ?int $ttl, ParserOutput $parserOutput, string $msg ) {
+		if ( $ttl === null ) {
+			$this->assertFalse( $parserOutput->hasReducedExpiry(), $msg );
+			return;
+		}
+		// TTLs have some stagger, so verify that the cache expirty from the
+		// ParserOutput is within the expected range.
+		$fudge = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'DEADLINE_TTL_CLOCK_FUDGE'
+		);
+		$stagger = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'DEADLINE_TTL_STAGGER_MAX'
+		);
+		$min = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'MIN_DEADLINE_TTL'
+		);
+		$actual = $parserOutput->getCacheExpiry();
+		$this->assertLessThan( max( $ttl, $min ) + $fudge + $stagger, $actual, $msg );
+		$this->assertGreaterThanOrEqual( max( $ttl, $min ) + $fudge, $actual, $msg );
+	}
+
+	public function assertTtlLessThan( int $ttl, ParserOutput $parserOutput, string $msg ) {
+		// TTLs have some stagger, so verify that the cache expirty from the
+		// ParserOutput is within the expected range.
+		$fudge = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'DEADLINE_TTL_CLOCK_FUDGE'
+		);
+		$stagger = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'DEADLINE_TTL_STAGGER_MAX'
+		);
+		$min = TestingAccessWrapper::constant(
+			CoreMagicVariables::class, 'MIN_DEADLINE_TTL'
+		);
+		$actual = $parserOutput->getCacheExpiry();
+		$this->assertLessThan( max( $ttl, $min ) + $fudge + $stagger, $actual, $msg );
+	}
 }

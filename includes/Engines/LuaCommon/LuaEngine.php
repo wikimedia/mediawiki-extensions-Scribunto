@@ -9,6 +9,7 @@ use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\Html\Html;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Parser\PPNode;
@@ -661,9 +662,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 */
 	public function setTTL( $ttl ) {
 		$this->checkNumber( 'setTTL', [ $ttl ], 0 );
-
-		$frame = $this->getFrameById( 'current' );
-		$frame->setTTL( $ttl );
+		CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
 	}
 
 	/**

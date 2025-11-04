@@ -629,54 +629,51 @@ class LuaCommonTest extends LuaEngineTestBase {
 
 		$title = Title::makeTitle( NS_MODULE, 'DateTime' );
 		$module = $engine->fetchModuleFromParser( $title );
-
 		$frame = $pp->newFrame();
+
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'day', $frame );
-		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when day is requested' );
-		$this->assertLessThanOrEqual( 86400, $frame->getTTL(),
+		$this->assertTtlLessThan( 86400, $engine->getParser()->getOutput(),
 			'TTL must not exceed 1 day when day is requested' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'AMPM', $frame );
-		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when AM/PM is requested' );
-		$this->assertLessThanOrEqual( 43200, $frame->getTTL(),
+		$this->assertTtlLessThan( 43200, $engine->getParser()->getOutput(),
 			'TTL must not exceed 12 hours when AM/PM is requested' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'hour', $frame );
-		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when hour is requested' );
-		$this->assertLessThanOrEqual( 3600, $frame->getTTL(),
+		$this->assertTtlLessThan( 3600, $engine->getParser()->getOutput(),
 			'TTL must not exceed 1 hour when hours are requested' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'minute', $frame );
-		$this->assertNotNull( $frame->getTTL(), 'TTL must be set when minutes are requested' );
-		$this->assertLessThanOrEqual( 60, $frame->getTTL(),
+		$this->assertTtlLessThan( 60, $engine->getParser()->getOutput(),
 			'TTL must not exceed 1 minute when minutes are requested' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'second', $frame );
-		$this->assertSame( 1, $frame->getTTL(),
+		$this->assertTtl( 1, $engine->getParser()->getOutput(),
 			'TTL must be equal to 1 second when seconds are requested' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'table', $frame );
-		$this->assertNull( $frame->getTTL(),
+		$this->assertTtl( null, $engine->getParser()->getOutput(),
 			'TTL must not be set when os.date( "*t" ) is called but no values are looked at' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'tablesec', $frame );
-		$this->assertSame( 1, $frame->getTTL(),
+		$this->assertTtl( 1, $engine->getParser()->getOutput(),
 			'TTL must be equal to 1 second when seconds are requested from a table' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'time', $frame );
-		$this->assertSame( 1, $frame->getTTL(),
+		$this->assertTtl( 1, $engine->getParser()->getOutput(),
 			'TTL must be equal to 1 second when os.time() is called' );
 
-		$frame = $pp->newFrame();
+		$engine->getParser()->resetOutput();
 		$module->invoke( 'specificDateAndTime', $frame );
-		$this->assertNull( $frame->getTTL(),
+		$this->assertTtl( null, $engine->getParser()->getOutput(),
 			'TTL must not be set when os.date() or os.time() are called with a specific time' );
 	}
 

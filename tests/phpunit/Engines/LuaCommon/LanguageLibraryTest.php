@@ -40,6 +40,7 @@ class LanguageLibraryTest extends LuaEngineUnitTestBase {
 	public function testFormatDateTTLs() {
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
+		$po = $engine->getParser()->getOutput();
 
 		$ttl = null;
 		MediaWikiServices::getInstance()->getContentLanguage()
@@ -65,13 +66,13 @@ class LanguageLibraryTest extends LuaEngineUnitTestBase {
 		$module = $engine->fetchModuleFromParser( $title );
 
 		$frame = $pp->newFrame();
-		$module->invoke( 'formatCurrentDate', $frame );
-		$this->assertSame( 1, $frame->getTTL(),
-			'TTL must be equal to 1 second when lang:formatDate( \'s\' ) is called' );
+		$module->invoke( 'formatSpecificDate', $frame );
+		$this->assertTtl( null, $po,
+			'TTL must not be set when lang:formatDate is called with a specific date' );
 
 		$frame = $pp->newFrame();
-		$module->invoke( 'formatSpecificDate', $frame );
-		$this->assertNull( $frame->getTTL(),
-			'TTL must not be set when lang:formatDate is called with a specific date' );
+		$module->invoke( 'formatCurrentDate', $frame );
+		$this->assertTtl( 1, $po,
+			'TTL must be equal to 1 second when lang:formatDate( \'s\' ) is called' );
 	}
 }
