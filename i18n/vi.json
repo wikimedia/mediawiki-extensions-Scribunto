@@ -4,7 +4,8 @@
 			"Max20091",
 			"Minh Nguyen",
 			"NguoiDungKhongDinhDanh",
-			"Vinhtantran"
+			"Vinhtantran",
+			"Nvdtn19"
 		]
 	},
 	"scribunto-desc": "Nền tảng đế nhúng ngôn ngữ kịch bản vào các trang MediaWiki",
@@ -40,6 +41,7 @@
 	"scribunto-lua-error-location": "Lỗi Lua $1: $2.",
 	"scribunto-lua-error": "Lỗi Lua: $2.",
 	"scribunto-lua-notarrayreturn": "Lỗi kịch bản: Mô đun cho ra giá trị $2. Nó cần phải cho ra một bảng xuất khẩu.",
+	"scribunto-lua-warning": "Cảnh báo kịch bản: $1",
 	"scribunto-luastandalone-proc-error": "Lỗi Lua: Không thể tạo ra quá trình.",
 	"scribunto-luastandalone-proc-error-msg": "Lỗi Lua: Không thể tạo quá trình: $2",
 	"scribunto-luastandalone-proc-error-proc-open": "Lỗi Lua: Không thể tạo quá trình: proc_open không có sẵn. Hãy kiểm tra chỉ thị cấu hình “disable_functions” của PHP.",
