@@ -5,13 +5,16 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use MediaWiki\Cache\GenderCache;
+use MediaWiki\Config\Config;
 use MediaWiki\Language\Language;
 use MediaWiki\Language\LanguageCode;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Language\LanguageFallback;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MainConfigNames;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MediaWiki\Utils\MWTimestamp;
 use Wikimedia\RequestTimeout\TimeoutException;
@@ -25,18 +28,33 @@ class LanguageLibrary extends LibraryBase {
 		self::FALLBACK_STRICT => LanguageFallback::STRICT,
 	];
 
+	private ?string $localTimeZone;
+
 	/** @var Language[] */
-	public $langCache = [];
+	public array $langCache = [];
 	/** @var array[] */
-	public $timeCache = [];
+	public array $timeCache = [];
 	/** @var int */
 	public $maxLangCacheSize;
+
+	public function __construct(
+		LuaEngine $engine,
+		private readonly Config $mainConfig,
+		private readonly GenderCache $genderCache,
+		private readonly Language $contentLanguage,
+		private readonly LanguageFactory $languageFactory,
+		private readonly LanguageFallback $languageFallback,
+		private readonly LanguageNameUtils $languageNameUtils,
+		private readonly UserOptionsLookup $userOptionsLookup,
+	) {
+		parent::__construct( $engine );
+		$this->localTimeZone = $this->mainConfig->get( MainConfigNames::Localtimezone );
+	}
 
 	/** @inheritDoc */
 	public function register() {
 		// Pre-populate the language cache
-		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
-		$this->langCache[$contLang->getCode()] = $contLang;
+		$this->langCache[$this->contentLanguage->getCode()] = $this->contentLanguage;
 		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
 		$statics = [
@@ -89,7 +107,7 @@ class LanguageLibrary extends LibraryBase {
 	 * @return string[]
 	 */
 	public function getContLangCode() {
-		return [ MediaWikiServices::getInstance()->getContentLanguage()->getCode() ];
+		return [ $this->contentLanguage->getCode() ];
 	}
 
 	/**
@@ -100,7 +118,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isSupportedLanguage( $code ) ];
+		return [ $this->languageNameUtils->isSupportedLanguage( $code ) ];
 	}
 
 	/**
@@ -111,7 +129,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isKnownLanguageTag( $code ) {
 		$this->checkType( 'isKnownLanguageTag', 1, $code, 'string' );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isKnownLanguageTag( $code ) ];
+		return [ $this->languageNameUtils->isKnownLanguageTag( $code ) ];
 	}
 
 	/**
@@ -122,7 +140,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isValidCode( $code ) {
 		$this->checkType( 'isValidCode', 1, $code, 'string' );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidCode( $code ) ];
+		return [ $this->languageNameUtils->isValidCode( $code ) ];
 	}
 
 	/**
@@ -133,7 +151,7 @@ class LanguageLibrary extends LibraryBase {
 	 */
 	public function isValidBuiltInCode( $code ) {
 		$this->checkType( 'isValidBuiltInCode', 1, $code, 'string' );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $code ) ];
+		return [ $this->languageNameUtils->isValidBuiltInCode( $code ) ];
 	}
 
 	/**
@@ -146,8 +164,7 @@ class LanguageLibrary extends LibraryBase {
 	public function fetchLanguageName( $code, $inLanguage ) {
 		$this->checkType( 'fetchLanguageName', 1, $code, 'string' );
 		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()
-			->getLanguageName( $code, $inLanguage ) ];
+		return [ $this->languageNameUtils->getLanguageName( $code, $inLanguage ) ];
 	}
 
 	/**
@@ -160,8 +177,7 @@ class LanguageLibrary extends LibraryBase {
 	public function fetchLanguageNames( $inLanguage, $include ) {
 		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
 		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', LanguageNameUtils::DEFINED );
-		return [ MediaWikiServices::getInstance()->getLanguageNameUtils()
-			->getLanguageNames( $inLanguage, $include ) ];
+		return [ $this->languageNameUtils->getLanguageNames( $inLanguage, $include ) ];
 	}
 
 	/**
@@ -178,8 +194,7 @@ class LanguageLibrary extends LibraryBase {
 			$this->checkType( 'getFallbacksFor', 2, $mode,
 				'one of mw.language.FALLBACK_MESSAGES or mw.language.FALLBACK_STRICT' );
 		}
-		$ret = MediaWikiServices::getInstance()->getLanguageFallback()->getAll(
-			$code, self::FALLBACK_MAP[$mode] );
+		$ret = $this->languageFallback->getAll( $code, self::FALLBACK_MAP[$mode] );
 		// Make 1-based
 		if ( count( $ret ) ) {
 			$ret = array_combine( range( 1, count( $ret ) ), $ret );
@@ -218,9 +233,8 @@ class LanguageLibrary extends LibraryBase {
 			if ( count( $this->langCache ) > $this->maxLangCacheSize ) {
 				throw new LuaError( 'too many language codes requested' );
 			}
-			$services = MediaWikiServices::getInstance();
-			if ( $services->getLanguageNameUtils()->isValidCode( $code ) ) {
-				$this->langCache[$code] = $services->getLanguageFactory()->getLanguage( $code );
+			if ( $this->languageNameUtils->isValidCode( $code ) ) {
+				$this->langCache[$code] = $this->languageFactory->getLanguage( $code );
 			} else {
 				throw new LuaError( "language code '$code' is invalid" );
 			}
@@ -312,9 +326,8 @@ class LanguageLibrary extends LibraryBase {
 		if ( $username === 'male' || $username === 'female' ) {
 			$gender = $username;
 		} else {
-			$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
 			// default
-			$gender = $userOptionsLookup->getDefaultOption( 'gender' );
+			$gender = $this->userOptionsLookup->getDefaultOption( 'gender' );
 
 			// Check for "User:" prefix
 			$title = Title::newFromText( $username );
@@ -325,13 +338,11 @@ class LanguageLibrary extends LibraryBase {
 			// check parameter, or use the ParserOptions if in a message
 			$user = User::newFromName( $username );
 			if ( $user ) {
-				$genderCache = MediaWikiServices::getInstance()->getGenderCache();
-				$gender = $genderCache->getGenderOf( $user, __METHOD__ );
+				$gender = $this->genderCache->getGenderOf( $user, __METHOD__ );
 			} elseif ( $username === '' ) {
 				$parserOptions = $this->getParserOptions();
 				if ( $parserOptions->isMessage() ) {
-					$genderCache = MediaWikiServices::getInstance()->getGenderCache();
-					$gender = $genderCache->getGenderOf( $parserOptions->getUserIdentity(), __METHOD__ );
+					$gender = $this->genderCache->getGenderOf( $parserOptions->getUserIdentity(), __METHOD__ );
 				}
 			}
 		}
@@ -421,9 +432,8 @@ class LanguageLibrary extends LibraryBase {
 
 		# Set output timezone.
 		if ( $local ) {
-			$localtimezone = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::Localtimezone );
-			if ( $localtimezone !== null ) {
-				$tz = new DateTimeZone( $localtimezone );
+			if ( $this->localTimeZone !== null ) {
+				$tz = new DateTimeZone( $this->localTimeZone );
 			} else {
 				$tz = new DateTimeZone( date_default_timezone_get() );
 			}

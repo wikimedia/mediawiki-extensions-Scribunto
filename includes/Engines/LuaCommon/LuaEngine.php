@@ -27,7 +27,18 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		'mw.site' => SiteLibrary::class,
 		'mw.uri' => UriLibrary::class,
 		'mw.ustring' => UstringLibrary::class,
-		'mw.language' => LanguageLibrary::class,
+		'mw.language' => [
+			'class' => LanguageLibrary::class,
+			'services' => [
+				'MainConfig',
+				'GenderCache',
+				'ContentLanguage',
+				'LanguageFactory',
+				'LanguageFallback',
+				'LanguageNameUtils',
+				'UserOptionsLookup',
+			]
+		],
 		'mw.message' => MessageLibrary::class,
 		'mw.title' => [
 			'class' => TitleLibrary::class,
