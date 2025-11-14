@@ -4,13 +4,21 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use LogicException;
 use MediaWiki\Content\Content;
+use MediaWiki\FileRepo\RepoGroup;
+use MediaWiki\Language\Language;
 use MediaWiki\Logger\LoggerFactory;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\LinkBatchFactory;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOutputFlags;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\SpecialPage\SpecialPageFactory;
+use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFormatter;
+use Wikimedia\ObjectFactory\ObjectFactory;
 
 class TitleLibrary extends LibraryBase {
 	// Note these caches are naturally limited to
@@ -18,39 +26,55 @@ class TitleLibrary extends LibraryBase {
 	// addition besides the one for the current page calls
 	// incrementExpensiveFunctionCount()
 	/** @var Title[] */
-	private $titleCache = [];
+	private array $titleCache = [];
 	/** @var (Title|null)[] */
-	private $idCache = [ 0 => null ];
+	private array $idCache = [ 0 => null ];
 
 	/** @var TitleAttributeResolver[] */
 	private array $attributeResolvers = [];
 
+	public function __construct(
+		LuaEngine $engine,
+		private readonly Language $contentLanguage,
+		private readonly LinkBatchFactory $linkBatchFactory,
+		private readonly NamespaceInfo $namespaceInfo,
+		private readonly ObjectFactory $objectFactory,
+		private readonly RepoGroup $repoGroup,
+		private readonly RestrictionStore $restrictionStore,
+		private readonly SpecialPageFactory $specialPageFactory,
+		private readonly TitleFormatter $titleFormatter,
+		private readonly WikiPageFactory $wikiPageFactory,
+	) {
+		parent::__construct( $engine );
+	}
+
 	/** @inheritDoc */
 	public function register() {
 		$lib = [
-			'newTitle' => [ $this, 'newTitle' ],
-			'newBatchLookupExistence' => [ $this, 'newBatchLookupExistence' ],
-			'makeTitle' => [ $this, 'makeTitle' ],
-			'getExpensiveData' => [ $this, 'getExpensiveData' ],
-			'getUrl' => [ $this, 'getUrl' ],
-			'getContent' => [ $this, 'getContent' ],
-			'getCategories' => [ $this, 'getCategories' ],
-			'getFileInfo' => [ $this, 'getFileInfo' ],
-			'getFileMetadata' => [ $this, 'getFileMetadata' ],
-			'protectionLevels' => [ $this, 'protectionLevels' ],
-			'cascadingProtection' => [ $this, 'cascadingProtection' ],
-			'redirectTarget' => [ $this, 'redirectTarget' ],
-			'recordVaryFlag' => [ $this, 'recordVaryFlag' ],
-			'getPageLangCode' => [ $this, 'getPageLangCode' ],
-			'getAttributeValue' => [ $this, 'getAttributeValue' ],
+			'newTitle' => $this->newTitle( ... ),
+			'newBatchLookupExistence' => $this->newBatchLookupExistence( ... ),
+			'makeTitle' => $this->makeTitle( ... ),
+			'getExpensiveData' => $this->getExpensiveData( ... ),
+			'getUrl' => $this->getUrl( ... ),
+			'getContent' => $this->getContent( ... ),
+			'getCategories' => $this->getCategories( ... ),
+			'getFileInfo' => $this->getFileInfo( ... ),
+			'getFileMetadata' => $this->getFileMetadata( ... ),
+			'protectionLevels' => $this->protectionLevels( ... ),
+			'cascadingProtection' => $this->cascadingProtection( ... ),
+			'redirectTarget' => $this->redirectTarget( ... ),
+			'recordVaryFlag' => $this->recordVaryFlag( ... ),
+			'getPageLangCode' => $this->getPageLangCode( ... ),
+			'getAttributeValue' => $this->getAttributeValue( ... ),
 		];
 		$title = $this->getTitle();
 
 		$extensionRegistry = ExtensionRegistry::getInstance();
-		$objectFactory = MediaWikiServices::getInstance()->getObjectFactory();
 		$extraTitleAttributes = $extensionRegistry->getAttribute( 'ScribuntoLuaExtraTitleAttributes' );
 		foreach ( $extraTitleAttributes as $key => $value ) {
-			$resolver = $objectFactory->createObject( $value, [ 'assertClass' => TitleAttributeResolver::class ] );
+			$resolver = $this->objectFactory->createObject( $value, [
+				'assertClass' => TitleAttributeResolver::class
+			] );
 			$resolver->setEngine( $this->getEngine() );
 			$this->attributeResolvers[$key] = $resolver;
 		}
@@ -73,13 +97,13 @@ class TitleLibrary extends LibraryBase {
 			$arg = $default;
 		} elseif ( is_numeric( $arg ) ) {
 			$arg = (int)$arg;
-			if ( !MediaWikiServices::getInstance()->getNamespaceInfo()->exists( $arg ) ) {
+			if ( !$this->namespaceInfo->exists( $arg ) ) {
 				throw new LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace number '$arg')"
 				);
 			}
 		} elseif ( is_string( $arg ) ) {
-			$ns = MediaWikiServices::getInstance()->getContentLanguage()->getNsIndex( $arg );
+			$ns = $this->contentLanguage->getNsIndex( $arg );
 			if ( $ns === false ) {
 				throw new LuaError(
 					"bad argument #$argIdx to '$name' (unrecognized namespace name '$arg')"
@@ -110,8 +134,7 @@ class TitleLibrary extends LibraryBase {
 			'thePartialUrl' => $title->getPartialURL(),
 		];
 		if ( $ns === NS_SPECIAL ) {
-			$ret['exists'] = MediaWikiServices::getInstance()
-				->getSpecialPageFactory()->exists( $title->getDBkey() );
+			$ret['exists'] = $this->specialPageFactory->exists( $title->getDBkey() );
 		}
 		if ( $ns !== NS_FILE && $ns !== NS_MEDIA ) {
 			$ret['file'] = false;
@@ -173,8 +196,7 @@ class TitleLibrary extends LibraryBase {
 			'contentModel' => $title->getContentModel(),
 		];
 		if ( $title->getNamespace() === NS_SPECIAL ) {
-			$ret['exists'] = MediaWikiServices::getInstance()
-				->getSpecialPageFactory()->exists( $title->getDBkey() );
+			$ret['exists'] = $this->specialPageFactory->exists( $title->getDBkey() );
 		} else {
 			// bug 70495: don't just check whether the ID != 0
 			$ret['exists'] = $title->exists();
@@ -199,7 +221,7 @@ class TitleLibrary extends LibraryBase {
 		// array of prefixedDbKey -> what indexes to put it in returned table
 		$returnMapping = [];
 		$expensiveCount = 0;
-		$lb = MediaWikiServices::getInstance()->getLinkBatchFactory()->newLinkBatch();
+		$lb = $this->linkBatchFactory->newLinkBatch();
 		$lb->setCaller( __METHOD__ );
 		for ( $i = 1; $i < count( $list ) + 1; $i++ ) {
 			if ( !isset( $list[$i] ) ) {
@@ -407,7 +429,7 @@ class TitleLibrary extends LibraryBase {
 			return null;
 		}
 
-		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
+		if ( $this->namespaceInfo->isNonincludable( $title->getNamespace() ) ) {
 			return null;
 		}
 
@@ -465,7 +487,7 @@ class TitleLibrary extends LibraryBase {
 		if ( !$title ) {
 			return [ [] ];
 		}
-		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		$page = $this->wikiPageFactory->newFromTitle( $title );
 		$this->incrementExpensiveFunctionCount();
 
 		$parserOutput = $this->getParser()->getOutput();
@@ -502,7 +524,7 @@ class TitleLibrary extends LibraryBase {
 		}
 
 		$this->incrementExpensiveFunctionCount();
-		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		$file = $this->repoGroup->findFile( $title );
 		if ( !$file ) {
 			return [ [ 'exists' => false ] ];
 		}
@@ -562,7 +584,7 @@ class TitleLibrary extends LibraryBase {
 		}
 
 		$this->incrementExpensiveFunctionCount();
-		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		$file = $this->repoGroup->findFile( $title );
 		if ( !$file ) {
 			return [ [] ];
 		}
@@ -651,14 +673,12 @@ class TitleLibrary extends LibraryBase {
 			return [ null ];
 		}
 
-		$restrictionStore = MediaWikiServices::getInstance()->getRestrictionStore();
-
-		if ( !$restrictionStore->areRestrictionsLoaded( $title ) ) {
+		if ( !$this->restrictionStore->areRestrictionsLoaded( $title ) ) {
 			$this->incrementExpensiveFunctionCount();
 		}
 		return [ array_map(
 			[ self::class, 'makeArrayOneBased' ],
-			$restrictionStore->getAllRestrictions( $title )
+			$this->restrictionStore->getAllRestrictions( $title )
 		) ];
 	}
 
@@ -674,15 +694,13 @@ class TitleLibrary extends LibraryBase {
 		if ( !$title ) {
 			return [ null ];
 		}
+		$titleFormatter = $this->titleFormatter;
 
-		$restrictionStore = MediaWikiServices::getInstance()->getRestrictionStore();
-		$titleFormatter = MediaWikiServices::getInstance()->getTitleFormatter();
-
-		if ( !$restrictionStore->areCascadeProtectionSourcesLoaded( $title ) ) {
+		if ( !$this->restrictionStore->areCascadeProtectionSourcesLoaded( $title ) ) {
 			$this->incrementExpensiveFunctionCount();
 		}
 
-		[ $sources, $restrictions ] = $restrictionStore->getCascadeProtectionSources( $title );
+		[ $sources, $restrictions ] = $this->restrictionStore->getCascadeProtectionSources( $title );
 
 		return [ [
 			'sources' => self::makeArrayOneBased( array_map(

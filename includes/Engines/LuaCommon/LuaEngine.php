@@ -29,7 +29,20 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		'mw.ustring' => UstringLibrary::class,
 		'mw.language' => LanguageLibrary::class,
 		'mw.message' => MessageLibrary::class,
-		'mw.title' => TitleLibrary::class,
+		'mw.title' => [
+			'class' => TitleLibrary::class,
+			'services' => [
+				'ContentLanguage',
+				'LinkBatchFactory',
+				'NamespaceInfo',
+				'ObjectFactory',
+				'RepoGroup',
+				'RestrictionStore',
+				'SpecialPageFactory',
+				'TitleFormatter',
+				'WikiPageFactory',
+			]
+		],
 		'mw.text' => TextLibrary::class,
 		'mw.html' => HtmlLibrary::class,
 		'mw.hash' => HashLibrary::class,
