@@ -2,7 +2,7 @@ local language = {}
 local php
 local util = require 'libraryUtil'
 
-function language.setupInterface()
+function language.setupInterface( opts )
 	-- Boilerplate
 	language.setupInterface = nil
 	php = mw_interface
@@ -15,7 +15,7 @@ function language.setupInterface()
 	mw.getLanguage = mw.language.new
 
 	-- Register constants
-	for name, value in pairs( php.getConstants() ) do
+	for name, value in pairs( opts.constants ) do
 		mw.language[name] = value
 	end
 

@@ -40,7 +40,6 @@ class LanguageLibrary extends LibraryBase {
 		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
 		$statics = [
-			'getConstants',
 			'getContLangCode',
 			'isSupportedLanguage',
 			'isKnownLanguageTag',
@@ -76,14 +75,12 @@ class LanguageLibrary extends LibraryBase {
 				return $this->languageMethod( $name, $args );
 			};
 		}
-		return $this->getEngine()->registerInterface( 'mw.language.lua', $lib );
-	}
-
-	public function getConstants(): array {
-		return [ [
-			'FALLBACK_MESSAGES' => self::FALLBACK_MESSAGES,
-			'FALLBACK_STRICT' => self::FALLBACK_STRICT,
-		] ];
+		return $this->getEngine()->registerInterface( 'mw.language.lua', $lib, [
+			'constants' => [
+				'FALLBACK_MESSAGES' => self::FALLBACK_MESSAGES,
+				'FALLBACK_STRICT' => self::FALLBACK_STRICT,
+			],
+		] );
 	}
 
 	/**
