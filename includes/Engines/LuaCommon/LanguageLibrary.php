@@ -57,16 +57,16 @@ class LanguageLibrary extends LibraryBase {
 		$this->langCache[$this->contentLanguage->getCode()] = $this->contentLanguage;
 		$this->maxLangCacheSize = $this->getEngine()->getOption( 'maxLangCacheSize' );
 
-		$statics = [
-			'getContLangCode',
-			'isSupportedLanguage',
-			'isKnownLanguageTag',
-			'isValidCode',
-			'isValidBuiltInCode',
-			'fetchLanguageName',
-			'fetchLanguageNames',
-			'getFallbacksFor',
-			'toBcp47Code',
+		$lib = [
+			'getContLangCode' => $this->getContLangCode( ... ),
+			'isSupportedLanguage' => $this->isSupportedLanguage( ... ),
+			'isKnownLanguageTag' => $this->isKnownLanguageTag( ... ),
+			'isValidCode' => $this->isValidCode( ... ),
+			'isValidBuiltInCode' => $this->isValidBuiltInCode( ... ),
+			'fetchLanguageName' => $this->fetchLanguageName( ... ),
+			'fetchLanguageNames' => $this->fetchLanguageNames( ... ),
+			'getFallbacksFor' => $this->getFallbacksFor( ... ),
+			'toBcp47Code' => $this->toBcp47Code( ... ),
 		];
 		$methods = [
 			'lcfirst',
@@ -84,10 +84,6 @@ class LanguageLibrary extends LibraryBase {
 			'gender',
 			'isRTL',
 		];
-		$lib = [];
-		foreach ( $statics as $name ) {
-			$lib[$name] = [ $this, $name ];
-		}
 		foreach ( $methods as $name ) {
 			$lib[$name] = function ( ...$args ) use ( $name ) {
 				return $this->languageMethod( $name, $args );
