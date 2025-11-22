@@ -11,18 +11,12 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 
+/**
+ * @property LuaSandboxInterpreter|null $interpreter
+ */
 class LuaSandboxEngine extends LuaEngine {
 	/** @var array */
-	public $options;
-	/** @var bool */
-	public $loaded = false;
-	/** @var array */
 	protected $lineCache = [];
-
-	/**
-	 * @var LuaSandboxInterpreter
-	 */
-	protected $interpreter;
 
 	/** @inheritDoc */
 	public function getPerformanceCharacteristics() {

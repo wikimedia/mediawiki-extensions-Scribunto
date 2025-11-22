@@ -7,16 +7,14 @@ use MediaWiki\Extension\Scribunto\ScribuntoModuleBase;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Status\Status;
 
+/**
+ * @property LuaEngine $engine
+ */
 class LuaModule extends ScribuntoModuleBase {
 	/**
 	 * @var mixed
 	 */
 	protected $initChunk;
-
-	/**
-	 * @var LuaEngine
-	 */
-	protected $engine;
 
 	/**
 	 * @param LuaEngine $engine
