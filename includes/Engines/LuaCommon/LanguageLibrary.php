@@ -99,65 +99,59 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * Handler for getContLangCode
-	 * @internal
 	 * @return string[]
 	 */
-	public function getContLangCode() {
+	private function getContLangCode() {
 		return [ $this->contentLanguage->getCode() ];
 	}
 
 	/**
 	 * Handler for isSupportedLanguage
-	 * @internal
 	 * @param string $code
 	 * @return bool[]
 	 */
-	public function isSupportedLanguage( $code ) {
+	private function isSupportedLanguage( $code ) {
 		$this->checkType( 'isSupportedLanguage', 1, $code, 'string' );
 		return [ $this->languageNameUtils->isSupportedLanguage( $code ) ];
 	}
 
 	/**
 	 * Handler for isKnownLanguageTag
-	 * @internal
 	 * @param string $code
 	 * @return bool[]
 	 */
-	public function isKnownLanguageTag( $code ) {
+	private function isKnownLanguageTag( $code ) {
 		$this->checkType( 'isKnownLanguageTag', 1, $code, 'string' );
 		return [ $this->languageNameUtils->isKnownLanguageTag( $code ) ];
 	}
 
 	/**
 	 * Handler for isValidCode
-	 * @internal
 	 * @param string $code
 	 * @return bool[]
 	 */
-	public function isValidCode( $code ) {
+	private function isValidCode( $code ) {
 		$this->checkType( 'isValidCode', 1, $code, 'string' );
 		return [ $this->languageNameUtils->isValidCode( $code ) ];
 	}
 
 	/**
 	 * Handler for isValidBuiltInCode
-	 * @internal
 	 * @param string $code
 	 * @return bool[]
 	 */
-	public function isValidBuiltInCode( $code ) {
+	private function isValidBuiltInCode( $code ) {
 		$this->checkType( 'isValidBuiltInCode', 1, $code, 'string' );
 		return [ $this->languageNameUtils->isValidBuiltInCode( $code ) ];
 	}
 
 	/**
 	 * Handler for fetchLanguageName
-	 * @internal
 	 * @param string $code
 	 * @param null|string $inLanguage
 	 * @return string[]
 	 */
-	public function fetchLanguageName( $code, $inLanguage ) {
+	private function fetchLanguageName( $code, $inLanguage ) {
 		$this->checkType( 'fetchLanguageName', 1, $code, 'string' );
 		$this->checkTypeOptional( 'fetchLanguageName', 2, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
 		return [ $this->languageNameUtils->getLanguageName( $code, $inLanguage ) ];
@@ -165,12 +159,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * Handler for fetchLanguageNames
-	 * @internal
 	 * @param null|string $inLanguage
 	 * @param null|string $include
 	 * @return string[][]
 	 */
-	public function fetchLanguageNames( $inLanguage, $include ) {
+	private function fetchLanguageNames( $inLanguage, $include ) {
 		$this->checkTypeOptional( 'fetchLanguageNames', 1, $inLanguage, 'string', LanguageNameUtils::AUTONYMS );
 		$this->checkTypeOptional( 'fetchLanguageNames', 2, $include, 'string', LanguageNameUtils::DEFINED );
 		return [ $this->languageNameUtils->getLanguageNames( $inLanguage, $include ) ];
@@ -178,12 +171,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * Handler for fetchLanguageNames
-	 * @internal
 	 * @param string $code
 	 * @param int|null $mode
 	 * @return string[][]
 	 */
-	public function getFallbacksFor( $code, $mode ) {
+	private function getFallbacksFor( $code, $mode ) {
 		$this->checkType( 'getFallbacksFor', 1, $code, 'string' );
 		$mode ??= self::FALLBACK_MESSAGES;
 		if ( !isset( self::FALLBACK_MAP[$mode] ) ) {
@@ -200,11 +192,10 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * Handler for toBcp47Code
-	 * @internal
 	 * @param string $code a MediaWiki-internal code
 	 * @return string[] a BCP-47 language tag
 	 */
-	public function toBcp47Code( $code ) {
+	private function toBcp47Code( $code ) {
 		$this->checkType( 'toBcp47Code', 1, $code, 'string' );
 		$ret = LanguageCode::bcp47( $code );
 		return [ $ret ];
@@ -212,13 +203,12 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * Language object method handler
-	 * @internal
 	 * @param string $name
 	 * @param array $args
 	 * @return array
 	 * @throws LuaError
 	 */
-	public function languageMethod( string $name, array $args ): array {
+	private function languageMethod( string $name, array $args ): array {
 		if ( !is_string( $args[0] ?? null ) ) {
 			throw new LuaError(
 				"invalid code property of language object when calling $name"
@@ -268,12 +258,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * convertPlural handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function convertPlural( $lang, $args ) {
+	private function convertPlural( $lang, $args ) {
 		$number = array_shift( $args );
 		$this->checkType( 'convertPlural', 1, $number, 'number' );
 		if ( is_array( $args[0] ) ) {
@@ -285,12 +274,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * convertGrammar handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function convertGrammar( $lang, $args ) {
+	private function convertGrammar( $lang, $args ) {
 		$this->checkType( 'convertGrammar', 1, $args[0], 'string' );
 		$this->checkType( 'convertGrammar', 2, $args[1], 'string' );
 		return [ $lang->convertGrammar( $args[0], $args[1] ) ];
@@ -298,12 +286,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * gender handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function gender( $lang, $args ) {
+	private function gender( $lang, $args ) {
 		$this->checkType( 'gender', 1, $args[0], 'string' );
 		$username = trim( array_shift( $args ) );
 
@@ -347,12 +334,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * formatNum handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function formatNum( $lang, $args ) {
+	private function formatNum( $lang, $args ) {
 		$num = $args[0];
 		$this->checkType( 'formatNum', 1, $num, 'number' );
 		if ( is_infinite( $num ) ) {
@@ -377,13 +363,12 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * formatDate handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 * @throws LuaError
 	 */
-	public function formatDate( $lang, $args ) {
+	private function formatDate( $lang, $args ) {
 		$this->checkType( 'formatDate', 1, $args[0], 'string' );
 		$this->checkTypeOptional( 'formatDate', 2, $args[1], 'string', '' );
 		$this->checkTypeOptional( 'formatDate', 3, $args[2], 'boolean', false );
@@ -457,12 +442,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * formatDuration handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function formatDuration( $lang, $args ) {
+	private function formatDuration( $lang, $args ) {
 		$this->checkType( 'formatDuration', 1, $args[0], 'number' );
 		$this->checkTypeOptional( 'formatDuration', 2, $args[1], 'table', [] );
 
@@ -475,12 +459,11 @@ class LanguageLibrary extends LibraryBase {
 
 	/**
 	 * getDurationIntervals handler
-	 * @internal
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
 	 */
-	public function getDurationIntervals( $lang, $args ) {
+	private function getDurationIntervals( $lang, $args ) {
 		$this->checkType( 'getDurationIntervals', 1, $args[0], 'number' );
 		$this->checkTypeOptional( 'getDurationIntervals', 2, $args[1], 'table', [] );
 

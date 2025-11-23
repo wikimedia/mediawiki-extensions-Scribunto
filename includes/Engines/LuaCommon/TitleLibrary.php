@@ -209,12 +209,11 @@ class TitleLibrary extends LibraryBase {
 	 *
 	 * This allows batching of lookups of expensive title properties.
 	 *
-	 * @internal
 	 * @param array $list Table of strings to turn into titles (1-indexed)
 	 * @param mixed $defaultNamespace
 	 * @return array
 	 */
-	public function newBatchLookupExistence( $list, $defaultNamespace = null ) {
+	private function newBatchLookupExistence( $list, $defaultNamespace = null ) {
 		$this->checkType( 'mw.title.newBatch', 1, $list, 'table' );
 		$this->checkNamespace( 'mw.title.newBatch', 2, $defaultNamespace, NS_MAIN );
 		$returnValue = [];
@@ -298,13 +297,12 @@ class TitleLibrary extends LibraryBase {
 	 * Calls Title::newFromID or Title::newFromTitle as appropriate for the
 	 * arguments.
 	 *
-	 * @internal
 	 * @param string|int $text_or_id Title or page_id to fetch
 	 * @param string|int|null $defaultNamespace Namespace name or number to use if
 	 *  $text_or_id doesn't override
 	 * @return array Lua data
 	 */
-	public function newTitle( $text_or_id, $defaultNamespace = null ) {
+	private function newTitle( $text_or_id, $defaultNamespace = null ) {
 		$type = $this->getLuaType( $text_or_id );
 		if ( $type === 'number' ) {
 			if ( array_key_exists( $text_or_id, $this->idCache ) ) {
@@ -346,14 +344,13 @@ class TitleLibrary extends LibraryBase {
 	 *
 	 * Calls Title::makeTitleSafe.
 	 *
-	 * @internal
 	 * @param string|int $ns Namespace
 	 * @param string $text Title text
 	 * @param string|null $fragment URI fragment
 	 * @param string|null $interwiki Interwiki code
 	 * @return array Lua data
 	 */
-	public function makeTitle( $ns, $text, $fragment = null, $interwiki = null ) {
+	private function makeTitle( $ns, $text, $fragment = null, $interwiki = null ) {
 		$this->checkNamespace( 'makeTitle', 1, $ns );
 		$this->checkType( 'makeTitle', 2, $text, 'string' );
 		$this->checkTypeOptional( 'makeTitle', 3, $fragment, 'string', '' );
@@ -371,14 +368,13 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Get a URL referring to this title
-	 * @internal
 	 * @param string $text Title text.
 	 * @param string $which 'fullUrl', 'localUrl', or 'canonicalUrl'
 	 * @param string|array|null $query Query string or query string data.
 	 * @param string|null $proto 'http', 'https', 'relative', or 'canonical'
 	 * @return array
 	 */
-	public function getUrl( $text, $which, $query = null, $proto = null ) {
+	private function getUrl( $text, $which, $query = null, $proto = null ) {
 		static $protoMap = [
 			'http' => PROTO_HTTP,
 			'https' => PROTO_HTTPS,
@@ -466,22 +462,20 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for getContent
-	 * @internal
 	 * @param string $text
 	 * @return string[]|null[]
 	 */
-	public function getContent( $text ) {
+	private function getContent( $text ) {
 		$this->checkType( 'getContent', 1, $text, 'string' );
 		$content = $this->getContentInternal( $text );
 		return [ $content ? $content->serialize() : null ];
 	}
 
 	/**
-	 * @internal
 	 * @param string $text
 	 * @return string[][]
 	 */
-	public function getCategories( $text ) {
+	private function getCategories( $text ) {
 		$this->checkType( 'getCategories', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
@@ -508,11 +502,10 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for getFileInfo
-	 * @internal
 	 * @param string $text
 	 * @return array
 	 */
-	public function getFileInfo( $text ) {
+	private function getFileInfo( $text ) {
 		$this->checkType( 'getFileInfo', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
@@ -570,7 +563,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string $text File name to lookup
 	 * @return array
 	 */
-	public function getFileMetadata( $text ) {
+	private function getFileMetadata( $text ) {
 		// Redo these checks just in case, but we should never be able
 		// to get here if any of them are false except for race conditions.
 		$this->checkType( 'getFileMetadata', 1, $text, 'string' );
@@ -630,12 +623,11 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for getAttributeValue
-	 * @internal
 	 * @param string $text
 	 * @param string $attribute
 	 * @return array
 	 */
-	public function getAttributeValue( $text, $attribute ) {
+	private function getAttributeValue( $text, $attribute ) {
 		$this->checkType( 'getAttributeValue', 1, $text, 'string' );
 		$this->checkType( 'getAttributeValue', 2, $attribute, 'string' );
 		$title = Title::newFromText( $text );
@@ -662,11 +654,10 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for protectionLevels
-	 * @internal
 	 * @param string $text
 	 * @return array
 	 */
-	public function protectionLevels( $text ) {
+	private function protectionLevels( $text ) {
 		$this->checkType( 'protectionLevels', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
@@ -684,11 +675,10 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for cascadingProtection
-	 * @internal
 	 * @param string $text
 	 * @return array
 	 */
-	public function cascadingProtection( $text ) {
+	private function cascadingProtection( $text ) {
 		$this->checkType( 'cascadingProtection', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
@@ -717,11 +707,10 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for redirectTarget
-	 * @internal
 	 * @param string $text
 	 * @return string[]|null[]
 	 */
-	public function redirectTarget( $text ) {
+	private function redirectTarget( $text ) {
 		$this->checkType( 'redirectTarget', 1, $text, 'string' );
 		$content = $this->getContentInternal( $text );
 		$redirTitle = $content ? $content->getRedirectTarget() : null;
@@ -730,12 +719,11 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Record a ParserOutput flag when the current title is accessed
-	 * @internal
 	 * @param string $text
 	 * @param string $flag
 	 * @return array
 	 */
-	public function recordVaryFlag( $text, $flag ) {
+	private function recordVaryFlag( $text, $flag ) {
 		$this->checkType( 'recordVaryFlag', 1, $text, 'string' );
 		$this->checkType( 'recordVaryFlag', 2, $flag, 'string' );
 		$title = Title::newFromText( $text );
@@ -749,11 +737,10 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * Handler for getPageLangCode
-	 * @internal
 	 * @param string $text Title text.
 	 * @return array<?string>
 	 */
-	public function getPageLangCode( $text ) {
+	private function getPageLangCode( $text ) {
 		$title = Title::newFromText( $text );
 		if ( $title ) {
 			// If the page language is coming from the page record, we've
