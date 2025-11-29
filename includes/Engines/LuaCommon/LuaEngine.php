@@ -737,14 +737,15 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			throw new LuaError( "expandTemplate: invalid title \"$titleText\"" );
 		}
 
-		if ( $frame->depth >= $this->parser->getOptions()->getMaxTemplateDepth() ) {
+		$parser = $this->getParser();
+		if ( $frame->depth >= $parser->getOptions()->getMaxTemplateDepth() ) {
 			throw new LuaError( 'expandTemplate: template depth limit exceeded' );
 		}
 		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
 			throw new LuaError( 'expandTemplate: template inclusion denied' );
 		}
 
-		[ $dom, $finalTitle ] = $this->parser->getTemplateDom( $title );
+		[ $dom, $finalTitle ] = $parser->getTemplateDom( $title );
 		if ( $dom === false ) {
 			throw new LuaError( "expandTemplate: template \"$titleText\" does not exist" );
 		}
@@ -753,7 +754,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			throw new LuaError( 'expandTemplate: template loop detected' );
 		}
 
-		$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
+		$fargs = $parser->getPreprocessor()->newPartNodeArray( $args );
 		$newFrame = $frame->newChild( $fargs, $finalTitle );
 		$text = $this->doCachedExpansion( $newFrame, $dom,
 			[
@@ -805,7 +806,8 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			);
 		}
 
-		$result = $this->parser->callParserFunction( $frame, $function, $args );
+		$parser = $this->getParser();
+		$result = $parser->callParserFunction( $frame, $function, $args );
 		if ( !$result['found'] ) {
 			throw new LuaError( "callParserFunction: function \"$function\" was not found" );
 		}
@@ -821,7 +823,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		$text = $result['text'];
 		if ( $result['isChildObj'] ) {
-			$fargs = $this->getParser()->getPreprocessor()->newPartNodeArray( $args );
+			$fargs = $parser->getPreprocessor()->newPartNodeArray( $args );
 			$newFrame = $frame->newChild( $fargs, $result['title'] );
 			if ( $result['nowiki'] ) {
 				$text = $newFrame->expand( $text, PPFrame::RECOVER_ORIG );
@@ -836,7 +838,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		# Replace raw HTML by a placeholder
 		if ( $result['isHTML'] ) {
-			$text = $this->parser->insertStripItem( $text );
+			$text = $parser->insertStripItem( $text );
 		} elseif ( $result['nowiki'] ) {
 			# Escape nowiki-style return values
 			$text = wfEscapeWikiText( $text );
@@ -936,7 +938,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		if ( is_scalar( $input ) ) {
 			$input = str_replace( [ "\r\n", "\r" ], "\n", $input );
-			$dom = $this->parser->getPreprocessor()->preprocessToObj(
+			$dom = $this->getParser()->getPreprocessor()->preprocessToObj(
 				$input, $frame->depth ? Parser::PTD_FOR_INCLUSION : 0 );
 		} else {
 			$dom = $input;

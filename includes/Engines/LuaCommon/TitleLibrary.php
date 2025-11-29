@@ -429,16 +429,17 @@ class TitleLibrary extends LibraryBase {
 			return null;
 		}
 
-		$rev = $this->getParser()->fetchCurrentRevisionRecordOfTitle( $title );
+		$parser = $this->getParser();
+		$rev = $parser->fetchCurrentRevisionRecordOfTitle( $title );
 
 		if ( $title->equals( $this->getTitle() ) ) {
-			$parserOutput = $this->getParser()->getOutput();
+			$parserOutput = $parser->getOutput();
 			$parserOutput->setOutputFlag( ParserOutputFlags::VARY_REVISION_SHA1 );
 			$parserOutput->setRevisionUsedSha1Base36( $rev ? $rev->getSha1() : '' );
 			wfDebug( __METHOD__ . ": set vary-revision-sha1 for '$title'" );
 		} else {
 			// Record in templatelinks, so edits cause the page to be refreshed
-			$this->getParser()->getOutput()->addTemplate(
+			$parser->getOutput()->addTemplate(
 				$title, $title->getArticleID(), $title->getLatestRevID()
 			);
 		}
