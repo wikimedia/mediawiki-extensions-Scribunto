@@ -29,9 +29,6 @@ class ApiScribuntoConsole extends ApiBase {
 		parent::__construct( $main, $action );
 	}
 
-	/**
-	 * @suppress PhanTypePossiblyInvalidDimOffset
-	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
 
@@ -53,7 +50,7 @@ class ApiScribuntoConsole extends ApiBase {
 		if ( $params['session'] ) {
 			$session = $cache->get( $sessionKey );
 		}
-		if ( !isset( $session['version'] ) ) {
+		if ( !is_array( $session ) || !isset( $session['version'] ) ) {
 			$session = $this->newSession();
 			$sessionIsNew = true;
 		}
@@ -83,6 +80,7 @@ class ApiScribuntoConsole extends ApiBase {
 		}
 		$result = $this->runConsole( [
 			'title' => $title,
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			'content' => $newSession['content'],
 			'prevQuestions' => $session['questions'],
 			'question' => $params['question'],
@@ -113,7 +111,7 @@ class ApiScribuntoConsole extends ApiBase {
 	 *  - 'question': (string) Lua code to run.
 	 * @return array Result data
 	 */
-	protected function runConsole( array $params ) {
+	private function runConsole( array $params ) {
 		$parser = $this->parserFactory->getInstance();
 		$options = new ParserOptions( $this->getUser() );
 		$parser->startExternalParse( $params['title'], $options, Parser::OT_HTML, true );
@@ -147,7 +145,7 @@ class ApiScribuntoConsole extends ApiBase {
 	/**
 	 * @return array
 	 */
-	protected function newSession() {
+	private function newSession() {
 		return [
 			'content' => '',
 			'questions' => [],

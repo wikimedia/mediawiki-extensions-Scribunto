@@ -410,6 +410,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	 *
 	 * @param array $message
 	 * @return never
+	 * @throws ScribuntoException
 	 */
 	protected function handleError( $message ) {
 		$opts = [];
@@ -437,6 +438,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	 * Send a protocol message to Lua, and handle any responses
 	 * @param array $msgToLua
 	 * @return mixed Response data
+	 * @throws ScribuntoException
 	 */
 	protected function dispatch( $msgToLua ) {
 		$this->sendMessage( $msgToLua );
@@ -463,6 +465,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	/**
 	 * Send a protocol message to Lua
 	 * @param array $msg
+	 * @throws ScribuntoException
 	 */
 	protected function sendMessage( $msg ) {
 		$this->debug( "TX ==> {$msg['op']}" );
@@ -480,6 +483,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	/**
 	 * Receive a protocol message from Lua
 	 * @return array
+	 * @throws ScribuntoException
 	 */
 	protected function receiveMessage() {
 		$this->checkValid();
@@ -607,6 +611,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	 * Verify protocol header and extract the body length.
 	 * @param string $header
 	 * @return int Length
+	 * @throws ScribuntoException
 	 */
 	protected function decodeHeader( $header ) {
 		$length = substr( $header, 0, 8 );

@@ -91,6 +91,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param int $argIdx Argument index (for errors)
 	 * @param mixed &$arg Argument
 	 * @param int|null $default Default value, if $arg is null
+	 * @throws LuaError
 	 */
 	private function checkNamespace( $name, $argIdx, &$arg, $default = null ) {
 		if ( $arg === null && $default !== null ) {
@@ -152,6 +153,7 @@ class TitleLibrary extends LibraryBase {
 	 * @internal
 	 * @param string $text Title text
 	 * @return array Lua data
+	 * @throws LuaError
 	 */
 	public function getExpensiveData( $text ) {
 		$this->checkType( 'getExpensiveData', 1, $text, 'string' );
@@ -212,6 +214,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param array $list Table of strings to turn into titles (1-indexed)
 	 * @param mixed $defaultNamespace
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function newBatchLookupExistence( $list, $defaultNamespace = null ) {
 		$this->checkType( 'mw.title.newBatch', 1, $list, 'table' );
@@ -301,6 +304,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string|int|null $defaultNamespace Namespace name or number to use if
 	 *  $text_or_id doesn't override
 	 * @return array Lua data
+	 * @throws LuaError
 	 */
 	private function newTitle( $text_or_id, $defaultNamespace = null ) {
 		$type = $this->getLuaType( $text_or_id );
@@ -349,6 +353,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string|null $fragment URI fragment
 	 * @param string|null $interwiki Interwiki code
 	 * @return array Lua data
+	 * @throws LuaError
 	 */
 	private function makeTitle( $ns, $text, $fragment = null, $interwiki = null ) {
 		$this->checkNamespace( 'makeTitle', 1, $ns );
@@ -373,6 +378,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string|array|null $query Query string or query string data.
 	 * @param string|null $proto 'http', 'https', 'relative', or 'canonical'
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function getUrl( $text, $which, $query = null, $proto = null ) {
 		static $protoMap = [
@@ -475,6 +481,7 @@ class TitleLibrary extends LibraryBase {
 	/**
 	 * @param string $text
 	 * @return string[][]
+	 * @throws LuaError
 	 */
 	private function getCategories( $text ) {
 		$this->checkType( 'getCategories', 1, $text, 'string' );
@@ -505,6 +512,7 @@ class TitleLibrary extends LibraryBase {
 	 * Handler for getFileInfo
 	 * @param string $text
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function getFileInfo( $text ) {
 		$this->checkType( 'getFileInfo', 1, $text, 'string' );
@@ -563,6 +571,7 @@ class TitleLibrary extends LibraryBase {
 	 *
 	 * @param string $text File name to lookup
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function getFileMetadata( $text ) {
 		// Redo these checks just in case, but we should never be able
@@ -627,6 +636,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string $text
 	 * @param string $attribute
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function getAttributeValue( $text, $attribute ) {
 		$this->checkType( 'getAttributeValue', 1, $text, 'string' );
@@ -710,6 +720,7 @@ class TitleLibrary extends LibraryBase {
 	 * Handler for redirectTarget
 	 * @param string $text
 	 * @return string[]|null[]
+	 * @throws LuaError
 	 */
 	private function redirectTarget( $text ) {
 		$this->checkType( 'redirectTarget', 1, $text, 'string' );
@@ -723,6 +734,7 @@ class TitleLibrary extends LibraryBase {
 	 * @param string $text
 	 * @param string $flag
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function recordVaryFlag( $text, $flag ) {
 		$this->checkType( 'recordVaryFlag', 1, $text, 'string' );

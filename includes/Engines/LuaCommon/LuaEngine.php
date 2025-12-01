@@ -176,7 +176,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 			$this->availableLibraries = $this->getLibraries( 'lua', self::$libraryClasses );
 			foreach ( $this->availableLibraries as $name => $def ) {
-				$this->instantiatePHPLibrary( $name, $def, false );
+				$this->instantiatePHPLibrary( $def, false );
 			}
 		} catch ( Exception $ex ) {
 			$this->loaded = false;
@@ -310,6 +310,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
 	 * @param PPFrame|null $frame
 	 * @return array
+	 * @throws LuaError
 	 */
 	public function executeFunctionChunk( $chunk, $frame ) {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
@@ -524,12 +525,11 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 	/**
 	 * Instantiate and register a library.
-	 * @param string $name
 	 * @param array|class-string<LibraryBase> $spec
 	 * @param bool $isDeferredLoad
 	 * @return array|null
 	 */
-	private function instantiatePHPLibrary( $name, $spec, $isDeferredLoad ) {
+	private function instantiatePHPLibrary( $spec, $isDeferredLoad ) {
 		// If it's _not_ a deferred load, and that the library is to be loaded
 		// as deferred (i.e. when explicitly `require`d), do not load the library.
 		if ( !$isDeferredLoad && ( $spec['deferLoad'] ?? false ) ) {
@@ -560,7 +560,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		$ret = null;
 		if ( isset( $this->availableLibraries[$name] ) ) {
-			$ret = $this->instantiatePHPLibrary( $name, $this->availableLibraries[$name], true );
+			$ret = $this->instantiatePHPLibrary( $this->availableLibraries[$name], true );
 		}
 
 		return [ $ret ];
@@ -597,9 +597,10 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		}
 
 		$module = $this->fetchModuleFromParser( $title );
-		if ( $module ) {
-			// @phan-suppress-next-line PhanUndeclaredMethod
+		if ( $module instanceof LuaModule ) {
 			return [ $module->getInitChunk() ];
+		} elseif ( $module ) {
+			throw new RuntimeException( 'Invalid module class: ' . get_class( $module ) );
 		} else {
 			return [];
 		}
@@ -773,6 +774,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @param array $args
 	 * @throws LuaError
 	 * @return array
+	 * @throws LuaError
 	 */
 	public function callParserFunction( $frameId, $function, $args ) {
 		$frame = $this->getFrameById( $frameId );
@@ -960,6 +962,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 *
 	 * @param string $title Title text, type-checked in Lua
 	 * @return string[]
+	 * @throws LuaError
 	 */
 	public function loadJsonData( $title ) {
 		$this->incrementExpensiveFunctionCount();

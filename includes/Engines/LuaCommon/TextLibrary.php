@@ -113,6 +113,7 @@ class TextLibrary extends LibraryBase {
 	 * @param mixed $value
 	 * @param string|int $flags
 	 * @return string[]
+	 * @throws LuaError
 	 */
 	public function jsonEncode( $value, $flags ) {
 		$this->checkTypeOptional( 'mw.text.jsonEncode', 2, $flags, 'number', 0 );
@@ -133,6 +134,7 @@ class TextLibrary extends LibraryBase {
 	 * @param string $s
 	 * @param string|int $flags
 	 * @return array
+	 * @throws LuaError
 	 */
 	public function jsonDecode( $s, $flags ) {
 		$this->checkType( 'mw.text.jsonDecode', 1, $s, 'string' );

@@ -34,6 +34,7 @@ class HashLibrary extends LibraryBase {
 	 * @param string $algo
 	 * @param string $value
 	 * @return string[]
+	 * @throws LuaError
 	 */
 	public function hashValue( $algo, $value ) {
 		if ( !in_array( $algo, hash_algos() ) ) {

@@ -197,6 +197,7 @@ class SiteLibrary extends LibraryBase {
 	 * @internal
 	 * @param string|null $filter
 	 * @return array[]
+	 * @throws LuaError
 	 */
 	public function interwikiMap( $filter = null ) {
 		$this->checkTypeOptional( 'interwikiMap', 1, $filter, 'string', null );

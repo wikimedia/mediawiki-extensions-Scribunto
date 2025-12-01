@@ -337,6 +337,7 @@ class LanguageLibrary extends LibraryBase {
 	 * @param Language $lang
 	 * @param array $args
 	 * @return array
+	 * @throws LuaError
 	 */
 	private function formatNum( $lang, $args ) {
 		$num = $args[0];

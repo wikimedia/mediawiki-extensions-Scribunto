@@ -125,10 +125,6 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 				$funcName ];
 		}
 		$this->sandbox->registerLibrary( $name, $realLibrary );
-
-		# TODO: replace this with
-		# $this->sandbox->registerVirtualLibrary(
-		# 	$name, [ $this, 'callback' ], $functions );
 	}
 
 	/** @inheritDoc */

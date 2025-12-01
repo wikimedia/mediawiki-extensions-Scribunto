@@ -36,6 +36,7 @@ class MessageLibrary extends LibraryBase {
 	 *  - 'params': (array) Parameters for the Message. May be omitted if $setParams is false.
 	 * @param bool $setParams Whether to use $data['params']
 	 * @return Message
+	 * @throws LuaError
 	 */
 	private function makeMessage( $data, $setParams ) {
 		if ( isset( $data['rawMessage'] ) ) {
@@ -83,6 +84,7 @@ class MessageLibrary extends LibraryBase {
 	 * @param string $what
 	 * @param array $data
 	 * @return bool[]
+	 * @throws LuaError
 	 */
 	public function messageCheck( $what, $data ) {
 		if ( !in_array( $what, [ 'exists', 'isBlank', 'isDisabled' ] ) ) {
