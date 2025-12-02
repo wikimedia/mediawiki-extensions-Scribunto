@@ -73,5 +73,7 @@
 	"scribunto-limitreport-profile-percent": "$1%",
 	"scribunto-limitreport-logs": "Lua 日誌",
 	"nstab-module": "模組",
-	"tooltip-ca-nstab-module": "檢視模組頁面"
+	"tooltip-ca-nstab-module": "檢視模組頁面",
+	"namespaceinfo-description-ns828": "用於 Lua 程式碼模組的命名空間，這些可從 wiki 頁面及該文件頁面呼叫。",
+	"namespaceinfo-description-ns829": "模組和文件的討論頁"
 }
