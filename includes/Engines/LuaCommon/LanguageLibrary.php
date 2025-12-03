@@ -13,6 +13,7 @@ use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Language\LanguageFallback;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Title\Title;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
@@ -395,7 +396,7 @@ class LanguageLibrary extends LibraryBase {
 		if ( isset( $this->timeCache[$format][$cacheKey][$langcode][$local] ) ) {
 			$ttl = $this->timeCache[$format][$cacheKey][$langcode][$local][1];
 			if ( $useTTL && $ttl !== null ) {
-				$this->getEngine()->setTTL( $ttl );
+				CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
 			}
 			return [ $this->timeCache[$format][$cacheKey][$langcode][$local][0] ];
 		}
@@ -436,7 +437,7 @@ class LanguageLibrary extends LibraryBase {
 		$ret = $lang->sprintfDate( $format, $ts, $tz, $ttl );
 		$this->timeCache[$format][$cacheKey][$langcode][$local] = [ $ret, $ttl ];
 		if ( $useTTL && $ttl !== null ) {
-			$this->getEngine()->setTTL( $ttl );
+			CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
 		}
 		return [ $ret ];
 	}
