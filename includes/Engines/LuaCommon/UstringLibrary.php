@@ -44,32 +44,32 @@ class UstringLibrary extends LibraryBase {
 			$lib = [
 				// Pattern matching is still much faster in PHP, even with the
 				// overhead of serialization
-				'find' => [ $this, 'ustringFind' ],
-				'match' => [ $this, 'ustringMatch' ],
-				'gmatch_init' => [ $this, 'ustringGmatchInit' ],
-				'gmatch_callback' => [ $this, 'ustringGmatchCallback' ],
-				'gsub' => [ $this, 'ustringGsub' ],
+				'find' => $this->ustringFind( ... ),
+				'match' => $this->ustringMatch( ... ),
+				'gmatch_init' => $this->ustringGmatchInit( ... ),
+				'gmatch_callback' => $this->ustringGmatchCallback( ... ),
+				'gsub' => $this->ustringGsub( ... ),
 			];
 		} else {
 			$lib = [
-				'isutf8' => [ $this, 'ustringIsUtf8' ],
-				'byteoffset' => [ $this, 'ustringByteoffset' ],
-				'codepoint' => [ $this, 'ustringCodepoint' ],
-				'gcodepoint_init' => [ $this, 'ustringGcodepointInit' ],
-				'toNFC' => [ $this, 'ustringToNFC' ],
-				'toNFD' => [ $this, 'ustringToNFD' ],
-				'toNFKC' => [ $this, 'ustringToNFKC' ],
-				'toNFKD' => [ $this, 'ustringToNFKD' ],
-				'char' => [ $this, 'ustringChar' ],
-				'len' => [ $this, 'ustringLen' ],
-				'sub' => [ $this, 'ustringSub' ],
-				'upper' => [ $this, 'ustringUpper' ],
-				'lower' => [ $this, 'ustringLower' ],
-				'find' => [ $this, 'ustringFind' ],
-				'match' => [ $this, 'ustringMatch' ],
-				'gmatch_init' => [ $this, 'ustringGmatchInit' ],
-				'gmatch_callback' => [ $this, 'ustringGmatchCallback' ],
-				'gsub' => [ $this, 'ustringGsub' ],
+				'isutf8' => $this->ustringIsUtf8( ... ),
+				'byteoffset' => $this->ustringByteoffset( ... ),
+				'codepoint' => $this->ustringCodepoint( ... ),
+				'gcodepoint_init' => $this->ustringGcodepointInit( ... ),
+				'toNFC' => $this->ustringToNFC( ... ),
+				'toNFD' => $this->ustringToNFD( ... ),
+				'toNFKC' => $this->ustringToNFKC( ... ),
+				'toNFKD' => $this->ustringToNFKD( ... ),
+				'char' => $this->ustringChar( ... ),
+				'len' => $this->ustringLen( ... ),
+				'sub' => $this->ustringSub( ... ),
+				'upper' => $this->ustringUpper( ... ),
+				'lower' => $this->ustringLower( ... ),
+				'find' => $this->ustringFind( ... ),
+				'match' => $this->ustringMatch( ... ),
+				'gmatch_init' => $this->ustringGmatchInit( ... ),
+				'gmatch_callback' => $this->ustringGmatchCallback( ... ),
+				'gsub' => $this->ustringGsub( ... ),
 			];
 		}
 		return $this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, [
@@ -103,26 +103,24 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for isUtf8
-	 * @internal
 	 * @param string $s
 	 * @return bool[]
 	 * @throws LuaError
 	 */
-	public function ustringIsUtf8( $s ) {
+	private function ustringIsUtf8( $s ) {
 		$this->checkString( 'isutf8', $s, false );
 		return [ mb_check_encoding( $s, 'UTF-8' ) ];
 	}
 
 	/**
 	 * Handler for byteoffset
-	 * @internal
 	 * @param string $s
 	 * @param int $l
 	 * @param int $i
 	 * @return int[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringByteoffset( $s, $l = 1, $i = 1 ) {
+	private function ustringByteoffset( $s, $l = 1, $i = 1 ) {
 		$this->checkString( 'byteoffset', $s );
 		$this->checkTypeOptional( 'byteoffset', 2, $l, 'number', 1 );
 		$this->checkTypeOptional( 'byteoffset', 3, $i, 'number', 1 );
@@ -152,14 +150,13 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for codepoint
-	 * @internal
 	 * @param string $s
 	 * @param int $i
 	 * @param int|null $j
 	 * @return int[]
 	 * @throws LuaError
 	 */
-	public function ustringCodepoint( $s, $i = 1, $j = null ) {
+	private function ustringCodepoint( $s, $i = 1, $j = null ) {
 		$this->checkString( 'codepoint', $s );
 		$this->checkTypeOptional( 'codepoint', 2, $i, 'number', 1 );
 		$this->checkTypeOptional( 'codepoint', 3, $j, 'number', $i );
@@ -182,25 +179,23 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for gcodepointInit
-	 * @internal
 	 * @param string $s
 	 * @param int $i
 	 * @param int|null $j
 	 * @return int[][]
 	 * @throws LuaError
 	 */
-	public function ustringGcodepointInit( $s, $i = 1, $j = null ) {
+	private function ustringGcodepointInit( $s, $i = 1, $j = null ) {
 		return [ $this->ustringCodepoint( $s, $i, $j ) ];
 	}
 
 	/**
 	 * Handler for toNFC
-	 * @internal
 	 * @param string $s
 	 * @return string[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringToNFC( $s ) {
+	private function ustringToNFC( $s ) {
 		$this->checkString( 'toNFC', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
@@ -210,12 +205,11 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for toNFD
-	 * @internal
 	 * @param string $s
 	 * @return string[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringToNFD( $s ) {
+	private function ustringToNFD( $s ) {
 		$this->checkString( 'toNFD', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
@@ -225,12 +219,11 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for toNFKC
-	 * @internal
 	 * @param string $s
 	 * @return string[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringToNFKC( $s ) {
+	private function ustringToNFKC( $s ) {
 		$this->checkString( 'toNFKC', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
@@ -240,12 +233,11 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for toNFKD
-	 * @internal
 	 * @param string $s
 	 * @return string[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringToNFKD( $s ) {
+	private function ustringToNFKD( $s ) {
 		$this->checkString( 'toNFKD', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
@@ -255,12 +247,11 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for char
-	 * @internal
 	 * @param int ...$args
 	 * @return string[]
 	 * @throws LuaError
 	 */
-	public function ustringChar( ...$args ) {
+	private function ustringChar( ...$args ) {
 		if ( count( $args ) > $this->stringLengthLimit ) {
 			throw new LuaError( "too many arguments to 'char'" );
 		}
@@ -284,12 +275,11 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for len
-	 * @internal
 	 * @param string $s
 	 * @return int[]|null[]
 	 * @throws LuaError
 	 */
-	public function ustringLen( $s ) {
+	private function ustringLen( $s ) {
 		$this->checkString( 'len', $s, false );
 		if ( !mb_check_encoding( $s, 'UTF-8' ) ) {
 			return [ null ];
@@ -299,14 +289,13 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for sub
-	 * @internal
 	 * @param string $s
 	 * @param int $i
 	 * @param int $j
 	 * @return string[]
 	 * @throws LuaError
 	 */
-	public function ustringSub( $s, $i = 1, $j = -1 ) {
+	private function ustringSub( $s, $i = 1, $j = -1 ) {
 		$this->checkString( 'sub', $s );
 		$this->checkTypeOptional( 'sub', 2, $i, 'number', 1 );
 		$this->checkTypeOptional( 'sub', 3, $j, 'number', -1 );
@@ -329,24 +318,22 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for upper
-	 * @internal
 	 * @param string $s
 	 * @return string[]
 	 * @throws LuaError
 	 */
-	public function ustringUpper( $s ) {
+	private function ustringUpper( $s ) {
 		$this->checkString( 'upper', $s );
 		return [ mb_strtoupper( $s, 'UTF-8' ) ];
 	}
 
 	/**
 	 * Handler for lower
-	 * @internal
 	 * @param string $s
 	 * @return string[]
 	 * @throws LuaError
 	 */
-	public function ustringLower( $s ) {
+	private function ustringLower( $s ) {
 		$this->checkString( 'lower', $s );
 		return [ mb_strtolower( $s, 'UTF-8' ) ];
 	}
@@ -656,7 +643,6 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for find
-	 * @internal
 	 * @param string $s
 	 * @param string $pattern
 	 * @param int $init
@@ -664,7 +650,7 @@ class UstringLibrary extends LibraryBase {
 	 * @return array Format is [ null ], or [ int, int ], or [ int, int, (string|int)... ]
 	 * @throws LuaError
 	 */
-	public function ustringFind( $s, $pattern, $init = 1, $plain = false ) {
+	private function ustringFind( $s, $pattern, $init = 1, $plain = false ) {
 		$this->checkString( 'find', $s );
 		$this->checkTypeOptional( 'find', 3, $init, 'number', 1 );
 		$this->checkTypeOptional( 'find', 4, $plain, 'boolean', false );
@@ -708,14 +694,13 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for match
-	 * @internal
 	 * @param string $s
 	 * @param string $pattern
 	 * @param int $init
 	 * @return array Format is [ null ] or [ (string|int)... ]
 	 * @throws LuaError
 	 */
-	public function ustringMatch( $s, $pattern, $init = 1 ) {
+	private function ustringMatch( $s, $pattern, $init = 1 ) {
 		$this->checkString( 'match', $s );
 		$this->checkTypeOptional( 'match', 3, $init, 'number', 1 );
 
@@ -740,13 +725,12 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for gmatchInit
-	 * @internal
 	 * @param string $s
 	 * @param string $pattern
 	 * @return array Format is [ string, bool[] ]
 	 * @throws LuaError
 	 */
-	public function ustringGmatchInit( $s, $pattern ) {
+	private function ustringGmatchInit( $s, $pattern ) {
 		$this->checkString( 'gmatch', $s );
 
 		[ $re, $capt ] = $this->patternToRegex( $pattern, false, 'gmatch' );
@@ -755,14 +739,13 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for gmatchCallback
-	 * @internal
 	 * @param string $s
 	 * @param string $re
 	 * @param bool[] $capt
 	 * @param int $pos
 	 * @return array Format is [ int, [ null, (string|int)... ] ]
 	 */
-	public function ustringGmatchCallback( $s, $re, $capt, $pos ) {
+	private function ustringGmatchCallback( $s, $re, $capt, $pos ) {
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $pos ) ) {
 			return [ $pos, [] ];
 		}
@@ -772,7 +755,6 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Handler for gsub
-	 * @internal
 	 * @param string $s
 	 * @param string $pattern
 	 * @param mixed $repl
@@ -780,7 +762,7 @@ class UstringLibrary extends LibraryBase {
 	 * @return array Format is [ string, int ]
 	 * @throws LuaError
 	 */
-	public function ustringGsub( $s, $pattern, $repl, $n = null ) {
+	private function ustringGsub( $s, $pattern, $repl, $n = null ) {
 		$this->checkString( 'gsub', $s );
 		$this->checkTypeOptional( 'gsub', 4, $n, 'number', null );
 

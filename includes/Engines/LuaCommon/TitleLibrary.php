@@ -150,12 +150,11 @@ class TitleLibrary extends LibraryBase {
 	 * title for repeated lookups. It may call incrementExpensiveFunctionCount() if
 	 * the title is not already cached.
 	 *
-	 * @internal
 	 * @param string $text Title text
 	 * @return array Lua data
 	 * @throws LuaError
 	 */
-	public function getExpensiveData( $text ) {
+	private function getExpensiveData( $text ) {
 		$this->checkType( 'getExpensiveData', 1, $text, 'string' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {

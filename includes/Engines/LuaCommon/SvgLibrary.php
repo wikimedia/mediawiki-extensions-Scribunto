@@ -10,7 +10,7 @@ class SvgLibrary extends LibraryBase {
 	/** @inheritDoc */
 	public function register() {
 		$lib = [
-			'createImgTag' => [ $this, 'createImgTag' ],
+			'createImgTag' => $this->createImgTag( ... ),
 		];
 
 		return $this->getEngine()->registerInterface( 'mw.svg.lua', $lib );
@@ -22,7 +22,7 @@ class SvgLibrary extends LibraryBase {
 	 * @param array $attributes
 	 * @return array
 	 */
-	public function createImgTag( string $svgString, array $attributes ) {
+	private function createImgTag( string $svgString, array $attributes ) {
 		$dataUrl = 'data:image/svg+xml;base64,' . base64_encode( $svgString );
 
 		$attributes = Sanitizer::validateAttributes( $attributes,

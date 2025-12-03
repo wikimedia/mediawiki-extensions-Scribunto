@@ -56,7 +56,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 
 		$interpreter = $this->newInterpreter();
 		$interpreter->registerLibrary( 'test',
-			[ 'passthru' => [ $this, 'passthru' ] ] );
+			[ 'passthru' => $this->passthru( ... ) ] );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 
@@ -79,7 +79,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 		$this->assertNan( $ret[0], 'NaN was not passed through' );
 
 		$interpreter->registerLibrary( 'test',
-			[ 'passthru' => [ $this, 'passthru' ] ] );
+			[ 'passthru' => $this->passthru( ... ) ] );
 		$doublePassthru = $interpreter->loadString(
 			'return test.passthru(...)', 'doublePassthru' );
 		$ret = $interpreter->callFunction( $doublePassthru, NAN );
@@ -96,7 +96,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 		return $a;
 	}
 
-	public function passthru( ...$args ) {
+	private function passthru( ...$args ) {
 		return $args;
 	}
 
