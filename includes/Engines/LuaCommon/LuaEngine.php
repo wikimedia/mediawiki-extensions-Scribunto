@@ -21,9 +21,9 @@ use Wikimedia\ScopedCallback;
 abstract class LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Libraries to load. See also the 'ScribuntoExternalLibraries' hook.
-	 * @var array<string,class-string<LibraryBase>> Maps module names to PHP classes or definition arrays
+	 * Maps module names to PHP classes or definition arrays
 	 */
-	protected static $libraryClasses = [
+	private const LIBRARY_SPECS = [
 		'mw.site' => SiteLibrary::class,
 		'mw.uri' => UriLibrary::class,
 		'mw.ustring' => UstringLibrary::class,
@@ -63,9 +63,8 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	/**
 	 * Paths for modules that may be loaded from Lua. See also the
 	 * 'ScribuntoExternalLibraryPaths' hook.
-	 * @var string[] Paths
 	 */
-	protected static $libraryPaths = [
+	private const LIBRARY_PATHS = [
 		'.',
 		'luabit',
 		'ustring',
@@ -174,7 +173,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			$this->mw = $this->registerInterface( 'mw.lua', $lib,
 				[ 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ] );
 
-			$this->availableLibraries = $this->getLibraries( 'lua', self::$libraryClasses );
+			$this->availableLibraries = $this->getLibraries( 'lua', self::LIBRARY_SPECS );
 			foreach ( $this->availableLibraries as $name => $def ) {
 				$this->instantiatePHPLibrary( $def, false );
 			}
@@ -580,7 +579,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 
 		# This is what Lua does for its built-in loaders
 		$luaName = str_replace( '.', '/', $name ) . '.lua';
-		$paths = $this->getLibraryPaths( 'lua', self::$libraryPaths );
+		$paths = $this->getLibraryPaths( 'lua', self::LIBRARY_PATHS );
 		foreach ( $paths as $path ) {
 			$fileName = $this->normalizeModuleFileName( "$path/$luaName" );
 			if ( !file_exists( $fileName ) ) {
