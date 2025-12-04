@@ -8,15 +8,7 @@ local checkType = util.checkType
 local svg_mt = {}
 svg_mt.__index = svg_mt
 
-local ALLOWED_IMG_ATTRIBUTES = {
-    width = true,
-    height = true,
-    class = true,
-    id = true,
-    alt = true,
-    title = true,
-    style = true,
-}
+local ALLOWED_IMG_ATTRIBUTES
 
 local function makeSvgObject( data )
     data = data or {}
@@ -81,7 +73,7 @@ function svg_mt:toImage()
     return php.createImgTag( self.content, self.attributes, self.imgAttributes )
 end
 
-function mwsvg.setupInterface()
+function mwsvg.setupInterface( opts )
     -- Boilerplate
     mwsvg.setupInterface = nil
     php = mw_interface
@@ -90,6 +82,9 @@ function mwsvg.setupInterface()
     -- Register this library in the "mw" global
     mw = mw or {}
     mw.svg = mwsvg
+
+    -- Register constants
+    ALLOWED_IMG_ATTRIBUTES = opts.ALLOWED_IMG_ATTRIBUTES
 
     package.loaded['mw.svg'] = mwsvg
 end

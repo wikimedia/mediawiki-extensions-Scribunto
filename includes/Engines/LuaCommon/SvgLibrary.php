@@ -8,6 +8,16 @@ use MediaWiki\Xml\Xml;
 
 class SvgLibrary extends LibraryBase {
 
+	private const ALLOWED_IMG_ATTRIBUTES = [
+		'width' => true,
+		'height' => true,
+		'class' => true,
+		'id' => true,
+		'alt' => true,
+		'title' => true,
+		'style' => true,
+	];
+
 	/** @inheritDoc */
 	public function register() {
 		$lib = [
@@ -15,7 +25,9 @@ class SvgLibrary extends LibraryBase {
 			'createImgTag' => $this->createImgTag( ... ),
 		];
 
-		return $this->getEngine()->registerInterface( 'mw.svg.lua', $lib );
+		return $this->getEngine()->registerInterface( 'mw.svg.lua', $lib, [
+			'ALLOWED_IMG_ATTRIBUTES' => self::ALLOWED_IMG_ATTRIBUTES,
+		] );
 	}
 
 	private function stringifySvg( string $content, array $attributes ): string {
@@ -51,8 +63,7 @@ class SvgLibrary extends LibraryBase {
 		$svgString = $this->stringifySvg( $content, $attributes );
 		$dataUrl = 'data:image/svg+xml;base64,' . base64_encode( $svgString );
 
-		$imgAttributes = Sanitizer::validateAttributes( $imgAttributes,
-			array_fill_keys( [ 'width', 'height', 'class', 'id', 'alt', 'title', 'style' ], true ) );
+		$imgAttributes = Sanitizer::validateAttributes( $imgAttributes, self::ALLOWED_IMG_ATTRIBUTES );
 		$imgAttributes['src'] = $dataUrl;
 
 		$output = Html::rawElement( 'img', $imgAttributes );
