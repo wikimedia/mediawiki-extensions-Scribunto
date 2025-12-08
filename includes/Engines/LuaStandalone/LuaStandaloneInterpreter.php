@@ -472,7 +472,8 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		$this->checkValid();
 		// Send the message
 		$encMsg = $this->encodeMessage( $msg );
-		if ( !fwrite( $this->writePipe, $encMsg ) ) {
+		// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if ( !@fwrite( $this->writePipe, $encMsg ) ) {
 			// Write error, probably the process has terminated
 			// If it has, handleIOError() will throw. If not, throw an exception ourselves.
 			$this->handleIOError();
@@ -488,7 +489,8 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	protected function receiveMessage() {
 		$this->checkValid();
 		// Read the header
-		$header = fread( $this->readPipe, 16 );
+		// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$header = @fread( $this->readPipe, 16 );
 		if ( strlen( $header ) !== 16 ) {
 			$this->handleIOError();
 			throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
@@ -499,7 +501,8 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		$body = '';
 		$lengthRemaining = $length;
 		while ( $lengthRemaining ) {
-			$buffer = fread( $this->readPipe, $lengthRemaining );
+			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			$buffer = @fread( $this->readPipe, $lengthRemaining );
 			if ( $buffer === false || feof( $this->readPipe ) ) {
 				$this->handleIOError();
 				throw $this->engine->newException( 'scribunto-luastandalone-read-error' );
