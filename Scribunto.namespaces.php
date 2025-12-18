@@ -534,6 +534,11 @@ $namespaceNames['pnb'] = [
 	829 => 'ماڈیول_گل_بات',
 ];
 
+$namespaceNames['ppl'] = [
+	828 => 'Tapualtakutun',
+	829 => 'Tapualtakutun_titajtaketzakan',
+];
+
 $namespaceNames['ps'] = [
 	828 => 'چلنوال',
 	829 => 'د_چلنوال_خبرې_اترې',
