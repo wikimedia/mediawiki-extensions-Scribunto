@@ -30,6 +30,11 @@ $namespaceNames['alt'] = [
 	829 => 'Модульды_шӱӱжери',
 ];
 
+$namespaceNames['am'] = [
+	828 => 'ሞጁል',
+	829 => 'ሞጁል_ውይይት',
+];
+
 $namespaceNames['an'] = [
 	828 => 'Módulo',
 	829 => 'Descusión_módulo',
