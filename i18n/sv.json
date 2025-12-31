@@ -10,6 +10,7 @@
 			"Magol",
 			"Rotsee",
 			"Skalman",
+			"Stefan2255",
 			"WikiPhoenix"
 		]
 	},
@@ -38,7 +39,7 @@
 	"scribunto-common-timeout": "Den tid som avsatts för att köra skript har löpt ut.",
 	"scribunto-common-oom": "Mängden minne som tillåts för att köra skript har överskridits.",
 	"scribunto-common-backtrace": "Backtrace:",
-	"scribunto-common-no-details": "Inga ytterligare detaljer är tillgängliga.",
+	"scribunto-common-no-details": "Inga detaljer om kodens plats finns tillgängliga.",
 	"scribunto-lua-in-function": "i funktionen \"$1\"",
 	"scribunto-lua-in-main": "i det största segmentet",
 	"scribunto-lua-in-function-at": "i funktionen på $1:$2",
