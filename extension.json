@@ -26,14 +26,11 @@
 		"Scribunto": {
 			"class": "MediaWiki\\Extension\\Scribunto\\ScribuntoContentHandler",
 			"services": [
-				"MainConfig",
 				"ParserFactory",
 				"Scribunto.EngineFactory",
 				"TitleFactory",
-				"TrackingCategories"
-			],
-			"optional_services": [
-				"SyntaxHighlight.SyntaxHighlight"
+				"TrackingCategories",
+				"CodeHighlighter"
 			]
 		}
 	},
@@ -190,10 +187,6 @@
 				}
 			},
 			"merge_strategy": "array_plus_2d"
-		},
-		"ScribuntoUseGeSHi": {
-			"description": "Set to true to enable the SyntaxHighlight_GeSHi extension integration",
-			"value": true
 		},
 		"ScribuntoUseCodeEditor": {
 			"description": "Set to true to enable the CodeEditor extension integration",

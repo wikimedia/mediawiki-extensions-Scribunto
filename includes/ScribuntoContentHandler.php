@@ -3,8 +3,9 @@
 namespace MediaWiki\Extension\Scribunto;
 
 use MediaWiki\Category\TrackingCategories;
-use MediaWiki\Config\Config;
 use MediaWiki\Content\CodeContentHandler;
+use MediaWiki\Content\CodeHighlighter;
+use MediaWiki\Content\CodeHighlighterOptions;
 use MediaWiki\Content\Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContent;
@@ -14,7 +15,6 @@ use MediaWiki\Page\PageIdentity;
 use MediaWiki\Parser\ParserFactory;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Status\Status;
-use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 
@@ -30,12 +30,11 @@ class ScribuntoContentHandler extends CodeContentHandler {
 
 	public function __construct(
 		string $modelId,
-		private readonly Config $config,
 		private readonly ParserFactory $parserFactory,
 		private readonly EngineFactory $engineFactory,
 		private readonly TitleFactory $titleFactory,
 		private readonly TrackingCategories $trackingCategories,
-		private readonly ?SyntaxHighlight $syntaxHighlight,
+		private readonly CodeHighlighter $codeHighlighter,
 	) {
 		parent::__construct( $modelId, [ CONTENT_FORMAT_TEXT ] );
 	}
@@ -215,31 +214,14 @@ class ScribuntoContentHandler extends CodeContentHandler {
 	 * @return string HTML
 	 */
 	private function highlight( $source, ParserOutput $parserOutput, $codeLang ) {
-		if (
-			$this->config->get( 'ScribuntoUseGeSHi' ) &&
-			$codeLang &&
-			$this->syntaxHighlight
-		) {
-			$status = $this->syntaxHighlight->syntaxHighlight(
-				$source,
-				$codeLang,
-				[ 'line' => true, 'linelinks' => 'L' ]
-			);
-			if ( $status->isGood() ) {
-				// @todo replace addModuleStyles line with the appropriate call on
-				// SyntaxHighlight once one is created
-				$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
-				$parserOutput->addModules( [ 'ext.pygments.view' ] );
-				return $status->getValue();
-			}
-		}
-
-		return Html::element( 'pre', [
-			// Same as CodeContentHandler
-			'lang' => 'en',
-			'dir' => 'ltr',
-			'class' => 'mw-code mw-script'
-		], "\n$source\n" );
+		$highlightOutput = $this->codeHighlighter->highlight( $source, new CodeHighlighterOptions(
+			language: $codeLang,
+			classes: [ 'mw-script' ],
+			includeLineNumbers: true,
+			includeLineLinks: true,
+		) );
+		$highlightOutput->getMetadata()->addToParserOutput( $parserOutput );
+		return $highlightOutput->getHtml();
 	}
 
 	/**
