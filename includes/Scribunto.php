@@ -2,31 +2,12 @@
 
 namespace MediaWiki\Extension\Scribunto;
 
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\Parser;
 use MediaWiki\Title\Title;
 
 /**
  * Static function collection for general extension support.
  */
 class Scribunto {
-	/**
-	 * Get an engine instance for the given parser, and cache it in the parser
-	 * so that subsequent calls to this function for the same parser will return
-	 * the same engine.
-	 *
-	 * @param Parser $parser
-	 * @return ScribuntoEngineBase
-	 * @deprecated since 1.45, use EngineFactory::getEngineForParser
-	 */
-	public static function getParserEngine( Parser $parser ) {
-		wfDeprecated( __METHOD__, '1.45' );
-		/** @var EngineFactory $engineFactory */
-		$engineFactory = MediaWikiServices::getInstance()->getService( 'Scribunto.EngineFactory' );
-		'@phan-var EngineFactory $engineFactory';
-		return $engineFactory->getEngineForParser( $parser );
-	}
-
 	/**
 	 * Test whether the page should be considered a documentation page
 	 *
