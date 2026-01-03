@@ -26,7 +26,14 @@
 		"Scribunto": {
 			"class": "MediaWiki\\Extension\\Scribunto\\ScribuntoContentHandler",
 			"services": [
-				"Scribunto.EngineFactory"
+				"MainConfig",
+				"ParserFactory",
+				"Scribunto.EngineFactory",
+				"TitleFactory",
+				"TrackingCategories"
+			],
+			"optional_services": [
+				"SyntaxHighlight.SyntaxHighlight"
 			]
 		}
 	},
