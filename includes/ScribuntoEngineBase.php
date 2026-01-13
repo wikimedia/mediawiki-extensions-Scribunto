@@ -177,7 +177,6 @@ abstract class ScribuntoEngineBase {
 			}
 			// $finalKey may be different from $key in the case of redirects;
 			// store the module in both places.
-			// @phan-suppress-next-line PhanTypeMismatchProperty
 			$this->modules[$key] = $this->modules[$finalKey];
 		}
 		return $this->modules[$key];
