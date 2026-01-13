@@ -11,7 +11,8 @@
 			"Rotsee",
 			"Skalman",
 			"WikiPhoenix",
-			"Stefan2255"
+			"Stefan2255",
+			"Nirmos (Wikimedia)"
 		]
 	},
 	"scribunto-desc": "Ramverk för att bädda in skriptspråk på MediaWiki-sidor",
@@ -56,7 +57,7 @@
 	"scribunto-luastandalone-signal": "Luafel: Internt fel: Tolken har avslutats med signalen \"$2\".",
 	"scribunto-luastandalone-exited": "Luafel: Internt fel: Tolken avslutades med status $2.",
 	"scribunto-module-with-errors-category": "Scribunto-moduler med fel",
-	"scribunto-module-with-errors-category-desc": "Modulen har ett fel i den.",
+	"scribunto-module-with-errors-category-desc": "Modulen har ett fel i sig.",
 	"scribunto-limitreport-timeusage": "Lua - tidsanvändning",
 	"scribunto-limitreport-timeusage-value": "$1/$2 sekunder",
 	"scribunto-limitreport-virtmemusage": "Lua - virtuell storlek",
