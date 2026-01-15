@@ -4,6 +4,8 @@ local packageCache
 local packageModuleFunc
 local php
 local allowEnvFuncs = false
+local shareInvocationEnv = false
+local sharedEnv
 local logBuffer = ''
 local loadedData = {}
 local loadedJsonData = {}
@@ -73,6 +75,9 @@ function mw.setupInterface( options )
 
 	if options.allowEnvFuncs then
 		allowEnvFuncs = true
+	end
+	if options.shareInvocationEnv then
+		shareInvocationEnv = true
 	end
 
 	-- Store the interface table
@@ -455,8 +460,28 @@ local function newFrame( frameId, ... )
 	return frame
 end
 
---- Set up a cloned environment for execution of a module chunk, then execute
--- the module in that environment. This is called by the host to implement
+--- Create a new cloned environment for module execution.
+-- @return table The new environment
+local function newEnv()
+	local env = mw.clone( _G )
+	makePackageModule( env )
+
+	-- These are unsafe
+	env.mw.makeProtectedEnvFuncs = nil
+	env.mw.executeModule = nil
+
+	if allowEnvFuncs then
+		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
+	else
+		env.setfenv = nil
+		env.getfenv = nil
+	end
+
+	return env
+end
+
+--- Set up a cloned (or shared, if shareInvocationEnv is enabled) environment for execution of a module chunk,
+-- then execute the module in that environment. This is called by the host to implement
 -- {{#invoke}}.
 --
 -- @param chunk The module chunk
@@ -465,22 +490,22 @@ end
 -- @return boolean Whether the requested value was able to be returned
 -- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
 function mw.executeModule( chunk, name, frame )
-	local env = mw.clone( _G )
-	makePackageModule( env )
+	if not shareInvocationEnv or not sharedEnv then
+		sharedEnv = newEnv()
+	end
+	local env = sharedEnv
 
-	-- These are unsafe
-	env.mw.makeProtectedEnvFuncs = nil
-	env.mw.executeModule = nil
+	local savedGetLogBuffer
+	local savedClearLogBuffer
+	if shareInvocationEnv then
+		-- Save getLogBuffer and clearLogBuffer so we can restore them later for the next invocation
+		savedGetLogBuffer = env.mw.getLogBuffer
+		savedClearLogBuffer = env.mw.clearLogBuffer
+	end
+
 	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
 		env.mw.getLogBuffer = nil
 		env.mw.clearLogBuffer = nil
-	end
-
-	if allowEnvFuncs then
-		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
-	else
-		env.setfenv = nil
-		env.getfenv = nil
 	end
 
 	env.os.date = ttlDate
@@ -493,7 +518,22 @@ function mw.executeModule( chunk, name, frame )
 
 	setfenv( chunk, env )
 
-	local res = chunk()
+	local res
+	if shareInvocationEnv then
+		-- Restore getLogBuffer and clearLogBuffer even if there's an error
+		local ok
+		ok, res = pcall( chunk )
+
+		env.mw.getLogBuffer = savedGetLogBuffer
+		env.mw.clearLogBuffer = savedClearLogBuffer
+
+		if not ok then
+			error( res, 0 )
+		end
+	else
+		res = chunk()
+	end
+
 
 	if not name then -- catch console whether it's evaluating its own code or a module's
 		return true, res

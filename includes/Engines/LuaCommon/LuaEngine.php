@@ -170,8 +170,10 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 			}
 
 			$this->registerInterface( 'mwInit.lua', [] );
-			$this->mw = $this->registerInterface( 'mw.lua', $lib,
-				[ 'allowEnvFuncs' => $this->options['allowEnvFuncs'] ] );
+			$this->mw = $this->registerInterface( 'mw.lua', $lib, [
+				'allowEnvFuncs' => $this->options['allowEnvFuncs'],
+				'shareInvocationEnv' => $this->options['shareInvocationEnv'],
+			] );
 
 			$this->availableLibraries = $this->getLibraries( 'lua', self::LIBRARY_SPECS );
 			foreach ( $this->availableLibraries as $name => $def ) {

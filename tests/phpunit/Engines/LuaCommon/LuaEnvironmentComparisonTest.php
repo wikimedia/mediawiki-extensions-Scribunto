@@ -27,6 +27,7 @@ class LuaEnvironmentComparisonTest extends TestCase {
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 		'allowEnvFuncs' => true,
+		'shareInvocationEnv' => false,
 	];
 	/** @var array */
 	public $standaloneOpts = [
@@ -35,6 +36,7 @@ class LuaEnvironmentComparisonTest extends TestCase {
 		'memoryLimit' => 50000000,
 		'cpuLimit' => 30,
 		'allowEnvFuncs' => true,
+		'shareInvocationEnv' => false,
 	];
 
 	/** @var LuaEngine[] */
