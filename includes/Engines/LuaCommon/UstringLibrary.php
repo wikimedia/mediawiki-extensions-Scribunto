@@ -888,10 +888,6 @@ class UstringLibrary extends LibraryBase {
 	 * @throws LuaError
 	 */
 	private function handlePCREError( $pattern ) {
-		$PREG_JIT_STACKLIMIT_ERROR = defined( 'PREG_JIT_STACKLIMIT_ERROR' )
-			? PREG_JIT_STACKLIMIT_ERROR
-			: 'PREG_JIT_STACKLIMIT_ERROR';
-
 		$error = preg_last_error();
 		switch ( $error ) {
 			case PREG_NO_ERROR:
@@ -908,12 +904,12 @@ class UstringLibrary extends LibraryBase {
 					"PCRE recursion limit reached while matching pattern '$pattern'"
 				);
 			case PREG_BAD_UTF8_ERROR:
-				// Should have alreay been caught, but just in case
+				// Should have already been caught, but just in case
 				throw new LuaError( "PCRE bad UTF-8 error" );
 			case PREG_BAD_UTF8_OFFSET_ERROR:
 				// Shouldn't happen, but just in case
 				throw new LuaError( "PCRE bad UTF-8 offset error" );
-			case $PREG_JIT_STACKLIMIT_ERROR:
+			case PREG_JIT_STACKLIMIT_ERROR:
 				throw new LuaError(
 					"PCRE JIT stack limit reached while matching pattern '$pattern'"
 				);
