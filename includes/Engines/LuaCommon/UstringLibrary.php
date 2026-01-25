@@ -27,6 +27,57 @@ class UstringLibrary extends LibraryBase {
 	 */
 	private $patternRegexCache;
 
+	/**
+	 * If you change this, also change lualib/ustring/make-tables.php
+	 * (and run it to regenerate charsets.lua)
+	 */
+	private const CHARSETS = [
+		'a' => '\p{L}',
+		'c' => '\p{Cc}',
+		'd' => '\p{Nd}',
+		'l' => '\p{Ll}',
+		'p' => '\p{P}',
+		's' => '\p{Xps}',
+		'u' => '\p{Lu}',
+		'w' => '[\p{L}\p{Nd}]',
+		'x' => '[0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
+		'z' => '\0',
+
+		// These *must* be the inverse of the above
+		'A' => '\P{L}',
+		'C' => '\P{Cc}',
+		'D' => '\P{Nd}',
+		'L' => '\P{Ll}',
+		'P' => '\P{P}',
+		'S' => '\P{Xps}',
+		'U' => '\P{Lu}',
+		'W' => '[^\p{L}\p{Nd}]',
+		'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
+		'Z' => '[^\0]',
+	];
+
+	/**
+	 * If you change this, also change lualib/ustring/make-tables.php
+	 * (and run it to regenerate charsets.lua)
+	 */
+	private const BR_CHARSETS = [
+		'w' => '\p{L}\p{Nd}',
+		'x' => '0-9A-Fa-f０-９Ａ-Ｆａ-ｆ',
+
+		// Negated sets that are not expressible as a simple \P{} are
+		// unfortunately complicated.
+
+		// Xan is L plus N, so ^Xan plus Nl plus No is anything that's not L or Nd
+		'W' => '\P{Xan}\p{Nl}\p{No}',
+
+		// Manually constructed. Fun.
+		'X' => '\x00-\x2f\x3a-\x40\x47-\x60\x67-\x{ff0f}'
+			. '\x{ff1a}-\x{ff20}\x{ff27}-\x{ff40}\x{ff47}-\x{10ffff}',
+
+		// Ha!
+		'Z' => '\x01-\x{10ffff}',
+	] + self::CHARSETS;
+
 	/** @inheritDoc */
 	public function __construct( $engine ) {
 		$maxArticleSize = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::MaxArticleSize );
@@ -378,53 +429,6 @@ class UstringLibrary extends LibraryBase {
 			$this->checkPattern( $name, $pattern );
 			$pat = preg_split( '//us', $pattern, -1, PREG_SPLIT_NO_EMPTY );
 
-			static $charsets = null, $brcharsets = null;
-			if ( $charsets === null ) {
-				$charsets = [
-					// If you change these, also change lualib/ustring/make-tables.php
-					// (and run it to regenerate charsets.lua)
-					'a' => '\p{L}',
-					'c' => '\p{Cc}',
-					'd' => '\p{Nd}',
-					'l' => '\p{Ll}',
-					'p' => '\p{P}',
-					's' => '\p{Xps}',
-					'u' => '\p{Lu}',
-					'w' => '[\p{L}\p{Nd}]',
-					'x' => '[0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
-					'z' => '\0',
-
-					// These *must* be the inverse of the above
-					'A' => '\P{L}',
-					'C' => '\P{Cc}',
-					'D' => '\P{Nd}',
-					'L' => '\P{Ll}',
-					'P' => '\P{P}',
-					'S' => '\P{Xps}',
-					'U' => '\P{Lu}',
-					'W' => '[^\p{L}\p{Nd}]',
-					'X' => '[^0-9A-Fa-f０-９Ａ-Ｆａ-ｆ]',
-					'Z' => '[^\0]',
-				];
-				$brcharsets = [
-					'w' => '\p{L}\p{Nd}',
-					'x' => '0-9A-Fa-f０-９Ａ-Ｆａ-ｆ',
-
-					// Negated sets that are not expressable as a simple \P{} are
-					// unfortunately complicated.
-
-					// Xan is L plus N, so ^Xan plus Nl plus No is anything that's not L or Nd
-					'W' => '\P{Xan}\p{Nl}\p{No}',
-
-					// Manually constructed. Fun.
-					'X' => '\x00-\x2f\x3a-\x40\x47-\x60\x67-\x{ff0f}'
-						. '\x{ff1a}-\x{ff20}\x{ff27}-\x{ff40}\x{ff47}-\x{10ffff}',
-
-					// Ha!
-					'Z' => '\x01-\x{10ffff}',
-				] + $charsets;
-			}
-
 			$re = '/';
 			$len = count( $pat );
 			$capt = [];
@@ -474,8 +478,8 @@ class UstringLibrary extends LibraryBase {
 						if ( $i >= $len ) {
 							throw new LuaError( "malformed pattern (ends with '%')" );
 						}
-						if ( isset( $charsets[$pat[$i]] ) ) {
-							$re .= $charsets[$pat[$i]];
+						if ( isset( self::CHARSETS[$pat[$i]] ) ) {
+							$re .= self::CHARSETS[$pat[$i]];
 							$q = true;
 						} elseif ( $pat[$i] === 'b' ) {
 							if ( $i + 2 >= $len ) {
@@ -493,7 +497,7 @@ class UstringLibrary extends LibraryBase {
 							if ( $i + 1 >= $len || $pat[++$i] !== '[' ) {
 								throw new LuaError( "missing '[' after %f in pattern at pattern character $ii" );
 							}
-							[ $i, $re2 ] = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
+							[ $i, $re2 ] = $this->bracketedCharSetToRegex( $pat, $i, $len, self::BR_CHARSETS );
 							// Because %f considers the beginning and end of the string
 							// to be \0, determine if $re2 matches that and take it
 							// into account with "^" and "$".
@@ -516,7 +520,7 @@ class UstringLibrary extends LibraryBase {
 						break;
 
 					case '[':
-						[ $i, $re2 ] = $this->bracketedCharSetToRegex( $pat, $i, $len, $brcharsets );
+						[ $i, $re2 ] = $this->bracketedCharSetToRegex( $pat, $i, $len, self::BR_CHARSETS );
 						$re .= $re2;
 						$q = true;
 						break;
