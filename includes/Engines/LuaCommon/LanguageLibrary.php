@@ -29,7 +29,7 @@ class LanguageLibrary extends LibraryBase {
 		self::FALLBACK_STRICT => LanguageFallback::STRICT,
 	];
 
-	private ?string $localTimeZone;
+	private readonly ?string $localTimeZone;
 
 	/** @var Language[] */
 	public array $langCache = [];

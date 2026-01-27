@@ -18,11 +18,6 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	protected static $nextInterpreterId = 0;
 
 	/**
-	 * @var LuaStandaloneEngine
-	 */
-	public $engine;
-
-	/**
 	 * @var bool
 	 */
 	public $enableDebug;
@@ -63,13 +58,14 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 	protected $callbacks;
 
 	/**
-	 * @param LuaStandaloneEngine $engine
-	 * @param array $options
 	 * @throws LuaInterpreterNotFoundError
 	 * @throws ScribuntoException
 	 * @throws LuaInterpreterNotExecutableError
 	 */
-	public function __construct( $engine, array $options ) {
+	public function __construct(
+		public readonly LuaStandaloneEngine $engine,
+		array $options,
+	) {
 		$this->id = self::$nextInterpreterId++;
 
 		if ( $options['errorFile'] === null ) {
@@ -109,7 +105,6 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 			}
 		}
 
-		$this->engine = $engine;
 		$this->enableDebug = !empty( $options['debug'] );
 		$this->logger = $options['logger'] ?? new NullLogger();
 
@@ -599,7 +594,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 						__METHOD__ . ': unable to convert function belonging to a different interpreter'
 					);
 				} else {
-					return 'chunks[' . intval( $var->id ) . ']';
+					return 'chunks[' . $var->id . ']';
 				}
 			case 'resource':
 				throw new InvalidArgumentException( __METHOD__ . ': unable to convert resource' );

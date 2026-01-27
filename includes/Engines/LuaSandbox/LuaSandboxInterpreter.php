@@ -15,20 +15,8 @@ use RuntimeException;
 use UtfNormal\Validator;
 
 class LuaSandboxInterpreter extends LuaInterpreter {
-	/**
-	 * @var LuaEngine
-	 */
-	public $engine;
-
-	/**
-	 * @var LuaSandbox
-	 */
-	public $sandbox;
-
-	/**
-	 * @var bool
-	 */
-	public $profilerEnabled;
+	public LuaSandbox $sandbox;
+	public bool $profilerEnabled;
 
 	public const SAMPLES = 0;
 	public const SECONDS = 1;
@@ -53,14 +41,12 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 		}
 	}
 
-	/**
-	 * @param LuaEngine $engine
-	 * @param array $options
-	 */
-	public function __construct( $engine, array $options ) {
+	public function __construct(
+		public readonly LuaEngine $engine,
+		array $options,
+	) {
 		self::checkLuaSandboxVersion();
 
-		$this->engine = $engine;
 		$this->sandbox = new LuaSandbox;
 		$this->sandbox->setMemoryLimit( $options['memoryLimit'] );
 		$this->sandbox->setCPULimit( $options['cpuLimit'] );

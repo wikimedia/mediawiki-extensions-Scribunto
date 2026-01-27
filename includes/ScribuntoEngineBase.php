@@ -46,11 +46,6 @@ abstract class ScribuntoEngineBase {
 	protected $title;
 
 	/**
-	 * @var array
-	 */
-	protected $options;
-
-	/**
 	 * @var (ScribuntoModuleBase|null)[]
 	 */
 	protected $modules = [];
@@ -93,8 +88,9 @@ abstract class ScribuntoEngineBase {
 	 * @param array $options Associative array of options:
 	 *    - parser:            A Parser object
 	 */
-	public function __construct( array $options ) {
-		$this->options = $options;
+	public function __construct(
+		protected readonly array $options,
+	) {
 		if ( isset( $options['parser'] ) ) {
 			$this->parser = $options['parser'];
 		}

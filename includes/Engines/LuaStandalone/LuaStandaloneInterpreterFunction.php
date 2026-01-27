@@ -8,23 +8,10 @@ class LuaStandaloneInterpreterFunction {
 	/** @var int[][] */
 	public static $activeChunkIds = [];
 
-	/**
-	 * @var int
-	 */
-	public $interpreterId;
-
-	/**
-	 * @var int
-	 */
-	public $id;
-
-	/**
-	 * @param int $interpreterId
-	 * @param int $id
-	 */
-	public function __construct( $interpreterId, $id ) {
-		$this->interpreterId = $interpreterId;
-		$this->id = $id;
+	public function __construct(
+		public readonly int $interpreterId,
+		public readonly int $id,
+	) {
 		$this->incrementRefCount();
 	}
 

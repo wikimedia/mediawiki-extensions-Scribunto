@@ -12,19 +12,16 @@ use MediaWiki\Title\Title;
  */
 class ScribuntoException extends Exception {
 
-	public string $messageName;
 	public array $messageArgs;
-
-	/**
-	 * @var array{args?: array, module?: string, line?: string, title?: Title, trace?: array}
-	 */
-	public array $params;
 
 	/**
 	 * @param string $messageName
 	 * @param array{args?: array, module?: string, line?: string, title?: Title, trace?: array} $params
 	 */
-	public function __construct( $messageName, $params = [] ) {
+	public function __construct(
+		public readonly string $messageName,
+		public array $params = [],
+	) {
 		$this->messageArgs = $params['args'] ?? [];
 		if ( isset( $params['module'] ) && isset( $params['line'] ) ) {
 			$codeLocation = false;
@@ -52,9 +49,6 @@ class ScribuntoException extends Exception {
 			$msg = $msg->page( $params['title'] );
 		}
 		parent::__construct( $msg->text() );
-
-		$this->messageName = $messageName;
-		$this->params = $params;
 	}
 
 	public function getMessageName(): string {

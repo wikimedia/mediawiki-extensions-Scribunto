@@ -17,15 +17,13 @@ class UstringLibrary extends LibraryBase {
 
 	/**
 	 * Limit on string lengths, in bytes not characters
-	 * @var int
 	 */
-	private $stringLengthLimit;
+	private readonly int $stringLengthLimit;
 
 	/**
 	 * A cache of patterns and the regexes they generate.
-	 * @var MapCacheLRU
 	 */
-	private $patternRegexCache;
+	private readonly MapCacheLRU $patternRegexCache;
 
 	/**
 	 * If you change this, also change lualib/ustring/make-tables.php

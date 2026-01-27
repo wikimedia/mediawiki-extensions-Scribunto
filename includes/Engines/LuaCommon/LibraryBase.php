@@ -31,13 +31,9 @@ use MediaWiki\Title\Title;
  * This class provides some basic services that Lua libraries will probably need
  */
 abstract class LibraryBase {
-	/**
-	 * @var LuaEngine
-	 */
-	private $engine;
-
-	public function __construct( LuaEngine $engine ) {
-		$this->engine = $engine;
+	public function __construct(
+		private readonly LuaEngine $engine,
+	) {
 	}
 
 	/**
