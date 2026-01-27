@@ -375,6 +375,11 @@ $namespaceNames['kaa'] = [
 	829 => 'Modul_talqılawı',
 ];
 
+$namespaceNames['kaj'] = [
+	828 => 'Kkwan',
+	829 => 'Ba̱ryat_nkkwan',
+];
+
 $namespaceNames['kn'] = [
 	828 => 'ಮಾಡ್ಯೂಲ್',
 	829 => 'ಮಾಡ್ಯೂಲ್_ಚರ್ಚೆಪುಟ',
