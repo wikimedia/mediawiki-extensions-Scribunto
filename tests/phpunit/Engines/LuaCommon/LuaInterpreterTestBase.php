@@ -106,7 +106,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 			[ true ],
 			[ false ],
 			[ 'hello' ],
-			[ implode( '', array_map( 'chr', range( 0, 255 ) ) ) ],
+			[ implode( '', array_map( chr( ... ), range( 0, 255 ) ) ) ],
 			[ 1, 2, 3 ],
 			[ [] ],
 			[ [ 0 => 'foo', 1 => 'bar' ] ],
@@ -162,9 +162,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 
 	public function testWrapPHPFunction() {
 		$interpreter = $this->newInterpreter();
-		$func = $interpreter->wrapPhpFunction( static function ( $n ) {
-			return [ 42, $n ];
-		} );
+		$func = $interpreter->wrapPhpFunction( static fn ( $n ) => [ 42, $n ] );
 		$res = $interpreter->callFunction( $func, 'From PHP' );
 		$this->assertEquals( [ 42, 'From PHP' ], $res );
 

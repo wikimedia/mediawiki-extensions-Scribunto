@@ -36,8 +36,8 @@ class BenchmarkUstringGsub extends Benchmarker {
 		$method = new ReflectionMethod( $library, 'ustringGsub' );
 		$gsubCallable = $method->getClosure( $library );
 
-		$benches = array_map( static function ( array $case ) use ( $gsubCallable ) {
-			return [
+		$benches = array_map(
+			static fn ( array $case ) => [
 				'function' => static function () use ( $case, $gsubCallable ) {
 					$gsubCallable(
 						$case['text'],
@@ -46,8 +46,9 @@ class BenchmarkUstringGsub extends Benchmarker {
 						$case['limit'] ?? null
 					);
 				},
-			];
-		}, $this->buildBenchCases() );
+			],
+			$this->buildBenchCases()
+		);
 
 		$this->bench( $benches );
 	}

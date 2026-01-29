@@ -678,7 +678,7 @@ class TitleLibrary extends LibraryBase {
 			$this->incrementExpensiveFunctionCount();
 		}
 		return [ array_map(
-			[ self::class, 'makeArrayOneBased' ],
+			self::makeArrayOneBased( ... ),
 			$this->restrictionStore->getAllRestrictions( $title )
 		) ];
 	}
@@ -704,12 +704,11 @@ class TitleLibrary extends LibraryBase {
 
 		return [ [
 			'sources' => self::makeArrayOneBased( array_map(
-				static function ( $t ) use ( $titleFormatter ) {
-					return $titleFormatter->getPrefixedText( $t );
-				},
-				$sources ) ),
+				$titleFormatter->getPrefixedText( ... ),
+				$sources
+			) ),
 			'restrictions' => array_map(
-				[ self::class, 'makeArrayOneBased' ],
+				self::makeArrayOneBased( ... ),
 				$restrictions
 			)
 		] ];

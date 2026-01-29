@@ -269,7 +269,7 @@ class LanguageLibrary extends LibraryBase {
 		if ( is_array( $args[0] ) ) {
 			$args = $args[0];
 		}
-		$forms = array_values( array_map( 'strval', $args ) );
+		$forms = array_values( array_map( strval( ... ), $args ) );
 		return [ $lang->convertPlural( $number, $forms ) ];
 	}
 
@@ -298,7 +298,7 @@ class LanguageLibrary extends LibraryBase {
 		if ( is_array( $args[0] ) ) {
 			$args = $args[0];
 		}
-		$forms = array_values( array_map( 'strval', $args ) );
+		$forms = array_values( array_map( strval( ... ), $args ) );
 
 		// Shortcuts
 		if ( count( $forms ) === 0 ) {

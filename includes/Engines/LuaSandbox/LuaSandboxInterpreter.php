@@ -70,12 +70,10 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 		if ( isset( $e->luaTrace ) ) {
 			$trace = $e->luaTrace;
 			foreach ( $trace as &$val ) {
-				$val = array_map( static function ( $val ) {
-					if ( is_string( $val ) ) {
-						$val = Validator::cleanUp( $val );
-					}
-					return $val;
-				}, $val );
+				$val = array_map(
+					static fn ( $s ) => is_string( $s ) ? Validator::cleanUp( $s ) : $s,
+					$val
+				);
 			}
 			$opts['trace'] = $trace;
 		}
