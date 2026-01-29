@@ -350,16 +350,16 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		if ( !$localize ) {
 			$keyMsg->inLanguage( 'en' )->useDatabase( false );
 		}
-		return Html::openElement( 'tr' ) .
-			Html::rawElement( 'th', [ 'colspan' => 2 ], $keyMsg->parse() ) .
-			Html::closeElement( 'tr' ) .
-			Html::openElement( 'tr' ) .
-			Html::openElement( 'td', [ 'colspan' => 2 ] ) .
-			Html::openElement( 'div', [ 'class' => 'mw-collapsible mw-collapsed' ] ) .
-			Html::element( 'pre', [ 'class' => 'scribunto-limitreport-logs' ], $logs ) .
-			Html::closeElement( 'div' ) .
-			Html::closeElement( 'td' ) .
-			Html::closeElement( 'tr' );
+		return Html::rawElement( 'tr', [],
+				Html::rawElement( 'th', [ 'colspan' => 2 ], $keyMsg->parse() )
+			) .
+			Html::rawElement( 'tr', [],
+				Html::rawElement( 'td', [ 'colspan' => 2 ],
+					Html::rawElement( 'div', [ 'class' => 'mw-collapsible mw-collapsed' ],
+						Html::element( 'pre', [ 'class' => 'scribunto-limitreport-logs' ], $logs )
+					)
+				)
+			);
 	}
 
 	/**

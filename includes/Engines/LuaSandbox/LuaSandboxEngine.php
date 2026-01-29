@@ -185,9 +185,9 @@ class LuaSandboxEngine extends LuaEngine {
 		$percentMsg->exists();
 
 		if ( $isHTML ) {
-			$report .= Html::openElement( 'tr' ) .
-				Html::rawElement( 'th', [ 'colspan' => 2 ], $keyMsg->parse() ) .
-				Html::closeElement( 'tr' ) .
+			$report .= Html::rawElement( 'tr', [],
+					Html::rawElement( 'th', [ 'colspan' => 2 ], $keyMsg->parse() )
+				) .
 				Html::openElement( 'tr' ) .
 				Html::openElement( 'td', [ 'colspan' => 2 ] ) .
 				Html::openElement( 'table' );
