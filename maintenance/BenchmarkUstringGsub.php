@@ -10,7 +10,6 @@ namespace MediaWiki\Extension\Scribunto\Maintenance;
 
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\UstringLibrary;
 use MediaWiki\Maintenance\Benchmarker;
-use MediaWiki\MediaWikiServices;
 use ReflectionMethod;
 
 // @codeCoverageIgnoreStart
@@ -29,7 +28,7 @@ class BenchmarkUstringGsub extends Benchmarker {
 	}
 
 	public function execute() {
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 		$engineFactory = $services->getService( 'Scribunto.EngineFactory' );
 		$engine = $engineFactory->getDefaultEngine();
 
