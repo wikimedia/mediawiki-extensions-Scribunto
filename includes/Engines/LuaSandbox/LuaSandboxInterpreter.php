@@ -16,7 +16,7 @@ use UtfNormal\Validator;
 
 class LuaSandboxInterpreter extends LuaInterpreter {
 	public LuaSandbox $sandbox;
-	public bool $profilerEnabled;
+	public bool $profilerEnabled = false;
 
 	public const SAMPLES = 0;
 	public const SECONDS = 1;
