@@ -5,7 +5,10 @@ local packageModuleFunc
 local php
 local allowEnvFuncs = false
 local shareInvocationEnv = false
-local sharedEnv
+local frameMap = setmetatable( {}, { __mode = 'k' } )
+local metatableMap = setmetatable( {}, { __mode = 'k' } )
+local sharedEnvs = {}
+local sharedEnvsMaxSize = 10
 local logBuffer = ''
 local loadedData = {}
 local loadedJsonData = {}
@@ -537,22 +540,35 @@ end
 -- @return boolean Whether the requested value was able to be returned
 -- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
 function mw.executeModule( chunk, name, frame )
-	if not shareInvocationEnv or not sharedEnv then
-		sharedEnv = newEnv()
-	end
-	local env = sharedEnv
-
-	local savedGetLogBuffer
-	local savedClearLogBuffer
+	local env
 	if shareInvocationEnv then
-		-- Save getLogBuffer and clearLogBuffer so we can restore them later for the next invocation
-		savedGetLogBuffer = env.mw.getLogBuffer
-		savedClearLogBuffer = env.mw.clearLogBuffer
+		env = table.remove( sharedEnvs, 1 ) or newEnv()
+	else
+		env = newEnv()
+	end
+
+	local oldGetCurrentFrame
+	if shareInvocationEnv then
+		-- Reset the metatable so require( 'strict' ) doesn't affect subsequent invocations
+		setmetatable( env, nil )
+		-- Reset loaded packages so modules like strict are able to modify the metatable again if loaded.
+		-- Packages are cached anyway, so this shouldn't impact performance.
+		for k in pairs( env.package.loaded ) do
+			env.package.loaded[k] = nil
+		end
+		oldGetCurrentFrame = env.mw.getCurrentFrame
 	end
 
 	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
 		env.mw.getLogBuffer = nil
 		env.mw.clearLogBuffer = nil
+	end
+	if shareInvocationEnv and ( name == false or name == nil ) then
+		-- Restore getLogBuffer and clearLogBuffer, in case they were removed in the previous invocation.
+		-- We also do this if name == nil because both the init function and the actual execution share the same
+		-- environment.
+		env.mw.getLogBuffer = mw.getLogBuffer
+		env.mw.clearLogBuffer = mw.clearLogBuffer
 	end
 
 	env.os.date = ttlDate
@@ -567,12 +583,17 @@ function mw.executeModule( chunk, name, frame )
 
 	local res
 	if shareInvocationEnv then
-		-- Restore getLogBuffer and clearLogBuffer even if there's an error
 		local ok
 		ok, res = pcall( chunk )
 
-		env.mw.getLogBuffer = savedGetLogBuffer
-		env.mw.clearLogBuffer = savedClearLogBuffer
+		if oldGetCurrentFrame ~= nil then
+			env.mw.getCurrentFrame = oldGetCurrentFrame
+		end
+
+		if name == nil and #sharedEnvs < sharedEnvsMaxSize then
+			-- If name is nil, then this is likely not a function invocation, so let's restore the env immediately
+			table.insert( sharedEnvs, getfenv( chunk ) )
+		end
 
 		if not ok then
 			error( res, 0 )
@@ -588,13 +609,52 @@ function mw.executeModule( chunk, name, frame )
 	if type(res) ~= 'table' then
 		return false, type(res)
 	end
-	return true, res[name]
+
+	local func = res[name]
+	if shareInvocationEnv and name ~= nil then
+		if type( func ) == 'function' then
+			frameMap[func] = frame
+			metatableMap[func] = getmetatable( env )
+		end
+	end
+
+	return true, func
+end
+
+--- Execute a function chunk in a shared environment.
+-- @param chunk The function chunk
+-- @param frame The frame to pass to the function and return via mw.getCurrentFrame
+local function executeFunctionInSharedEnvironment( chunk, frame )
+	getfenv( chunk ).mw.getCurrentFrame = function ()
+		return frame
+	end
+
+	if metatableMap[chunk] then
+		setmetatable( getfenv( chunk ), metatableMap[chunk] )
+	end
+	-- We can't unpack 'ok' and 'res' here since functions can return multiple values
+	local pcallRes = { pcall( chunk, frame ) }
+	local ok = pcallRes[1]
+
+	setmetatable( getfenv( chunk ), nil )
+	if #sharedEnvs < sharedEnvsMaxSize then
+		table.insert( sharedEnvs, getfenv( chunk ) )
+	end
+
+	if not ok then
+		error( pcallRes[2], 0 )
+	end
+	table.remove( pcallRes, 1 )
+
+	return pcallRes
 end
 
 function mw.executeFunction( chunk )
 	local getCurrentFrame = getfenv( chunk ).mw.getCurrentFrame
 	local frame
-	if getCurrentFrame then
+	if shareInvocationEnv and frameMap[chunk] then
+		frame = frameMap[chunk]
+	elseif getCurrentFrame then
 		-- Normal case
 		frame = getCurrentFrame()
 	else
@@ -611,7 +671,12 @@ function mw.executeFunction( chunk )
 	end
 	executeFunctionDepth = executeFunctionDepth + 1
 
-	local results = { chunk( frame ) }
+	local results
+	if shareInvocationEnv then
+		results = executeFunctionInSharedEnvironment( chunk, frame )
+	else
+		results = { chunk( frame ) }
+	end
 
 	local stringResults = {}
 	for i, result in ipairs( results ) do
