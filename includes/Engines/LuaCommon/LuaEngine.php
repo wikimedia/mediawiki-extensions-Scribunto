@@ -986,8 +986,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		$ret = $frame->expand( $dom );
 		if ( !$frame->isVolatile() ) {
 			if ( count( $this->expandCache ) > self::MAX_EXPAND_CACHE_SIZE ) {
-				reset( $this->expandCache );
-				$oldHash = key( $this->expandCache );
+				$oldHash = array_key_first( $this->expandCache );
 				unset( $this->expandCache[$oldHash] );
 			}
 			$this->expandCache[$hash] = $ret;

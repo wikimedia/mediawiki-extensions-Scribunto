@@ -40,9 +40,9 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 
 	/**
 	 * Tests to skip. Associative array mapping test name to skip reason.
-	 * @var array
+	 * @var array<string,string>
 	 */
-	protected $skipTests = [];
+	protected array $skipTests = [];
 
 	/**
 	 * @return string Engine name ('LuaSandbox' or 'LuaStandalone')

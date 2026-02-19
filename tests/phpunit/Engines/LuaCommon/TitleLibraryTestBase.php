@@ -175,7 +175,7 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 		return $this->testTitle ?? parent::getTestTitle();
 	}
 
-	protected function setTestTitle( $title ) {
+	private function setTestTitle( ?string $title ): void {
 		$this->testTitle = $title !== null ? Title::newFromText( $title ) : null;
 		$this->resetEngine();
 	}

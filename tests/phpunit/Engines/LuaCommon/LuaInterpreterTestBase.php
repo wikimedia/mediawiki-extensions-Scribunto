@@ -26,7 +26,7 @@ abstract class LuaInterpreterTestBase extends TestCase {
 		}
 	}
 
-	protected function getBusyLoop( $interpreter ) {
+	protected function getBusyLoop( LuaInterpreter $interpreter ) {
 		return $interpreter->loadString( '
 			local args = {...}
 			local x, i

@@ -39,8 +39,8 @@ class LuaEnvironmentComparisonTest extends TestCase {
 		'shareInvocationEnv' => false,
 	];
 
-	/** @var LuaEngine[] */
-	protected $engines = [];
+	/** @var array<string,LuaEngine> */
+	private array $engines = [];
 
 	private function makeEngine( $class, $opts ) {
 		$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
@@ -114,9 +114,8 @@ LUA;
 
 	public function testGlobalEnvironment() {
 		// Grab the first engine as the "standard"
-		$firstEngine = reset( $this->engines );
-		$firstName = key( $this->engines );
-		$firstEnv = $this->getGlobalEnvironment( $firstEngine );
+		$firstName = array_key_first( $this->engines );
+		$firstEnv = $this->getGlobalEnvironment( $this->engines[$firstName] );
 
 		// Test all others against it
 		foreach ( $this->engines as $secondName => $secondEngine ) {

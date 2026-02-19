@@ -8,7 +8,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 class LuaCommonTestsSpecLibrary extends LibraryBase {
 	public function __construct(
 		LuaEngine $engine,
-		protected readonly string $message,
+		private readonly string $message,
 	) {
 		parent::__construct( $engine );
 	}
