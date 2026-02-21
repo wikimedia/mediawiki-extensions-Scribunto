@@ -11,6 +11,7 @@ function site.setupInterface( info )
 	site.scriptPath = info.scriptPath
 	site.stylePath = info.stylePath
 	site.currentVersion = info.currentVersion
+	site.wikiId = info.wikiId
 	site.stats = info.stats
 	site.stats.pagesInCategory = php.pagesInCategory
 	site.stats.pagesInNamespace = php.pagesInNamespace

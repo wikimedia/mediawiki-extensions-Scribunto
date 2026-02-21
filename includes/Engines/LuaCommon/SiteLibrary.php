@@ -8,6 +8,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\SiteStats\SiteStats;
 use MediaWiki\Specials\SpecialVersion;
 use MediaWiki\Title\Title;
+use MediaWiki\WikiMap\WikiMap;
 
 class SiteLibrary extends LibraryBase {
 	/** @var string|null */
@@ -40,6 +41,7 @@ class SiteLibrary extends LibraryBase {
 			'currentVersion' => SpecialVersion::getVersion(
 				'', $parser ? $parser->getTargetLanguage() : $contLang
 			),
+			'wikiId' => WikiMap::getCurrentWikiId(),
 		];
 
 		if ( !self::$namespacesCache || self::$namespacesCacheLang !== $contLang->getCode() ) {
