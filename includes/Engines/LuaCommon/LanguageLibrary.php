@@ -396,7 +396,8 @@ class LanguageLibrary extends LibraryBase {
 		if ( isset( $this->timeCache[$format][$cacheKey][$langcode][$local] ) ) {
 			$ttl = $this->timeCache[$format][$cacheKey][$langcode][$local][1];
 			if ( $useTTL && $ttl !== null ) {
-				CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
+				$source = ( $this->getEngine()->getCurrentModuleName() ?? 'unknown' ) . ' (formatDate)';
+				CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl, null, $source );
 			}
 			return [ $this->timeCache[$format][$cacheKey][$langcode][$local][0] ];
 		}
@@ -437,7 +438,8 @@ class LanguageLibrary extends LibraryBase {
 		$ret = $lang->sprintfDate( $format, $ts, $tz, $ttl );
 		$this->timeCache[$format][$cacheKey][$langcode][$local] = [ $ret, $ttl ];
 		if ( $useTTL && $ttl !== null ) {
-			CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
+			$source = ( $this->getEngine()->getCurrentModuleName() ?? 'unknown' ) . ' (formatDate)';
+			CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl, null, $source );
 		}
 		return [ $ret ];
 	}

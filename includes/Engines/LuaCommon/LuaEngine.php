@@ -87,6 +87,12 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @var array<string,?PPFrame>
 	 */
 	protected $currentFrames = [];
+
+	/**
+	 * @var string|null Title of the module currently being executed
+	 */
+	protected ?string $currentModuleName = null;
+
 	/**
 	 * @var array<string,string>|null
 	 */
@@ -259,6 +265,36 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * will reset them when it goes out of scope.
 	 *
 	 * @param PPFrame|null $frame If null, an empty frame with no parent will be used
+	 * @return ScopedCallback
+	 */
+
+	/**
+	 * Track which module is currently executing, for cache-expiry attribution.
+	 * @param string $name The module's prefixed DB key
+	 * @return ScopedCallback Restores the previous module name on destruct
+	 */
+	public function setupCurrentModule( string $name ): ScopedCallback {
+		$old = $this->currentModuleName;
+		$this->currentModuleName = $name;
+		return new ScopedCallback( function () use ( $old ) {
+			$this->currentModuleName = $old;
+		} );
+	}
+
+	/**
+	 * @return string|null The currently executing module's name, if any
+	 */
+	public function getCurrentModuleName(): ?string {
+		return $this->currentModuleName;
+	}
+
+	/**
+	 * Set the current and parent frames for the duration of a Lua call.
+	 *
+	 * Returns a ScopedCallback that restores the previous frames and
+	 * expand cache when it goes out of scope.
+	 *
+	 * @param PPFrame|null $frame Frame to use, or null to create a new one
 	 * @return ScopedCallback
 	 */
 	private function setupCurrentFrames( ?PPFrame $frame = null ) {
@@ -688,7 +724,8 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 */
 	public function setTTL( $ttl ) {
 		$this->checkNumber( 'setTTL', [ $ttl ], 0 );
-		CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl );
+		$source = ( $this->currentModuleName ?? 'unknown' ) . ' (setTTL)';
+		CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl, null, $source );
 	}
 
 	/**

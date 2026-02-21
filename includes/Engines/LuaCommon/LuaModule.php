@@ -58,6 +58,10 @@ class LuaModule extends ScribuntoModuleBase {
 	 * @return string|null
 	 */
 	public function invoke( $name, $frame ) {
+		// $resetModule is a ScopedCallback; it restores the previous module
+		// name when it goes out of scope.
+		$resetModule = $this->engine->setupCurrentModule( $this->chunkName );
+
 		$ret = $this->engine->executeModule( $this->getInitChunk(), $name, $frame );
 
 		if ( $ret === null ) {

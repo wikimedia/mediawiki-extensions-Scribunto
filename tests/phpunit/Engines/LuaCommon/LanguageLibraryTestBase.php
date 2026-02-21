@@ -72,5 +72,7 @@ abstract class LanguageLibraryTestBase extends LuaEngineUnitTestBase {
 		$module->invoke( 'formatCurrentDate', $frame );
 		$this->assertTtl( 1, $po,
 			'TTL must be equal to 1 second when lang:formatDate( \'s\' ) is called' );
+		$this->assertSame( 'Module:FormatDate (formatDate)',
+			$po->getCacheExpirySource() );
 	}
 }
