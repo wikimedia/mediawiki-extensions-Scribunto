@@ -103,7 +103,12 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	public function toString(): string {
 		// When running tests written in Lua, return a nicer representation in
 		// the failure message.
-		return $this->engineName . ': ' . ( $this->luaTestName ?: parent::toString() );
+		if ( $this->luaTestName ) {
+			return $this->engineName . ': ' . $this->luaTestName;
+		}
+		// Keep the standard ClassName::methodName format for non-Lua tests,
+		// as PHPUnit extensions may parse toString() to extract the class name.
+		return parent::toString() . ' (' . $this->engineName . ')';
 	}
 
 	/**
