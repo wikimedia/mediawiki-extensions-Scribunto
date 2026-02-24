@@ -50,7 +50,7 @@ class UstringLibraryTest extends LuaEngineUnitTestBase {
 	 * @dataProvider provideUstringLibraryNormalizationTests
 	 */
 	public function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
-		$this->luaTestName = "UstringLibraryNormalization: $name";
+		$msg = "UstringLibraryNormalization: $name";
 		$dataProvider = $this->provideUstringLibraryNormalizationTests();
 		$expected = [
 			// NFC
@@ -70,8 +70,7 @@ class UstringLibraryTest extends LuaEngineUnitTestBase {
 			$e = "$e\t" . implode( "\t", $chars );
 		}
 		$actual = $dataProvider->runNorm( $c1, $c2, $c3, $c4, $c5 );
-		$this->assertSame( $expected, $actual );
-		$this->luaTestName = null;
+		$this->assertSame( $expected, $actual, $msg );
 	}
 
 	/**

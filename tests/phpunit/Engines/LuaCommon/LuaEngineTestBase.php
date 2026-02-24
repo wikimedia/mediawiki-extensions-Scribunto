@@ -30,12 +30,6 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	private $luaDataProvider = null;
 
 	/**
-	 * Name to display instead of the default
-	 * @var string
-	 */
-	protected $luaTestName = null;
-
-	/**
 	 * Name of the module being tested
 	 * @var string
 	 */
@@ -100,17 +94,6 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 		return $t;
 	}
 
-	public function toString(): string {
-		// When running tests written in Lua, return a nicer representation in
-		// the failure message.
-		if ( $this->luaTestName ) {
-			return $this->engineName . ': ' . $this->luaTestName;
-		}
-		// Keep the standard ClassName::methodName format for non-Lua tests,
-		// as PHPUnit extensions may parse toString() to extract the class name.
-		return parent::toString() . ' (' . $this->engineName . ')';
-	}
-
 	/**
 	 * Modules that should exist
 	 * @return string[] Mapping module names to files
@@ -136,7 +119,7 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * @param mixed $expected
 	 */
 	public function testLua( $key, $testName, $expected ) {
-		$this->luaTestName = static::$moduleName . "[$key]: $testName";
+		$msg = $this->engineName . ': ' . static::$moduleName . "[$key]: $testName";
 		if ( isset( $this->skipTests[$testName] ) ) {
 			$this->markTestSkipped( $this->skipTests[$testName] );
 		} else {
@@ -148,8 +131,7 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 				}
 				throw $ex;
 			}
-			$this->assertSame( $expected, $actual );
+			$this->assertSame( $expected, $actual, $msg );
 		}
-		$this->luaTestName = null;
 	}
 }

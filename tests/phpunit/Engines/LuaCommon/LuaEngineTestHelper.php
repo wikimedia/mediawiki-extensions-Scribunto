@@ -117,7 +117,7 @@ trait LuaEngineTestHelper {
 						);
 						foreach ( $data as $k => $v ) {
 							$dataSuite->addTest(
-								new $className( $name, $v, $k, $engineName ),
+								new $className( $name, $v, "$engineName: $k", $engineName ),
 								$groups
 							);
 						}
@@ -130,7 +130,7 @@ trait LuaEngineTestHelper {
 					} else {
 						// no @dataProvider
 						$engineSuite->addTest(
-							new $className( $name, [], '', $engineName ),
+							new $className( $name, [], $engineName, $engineName ),
 							$groups
 						);
 					}

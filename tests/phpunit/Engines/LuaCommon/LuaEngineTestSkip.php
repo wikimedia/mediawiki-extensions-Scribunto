@@ -13,7 +13,7 @@ class LuaEngineTestSkip extends TestCase {
 		private readonly string $className = '',
 		private readonly string $message = '',
 	) {
-		parent::__construct( 'testDummy' );
+		parent::__construct( 'testDummy', [], $className );
 	}
 
 	public function testDummy() {
@@ -23,9 +23,5 @@ class LuaEngineTestSkip extends TestCase {
 			// Dummy
 			$this->assertTrue( true );
 		}
-	}
-
-	public function toString(): string {
-		return $this->className;
 	}
 }
