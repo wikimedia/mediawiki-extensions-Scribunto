@@ -16,7 +16,7 @@ use MediaWiki\Title\Title;
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaSandbox\LuaSandboxInterpreter
  * @group Database
  */
-class LuaCommonTest extends LuaEngineTestBase {
+abstract class LuaCommonTestBase extends LuaEngineTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'CommonTests';
 
@@ -82,6 +82,7 @@ class LuaCommonTest extends LuaEngineTestBase {
 				];
 			}
 		);
+		$this->resetEngine();
 
 		$status = $this->editPage(
 			Title::makeTitle( NS_MODULE, 'CommonTests-data.json' ),
@@ -103,10 +104,14 @@ class LuaCommonTest extends LuaEngineTestBase {
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 
 		// Some of the tests need this
-		$interpreter = $this->getEngine()->getInterpreter();
-		$interpreter->callFunction( $interpreter->loadString(
-			'mw.makeProtectedEnvFuncsForTest = mw.makeProtectedEnvFuncs', 'fortest'
-		) );
+		try {
+			$interpreter = $this->getEngine()->getInterpreter();
+			$interpreter->callFunction( $interpreter->loadString(
+				'mw.makeProtectedEnvFuncsForTest = mw.makeProtectedEnvFuncs', 'fortest'
+			) );
+		} catch ( \Throwable $e ) {
+			$this->engineSkipMessage = "Engine not available: " . $e->getMessage();
+		}
 	}
 
 	protected function getTestModules() {

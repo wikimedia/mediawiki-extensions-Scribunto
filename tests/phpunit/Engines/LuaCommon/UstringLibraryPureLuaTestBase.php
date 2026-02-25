@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 /**
  * @coversNothing -- Covers Lua code
  */
-class UstringLibraryPureLuaTest extends UstringLibraryTest {
+abstract class UstringLibraryPureLuaTestBase extends UstringLibraryTestBase {
 	protected function setUp(): void {
 		parent::setUp();
 

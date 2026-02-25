@@ -2,13 +2,15 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
+use EmptyIterator;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use Wikimedia\ScopedCallback;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\UstringLibrary
  */
-class UstringLibraryTest extends LuaEngineUnitTestBase {
+abstract class UstringLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'UstringLibraryTests';
 
@@ -40,6 +42,11 @@ class UstringLibraryTest extends LuaEngineUnitTestBase {
 
 	public function provideUstringLibraryNormalizationTests() {
 		if ( !$this->normalizationDataProvider ) {
+			try {
+				$this->getEngine()->getInterpreter();
+			} catch ( LuaInterpreterNotFoundError $e ) {
+				return new EmptyIterator();
+			}
 			$this->normalizationDataProvider =
 				new UstringLibraryNormalizationTestProvider( $this->getEngine() );
 		}

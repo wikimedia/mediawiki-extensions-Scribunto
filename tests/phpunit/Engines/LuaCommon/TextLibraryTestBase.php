@@ -7,7 +7,7 @@ use MediaWiki\Parser\Parser;
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary
  */
-class TextLibraryTest extends LuaEngineUnitTestBase {
+abstract class TextLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'TextLibraryTests';
 

@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\HashLibrary
  */
-class HashLibraryTest extends LuaEngineUnitTestBase {
+abstract class HashLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'HashLibraryTests';
 
@@ -14,5 +14,4 @@ class HashLibraryTest extends LuaEngineUnitTestBase {
 			'HashLibraryTests' => __DIR__ . '/HashLibraryTests.lua',
 		];
 	}
-
 }

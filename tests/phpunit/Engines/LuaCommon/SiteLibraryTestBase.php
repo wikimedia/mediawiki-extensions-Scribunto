@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\SiteLibrary
  */
-class SiteLibraryTest extends LuaEngineUnitTestBase {
+abstract class SiteLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'SiteLibraryTests';
 

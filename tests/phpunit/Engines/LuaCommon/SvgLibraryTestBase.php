@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\SvgLibrary
  */
-class SvgLibraryTest extends LuaEngineUnitTestBase {
+abstract class SvgLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'SvgLibraryTests';
 

@@ -8,14 +8,12 @@ use MediaWiki\Title\Title;
 /**
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\LanguageLibrary
  */
-class LanguageLibraryTest extends LuaEngineUnitTestBase {
+abstract class LanguageLibraryTestBase extends LuaEngineUnitTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'LanguageLibraryTests';
 
-	public function __construct(
-		$name = null, array $data = [], $dataName = '', $engineName = null
-	) {
-		parent::__construct( $name, $data, $dataName, $engineName );
+	protected function setUp(): void {
+		parent::setUp();
 
 		// Skip certain tests if something isn't providing translated language names
 		// (bug 67343)

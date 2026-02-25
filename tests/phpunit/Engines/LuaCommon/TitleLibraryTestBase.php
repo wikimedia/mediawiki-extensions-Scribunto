@@ -17,7 +17,7 @@ use Wikimedia\TestingAccessWrapper;
  * @covers \MediaWiki\Extension\Scribunto\Engines\LuaCommon\TitleLibrary
  * @group Database
  */
-class TitleLibraryTest extends LuaEngineTestBase {
+abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 	/** @inheritDoc */
 	protected static $moduleName = 'TitleLibraryTests';
 
@@ -154,14 +154,21 @@ class TitleLibraryTest extends LuaEngineTestBase {
 				}
 			} );
 
+		// Reset the engine so it picks up the config overrides and service replacements above.
+		$this->resetEngine();
+
 		// Note this depends on every iteration of the data provider running with a clean parser
 		$this->getEngine()->getParser()->getOptions()->setExpensiveParserFunctionLimit( 10 );
 
 		// Indicate to the tests that it's safe to create the title objects
-		$interpreter = $this->getEngine()->getInterpreter();
-		$interpreter->callFunction(
-			$interpreter->loadString( "mw.title.testPageId = $this->testPageId", 'fortest' )
-		);
+		try {
+			$interpreter = $this->getEngine()->getInterpreter();
+			$interpreter->callFunction(
+				$interpreter->loadString( "mw.title.testPageId = $this->testPageId", 'fortest' )
+			);
+		} catch ( \Throwable $e ) {
+			$this->engineSkipMessage = "Engine not available: " . $e->getMessage();
+		}
 	}
 
 	protected function getTestTitle() {
