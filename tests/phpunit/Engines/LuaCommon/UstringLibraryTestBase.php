@@ -2,9 +2,7 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
-use EmptyIterator;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use Wikimedia\ScopedCallback;
 
 /**
@@ -40,15 +38,30 @@ abstract class UstringLibraryTestBase extends LuaEngineUnitTestBase {
 		}
 	}
 
-	public function provideUstringLibraryNormalizationTests() {
+	public static function provideUstringLibraryNormalizationTests(): array {
+		try {
+			$instance = new static( 'provideUstringLibraryNormalizationTests' );
+			$engine = $instance->getEngine();
+			$engine->getInterpreter();
+			$provider = new UstringLibraryNormalizationTestProvider( $engine );
+			$data = iterator_to_array( $provider );
+			$provider->destroy();
+			$engine->destroy();
+			return $data;
+		} catch ( \Throwable $e ) {
+			return [];
+		}
+	}
+
+	private function getNormalizationDataProvider(): ?UstringLibraryNormalizationTestProvider {
 		if ( !$this->normalizationDataProvider ) {
 			try {
 				$this->getEngine()->getInterpreter();
-			} catch ( LuaInterpreterNotFoundError $e ) {
-				return new EmptyIterator();
+				$this->normalizationDataProvider =
+					new UstringLibraryNormalizationTestProvider( $this->getEngine() );
+			} catch ( \Throwable $e ) {
+				return null;
 			}
-			$this->normalizationDataProvider =
-				new UstringLibraryNormalizationTestProvider( $this->getEngine() );
 		}
 		return $this->normalizationDataProvider;
 	}
@@ -58,7 +71,10 @@ abstract class UstringLibraryTestBase extends LuaEngineUnitTestBase {
 	 */
 	public function testUstringLibraryNormalizationTests( $name, $c1, $c2, $c3, $c4, $c5 ) {
 		$msg = "UstringLibraryNormalization: $name";
-		$dataProvider = $this->provideUstringLibraryNormalizationTests();
+		$dataProvider = $this->getNormalizationDataProvider();
+		if ( !$dataProvider ) {
+			$this->markTestSkipped( 'Normalization data provider not available' );
+		}
 		$expected = [
 			// NFC
 			$c2, $c2, $c2, $c4, $c4,

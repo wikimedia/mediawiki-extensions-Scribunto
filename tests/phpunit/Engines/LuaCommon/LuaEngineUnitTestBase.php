@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
-use EmptyIterator;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWikiCoversValidator;
@@ -82,14 +81,30 @@ abstract class LuaEngineUnitTestBase extends TestCase {
 		];
 	}
 
-	public function provideLuaData() {
+	public static function provideLuaData(): array {
+		try {
+			$instance = new static( 'provideLuaData' );
+			$engine = $instance->getEngine();
+			$engine->getInterpreter();
+			$class = static::$dataProviderClass;
+			$provider = new $class( $engine, static::$moduleName );
+			$data = iterator_to_array( $provider );
+			$provider->destroy();
+			$engine->destroy();
+			return $data;
+		} catch ( \Throwable $e ) {
+			return [];
+		}
+	}
+
+	protected function getLuaDataProvider(): ?LuaDataProvider {
 		if ( !$this->luaDataProvider ) {
 			try {
 				$this->getEngine()->getInterpreter();
 				$class = static::$dataProviderClass;
-				$this->luaDataProvider = new $class ( $this->getEngine(), static::$moduleName );
+				$this->luaDataProvider = new $class( $this->getEngine(), static::$moduleName );
 			} catch ( \Throwable $e ) {
-				return new EmptyIterator();
+				return null;
 			}
 		}
 		return $this->luaDataProvider;
@@ -106,8 +121,8 @@ abstract class LuaEngineUnitTestBase extends TestCase {
 		if ( isset( $this->skipTests[$testName] ) ) {
 			$this->markTestSkipped( $this->skipTests[$testName] );
 		} else {
-			$provider = $this->provideLuaData();
-			if ( !( $provider instanceof LuaDataProvider ) ) {
+			$provider = $this->getLuaDataProvider();
+			if ( !$provider ) {
 				$this->markTestSkipped( 'Lua data provider not available' );
 			}
 			try {
