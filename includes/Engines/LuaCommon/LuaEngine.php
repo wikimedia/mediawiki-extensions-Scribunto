@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use Exception;
+use MediaWiki\Extension\Produnto\Runtime\ProduntoRuntime;
 use MediaWiki\Extension\Scribunto\ScribuntoContent;
 use MediaWiki\Extension\Scribunto\ScribuntoEngineBase;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
@@ -13,6 +14,7 @@ use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Parser\PPNode;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use RuntimeException;
 use Wikimedia\Message\MessageValue;
@@ -70,6 +72,8 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		'ustring',
 	];
 
+	private const MAX_EXPAND_CACHE_SIZE = 100;
+
 	/** @var bool */
 	protected $loaded = false;
 
@@ -106,7 +110,12 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 */
 	protected $addedScriptWarnings = 0;
 
-	private const MAX_EXPAND_CACHE_SIZE = 100;
+	/** @var ProduntoRuntime|null */
+	private $produntoRuntime = null;
+	/** @var callable[]|null */
+	private $moduleLoaders = null;
+	/** @var callable[]|null */
+	private $jsonLoaders = null;
 
 	/**
 	 * Create a new interpreter object
@@ -615,7 +624,38 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	public function loadPackage( $name ) {
 		$this->checkString( 'loadPackage', [ $name ], 0 );
 
-		# This is what Lua does for its built-in loaders
+		foreach ( $this->getModuleLoaders() as $loader ) {
+			$init = $loader( $name );
+			if ( $init ) {
+				return [ $init ];
+			}
+		}
+
+		return [];
+	}
+
+	/**
+	 * @return callable[]
+	 */
+	private function getModuleLoaders() {
+		if ( !$this->moduleLoaders ) {
+			$this->moduleLoaders = [ $this->loadModuleFromLocalFile( ... ) ];
+			if ( ExtensionRegistry::getInstance()->isLoaded( 'Produnto' ) ) {
+				$this->moduleLoaders[] = $this->loadModuleFromProdunto( ... );
+			}
+			$this->moduleLoaders[] = $this->loadModuleFromWiki( ... );
+		}
+		return $this->moduleLoaders;
+	}
+
+	/**
+	 * Load a module from a file bundled with Scribunto
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	private function loadModuleFromLocalFile( string $name ) {
+		// This is what Lua does for its built-in loaders
 		$luaName = str_replace( '.', '/', $name ) . '.lua';
 		$paths = $this->getLibraryPaths( 'lua', self::LIBRARY_PATHS );
 		foreach ( $paths as $path ) {
@@ -624,23 +664,60 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 				continue;
 			}
 			$code = file_get_contents( $fileName );
-			$init = $this->interpreter->loadString( $code, "@$luaName" );
-			return [ $init ];
+			return $this->interpreter->loadString( $code, "@$luaName" );
 		}
+		return null;
+	}
 
+	/**
+	 * Load a module from a wiki page
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	private function loadModuleFromWiki( string $name ) {
 		$title = Title::newFromText( $name );
 		if ( !$title || !$title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			return [];
+			return null;
 		}
 
 		$module = $this->fetchModuleFromParser( $title );
 		if ( $module instanceof LuaModule ) {
-			return [ $module->getInitChunk() ];
+			return $module->getInitChunk();
 		} elseif ( $module ) {
 			throw new RuntimeException( 'Invalid module class: ' . get_class( $module ) );
 		} else {
-			return [];
+			return null;
 		}
+	}
+
+	/**
+	 * Load a module from Produnto
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	private function loadModuleFromProdunto( string $name ) {
+		$runtime = $this->getProduntoRuntime();
+		$info = $runtime->getModuleInfo( $name );
+		if ( !$info ) {
+			return null;
+		}
+		$runtime->maybeAddSandboxWarning( $this->getParser()->getOutput() );
+		return $this->interpreter->loadString(
+			$info->contents, "@{$info->packageName}/{$info->path}" );
+	}
+
+	/**
+	 * @return ProduntoRuntime
+	 */
+	private function getProduntoRuntime() {
+		if ( !$this->produntoRuntime ) {
+			$this->produntoRuntime = MediaWikiServices::getInstance()
+				->get( 'Produnto.RuntimeFactory' )
+				->create( $this->getParser()?->getOptions() );
+		}
+		return $this->produntoRuntime;
 	}
 
 	/**
@@ -1005,23 +1082,68 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	public function loadJsonData( $title ) {
 		$this->incrementExpensiveFunctionCount();
 
+		foreach ( $this->getJsonLoaders() as $loader ) {
+			$text = $loader( $title );
+			if ( $text !== null ) {
+				$json = FormatJson::decode( $text, true );
+				if ( is_array( $json ) ) {
+					$json = TextLibrary::reindexArrays( $json, false );
+				}
+				// We'll throw an error for non-tables on the Lua side
+				return [ $json ];
+			}
+		}
+		throw new LuaError(
+			"bad argument #1 to 'mw.loadJsonData' ('$title' is not a valid JSON page)"
+		);
+	}
+
+	/**
+	 * Load JSON text from a wiki page
+	 *
+	 * @param string $title
+	 * @return string|null
+	 */
+	private function loadJsonFromWiki( string $title ): ?string {
 		$titleObj = Title::newFromText( $title );
 		if ( !$titleObj || !$titleObj->exists() || !$titleObj->hasContentModel( CONTENT_MODEL_JSON ) ) {
-			throw new LuaError(
-				"bad argument #1 to 'mw.loadJsonData' ('$title' is not a valid JSON page)"
-			);
+			return null;
 		}
 
 		$parser = $this->getParser();
 		[ $text, $finalTitle ] = $parser->fetchTemplateAndTitle( $titleObj );
+		return $text ?: null;
+	}
 
-		$json = FormatJson::decode( $text, true );
-		if ( is_array( $json ) ) {
-			$json = TextLibrary::reindexArrays( $json, false );
+	/**
+	 * Load JSON text from Produnto
+	 *
+	 * @param string $title
+	 * @return string|null
+	 */
+	private function loadJsonFromProdunto( string $title ): ?string {
+		$parts = explode( '/', $title, 2 );
+		if ( count( $parts ) !== 2 ) {
+			return null;
 		}
-		// We'll throw an error for non-tables on the Lua side
+		$runtime = $this->getProduntoRuntime();
+		$result = $runtime->getFileContents( $parts[0], $parts[1] );
+		$runtime->maybeAddSandboxWarning( $this->getParser()->getOutput() );
+		return $result;
+	}
 
-		return [ $json ];
+	/**
+	 * @return callable[]
+	 */
+	private function getJsonLoaders() {
+		if ( !$this->jsonLoaders ) {
+			$this->jsonLoaders = [];
+			if ( ExtensionRegistry::getInstance()->isLoaded( 'Produnto' ) ) {
+				$this->jsonLoaders[] = $this->loadJsonFromProdunto( ... );
+			}
+			$this->jsonLoaders[] = $this->loadJsonFromWiki( ... );
+		}
+		return $this->jsonLoaders;
 	}
 
 	/**
