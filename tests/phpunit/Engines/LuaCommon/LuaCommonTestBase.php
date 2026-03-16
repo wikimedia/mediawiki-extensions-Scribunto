@@ -660,7 +660,7 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$module->invoke( 'second', $frame );
 		$this->assertTtl( 1, $engine->getParser()->getOutput(),
 			'TTL must be equal to 1 second when seconds are requested' );
-		$this->assertSame( 'Module:DateTime (setTTL)',
+		$this->assertSame( 'Module:DateTime (os.date(%S))',
 			$engine->getParser()->getOutput()->getCacheExpirySource() );
 
 		$engine->getParser()->resetOutput();
@@ -672,6 +672,8 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$module->invoke( 'tablesec', $frame );
 		$this->assertTtl( 1, $engine->getParser()->getOutput(),
 			'TTL must be equal to 1 second when seconds are requested from a table' );
+		$this->assertSame( 'Module:DateTime (os.date *t .sec)',
+			$engine->getParser()->getOutput()->getCacheExpirySource() );
 
 		$engine->getParser()->resetOutput();
 		$module->invoke( 'time', $frame );

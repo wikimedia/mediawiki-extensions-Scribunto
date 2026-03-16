@@ -721,10 +721,11 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * Handler for setTTL()
 	 * @internal
 	 * @param int $ttl
+	 * @param string $callerLabel Identifies the calling code for cache debugging
 	 */
-	public function setTTL( $ttl ) {
+	public function setTTL( $ttl, $callerLabel ) {
 		$this->checkNumber( 'setTTL', [ $ttl ], 0 );
-		$source = ( $this->currentModuleName ?? 'unknown' ) . ' (setTTL)';
+		$source = ( $this->currentModuleName ?? 'unknown' ) . " ($callerLabel)";
 		CoreMagicVariables::applyCacheExpiry( $this->getParser(), $ttl, null, $source );
 	}
 

@@ -101,13 +101,13 @@ local function wrapDateTable( now )
 	return setmetatable( {}, {
 		__index = function( t, k )
 			if k == 'sec' then
-				php.setTTL( 1 )
+				php.setTTL( 1, 'os.date *t .sec' )
 			elseif k == 'min' then
-				php.setTTL( 60 - now.sec )
+				php.setTTL( 60 - now.sec, 'os.date *t .min' )
 			elseif k == 'hour' then
-				php.setTTL( 3600 - now.min * 60 - now.sec )
+				php.setTTL( 3600 - now.min * 60 - now.sec, 'os.date *t .hour' )
 			elseif now[k] ~= nil then
-				php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec )
+				php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec, 'os.date *t .' .. k )
 			end
 			t[k] = now[k]
 			return now[k]
@@ -122,20 +122,21 @@ local function ttlDate( format, time )
 		if format == '!*t' or format == '*t' then
 			return wrapDateTable( now )
 		end
+		local callerLabel = format and ( 'os.date(' .. format .. ')' ) or 'os.date()'
 		local cleanedFormat = format and format:gsub( '%%%%', '' )
 		if not format or cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
-			php.setTTL( 1 ) -- second
+			php.setTTL( 1, callerLabel ) -- second
 		elseif cleanedFormat:find( '%%[EO]?[MR]' ) then
-			php.setTTL( 60 - now.sec ) -- minute
+			php.setTTL( 60 - now.sec, callerLabel ) -- minute
 		elseif cleanedFormat:find( '%%[EO]?[HIkl]' ) then
-			php.setTTL( 3600 - now.min * 60 - now.sec ) -- hour
+			php.setTTL( 3600 - now.min * 60 - now.sec, callerLabel ) -- hour
 		elseif cleanedFormat:find( '%%[EO]?[pP]' ) then
-			php.setTTL( 43200 - ( now.hour % 12 ) * 3600 - now.min * 60 - now.sec ) -- am/pm
+			php.setTTL( 43200 - ( now.hour % 12 ) * 3600 - now.min * 60 - now.sec, callerLabel ) -- am/pm
 		else
 			-- It's not worth the complexity to figure out the exact TTL of larger units than days.
 			-- If they haven't used anything shorter than days, then just set the TTL to expire at
 			-- the end of today.
-			php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec )
+			php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec, callerLabel )
 		end
 	end
 	return os.date( format, time )
@@ -143,7 +144,7 @@ end
 
 local function ttlTime( t )
 	if t == nil then
-		php.setTTL( 1 )
+		php.setTTL( 1, 'os.time' )
 	end
 	return os.time( t )
 end
