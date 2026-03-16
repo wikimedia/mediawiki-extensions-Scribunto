@@ -6,6 +6,7 @@ use MediaWiki\Json\FormatJson;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\CoreTagHooks;
+use Wikimedia\RemexHtml\HTMLData;
 
 class TextLibrary extends LibraryBase {
 	// Matches Lua mw.text constants
@@ -97,10 +98,7 @@ class TextLibrary extends LibraryBase {
 	 * @return array[]
 	 */
 	private function getEntityTable() {
-		$table = array_flip(
-			get_html_translation_table( HTML_ENTITIES, ENT_QUOTES | ENT_HTML5, "UTF-8" )
-		);
-		return [ $table ];
+		return [ HTMLData::NAMED_ENTITY_TRANSLATION ];
 	}
 
 	/**
