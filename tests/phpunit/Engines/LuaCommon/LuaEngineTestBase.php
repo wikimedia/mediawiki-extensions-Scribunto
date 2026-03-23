@@ -116,7 +116,9 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 			$engine->destroy();
 			return $data;
 		} catch ( \Throwable $e ) {
-			return [];
+			// Return a placeholder so PHPUnit 10 doesn't error on an empty
+			// data set. testLua() turns this into markTestSkipped().
+			return [ [ 'dataProviderError', 'error', $e->getMessage() ] ];
 		}
 	}
 
@@ -140,6 +142,9 @@ abstract class LuaEngineTestBase extends MediaWikiLangTestCase {
 	 * @param mixed $expected
 	 */
 	public function testLua( $key, $testName, $expected ) {
+		if ( $key === 'dataProviderError' ) {
+			$this->markTestSkipped( "Lua data provider error: $expected" );
+		}
 		$msg = $this->getEngineName() . ': ' . static::$moduleName . "[$key]: $testName";
 		if ( isset( $this->skipTests[$testName] ) ) {
 			$this->markTestSkipped( $this->skipTests[$testName] );
