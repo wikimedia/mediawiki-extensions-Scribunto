@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
 
 /**
@@ -597,6 +598,8 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 	}
 
 	public function testOsDateTimeTTLs() {
+		$this->overrideConfigValue( MainConfigNames::ParserCacheExpireTime, 400 * 86400 );
+
 		$engine = $this->getEngine();
 		$pp = $engine->getParser()->getPreprocessor();
 
@@ -605,8 +608,29 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		function p.day()
 			return os.date( "%d" )
 		end
-		function p.AMPM()
-			return os.date( "%p" )
+		function p.dayUTC()
+			return os.date( "!%d" )
+		end
+		function p.year()
+			return os.date( "%Y" )
+		end
+		function p.yearUTC()
+			return os.date( "!%Y" )
+		end
+		function p.yearTwice()
+			return os.date( "%Y %Y" )
+		end
+		function p.yearMonth()
+			return os.date( "%Y-%m" )
+		end
+		function p.yearMonthUTC()
+			return os.date( "!%Y-%m" )
+		end
+		function p.weekNumber()
+			return os.date( "%W" )
+		end
+		function p.weekNumberUTC()
+			return os.date( "!%W" )
 		end
 		function p.hour()
 			return os.date( "%H" )
@@ -614,17 +638,55 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		function p.minute()
 			return os.date( "%M" )
 		end
+		function p.minuteUTC()
+			return os.date( "!%M" )
+		end
+		function p.mixedMinute()
+			return os.date( "%Y-%m-%d %H:%M" )
+		end
+		function p.mixedMinuteUTC()
+			return os.date( "!%Y-%m-%d %H:%M" )
+		end
 		function p.second()
 			return os.date( "%S" )
 		end
+		function p.literalPercentY()
+			return os.date( "%%Y" )
+		end
+		function p.literalPercentThenYear()
+			return os.date( "%%Y %Y" )
+		end
 		function p.table()
 			return os.date( "*t" )
+		end
+		function p.tableUTC()
+			return os.date( "!*t" )
+		end
+		function p.tablemonth()
+			return os.date( "*t" ).month
+		end
+		function p.tablemonthUTC()
+			return os.date( "!*t" ).month
+		end
+		function p.tableyear()
+			return os.date( "*t" ).year
+		end
+		function p.tableyearUTC()
+			return os.date( "!*t" ).year
 		end
 		function p.tablesec()
 			return os.date( "*t" ).sec
 		end
 		function p.time()
 			return os.time()
+		end
+		function p.monthRolloverNormalization()
+			return os.date( "%Y-%m-%d %H:%M:%S", os.time{
+				year = 2025, month = 13, day = 1, hour = 0, min = 0, sec = 0 } )
+		end
+		function p.dayRolloverNormalization()
+			return os.date( "%Y-%m-%d %H:%M:%S", os.time{
+				year = 2025, month = 2, day = 29, hour = 0, min = 0, sec = 0 } )
 		end
 		function p.specificDateAndTime()
 			return os.date("%S", os.time{year = 2013, month = 1, day = 1})
@@ -636,53 +698,100 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser( $title );
 		$frame = $pp->newFrame();
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'day', $frame );
-		$this->assertTtlLessThan( 86400, $engine->getParser()->getOutput(),
+		$invokeAndGetOutput = static function ( string $name ) use ( $engine, $module, $frame ) {
+			$engine->getParser()->resetOutput();
+			$module->invoke( $name, $frame );
+			return $engine->getParser()->getOutput();
+		};
+
+		$this->assertSame( '2026-01-01 00:00:00', $module->invoke( 'monthRolloverNormalization', $frame ) );
+		$this->assertSame( '2025-03-01 00:00:00', $module->invoke( 'dayRolloverNormalization', $frame ) );
+
+		$dayOutput = $invokeAndGetOutput( 'day' );
+		$this->assertTtlLessThan( 86400, $dayOutput,
 			'TTL must not exceed 1 day when day is requested' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'AMPM', $frame );
-		$this->assertTtlLessThan( 43200, $engine->getParser()->getOutput(),
-			'TTL must not exceed 12 hours when AM/PM is requested' );
+		$dayUTCOutput = $invokeAndGetOutput( 'dayUTC' );
+		$this->assertTtlLessThan( 86400, $dayUTCOutput,
+			'TTL must not exceed 1 day when the UTC day is requested' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'hour', $frame );
-		$this->assertTtlLessThan( 3600, $engine->getParser()->getOutput(),
-			'TTL must not exceed 1 hour when hours are requested' );
+		$yearOutput = $invokeAndGetOutput( 'year' );
+		$this->assertSame( 'Module:DateTime (os.date(%Y))', $yearOutput->getCacheExpirySource() );
+		$this->assertSameCacheExpiry( $yearOutput, $invokeAndGetOutput( 'yearTwice' ),
+			'Repeated year tokens must keep the same year-boundary TTL' );
+		$this->assertSameCacheExpiry( $yearOutput, $invokeAndGetOutput( 'literalPercentThenYear' ),
+			'Escaped percent sequences must not hide real year format tokens' );
+		$this->assertSameCacheExpiry( $yearOutput, $invokeAndGetOutput( 'tableyear' ),
+			'String and table year access must share the same local year-boundary TTL' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'minute', $frame );
-		$this->assertTtlLessThan( 60, $engine->getParser()->getOutput(),
+		$yearUTCOutput = $invokeAndGetOutput( 'yearUTC' );
+		$this->assertSame( 'Module:DateTime (os.date(!%Y))', $yearUTCOutput->getCacheExpirySource() );
+		$this->assertSameCacheExpiry( $yearUTCOutput, $invokeAndGetOutput( 'tableyearUTC' ),
+			'String and table year access must share the same UTC year-boundary TTL' );
+
+		$yearMonthOutput = $invokeAndGetOutput( 'yearMonth' );
+		$this->assertSame( 'Module:DateTime (os.date(%Y-%m))', $yearMonthOutput->getCacheExpirySource() );
+		$this->assertSameCacheExpiry( $yearMonthOutput, $invokeAndGetOutput( 'tablemonth' ),
+			'String and table month access must share the same local month-boundary TTL' );
+
+		$yearMonthUTCOutput = $invokeAndGetOutput( 'yearMonthUTC' );
+		$this->assertSame( 'Module:DateTime (os.date(!%Y-%m))', $yearMonthUTCOutput->getCacheExpirySource() );
+		$this->assertSameCacheExpiry( $yearMonthUTCOutput, $invokeAndGetOutput( 'tablemonthUTC' ),
+			'String and table month access must share the same UTC month-boundary TTL' );
+
+		$weekNumberOutput = $invokeAndGetOutput( 'weekNumber' );
+		$this->assertTtlLessThan( 86400, $weekNumberOutput,
+			'Week-number formats must expire within one local day' );
+
+		$weekNumberUTCOutput = $invokeAndGetOutput( 'weekNumberUTC' );
+		$this->assertTtlLessThan( 86400, $weekNumberUTCOutput,
+			'UTC week-number formats must expire within one UTC day' );
+
+		$minuteOutput = $invokeAndGetOutput( 'minute' );
+		$this->assertTtlLessThan( 60, $minuteOutput,
 			'TTL must not exceed 1 minute when minutes are requested' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'second', $frame );
-		$this->assertTtl( 1, $engine->getParser()->getOutput(),
-			'TTL must be equal to 1 second when seconds are requested' );
-		$this->assertSame( 'Module:DateTime (os.date(%S))',
-			$engine->getParser()->getOutput()->getCacheExpirySource() );
+		$minuteUTCOutput = $invokeAndGetOutput( 'minuteUTC' );
+		$this->assertTtlLessThan( 60, $minuteUTCOutput,
+			'TTL must not exceed 1 minute when UTC minutes are requested' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'table', $frame );
-		$this->assertTtl( null, $engine->getParser()->getOutput(),
+		$mixedMinuteOutput = $invokeAndGetOutput( 'mixedMinute' );
+		$this->assertTtlLessThan( 60, $mixedMinuteOutput,
+			'Mixed local date/time formats must expire at the most granular local unit present' );
+
+		$mixedMinuteUTCOutput = $invokeAndGetOutput( 'mixedMinuteUTC' );
+		$this->assertTtlLessThan( 60, $mixedMinuteUTCOutput,
+			'Mixed UTC date/time formats must expire at the most granular UTC unit present' );
+
+		$hourOutput = $invokeAndGetOutput( 'hour' );
+		$this->assertTtlLessThan( 3600, $hourOutput,
+			'TTL must not exceed 1 hour when hours are requested' );
+
+		$secondOutput = $invokeAndGetOutput( 'second' );
+		$this->assertTtl( 1, $secondOutput,
+			'TTL must be equal to 1 second when seconds are requested' );
+		$this->assertSame( 'Module:DateTime (os.date(%S))', $secondOutput->getCacheExpirySource() );
+		$this->assertSameCacheExpiry( $secondOutput, $invokeAndGetOutput( 'tablesec' ),
+			'String and table second access must share the same second-level TTL' );
+
+		$literalPercentYOutput = $invokeAndGetOutput( 'literalPercentY' );
+		$this->assertTtlLessThan( 86400, $literalPercentYOutput,
+			'Escaped percent sequences with no real date tokens must fall back to a day TTL' );
+
+		$tableOutput = $invokeAndGetOutput( 'table' );
+		$this->assertTtl( null, $tableOutput,
 			'TTL must not be set when os.date( "*t" ) is called but no values are looked at' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'tablesec', $frame );
-		$this->assertTtl( 1, $engine->getParser()->getOutput(),
-			'TTL must be equal to 1 second when seconds are requested from a table' );
-		$this->assertSame( 'Module:DateTime (os.date *t .sec)',
-			$engine->getParser()->getOutput()->getCacheExpirySource() );
+		$tableUTCOutput = $invokeAndGetOutput( 'tableUTC' );
+		$this->assertTtl( null, $tableUTCOutput,
+			'TTL must not be set when os.date( "!*t" ) is called but no values are looked at' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'time', $frame );
-		$this->assertTtl( 1, $engine->getParser()->getOutput(),
+		$timeOutput = $invokeAndGetOutput( 'time' );
+		$this->assertTtl( 1, $timeOutput,
 			'TTL must be equal to 1 second when os.time() is called' );
 
-		$engine->getParser()->resetOutput();
-		$module->invoke( 'specificDateAndTime', $frame );
-		$this->assertTtl( null, $engine->getParser()->getOutput(),
+		$specificOutput = $invokeAndGetOutput( 'specificDateAndTime' );
+		$this->assertTtl( null, $specificOutput,
 			'TTL must not be set when os.date() or os.time() are called with a specific time' );
 	}
 

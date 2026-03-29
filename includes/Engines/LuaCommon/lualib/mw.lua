@@ -96,18 +96,76 @@ function mw.setupInterface( options )
 	packageCache = {}
 end
 
+local fieldOrder = { 'year', 'month', 'day', 'hour', 'min', 'sec' }
+-- month and day are 1-based in Lua's date tables (0 would mean the prior month/day).
+local fieldZero = { year = 0, month = 1, day = 1, hour = 0, min = 0, sec = 0 }
+-- Maximum number of seconds a single unit can span.
+local fieldMaxTtl = { year = 366 * 86400, month = 31 * 86400, day = 86400, hour = 3600, min = 60 }
+
+--- Compute the number of seconds until the next calendar boundary for the given unit.
+local function getBoundaryTtl( now, unit, isUtc )
+	if unit == 'sec' then
+		return 1
+	end
+
+	-- Build the next boundary by copying fields above the target from 'now',
+	-- incrementing the target, and zeroing everything below it.
+	local boundary = {}
+	local pastTarget = false
+	for _, field in ipairs( fieldOrder ) do
+		if field == unit then
+			boundary[field] = now[field] + 1
+			pastTarget = true
+		elseif pastTarget then
+			boundary[field] = fieldZero[field]
+		else
+			boundary[field] = now[field]
+		end
+	end
+
+	-- os.time() always applies a local-time offset. For UTC, pin isdst so
+	-- both sides get the same offset and it cancels out. For local times
+	-- near a DST transition, clamp to the unit's max to avoid overcaching.
+	if isUtc then
+		boundary.isdst = now.isdst
+	end
+	local ttl = os.time( boundary ) - os.time( now )
+	return math.min( ttl, fieldMaxTtl[unit] )
+end
+
+local function getDateFormatUnit( format )
+	if not format then
+		return 'sec'
+	end
+
+	local cleanedFormat = format:gsub( '%%%%', '' )
+	-- Check for E or O prefix allowed by Lua 5.2+
+	if cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
+		return 'sec'
+	elseif cleanedFormat:find( '%%[EO]?[MR]' ) then
+		return 'min'
+	elseif cleanedFormat:find( '%%[EO]?[HIkl]' ) then
+		return 'hour'
+	elseif cleanedFormat:find( '%%[EO]?[pPaAdejuwDFxUVWGg]' ) then
+		return 'day'
+	elseif cleanedFormat:find( '%%[EO]?[bBhm]' ) then
+		return 'month'
+	elseif cleanedFormat:find( '%%[EO]?[CYy]' ) then
+		return 'year'
+	end
+
+	-- Anything else falls back to a day-boundary TTL.
+	return 'day'
+end
+
 --- Create a table like the one os.date() returns, but with a metatable that sets TTLs as the values are looked at.
-local function wrapDateTable( now )
+local function wrapDateTable( now, isUtc )
 	return setmetatable( {}, {
 		__index = function( t, k )
-			if k == 'sec' then
-				php.setTTL( 1, 'os.date *t .sec' )
-			elseif k == 'min' then
-				php.setTTL( 60 - now.sec, 'os.date *t .min' )
-			elseif k == 'hour' then
-				php.setTTL( 3600 - now.min * 60 - now.sec, 'os.date *t .hour' )
+			if fieldZero[k] ~= nil then
+				php.setTTL( getBoundaryTtl( now, k, isUtc ), 'os.date *t .' .. k )
 			elseif now[k] ~= nil then
-				php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec, 'os.date *t .' .. k )
+				php.setTTL( getBoundaryTtl( now, 'day', isUtc ), 'os.date *t .' .. k )
 			end
 			t[k] = now[k]
 			return now[k]
@@ -118,26 +176,14 @@ end
 --- Wrappers for os.date() and os.time() that set the TTL of the output, if necessary
 local function ttlDate( format, time )
 	if time == nil and ( format == nil or type( format ) == 'string' ) then
-		local now = os.date( format and format:sub( 1, 1 ) == '!' and '!*t' or '*t' )
+		local isUtc = format and format:sub( 1, 1 ) == '!'
+		local now = os.date( isUtc and '!*t' or '*t' )
 		if format == '!*t' or format == '*t' then
-			return wrapDateTable( now )
+			return wrapDateTable( now, isUtc )
 		end
-		local callerLabel = format and ( 'os.date(' .. format .. ')' ) or 'os.date()'
-		local cleanedFormat = format and format:gsub( '%%%%', '' )
-		if not format or cleanedFormat:find( '%%[EO]?[crsSTX+]' ) then
-			php.setTTL( 1, callerLabel ) -- second
-		elseif cleanedFormat:find( '%%[EO]?[MR]' ) then
-			php.setTTL( 60 - now.sec, callerLabel ) -- minute
-		elseif cleanedFormat:find( '%%[EO]?[HIkl]' ) then
-			php.setTTL( 3600 - now.min * 60 - now.sec, callerLabel ) -- hour
-		elseif cleanedFormat:find( '%%[EO]?[pP]' ) then
-			php.setTTL( 43200 - ( now.hour % 12 ) * 3600 - now.min * 60 - now.sec, callerLabel ) -- am/pm
-		else
-			-- It's not worth the complexity to figure out the exact TTL of larger units than days.
-			-- If they haven't used anything shorter than days, then just set the TTL to expire at
-			-- the end of today.
-			php.setTTL( 86400 - now.hour * 3600 - now.min * 60 - now.sec, callerLabel )
-		end
+		local callerLabel = 'os.date(' .. ( format or '' ) .. ')'
+		local unit = getDateFormatUnit( format )
+		php.setTTL( getBoundaryTtl( now, unit, isUtc ), callerLabel )
 	end
 	return os.date( format, time )
 end

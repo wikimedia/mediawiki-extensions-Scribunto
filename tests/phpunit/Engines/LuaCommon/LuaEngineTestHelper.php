@@ -168,4 +168,20 @@ trait LuaEngineTestHelper {
 		$actual = $parserOutput->getCacheExpiry();
 		$this->assertLessThan( max( $ttl, $min ) + $fudge + $stagger, $actual, $msg );
 	}
+
+	public function assertSameCacheExpiry(
+		ParserOutput $a,
+		ParserOutput $b,
+		string $msg,
+		int $maxDelta = 10
+	) {
+		$this->assertSame( $a->hasReducedExpiry(), $b->hasReducedExpiry(), $msg );
+		if ( $a->hasReducedExpiry() ) {
+			$this->assertLessThanOrEqual(
+				$maxDelta,
+				abs( $a->getCacheExpiry() - $b->getCacheExpiry() ),
+				$msg
+			);
+		}
+	}
 }
