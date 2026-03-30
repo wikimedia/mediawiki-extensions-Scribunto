@@ -8,6 +8,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreter;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotExecutableError;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaInterpreterNotFoundError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWiki\Shell\Shell;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
@@ -109,7 +110,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		$this->logger = $options['logger'] ?? new NullLogger();
 
 		$pipes = null;
-		$cmd = wfEscapeShellArg(
+		$cmd = Shell::escape(
 			$options['luaPath'],
 			__DIR__ . '/mw_main.lua',
 			dirname( dirname( __DIR__ ) ),
@@ -118,7 +119,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		);
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
-			$cmd = wfEscapeShellArg(
+			$cmd = Shell::escape(
 				# proc_open() passes $cmd to 'sh -c' on Linux, so add an 'exec' to bypass it
 				'exec',
 				'/bin/sh',
@@ -201,7 +202,7 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 		// The output is expected to be one line, something like these:
 		// Lua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio
 		// LuaJIT 2.0.0 -- Copyright (C) 2005-2012 Mike Pall. http://luajit.org/
-		$cmd = wfEscapeShellArg( $options['luaPath'] ) . ' -v 2>&1';
+		$cmd = Shell::escape( $options['luaPath'] ) . ' -v 2>&1';
 		// phpcs:ignore MediaWiki.Usage.ForbiddenFunctions.popen
 		$handle = popen( $cmd, 'r' );
 		if ( $handle ) {
