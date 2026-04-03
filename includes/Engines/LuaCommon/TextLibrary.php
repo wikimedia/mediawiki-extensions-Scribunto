@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\CoreTagHooks;
 use Wikimedia\RemexHtml\HTMLData;
 
 class TextLibrary extends LibraryBase {
@@ -65,7 +64,8 @@ class TextLibrary extends LibraryBase {
 
 	private function processNoWikis( string $text ): string {
 		$content = preg_replace( "#</?nowiki[^>]*>#i", '', $text );
-		return $content ? CoreTagHooks::nowiki( $content, [], $this->getParser() )[0] : '';
+		$parserCoreTagHooks = MediaWikiServices::getInstance()->getParserCoreTagHooks();
+		return $content ? $parserCoreTagHooks->nowiki( $content, [], $this->getParser() )[0] : '';
 	}
 
 	/**
