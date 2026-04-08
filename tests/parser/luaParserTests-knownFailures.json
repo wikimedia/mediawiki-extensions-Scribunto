@@ -1,8 +1,1 @@
-{
-	"Scribunto: named numeric parameters": {
-		"wt2wt": "{{#invoke:test|getArg|b|a}}\n{{#invoke:test|getArg|a|b}}"
-	},
-	"Scribunto: template-style argument trimming": {
-		"wt2wt": "{{#invoke:test|getArgLength|2| x }}\n{{#invoke:test|getArgLength|x}}"
-	}
-}
+{}
