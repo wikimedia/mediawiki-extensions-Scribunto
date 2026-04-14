@@ -425,6 +425,9 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 			}
 			$opts['trace'] = array_values( $message['trace'] );
 		}
+		if ( isset( $message['log'] ) && is_string( $message['log'] ) ) {
+			$opts['log'] = Validator::cleanUp( $message['log'] );
+		}
 		throw $this->engine->newLuaError( $message['value'], $opts );
 	}
 

@@ -120,6 +120,7 @@ class ApiScribuntoConsole extends ApiBase {
 		} catch ( ScribuntoException $e ) {
 			$trace = $e->getScriptTraceHtml();
 			$message = $e->getMessage();
+			$log = $e->getLog() ? [ 'print' => $e->getLog() ] : [];
 			$html = Html::element( 'p', [], $message );
 			if ( $trace !== false ) {
 				$html .= Html::element( 'p',
@@ -132,7 +133,8 @@ class ApiScribuntoConsole extends ApiBase {
 				'type' => 'error',
 				'html' => $html,
 				'message' => $message,
-				'messagename' => $e->getMessageName() ];
+				'messagename' => $e->getMessageName()
+			] + $log;
 		}
 		return [
 			'type' => 'normal',

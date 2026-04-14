@@ -120,6 +120,10 @@ function MWServer:handleCall( message )
 				op = 'error',
 				value = result[2].value,
 				trace = result[2].trace,
+				log = select( 2, xpcall(
+					getfenv( self.chunks[message.id] ).mw.getLogBuffer,
+					function () return nil end
+				) )
 			}
 		else
 			return {

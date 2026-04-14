@@ -13,6 +13,8 @@ use MediaWiki\Title\Title;
 class ScribuntoException extends Exception {
 
 	public array $messageArgs;
+	/** Output of lua mw.log() */
+	private ?string $log = null;
 
 	/**
 	 * @param string $messageName
@@ -48,6 +50,9 @@ class ScribuntoException extends Exception {
 		if ( isset( $params['title'] ) ) {
 			$msg = $msg->page( $params['title'] );
 		}
+		if ( isset( $params['log'] ) ) {
+			$this->log = $params['log'];
+		}
 		parent::__construct( $msg->text() );
 	}
 
@@ -59,6 +64,15 @@ class ScribuntoException extends Exception {
 		$status = Status::newFatal( $this->messageName, ...$this->messageArgs );
 		$status->value = $this;
 		return $status;
+	}
+
+	/**
+	 * Get the lua log buffer if available
+	 *
+	 * @return ?string Will return null if logs are not available.
+	 */
+	public function getLog(): ?string {
+		return $this->log;
 	}
 
 	/**

@@ -83,6 +83,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 			$opts['line'] = $m[2];
 			$message = $m[3];
 		}
+		$opts['log'] = $this->engine->getLogBuffer();
 		return $this->engine->newLuaError( $message, $opts );
 	}
 
