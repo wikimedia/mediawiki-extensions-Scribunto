@@ -11,7 +11,7 @@ use MediaWiki\Language\Language;
 use MediaWiki\Language\LanguageCode;
 use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Language\LanguageFallback;
-use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Language\LanguageNameUtils;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Title\Title;

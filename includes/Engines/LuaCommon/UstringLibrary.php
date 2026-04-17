@@ -3,10 +3,10 @@
 namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use LogicException;
-use MapCacheLRU;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use UtfNormal\Validator;
+use Wikimedia\ObjectCache\MapCacheLRU;
 
 class UstringLibrary extends LibraryBase {
 	/**
