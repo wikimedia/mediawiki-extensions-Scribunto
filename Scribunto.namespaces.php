@@ -424,6 +424,11 @@ $namespaceNames['lfn'] = [
 	829 => 'Modulo_Discute',
 ];
 
+$namespaceNames['lkt'] = [
+	828 => 'Wógligleya_tȟáŋka',
+	829 => 'Wógligleya_tȟáŋka_wóakhiye',
+];
+
 $namespaceNames['lmo'] = [
 	828 => 'Mòdul',
 	829 => 'Ciciarada_Mòdul',
