@@ -68,7 +68,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 		$opts = [];
 		// @phan-suppress-next-line MediaWikiNoIssetIfDefined Upstream class, not clear if always declared
 		if ( isset( $e->luaTrace ) ) {
-			$trace = $e->luaTrace;
+			$trace = $e->luaTrace ?? [];
 			foreach ( $trace as &$val ) {
 				$val = array_map(
 					static fn ( $s ) => is_string( $s ) ? Validator::cleanUp( $s ) : $s,
