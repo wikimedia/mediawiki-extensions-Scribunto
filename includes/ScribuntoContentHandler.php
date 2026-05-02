@@ -155,7 +155,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			// lang, dir, and class attributes (mw-content-ltr or mw-content-rtl) as needed
 			// for correct styling and accessiblity of the documentation page content.
 			// These will be applied when OutputPage eventually calls ParserOutput::getText()
-			$html .= $parserOutput->getRawText();
+			$html .= $parserOutput->getContentHolderText();
 		} else {
 			$parserOutput = new ParserOutput();
 			$parserOutput->setLanguage( $parserOptions->getTargetLanguage() ?? $docTitle->getPageLanguage() );
@@ -192,7 +192,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			// The doc page and validation error produce metadata and must happen
 			// unconditionally. The next step (syntax highlight) can be skipped if
 			// we don't actually need the HTML.
-			$parserOutput->setRawText( '' );
+			$parserOutput->setContentHolderText( '' );
 			return;
 		}
 
@@ -200,7 +200,7 @@ class ScribuntoContentHandler extends CodeContentHandler {
 		$codeLang = $engine->getGeSHiLanguage();
 		$html .= $this->highlight( $sourceCode, $parserOutput, $codeLang );
 
-		$parserOutput->setRawText( $html );
+		$parserOutput->setContentHolderText( $html );
 	}
 
 	/**
