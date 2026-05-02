@@ -81,7 +81,7 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	protected function convertSandboxError( LuaSandboxError $e ) {
 		$opts = [];
 		if ( isset( $e->luaTrace ) ) {
-			$trace = $e->luaTrace;
+			$trace = $e->luaTrace ?? [];
 			foreach ( $trace as &$val ) {
 				$val = array_map( static function ( $val ) {
 					if ( is_string( $val ) ) {
