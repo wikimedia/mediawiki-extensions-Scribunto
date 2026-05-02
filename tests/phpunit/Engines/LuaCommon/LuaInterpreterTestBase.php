@@ -143,6 +143,10 @@ abstract class LuaInterpreterTestBase extends TestCase {
 	}
 
 	public function testTestMemoryLimit() {
+		if ( php_uname( 's' ) === 'Darwin' ) {
+			$this->markTestSkipped( 'Skipping ulimit memory limit test, unsupported on Darwin.' );
+		}
+
 		$interpreter = $this->newInterpreter( [ 'memoryLimit' => 20 * 1e6 ] );
 		$chunk = $interpreter->loadString( '
 			t = {}
