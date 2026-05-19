@@ -270,14 +270,6 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Replaces the list of current frames, and return a ScopedCallback that
-	 * will reset them when it goes out of scope.
-	 *
-	 * @param PPFrame|null $frame If null, an empty frame with no parent will be used
-	 * @return ScopedCallback
-	 */
-
-	/**
 	 * Track which module is currently executing, for cache-expiry attribution.
 	 * @param string $name The module's prefixed DB key
 	 * @return ScopedCallback Restores the previous module name on destruct
