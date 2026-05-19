@@ -38,6 +38,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 				'LanguageFactory',
 				'LanguageFallback',
 				'LanguageNameUtils',
+				'UserFactory',
 				'UserOptionsLookup',
 			]
 		],

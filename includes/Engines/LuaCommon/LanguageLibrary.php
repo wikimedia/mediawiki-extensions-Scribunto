@@ -16,7 +16,7 @@ use MediaWiki\MainConfigNames;
 use MediaWiki\Parser\CoreMagicVariables;
 use MediaWiki\Title\Title;
 use MediaWiki\User\Options\UserOptionsLookup;
-use MediaWiki\User\User;
+use MediaWiki\User\UserFactory;
 use MediaWiki\Utils\MWTimestamp;
 use Wikimedia\RequestTimeout\TimeoutException;
 
@@ -46,6 +46,7 @@ class LanguageLibrary extends LibraryBase {
 		private readonly LanguageFactory $languageFactory,
 		private readonly LanguageFallback $languageFallback,
 		private readonly LanguageNameUtils $languageNameUtils,
+		private readonly UserFactory $userFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
 	) {
 		parent::__construct( $engine );
@@ -320,7 +321,7 @@ class LanguageLibrary extends LibraryBase {
 			}
 
 			// check parameter, or use the ParserOptions if in a message
-			$user = User::newFromName( $username );
+			$user = $this->userFactory->newFromName( $username );
 			if ( $user ) {
 				$gender = $this->genderCache->getGenderOf( $user, __METHOD__ );
 			} elseif ( $username === '' ) {
