@@ -67,7 +67,13 @@ trait LuaEngineTestHelper {
 			$services = MediaWikiServices::getInstance();
 			$parser = $services->getParserFactory()->create();
 			$options = ParserOptions::newFromAnon();
-			$options->setTemplateCallback( [ $this, 'templateCallback' ] );
+
+			$origCallback = $options->getTemplateCallback();
+			$options->setTemplateCallback(
+				fn ( $title, $parser )
+					=> $this->templateCallback( $origCallback, $title, $parser )
+			);
+
 			$options->setTargetLanguage( $services->getLanguageFactory()->getLanguage( 'en' ) );
 			$parser->startExternalParse( $this->getTestTitle(), $options, Parser::OT_HTML, true );
 
@@ -85,12 +91,12 @@ trait LuaEngineTestHelper {
 	}
 
 	/**
-	 * @see Parser::statelessFetchTemplate
+	 * @param callable $origCallback
 	 * @param Title $title
 	 * @param Parser|false $parser
 	 * @return array
 	 */
-	public function templateCallback( $title, $parser ) {
+	public function templateCallback( $origCallback, $title, $parser ) {
 		$this->templateLoadCounts[$title->getFullText()] =
 			( $this->templateLoadCounts[$title->getFullText()] ?? 0 ) + 1;
 		if ( isset( $this->extraModules[$title->getFullText()] ) ) {
@@ -112,7 +118,7 @@ trait LuaEngineTestHelper {
 				];
 			}
 		}
-		return Parser::statelessFetchTemplate( $title, $parser );
+		return $origCallback( $title, $parser );
 	}
 
 	/**
