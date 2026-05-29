@@ -18,6 +18,15 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	public LuaSandbox $sandbox;
 	public bool $profilerEnabled = false;
 
+	/**
+	 * Guard against infinite recursion in convertSandboxError().
+	 * When a LuaSandboxError occurs, convertSandboxError() calls
+	 * getLogBuffer(), which calls callFunction(), which may throw
+	 * another LuaSandboxError, leading to infinite mutual recursion
+	 * that exhausts PHP memory and crashes the worker (T426525).
+	 */
+	private bool $inErrorConversion = false;
+
 	public const SAMPLES = 0;
 	public const SECONDS = 1;
 	public const PERCENT = 2;
@@ -65,26 +74,46 @@ class LuaSandboxInterpreter extends LuaInterpreter {
 	 * @return LuaError
 	 */
 	protected function convertSandboxError( LuaSandboxError $e ) {
-		$opts = [];
-		// @phan-suppress-next-line MediaWikiNoIssetIfDefined Upstream class, not clear if always declared
-		if ( isset( $e->luaTrace ) ) {
-			$trace = $e->luaTrace ?? [];
-			foreach ( $trace as &$val ) {
-				$val = array_map(
-					static fn ( $s ) => is_string( $s ) ? Validator::cleanUp( $s ) : $s,
-					$val
-				);
+		// Guard against infinite recursion (T426525).
+		// getLogBuffer() calls callFunction() which may throw another
+		// LuaSandboxError (e.g. when the Lua state is out of memory),
+		// causing this method to be called again. Without this guard,
+		// the mutual recursion exhausts PHP memory and crashes the worker.
+		$isRecursive = $this->inErrorConversion;
+		if ( !$isRecursive ) {
+			$this->inErrorConversion = true;
+		}
+		try {
+			$opts = [];
+			// @phan-suppress-next-line MediaWikiNoIssetIfDefined Upstream class, not clear if always declared
+			if ( isset( $e->luaTrace ) ) {
+				$trace = $e->luaTrace ?? [];
+				foreach ( $trace as &$val ) {
+					$val = array_map(
+						static fn ( $s ) => is_string( $s ) ? Validator::cleanUp( $s ) : $s,
+						$val
+					);
+				}
+				$opts['trace'] = $trace;
 			}
-			$opts['trace'] = $trace;
+			$message = Validator::cleanUp( $e->getMessage() );
+			if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message, $m ) ) {
+				$opts['module'] = $m[1];
+				$opts['line'] = $m[2];
+				$message = $m[3];
+			}
+			if ( !$isRecursive ) {
+				// Only fetch log buffer on the first call. During recursive
+				// error conversion, the Lua state is not usable and calling
+				// into it would just trigger the same error again.
+				$opts['log'] = $this->engine->getLogBuffer();
+			}
+			return $this->engine->newLuaError( $message, $opts );
+		} finally {
+			if ( !$isRecursive ) {
+				$this->inErrorConversion = false;
+			}
 		}
-		$message = Validator::cleanUp( $e->getMessage() );
-		if ( preg_match( '/^(.*?):(\d+): (.*)$/', $message, $m ) ) {
-			$opts['module'] = $m[1];
-			$opts['line'] = $m[2];
-			$message = $m[3];
-		}
-		$opts['log'] = $this->engine->getLogBuffer();
-		return $this->engine->newLuaError( $message, $opts );
 	}
 
 	/**
