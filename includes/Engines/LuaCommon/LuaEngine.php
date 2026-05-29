@@ -695,7 +695,9 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		if ( !$info ) {
 			return null;
 		}
-		$runtime->maybeAddSandboxWarning( $this->getParser()->getOutput() );
+		$out = $this->getParser()->getOutput();
+		$runtime->maybeAddSandboxWarning( $out );
+		$runtime->maybeAddDependency( $out, $info->packageName, $info->path );
 		return $this->interpreter->loadString(
 			$info->contents, "@{$info->packageName}/{$info->path}" );
 	}
@@ -1118,9 +1120,17 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		if ( count( $parts ) !== 2 ) {
 			return null;
 		}
+		[ $packageName, $path ] = $parts;
 		$runtime = $this->getProduntoRuntime();
-		$result = $runtime->getFileContents( $parts[0], $parts[1] );
-		$runtime->maybeAddSandboxWarning( $this->getParser()->getOutput() );
+		$result = $runtime->getFileContents( $packageName, $path );
+		if ( $result === null ) {
+			return null;
+		}
+
+		$out = $this->getParser()->getOutput();
+		$runtime->maybeAddSandboxWarning( $out );
+		$runtime->maybeAddDependency( $out, $packageName, $path );
+
 		return $result;
 	}
 
