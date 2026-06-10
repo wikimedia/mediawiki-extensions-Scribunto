@@ -178,7 +178,8 @@ class ScribuntoContentHandler extends CodeContentHandler {
 			// been no way to create a Module page with invalid content since 2014
 			// (we validate and abort on edit, undelete, content-model change etc.).
 			// See also T304381.
-			$html .= Html::rawElement( 'div', [ 'class' => 'errorbox' ],
+			$parserOutput->addModuleStyles( [ 'mediawiki.codex.messagebox.styles' ] );
+			$html .= Html::errorBox(
 				$status->getHTML( 'scribunto-error-short', 'scribunto-error-long' )
 			);
 			$this->trackingCategories->addTrackingCategory(
