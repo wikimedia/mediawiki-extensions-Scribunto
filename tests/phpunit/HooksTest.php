@@ -16,22 +16,22 @@ class HooksTest extends TestCase {
 
 	public static function provideContentHandlerDefaultModelFor() {
 		return [
-			[ 'Module:Foo', CONTENT_MODEL_SCRIBUNTO ],
-			[ 'Module:Foo/doc', null ],
-			[ 'Module:Foo/styles.css', 'sanitized-css', 'sanitized-css' ],
-			[ 'Module:Foo.json', CONTENT_MODEL_JSON ],
-			[ 'Module:Foo/subpage.json', CONTENT_MODEL_JSON ],
-			[ 'Main Page', null ],
+			[ NS_MODULE, 'Foo', CONTENT_MODEL_SCRIBUNTO ],
+			[ NS_MODULE, 'Foo/doc', null ],
+			[ NS_MODULE, 'Foo/styles.css', 'sanitized-css', 'sanitized-css' ],
+			[ NS_MODULE, 'Foo.json', CONTENT_MODEL_JSON ],
+			[ NS_MODULE, 'Foo/subpage.json', CONTENT_MODEL_JSON ],
+			[ NS_MAIN, 'Main Page', null ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideContentHandlerDefaultModelFor
 	 */
-	public function testContentHandlerDefaultModelFor( $name, $expected,
+	public function testContentHandlerDefaultModelFor( $ns, $name, $expected,
 		$before = null
 	) {
-		$title = Title::newFromText( $name );
+		$title = Title::makeTitle( $ns, $name );
 		$model = $before;
 		$services = MediaWikiServices::getInstance();
 		( new Hooks(

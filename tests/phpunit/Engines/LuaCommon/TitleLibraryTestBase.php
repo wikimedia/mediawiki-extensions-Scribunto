@@ -63,7 +63,7 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 		$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
 
 		// Page for getContent test
-		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestPage' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestPage' ) );
 		$page->doUserEditContent(
 			new WikitextContent(
 				'{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>'
@@ -73,7 +73,7 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 		);
 		$this->testPageId = $page->getId();
 
-		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'Test:Restricted' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( 100, 'Restricted' ) );
 		$page->doUserEditContent(
 			new WikitextContent( 'Some secret.' ),
 			$editor,
@@ -81,13 +81,13 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 		);
 
 		// Pages for redirectTarget tests
-		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestRedirect' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestRedirect' ) );
 		$page->doUserEditContent(
 			new WikitextContent( '#REDIRECT [[ScribuntoTestTarget]]' ),
 			$editor,
 			'Summary'
 		);
-		$page = $wikiPageFactory->newFromTitle( Title::newFromText( 'ScribuntoTestNonRedirect' ) );
+		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestNonRedirect' ) );
 		$page->doUserEditContent(
 			new WikitextContent( 'Not a redirect.' ),
 			$editor,

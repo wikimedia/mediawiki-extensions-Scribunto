@@ -973,7 +973,7 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			$engine->runConsole( [
 				'prevQuestions' => [],
 				'question' => 'p.foo()',
-				'title' => Title::newFromText( 'Module:T208689' ),
+				'title' => Title::makeTitle( NS_MODULE, 'T208689' ),
 				'content' => $this->extraModules['Module:T208689'],
 			] );
 			$this->fail( 'Expected exception not thrown' );
