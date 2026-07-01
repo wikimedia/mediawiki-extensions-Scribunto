@@ -355,6 +355,11 @@ $namespaceNames['it'] = [
 	829 => 'Discussioni_modulo',
 ];
 
+$namespaceNames['isv'] = [
+	828 => 'Modul',
+	829 => 'Besěda_modula',
+];
+
 $namespaceNames['ja'] = [
 	828 => 'モジュール',
 	829 => 'モジュール・トーク',
