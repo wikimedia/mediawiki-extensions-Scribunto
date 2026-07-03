@@ -569,10 +569,11 @@ class TitleLibrary extends LibraryBase {
 	 * file so increment the expensive function counter again.
 	 *
 	 * @param string $text File name to lookup
+	 * @param string $metaType Which metadata to return: either 'metadata' (the default) or 'languages'.
 	 * @return array
 	 * @throws LuaError
 	 */
-	private function getFileMetadata( $text ) {
+	private function getFileMetadata( $text, string $metaType = 'metadata' ) {
 		// Redo these checks just in case, but we should never be able
 		// to get here if any of them are false except for race conditions.
 		$this->checkType( 'getFileMetadata', 1, $text, 'string' );
@@ -590,7 +591,10 @@ class TitleLibrary extends LibraryBase {
 		if ( !$file ) {
 			return [ [] ];
 		}
-		return [ $this->normalizeMetadata( $file->getCommonMetaArray() ) ];
+		$meta = $metaType === 'languages'
+			? self::makeArrayOneBased( $file->getAvailableLanguages() )
+			: $this->normalizeMetadata( $file->getCommonMetaArray() );
+		return [ $meta ];
 	}
 
 	/**

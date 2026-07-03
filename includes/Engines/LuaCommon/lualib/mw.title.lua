@@ -51,9 +51,9 @@ local function getFileInfo( file )
 	data = php.getFileInfo( file )
 	return setmetatable( data, {
 		__index = function( t, key )
-			if key == 'metadata' then
-				data.metadata = php.getFileMetadata( file )
-				return data.metadata
+			if key == 'metadata' or key == 'languages' then
+				data[ key ] = php.getFileMetadata( file, key )
+				return data[ key ]
 			end
 		end
 	} )
