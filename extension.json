@@ -217,6 +217,11 @@
 		}
 	},
 	"attributes": {
+		"CodeMirror": {
+			"ParserFunctionNsIds": {
+				"invoke": 828
+			}
+		},
 		"TemplateSandbox": {
 			"EditNamespaces": [
 				828
