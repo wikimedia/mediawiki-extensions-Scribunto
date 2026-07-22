@@ -104,7 +104,8 @@
 		"EditPageBeforeEditButtons": "main",
 		"EditFilterMergedContent": "main",
 		"ArticleViewHeader": "main",
-		"ContentHandlerDefaultModelFor": "main"
+		"ContentHandlerDefaultModelFor": "main",
+		"ProduntoPlatformVersions": "produnto"
 	},
 	"HookHandlers": {
 		"main": {
@@ -128,6 +129,12 @@
 			"class": "MediaWiki\\Extension\\Scribunto\\CodeMirrorHooks",
 			"services": [
 				"MainConfig",
+				"Scribunto.EngineFactory"
+			]
+		},
+		"produnto": {
+			"class": "MediaWiki\\Extension\\Scribunto\\ProduntoHooks",
+			"services": [
 				"Scribunto.EngineFactory"
 			]
 		}

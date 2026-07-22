@@ -101,14 +101,15 @@ class LuaStandaloneEngine extends LuaEngine {
 	}
 
 	/** @inheritDoc */
-	public function getSoftwareInfo( array &$software ) {
+	public function getPlatformVersions(): array {
 		$ver = LuaStandaloneInterpreter::getLuaVersion( $this->options );
 		if ( $ver !== null ) {
 			if ( substr( $ver, 0, 6 ) === 'LuaJIT' ) {
-				$software['[https://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $ver );
+				return [ 'LuaJIT' => str_replace( 'LuaJIT ', '', $ver ) ];
 			} else {
-				$software['[https://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $ver );
+				return [ 'Lua' => str_replace( 'Lua ', '', $ver ) ];
 			}
 		}
+		return [];
 	}
 }

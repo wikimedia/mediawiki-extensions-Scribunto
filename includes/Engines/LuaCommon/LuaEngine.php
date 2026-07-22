@@ -520,6 +520,21 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 		];
 	}
 
+	/** @inheritDoc */
+	public function getSoftwareInfo( array &$software ) {
+		$versions = $this->getPlatformVersions();
+		$links = [
+			'LuaSandbox' => '[https://www.mediawiki.org/wiki/LuaSandbox LuaSandbox]',
+			'Lua' => '[https://www.lua.org/ Lua]',
+			'LuaJIT' => '[https://luajit.org/ LuaJIT]',
+		];
+		foreach ( $links as $name => $link ) {
+			if ( isset( $versions[$name] ) ) {
+				$software[$link] = $versions[$name];
+			}
+		}
+	}
+
 	/**
 	 * Workalike for luaL_checktype()
 	 *

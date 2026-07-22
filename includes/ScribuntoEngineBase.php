@@ -85,6 +85,13 @@ abstract class ScribuntoEngineBase {
 	abstract public function getSoftwareInfo( array &$software );
 
 	/**
+	 * Get platform versions for Produnto package version requirements
+	 *
+	 * @return array<string,string>
+	 */
+	abstract public function getPlatformVersions(): array;
+
+	/**
 	 * @param array $options Associative array of options:
 	 *    - parser:            A Parser object
 	 */

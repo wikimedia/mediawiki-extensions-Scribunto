@@ -25,28 +25,25 @@ class LuaSandboxEngine extends LuaEngine {
 		];
 	}
 
-	/** @inheritDoc */
-	public function getSoftwareInfo( array &$software ) {
+	public function getPlatformVersions(): array {
 		try {
 			LuaSandboxInterpreter::checkLuaSandboxVersion();
 		} catch ( LuaInterpreterNotFoundError ) {
 			// They shouldn't be using this engine if the extension isn't
 			// loaded. But in case they do for some reason, let's not have
 			// Special:Version fatal.
-			return;
+			return [];
 		} catch ( LuaInterpreterBadVersionError ) {
 			// @phan-suppress-previous-line PhanPluginDuplicateCatchStatementBody
 			// Same for if the extension is too old.
-			return;
+			return [];
 		}
-
 		$versions = LuaSandbox::getVersionInfo();
-		$software['[https://www.mediawiki.org/wiki/LuaSandbox LuaSandbox]'] =
-			$versions['LuaSandbox'];
-		$software['[https://www.lua.org/ Lua]'] = str_replace( 'Lua ', '', $versions['Lua'] );
+		$versions['Lua'] = str_replace( 'Lua ', '', $versions['Lua'] );
 		if ( isset( $versions['LuaJIT'] ) ) {
-			$software['[https://luajit.org/ LuaJIT]'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
+			$versions['LuaJIT'] = str_replace( 'LuaJIT ', '', $versions['LuaJIT'] );
 		}
+		return $versions;
 	}
 
 	/** @inheritDoc */
