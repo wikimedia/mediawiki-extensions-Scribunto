@@ -751,7 +751,18 @@ class UstringLibrary extends LibraryBase {
 		if ( !preg_match( $re, $s, $m, PREG_OFFSET_CAPTURE, $pos ) ) {
 			return [ $pos, [] ];
 		}
-		$pos = $m[0][1] + strlen( $m[0][0] );
+		$matchLength = strlen( $m[0][0] );
+		/** @var int $matchPos */
+		$matchPos = $m[0][1];
+		if ( $matchLength === 0 ) {
+			if ( $pos >= strlen( $s ) ) {
+				$pos = $matchPos + 1;
+			} else {
+				$pos = $matchPos + strlen( mb_substr( mb_strcut( $s, $pos ), 0, 1 ) );
+			}
+		} else {
+			$pos = $matchPos + $matchLength;
+		}
 		return [ $pos, $this->addCapturesFromMatch( [ null ], $s, $m, $capt, true ) ];
 	}
 

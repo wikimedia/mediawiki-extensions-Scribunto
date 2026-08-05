@@ -714,6 +714,7 @@ local function find( s, cps, rawpat, pattern, init, noAnchor )
 				end
 				sp = sp + 1
 			end
+			return nil
 		elseif q == 0x3f then -- '?', 0 or 1 match
 			pp = pp + 1
 			if charset[cps.codepoints[sp]] then
@@ -920,15 +921,24 @@ function ustring.gmatch( s, pattern )
 	local init = 1
 
 	return function ()
-		local m = { find( s, cps, pattern, pat, init, true ) }
-		if not m[1] then
+		-- For compatibility with Lua, a quantifier like a? can match
+		-- one character past the end, but any further than that, it is time
+		-- to stop.
+		if init > cps.len + 1 then
 			return nil
 		end
-		init = m[2] + 1
+		local m = { find( s, cps, pattern, pat, init, true ) }
+		local matchStart = m[1]
+		local matchEnd = m[2]
+		if not matchStart then
+			return nil
+		end
+		-- Advance one character for a zero-length match (T332551)
+		init = math.max( init, matchEnd ) + 1
 		if m[3] then
 			return unpack( m, 3 )
 		end
-		return sub( s, cps, m[1], m[2] )
+		return sub( s, cps, matchStart, matchEnd )
 	end
 end
 

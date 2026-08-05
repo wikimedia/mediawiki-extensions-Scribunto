@@ -742,6 +742,42 @@ return testframework.getTestProvider( {
 		expect = { { "^fóó2" }, { "^fóó4" } },
 		type = 'Iterator'
 	},
+	-- T332551
+	{ name = 'gmatch: empty pattern', func = mw.ustring.gmatch,
+		args = { 'abc', '' },
+		expect = { { '' }, { '' }, { '' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: optional matches empty', func = mw.ustring.gmatch,
+		args = { 'b', 'a?' },
+		expect = { { '' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: star matches empty', func = mw.ustring.gmatch,
+		args = { 'b', 'a*' },
+		expect = { { '' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: dash matches empty', func = mw.ustring.gmatch,
+		args = { 'b', 'a-' },
+		expect = { { '' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: Lua 5.1 gmatch semantics', func = mw.ustring.gmatch,
+		args = { 'a11a', 'a?' },
+		expect = { { 'a' }, { '' }, { '' }, { 'a' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: empty match goes to the next character, not byte', func = mw.ustring.gmatch,
+		args = { '☢a', 'a?' },
+		expect = { { '' }, { 'a' }, { '' } },
+		type = 'Iterator'
+	},
+	{ name = 'gmatch: consecutive stars', func = mw.ustring.gmatch,
+		args = { 'b', 'a*b*' },
+		expect = { { 'b' }, { '' } },
+		type = 'Iterator'
+	},
 
 	{ name = 'find: Pure-lua version, non-native error message', func = mw.ustring.find,
 		args = { "fóó", '[]' },
