@@ -16,6 +16,12 @@ class UstringLibrary extends LibraryBase {
 	private $patternLengthLimit = 10000;
 
 	/**
+	 * Limit on nested parentheses in patterns
+	 * @var int
+	 */
+	private $patternDepthLimit = 100;
+
+	/**
 	 * Limit on string lengths, in bytes not characters
 	 */
 	private readonly int $stringLengthLimit;
@@ -452,6 +458,10 @@ class UstringLibrary extends LibraryBase {
 					case '(':
 						if ( $i + 1 >= $len ) {
 							throw new LuaError( "Unmatched open-paren at pattern character $ii" );
+						}
+						if ( count( $opencapt ) >= $this->patternDepthLimit ) {
+							throw new LuaError(
+								"Parentheses are too deeply nested at pattern character $ii" );
 						}
 						$n = count( $capt ) + 1;
 						$capt[$n] = ( $pat[$i + 1] === ')' );
