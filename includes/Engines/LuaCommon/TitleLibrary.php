@@ -4,11 +4,11 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 
 use LogicException;
 use MediaWiki\Content\Content;
+use MediaWiki\Deferred\LinksUpdate\CategoryLinksTable;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Language\Language;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\Page\LinkBatchFactory;
-use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -18,7 +18,9 @@ use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFormatter;
+use Wikimedia\ObjectCache\MapCacheLRU;
 use Wikimedia\ObjectFactory\ObjectFactory;
+use Wikimedia\Rdbms\IConnectionProvider;
 
 class TitleLibrary extends LibraryBase {
 	// Note these caches are naturally limited to
@@ -29,6 +31,7 @@ class TitleLibrary extends LibraryBase {
 	private array $titleCache = [];
 	/** @var (Title|null)[] */
 	private array $idCache = [ 0 => null ];
+	private MapCacheLRU $categoryCache;
 
 	/** @var TitleAttributeResolver[] */
 	private array $attributeResolvers = [];
@@ -43,9 +46,10 @@ class TitleLibrary extends LibraryBase {
 		private readonly RestrictionStore $restrictionStore,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly TitleFormatter $titleFormatter,
-		private readonly WikiPageFactory $wikiPageFactory,
+		private readonly IConnectionProvider $connectionProvider,
 	) {
 		parent::__construct( $engine );
+		$this->categoryCache = new MapCacheLRU( 50 );
 	}
 
 	/** @inheritDoc */
@@ -160,6 +164,18 @@ class TitleLibrary extends LibraryBase {
 		if ( !$title ) {
 			return [ null ];
 		}
+		$title = $this->getTitleFromCacheAndRecord( $title );
+
+		return [ $this->getExpensiveDataForTitle( $title ) ];
+	}
+
+	/**
+	 * Get & save title from title cache and record existence link
+	 *
+	 * @param Title $title Title object to look up
+	 * @return Title The cached title object
+	 */
+	private function getTitleFromCacheAndRecord( Title $title ) {
 		$dbKey = $title->getPrefixedDBkey();
 		if ( isset( $this->titleCache[$dbKey] ) ) {
 			// It was already cached, so we already did the expensive work and added a link
@@ -180,8 +196,7 @@ class TitleLibrary extends LibraryBase {
 				$this->idCache[$title->getArticleID()] = $title;
 			}
 		}
-
-		return [ $this->getExpensiveDataForTitle( $title ) ];
+		return $title;
 	}
 
 	/**
@@ -479,17 +494,48 @@ class TitleLibrary extends LibraryBase {
 
 	/**
 	 * @param string $text
+	 * @param bool $includeHidden Include hidden categories
 	 * @return string[][]
 	 * @throws LuaError
 	 */
-	private function getCategories( $text ) {
+	private function getCategories( $text, $includeHidden ) {
 		$this->checkType( 'getCategories', 1, $text, 'string' );
+		$this->checkType( 'getCategories', 2, $includeHidden, 'boolean' );
 		$title = Title::newFromText( $text );
 		if ( !$title ) {
 			return [ [] ];
 		}
-		$page = $this->wikiPageFactory->newFromTitle( $title );
-		$this->incrementExpensiveFunctionCount();
+
+		$res = $this->doCategoryQuery( $title, $includeHidden );
+		$resWithSpaces = array_map(
+			static fn ( $name ) => Title::makeTitle( NS_CATEGORY, $name )->getText(),
+			$res
+		);
+		return [ self::makeArrayOneBased( $resWithSpaces ) ];
+	}
+
+	/**
+	 * Actually get the categories and cache results
+	 *
+	 * @param Title $title Page to look up
+	 * @param bool $includeHidden Show all categories (true) or just visible (false)
+	 * @param bool $hasIncrementedExpensive Have we already incremented expensive count
+	 * @return array List of categories
+	 */
+	private function doCategoryQuery(
+		Title $title,
+		bool $includeHidden,
+		bool $hasIncrementedExpensive = false,
+	): array {
+		$dbkey = $title->getPrefixedDBkey();
+		if ( !isset( $this->titleCache[$dbkey] ) && !$hasIncrementedExpensive ) {
+			// Title is not cached so the following call will increment expensive
+			// parser function count. Keep track we did this so that looking up
+			// categories will increment by at most 1 even if multiple queries are
+			// needed.
+			$hasIncrementedExpensive = true;
+		}
+		$title = $this->getTitleFromCacheAndRecord( $title );
 
 		$parserOutput = $this->getParser()->getOutput();
 		if ( $title->equals( $this->getTitle() ) ) {
@@ -499,12 +545,65 @@ class TitleLibrary extends LibraryBase {
 			$parserOutput->addTemplate( $title, $title->getArticleID(), $title->getLatestRevID() );
 		}
 
-		$categoryTitles = $page->getCategories();
-		$categoryNames = [];
-		foreach ( $categoryTitles as $title ) {
-			$categoryNames[] = $title->getText();
+		if ( !$title->exists() ) {
+			// Can't have categories if page doesn't exist
+			return [];
 		}
-		return [ self::makeArrayOneBased( $categoryNames ) ];
+
+		$caller = __METHOD__;
+		$res = $this->categoryCache->getWithSetCallback(
+			(int)$includeHidden . ':' . $title->getPrefixedDBKey(),
+			function () use ( $includeHidden, $caller, $title, $hasIncrementedExpensive ) {
+				if ( !$hasIncrementedExpensive ) {
+					$this->incrementExpensiveFunctionCount();
+				}
+				if ( $includeHidden ) {
+					$query = $this
+						->connectionProvider
+						->getReplicaDatabase( CategoryLinksTable::VIRTUAL_DOMAIN )
+						->newSelectQueryBuilder();
+					$catNames = $query
+						->select( 'lt_title' )
+						->from( 'categorylinks' )
+						->join( 'linktarget', null, 'cl_target_id = lt_id' )
+						->where( [
+							'cl_from' => $title->getArticleId(),
+							'lt_namespace' => NS_CATEGORY
+						] )
+						->caller( $caller )
+						->fetchFieldValues();
+
+					return $catNames;
+				} else {
+					// Recursively call ourselves to get all categories
+					$allCatNames = $this->doCategoryQuery(
+						$title,
+						includeHidden: true,
+						hasIncrementedExpensive: true
+					);
+					$query = $this
+						->connectionProvider
+						->getReplicaDatabase()
+						->newSelectQueryBuilder();
+
+					$hiddenCatNames = $query
+						->select( [ 'page_title' ] )
+						->from( 'page' )
+						->join( 'page_props', null, [
+							'page_id = pp_page',
+						] )
+						->where( [
+							'pp_propname' => 'hiddencat',
+							'page_namespace' => NS_CATEGORY,
+							'page_title' => $allCatNames
+						] )
+						->caller( $caller )
+						->fetchFieldValues();
+					return array_diff( $allCatNames, $hiddenCatNames );
+				}
+			}
+		);
+		return $res;
 	}
 
 	/**

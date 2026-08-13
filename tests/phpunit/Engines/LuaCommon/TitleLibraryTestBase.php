@@ -75,6 +75,15 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 		);
 		$this->editPage( 'ScribuntoTestNonRedirect', 'Not a redirect.', 'Summary', NS_MAIN, $editor );
 
+		$this->editPage( 'ScribuntoTest_HiddenCat', 'Hidden Category. __HIDDENCAT__', 'Summary', NS_CATEGORY, $editor );
+		$this->editPage(
+			'ScribuntoTestCat',
+			'[[Category:ScribuntoTest_HiddenCat]] [[Category:ScribuntoTest NonExistCat]]',
+			'Summary',
+			NS_MAIN,
+			$editor
+		);
+
 		// Code that runs during the save can put a Title for a test page in the
 		// Title::newFromText() cache before the page exists (T432762). Clear the
 		// cache so that later lookups get the correct page ID.

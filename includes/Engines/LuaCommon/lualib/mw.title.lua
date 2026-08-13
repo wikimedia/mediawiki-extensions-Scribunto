@@ -322,9 +322,15 @@ local function makeTitleObject( data )
 			end
 			if k == 'categories' then
 				if data.categories == nil then
-					data.categories = php.getCategories( data.prefixedText )
+					data.categories = php.getCategories( data.prefixedText, true )
 				end
 				return data.categories
+			end
+			if k == 'visibleCategories' then
+				if data.visibleCategories == nil then
+					data.visibleCategories = php.getCategories( data.prefixedText, false )
+				end
+				return data.visibleCategories
 			end
 
 			if data[k] == nil then

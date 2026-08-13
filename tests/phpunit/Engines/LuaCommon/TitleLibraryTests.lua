@@ -183,6 +183,29 @@ local function test_pageLang()
 	return 'did not error'
 end
 
+local function test_categories()
+	local cat = mw.title.new( 'ScribuntoTestCat' ).categories
+	if #cat ~= 2 then
+		return 'error'
+	end
+	if ( cat[1] == 'ScribuntoTest HiddenCat' or cat[2] == 'ScribuntoTest HiddenCat' )
+		and ( cat[1] == 'ScribuntoTest NonExistCat' or cat[2] == 'ScribuntoTest NonExistCat' ) then
+		return 'did not error'
+	end
+	return 'error'
+end
+
+local function test_visibleCategories()
+	local cat = mw.title.new( 'ScribuntoTestCat' ).visibleCategories
+	if #cat ~= 1 then
+		return 'error'
+	end
+	if cat[1] == 'ScribuntoTest NonExistCat'
+		return 'did not error'
+	end
+	return 'error'
+end
+
 -- Tests
 local tests = {
 	{ name = 'tostring', func = identity, type = 'ToString',
@@ -539,6 +562,8 @@ local tests = {
 	{ name = "sample page language returns current content language", func = test_pageLang,
 		expect = { 'did not error' }
 	},
+	{ name = "Title.categories", func = test_categories, expect = { 'did not error' } },
+	{ name = "Title.visibleCategories", func = test_visibleCategories, expect = { 'did not error' } },
 }
 
 return testframework.getTestProvider( tests )

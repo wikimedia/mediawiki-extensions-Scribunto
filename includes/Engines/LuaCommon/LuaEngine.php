@@ -54,7 +54,7 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 				'RestrictionStore',
 				'SpecialPageFactory',
 				'TitleFormatter',
-				'WikiPageFactory',
+				'ConnectionProvider',
 			]
 		],
 		'mw.text' => TextLibrary::class,
