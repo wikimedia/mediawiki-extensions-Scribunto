@@ -163,7 +163,7 @@
 			"description": [
 				"Configuration for each script engine. Parameters:",
 				" * profilerPeriod - The profiler sample period, or false to disable the profiler",
-				" * allowEnvFuncs - Set this to true to allow setfenv() and getfenv() in user code. Note that these functions have been removed in Lua 5.2. Scribunto does not yet support Lua 5.2, but we expect support will be implemented in the future, and there is no guarantee that a simulation of setfenv() and getfenv() will be provided",
+				" * allowEnvFuncs - Set this to true to allow setfenv() and getfenv() in user code. Native on Lua 5.1; on Lua 5.2+, where the language removed them, the LuaSandbox engine reimplements both on top of the function's _ENV upvalue, with two narrow differences from native Lua 5.1: setfenv(0, ...) and setfenv() on a function with no global references both raise an error instead of silently succeeding",
 				" * maxLangCacheSize - The maximum number of languages about which data can be requested. The cost is about 1.5MB of memory usage per language on default installations (during recache), but if recaching is disabled with `$wgLocalisationCacheConf['manualRecache'] = false;` then memory usage is perhaps 10x smaller",
 				" * errorFile - A filename to act as the destination for stderr from the Lua binary. This may provide useful error information if Lua fails to run. Set this to null to discard stderr output",
 				" * luaPath - The location of the Lua binary, or null to use the bundled binary",
