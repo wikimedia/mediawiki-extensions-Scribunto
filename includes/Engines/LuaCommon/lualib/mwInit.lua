@@ -135,8 +135,25 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 				error( "'setfenv' cannot be called on a protected function", 2 )
 			end
 			local env = old_getfenv( func )
-			if env == nil or protectedEnvironments[ env ] then
+			if env == nil then
 				error( "'setfenv' cannot set the requested environment, it is protected", 2 )
+			elseif protectedEnvironments[ env ] then
+				-- On Lua 5.2+, old_getfenv() falls back to returning the real
+				-- global table for a function with no _ENV upvalue at all
+				-- (e.g. one that never refers to a global) -- indistinguishable
+				-- by return value alone from a function whose real environment
+				-- genuinely is the (protected) global table. Probe with
+				-- old_setfenv() itself: resetting a real _ENV upvalue to its
+				-- own current value is a no-op, but a function with no _ENV at
+				-- all errors regardless of the value given, so this reliably
+				-- tells the two cases apart without actually changing anything
+				-- in the true-positive case.
+				if pcall( old_setfenv, func, env ) then
+					error( "'setfenv' cannot set the requested environment, it is protected", 2 )
+				end
+				-- No real environment to protect: setfenv is a no-op for such
+				-- a function anyway, since it never reads a global.
+				return func
 			end
 			old_setfenv( func, newEnv )
 		else
@@ -147,6 +164,7 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 
 	local function my_getfenv( func )
 		local env
+		local noRealEnv = false
 		if type( func ) == 'number' then
 			if func <= 0 then
 				error( "'getfenv' cannot get the global environment" )
@@ -154,11 +172,21 @@ function mw.makeProtectedEnvFuncs( protectedEnvironments, protectedFunctions )
 			env = old_getfenv( func + 1 )
 		elseif type( func ) == 'function' then
 			env = old_getfenv( func )
+			-- See the matching comment in my_setfenv(): env may be the
+			-- fallback global table returned for a function with no _ENV
+			-- upvalue at all, not its real environment, which is otherwise
+			-- indistinguishable from a genuine environment of the (protected)
+			-- global table.
+			if protectedEnvironments[env] then
+				noRealEnv = not pcall( old_setfenv, func, env )
+			end
 		else
 			error( "'getfenv' cannot get the global environment" )
 		end
 
-		if protectedEnvironments[env] then
+		if noRealEnv then
+			return env
+		elseif protectedEnvironments[env] then
 			return nil
 		else
 			return env

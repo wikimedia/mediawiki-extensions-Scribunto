@@ -7,6 +7,13 @@ local allowEnvFuncs = false
 local shareInvocationEnv = false
 local frameMap = setmetatable( {}, { __mode = 'k' } )
 local metatableMap = setmetatable( {}, { __mode = 'k' } )
+-- getfenv() on an exported module function isn't reliable: on Lua 5.2+, a
+-- function that never refers to a global has no _ENV upvalue for getfenv()
+-- to find, so LuaSandbox's shim falls back to the sandbox's real global
+-- table instead of the function's actual (per-module, isolated) one. Track
+-- each exported function's real environment here instead of trusting
+-- getfenv() to recover it later.
+local envMap = setmetatable( {}, { __mode = 'k' } )
 local sharedEnvs = {}
 local sharedEnvsMaxSize = 10
 local logBuffer = ''
@@ -611,8 +618,11 @@ function mw.executeModule( chunk, name, frame )
 	end
 
 	local func = res[name]
-	if shareInvocationEnv and name ~= nil then
-		if type( func ) == 'function' then
+	if type( func ) == 'function' then
+		-- Unconditional, unlike frameMap/metatableMap below: mw.executeFunction()
+		-- needs a function's real environment regardless of shareInvocationEnv.
+		envMap[func] = env
+		if shareInvocationEnv then
 			frameMap[func] = frame
 			metatableMap[func] = getmetatable( env )
 		end
@@ -625,20 +635,21 @@ end
 -- @param chunk The function chunk
 -- @param frame The frame to pass to the function and return via mw.getCurrentFrame
 local function executeFunctionInSharedEnvironment( chunk, frame )
-	getfenv( chunk ).mw.getCurrentFrame = function ()
+	local env = envMap[chunk] or getfenv( chunk )
+	env.mw.getCurrentFrame = function ()
 		return frame
 	end
 
 	if metatableMap[chunk] then
-		setmetatable( getfenv( chunk ), metatableMap[chunk] )
+		setmetatable( env, metatableMap[chunk] )
 	end
 	-- We can't unpack 'ok' and 'res' here since functions can return multiple values
 	local pcallRes = { pcall( chunk, frame ) }
 	local ok = pcallRes[1]
 
-	setmetatable( getfenv( chunk ), nil )
+	setmetatable( env, nil )
 	if #sharedEnvs < sharedEnvsMaxSize then
-		table.insert( sharedEnvs, getfenv( chunk ) )
+		table.insert( sharedEnvs, env )
 	end
 
 	if not ok then
@@ -650,7 +661,7 @@ local function executeFunctionInSharedEnvironment( chunk, frame )
 end
 
 function mw.executeFunction( chunk )
-	local getCurrentFrame = getfenv( chunk ).mw.getCurrentFrame
+	local getCurrentFrame = ( envMap[chunk] or getfenv( chunk ) ).mw.getCurrentFrame
 	local frame
 	if shareInvocationEnv and frameMap[chunk] then
 		frame = frameMap[chunk]
