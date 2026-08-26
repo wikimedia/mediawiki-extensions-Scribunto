@@ -681,6 +681,15 @@ function MWServer:newEnvironment()
 	env.tostring = function( val )
 		return self:tostring( val )
 	end
+	-- Let mw.lua copy a chunk so that each copy gets its own _ENV upvalue.
+	-- Neither string.dump() nor load() is safe to give to modules, so pass a
+	-- closure over them instead; mw.setupInterface() clears it before any
+	-- module environment is created from this one.
+	local dump, loadChunk, rawSetfenv = string.dump, loadstring or load, setfenv
+	env.mw_cloneChunk = function ( chunk )
+		-- As in handleLoadString(), a new chunk gets the protected _G.
+		return rawSetfenv( loadChunk( dump( chunk ) ), env )
+	end
 	env.string.dump = nil
 	env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs(
 		self.protectedEnvironments, self.protectedFunctions )

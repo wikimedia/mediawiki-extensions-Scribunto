@@ -1,7 +1,11 @@
 mw = mw or {}
 
 local packageCache
-local packageModuleFunc
+-- Whether packageCache[modName] is a real per-module chunk from
+-- php.loadPackage(), safe to setfenv().
+local packageCacheIsModuleChunk
+local packageChunk
+local cloneChunk
 local php
 local allowEnvFuncs = false
 local shareInvocationEnv = false
@@ -22,6 +26,17 @@ local loadedJsonData = {}
 local executeFunctionDepth = 0
 
 
+--- Get a copy of the 'package' chunk which has its own _ENV upvalue.
+--
+-- @return function
+local function copyPackageChunk()
+	if cloneChunk then
+		return cloneChunk( packageChunk )
+	end
+	-- No chunk cloner available, ask PHP for another copy instead.
+	return php.loadPackage( 'package' )
+end
+
 --- Put an isolation-friendly package module into the specified environment
 -- table. The package module will have an empty cache, because caching of
 -- module functions from other cloned environments would break module isolation.
@@ -33,33 +48,49 @@ local function makePackageModule( env )
 		env.package.loaders = nil
 	end
 
-	-- Create the package globals in the given environment
-	setfenv( packageModuleFunc, env )()
+	-- Create the package globals in the given environment.
+	--
+	-- Each environment needs its own copy of the chunk. On Lua 5.2+ setfenv()
+	-- rebinds a closure's _ENV upvalue in place, and sibling closures created
+	-- while that upvalue was still open keep sharing the same cell, so
+	-- setfenv()'ing one reused chunk for a later environment would also
+	-- redirect the 'require' an earlier one had already defined. The same
+	-- applies to any closure defined in mw.lua itself, which shares mw.lua's
+	-- chunk-wide _ENV with every other function mw.lua defines.
+	setfenv( copyPackageChunk(), env )()
 
 	-- Make a loader function
 	local function loadPackage( modName )
-		local init
+		local init, isModuleChunk
 		if packageCache[modName] == 'missing' then
 			return nil
 		elseif packageCache[modName] == nil then
 			local lib = php.loadPHPLibrary( modName )
 			if lib ~= nil then
+				-- This wrapper doesn't read any global, so it has no real
+				-- _ENV upvalue to (mis)setfenv and mustn't be setfenv'd below.
 				init = function ()
 					return mw.clone( lib )
 				end
+				isModuleChunk = false
 			else
 				init = php.loadPackage( modName )
 				if init == nil then
 					packageCache[modName] = 'missing'
 					return nil
 				end
+				isModuleChunk = true
 			end
 			packageCache[modName] = init
+			packageCacheIsModuleChunk[modName] = isModuleChunk
 		else
 			init = packageCache[modName]
+			isModuleChunk = packageCacheIsModuleChunk[modName]
 		end
 
-		setfenv( init, env )
+		if isModuleChunk then
+			setfenv( init, env )
+		end
 		return init
 	end
 
@@ -99,11 +130,14 @@ function mw.setupInterface( options )
 	--
 	php = mw_interface
 	mw_interface = nil
+	cloneChunk = mw_cloneChunk
+	mw_cloneChunk = nil
 
-	packageModuleFunc = php.loadPackage( 'package' )
+	packageChunk = php.loadPackage( 'package' )
 	makePackageModule( _G )
 	package.loaded.mw = mw
 	packageCache = {}
+	packageCacheIsModuleChunk = {}
 end
 
 local fieldOrder = { 'year', 'month', 'day', 'hour', 'min', 'sec' }
@@ -926,9 +960,20 @@ function mw.loadData( module )
 		-- The point of this is to load big data, so don't save it in package.loaded
 		-- where it will have to be copied for all future modules.
 		local l = package.loaded[module]
-		local _
 
-		_, data = mw.executeModule( function() return require( module ) end, nil, newFrame( 'empty' ) )
+		-- The module chunk is not safe for setfenv(), so use env.require()
+		-- instead of mw.executeModule().
+		local env = newEnv()
+		env.mw.getLogBuffer = nil
+		env.mw.clearLogBuffer = nil
+		env.os.date = ttlDate
+		env.os.time = ttlTime
+		local frame = newFrame( 'empty' )
+		env.mw.getCurrentFrame = function ()
+			return frame
+		end
+
+		data = env.require( module )
 
 		package.loaded[module] = l
 
