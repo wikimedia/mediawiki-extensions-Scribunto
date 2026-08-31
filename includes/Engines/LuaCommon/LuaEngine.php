@@ -1132,11 +1132,19 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return string|null
 	 */
 	private function loadJsonFromProdunto( string $title ): ?string {
-		$parts = explode( '/', $title, 2 );
-		if ( count( $parts ) !== 2 ) {
+		// Require Package:<package>/<path>
+		if ( !preg_match( '!([^:]+):([^/]+)/(.*)!', $title, $m ) ) {
 			return null;
 		}
-		[ $packageName, $path ] = $parts;
+		[ , $nsText, $packageName, $path ] = $m;
+
+		// Ensure that the prefix was Package:
+		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
+		$ns = $contLang->getNsIndex( $nsText );
+		if ( $ns !== 850 /* NS_PACKAGE */ ) {
+			return null;
+		}
+
 		$runtime = $this->getProduntoRuntime();
 		$result = $runtime->getFileContents( $packageName, $path );
 		if ( $result === null ) {
