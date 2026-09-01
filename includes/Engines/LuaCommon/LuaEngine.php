@@ -707,10 +707,14 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 */
 	private function loadModuleFromProdunto( string $name ) {
 		$runtime = $this->getProduntoRuntime();
-		$info = $runtime->getModuleInfo( $name );
+		$info = $runtime->getFileInfoByTitle( $name );
 		if ( !$info ) {
-			return null;
+			$info = $runtime->getModuleInfo( $name );
+			if ( !$info ) {
+				return null;
+			}
 		}
+
 		$out = $this->getParser()->getOutput();
 		$runtime->maybeAddSandboxWarning( $out );
 		$runtime->maybeAddDependency( $out, $info->packageName, $info->path );
@@ -1132,30 +1136,16 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	 * @return string|null
 	 */
 	private function loadJsonFromProdunto( string $title ): ?string {
-		// Require Package:<package>/<path>
-		if ( !preg_match( '!([^:]+):([^/]+)/(.*)!', $title, $m ) ) {
-			return null;
-		}
-		[ , $nsText, $packageName, $path ] = $m;
-
-		// Ensure that the prefix was Package:
-		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
-		$ns = $contLang->getNsIndex( $nsText );
-		if ( $ns !== 850 /* NS_PACKAGE */ ) {
-			return null;
-		}
-
 		$runtime = $this->getProduntoRuntime();
-		$result = $runtime->getFileContents( $packageName, $path );
-		if ( $result === null ) {
+		$info = $runtime->getFileInfoByTitle( $title );
+		if ( !$info ) {
 			return null;
 		}
-
 		$out = $this->getParser()->getOutput();
 		$runtime->maybeAddSandboxWarning( $out );
-		$runtime->maybeAddDependency( $out, $packageName, $path );
+		$runtime->maybeAddDependency( $out, $info->packageName, $info->path );
 
-		return $result;
+		return $info->contents;
 	}
 
 	/**
