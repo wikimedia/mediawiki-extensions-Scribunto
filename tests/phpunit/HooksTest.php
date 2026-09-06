@@ -3,16 +3,13 @@
 namespace MediaWiki\Extension\Scribunto\Tests;
 
 use MediaWiki\Extension\Scribunto\Hooks;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MediaWikiCoversValidator;
-use Monolog\Test\TestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @covers \MediaWiki\Extension\Scribunto\Hooks
  */
-class HooksTest extends TestCase {
-	use MediaWikiCoversValidator;
+class HooksTest extends MediaWikiIntegrationTestCase {
 
 	public static function provideContentHandlerDefaultModelFor() {
 		return [
@@ -33,7 +30,7 @@ class HooksTest extends TestCase {
 	) {
 		$title = Title::makeTitle( $ns, $name );
 		$model = $before;
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 		( new Hooks(
 			$services->getMainConfig(),
 			$services->getContentHandlerFactory(),
