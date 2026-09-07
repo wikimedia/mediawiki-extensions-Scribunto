@@ -449,6 +449,16 @@ $namespaceNames['lv'] = [
 	829 => 'Moduļa_diskusija',
 ];
 
+$namespaceNames['mag'] = [
+	828 => 'घटक',
+	829 => 'घटक_वार्ता',
+];
+
+$namespaceAliases['mag'] = [
+	'मॉड्यूल' => 828,
+	'मॉड्यूल_वार्ता' => 829,
+];
+
 $namespaceNames['mai'] = [
 	828 => 'मोड्युल',
 	829 => 'मोड्युल_वार्ता',
