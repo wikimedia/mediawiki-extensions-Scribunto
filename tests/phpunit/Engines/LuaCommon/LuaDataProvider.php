@@ -27,10 +27,7 @@ class LuaDataProvider implements Iterator {
 		if ( $module === null ) {
 			throw new Exception( "Failed to load module $moduleName" );
 		}
-		// Calling executeModule with null isn't the best idea, since it brings
-		// the whole export table into PHP and throws away metatables and such,
-		// but for this use case, we don't have anything like that to worry about
-		$this->exports = $engine->executeModule( $module->getInitChunk(), null, null );
+		$this->exports = $module->getExportTable();
 	}
 
 	public function destroy() {

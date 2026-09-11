@@ -5,8 +5,6 @@ local packageModuleFunc
 local php
 local allowEnvFuncs = false
 local shareInvocationEnv = false
-local frameMap = setmetatable( {}, { __mode = 'k' } )
-local metatableMap = setmetatable( {}, { __mode = 'k' } )
 local sharedEnvs = {}
 local sharedEnvsMaxSize = 10
 local logBuffer = ''
@@ -519,6 +517,7 @@ local function newEnv()
 	-- These are unsafe
 	env.mw.makeProtectedEnvFuncs = nil
 	env.mw.executeModule = nil
+	env.mw.callModuleFunction = nil
 
 	if allowEnvFuncs then
 		env.setfenv, env.getfenv = mw.makeProtectedEnvFuncs( {[_G] = true}, {} )
@@ -531,24 +530,18 @@ local function newEnv()
 end
 
 --- Set up a cloned (or shared, if shareInvocationEnv is enabled) environment for execution of a module chunk,
--- then execute the module in that environment. This is called by the host to implement
--- {{#invoke}}.
+-- execute the module in that environment, and pass its return value to a callback, before the environment
+-- is released.
 --
 -- @param chunk The module chunk
--- @param name The name of the function to be returned. Nil or false causes the entire export table to be returned
--- @param frame New frame to use; if nil, one will be created
--- @return boolean Whether the requested value was able to be returned
--- @return table|function|string The requested value, or if that was unable to be returned, the type of the value returned by the module
-function mw.executeModule( chunk, name, frame )
+-- @param name The name of the function to be called, or nil or false if there is none
+-- @param frame The frame to return via mw.getCurrentFrame
+-- @param callback Function called with the chunk's return value
+-- @return The callback's return values
+local function runModule( chunk, name, frame, callback )
 	local env
 	if shareInvocationEnv then
 		env = table.remove( sharedEnvs, 1 ) or newEnv()
-	else
-		env = newEnv()
-	end
-
-	local oldGetCurrentFrame
-	if shareInvocationEnv then
 		-- Reset the metatable so require( 'strict' ) doesn't affect subsequent invocations
 		setmetatable( env, nil )
 		-- Reset loaded packages so modules like strict are able to modify the metatable again if loaded.
@@ -556,7 +549,8 @@ function mw.executeModule( chunk, name, frame )
 		for k in pairs( env.package.loaded ) do
 			env.package.loaded[k] = nil
 		end
-		oldGetCurrentFrame = env.mw.getCurrentFrame
+	else
+		env = newEnv()
 	end
 
 	if name ~= false then -- console sets name to false when evaluating its code and nil when evaluating a module's
@@ -574,95 +568,58 @@ function mw.executeModule( chunk, name, frame )
 	env.os.date = ttlDate
 	env.os.time = ttlTime
 
-	frame = frame or newFrame( 'current', 'parent' )
 	env.mw.getCurrentFrame = function ()
 		return frame
 	end
 
 	setfenv( chunk, env )
 
-	local res
-	if shareInvocationEnv then
-		local ok
-		ok, res = pcall( chunk )
+	if not shareInvocationEnv then
+		return callback( chunk() )
+	end
 
-		if oldGetCurrentFrame ~= nil then
-			env.mw.getCurrentFrame = oldGetCurrentFrame
+	local function release( ok, ... )
+		if #sharedEnvs < sharedEnvsMaxSize then
+			table.insert( sharedEnvs, env )
 		end
-
-		if name == nil and #sharedEnvs < sharedEnvsMaxSize then
-			-- If name is nil, then this is likely not a function invocation, so let's restore the env immediately
-			table.insert( sharedEnvs, getfenv( chunk ) )
-		end
-
 		if not ok then
-			error( res, 0 )
+			error( ( ... ), 0 )
 		end
-	else
-		res = chunk()
+		return ...
 	end
+	return release( pcall( function ()
+		return callback( chunk() )
+	end ) )
+end
 
-
-	if not name then -- catch console whether it's evaluating its own code or a module's
-		return true, res
+--- Look up a function in a module's export table.
+-- @param res The value returned by the module
+-- @param name The function name
+-- @return string 'ok', 'notarrayreturn', 'nosuchfunction' or 'notafunction'
+-- @return function|string The function, or for 'notarrayreturn', the type of the value returned by the module
+local function getModuleFunction( res, name )
+	if type( res ) ~= 'table' then
+		return 'notarrayreturn', type( res )
 	end
-	if type(res) ~= 'table' then
-		return false, type(res)
-	end
-
 	local func = res[name]
-	if shareInvocationEnv and name ~= nil then
-		if type( func ) == 'function' then
-			frameMap[func] = frame
-			metatableMap[func] = getmetatable( env )
-		end
+	if func == nil then
+		return 'nosuchfunction'
+	elseif type( func ) ~= 'function' then
+		return 'notafunction'
 	end
-
-	return true, func
+	return 'ok', func
 end
 
---- Execute a function chunk in a shared environment.
--- @param chunk The function chunk
--- @param frame The frame to pass to the function and return via mw.getCurrentFrame
-local function executeFunctionInSharedEnvironment( chunk, frame )
-	getfenv( chunk ).mw.getCurrentFrame = function ()
-		return frame
-	end
-
-	if metatableMap[chunk] then
-		setmetatable( getfenv( chunk ), metatableMap[chunk] )
-	end
-	-- We can't unpack 'ok' and 'res' here since functions can return multiple values
-	local pcallRes = { pcall( chunk, frame ) }
-	local ok = pcallRes[1]
-
-	setmetatable( getfenv( chunk ), nil )
-	if #sharedEnvs < sharedEnvsMaxSize then
-		table.insert( sharedEnvs, getfenv( chunk ) )
-	end
-
-	if not ok then
-		error( pcallRes[2], 0 )
-	end
-	table.remove( pcallRes, 1 )
-
-	return pcallRes
+local function leaveFunction( ... )
+	executeFunctionDepth = executeFunctionDepth - 1
+	return ...
 end
 
-function mw.executeFunction( chunk )
-	local getCurrentFrame = getfenv( chunk ).mw.getCurrentFrame
-	local frame
-	if shareInvocationEnv and frameMap[chunk] then
-		frame = frameMap[chunk]
-	elseif getCurrentFrame then
-		-- Normal case
-		frame = getCurrentFrame()
-	else
-		-- If someone assigns a built-in method to the module's return table,
-		-- its env won't have mw.getCurrentFrame()
-		frame = newFrame( 'current', 'parent' )
-	end
-
+--- Call a module function.
+-- @param func The function
+-- @param ... The arguments
+-- @return The function's return values
+local function callFunction( func, ... )
 	if executeFunctionDepth == 0 then
 		-- math.random is defined as using C's rand(), and C's rand() uses 1 as
 		-- a seed if not explicitly seeded. So reseed with 1 for each top-level
@@ -670,22 +627,52 @@ function mw.executeFunction( chunk )
 		math.randomseed( 1 )
 	end
 	executeFunctionDepth = executeFunctionDepth + 1
+	return leaveFunction( func( ... ) )
+end
 
-	local results
-	if shareInvocationEnv then
-		results = executeFunctionInSharedEnvironment( chunk, frame )
-	else
-		results = { chunk( frame ) }
-	end
+--- Execute a module chunk in a new environment and call one of its functions with the current frame.
+-- This is called by the host to implement {{#invoke}}.
+--
+-- @param chunk The module chunk
+-- @param name The name of the function to call. Nil or false causes the entire export table to be returned
+-- @param frame Frame to use; if nil, one will be created
+-- @return string 'ok', or the error returned by getModuleFunction()
+-- @return string|table The function's return values converted to strings and concatenated, or the export table,
+--   or the error details
+function mw.executeModule( chunk, name, frame )
+	frame = frame or newFrame( 'current', 'parent' )
+	return runModule( chunk, name, frame, function ( res )
+		if not name then
+			return 'ok', res
+		end
+		local status, func = getModuleFunction( res, name )
+		if status ~= 'ok' then
+			return status, func
+		end
+		local results = { callFunction( func, frame ) }
+		for i, result in ipairs( results ) do
+			results[i] = tostring( result )
+		end
+		return 'ok', table.concat( results )
+	end )
+end
 
-	local stringResults = {}
-	for i, result in ipairs( results ) do
-		stringResults[i] = tostring( result )
-	end
-
-	executeFunctionDepth = executeFunctionDepth - 1
-
-	return table.concat( stringResults )
+--- Execute a module chunk in a new environment and call one of its functions.
+--
+-- @param chunk The module chunk
+-- @param name The name of the function to call
+-- @param ... The arguments
+-- @return string 'ok', or the error returned by getModuleFunction()
+-- @return The function's return values, or the error details
+function mw.callModuleFunction( chunk, name, ... )
+	local args, n = { ... }, select( '#', ... )
+	return runModule( chunk, name, newFrame( 'current', 'parent' ), function ( res )
+		local status, func = getModuleFunction( res, name )
+		if status ~= 'ok' then
+			return status, func
+		end
+		return 'ok', callFunction( func, unpack( args, 1, n ) )
+	end )
 end
 
 function mw.allToString( ... )

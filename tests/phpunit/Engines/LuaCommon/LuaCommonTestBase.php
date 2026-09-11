@@ -286,9 +286,7 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend' )
 		);
-		$ret = $interpreter->callFunction(
-			$engine->executeModule( $module->getInitChunk(), 'test', null )
-		);
+		$ret = $module->callFunction( 'test' );
 		$this->assertSame( [ 'ok' ], $ret, 'string extension can be used from module' );
 
 		$this->extraModules['Module:testModuleStringExtend2'] = '
@@ -302,9 +300,7 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$module = $engine->fetchModuleFromParser(
 			Title::makeTitle( NS_MODULE, 'testModuleStringExtend2' )
 		);
-		$ret = $interpreter->callFunction(
-			$engine->executeModule( $module->getInitChunk(), 'test', null )
-		);
+		$ret = $module->callFunction( 'test' );
 		$this->assertSame( [ 'ok' ], $ret, 'string extension cannot be modified from module' );
 		$ret = $interpreter->callFunction(
 			$interpreter->loadString( 'return string.testModuleStringExtend', 'teststring2' )
@@ -625,6 +621,27 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		$r2 = $module->invoke( 'bar', $frame->newChild() );
 		$this->assertSame( $r1, $r2,
 			'Multiple invokes with recursive invoke returned different sets of random numbers' );
+	}
+
+	public static function provideInvokeErrors() {
+		return [
+			[ 'return 1', 'main', 'scribunto-lua-notarrayreturn' ],
+			[ 'return {}', 'main', 'scribunto-common-nosuchfunction' ],
+			[ 'return { main = 1 }', 'main', 'scribunto-common-notafunction' ],
+		];
+	}
+
+	/** @dataProvider provideInvokeErrors */
+	public function testInvokeErrors( $code, $name, $message ) {
+		$engine = $this->getEngine();
+		$this->extraModules['Module:InvokeErrors'] = $code;
+		$module = $engine->fetchModuleFromParser( Title::makeTitle( NS_MODULE, 'InvokeErrors' ) );
+		try {
+			$module->callFunction( $name );
+			$this->fail( 'Expected ScribuntoException' );
+		} catch ( ScribuntoException $e ) {
+			$this->assertSame( $message, $e->messageName );
+		}
 	}
 
 	public function testOsDateTimeTTLs() {

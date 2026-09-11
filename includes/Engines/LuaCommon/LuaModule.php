@@ -62,20 +62,40 @@ class LuaModule extends ScribuntoModuleBase {
 		// name when it goes out of scope.
 		$resetModule = $this->engine->setupCurrentModule( $this->chunkName );
 
-		$ret = $this->engine->executeModule( $this->getInitChunk(), $name, $frame );
+		return $this->engine->invokeFunction( $this->getInitChunk(), $name, $frame );
+	}
 
-		if ( $ret === null ) {
-			throw $this->engine->newException(
-				'scribunto-common-nosuchfunction', [ 'args' => [ $name ] ]
-			);
-		}
-		if ( !$this->engine->getInterpreter()->isLuaFunction( $ret ) ) {
-			throw $this->engine->newException(
-				'scribunto-common-notafunction', [ 'args' => [ $name ] ]
-			);
-		}
+	/**
+	 * Execute the module and return the table it exports.
+	 *
+	 * The whole table is converted to PHP, losing metatables and anything
+	 * else the interpreter cannot represent, so prefer invoke() or
+	 * callFunction() where they fit.
+	 *
+	 * @throws ScribuntoException
+	 * @return mixed The module's return value
+	 */
+	public function getExportTable() {
+		// $resetModule is a ScopedCallback; it restores the previous module
+		// name when it goes out of scope.
+		$resetModule = $this->engine->setupCurrentModule( $this->chunkName );
 
-		$result = $this->engine->executeFunctionChunk( $ret, $frame );
-		return $result[0] ?? null;
+		return $this->engine->getModuleExportTable( $this->getInitChunk() );
+	}
+
+	/**
+	 * Call a function within the module.
+	 *
+	 * @param string $name
+	 * @param mixed ...$args
+	 * @throws ScribuntoException
+	 * @return array The function's return values
+	 */
+	public function callFunction( string $name, ...$args ): array {
+		// $resetModule is a ScopedCallback; it restores the previous module
+		// name when it goes out of scope.
+		$resetModule = $this->engine->setupCurrentModule( $this->chunkName );
+
+		return $this->engine->callModuleFunction( $this->getInitChunk(), $name, $args );
 	}
 }

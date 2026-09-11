@@ -319,45 +319,86 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
-	 * Execute a module chunk in a new isolated environment, and return the specified function
+	 * Execute a module chunk in a new isolated environment, and call the specified function
+	 * with the current frame
 	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
 	 * @param string $functionName
 	 * @param PPFrame|null $frame
-	 * @return mixed
+	 * @return string The function's return values, converted to strings and concatenated
 	 * @throws ScribuntoException
 	 */
-	public function executeModule( $chunk, $functionName, $frame ) {
+	public function invokeFunction( $chunk, string $functionName, ?PPFrame $frame ): string {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
 		$resetFrames = $this->setupCurrentFrames( $frame );
 
-		$retval = $this->getInterpreter()->callFunction(
+		$ret = $this->getInterpreter()->callFunction(
 			$this->mw['executeModule'], $chunk, $functionName
 		);
-		if ( !$retval[0] ) {
-			// If we get here, it means we asked for an element from the table the module returned,
-			// but it returned something other than a table. In this case, $retval[1] contains the type
-			// of what it did returned, instead of the value we asked for.
-			throw $this->newException(
-				'scribunto-lua-notarrayreturn', [ 'args' => [ $retval[1] ] ]
-			);
-		}
-		return $retval[1];
+		$this->checkModuleFunctionStatus( $ret, $functionName );
+		return $ret[1];
 	}
 
 	/**
-	 * Execute a module function chunk
+	 * Execute a module chunk in a new isolated environment, and call the specified function
 	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
-	 * @param PPFrame|null $frame
-	 * @return array
-	 * @throws LuaError
+	 * @param string $functionName
+	 * @param array $args
+	 * @return array The function's return values
+	 * @throws ScribuntoException
 	 */
-	public function executeFunctionChunk( $chunk, $frame ) {
+	public function callModuleFunction( $chunk, string $functionName, array $args ): array {
 		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
-		$resetFrames = $this->setupCurrentFrames( $frame );
+		$resetFrames = $this->setupCurrentFrames();
 
-		return $this->getInterpreter()->callFunction(
-			$this->mw['executeFunction'],
-			$chunk );
+		$ret = $this->getInterpreter()->callFunction(
+			$this->mw['callModuleFunction'], $chunk, $functionName, ...$args
+		);
+		$this->checkModuleFunctionStatus( $ret, $functionName );
+		return array_slice( $ret, 1 );
+	}
+
+	/**
+	 * Execute a module chunk in a new isolated environment and return the
+	 * table it exports.
+	 *
+	 * The whole table is converted to PHP, losing metatables and anything
+	 * else the interpreter cannot represent, so prefer invokeFunction() or
+	 * callModuleFunction() where they fit.
+	 *
+	 * @param mixed $chunk As accepted by LuaInterpreter::callFunction()
+	 * @return mixed The module's return value
+	 * @throws ScribuntoException
+	 */
+	public function getModuleExportTable( $chunk ) {
+		// $resetFrames is a ScopedCallback, so it has a purpose even though it appears unused.
+		$resetFrames = $this->setupCurrentFrames();
+
+		$ret = $this->getInterpreter()->callFunction( $this->mw['executeModule'], $chunk, null );
+		return $ret[1];
+	}
+
+	/**
+	 * @param array $ret Return values of mw.executeModule() or mw.callModuleFunction()
+	 * @param string $functionName
+	 * @throws ScribuntoException
+	 */
+	private function checkModuleFunctionStatus( array $ret, string $functionName ): void {
+		switch ( $ret[0] ) {
+			case 'ok':
+				return;
+			case 'notarrayreturn':
+				throw $this->newException(
+					'scribunto-lua-notarrayreturn', [ 'args' => [ $ret[1] ] ]
+				);
+			case 'nosuchfunction':
+				throw $this->newException(
+					'scribunto-common-nosuchfunction', [ 'args' => [ $functionName ] ]
+				);
+			default:
+				throw $this->newException(
+					'scribunto-common-notafunction', [ 'args' => [ $functionName ] ]
+				);
+		}
 	}
 
 	/**
