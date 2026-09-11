@@ -1,23 +1,12 @@
 mw = mw or {}
 
 local packageCache
--- Whether packageCache[modName] is a real per-module chunk from
--- php.loadPackage(), safe to setfenv().
-local packageCacheIsModuleChunk
-local packageChunk
-local cloneChunk
+local packageModuleFunc
 local php
 local allowEnvFuncs = false
 local shareInvocationEnv = false
 local frameMap = setmetatable( {}, { __mode = 'k' } )
 local metatableMap = setmetatable( {}, { __mode = 'k' } )
--- getfenv() on an exported module function isn't reliable: on Lua 5.2+, a
--- function that never refers to a global has no _ENV upvalue for getfenv()
--- to find, so LuaSandbox's shim falls back to the sandbox's real global
--- table instead of the function's actual (per-module, isolated) one. Track
--- each exported function's real environment here instead of trusting
--- getfenv() to recover it later.
-local envMap = setmetatable( {}, { __mode = 'k' } )
 local sharedEnvs = {}
 local sharedEnvsMaxSize = 10
 local logBuffer = ''
@@ -25,17 +14,6 @@ local loadedData = {}
 local loadedJsonData = {}
 local executeFunctionDepth = 0
 
-
---- Get a copy of the 'package' chunk which has its own _ENV upvalue.
---
--- @return function
-local function copyPackageChunk()
-	if cloneChunk then
-		return cloneChunk( packageChunk )
-	end
-	-- No chunk cloner available, ask PHP for another copy instead.
-	return php.loadPackage( 'package' )
-end
 
 --- Put an isolation-friendly package module into the specified environment
 -- table. The package module will have an empty cache, because caching of
@@ -48,49 +26,33 @@ local function makePackageModule( env )
 		env.package.loaders = nil
 	end
 
-	-- Create the package globals in the given environment.
-	--
-	-- Each environment needs its own copy of the chunk. On Lua 5.2+ setfenv()
-	-- rebinds a closure's _ENV upvalue in place, and sibling closures created
-	-- while that upvalue was still open keep sharing the same cell, so
-	-- setfenv()'ing one reused chunk for a later environment would also
-	-- redirect the 'require' an earlier one had already defined. The same
-	-- applies to any closure defined in mw.lua itself, which shares mw.lua's
-	-- chunk-wide _ENV with every other function mw.lua defines.
-	setfenv( copyPackageChunk(), env )()
+	-- Create the package globals in the given environment
+	setfenv( packageModuleFunc, env )()
 
 	-- Make a loader function
 	local function loadPackage( modName )
-		local init, isModuleChunk
+		local init
 		if packageCache[modName] == 'missing' then
 			return nil
 		elseif packageCache[modName] == nil then
 			local lib = php.loadPHPLibrary( modName )
 			if lib ~= nil then
-				-- This wrapper doesn't read any global, so it has no real
-				-- _ENV upvalue to (mis)setfenv and mustn't be setfenv'd below.
 				init = function ()
 					return mw.clone( lib )
 				end
-				isModuleChunk = false
 			else
 				init = php.loadPackage( modName )
 				if init == nil then
 					packageCache[modName] = 'missing'
 					return nil
 				end
-				isModuleChunk = true
 			end
 			packageCache[modName] = init
-			packageCacheIsModuleChunk[modName] = isModuleChunk
 		else
 			init = packageCache[modName]
-			isModuleChunk = packageCacheIsModuleChunk[modName]
 		end
 
-		if isModuleChunk then
-			setfenv( init, env )
-		end
+		setfenv( init, env )
 		return init
 	end
 
@@ -130,14 +92,11 @@ function mw.setupInterface( options )
 	--
 	php = mw_interface
 	mw_interface = nil
-	cloneChunk = mw_cloneChunk
-	mw_cloneChunk = nil
 
-	packageChunk = php.loadPackage( 'package' )
+	packageModuleFunc = php.loadPackage( 'package' )
 	makePackageModule( _G )
 	package.loaded.mw = mw
 	packageCache = {}
-	packageCacheIsModuleChunk = {}
 end
 
 local fieldOrder = { 'year', 'month', 'day', 'hour', 'min', 'sec' }
@@ -652,11 +611,8 @@ function mw.executeModule( chunk, name, frame )
 	end
 
 	local func = res[name]
-	if type( func ) == 'function' then
-		-- Unconditional, unlike frameMap/metatableMap below: mw.executeFunction()
-		-- needs a function's real environment regardless of shareInvocationEnv.
-		envMap[func] = env
-		if shareInvocationEnv then
+	if shareInvocationEnv and name ~= nil then
+		if type( func ) == 'function' then
 			frameMap[func] = frame
 			metatableMap[func] = getmetatable( env )
 		end
@@ -669,21 +625,20 @@ end
 -- @param chunk The function chunk
 -- @param frame The frame to pass to the function and return via mw.getCurrentFrame
 local function executeFunctionInSharedEnvironment( chunk, frame )
-	local env = envMap[chunk] or getfenv( chunk )
-	env.mw.getCurrentFrame = function ()
+	getfenv( chunk ).mw.getCurrentFrame = function ()
 		return frame
 	end
 
 	if metatableMap[chunk] then
-		setmetatable( env, metatableMap[chunk] )
+		setmetatable( getfenv( chunk ), metatableMap[chunk] )
 	end
 	-- We can't unpack 'ok' and 'res' here since functions can return multiple values
 	local pcallRes = { pcall( chunk, frame ) }
 	local ok = pcallRes[1]
 
-	setmetatable( env, nil )
+	setmetatable( getfenv( chunk ), nil )
 	if #sharedEnvs < sharedEnvsMaxSize then
-		table.insert( sharedEnvs, env )
+		table.insert( sharedEnvs, getfenv( chunk ) )
 	end
 
 	if not ok then
@@ -695,7 +650,7 @@ local function executeFunctionInSharedEnvironment( chunk, frame )
 end
 
 function mw.executeFunction( chunk )
-	local getCurrentFrame = ( envMap[chunk] or getfenv( chunk ) ).mw.getCurrentFrame
+	local getCurrentFrame = getfenv( chunk ).mw.getCurrentFrame
 	local frame
 	if shareInvocationEnv and frameMap[chunk] then
 		frame = frameMap[chunk]
@@ -960,20 +915,9 @@ function mw.loadData( module )
 		-- The point of this is to load big data, so don't save it in package.loaded
 		-- where it will have to be copied for all future modules.
 		local l = package.loaded[module]
+		local _
 
-		-- The module chunk is not safe for setfenv(), so use env.require()
-		-- instead of mw.executeModule().
-		local env = newEnv()
-		env.mw.getLogBuffer = nil
-		env.mw.clearLogBuffer = nil
-		env.os.date = ttlDate
-		env.os.time = ttlTime
-		local frame = newFrame( 'empty' )
-		env.mw.getCurrentFrame = function ()
-			return frame
-		end
-
-		data = env.require( module )
+		_, data = mw.executeModule( function() return require( module ) end, nil, newFrame( 'empty' ) )
 
 		package.loaded[module] = l
 
