@@ -5,11 +5,11 @@
 		"test": "grunt test"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.32.5",
+		"eslint-config-wikimedia": "0.32.6",
 		"grunt": "1.6.3",
 		"grunt-banana-checker": "0.13.0",
 		"grunt-eslint": "24.3.0",
 		"grunt-stylelint": "0.21.0",
-		"stylelint-config-wikimedia": "0.19.3"
+		"stylelint-config-wikimedia": "0.19.4"
 	}
 }
