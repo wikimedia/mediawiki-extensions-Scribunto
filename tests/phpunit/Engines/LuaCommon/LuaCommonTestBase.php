@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Parser\Parser;
 use MediaWiki\Title\Title;
 
 /**
@@ -125,6 +126,25 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			'CommonTests-data-fail4' => __DIR__ . '/CommonTests-data-fail4.lua',
 			'CommonTests-data-fail5' => __DIR__ . '/CommonTests-data-fail5.lua',
 		];
+	}
+
+	/**
+	 * Preprocess some wikitext, expanding #invoke: calls
+	 *
+	 * @param string $wikitext
+	 * @return string
+	 */
+	protected function preprocess( string $wikitext ): string {
+		$engine = $this->getEngine();
+		$parser = $engine->getParser();
+		$pp = $parser->getPreprocessor();
+		$frame = $pp->newFrame();
+		$result = $frame->expand( $pp->preprocessToObj( $wikitext ) );
+		return $parser->getStripState()->unstripBoth( $result );
+	}
+
+	protected function getParser(): Parser {
+		return $this->getEngine()->getParser();
 	}
 
 	public function testNoLeakedGlobals() {
@@ -424,6 +444,16 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			'title' => Title::makeTitle( NS_MODULE, 'dummy' ),
 		] );
 		$this->assertSame( "ok\ttable", $ret['return'], 'child frames have correct parents' );
+	}
+
+	public function testGetParentValidation() {
+		$this->extraModules['Module:TestGetParentValidation'] = '
+			return {
+				test = function( frame ) return frame:getParent():getParent() end
+			}
+			';
+		$ret = $this->preprocess( '{{#invoke:TestGetParentValidation|test}}' );
+		$this->assertSame( '', $ret, 'getParent() past the end T437354' );
 	}
 
 	public function testCallParserFunction() {
@@ -842,10 +872,6 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 	}
 
 	public function testGetCurrentFrameAndMWLoadData() {
-		$engine = $this->getEngine();
-		$parser = $engine->getParser();
-		$pp = $parser->getPreprocessor();
-
 		$this->extraModules['Module:Bug65687'] = '
 			return {
 				test = function ( frame )
@@ -854,18 +880,11 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			}
 		';
 		$this->extraModules['Module:Bug65687-LD'] = 'return { mw.getCurrentFrame().args[1] or "ok" }';
-
-		$frame = $pp->newFrame();
-		$text = $frame->expand( $pp->preprocessToObj( "{{#invoke:Bug65687|test|foo}}" ) );
-		$text = $parser->getStripState()->unstripBoth( $text );
+		$text = $this->preprocess( "{{#invoke:Bug65687|test|foo}}" );
 		$this->assertEquals( 'ok', $text, 'mw.loadData allowed access to frame args' );
 	}
 
 	public function testGetCurrentFrameAtModuleScope() {
-		$engine = $this->getEngine();
-		$parser = $engine->getParser();
-		$pp = $parser->getPreprocessor();
-
 		$this->extraModules['Module:Bug67498-directly'] = '
 			local f = mw.getCurrentFrame()
 			local f2 = f and f.args[1] or "<none>"
@@ -894,11 +913,9 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		';
 
 		foreach ( [ 'directly', 'statically', 'dynamically' ] as $how ) {
-			$frame = $pp->newFrame();
-			$text = $frame->expand( $pp->preprocessToObj(
+			$text = $this->preprocess(
 				"{{#invoke:Bug67498-$how|test|foo}} -- {{#invoke:Bug67498-$how|test|bar}}"
-			) );
-			$text = $parser->getStripState()->unstripBoth( $text );
+			);
 			$text = explode( ' -- ', $text );
 			$this->assertEquals( 'foo foo', $text[0],
 				"mw.getCurrentFrame() failed from a module loaded $how"
@@ -939,11 +956,7 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			return p
 		';
 
-		$frame = $pp->newFrame();
-		$text = $frame->expand( $pp->preprocessToObj(
-			"{{#invoke:Outer|echo|oarg|{{#invoke:Inner|test|iarg}}}}"
-		) );
-		$text = $parser->getStripState()->unstripBoth( $text );
+		$text = $this->preprocess( "{{#invoke:Outer|echo|oarg|{{#invoke:Inner|test|iarg}}}}" );
 		$this->assertSame(
 			'(Outer: 1=oarg, 2=(Inner: mod_name=Module:Inner, mod_1=iarg, name=Module:Inner, 1=iarg))',
 			$text
@@ -993,27 +1006,17 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 	}
 
 	public function testT236092() {
-		$engine = $this->getEngine();
-		$parser = $engine->getParser();
-		$pp = $parser->getPreprocessor();
-
 		$this->extraModules['Module:T236092'] = '
 			local p = {}
 			p.foo = mw.isSubsting
 			return p
 		';
 
-		$frame = $pp->newFrame();
-		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:T236092|foo}}<" ) );
-		$text = $parser->getStripState()->unstripBoth( $text );
+		$text = $this->preprocess( ">{{#invoke:T236092|foo}}<" );
 		$this->assertSame( '>false<', $text );
 	}
 
 	public function testAddWarning() {
-		$engine = $this->getEngine();
-		$parser = $engine->getParser();
-		$pp = $parser->getPreprocessor();
-
 		$this->extraModules['Module:TestAddWarning'] = '
 			local p = {}
 
@@ -1025,18 +1028,13 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			return p
 		';
 
-		$frame = $pp->newFrame();
-		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:TestAddWarning|foo}}<" ) );
-		$text = $parser->getStripState()->unstripBoth( $text );
+		$text = $this->preprocess( ">{{#invoke:TestAddWarning|foo}}<" );
 		$this->assertSame( '>ok<', $text );
-		$this->assertSame( [ 'Script warning: Don\'t panic!' ], $parser->getOutput()->getWarnings() );
+		$this->assertSame( [ 'Script warning: Don\'t panic!' ],
+			$this->getParser()->getOutput()->getWarnings() );
 	}
 
 	public function testAddMultipleWarningsT398390() {
-		$engine = $this->getEngine();
-		$parser = $engine->getParser();
-		$pp = $parser->getPreprocessor();
-
 		$this->extraModules['Module:T398390'] = '
 			local p = {}
 
@@ -1049,16 +1047,14 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			return p
 		';
 
-		$frame = $pp->newFrame();
-		$text = $frame->expand( $pp->preprocessToObj( ">{{#invoke:T398390|foo}}<" ) );
-		$text = $parser->getStripState()->unstripBoth( $text );
+		$text = $this->preprocess( ">{{#invoke:T398390|foo}}<" );
 		$this->assertSame( '>ok<', $text );
 		$this->assertSame(
 			[
 				'Script warning: First warning!',
 				'Script warning: Second warning!'
 			],
-			$parser->getOutput()->getWarnings()
+			$this->getParser()->getOutput()->getWarnings()
 		);
 	}
 }
