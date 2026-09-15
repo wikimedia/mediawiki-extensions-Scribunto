@@ -387,12 +387,12 @@ return testframework.getTestProvider( {
 	},
 
 	{ name = 'unpack too many positive',
-		func = test.unpackCount, args = { {}, 1, 8000 },
+		func = test.unpackCount, args = { {}, 1, 8002 },
 		expect = "too many results to unpack"
 	},
 
 	{ name = 'unpack too many negative',
-		func = test.unpackCount, args = { {}, -8000, 0 },
+		func = test.unpackCount, args = { {}, -8002, 0 },
 		expect = "too many results to unpack"
 	},
 
