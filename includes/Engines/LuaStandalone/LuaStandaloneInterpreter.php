@@ -512,7 +512,8 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 			'\\n' => "\n",
 			'\\\\' => '\\',
 		] );
-		$msg = unserialize( $body );
+		// see MWServer:serialize() in MWServer.lua
+		$msg = unserialize( $body, [ 'allowed_classes' => [ LuaStandaloneInterpreterFunction::class ] ] );
 		$this->debug( "RX <== {$msg['op']}" );
 		return $msg;
 	}
