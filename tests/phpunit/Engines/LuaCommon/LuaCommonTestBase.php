@@ -644,6 +644,26 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 		}
 	}
 
+	public static function provideInvokeReturnValues() {
+		return [
+			'no values' => [ 'return', '' ],
+			'nil' => [ 'return nil', '' ],
+			'nil first' => [ "return nil, 'a'", '' ],
+			'nil in the middle' => [ "return 'a', nil, 'b'", 'a' ],
+			'nil in the middle, non-string after' => [ "return 'a', nil, {}", 'a' ],
+			'several values' => [ "return 'a', 1, true", 'a1true' ],
+		];
+	}
+
+	/** @dataProvider provideInvokeReturnValues */
+	public function testInvokeReturnValues( $code, $expected ) {
+		$engine = $this->getEngine();
+		$frame = $engine->getParser()->getPreprocessor()->newFrame();
+		$this->extraModules['Module:InvokeReturnValues'] = "return { main = function () $code end }";
+		$module = $engine->fetchModuleFromParser( Title::makeTitle( NS_MODULE, 'InvokeReturnValues' ) );
+		$this->assertSame( $expected, $module->invoke( 'main', $frame->newChild() ) );
+	}
+
 	public function testOsDateTimeTTLs() {
 		$this->overrideConfigValue( MainConfigNames::ParserCacheExpireTime, 400 * 86400 );
 

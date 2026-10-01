@@ -649,8 +649,10 @@ function mw.executeModule( chunk, name, frame )
 		if status ~= 'ok' then
 			return status, func
 		end
-		local results = { callFunction( func, frame ) }
-		for i, result in ipairs( results ) do
+		-- Stop at the first nil, as {{#invoke:}} always has. Converting in place would leave a nil
+		-- that table.concat() would hit when the length operator counts past it.
+		local results = {}
+		for i, result in ipairs( { callFunction( func, frame ) } ) do
 			results[i] = tostring( result )
 		end
 		return 'ok', table.concat( results )
