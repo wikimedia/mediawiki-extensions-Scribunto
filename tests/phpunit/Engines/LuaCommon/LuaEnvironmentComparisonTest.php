@@ -45,7 +45,6 @@ class LuaEnvironmentComparisonTest extends TestCase {
 	private function makeEngine( $class, $opts ) {
 		$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
 		$options = ParserOptions::newFromAnon();
-		$options->setTemplateCallback( [ $this, 'templateCallback' ] );
 		$parser->startExternalParse( Title::newMainPage(), $options, Parser::OT_HTML, true );
 		$engine = new $class ( [ 'parser' => $parser, 'title' => $parser->getTitle() ] + $opts );
 		$engine->getInterpreter();

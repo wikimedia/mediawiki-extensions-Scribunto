@@ -108,7 +108,7 @@ class Hooks implements
 	 * @return void
 	 */
 	public function onParserFirstCallInit( $parser ) {
-		$parser->setFunctionHook( 'invoke', [ $this, 'invokeHook' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'invoke', $this->invokeHook( ... ), Parser::SFH_OBJECT_ARGS );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Hooks implements
 	 * @param PPNode[] $args
 	 * @return string
 	 */
-	public function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
+	private function invokeHook( Parser $parser, PPFrame $frame, array $args ) {
 		try {
 			if ( count( $args ) < 2 ) {
 				throw new ScribuntoException( 'scribunto-common-nofunction' );
