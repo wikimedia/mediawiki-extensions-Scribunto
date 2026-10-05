@@ -393,7 +393,8 @@ class Hooks implements
 			$line = $validateStatus->value->params['line'];
 			if ( $module === $title->getPrefixedDBkey() && preg_match( '/^\d+$/', $line ) ) {
 				$out = $context->getOutput();
-				$out->addInlineScript( 'window.location.hash = ' . Html::encodeJsVar( "#mw-ce-l$line" ) );
+				// Jump to line with syntax error using CodeMirror line anchor
+				$out->addInlineScript( 'window.location.hash = ' . Html::encodeJsVar( "#mw-cm-l$line" ) );
 			}
 		}
 		if ( !$status->isOK() ) {

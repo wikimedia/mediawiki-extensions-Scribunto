@@ -50,7 +50,8 @@ class LuaError extends ScribuntoException {
 
 				$title = Title::newFromText( $short_src );
 				if ( $title && $title->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-					$title = $title->createFragmentTarget( 'mw-ce-l' . $currentline );
+					// Create link to line using CodeMirror line anchor
+					$title = $title->createFragmentTarget( 'mw-cm-l' . $currentline );
 					$src = Html::rawElement( 'a',
 						[ 'href' => $title->getFullURL( 'action=edit' ) ],
 						$src );
