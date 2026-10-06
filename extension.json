@@ -197,11 +197,11 @@
 		},
 		"ScribuntoUseCodeEditor": {
 			"description": "Set to true to enable the CodeEditor extension integration",
-			"value": true
+			"value": false
 		},
 		"ScribuntoUseCodeMirror": {
 			"description": "Set to true to enable the CodeMirror extension integration",
-			"value": false
+			"value": true
 		},
 		"ScribuntoGatherFunctionStats": {
 			"description": "Set to true to enable gathering and reporting of performance data for slow function invocations.",
