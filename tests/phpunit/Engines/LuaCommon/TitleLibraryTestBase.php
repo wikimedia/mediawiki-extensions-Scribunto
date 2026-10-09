@@ -94,6 +94,11 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 			'Summary'
 		);
 
+		// Code that runs during the save can put a Title for a test page in the
+		// Title::newFromText() cache before the page exists (T432762). Clear the
+		// cache so that later lookups get the correct page ID.
+		Title::clearCaches();
+
 		// Set restrictions for protectionLevels and cascadingProtection tests
 
 		$restrictionStore = $this->createNoOpMock(
