@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon;
 
-use MediaWiki\Content\WikitextContent;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\SiteLibrary;
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\MainConfigNames;
@@ -60,39 +59,21 @@ abstract class TitleLibraryTestBase extends LuaEngineTestBase {
 
 		$editor = self::getTestSysop()->getUser();
 
-		$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
-
 		// Page for getContent test
-		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestPage' ) );
-		$page->doUserEditContent(
-			new WikitextContent(
-				'{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>'
-			),
-			$editor,
-			'Summary'
+		$status = $this->editPage(
+			'ScribuntoTestPage',
+			'{{int:mainpage}}<includeonly>...</includeonly><noinclude>...</noinclude>',
+			'Summary', NS_MAIN, $editor
 		);
-		$this->testPageId = $page->getId();
+		$this->testPageId = $status->getNewRevision()->getPageId();
 
-		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( 100, 'Restricted' ) );
-		$page->doUserEditContent(
-			new WikitextContent( 'Some secret.' ),
-			$editor,
-			'Summary'
-		);
+		$this->editPage( 'Restricted', 'Some secret.', 'Summary', 100, $editor );
 
 		// Pages for redirectTarget tests
-		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestRedirect' ) );
-		$page->doUserEditContent(
-			new WikitextContent( '#REDIRECT [[ScribuntoTestTarget]]' ),
-			$editor,
-			'Summary'
+		$this->editPage(
+			'ScribuntoTestRedirect', '#REDIRECT [[ScribuntoTestTarget]]', 'Summary', NS_MAIN, $editor
 		);
-		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'ScribuntoTestNonRedirect' ) );
-		$page->doUserEditContent(
-			new WikitextContent( 'Not a redirect.' ),
-			$editor,
-			'Summary'
-		);
+		$this->editPage( 'ScribuntoTestNonRedirect', 'Not a redirect.', 'Summary', NS_MAIN, $editor );
 
 		// Code that runs during the save can put a Title for a test page in the
 		// Title::newFromText() cache before the page exists (T432762). Clear the
