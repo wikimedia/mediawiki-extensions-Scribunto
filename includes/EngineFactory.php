@@ -41,7 +41,7 @@ class EngineFactory {
 	/**
 	 * Create a new engine object with specified parameters.
 	 */
-	public function newEngine( array $options = [] ): ScribuntoEngineBase {
+	private function newEngine( array $options ): ScribuntoEngineBase {
 		if ( isset( $options['factory'] ) ) {
 			return $options['factory']( $options );
 		}
