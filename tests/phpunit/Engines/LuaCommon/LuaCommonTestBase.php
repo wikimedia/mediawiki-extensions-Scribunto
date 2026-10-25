@@ -6,6 +6,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Title\Title;
 
 /**
@@ -998,6 +999,28 @@ abstract class LuaCommonTestBase extends LuaEngineTestBase {
 			'(Outer: 1=oarg, 2=(Inner: mod_name=Module:Inner, mod_1=iarg, name=Module:Inner, 1=iarg))',
 			$text
 		);
+	}
+
+	public function testMessageTextUsesCurrentParser() {
+		// Use a real page, since templates from extraModules are not registered as used
+		$this->editPage( Title::makeTitle( NS_TEMPLATE, 'ScribuntoTestMessageText' ), '[{{{1|none}}}]' );
+		$this->extraModules['Module:TestMessageText'] = '
+			return {
+				test = function ( frame )
+					return mw.message.newRawMessage(
+						"{{ScribuntoTestMessageText|$1}} {{{1|none}}} $2", frame.args[1]
+					):rawParams( "{{ScribuntoTestMessageText}}" ):text()
+				end
+			}
+		';
+		$text = $this->preprocess( '{{#invoke:TestMessageText|test|foo}}' );
+		$this->assertSame( '[foo] none {{ScribuntoTestMessageText}}', $text );
+		$templates = array_map(
+			static fn ( $link ) => $link['link']->getDBkey(),
+			$this->getParser()->getOutput()->getLinkList( ParserOutputLinkTypes::TEMPLATE, NS_TEMPLATE )
+		);
+		$this->assertContains( 'ScribuntoTestMessageText', $templates,
+			'Template used by the message is registered with the parser' );
 	}
 
 	public function testNonUtf8Errors() {

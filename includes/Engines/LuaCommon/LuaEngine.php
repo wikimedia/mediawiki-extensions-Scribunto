@@ -795,6 +795,16 @@ abstract class LuaEngine extends ScribuntoEngineBase {
 	}
 
 	/**
+	 * Get the frame of the current module invocation, if any
+	 *
+	 * @internal
+	 * @return PPFrame|null
+	 */
+	public function getCurrentFrame(): ?PPFrame {
+		return $this->currentFrames['current'] ?? null;
+	}
+
+	/**
 	 * Handler for frameExists()
 	 *
 	 * @internal

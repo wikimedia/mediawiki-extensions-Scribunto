@@ -5,12 +5,14 @@ namespace MediaWiki\Extension\Scribunto\Engines\LuaCommon;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
+use MediaWiki\Parser\Parser;
 
 class MessageLibrary extends LibraryBase {
 	/** @inheritDoc */
 	public function register() {
 		$lib = [
 			'plain' => $this->messagePlain( ... ),
+			'text' => $this->messageText( ... ),
 			'check' => $this->messageCheck( ... ),
 		];
 
@@ -75,6 +77,42 @@ class MessageLibrary extends LibraryBase {
 	private function messagePlain( $data ) {
 		$msg = $this->makeMessage( $data, true );
 		return [ $msg->plain() ];
+	}
+
+	/**
+	 * Handler for messageText
+	 *
+	 * Unlike Message::text(), this preprocesses the message using the current
+	 * parser and frame, so that templates and parser functions used by the
+	 * message are tracked in the page's link tables (T62758, T231299).
+	 *
+	 * @param array $data
+	 * @return string[]
+	 * @throws LuaError
+	 */
+	private function messageText( $data ) {
+		$parser = $this->getParser();
+		if ( !$parser ) {
+			throw new LuaError( 'mw.message:text() called without a parser' );
+		}
+
+		// Like Message::text(), raw parameters are substituted after preprocessing
+		$rawParams = [];
+		foreach ( $data['params'] as $i => $param ) {
+			if ( is_array( $param ) && isset( $param['raw'] ) ) {
+				$marker = Parser::MARKER_PREFIX . "-scribunto-rawparam-$i-" . Parser::MARKER_SUFFIX;
+				$rawParams[$marker] = (string)$param['raw'];
+				$data['params'][$i] = [ 'raw' => $marker ];
+			}
+		}
+		$text = $this->makeMessage( $data, true )->plain();
+
+		// Expand in an argument-less child frame, so that {{{1}}} in the message
+		// isn't replaced with arguments of the {{#invoke:}}
+		$frame = $this->getEngine()->getCurrentFrame()?->newChild() ?? false;
+		$text = $parser->replaceVariables( $text, $frame );
+
+		return [ strtr( $text, $rawParams ) ];
 	}
 
 	/**

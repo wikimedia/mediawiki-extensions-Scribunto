@@ -138,6 +138,11 @@ local function makeMessage( options )
 		return php.plain( data )
 	end
 
+	function obj:text()
+		checkSelf( self, 'text' )
+		return php.text( data )
+	end
+
 	function obj:exists()
 		checkSelf( self, 'exists' )
 		return php.check( 'exists', data )

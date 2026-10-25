@@ -25,6 +25,11 @@ function test_params( rawMessage, func, ... )
 	return msg[func]( msg, ... ):plain()
 end
 
+function test_text( rawMessage, func, ... )
+	local msg = mw.message.newRawMessage( rawMessage ):inLanguage( 'en' )
+	return msg[func]( msg, ... ):text()
+end
+
 return testframework.getTestProvider( {
 	{ name = 'exists (1)', func = test_exists,
 		args = { 'mainpage' },
@@ -66,5 +71,26 @@ return testframework.getTestProvider( {
 	{ name = 'different title', func = test_params,
 		args = { '($1)', 'params', mw.message.newRawMessage( 'bar' ) },
 		expect = { "(bar)" }
+	},
+
+	{ name = 'text: PLURAL (1)', func = test_text,
+		args = { '<b>$1</b> {{PLURAL:$1|shark|sharks}}', 'numParams', 1 },
+		expect = { '<b>1</b> shark' }
+	},
+	{ name = 'text: PLURAL (2)', func = test_text,
+		args = { '<b>$1</b> {{PLURAL:$1|shark|sharks}}', 'numParams', 2 },
+		expect = { '<b>2</b> sharks' }
+	},
+	{ name = 'text: params are preprocessed', func = test_text,
+		args = { '($1)', 'params', '{{lc:FOO}}' },
+		expect = { '(foo)' }
+	},
+	{ name = 'text: rawParams are not preprocessed', func = test_text,
+		args = { '{{lc:FOO}} ($1)', 'rawParams', '{{lc:BAR}}' },
+		expect = { 'foo ({{lc:BAR}})' }
+	},
+	{ name = 'text: frame arguments are not substituted', func = test_text,
+		args = { '{{{1|default}}}', 'params' },
+		expect = { 'default' }
 	},
 } )
