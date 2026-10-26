@@ -117,6 +117,12 @@ class LuaStandaloneInterpreter extends LuaInterpreter {
 			(string)$this->id,
 			(string)PHP_INT_SIZE
 		);
+		if ( !empty( $options['useBubblewrap'] ) ) {
+			if ( php_uname( 's' ) !== 'Linux' ) {
+				throw new RuntimeException( 'useBubblewrap is only supported on Linux.' );
+			}
+			$cmd = Shell::escape( '/bin/sh', __DIR__ . '/lua_bwrap.sh' ) . ' ' . $cmd;
+		}
 		if ( php_uname( 's' ) == 'Linux' ) {
 			// Limit memory and CPU
 			$cmd = Shell::escape(
