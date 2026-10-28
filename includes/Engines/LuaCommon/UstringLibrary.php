@@ -11,15 +11,13 @@ use Wikimedia\ObjectCache\MapCacheLRU;
 class UstringLibrary extends LibraryBase {
 	/**
 	 * Limit on pattern lengths, in bytes not characters
-	 * @var int
 	 */
-	private $patternLengthLimit = 10000;
+	private const int PATTERN_LENGTH_LIMIT = 10000;
 
 	/**
 	 * Limit on nested parentheses in patterns
-	 * @var int
 	 */
-	private $patternDepthLimit = 100;
+	private const int PATTERN_DEPTH_LIMIT = 100;
 
 	/**
 	 * Limit on string lengths, in bytes not characters
@@ -129,7 +127,7 @@ class UstringLibrary extends LibraryBase {
 		}
 		return $this->getEngine()->registerInterface( 'mw.ustring.lua', $lib, [
 			'stringLengthLimit' => $this->stringLengthLimit,
-			'patternLengthLimit' => $this->patternLengthLimit,
+			'patternLengthLimit' => self::PATTERN_LENGTH_LIMIT,
 		] );
 	}
 
@@ -407,9 +405,9 @@ class UstringLibrary extends LibraryBase {
 		if ( !mb_check_encoding( $pattern, 'UTF-8' ) ) {
 			throw new LuaError( "bad argument #2 to '$name' (string is not UTF-8)" );
 		}
-		if ( strlen( $pattern ) > $this->patternLengthLimit ) {
+		if ( strlen( $pattern ) > self::PATTERN_LENGTH_LIMIT ) {
 			throw new LuaError(
-				"bad argument #2 to '$name' (pattern is longer than $this->patternLengthLimit bytes)"
+				"bad argument #2 to '$name' (pattern is longer than " . self::PATTERN_LENGTH_LIMIT . ' bytes)'
 			);
 		}
 	}
@@ -459,7 +457,7 @@ class UstringLibrary extends LibraryBase {
 						if ( $i + 1 >= $len ) {
 							throw new LuaError( "Unmatched open-paren at pattern character $ii" );
 						}
-						if ( count( $opencapt ) >= $this->patternDepthLimit ) {
+						if ( count( $opencapt ) >= self::PATTERN_DEPTH_LIMIT ) {
 							throw new LuaError(
 								"Parentheses are too deeply nested at pattern character $ii" );
 						}
