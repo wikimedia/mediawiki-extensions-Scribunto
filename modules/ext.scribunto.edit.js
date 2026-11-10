@@ -34,7 +34,11 @@
 		$spinner = $.createSpinner( { size: 'small', type: 'block' } );
 
 		recalculateInputHeight();
-		println( mw.msg( 'scribunto-console-intro' ), 'mw-scribunto-message' );
+		// Parsed server-side, since the message contains a wikitext list
+		$( '<div>' )
+			.attr( 'class', 'mw-scribunto-message mw-scribunto-intro' )
+			.html( mw.config.get( 'ScribuntoConsoleIntro' ) )
+			.appendTo( output );
 	}
 
 	/**

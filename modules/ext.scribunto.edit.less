@@ -40,6 +40,11 @@
 	color: @color-content-added;
 }
 
+/* The intro is parsed HTML, so newlines between list items aren't content */
+.mw-scribunto-intro {
+	white-space: normal;
+}
+
 .mw-scribunto-clear {
 	color: @color-error;
 	text-align: center;

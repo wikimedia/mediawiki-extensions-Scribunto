@@ -2,7 +2,10 @@
 
 namespace MediaWiki\Extension\Scribunto\Tests;
 
+use MediaWiki\Context\RequestContext;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\Extension\Scribunto\Hooks;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
@@ -30,14 +33,37 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 	) {
 		$title = Title::makeTitle( $ns, $name );
 		$model = $before;
+		$this->newHooks()->onContentHandlerDefaultModelFor( $title, $model );
+		$this->assertSame( $expected, $model );
+	}
+
+	public function testEditPageConsoleIntroIsParsed() {
+		$this->setUserLang( 'en' );
+		$title = $this->createMock( Title::class );
+		$title->method( 'hasContentModel' )
+			->with( CONTENT_MODEL_SCRIBUNTO )
+			->willReturn( true );
+		$editor = $this->createMock( EditPage::class );
+		$editor->method( 'getTitle' )->willReturn( $title );
+		$output = new OutputPage( RequestContext::getMain() );
+		$tab = 1;
+
+		$this->newHooks()->onEditPage__showStandardInputs_options( $editor, $output, $tab );
+
+		$this->assertContains( 'ext.scribunto.edit', $output->getModules() );
+		$intro = $output->getJsConfigVars()['ScribuntoConsoleIntro'];
+		$this->assertStringStartsWith( '<ul><li>', $intro );
+		$this->assertStringNotContainsString( '* ', $intro );
+	}
+
+	private function newHooks(): Hooks {
 		$services = $this->getServiceContainer();
-		( new Hooks(
+		return new Hooks(
 			$services->getMainConfig(),
 			$services->getContentHandlerFactory(),
 			$services->getObjectCacheFactory(),
 			$services->getStatsFactory(),
 			$services->getService( 'Scribunto.EngineFactory' ),
-		) )->onContentHandlerDefaultModelFor( $title, $model );
-		$this->assertSame( $expected, $model );
+		);
 	}
 }

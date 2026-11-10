@@ -328,7 +328,7 @@ class Hooks implements
 	 */
 	public function onEditPage__showStandardInputs_options( $editor, $output, &$tab ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			$output->addModules( 'ext.scribunto.edit' );
+			$this->addConsoleModule( $output );
 			$editor->editFormTextAfterTools .= '<div id="mw-scribunto-console"></div>';
 		}
 	}
@@ -342,9 +342,26 @@ class Hooks implements
 	 */
 	public function onEditPage__showReadOnlyForm_initial( $editor, $output ) {
 		if ( $editor->getTitle()->hasContentModel( CONTENT_MODEL_SCRIBUNTO ) ) {
-			$output->addModules( 'ext.scribunto.edit' );
+			$this->addConsoleModule( $output );
 			$editor->editFormTextAfterContent .= '<div id="mw-scribunto-console"></div>';
 		}
+	}
+
+	/**
+	 * Add the debug console module to the edit page
+	 *
+	 * The intro message contains wikitext (a bulleted list, and translations
+	 * may use bidi markup), which mw.message() can't render, so it is parsed
+	 * here and passed to the module as HTML.
+	 *
+	 * @param OutputPage $output
+	 */
+	private function addConsoleModule( OutputPage $output ): void {
+		$output->addModules( 'ext.scribunto.edit' );
+		$output->addJsConfigVars(
+			'ScribuntoConsoleIntro',
+			$output->msg( 'scribunto-console-intro' )->parse()
+		);
 	}
 
 	/**
