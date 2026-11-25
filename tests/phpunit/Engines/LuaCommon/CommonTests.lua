@@ -375,6 +375,21 @@ return testframework.getTestProvider( {
 		expect = { 'real' }
 	},
 
+	{ name = 'mw.logObject, prefix (string)',
+		func = mw.logObject, args = { {}, 'var' },
+		expect = {},
+	},
+
+	{ name = 'mw.logObject, prefix (number)',
+		func = mw.logObject, args = { {}, 1 },
+		expect = {},
+	},
+
+	{ name = 'mw.logObject, prefix (table)',
+		func = mw.logObject, args = { next, {} },
+		expect = "bad argument #2 to 'mw.logObject' (string expected, got table)",
+	},
+
 	{ name = 'pairs with __pairs',
 		func = pairs, args = { pairs_test_table },
 		expect = { 1, 2, 3 },

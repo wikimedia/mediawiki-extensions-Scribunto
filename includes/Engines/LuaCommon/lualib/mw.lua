@@ -776,6 +776,10 @@ function mw.dumpObject( object )
 end
 
 function mw.logObject( object, prefix )
+	if prefix and type( prefix ) ~= 'string' and type( prefix ) ~= 'number' then
+		error( string.format( "bad argument #2 to 'mw.logObject' (string expected, got %s)",
+			type( prefix ) ), 2 )
+	end
 	if prefix and prefix ~= '' then
 		logBuffer = logBuffer .. prefix .. ' = '
 	end
