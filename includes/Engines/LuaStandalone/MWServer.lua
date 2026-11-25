@@ -698,7 +698,9 @@ end
 
 --- An implementation of tostring() which does not expose pointers.
 function MWServer:tostring(val)
-	local mt = getmetatable( val )
+	-- Like the built-in tostring(), look at the real metatable, so that a
+	-- __metatable field can neither hide __tostring nor supply a fake one.
+	local mt = debug.getmetatable( val )
 	if mt and mt.__tostring then
 		return mt.__tostring(val)
 	end

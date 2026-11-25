@@ -147,6 +147,17 @@ function test.stringMetatableHidden2()
 	return ("").foo
 end
 
+function test.tostringProtectedMetatable1()
+	local mt = { __tostring = function () return 'real' end, __metatable = 'locked' }
+	return tostring( setmetatable( {}, mt ) )
+end
+
+function test.tostringProtectedMetatable2()
+	local fake = { __tostring = function () return 'fake' end }
+	local mt = { __tostring = function () return 'real' end, __metatable = fake }
+	return tostring( setmetatable( {}, mt ) )
+end
+
 local pairs_test_table = {}
 setmetatable( pairs_test_table, {
 	__pairs = function () return 1, 2, 3, 'ignore' end,
@@ -354,6 +365,14 @@ return testframework.getTestProvider( {
 
 	{ name = 'string is not string metatable', func = test.stringMetatableHidden2,
 		expect = { nil }
+	},
+
+	{ name = 'tostring with protected metatable', func = test.tostringProtectedMetatable1,
+		expect = { 'real' }
+	},
+
+	{ name = 'tostring with fake __metatable', func = test.tostringProtectedMetatable2,
+		expect = { 'real' }
 	},
 
 	{ name = 'pairs with __pairs',
